@@ -39,6 +39,20 @@ $Precheck = @'
 from pathlib import Path
 import sys
 from fold_lm.v05_benchmarks import gate_e_c174_learned_necessity as b
+
+C173_STANDALONE_SOURCE_COMMIT='61c78906c28df07a12c9eacd5c8d1b09bc1ca534'
+def standalone_protect_sources(root,parent):
+    pins=dict(parent['source_blobs']);hashes={}
+    for name in b.PARENT_OWN:
+        pins[name]=b.git(root,'rev-parse',C173_STANDALONE_SOURCE_COMMIT+':'+name).decode().strip()
+    for name,want in pins.items():
+        b.require(b.git(root,'rev-parse','HEAD:'+name).decode().strip()==want,'Historical source changed: '+name)
+    for name in (*pins,*b.OWN):
+        canonical=b.git(root,'show','HEAD:'+name);raw=(root/name).read_bytes()
+        b.require(raw==canonical or raw==canonical.replace(b'\n',b'\r\n'),'Uncommitted source: '+name)
+        hashes[str((root/name).resolve())]=b.hashlib.sha256(raw).hexdigest()
+    return pins,hashes
+b.protect_sources=standalone_protect_sources
 p=b.validate_parent(sys.argv[1]);b.protect_sources(Path.cwd(),p)
 print('source_precheck = PASS',flush=True)
 '@
@@ -55,6 +69,26 @@ assert suite.countTestCases()==953, f'Expected953 tests, got{suite.countTestCase
 r=unittest.TextTestRunner(verbosity=2).run(suite)
 sys.exit(0 if r.wasSuccessful() else 1)
 '@
+$Benchmark = @'
+from pathlib import Path
+import sys
+from fold_lm.v05_benchmarks import gate_e_c174_learned_necessity as b
+
+C173_STANDALONE_SOURCE_COMMIT='61c78906c28df07a12c9eacd5c8d1b09bc1ca534'
+def standalone_protect_sources(root,parent):
+    pins=dict(parent['source_blobs']);hashes={}
+    for name in b.PARENT_OWN:
+        pins[name]=b.git(root,'rev-parse',C173_STANDALONE_SOURCE_COMMIT+':'+name).decode().strip()
+    for name,want in pins.items():
+        b.require(b.git(root,'rev-parse','HEAD:'+name).decode().strip()==want,'Historical source changed: '+name)
+    for name in (*pins,*b.OWN):
+        canonical=b.git(root,'show','HEAD:'+name);raw=(root/name).read_bytes()
+        b.require(raw==canonical or raw==canonical.replace(b'\n',b'\r\n'),'Uncommitted source: '+name)
+        hashes[str((root/name).resolve())]=b.hashlib.sha256(raw).hexdigest()
+    return pins,hashes
+b.protect_sources=standalone_protect_sources
+b.run(c173_summary=Path(sys.argv[1]),output_dir=Path(sys.argv[2]),expected_head=sys.argv[3])
+'@
 $Out = Join-Path $Root ("runs\c174-v5e-learned-necessity-" + [guid]::NewGuid().ToString("N"))
 $Completed = $false
 try {
@@ -62,13 +96,26 @@ try {
     & $Python -u -c $Regression
     if ($LASTEXITCODE -ne 0) { throw "C174 regression failed; do not start benchmark" }
     Confirm-Repository
-    & $Python -u -m fold_lm.v05_benchmarks.gate_e_c174_learned_necessity `
-        --c173-summary $C173Summary --output-dir $Out --expected-head $ExpectedHead
+    & $Python -u -c $Benchmark $C173Summary $Out $ExpectedHead
     if ($LASTEXITCODE -ne 0) { throw "C174 execution failed; preserve its invalid report" }
     $Postcheck = @'
 from pathlib import Path
 import json,sys
 from fold_lm.v05_benchmarks import gate_e_c174_learned_necessity as b
+
+C173_STANDALONE_SOURCE_COMMIT='61c78906c28df07a12c9eacd5c8d1b09bc1ca534'
+def standalone_protect_sources(root,parent):
+    pins=dict(parent['source_blobs']);hashes={}
+    for name in b.PARENT_OWN:
+        pins[name]=b.git(root,'rev-parse',C173_STANDALONE_SOURCE_COMMIT+':'+name).decode().strip()
+    for name,want in pins.items():
+        b.require(b.git(root,'rev-parse','HEAD:'+name).decode().strip()==want,'Historical source changed: '+name)
+    for name in (*pins,*b.OWN):
+        canonical=b.git(root,'show','HEAD:'+name);raw=(root/name).read_bytes()
+        b.require(raw==canonical or raw==canonical.replace(b'\n',b'\r\n'),'Uncommitted source: '+name)
+        hashes[str((root/name).resolve())]=b.hashlib.sha256(raw).hexdigest()
+    return pins,hashes
+b.protect_sources=standalone_protect_sources
 root=Path.cwd();out=Path(sys.argv[1]);parent=b.validate_parent(sys.argv[2]);b.protect_sources(root,parent)
 p=json.loads((out/'summary.json').read_text(encoding='utf-8'))
 assert p['experiment_id']==b.EXPERIMENT_ID and p['commit_sha']==sys.argv[3]
