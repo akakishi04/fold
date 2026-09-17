@@ -14,16 +14,19 @@ Protected C37 `runs/chatgpt-last-result.json`:
 Protected fixture `runs/fixtures/v05-c-composition-20260921.pt`:
 `A52F8209703149407580F7E2965B61B78653030EE992AF6D759865736741CA9E`.
 Read AGENTS.md, docs/experiment-conversation-handoff-protocol.md, this handoff,
-**docs/experiment-ledger-addendum-c174-c175.md**, C174 preregistration and
-learned-necessity-probe-v0.1.md; Gate E evaluation contract is unchanged.
+**docs/experiment-ledger-addendum-c174-c175.md** and
+**docs/experiment-ledger-addendum-c175-preregistration.md**.
+C174 preregistration, learned-necessity-probe-v0.1.md and Gate E contract are unchanged.
 Judge -> execution validity -> metrics -> interpretation -> confounds -> ledger -> next C.
 Valid negatives stay results. Do not retrain to improve a judged score or change thresholds.
 
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED within measured scope; **Gate E NOT PASSED**.
-**C174 ACCEPTED PASS. C175 NOT REGISTERED. No active deciding experiment at this boundary.**
+**C174 ACCEPTED PASS. C175 ACTIVE / NOT YET JUDGED. C176 NOT REGISTERED.**
 C174 execution HEAD `d011b13952abc10093d8d8d2b418ecc3d39f5fc3`.
+C174 acceptance commit `b5c670932c9614f3a892e9ddff697520b12e6926` precedes C175 registration.
+Use final C175 registration HEAD as ExpectedHead; do not infer it from old monorepo SHA.
 No C174 rerun for documentation or later opt-in analyses.
 C170-C173 remain ACCEPTED PASS; C160/C168/C169 remain ACCEPTED VALID NEGATIVE.
 
@@ -86,6 +89,33 @@ Runner-only fixd011b139 adapts source guards; science,model,data andgate unchang
 Use tools/run_c174.ps1 for exact accepted reproduction; direct old module CLI retains
 monorepo source assumptions. Future guards use standalone paths and explicit blob pins.
 No reset,rebase,history rewrite or C173 rerun is needed because of migration.
+
+## Active C175 — frozen prediction frequency-reference audit
+
+`C175-v5e-frozen-prediction-frequency-reference`;`V5-E-FROZEN-PREDICTION-FREQUENCY-REFERENCE`.
+Changed comparator only. All6 C174 candidate weights/predictions/splits/thresholds fixed.
+No new model training,forward,seed,checkpoint deserialization,acquisition or evidence write.
+11 parent artifacts hash/size checked;311040 stored decisions reaggregated (TRAIN254664,
+pilot56376). TRAIN-only exact frequency table:81 blind keys(fields0..3+46..71),524 TRAIN
+rows/key; majority,tie0,no eval labels,no smoothing,no unseen fallback.51840 reference
+predictions,TRAIN and pilot separately. Not claimed optimal for pilot group-macro BA.
+
+PASS requires EACH frozen full model to strictly exceed this reference in primary pilot
+macro-group BA and both aggregate recalls>0.5. Otherwise valid complete run is VALID NEGATIVE.
+This new post-C174 development comparison does not change C174's verdict and is not an
+independent confirmation. Same4 pilot groups,no new generalization or safe-policy claim.
+Secondary per-group/missing-count0..4 errors and matched-visible opposite-label pair
+correctness are batched,split-separated,reported without additional success thresholds.
+
+Source48 inherited files pinned using standalone execution BASEd011b139;own4 files
+checked at new HEAD. Original C37/fixture protection retained. No changes to old modules.
+Outputs:audit-plan.json,audit-details.json,full summary including secondary summaries.
+Manifest `51c7b72eb8496118185ec9ab370f068902f312b332855abc479be00a5ffc9478`.
+20/20 actual-module toy tests passed including real standalone Git path/tamper checks.
+No registered C175 reference score computed by reviewer. Full973/WindowsPowerShell/
+artifact-backed audit unexecuted by reviewer. **973 expected=953+20**,59 modules once.
+Run tools/run_c175.ps1 -C174Summary ... -ExpectedHead ...;progress1/3,2/3,3/3;collect log.
+**Judge C175 -> ledger/handoff -> next design; no C176 before judgment.**
 
 ## Gate / independent tracks
 
