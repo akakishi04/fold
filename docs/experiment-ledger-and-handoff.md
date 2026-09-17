@@ -1,127 +1,114 @@
 # FOLD Experiment Ledger and Handoff
 
-> Current authoritative state. Historical results, source and preregistrations remain immutable.
+> Current authoritative state. Historical evidence, code and preregistrations stay immutable.
 
 ## Environment / protocol
 
-Repository **akakishi04/fold** (standalone), branch `feat/sft-target-loss`;
-local `M:\asobiba\fold`. Repository-relative source paths begin `fold_lm/`, `docs/`,
-`tests_lm/`, `tools/`: do not add the obsolete monorepo `fold/` prefix.
-Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5; `.venv-py31315\Scripts\python.exe`.
-Hardware RTX4070 Ti SUPER; C174 itself ran CPU float32 / 2 threads.
-Protected C37 `runs/chatgpt-last-result.json`:
-`FD4A8DA897BDAEA9D103A252E30212C7FF842D23300D7C837333E146DEE51931`.
-Protected fixture `runs/fixtures/v05-c-composition-20260921.pt`:
-`A52F8209703149407580F7E2965B61B78653030EE992AF6D759865736741CA9E`.
-Read AGENTS.md, docs/experiment-conversation-handoff-protocol.md, this handoff,
-**docs/experiment-ledger-addendum-c174-c175.md** and
-**docs/experiment-ledger-addendum-c175-preregistration.md**.
-C174 preregistration, learned-necessity-probe-v0.1.md and Gate E contract are unchanged.
-Judge -> execution validity -> metrics -> interpretation -> confounds -> ledger -> next C.
-Valid negatives stay results. Do not retrain to improve a judged score or change thresholds.
+Repository **akakishi04/fold** (standalone), branch `feat/sft-target-loss`, local
+`M:\asobiba\fold`. Paths start fold_lm/,docs/,tests_lm/,tools/; never add monorepo fold/.
+Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5, `.venv-py31315\Scripts\python.exe`.
+RTX4070 Ti SUPER is installed; C174/C175 are CPU experiments.
+Protected C37 runs/chatgpt-last-result.json:
+FD4A8DA897BDAEA9D103A252E30212C7FF842D23300D7C837333E146DEE51931.
+Protected fixture runs/fixtures/v05-c-composition-20260921.pt:
+A52F8209703149407580F7E2965B61B78653030EE992AF6D759865736741CA9E.
+Read AGENTS.md,docs/experiment-conversation-handoff-protocol.md,this file,
+**docs/experiment-ledger-addendum-c175-c176.md**,and C175/C174 preregistrations.
+Judge -> validity -> metrics -> interpretation -> confounds -> ledger -> next design.
+Valid negatives stay results; never alter thresholds/checkpoints/cases to turn one PASS.
 
 ## Formal state
 
-Gate A/B PASSED; C/D PASSED within measured scope; **Gate E NOT PASSED**.
-**C174 ACCEPTED PASS. C175 ACTIVE / NOT YET JUDGED. C176 NOT REGISTERED.**
-C174 execution HEAD `d011b13952abc10093d8d8d2b418ecc3d39f5fc3`.
-C174 acceptance commit `b5c670932c9614f3a892e9ddff697520b12e6926` precedes C175 registration.
-Use final C175 registration HEAD as ExpectedHead; do not infer it from old monorepo SHA.
-No C174 rerun for documentation or later opt-in analyses.
-C170-C173 remain ACCEPTED PASS; C160/C168/C169 remain ACCEPTED VALID NEGATIVE.
+Gate A/B PASSED;C/D PASSED within measured scope;**Gate E NOT PASSED**.
+**C175 ACCEPTED PASS. C174 ACCEPTED PASS. C176 NOT REGISTERED.**
+No active deciding experiment at this acceptance-only boundary.
+C175 execution HEAD d54a4921a4e90ea58d72cd66988f946e67c1031d.
+C170-C173 remain ACCEPTED PASS;C160/C168/C169 remain ACCEPTED VALID NEGATIVE.
+No C174 retraining or C175 rerun for documentation.
 
-## Accepted history / interpretation boundaries
+## Accepted chain
 
-Earlier chain: docs/experiment-ledger-addendum-c173-c174.md and previous addenda;
-full earlier handoff is retained in Git history at C174 execution HEAD.
-C151: WITHIN_FACTOR20727/20736 and GLOBAL_CONCEPT20736/20736 per layout; nine known
-errors, ranker tuning closed. C152-C167 recovery/authority/warm claims retain their scope.
-C160:82944 live cycles but0 ANSWERED, accepted negative. C168:input collision lower bound
-4/8, not measured model accuracy. C169:3 gaps/3 boundaries, accepted negative readiness.
-C170:809 tests,532 input transfers,40 guards,72 integer fields+binding; no learned reader.
-C171:845 tests,600 proof checks,158 verified/442 rejected, handwritten bounded verifier.
-C172:885 tests,197 calls,27 reservations,147 internal units; reservation is not real fetch.
-C173:921 tests,122 scenarios,0 failures;236 action calls/143 dispatch/122 reservations/
-417 internal units/98 provider calls/95 file reads/26434 bytes/24 publications/12 derived
-answers/18 verifier calls/36 rules. Single-owner local-file bridge, no learned policy,
-real human messaging,Vision,durable ownership or core EvidenceState publication.
+C175 detailed verdict:experiment-ledger-addendum-c175-c176.md. Prior history:
+experiment-ledger-addendum-c174-c175.md,experiment-ledger-addendum-c173-c174.md and earlier
+addenda. Full earlier handoff remains at C175 execution HEAD in Git.
+C151 WITHIN_FACTOR20727/20736 and GLOBAL_CONCEPT20736/20736 per layout;9 known errors;
+ranker tuning closed. C152-C167 retrieval/recovery/authority/warm evidence retains scope.
+C16082944 live cycles/0ANSWERED negative. C168 input collision4/8 lower bound is not learned
+accuracy. C1693 gaps/3 boundaries remains a negative on its frozen interface.
+C170809 tests/532 transfers/40 guards/72 fields is input transport,not a learned reader.
+C171845 tests/600 proofs/158verified/442rejected is handwritten bounded proof checking.
+C172885 tests/197 action calls/27reservations/147internal units is reservation/runtime.
+C173921 tests/122 scenarios/98provider/95file reads/24publications/12derived answers;
+scripted proposals/proofs,local-file OBSERVE/ASK_USER,not human/Vision/production memory.
 
-## Latest accepted C174
+## C174 learned pilot retained
 
-953/953 regression;6 models (3 paired seeds174001/174002/174003),MLP72->128->128->2,
-26114 parameters.2000 updates/model,12000 total,3072000 sampled training examples.
-TASK_VISIBLE versus SYNTAX_ABLATED; paired initial/batch hashes identical.
-All6 final checkpoints saved before pilot scoring;raw uncorrected two-class decisions.
-TRAIN36 groups/524 templates/42444 rows;pilot4 groups/116 templates/9396 rows.
-56376 pilot +254664 resubstitution predictions;312 inference batches.
-No actual acquisition/proof calls/evidence writes/network/production integration.
+Execution d011b13952abc10093d8d8d2b418ecc3d39f5fc3.953 tests,6 models,3 paired seeds
+174001/174002/174003;MLP72->128->128->2,26114 parameters;2000 updates each,12000 total,
+3072000 sampled rows. TRAIN36 groups/524templates/42444rows;PILOT4groups/116templates/
+9396rows.56376pilot+254664resubstitution predictions. CPUfloat32/2threads,paired initial
+weights and minibatches;all final checkpoints saved before pilot scoring. No live action.
+Full primary0.7217363934/0.7267349717/0.7383088136;blind0.6914442907/0.6969538563/
+0.7277355168;missing-rule0.6566257816. Correct preregistered PASS,not safe practical quality.
+Full misses1101/1099/927 of2652 needs rows. Group3 loses to ablation in all seeds.
+C174 data SHA256 eaae9aef5f64a204fe4d249bccbd437cd42f90172cd6f0eeb91be834b9450c65.
+Scientific manifest6b06991409954a6a97340a2fd93dcf22bd4622e9b90e9968a670f337c830f1a4.
 
-Primary macro-group BA visible:0.7217363934/0.7267349717/0.7383088136.
-Paired blind:0.6914442907/0.6969538563/0.7277355168.
-Missing-fact rule:0.6566257816. All3 comparisons and both recalls>0.5 pass as registered.
-This is a directional development-pilot PASS, not practical necessity accuracy or Gate E.
-Visible misses1101/1099/927 of2652 needs-observation rows (34.95-41.52%).
-Group3 loses to blindness in all3 seeds; group38 loses in174003. Preserve heterogeneity.
-Training primary BA0.7407335661/0.7410268471/0.7628742080 is also imperfect.
-Mean paired gain2.35488 percentage points is descriptive,not a significance estimate.
+## Latest accepted C175
 
-## Artifacts / review limits
+973/973 tests,18.873s.311040 saved decisions reaggregated;81 TRAIN-only frequency keys;
+51840reference classifications.0newtraining/model forwards/checkpoint loads/seeds/
+acquisitions/evidencewrites/network. Source/artifact precheck and final protections PASS.
+64input paths,48historical pins. C174 outputs and all historical code remain unchanged.
 
-C174 `runs/c174-v5e-learned-necessity-529b2018ef2a4a568a30fdb89b662410/summary.json`.
-SHA256 `3e69b7d8cff9e1cfdab7d06c58d45f83d1f596ac793c85c4c34ff620f8637d36`.
-Log210379 bytes,SHA256 `d6dbc289260415305e2f2b4857c72d5304ef8370db5628e3a8ad1fae88a8d86c`.
-Scientific manifest `6b06991409954a6a97340a2fd93dcf22bd4622e9b90e9968a670f337c830f1a4`.
-Data `eaae9aef5f64a204fe4d249bccbd437cd42f90172cd6f0eeb91be834b9450c65`.
-11 artifact hashes/sizes,49 input paths,42 historical pins recorded in full summary.
-Complete summary hash/metrics/gate independently recomputed;11 underlying artifacts,
-953 regression and6 fits not independently rerun by reviewer. Postchecks passed per log.
-C173 parent `runs/c173-v5e-acquisition-lifecycle-4507b2745ec8499982006b960a469bd3/summary.json`,
-SHA256 `3c4759bbc14b4ab9849d482d2f330cbf1038c1473e2deab2aaf40f9637e635aa`.
-All inherited36 blobs and42 shared source hashes agree across uploaded C173/C174 summaries.
-Keep every earlier result/weight/trace; do not change historical artifact commit_sha.
+Primary reference0.6927057895807895. Full improvements are2.9030603848/3.4029182141/
+4.5603024001 percentage points;each full model's two aggregate recalls>0.5. PASS.
+Reference is TRAIN row-majority,not an optimum for pilot macro BA or uniformly stronger
+than learned blind controls. Group3 still loses to reference in all3 seeds.
+Same four pilot groups,reused analysis;not independent confirmation or an improved model.
 
-## Migration / reproduction
+Important secondary findings on PILOT_EVAL:
+- With1missing,needs recall73/768,24/768,230/768 (9.505%,3.125%,29.948%).
+- With3missing,sufficient recall11/312,7/312,11/312 (3.526%,2.244%,3.526%).
+- With2missing,BA58.890%,60.110%,59.390%.
+- With0/4missing,all correct but each stratum has only one label;BA null.
+- Matched-visible opposite-label both-correct25585/23176/35258 of165552 correlated pairs;
+  full rates15.454%,13.999%,21.297%;blind all0,an expected fixed-input limitation.
+Similar count1/count3 weaknesses exist in TRAIN,not only held-out transfer.
+TRAIN counts [sufficient,needs] by missing count:
+0:[8384,0],1:[12416,4352],2:[6048,6528],3:[968,3224],4:[0,524].
+These patterns motivate a TRAIN-loss incentive intervention;they do not prove the internal
+mechanism or justify arbitrary capacity/step/threshold search.
 
-Monorepo C1745e05168e maps to standalone registration19603c7267; C173 source snapshot
-2cc2b1f4 maps to standalone61c78906. See acceptance addendum for full SHA identities.
-Obsolete ExpectedHead then obsolete :fold/ source paths caused pre-training stops.
-Runner-only fixd011b139 adapts source guards; science,model,data andgate unchanged.
-Use tools/run_c174.ps1 for exact accepted reproduction; direct old module CLI retains
-monorepo source assumptions. Future guards use standalone paths and explicit blob pins.
-No reset,rebase,history rewrite or C173 rerun is needed because of migration.
+## Artifacts and review scope
 
-## Active C175 — frozen prediction frequency-reference audit
+C175 runs/c175-v5e-frozen-predictions-9c1b782f75bc42dbae6c3b841fb98163/summary.json.
+SHA256 d4bcdd76fd99dc3f5730132b8526819de486f11181f732310710b8065d43a722.
+Uploaded log235289bytes,34830743bf4da903f7a02e5816d08e21ecc68ee43dd65433b92158166f82209c.
+audit-details.json218224bytes,e3b0590fec5e46ad8463a897ca06775514df3ee7c3967dc304b8af0411e12ef9.
+C174 runs/c174-v5e-learned-necessity-529b2018ef2a4a568a30fdb89b662410/summary.json.
+SHA2563e69b7d8cff9e1cfdab7d06c58d45f83d1f596ac793c85c4c34ff620f8637d36.
+C173 parent identity and earlier artifacts remain in chained acceptance addenda.
+Reviewer recomputed full C175 summary hash,96confusion metric tables,group arithmetic,
+12pair rates and three gate differences. Underlying detailed81-key table,C174data/
+predictions/checkpoints and user973test run were not independently read/replayed.
+Keep every previous output. Do not overwrite historical report commit_sha.
 
-`C175-v5e-frozen-prediction-frequency-reference`;`V5-E-FROZEN-PREDICTION-FREQUENCY-REFERENCE`.
-Changed comparator only. All6 C174 candidate weights/predictions/splits/thresholds fixed.
-No new model training,forward,seed,checkpoint deserialization,acquisition or evidence write.
-11 parent artifacts hash/size checked;311040 stored decisions reaggregated (TRAIN254664,
-pilot56376). TRAIN-only exact frequency table:81 blind keys(fields0..3+46..71),524 TRAIN
-rows/key; majority,tie0,no eval labels,no smoothing,no unseen fallback.51840 reference
-predictions,TRAIN and pilot separately. Not claimed optimal for pilot group-macro BA.
+## Migration
 
-PASS requires EACH frozen full model to strictly exceed this reference in primary pilot
-macro-group BA and both aggregate recalls>0.5. Otherwise valid complete run is VALID NEGATIVE.
-This new post-C174 development comparison does not change C174's verdict and is not an
-independent confirmation. Same4 pilot groups,no new generalization or safe-policy claim.
-Secondary per-group/missing-count0..4 errors and matched-visible opposite-label pair
-correctness are batched,split-separated,reported without additional success thresholds.
+Old monorepo C1745e05168e maps to standalone19603c7267;C173 source2cc2b1f4 maps to
+61c78906. d011b139 runner-only guard adaptation enabled accepted C174 execution.
+Original C174 direct CLI still retains monorepo source assumptions;its accepted runner
+handles them explicitly. New guards use standalone paths and preserved blob identities.
+No reset/rebase/history rewrite is needed.
 
-Source48 inherited files pinned using standalone execution BASEd011b139;own4 files
-checked at new HEAD. Original C37/fixture protection retained. No changes to old modules.
-Outputs:audit-plan.json,audit-details.json,full summary including secondary summaries.
-Manifest `51c7b72eb8496118185ec9ab370f068902f312b332855abc479be00a5ffc9478`.
-20/20 actual-module toy tests passed including real standalone Git path/tamper checks.
-No registered C175 reference score computed by reviewer. Full973/WindowsPowerShell/
-artifact-backed audit unexecuted by reviewer. **973 expected=953+20**,59 modules once.
-Run tools/run_c175.ps1 -C174Summary ... -ExpectedHead ...;progress1/3,2/3,3/3;collect log.
-**Judge C175 -> ledger/handoff -> next design; no C176 before judgment.**
+## Next-design boundary / independent tracks
 
-## Gate / independent tracks
-
-Nine-family Gate E contract unchanged. Final evaluation remains blocked pending candidate,
-baselines,splits and numerical registration. Learned necessity is not fact/tool selection,
-proof generation,live learned control or safe answers under all evidence conditions.
-Multi-Axis/MA-1 and PC-ALM/FHLC remain independent research tracks;diagnostic MLP does not
-replace FOLD shared-core/compression architecture. No language,Vision,long-context,
-durable memory,production rollout or inferred peak-memory/latency claims.
+C176 not yet registered here. Prefer testing TRAIN loss balancing within missing-count
+strata,with unchanged model,rows,split,steps and paired batches,before capacity increases.
+A design must declare reused pilot data,TRAIN-only weights,no inference label access,
+raw predictions,exact endpoints and fixed workload. No result is implied by this proposal.
+Nine-family Gate E contract unchanged;final evaluation blocked pending full candidate,
+splits,baselines and numerical preregistration. Fact/tool choice,learned proof generation
+and reliable live decisions remain separate. Multi-Axis/MA-1 and PC-ALM/FHLC independent.
+No language,Vision,long-context,durable memory or production performance claims.
