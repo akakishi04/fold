@@ -12,19 +12,21 @@ Protected C37 runs/chatgpt-last-result.json:
 FD4A8DA897BDAEA9D103A252E30212C7FF842D23300D7C837333E146DEE51931.
 Protected fixture runs/fixtures/v05-c-composition-20260921.pt:
 A52F8209703149407580F7E2965B61B78653030EE992AF6D759865736741CA9E.
-Read AGENTS.md,docs/experiment-conversation-handoff-protocol.md,this file and
-**docs/experiment-ledger-addendum-c181-c182.md**.
+Read AGENTS.md,docs/experiment-conversation-handoff-protocol.md,this file,
+**docs/experiment-ledger-addendum-c181-c182.md** and
+**docs/experiment-ledger-addendum-c182-preregistration.md**.
 Order:verdict,validity,metrics,interpretation,confounds,ledger,next design.
 Preserve valid negatives;never alter checkpoints,seeds,cases or thresholds to obtain PASS.
 
 ## Formal state
 
 Gate A/B PASSED;C/D PASSED in measured scope;**Gate E NOT PASSED**.
-**C181 ACCEPTED PASS. C182 NOT REGISTERED. No new active experiment yet.**
+**C181 ACCEPTED PASS. C182 ACTIVE / NOT YET JUDGED. C183 NOT REGISTERED.**
 C180/C179/C178/C176 remain VALID NEGATIVE;C174/C175/C177 retain scoped PASS.
 C170-C173 PASS;C160/C168/C169 VALID NEGATIVE. All earlier judgments unchanged.
 C181 execution HEAD3ec4cd8f2afc664799f1e6bfecfce457dd255ad4.
-This acceptance PRECEDES any C182 registration. No C181 rerun or production adoption.
+C181 acceptancebd3117087e2a1aefd99c3e07e54269015c0099fa PRECEDES C182 registration.
+Use final C182 registration HEAD. No C181 rerun or production adoption.
 
 ## Accepted chain / scientific scope
 
@@ -71,7 +73,6 @@ finite family;does not prove capacity sufficient for larger tasks or impossibili
 final-only learning under another budget. Handwritten training teacher/common routing
 are explicit. No independent final holdout,arbitrary/repeated-variable reasoning,
 language,Vision,autonomous fact/tool selection or Gate E claim.
-Next design should challenge frozen behavior under a declared new condition,not retune.
 
 ## Artifacts / independent verification
 
@@ -96,6 +97,46 @@ C174 runs/c174-v5e-learned-necessity-529b2018ef2a4a568a30fdb89b662410/summary.js
 SHA2563e69b7d8cff9e1cfdab7d06c58d45f83d1f596ac793c85c4c34ff620f8637d36.
 Data SHA256eaae9aef5f64a204fe4d249bccbd437cd42f90172cd6f0eeb91be834b9450c65.
 C175/earlier identities remain in chained addenda. Retain all artifacts/checkpoints.
+
+## Active C182 — frozen fact-index renaming
+
+C182-v5e-frozen-fact-renaming / V5-E-FROZEN-FACT-RENAMING.
+One question:frozen necessity decisions invariant to consistent fact-index renaming?
+Same six C181checkpoints,source seeds181001/2/3,no fresh seed/training/update/selection.
+Verify entire25921parameter C181state,then construct ONLY original25726parameter
+C179TREE_LINKSbase;auxiliary head not constructed/called. Original predict,batch1024,
+CPUfloat32/two threads,seven cells. No teacher generation,hidden values or output repair.
+
+First replay all311040original TRAIN/PILOTpredictions:exactargmax,absolute logit
+error<=1e-6,relative0;reaggregate saved predictions and metrics. Replay discrepancy
+is INVALID,not silently repaired. Hashes and source guards precede inference.
+Then9396pilotrows x23lexicographic nonidentity permutations =216108new numeric inputs.
+Permutation maps OLDfactindex -> NEWfactindex;move the complete fact record and change
+all matching references together. Keep ASTtopology/operators/negation/runtime unchanged;
+bound leaf presence/value must match original. No labels in transform. All original
+leaforders1,2,3,4;nonidentityleaforders prove numeric novelty but NOT new semantic tasks.
+
+New-condition predictions1296648(all6models),648324(3internalcandidates).
+Totalinference1607688rows/1692batches/11844cells;checkpointloads6;
+training/freshseeds/teacher/auxiliary/proof/acquisition/evidence/network0.
+Gate:ALL3INTERNAL_SEMANTICSmodels,ALL23permutations,EVERYrow must remain correct
+and decision-invariant;one finite error=>VALID NEGATIVE. All138model/permutation cells
+complete;FINAL_ONLYcontrols scored,not required perfect. No logit invariance demand.
+PASS is naming-robustness evidence ONLY;C181status and GateE unchanged either way.
+
+Save plan,transform-audit,frozen-replay,renaming-results,renamed-predictionsNPZ,summary.
+Fiveartifacts excluding summary;rawlogits/decisions preserved;bygroup/bycount/exchanges
+in same batch. Data and checkpoints stay fixed;no re-scoring with adjusted thresholds.
+76historicalsourcepins+4ownfiles;151protectedinputpaths plusC37/fixture outerguards.
+Manifest4aa37d094447417e466048f92d2b4949296078ab77d00f5d7d4b24ec46ff55d5.
+32helpertestsPASS using actualnewcode+transcribedfetchedparentdefinitions,notfullcheckout;
+9720syntheticrenamingschecked by independentcompletionenumeration;noofficialscores.
+TwoPythonfilescompile;threeembeddedPythonblocksparse. Full1185regression,WindowsPS,
+fullsource/artifactchain and1607688predictionbatch UNEXECUTED.
+**1185expected=1153+32;66modules**,one regression plusonefrozenbatch.
+Run tools/run_c182.ps1 withC181/C180/C179/C178/C177/C176/C174summaries/expectedHEAD.
+Progressidentityreplay,permutation1/23..23/23,candidateerrors,RESULT/POSTCHECK.
+Judge C182 ->ledger/handoff->next;**no C183 until judgment**.
 
 ## Migration / project limits
 
