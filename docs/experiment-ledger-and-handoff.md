@@ -1,78 +1,78 @@
 # FOLD Experiment Ledger and Handoff
 
-> Authoritative state; historical evidence,source and preregistrations stay immutable.
+> Authoritative state; historical evidence, source and preregistrations remain immutable.
 
 ## Environment / protocol
 
-Repository akakishi04/fold (standalone),branch feat/sft-target-loss,local M:\asobiba\fold.
-Use root-relative fold_lm/,docs/,tests_lm/,tools/;no old monorepo fold/ prefix.
+Repository akakishi04/fold (standalone); branch feat/sft-target-loss; local M:\asobiba\fold.
+Root-relative fold_lm/,docs/,tests_lm/,tools/; no old monorepo fold/ prefix.
 Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5; .venv-py31315\Scripts\python.exe.
-RTX4070TiSUPER installed;current probes run CPUfloat32/two threads.
+RTX4070TiSUPER installed; current probes CPUfloat32/two threads.
 Protected C37 runs/chatgpt-last-result.json:
 FD4A8DA897BDAEA9D103A252E30212C7FF842D23300D7C837333E146DEE51931.
 Protected fixture runs/fixtures/v05-c-composition-20260921.pt:
 A52F8209703149407580F7E2965B61B78653030EE992AF6D759865736741CA9E.
 Read AGENTS.md,docs/experiment-conversation-handoff-protocol.md,this file,
-docs/experiment-ledger-addendum-c179-c180.md and
-**docs/experiment-ledger-addendum-c180-preregistration.md**.
+docs/experiment-ledger-addendum-c180-c181.md and the active preregistration when registered.
 Order:verdict,validity,metrics,interpretation,confounds,ledger,next design.
-Preserve valid negatives;never change thresholds/checkpoints/seeds/cases to obtain PASS.
+Preserve valid negatives;never alter checkpoints,seeds,cases or thresholds to obtain PASS.
 
 ## Formal state
 
 Gate A/B PASSED;C/D PASSED in measured scope;**Gate E NOT PASSED**.
-**C179 ACCEPTED VALID NEGATIVE. C180 ACTIVE / NOT YET JUDGED. C181 NOT REGISTERED.**
-C178/C176 remain VALID NEGATIVE;C174/C175/C177 retain scoped PASS.
+**C180 ACCEPTED VALID NEGATIVE. C181 NOT REGISTERED. No active next experiment in this acceptance commit.**
+C179/C178/C176 remain VALID NEGATIVE;C174/C175/C177 retain scoped PASS.
 C170-C173 PASS;C160/C168/C169 VALID NEGATIVE. All earlier judgments unchanged.
-C179 execution HEAD ec1db352749e4931d59aa7a21f1766347cbf918e.
-C179 acceptance b10984a0535a4e22acdf050b6958162a629be28f precedes C180 registration.
-Use final C180 registration HEAD. No C179 rerun;no model adopted or production modification.
+C180 execution HEAD074419e41b38ad756b2c29a50ea070d5ca60f2d3.
+No C180 rerun, production modification or adoption of its no-direct arm.
 
-## Accepted evidence / historical chain
+## Accepted chain / scientific scope
 
-Detailed newest record:experiment-ledger-addendum-c179-c180.md. Chain continues through
-c178-c179.md,c177-c178.md,c176-c177.md,c175-c176.md,c174-c175.md and earlier addenda.
-Full prior handoff at ec1db352749e4931d59aa7a21f1766347cbf918e preserves historical detail.
+Latest detail:experiment-ledger-addendum-c180-c181.md,then c179-c180.md,c178-c179.md,
+c177-c178.md,c176-c177.md,c175-c176.md,c174-c175.md and earlier addenda.
+Prior full handoff at074419e41b38ad756b2c29a50ea070d5ca60f2d3 preserves historical detail.
 C151 per layout WITHIN_FACTOR20727/20736,GLOBAL_CONCEPT20736/20736;9known errors unchanged.
 C152-C167 retain original acquisition/authority/recovery/warm scopes.
-C170 transports72fields,not learned reading. C171 is a handwritten bounded proof checker.
-C172 reserves actions;C173 joins scripted local acquisition/admission/proofs,not autonomous
+C170 transports72fields,not learned reading;C171handwritten bounded proof checker;
+C172reserves actions;C173joins scripted local acquisition/admission/proofs,not autonomous
 fact/tool selection,human/Vision integration or durable production memory.
+Original necessity data:TRAIN36groups/524templates/42444rows;
+PILOT4groups/116templates/9396rows. Reused pilot groups are DEVELOPMENT.
+C174full-syntax MLP beats blind control;C175beats TRAIN-frequency reference.
+C176weighted loss fails joint classification;C177small AUC gains do not adopt it.
+C178leaf binding and C179tree versus sequence fail joint improvement.
+C180masking final raw-fact bypass also fails;do not infer one causal mechanism from those negatives.
 
-Original necessity dataset:TRAIN36groups/524templates/42444rows;
-PILOT4groups/116templates/9396rows. The four repeatedly inspected groups are DEVELOPMENT.
-C174full-syntax MLP beats its blind control;C175beats a TRAIN-frequency reference.
-C176conditional loss fails joint classification;C177small score-order gains do not adopt it.
-C178visible-leaf binding fails two of three pairs;do not select its winning seed.
+## Latest accepted C180
 
-## Latest accepted C179
-
-1089/1089tests in18.163s;precheck/postcheckPASS;64historical pins,105input paths,10outputs.
-Six models,seeds179001/2/3,paired initialization and batches;25726parameters EACH;
-177596dense forward MACs/row EACH,seven shared-cell calls. Same bound inputs and ordinary CE.
-12000updates/84000batch-cell calls/3072000samples;
-56376pilot+254664TRAIN predictions/312inference batches/2184cell calls.
-51840prepared rows,207360lookups,414720copies. Six new checkpoint roundtrips,old loads0.
+1117/1117tests15.165s;precheck/postcheckPASS;68historical pins,120input paths,10outputs.
+Six paired models,seeds180001/2/3;25726parameters,177596dense MACs+94mask multiplies/row;
+seven tree-cell calls. Only final raw-facts16bypass masked in NO_DIRECT_FACTS;leaf facts retained.
+12000updates/84000batch cells/3072000samples;
+56376pilot+254664TRAIN predictions/312inference batches/2184cells/12312mask calls.
+51840prepared rows,207360lookups,414720copies;six new checkpoint roundtrips,old loads0.
 No acquisition/proof/evidence/network/production modification;run_execution_valid=True.
-Primary sequence->tree:0.5599713695->0.5594518798;
-0.5619536843->0.5583708105;0.5557618224->0.5499314416.
-Original groupmacro0.7239095289->0.7308322310;
-0.7482630048->0.7366005137;0.7386266791->0.7223088240.
-Count1NEEDS243/768->264/768,264/768->264/768,183/768->132/768;
-count3SUFFICIENT31/312->21/312,3/312->24/312,18/312->43/312.
-Gate vectors[F,T,T,F,T],[F,F,F,T,T],[F,F,F,T,T];all fail primary.
-TRAIN mixed-count BA improves in all3 but remains about0.61-0.62;not a solved training set.
-Pilot AUC/order and error-exchange tables are already included;no duplicate audit needed.
-A negative for this topology comparison is not an impossibility claim for FOLD.
+Primary direct->no-direct:0.5612275160->0.5629750876;0.5538738272->0.5354616036;
+0.5666788151->0.5743076451. Original groupmacro0.7177524742->0.7214223537;
+0.6851235806->0.6810320756;0.7208480929->0.7407231754.
+Count1NEEDS264/768->264/768,113/768->75/768,264/768->259/768;
+count3SUFFICIENT28/312->31/312,70/312->34/312,51/312->44/312.
+Gate vectors[T,T,F,T,T],[F,F,F,F,F],[T,T,F,F,T];no pair passes.
+Unchanged pilot decisions99.5743%,98.1801%,97.3287%. All-pair improvement is absent;
+removing this edge is not a sufficient fix. Similar re-trained outputs do not prove the
+edge had no causal contribution;root shortcuts/optimization/supervision remain unresolved.
+Bothsplit confusion/AUC/error-exchange/logits already stored;no duplicate unchanged-score audit.
 
-## Artifacts / verification scope
+## Artifacts / independent verification
 
+C180 runs/c180-v5e-fact-bypass-669cce9093064995bf26b1bf176dd609/summary.json;
+SHA2569ad6eb52054388abda89d2eb8254b2ce278bfc983ae2a6375ab7d8327f91adf2.
+Log404324bytes,SHA25605e3c95345cc710d1c359b7154e9d82c422991eec732fb1698cd44c95ff51fde.
+Reconstructed summary205427bytes. Reviewer checked312confusion tables,72ordering tables,
+12exact AUCmeans,36exchange tables,three gates,pair hashes,sums/workload meters.
+Separate10artifact bytes and full1117regression/six fits NOT rerun here.
 C179 runs/c179-v5e-shared-graph-49f8f07577d74b8dace13a677691fe99/summary.json;
 SHA256ba7488e2002894ccf614c29e84e0d50594dfba7617abfd8d9f4b64442915767b.
-Log397367bytes,72067532bc30ae65a74bad6969f68cdec9315871b1c7f7fbca8a37bad27ab0f3.
-Reconstructed summary202097bytes. Reviewer checked312confusion tables,72ordering tables,
-12exact AUCmeans,36exchange tables,all sums,three gates,pair hashes and workload meters.
-Separate10artifact bytes/rawdata/logits/checkpoints and full1089tests/6fits not rerun here.
 C178 runs/c178-v5e-leaf-binding-e16d745f5b3242728e9c561023938719/summary.json;
 SHA25619bee9fbb4068d43bcd05378b18e0e87f4b4e50fc73b635b5e69f7d2d30190d8.
 C177 runs/c177-v5e-score-order-c18e0ed086f34e0aada4635e907e470f/summary.json;
@@ -82,55 +82,23 @@ SHA256b5f48626e266a65326da41c965a48cc0824926ce636f9f6571e3962b0a0e6a5b.
 C174 runs/c174-v5e-learned-necessity-529b2018ef2a4a568a30fdb89b662410/summary.json;
 SHA2563e69b7d8cff9e1cfdab7d06c58d45f83d1f596ac793c85c4c34ff620f8637d36.
 Data SHA256eaae9aef5f64a204fe4d249bccbd437cd42f90172cd6f0eeb91be834b9450c65.
-C175 and earlier identities remain in chained addenda. Retain all outputs.
+C175 and earlier identities remain in chained addenda. Retain all artifacts/checkpoints.
 
-## Active C180 — direct raw-fact readout ablation
+## Next interpretation boundary
 
-C180-v5e-direct-fact-readout-ablation;V5-E-DIRECT-FACT-READOUT-ABLATION.
-Question:does masking just the redundant final raw-fact bypass improve necessity?
-Its role as an optimization shortcut is a hypothesis,not a proved cause of C179 errors.
-Both conditions use original C179 TREE_LINKS,cell,forward,fit,predict and common C178bound72.
-This does not adopt the negative C179tree/C178binding as established improvements.
-Final readout receives root64,header4,facts16,runtime10. Insert parameter-free dense94 mask:
-DIRECT_FACTS all1;NO_DIRECT_FACTS columns68:84 zero,others1. Same facts remain at leaves;
-root,syntax,header,runtime and input packet unchanged. No Boolean solver or hidden value.
-Mask32associated output weights get zero gradients in NO_DIRECT_FACTS;nominal parameter
-parity is not effective capacity parity. Root can still learn shortcuts;no guaranteed gain.
-New schema c180-tree-fact-readout-ablation-v1;checkpoint binds condition/schema/mask/seed.
-
-New seeds180001/2/3;6models;paired weights and batches;2000updates/model,batch256,ordinary
-unweighted CE,Adam.001,CPUfloat32/2threads. Same original data and reused4pilotgroups.
-25726parameters/177596dense MACs+94mask multiplies/row EACH. Seven cell calls/row.
-12000training forwards/84000batch cells/3072000samples;
-56376pilot+254664TRAIN predictions/312inference batches/2184cells/12312mask calls total.
-All6FINAL checkpoints saved/restored before scores. Old checkpoint loads0;new6.
-No loss/threshold/width/steps/auxiliary teacher change;no acquisition/proof/evidence/network.
-
-Per-seed joint gate unchanged in form:no_direct improves mixed-count1/2/3BA;
-original4groupmacro cannot drop;count1NEEDS and count3SUFFICIENT recalls strictly improve;
-both aggregate recalls>0.5. Allconditions/allseeds. Finite miss=>VALID NEGATIVE;source/
-schema/nonfinite/unpaired/incomplete/protection issue=>INVALID,restore sameC180 validity.
-Bothsplit logits/group/count/AUC/paired-error tables in same batch;no secondary-gate rescue.
-
-C179+C178+C177+C176+C174summaries and43prior artifacts hashed;68historical+4own source
-files;120input paths;C37/fixture additional outer guards. No historical source changed.
-Outputs:fact-bypass-plan.json,readout-mask-audit.json,6checkpoints,pilot-predictions.json,
-training-predictions.npz(logits/identities),summary.10artifacts excluding summary.
-Manifest22168a208e57615467b3d592cf1c72b27b286dbe0e8a24850bbc143b9da0e442.
-28/28actual-new-code helper tests PASS using locally transcribed C179model/fit/predict
-source excerpts;NOT full parent Gitblob/checkout. Additive-list unit test mocks old list.
-Toy fits2rows/2updates. New2Pythonfiles compiled;3runnerPythonblocks parsed. Uploaded4own
-blobs match local tested/parsed bytes. Full1117/Windows/source-artifactchain/formal6fits
-UNEXECUTED. **1117expected=1089+28,64modules**,one regression then paired CPU batch.
-Run tools/run_c180.ps1 -C179Summary ... -C178Summary ... -C177Summary ... -C176Summary ...
--C174Summary ... -ExpectedHead ... . Progress precheck,regression,plan,seed/arm500steps,
-3pairedBA lines,RESULT/POSTCHECK. **Judge C180 ->ledger/handoff->next design;no C181 yet.**
+No next experiment until a separate preregistration. Candidate:TRAIN-only supervision of
+proper internal subtree semantics,paired with final-label-only training and unchanged inference.
+Intermediate teacher labels must not enter forward inputs or replace learned child states.
+Known0,known1,unresolved are distinct;exclude root duplicate labeling. This is a hypothesis,
+not proof of failed credit assignment. Seven cell applications != seven ancestors per tree path;
+extra operations alone did not rule out capacity or update-budget limitations.
 
 ## Migration / project limits
 
 Monorepo C1745e05168e maps to standalone19603c7267;C173source2cc2b1f4 maps to61c78906.
-d011b139runner-only migration fix enabled C174. Old direct CLI retains monorepo assumptions;
-new guards use standalone paths and Gitblobpins. No reset/rebase/history rewrite or edits
-to historical artifact commit_sha. Gate E nine-family contract unchanged;final evaluation
-requires a full candidate,baselines,splits,numerical preregistration. Multi-Axis/MA-1 and
-PC-ALM/FHLC are separate. No language,Vision,long-context,durable-memory or speed/VRAM claim.
+d011b139runner-only migration fix enabled C174. Old CLI retains monorepo assumptions;
+new guards use standalone paths/Gitblob pins. No reset,rebase,history rewrite or alteration
+of historical artifact commit_sha. Gate E nine-family contract remains unchanged;final
+assessment requires full candidate,baselines,splits,numerical preregistration.
+Multi-Axis/MA-1 and PC-ALM/FHLC remain SEPARATE research tracks.
+No language,Vision,long-context,durable-memory,latency or VRAM claim.
