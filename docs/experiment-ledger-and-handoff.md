@@ -12,19 +12,21 @@ Protected C37 runs/chatgpt-last-result.json:
 FD4A8DA897BDAEA9D103A252E30212C7FF842D23300D7C837333E146DEE51931.
 Protected fixture runs/fixtures/v05-c-composition-20260921.pt:
 A52F8209703149407580F7E2965B61B78653030EE992AF6D759865736741CA9E.
-Read AGENTS.md,docs/experiment-conversation-handoff-protocol.md,this file and
-**docs/experiment-ledger-addendum-c179-c180.md**.
+Read AGENTS.md,docs/experiment-conversation-handoff-protocol.md,this file,
+docs/experiment-ledger-addendum-c179-c180.md and
+**docs/experiment-ledger-addendum-c180-preregistration.md**.
 Order:verdict,validity,metrics,interpretation,confounds,ledger,next design.
 Preserve valid negatives;never change thresholds/checkpoints/seeds/cases to obtain PASS.
 
 ## Formal state
 
 Gate A/B PASSED;C/D PASSED in measured scope;**Gate E NOT PASSED**.
-**C179 ACCEPTED VALID NEGATIVE. C180 NOT REGISTERED.**
+**C179 ACCEPTED VALID NEGATIVE. C180 ACTIVE / NOT YET JUDGED. C181 NOT REGISTERED.**
 C178/C176 remain VALID NEGATIVE;C174/C175/C177 retain scoped PASS.
 C170-C173 PASS;C160/C168/C169 VALID NEGATIVE. All earlier judgments unchanged.
 C179 execution HEAD ec1db352749e4931d59aa7a21f1766347cbf918e.
-No C179 rerun required for these documents;no model adopted or runtime modified.
+C179 acceptance b10984a0535a4e22acdf050b6958162a629be28f precedes C180 registration.
+Use final C180 registration HEAD. No C179 rerun;no model adopted or production modification.
 
 ## Accepted evidence / historical chain
 
@@ -82,13 +84,47 @@ SHA2563e69b7d8cff9e1cfdab7d06c58d45f83d1f596ac793c85c4c34ff620f8637d36.
 Data SHA256eaae9aef5f64a204fe4d249bccbd437cd42f90172cd6f0eeb91be834b9450c65.
 C175 and earlier identities remain in chained addenda. Retain all outputs.
 
-## Next design boundary
+## Active C180 — direct raw-fact readout ablation
 
-Source exposes raw facts16 directly to the final linear head,besides the composed root64.
-A possible next comparison masks only that redundant bypass while leaving the same facts
-visible at leaves,both models on TREE_LINKS,and the same dense computation/training budget.
-Its causal role is a hypothesis,not established by C179;no experiment registered here.
-Do not silently adopt TREE as superior after its negative. No loss/threshold/width tuning.
+C180-v5e-direct-fact-readout-ablation;V5-E-DIRECT-FACT-READOUT-ABLATION.
+Question:does masking just the redundant final raw-fact bypass improve necessity?
+Its role as an optimization shortcut is a hypothesis,not a proved cause of C179 errors.
+Both conditions use original C179 TREE_LINKS,cell,forward,fit,predict and common C178bound72.
+This does not adopt the negative C179tree/C178binding as established improvements.
+Final readout receives root64,header4,facts16,runtime10. Insert parameter-free dense94 mask:
+DIRECT_FACTS all1;NO_DIRECT_FACTS columns68:84 zero,others1. Same facts remain at leaves;
+root,syntax,header,runtime and input packet unchanged. No Boolean solver or hidden value.
+Mask32associated output weights get zero gradients in NO_DIRECT_FACTS;nominal parameter
+parity is not effective capacity parity. Root can still learn shortcuts;no guaranteed gain.
+New schema c180-tree-fact-readout-ablation-v1;checkpoint binds condition/schema/mask/seed.
+
+New seeds180001/2/3;6models;paired weights and batches;2000updates/model,batch256,ordinary
+unweighted CE,Adam.001,CPUfloat32/2threads. Same original data and reused4pilotgroups.
+25726parameters/177596dense MACs+94mask multiplies/row EACH. Seven cell calls/row.
+12000training forwards/84000batch cells/3072000samples;
+56376pilot+254664TRAIN predictions/312inference batches/2184cells/12312mask calls total.
+All6FINAL checkpoints saved/restored before scores. Old checkpoint loads0;new6.
+No loss/threshold/width/steps/auxiliary teacher change;no acquisition/proof/evidence/network.
+
+Per-seed joint gate unchanged in form:no_direct improves mixed-count1/2/3BA;
+original4groupmacro cannot drop;count1NEEDS and count3SUFFICIENT recalls strictly improve;
+both aggregate recalls>0.5. Allconditions/allseeds. Finite miss=>VALID NEGATIVE;source/
+schema/nonfinite/unpaired/incomplete/protection issue=>INVALID,restore sameC180 validity.
+Bothsplit logits/group/count/AUC/paired-error tables in same batch;no secondary-gate rescue.
+
+C179+C178+C177+C176+C174summaries and43prior artifacts hashed;68historical+4own source
+files;120input paths;C37/fixture additional outer guards. No historical source changed.
+Outputs:fact-bypass-plan.json,readout-mask-audit.json,6checkpoints,pilot-predictions.json,
+training-predictions.npz(logits/identities),summary.10artifacts excluding summary.
+Manifest22168a208e57615467b3d592cf1c72b27b286dbe0e8a24850bbc143b9da0e442.
+28/28actual-new-code helper tests PASS using locally transcribed C179model/fit/predict
+source excerpts;NOT full parent Gitblob/checkout. Additive-list unit test mocks old list.
+Toy fits2rows/2updates. New2Pythonfiles compiled;3runnerPythonblocks parsed. Uploaded4own
+blobs match local tested/parsed bytes. Full1117/Windows/source-artifactchain/formal6fits
+UNEXECUTED. **1117expected=1089+28,64modules**,one regression then paired CPU batch.
+Run tools/run_c180.ps1 -C179Summary ... -C178Summary ... -C177Summary ... -C176Summary ...
+-C174Summary ... -ExpectedHead ... . Progress precheck,regression,plan,seed/arm500steps,
+3pairedBA lines,RESULT/POSTCHECK. **Judge C180 ->ledger/handoff->next design;no C181 yet.**
 
 ## Migration / project limits
 
