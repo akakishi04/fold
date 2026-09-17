@@ -4,34 +4,36 @@
 
 ## Environment and protocol
 
-Repository **akakishi04/fold** (standalone); branch feat/sft-target-loss; local M:\asobiba\fold.
-Paths start fold_lm/,docs/,tests_lm/,tools/; never add obsolete monorepo fold/ prefix.
-Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5; .venv-py31315\Scripts\python.exe.
-RTX4070TiSUPER installed; current necessity probes run CPUfloat32/two threads.
+Repository **akakishi04/fold** (standalone);branch feat/sft-target-loss;local M:\asobiba\fold.
+Paths start fold_lm/,docs/,tests_lm/,tools/;never add obsolete monorepo fold/ prefix.
+Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5;.venv-py31315\Scripts\python.exe.
+RTX4070TiSUPER installed;current necessity probes run CPUfloat32/two threads.
 Protected C37 runs/chatgpt-last-result.json:
 FD4A8DA897BDAEA9D103A252E30212C7FF842D23300D7C837333E146DEE51931.
 Protected fixture runs/fixtures/v05-c-composition-20260921.pt:
 A52F8209703149407580F7E2965B61B78653030EE992AF6D759865736741CA9E.
 Read AGENTS.md,docs/experiment-conversation-handoff-protocol.md,this file,
-docs/experiment-ledger-addendum-c178-c179.md and unchanged C178 preregistration.
+docs/experiment-ledger-addendum-c178-c179.md and
+**docs/experiment-ledger-addendum-c179-preregistration.md**.
 Order:verdict -> validity -> metrics -> interpretation -> confounds -> ledger -> next design.
-Valid negatives stay results; never retune thresholds,checkpoints,seeds or cases to pass.
+Valid negatives stay results;never retune thresholds,checkpoints,seeds or cases to pass.
 
 ## Formal state
 
 Gate A/B PASSED;C/D PASSED within measured scope;**Gate E NOT PASSED**.
-**C178 ACCEPTED VALID NEGATIVE. C179 NOT REGISTERED.**
+**C178 ACCEPTED VALID NEGATIVE. C179 ACTIVE / NOT YET JUDGED. C180 NOT REGISTERED.**
 C174/C175/C177 retain scoped PASS;C176 remains ACCEPTED VALID NEGATIVE.
 C170-C173 remain PASS;C160/C168/C169 remain VALID NEGATIVE. No adoption of conditional
 loss or bound-input candidate follows from the older diagnostic PASS results.
 Latest execution HEAD e9ee578a80b63e72a33414b62ba17a0111329ddb.
-C178 requires no rerun for documentation. No active new training experiment at this boundary.
+C178 acceptance53061385e2b2c41106727f3a9346dda5518aff97 precedes C179 registration.
+Use final C179 registration HEAD as ExpectedHead. C178 requires no documentation rerun.
 
 ## Accepted chain and scope
 
 Newest:docs/experiment-ledger-addendum-c178-c179.md. Earlier chain continues through
 c177-c178.md,c176-c177.md,c175-c176.md,c174-c175.md and older addenda.
-Previous full handoff preserved at e9ee578a80b63e72a33414b62ba17a0111329ddb.
+Previous full handoff preserved at e9ee578a80b63e72a33414b62ba17a0111329ddb and C178 acceptance.
 C151 per layout WITHIN_FACTOR20727/20736 and GLOBAL_CONCEPT20736/20736;9known errors,
 ranker tuning closed. C152-C167 retain their acquisition/recovery/authority/warm scopes.
 C16082944live cycles/0ANSWERED negative. C1684/8input-collision lower bound is not model
@@ -99,15 +101,55 @@ SHA2563e69b7d8cff9e1cfdab7d06c58d45f83d1f596ac793c85c4c34ff620f8637d36.
 Data SHA256eaae9aef5f64a204fe4d249bccbd437cd42f90172cd6f0eeb91be834b9450c65.
 Older identities and review scopes remain in chained addenda;retain every output.
 
-## Next-design boundary
+## Active C179 — equal-budget shared-update graph
 
-Existing C178 secondary tables make another unchanged-score audit unnecessary. A concrete
-next hypothesis is composition along supplied syntax links versus a sequential shared
-update control,with the SAME new cell,weights,inputs and per-node dense workload in both
-arms. Both would be NEW diagnostic models,not an in-place change to FOLD core or a
-continuation of C178 weights. This is a design direction only;C179 is not registered.
-Do not claim that the topology hypothesis is proved by C178. Do not start new training
-until comparison,scope,accounting and gate are fixed in a separate preregistration.
+C179-v5e-shared-update-graph;V5-E-SHARED-UPDATE-GRAPH.
+One question:does hidden-state routing along supplied syntax help versus a sequential
+control using the SAME new shared cell? Changed variable only hidden links within C179.
+SEQUENCE_LINKS reads previous two node states(zero for missing predecessors).
+TREE_LINKS reads actual supplied children;FACT leaves read two zeros. Both retain every
+node's original numerical syntax,so the sequence control is not deprived of the task.
+Common input is unchanged C178 bound72preparation. This controls binding in both arms;
+it is NOT adoption of the C178 failed candidate. No hidden values or Boolean evaluator.
+
+New SharedGraphProbe in both arms:cell134->128ReLU->64ReLU,seven applications;
+root64+context30->2.25726independent scalars EACH;paired exact initial weights and rows.
+177596dense forward MACs/row EACH;no early exits or zero shortcuts. This is about6.869x
+historical flat MLP forward MACs,not a matched-compute improvement over C178. Parameters
+are fewer,but no memory/speed claim. Tree topology also changes dependency path lengths.
+Learned weights,not programmed AND/OR/NOT;handwritten binding/routing are acknowledged.
+This is a diagnostic shared model,NOT integration into or replacement of FOLD core.
+
+New seeds179001/2/3;6models;2000updates/model,batch256,Adam.001,ordinary unweighted CE,
+CPUfloat32/two threads. Both use common fit loop and private row RNG seed+1000000.
+All6final checkpoints saved/reloaded before scoring. No calibration,auxiliary truth
+labels,checkpoint continuation,extra steps or selected seed. Same C174 data/splits.
+12000training forwards/84000batch-cell calls/3072000sampled rows;
+56376pilot+254664TRAIN predictions/312inference batches/2184batch-cell calls.
+Prepare51840rows,207360lookups,414720copies;6new checkpoint loads,old0;acquisition/proof/
+evidence/network0. Meters do not enter inputs. Per-fit/per-inference wall clock recorded.
+
+Primary mean BA for missing1/2/3. For EACH seed TREE must improve primary,count1NEEDS,
+count3SUFFICIENT;original4groupmacro cannot drop;both aggregate recalls>0.5.
+Allconditions/allseeds required. Finite miss=>VALID NEGATIVE;execution/source/schema/
+nonfinite/unpaired/incomplete/protection error=>INVALID,restore same C179 validity.
+All group/count metrics,logits on BOTHsplits,AUC and error exchanges saved together.
+No additional audit needed just to recover these tables. Secondary scores cannot replace
+classification gate. Reused4groups are development data,not an independent final holdout.
+
+C178+C177+C176+C174summaries and33prior artifacts preserved by unchanged inherited guards.
+64historical+4new source files,105protected input paths;C37/fixture extra outer guards.
+Outputs:shared-graph-plan.json,shared-input-audit.json,6checkpoints,pilot-predictions.json,
+training-predictions.npz and complete summary.10listed artifacts excluding summary.
+Manifest8e4fce52612b7e01fbd4f9f58ccb3dd8eee1bfbea16dd9d50ef5f39aca712456.
+32/32actual-new-module helper tests PASS:topology,meters,gradients,pairing,checkpoint,
+strict gate. Toy learning TWOrows/TWOupdates;no registered data or six-model run.
+Python compiled;3embedded scripts parsed;uploaded4own Gitblobs match tested/reviewed bytes.
+Full old-module/input/artifact integration,1089tests,WindowsPowerShell and formal training
+NOT executed by reviewer. **1089expected=1057+32,63modules**,one regression/oneCPUbatch.
+Run tools/run_c179.ps1 -C178Summary ... -C177Summary ... -C176Summary ... -C174Summary ...
+-ExpectedHead ... . Progress:precheck,regression,plan,seed/arm500steps,3BA lines,RESULT/POSTCHECK.
+**Judge C179 -> ledger/handoff -> next design. No C180 before formal judgment.**
 
 ## Migration and research limits
 
