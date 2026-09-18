@@ -7,149 +7,218 @@
 Repository `akakishi04/fold`; branch `feat/sft-target-loss`; local `M:\asobiba\fold`.
 Standalone root paths `fold_lm/`, `docs/`, `tests_lm/`, `tools/`; no monorepo `fold/` prefix.
 Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5; `.venv-py31315\Scripts\python.exe`.
-Diagnostic probes CPU float32/two threads; RTX4070TiSUPER installed.
 
 Read `AGENTS.md`, `docs/experiment-conversation-handoff-protocol.md`, this file,
-and the latest accepted/preregistered addenda. Formal experiment responses:
-verdict -> validity -> deciding metrics -> interpretation -> confounds -> ledger ->
-next single design -> implementation/preregistration -> reproducible command -> stop.
+`docs/experiment-ledger-addendum-c188-c189.md`, and
+**`docs/experiment-ledger-addendum-c189-preregistration.md`**.
 
-After judging one experiment, prepare at most the next one in the SAME RESPONSE.
-Use separate acceptance and preregistration commits. Never skip judgment, mutate earlier
-scientific conditions, or register C+2 before C+1 is judged.
+Formal work order:
+verdict -> execution validity -> deciding metrics -> interpretation -> confounds ->
+ledger -> next one-question design -> implementation/preregistration -> command -> stop.
+
+After judging one experiment, prepare at most the next one in the SAME RESPONSE, using a
+separate acceptance commit followed by a separate preregistration commit. Never modify
+earlier scientific conditions to obtain PASS.
 
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
 
-**C188 ACCEPTED PASS. C189 NOT REGISTERED at this acceptance commit.**
+**C188 ACCEPTED PASS. C189 ACTIVE / NOT YET JUDGED. C190 NOT REGISTERED.**
 C187/C186/C185/C184/C183/C181 PASS; C182 VALID NEGATIVE.
 C180/C179/C178/C176 VALID NEGATIVE; C174/C175/C177 scoped PASS.
-All earlier judgments and checkpoints remain unchanged.
+All previous judgments/checkpoints remain unchanged.
 
 C188 execution HEAD:
 `683d795b12d4f0aada4850dcac2a010e699882ad`.
 
-## Latest accepted C188
+C188 acceptance commit:
+`2edadff6f8fab1c3c26da46adee630d12e433be8`.
 
-Experiment:
-`C188-v5e-multimissing-target-selection` /
-`V5-E-MULTIMISSING-TARGET-SELECTION`.
-
-Execution:
-- 1413/1413 focused tests, 43.155s
-- source/artifact precheck PASS
-- protected inputs preserved; tracked tree clean; execution HEAD preserved
-- diagnostic execution valid True
-- production runtime modified False
-- Gate E candidate False
-
-Parent C187 summary:
-`910a8a51c70a7ddfd996d99d21bcd9bc362ba568919ed04fb7305071d9142ccd`.
+## Accepted C188
 
 C188 summary:
 `runs/c188-v5e-multimissing-target-selection-81830a0e8ba741519c9172bdf2f7a7bc/summary.json`
 SHA256:
 `2a3ef27e9dec281159197775a15771b31b4945c9a0fa84787b4b812e9efb4153`.
 
-Uploaded log:315279bytes;SHA256
+1413/1413 tests; source/artifact precheck PASS; protected inputs preserved;
+diagnostic execution valid True; production runtime modified False.
+
+All 9 frozen-base/fresh-head selectors:
+- primary discriminating PILOT528: 528/528 target hits
+- missing2:376/376
+- missing3:152/152
+- equal macro1.0
+- selected observed0
+- full multi-missing secondary1768/1768
+
+Formal TRAIN-only syntax-blind reference macro:
+`.7774356103023516`.
+
+All same-head-seed copies preserved paired initial head fingerprint and minibatch schedule.
+No base update, acquisition, answer, proof or network call occurred in C188.
+
+C188 claim is bounded to learned influential-fact selection on the repeatedly inspected
+four-group C174 development family. No live target acquisition, tool choice, iterative
+planning, language/larger/repeated-variable generalization, final holdout or Gate E claim.
+
+Uploaded C188 log315279bytes SHA256
 `8f8308404031fc894db07360f80b54eebff3c64db05fc84e7eb50fba5dc1887b`.
-Reconstructed canonical summary79138bytes/exact hash match.
+Canonical summary79138bytes/reconstructed hash exact.
 
-### Deciding result
+## Active C189 — live learned multi-missing target acquisition
 
-Frozen accepted C181 INTERNAL_SEMANTICS bases:
-181001/181002/181003.
+Experiment:
+`C189-v5e-live-multimissing-target-acquisition` /
+`V5-E-LIVE-MULTIMISSING-TARGET-ACQUISITION`.
 
-Fresh C188 target-head seeds:
-188001/188002/188003.
+Question:
+Can frozen accepted C181 necessity plus frozen accepted C188 target selection share one
+initial forward, send the raw learned selected fact through a real bounded C172/C173
+RETRIEVE exactly once, and correctly reclassify the actual post-admission state?
 
-Nine total selectors; each uses frozen seven-node hidden states plus fact leaf-position
-one-hot; 29249 trainable head parameters; C181 bases never updated.
+### Held fixed
 
-Primary PILOT discriminating cohort528:
-- missing2=376
-- missing3=152
+- all 3 accepted C181 INTERNAL_SEMANTICS bases:181001/2/3
+- all 9 accepted C188 base/head combinations; head seeds188001/2/3
+- C174 TRAIN/PILOT data and semantic groups
+- C172 action runtime / C173 acquisition lifecycle
+- C185 external opaque fact identities and single-fact source contract
+- raw argmax / no repair
+- no new training, fresh seed, answer or proof
 
-TRAIN-only syntax-blind frequency reference:
-- m2 268/376 = .7127659574468085
-- m3 128/152 = .8421052631578947
-- macro .7774356103023516
+### Deliberate simplification
 
-Every one of 9 selectors:
-- m2 376/376 = **1.0**
-- m3 152/152 = **1.0**
-- macro **1.0**
-- selected_observed **0**
+C189 uses **identity/original C174 local fact layout only**.
+Do not add a renaming perturbation here; C184/C185 already measured that engineering
+boundary and first live target integration should not conflate another representation shift.
 
-Strict gate passes 9/9; no averaging/best-head rescue.
+### Cohort / episodes
 
-Secondary full multi-missing PILOT NEEDS1768:
-- missing2 1152/1152
-- missing3 616/616
-- every selector 1768/1768 = **1.0**
+All1768 PILOT NEEDS rows with missing2/3:
+- missing2=1152
+- missing3=616
+- discriminating target subset=528
 
-For each fresh head seed, all three frozen-base copies have identical initial target-head
-fingerprint and identical minibatch schedule hash.
+Cross all9 selectors with selected-fact source bit0/1:
+**31824 live episodes /18 blocks**.
 
-Workload:
-3 frozen base loads;9 target heads;18000 target updates;4608000 sampled TRAIN rows;
-16776 frozen base feature rows;18 base forwards/126 cell calls;15912 PILOT selector
-predictions;0 actual acquisitions/network/evidence writes/answers/proofs.
+### Initial combined decision
 
-### Claim boundary
+Start original resources12internal/4acquisitions/step7.
+Trusted scheduler charges one decision before encoding:
+11internal/4acquisitions/step8.
 
-C188 supports only:
-on the registered C174 development family, a small learned target selector on frozen
-accepted C181 internal states can choose an influential missing fact among multiple
-unknown facts better than the registered TRAIN-only syntax-blind reference.
+One frozen C181 TREE_LINKS forward:
+- C181 readout emits NEEDS/SUFFICIENT;
+- same seven cell states feed paired frozen C188 target head;
+- observed facts masked;
+- raw target argmax retained.
 
-Do NOT claim:
-live target acquisition, learned tool/provider choice, retry/stopping, global information
-gain optimality, repeated-variable/larger-expression/language generalization, independent
-final holdout, answer/proof generation, production adoption or Gate E completion.
+Target feature path uses cell states+leaf-position only, so runtime resource coordinates
+do not enter the target head. Formal live target scores must replay C188 within atol1e-6.
 
-The same four PILOT semantic groups are repeatedly inspected development groups and the
-target teacher is programmed logical supervision.
+### Dynamic external endpoint binding
 
-Reviewer independently reaggregated the 9 strict gates, primary/secondary hit counts,
-paired head construction and workload from the uploaded complete RESULT summary.
-Separate C188 artifacts/NPZ/checkpoint bytes and user regression execution were not
-independently rerun.
+Owners initially carry exact RuntimeState but no RETRIEVE endpoint.
+After the raw learned target is produced, trusted scaffolding binds the matching external
+single-fact endpoint while preserving RuntimeState exactly.
 
-## Next single design
+Then raw learned local target enters C172 `RETRIEVE`; C173 may read/publish only that fact.
+Eight C185-format sources are fixed, one per external fact and bit.
 
-Proposed C189 scientific question:
+This endpoint binding does not inspect teacher labels or hidden completions.
 
-**Can one frozen accepted C181 necessity base + one frozen accepted C188 selector head,
-sharing one initial forward, choose an influential target in a multi-missing row, drive
-exactly one real C172/C173 RETRIEVE of that selected external fact, and then correctly
-reclassify the actual updated state?**
+### Post decision
 
-Design constraints:
-- reuse all 9 accepted C188 base/head combinations;
-- no new training or fresh seed;
-- identity/original C174 local fact layout only;
-- both possible selected-fact bits;
-- all1768 PILOT NEEDS rows with missing2/3; 528 discriminating rows remain target-choice
-  deciding subset;
-- one actual read/admission maximum; no second acquisition even if post state remains NEEDS;
-- no answer/proof;
-- initial C181 necessity and learned target emitted from one shared frozen base forward;
-- post decision is necessity-only;
-- target teacher and post logical label are scoring-only and never enter policy/provider.
+Exactly one acquisition maximum. Normal successful path:
+initial decision1 + action1 + dispatch2 + post decision1 =
+final7internal/3acquisitions/step12.
 
-C189 must be separately preregistered after this acceptance commit. C190 remains unregistered.
+Frozen C181 makes one post-acquisition necessity-only decision.
+If still NEEDS, stop unresolved; **no second acquisition**.
+SUFFICIENT remains only a classification, not an answer.
+
+### Scoring only
+
+- initial target correctness: C188 influential-target set
+- post necessity correctness: C174 logical necessity on actual final visible facts
+
+Neither teacher enters policy, endpoint selection, proposal or provider.
+
+### Parent replay
+
+Before live episodes replay all15912 accepted C188 full-multi-missing target predictions:
+exact argmax, finite unknown-target logit delta<=1e-6.
+
+### Fixed gate
+
+Every one of18 blocks must have:
+- episodes1768 / discriminating528
+- initial necessity errors0
+- all-target errors0
+- discriminating target errors0
+- target replay errors0
+- selected observed0
+- live target logit delta<=1e-6
+- missed acquisition0
+- post necessity errors0
+- contract errors0
+- reservations/provider calls/publications1768
+- decision charges3536
+- internal charged8840
+- post sufficient+post needs=1768
+
+No averaging/head rescue. Valid finite failure => ACCEPTED VALID NEGATIVE.
+Source/hash/schema/replay/nonfinite/incomplete/protection failure => INVALID, retry SAME C189.
+
+### Workload / protection
+
+- base loads3
+- target-head loads9
+- training0 / fresh seeds0
+- static target replay15912
+- static base feature rows5304 / forwards6 / cellcalls42
+- live initial base rows31824
+- live target rows31824
+- live post base rows0..31824
+- total base rows max68952
+- ideal reads/publications31824
+- network/coreEvidenceState/answer/proof0
+- production runtime modifiedFalse
+- Gate E candidateFalse
+- historical source pins107
+- protected paths258
+- outputs13 excluding summary
+
+Scientific manifest:
+`6acccb0b116a57a34e4f91733d0a15ac345d144ba9b6cb0db8a1e7af4ecf0e47`.
+
+New files:
+- `fold_lm/v05_benchmarks/gate_e_c189_live_multimissing_target.py`
+- `tests_lm/test_v05_c189_live_multimissing_target.py`
+- `tools/run_c189.ps1`
+- `docs/experiment-ledger-addendum-c189-preregistration.md`
+
+Expected regression:
+**1449 =1413 existing+36 new;74 modules.**
+
+Reviewer syntax-compiled new Python sources and executed pure manifest/gate checks.
+Complete repo/C172/C173 integration cannot be rerun in reviewer sandbox because no complete
+checkout/GitHub DNS. Formal C189 remains unexecuted.
 
 ## Evidence chain / persistent limits
 
-C187 summary SHA `910a8a51c70a7ddfd996d99d21bcd9bc362ba568919ed04fb7305071d9142ccd`.
+C187 SHA `910a8a51c70a7ddfd996d99d21bcd9bc362ba568919ed04fb7305071d9142ccd`.
 C186 SHA `e9bfc53b000bb46bc76a00e4e8b78ec5ecc2aa38727610a8a73bf5c5735c1e82`.
 C185 SHA `843fb9816270e4a597ca094c6e90408a35910490324db60bc3018f62156ac949`.
 C184 SHA `7817f8f17932f772d80e6a994bf58c17c8f71b73a1f5691a4a5345ce3a917e04`.
 C181 SHA `bfc68d603682aabd719bc52d33de907a60389a8e1f58ea22ebaf33fa21906f98`.
 Dataset SHA `eaae9aef5f64a204fe4d249bccbd437cd42f90172cd6f0eeb91be834b9450c65`.
 
-No natural-language, larger/repeated-variable, multi-step target planning, learned-tool,
-answer/proof, independent final Gate E claim. Multi-Axis/MA-1 and PC-ALM/FHLC remain
+No iterative target planning, learned tool/provider/retry/stopping, language, larger or
+repeated-variable expression, answer/proof or independent final Gate E claim follows.
+
+Do not register/execute C190 before C189 judgment. Multi-Axis/MA-1 and PC-ALM/FHLC remain
 separate tracks. No history rewrite.
