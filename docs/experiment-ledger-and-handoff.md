@@ -13,18 +13,21 @@ FD4A8DA897BDAEA9D103A252E30212C7FF842D23300D7C837333E146DEE51931.
 Protected fixture runs/fixtures/v05-c-composition-20260921.pt:
 A52F8209703149407580F7E2965B61B78653030EE992AF6D759865736741CA9E.
 Read AGENTS.md,docs/experiment-conversation-handoff-protocol.md,this file,
-**docs/experiment-ledger-addendum-c182-c183.md** and original C182 preregistration.
+**docs/experiment-ledger-addendum-c182-c183.md** and
+**docs/experiment-ledger-addendum-c183-preregistration.md**.
 Order:verdict,validity,metrics,interpretation,confounds,ledger,next design.
 Preserve valid negatives;never alter checkpoints,seeds,cases or thresholds to obtain PASS.
 
 ## Formal state
 
 Gate A/B PASSED;C/D PASSED in measured scope;**Gate E NOT PASSED**.
-**C182 ACCEPTED VALID NEGATIVE. C181 ACCEPTED PASS. C183 NOT REGISTERED.**
-No active experiment until separate registration. No C182 rerun or production adoption.
+**C182 ACCEPTED VALID NEGATIVE. C183 ACTIVE / NOT YET JUDGED. C184 NOT REGISTERED.**
+C181 ACCEPTED PASS. No C182 rerun or production adoption.
 C180/C179/C178/C176 remain VALID NEGATIVE;C174/C175/C177 retain scoped PASS.
 C170-C173 PASS;C160/C168/C169 VALID NEGATIVE. All earlier judgments unchanged.
 C182 execution HEAD8ee4942d7b4ec73ac65de8d6f17f59c297c6ee99.
+Acceptancecdf424217f14bb6272e3a5d37ac8aa638dd1136f PRECEDES C183 registration.
+Use final C183 registration HEAD for execution. No historical source modification.
 
 ## Accepted chain / scientific scope
 
@@ -87,6 +90,48 @@ C174 runs/c174-v5e-learned-necessity-529b2018ef2a4a568a30fdb89b662410/summary.js
 SHA2563e69b7d8cff9e1cfdab7d06c58d45f83d1f596ac793c85c4c34ff620f8637d36.
 DataSHA256eaae9aef5f64a204fe4d249bccbd437cd42f90172cd6f0eeb91be834b9450c65.
 Retain all artifacts/checkpoints. Further analysis must not rewrite prior outcomes.
+
+## Active C183 — frozen route attribution, NOT repair
+
+C183-v5e-frozen-renaming-path-attribution / V5-E-FROZEN-RENAMING-PATH-ATTRIBUTION.
+Question:does exactly one isolated route reproduce every observed C182 candidate flip?
+All6C181frozen checkpoints/source seeds181001/2/3,no training,freshseed,teacher or auxhead.
+Read and reaggregate all1296648C182saved predictions against138details;derive exact
+counterexample from savedNPZ/source rows. Acceptedfailure set=onecase,seed181003,perm17.
+No unknown row/formula is guessed;produce expression/facts/margins in output.
+
+Replay all9396pilotrows for all6models at identity and perm17 using original graph.predict,
+batch1024/same row order,CPUfloat32/2threads. Copy actual94d readout inputs with observation
+hook;main output unchanged. Exact decisions and abs logit difference<=1e-6 required.
+Readout root64+header4+facts16+runtime10. Only root and facts may differ.
+Fourconditions:ORIGINAL(R0,F0),RENAMED(R1,F1),TREE_ONLY(R1,F0),DIRECT_ONLY(R0,F1).
+Two extra hybrid readouts use original frozen Linear94->2,not additional shared-cell calls.
+Hybrids deliberately mix INTERNAL states;NOT valid complete tasks,NOT a deployment policy.
+Labels only score/localize;no teacher-forcing or answer correction. C182remainsnegative.
+
+PASS:exactly one isolated route reproduces each source failure (TREE_ONLY_SUFFICIENT or
+DIRECT_ONLY_SUFFICIENT);other isolated route remains correct. If both do,EITHER_ALONE;
+if neither does,JOINT_REQUIRED;both are VALID NEGATIVE for the single-route hypothesis.
+Source/replay/schema/nonfinite/protection/incomplete issues=>SAME C183 validity recovery.
+Report small margins/residuals honestly;do not infer universal causality or robust symbolic
+proof from a float32 decision. C180retraining experiment has a different question.
+
+112752legitimate model rows/120batches/840cells;112752additional headrows/120headbatches;
+225504total output decisions.6checkpointloads;no freshseed/training/proof/acquisition/
+evidence/network. Other22permutations read from prioroutputs,not rerun through models.
+Controls and full matched9396cohort retained. Outcome-conditioned reused DEVELOPMENT,
+not independent generalization or GateE. All4conditions' logits/decisions saved.
+Sixoutputs excluding summary:plan,source-audit,replay,path-results,counterexamples,
+path-predictionsNPZ.80historicalpins+4ownfiles;161protectedpaths plusouterC37/fixture.
+Manifest e4152fd486ccbe0c03c48c6bcf3dcc154ca41b03b079c24dee14d78f070a49f3.
+
+32newtestsPASS on ACTUALnewmodule with synthetic activations/toyreadout/predictor;
+NOT fullC179 or artifact integration. TwoPythonfilescompile;3embeddedPythonblocksparse.
+Full1217/WindowsPS/161inputchain/formalmodelandheadbatch UNEXECUTED.
+**1217expected=1185+32;67modules**,one regression then one frozen diagnostic batch.
+Run tools/run_c183.ps1 withC182/C181/C180/C179/C178/C177/C176/C174summaries/ExpectedHead.
+Progresssourceaudit,models1/6..6/6,path_mode/margins,RESULT/POSTCHECK.
+Judge C183 ->ledger/handoff->next. **No C184 before judgment.**
 
 ## Migration / project limits
 
