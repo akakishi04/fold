@@ -16,6 +16,8 @@ import time
 
 import numpy as np
 
+from .c186_c185_npz_input import inspect_c185_predictions, load_c185_predictions
+
 EXPERIMENT_ID = 'C186-v5e-nonadmission-reclassification'
 STAGE = 'V5-E-NONADMISSION-RECLASSIFICATION'
 BASE = '36c0ab26de2334f8b54d3e0754bf408deec7f0db'
@@ -28,7 +30,10 @@ SCENARIOS = ('FOUND_ZERO', 'FOUND_ONE', 'NO_DELIVERY', 'WRONG_VALUE', 'PROVIDER_
 PARENTS = ('c185', 'c184', 'c183', 'c182', 'c181', 'c180', 'c179', 'c178', 'c177', 'c176', 'c174')
 OWN = ('fold_lm/v05_benchmarks/gate_e_c186_nonadmission_reclassification.py',
        'tests_lm/test_v05_c186_nonadmission_reclassification.py', 'tools/run_c186.ps1',
-       'docs/experiment-ledger-addendum-c186-preregistration.md')
+       'docs/experiment-ledger-addendum-c186-preregistration.md',
+       'fold_lm/v05_benchmarks/c186_c185_npz_input.py',
+       'tests_lm/test_v05_c186_npz_input_recovery.py',
+       'docs/experiment-ledger-addendum-c186-execution-recovery.md')
 SOURCES = {
     'sources/fact-0-completion-0.json': 'd3d693b1ce3d22b31f3826feace8eb511eb3e8f5b427ba1ac2fb607af8419dc2',
     'sources/fact-1-completion-0.json': '1b6b28bab6436fb62dac757d629d4eda6da45c098f70f5f3414a6b1afc9fd292',
@@ -250,8 +255,9 @@ def precheck(c185_summary, *args):
     allpins = dict(pins)
     for name in OWN: allpins[name] = audit.git(root,'rev-parse','HEAD:'+name).decode().strip()
     protected.update(audit.protect_tree_files(root,allpins))
-    require(len(pins) == 92 and len(protected) == 200, 'Source/protected union drift')
+    require(len(pins) == 92 and len(protected) == 203, 'Source/protected union drift')
     require(digest(manifest()) == MANIFEST_SHA, 'Manifest drift')
+    inspect_c185_predictions(Path(c185_summary).resolve().parent/'episode-predictions.npz')
     return p181,p174,pins,protected
 
 
@@ -259,7 +265,8 @@ def regression_modules(root):
     from fold_lm.v05_benchmarks import gate_e_c185_single_missing_acquisition as previous
     names = previous.regression_modules(root)
     require(len(names) == len(set(names)) == 69, 'Historical module drift')
-    return names+['tests_lm.test_v05_c186_nonadmission_reclassification']
+    return names+['tests_lm.test_v05_c186_nonadmission_reclassification',
+                  'tests_lm.test_v05_c186_npz_input_recovery']
 
 
 def validate_result(p):
@@ -269,7 +276,7 @@ def validate_result(p):
         and 0 <= p['neural_post_rows'] <= 222720 and p['total_inference_rows'] == 56376+222720+p['neural_post_rows']
         and p['inference_cell_calls'] == 7*p['inference_batches'] and p['checkpoint_loads'] == 6, 'Workload drift')
     require(len(p['replay']) == 6 and len(p['successful_replay']) == 32 and len(p['records']) == 80
-        and len(p['source_blobs']) == 92 and len(p['input_sha256']) == 200
+        and len(p['source_blobs']) == 92 and len(p['input_sha256']) == 203
         and len(p['artifacts']) == 13 and {a['file'] for a in p['artifacts']} == OUTPUTS, 'Coverage drift')
     require(all(p[k] == 0 for k in ('new_training','fresh_seeds','teacher_calls','auxiliary_forward_calls',
         'answer_generation','proof_checker_calls','core_evidence_writes','network_calls'))
@@ -313,7 +320,7 @@ def run(*, output_dir, expected_head, **parents):
                 'Original resources drift')
         parent_dir=Path(parents['c181_summary']).resolve().parent
         saved=audit.read_json(parent_dir/'pilot-predictions.json')
-        old=audit.load_npz(Path(parents['c185_summary']).resolve().parent/'episode-predictions.npz')
+        old=load_c185_predictions(Path(parents['c185_summary']).resolve().parent/'episode-predictions.npz')
         order=[(s,a) for s in SEEDS for a in ARMS]+[(0,r) for r in RULES]
         require(set(old)=={'predictions','logits','logit_present','policy_inputs','row_indices','policy_seeds','policy_names','layouts'}
             and np.array_equal(old['row_indices'],indices) and np.array_equal(old['layouts'],LAYOUTS)

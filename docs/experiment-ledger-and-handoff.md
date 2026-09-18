@@ -1,150 +1,148 @@
 # FOLD Experiment Ledger and Handoff
 
-> Authoritative state. Historical evidence, sources and preregistrations remain immutable.
+> Authoritative state. Historical evidence, sources and scientific preregistrations remain immutable.
 
 ## Environment / protocol
 
-Repository akakishi04/fold (standalone); branch feat/sft-target-loss; local M:\asobiba\fold.
-Root-relative fold_lm/,docs/,tests_lm/,tools/; no monorepo fold/ prefix.
-Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5; .venv-py31315\Scripts\python.exe.
-Current probes CPUfloat32/two threads; RTX4070TiSUPER installed.
-Protected C37 runs/chatgpt-last-result.json:
-FD4A8DA897BDAEA9D103A252E30212C7FF842D23300D7C837333E146DEE51931.
-Protected fixture runs/fixtures/v05-c-composition-20260921.pt:
-A52F8209703149407580F7E2965B61B78653030EE992AF6D759865736741CA9E.
-Read AGENTS.md,docs/experiment-conversation-handoff-protocol.md,this file,
-docs/experiment-ledger-addendum-c185-c186.md and
-**docs/experiment-ledger-addendum-c186-preregistration.md**.
-Order:verdict,validity,metrics,interpretation,confounds,ledger,next design.
-Preserve valid negatives;never change checkpoints,seeds,cases or thresholds to obtain PASS.
+Repository `akakishi04/fold` (standalone); branch `feat/sft-target-loss`; local `M:\asobiba\fold`.
+Root-relative `fold_lm/`, `docs/`, `tests_lm/`, `tools/`; no monorepo `fold/` prefix.
+Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5; `.venv-py31315\Scripts\python.exe`.
+Probes: CPU float32 / two threads; RTX4070TiSUPER installed.
+Protected C37 `runs/chatgpt-last-result.json` SHA256:
+`FD4A8DA897BDAEA9D103A252E30212C7FF842D23300D7C837333E146DEE51931`.
+Protected `runs/fixtures/v05-c-composition-20260921.pt` SHA256:
+`A52F8209703149407580F7E2965B61B78653030EE992AF6D759865736741CA9E`.
+Read AGENTS.md, docs/experiment-conversation-handoff-protocol.md, this file,
+docs/experiment-ledger-addendum-c185-c186.md, the unchanged C186 preregistration, and
+**docs/experiment-ledger-addendum-c186-execution-recovery.md**.
+Order: verdict, validity, metrics, interpretation, confounds, ledger, next design.
+Preserve valid negatives. Never alter checkpoints/seeds/cases/thresholds to obtain PASS.
 
 ## Formal state
 
-Gate A/B PASSED;C/D PASSED in measured scope;**Gate E NOT PASSED**.
+Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
 **C185 ACCEPTED PASS. C186 ACTIVE / NOT YET JUDGED. C187 NOT REGISTERED.**
-C185 acceptance4ce19a7f08717fef8c963f53282cc4340458700f PRECEDES C186 registration.
-C184/C183/C181 ACCEPTED PASS;C182 ACCEPTED VALID NEGATIVE.
-C180/C179/C178/C176 VALID NEGATIVE;C174/C175/C177 retain scoped PASS.
-C170-C173 PASS;C160/C168/C169 VALID NEGATIVE. All earlier judgments unchanged.
-C185 executionHEAD36c0ab26de2334f8b54d3e0754bf408deec7f0db.
-No C185 rerun,checkpoint replacement or production adoption. Use final C186 registration HEAD.
+Latest C186 attempt at `a4127d8a6bef0bf7eafd6e5d76fbb2061ab74eba`:
+**INVALID EXECUTION / RETRY SAME C186**, not a scientific negative.
+Use the subsequent execution-recovery commit HEAD, not that failed-attempt HEAD.
+C185 acceptance `4ce19a7f08717fef8c963f53282cc4340458700f` precedes C186 registration.
+C184/C183/C181 PASS; C182 VALID NEGATIVE; C180/C179/C178/C176 VALID NEGATIVE.
+C174/C175/C177 retain scoped PASS; C170-C173 PASS; C160/C168/C169 VALID NEGATIVE.
+All earlier results/checkpoints remain unchanged. No C185 rerun or production adoption.
 
-## Accepted chain / scope
+## Latest execution recovery — before any C186 model replay
 
-Latest detail:docs/experiment-ledger-addendum-c185-c186.md,then c184-c185.md,
-c183-c184.md,c182-c183.md,c181-c182.md and earlier chained addenda.
-Previous handoff at4ce19a7f08717fef8c963f53282cc4340458700f retains C185 acceptance state.
-Full earlier history at36c0ab26de2334f8b54d3e0754bf408deec7f0db remains available.
-C151 per layout WITHIN_FACTOR20727/20736,GLOBAL_CONCEPT20736/20736;9known errors unchanged.
-C152-C167 retain original acquisition/authority/recovery/warm scopes.
-C170transports72fields;C171handwritten bounded proof checker;C172reserves typed actions;
-C173scripted local acquisition/admission/proofs,not learned target choice/durable memory.
-Data TRAIN36groups/524templates/42444rows;PILOT4groups/116templates/9396rows.
-Repeated pilot is DEVELOPMENT,not independent confirmation.
-C174syntax helps;C175beats TRAIN-frequency reference;C176weighting fails and C177small
-AUC gains do not adopt it. C178binding/C179tree/C180bypass removal fail joint comparisons.
-C181proper-node auxiliary supervision:3internalmodels correct on9396pilot+42444TRAIN
-rows each,teacher/head absent at inference. Additional TRAIN information,not unique
-credit-assignment mechanism proof. C182renaming:one candidate error/648324,181003perm17.
-C183TREE_ONLY_SUFFICIENT localizes that case,not universal causality or a fixed policy.
-C184reversible LOCAL index adapter reproduces original numeric inputs and predictions:
-engineering contract,not learned invariance. C182negative remains unchanged.
+Full uploaded log: 218511 bytes, SHA256
+`2772bdf9cc8f0e28fa769a6f10d6c9c950860e790ddc49ce554555db665ea1a0`.
+Source/artifact precheck PASS; **1317/1317 tests PASS in40.601s**.
+Then old C175.load_npz rejects C185 episode-predictions.npz: `Oversized expanded NPZ`.
+Its 32MiB generic ceiling is smaller than the registered 70810728-byte C185 raw arrays.
+Failure occurs BEFORE checkpoint restoration/static replay/providers/episode blocks.
+No C186 scientific result; 0 completed blocks. Final protected inputs preserved,
+tracked tree clean, execution HEAD preserved, run_execution_valid=False.
+Separate invalid.json was not uploaded; retain its existing run directory and log.
 
-## Latest accepted C185
+Recovery: C186-only accepted-artifact reader, no C175 edit or global monkeypatch.
+Exact accepted compressed bytes/hash, eight names/shapes/dtypes, bounded NPY headers,
+no object/pickle, no duplicate/unregistered member, full header checks before arrays.
+Expanded ceiling70843592bytes is derived from shapes plus header/framing allowance.
+C186 precheck exercises headers before tests; its one parent-NPZ load uses this reader.
+Scientific manifest and original C186 preregistration unchanged.
+**Current execution counts:1341tests=1317+24,71modules,92historicalpins,203protectedpaths.**
+OWN additionally protects loader, recovery test module and recovery addendum.
+13 output artifacts unchanged. No change in replay tolerance or deciding gate.
+56/56 helper tests passed on actual complete patched C186+loader (32old+24new), including
+synthetic full70810728-byte arrays and exact value preservation. Three embedded Python
+blocks parse; no WindowsPS/fullcheckout/203-input chain/official NPZ or model replay here.
+Full1341regression and296960episodes remain for the user-side SAME C186 retry.
 
-1285/1285tests64.077s;source/artifactprecheckPASS;postcheckpreserved/clean/validTrue.
-All32blocks:3712one-missing source rows x2layouts x2completions x8policies=118784episodes.
-Each3INTERNAL_SEMANTICS models:14848episodes,3072necessary acquisitions,11776skips,
-0initial/missed/unnecessary/post/contract failures. Candidate total44544episodes,
-9216reads/publications,35328skips,9216correct post decisions,0initial static-to-live flips.
-All6frozen C181checkpoints,seeds181001/2/3;no training/freshseed/teacher/auxhead.
-56376static replays,all6logitdelta0;89088live initial+16896post neural rows;
-162360total neural rows/180batches/1260shared-cell calls,6checkpointloads.
-Allpolicies31744realreads/publications,6983680bytes. Controls account for all26080failures:
-learned controls3680/3776/3776;MISSING_RULE11776;NEVER_QUERY3072.
-Allpolicies post_error0/contract_error0. Total decision charges150528,internal245760.
-88historicalpins,182protectedpaths,13artifacts. Reported189.3204356s not latency claim.
+## Latest accepted C185 / evidence chain
 
-Path:typed current input+binding-aware normalization -> frozen learned necessity ->
-handwritten sole-target inverse mapping -> existingC172/C173realIO/admission ->
-updated current state -> same classifier. Actual first input11/4/step8,post7/3/step12;
-no reset to TRAIN resources. Classification is not an answer or verified conclusion.
-External fact/reference IDs and other facts retained;source files runtime-only.
-Single-owner synchronous episodes;no production changes/network/proof/answer/
-coreEvidenceState/durable DB. End after at most one attempt and two decisions.
-All formal attempted acquisitions succeeded. Learned behavior after failed/nonadmitted
-acquisition was not measured by C185;synthetic failure unit tests do not establish it.
-C186 addresses this boundary. No multiple-target/tool-selection,larger/repeated-variable/
-language/finalGateE claim. Controls keep every unnecessary/missed acquisition.
+Detailed acceptance: docs/experiment-ledger-addendum-c185-c186.md; follow c184-c185,
+c183-c184,c182-c183,c181-c182 and earlier chained addenda. Previous full handoff at
+`a4127d8a6bef0bf7eafd6e5d76fbb2061ab74eba` retains the original C186 registration state.
 
-## Evidence / reviewer scope
+C185:1285/1285tests64.077s;32blocks;118784episodes. Each INTERNAL_SEMANTICS candidate:
+14848episodes,3072necessary reads/publications,11776skips,zero initial/missed/unneeded/
+post/contract failures. All3:44544episodes,9216reads,35328skips,0static-to-live flips.
+All6C181checkpoints,56376static replays/logitdelta0,89088live initial+16896post neural
+rows;162360total rows/180batches/1260cellcalls. Allpolicies31744reads/publications,
+6983680bytes;26080failures entirely controls. Decision charges150528/internal245760.
+88historicalpins,182protectedpaths,13artifacts. Reported wall-clock is not production latency.
 
-C185 runs/c185-v5e-single-missing-acquisition-72d30a1a4e114de5b981352de26055e6/summary.json
-SHA256843fb9816270e4a597ca094c6e90408a35910490324db60bc3018f62156ac949.
-Uploadedlog335006bytes,SHA25623376d685553dba67dc0f8c01b20c653138be7da0d4553aaf9faa80168c4a356.
-Reconstructedsummary115491bytes,exacthashmatch;32blocks/128groupcountertables,
-1536groupcountervalues/sums,6replays,workload/fixedgate checked.
-Separate13artifacts/checkpoints/data and1285tests NOT independently replayed by reviewer.
-Local git lookup failed DNS;not a full checkout. Summary arithmetic is not model replay.
-C184 runs/c184-v5e-canonical-indices-5e2a159b64164b3a919762ebdbdc4f90/summary.json
-SHA2567817f8f17932f772d80e6a994bf58c17c8f71b73a1f5691a4a5345ce3a917e04.
-C183 runs/c183-v5e-path-attribution-b806a83c1a4044538713b844fe640198/summary.json
-SHA256ec3b67c7ff865e26d633d03bd5086a9ff60bdc277bc26333085121dc20232c24.
-C182 runs/c182-v5e-frozen-renaming-fa52ca6c8c9042598deeee261ca6e8c4/summary.json
-SHA25606c00df5ee0bbafd8b908d038b68be00667e42597f8959ba3d3a431d87e03f73.
-C181 runs/c181-v5e-internal-semantics-23f8363819474cccb05b0d1ecc8941ad/summary.json
-SHA256bfc68d603682aabd719bc52d33de907a60389a8e1f58ea22ebaf33fa21906f98.
-C180/C179/C178/C177/C176/C174paths/hashes remain in previous addenda/runners.
-DataSHA256eaae9aef5f64a204fe4d249bccbd437cd42f90172cd6f0eeb91be834b9450c65.
-Retain all outputs; prior negative observations are never overwritten.
+C185 summary: runs/c185-v5e-single-missing-acquisition-72d30a1a4e114de5b981352de26055e6/summary.json
+SHA256`843fb9816270e4a597ca094c6e90408a35910490324db60bc3018f62156ac949`.
+Accepted episode-predictions.npz:1716066bytes, SHA256
+`e597baf0dfa76b34a32dcb2a0445640aaeb21bb99a22af25c26c854ef3eabcf8`.
+C185 uploaded log335006bytes SHA25623376d685553dba67dc0f8c01b20c653138be7da0d4553aaf9faa80168c4a356.
+C184 summary runs/c184-v5e-canonical-indices-5e2a159b64164b3a919762ebdbdc4f90/summary.json
+SHA256`7817f8f17932f772d80e6a994bf58c17c8f71b73a1f5691a4a5345ce3a917e04`.
+C183 summary runs/c183-v5e-path-attribution-b806a83c1a4044538713b844fe640198/summary.json
+SHA256`ec3b67c7ff865e26d633d03bd5086a9ff60bdc277bc26333085121dc20232c24`.
+C182 summary runs/c182-v5e-frozen-renaming-fa52ca6c8c9042598deeee261ca6e8c4/summary.json
+SHA256`06c00df5ee0bbafd8b908d038b68be00667e42597f8959ba3d3a431d87e03f73`.
+C181 summary runs/c181-v5e-internal-semantics-23f8363819474cccb05b0d1ecc8941ad/summary.json
+SHA256`bfc68d603682aabd719bc52d33de907a60389a8e1f58ea22ebaf33fa21906f98`.
+C180/C179/C178/C177/C176/C174 paths/hashes remain in previous addenda and runners.
+Dataset SHA256`eaae9aef5f64a204fe4d249bccbd437cd42f90172cd6f0eeb91be834b9450c65`.
+Summary arithmetic/source review is not independent checkpoint/artifact-byte replay.
 
-## Active C186 — non-admission is not sufficient evidence
+## Accepted scope / limitations
+
+C151 per layout: WITHIN_FACTOR20727/20736;GLOBAL_CONCEPT20736/20736;9known errors retained.
+C152-C167 original acquisition/authority/recovery scopes remain unchanged.
+C170transports72fields;C171handwritten proof checker;C172reserves;C173real tiny-file
+acquisition/admission with scripted targets,not learned selection or durable memory.
+TRAIN36groups/524templates/42444rows;PILOT4groups/116templates/9396rows.
+Repeatedly inspected PILOT is DEVELOPMENT,not independent confirmation.
+C174syntax helps/C175beats frequency reference;C176weighting fails;C177smallAUC gains
+are not adoption. C178binding/C179tree/C180bypass fail joint comparisons.
+C181proper-node TRAIN supervision gives0errors on all9396pilot+42444TRAIN per3candidates;
+no teacher/head at inference,extra TRAIN information,not unique mechanism proof.
+C182oneerror/648324 renaming predictions;C183localTREE_ONLY_SUFFICIENT attribution,
+not a repaired policy. C184reversible local-ID normalizer reproduces known inputs,
+engineering contract rather than learned invariance. Original C182negative remains.
+C185 connects learned necessity to handwritten sole-target mapping/C172/C173real IO
+and reclassification with actual budgets11/4/step8 then7/3/step12,without resets.
+Classification is not an answer/proof or ANSWERED terminal. All C185 attempts succeeded;
+its synthetic fault tests did not establish learned behavior after non-admission.
+
+## Active C186 — unchanged scientific design
 
 C186-v5e-nonadmission-reclassification / V5-E-NONADMISSION-RECLASSIFICATION.
-Question:do frozen candidates retain correct NEEDS when attempted acquisition adds no
-admissible information,while still becoming SUFFICIENT after real successful admission?
-Same sixC181checkpoints/source seeds181001/2/3,same C185driver/runtime/target/inversebinding.
-No training/newseed/teacher/auxhead/threshold/ensemble/answer/proof/retry.
-Change ONLY provider return AFTER actual file read:FOUND_ZERO,FOUND_ONE,NO_DELIVERY,
-WRONG_VALUE(bit flip with witness unchanged),PROVIDER_FAILURE(existing exception).
-Failures are injected return-path cases,not realistic timeout/OSfile-open failures.
-Runtime validates/rejects using unchanged C173;it does not publish a fictitious0.
+Question:retain correct NEEDS after no admissible information,while becoming SUFFICIENT
+after successful observation. Same6C181checkpoints,source seeds181001/181002/181003,
+both FINAL_ONLY/INTERNAL_SEMANTICS,plus MISSING_RULE/NEVER_QUERY controls.
+No training/freshseed/teacher/auxhead/threshold/ensemble/answer/proof/retry.
+Unchanged C185driver/target/inversebinding;C170/C184/C178/C179/C172/C173 paths.
+ONLY provider return after a real file read changes:FOUND_ZERO,FOUND_ONE,NO_DELIVERY,
+WRONG_VALUE(witness unchanged),PROVIDER_FAILURE. Faults are synthetic return-path
+injections,not realistic timeout/OS-read failures or permission-withdrawal experiments.
 
-All3712one-missing developmental rows x2layouts x5scenarios x8policies =296960episodes,
-80blocks. All3candidate models:111360episodes. Rulecontrols74240episodes.
-Static replay56376neural predictions;initiallive222720;postlive0..222720measured,
-upperbound501816includingreplay. All32successblocks replay original C185 NPZ
-inputs/decisions/logits<=1e-6;allfault INITIAL phases must match original C185 as well.
-Replay/source mismatch=>INVALID,not a new behavior. New fault POST errors=>scientific.
-Resources first11/4/step8,post7/3/step12;actual NONE0/MISSING_DELIVERY4/INVALID_EVIDENCE6
-outcomes stay visible. Failure retains entire unknown record/reference and all other
-facts. No status/permission/budget reset or proof/label correction. At mostONEattempt,
-TWODECISIONS;raw NEEDS ends UNRESOLVED,not a retry. Raw false SUFFICIENT stays scored.
+All3712one-missing developmental rows(768needs/2944sufficient)x2layouts x5scenarios
+x8policies=296960episodes/80blocks;111360candidate episodes,74240rule episodes.
+56376static replays;222720live initial neural rows;postrows0..222720measured;
+totalmax501816. 32successblocks replay C185 arrays/tolerance1e-6,rtol0;fault INITIAL
+phases also match C185. Invalid replay/source/nonfinite/incomplete differs from a
+finite model error on fault POST,which is scientific negative evidence.
+Live budgets first11/4/step8,post7/3/step12;actualoutcomesNONE0/MISSING_DELIVERY4/
+INVALID_EVIDENCE6 kept. Unadmitted information stays unknown,None,emptyreference.
+No hidden zero/fact/label correction,no discarded cases. At mostONEattempt/TWOdecisions.
+Raw NEEDS ends UNRESOLVED,no retry;falseSUFFICIENT remains scored.
+Candidate expectations23040attempts/9216publications/13824nonadmissions/88320skips,
+not forced behavior. Gate all3candidates zero failures,allpolicycontracts preserved.
+MISSING_RULE3712calls/block/2944unnecessary and2944posterrors onfaultblocks;
+NEVER_QUERY0calls/768missed perblock. FINAL_ONLYerrors remain descriptive.
+13artifacts:plan,replay,results,compressedtraces,NPZplus8snapshots. Actual IO/inference
+counts measured. No fullGateE,larger/repeated-variable/language/multitarget/durable claim.
+Manifest`0cbe7212e5bafd9fc52f3f315d2d4732afaca6eb11940c6fa16ac58aeb336edc` unchanged.
+Run tools/run_c186.ps1 with SAME11summaries and repairedExpectedHead; archive old log.
+Use a new GUID output directory. Judge C186 ->ledger/handoff->next. **No C187 yet.**
 
-Expected correct candidates:23040attempts,9216publications,13824nonadmissions,88320skips.
-All3candidates/all37120episodes each must have0initial/post/missed/unnecessary/contract
-failures. Allpolicies must retainengineeringcontracts. MISSING_RULE3712calls/block,
-2944unnecessary and2944posterrors on faultblocks;NEVER_QUERY0calls/768missed perblock.
-Finite miss VALID NEGATIVE;replay/schema/nonfinite/source/protection/incomplete=>sameC186
-validity recovery. No C185result rewrite. Same4development groups,not independent semantics.
+## Migration / separate tracks
 
-Inherited92historicalpins,200protectedpaths plusouterC37/fixture.13artifacts:
-plan,replay,results,compressedtraces,NPZplus8unchangedC185snapshotbytes.
-Manifest0cbe7212e5bafd9fc52f3f315d2d4732afaca6eb11940c6fa16ac58aeb336edc.
-32newhelpertestsPASS on actual self-contained newmodule with SYNTHETICdelivery/fetch/
-packet-shapedtraces and replayarrays. NOT oldC185driver/C173owner/checkpoint integration.
-TwoPythonfilescompile,threeembeddedPythonblocksparse;notWindowsPowerShell execution.
-Full1317tests/200inputchain/official296960episodes UNEXECUTED;no new-condition model
-scores known. Existing source files unmodified;no production latency/peakVRAM claims.
-**1317expected=1285+32;70modules.** Run tools/run_c186.ps1 withC185/C184/C183/C182/C181/
-C180/C179/C178/C177/C176/C174summaries/ExpectedHead. Progressstaticreplay,blocks1/80..80/80,
-RESULT/POSTCHECK. JudgeC186->ledger/handoff->next. **No C187 before judgment.**
-
-## Migration / project limits
-
-Monorepo C1745e05168e maps to standalone19603c7267;C173source2cc2b1f4 maps to61c78906.
-d011b139runner-only migration fix enabled C174;new guards use standalone Gitblob pins.
-No reset/rebase/history rewrite or historical artifact commit_sha modification.
-Gate E nine-family contract unchanged;final assessment requires full candidate,baselines,
-splits,numerical preregistration. Multi-Axis/MA-1 and PC-ALM/FHLC are SEPARATE tracks.
-No language,Vision,long-context,durable-memory,latency/VRAM claim. C187 not registered.
+MonorepoC1745e05168e maps to standalone19603c7267;C173source2cc2b1f4 maps to61c78906.
+d011b139runner-only migration fix enabled C174. Use standalone paths/Gitblob guards.
+No reset/rebase/history rewrite/historical artifact commit_sha edit. GateE nine-family
+contract remains unchanged;fullcandidate/baselines/splits/numerical preregistration
+are still required. Multi-Axis/MA-1 and PC-ALM/FHLC remain SEPARATE research tracks.

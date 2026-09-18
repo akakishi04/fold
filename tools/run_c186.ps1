@@ -61,12 +61,14 @@ Write-Output "all six C181 checkpoints; source seeds181001/2/3; MISSING_RULE and
 Write-Output "3712 source rows x2 layouts x5 outcomes x8 policies =296960 episodes /80 blocks"
 Write-Output "normal found0/1, missing reply, wrong bit, provider failure; failure injection AFTER real reference read"
 Write-Output "unchanged C185 driver; max1 acquisition and2 decisions; live budgets/outcomes; no answer/proof"
-Write-Output "expected_focused_tests = 1317 (1285 existing + 32 new); Gate_E = NOT_PASSED"
+Write-Output "expected_focused_tests = 1341 (1317 existing + 24 recovery); Gate_E = NOT_PASSED"
 $Precheck = @'
 from pathlib import Path
 import sys
 from fold_lm.v05_benchmarks import gate_e_c186_nonadmission_reclassification as b
 b.precheck(*(Path(x) for x in sys.argv[1:12]),Path.cwd())
+info=b.inspect_c185_predictions(Path(sys.argv[1]).resolve().parent/'episode-predictions.npz')
+print('c185_npz_schema_precheck = PASS; payload_bytes =',info['payload_bytes'],flush=True)
 print('source_and_artifact_precheck = PASS',flush=True)
 '@
 & $Python -u -c $Precheck @ParentPaths
@@ -76,13 +78,14 @@ from pathlib import Path
 import sys,unittest
 from fold_lm.v05_benchmarks import gate_e_c186_nonadmission_reclassification as b
 names=b.regression_modules(Path.cwd())
-assert len(names)==len(set(names))==70
+assert len(names)==len(set(names))==71
 suite=unittest.defaultTestLoader.loadTestsFromNames(names)
-assert suite.countTestCases()==1317,f'Expected1317 tests, got{suite.countTestCases()}'
+assert suite.countTestCases()==1341,f'Expected1341 tests, got{suite.countTestCases()}'
 r=unittest.TextTestRunner(verbosity=2).run(suite)
 sys.exit(0 if r.wasSuccessful() else 1)
 '@
 $Out = Join-Path $Root ("runs\c186-v5e-nonadmission-" + [guid]::NewGuid().ToString("N"))
+Write-Output "output_dir = $Out"
 $Completed = $false
 try {
     Write-Output "=== focused regression ==="
