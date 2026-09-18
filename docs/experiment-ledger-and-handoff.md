@@ -13,25 +13,28 @@ FD4A8DA897BDAEA9D103A252E30212C7FF842D23300D7C837333E146DEE51931.
 Protected fixture runs/fixtures/v05-c-composition-20260921.pt:
 A52F8209703149407580F7E2965B61B78653030EE992AF6D759865736741CA9E.
 Read AGENTS.md,docs/experiment-conversation-handoff-protocol.md,this file,
-docs/experiment-ledger-addendum-c185-c186.md and unchanged C185 preregistration.
+docs/experiment-ledger-addendum-c185-c186.md and
+**docs/experiment-ledger-addendum-c186-preregistration.md**.
 Order:verdict,validity,metrics,interpretation,confounds,ledger,next design.
 Preserve valid negatives;never change checkpoints,seeds,cases or thresholds to obtain PASS.
 
 ## Formal state
 
-Gate A/B PASSED;C/D PASSED in measured scope;Gate E NOT PASSED.
-**C185 ACCEPTED PASS. C186 NOT REGISTERED. No active experiment at this acceptance.**
+Gate A/B PASSED;C/D PASSED in measured scope;**Gate E NOT PASSED**.
+**C185 ACCEPTED PASS. C186 ACTIVE / NOT YET JUDGED. C187 NOT REGISTERED.**
+C185 acceptance4ce19a7f08717fef8c963f53282cc4340458700f PRECEDES C186 registration.
 C184/C183/C181 ACCEPTED PASS;C182 ACCEPTED VALID NEGATIVE.
 C180/C179/C178/C176 VALID NEGATIVE;C174/C175/C177 retain scoped PASS.
 C170-C173 PASS;C160/C168/C169 VALID NEGATIVE. All earlier judgments unchanged.
 C185 executionHEAD36c0ab26de2334f8b54d3e0754bf408deec7f0db.
-No C185 rerun,checkpoint replacement or production adoption.
+No C185 rerun,checkpoint replacement or production adoption. Use final C186 registration HEAD.
 
 ## Accepted chain / scope
 
 Latest detail:docs/experiment-ledger-addendum-c185-c186.md,then c184-c185.md,
 c183-c184.md,c182-c183.md,c181-c182.md and earlier chained addenda.
-Full previous handoff at36c0ab26de2334f8b54d3e0754bf408deec7f0db retains earlier detail.
+Previous handoff at4ce19a7f08717fef8c963f53282cc4340458700f retains C185 acceptance state.
+Full earlier history at36c0ab26de2334f8b54d3e0754bf408deec7f0db remains available.
 C151 per layout WITHIN_FACTOR20727/20736,GLOBAL_CONCEPT20736/20736;9known errors unchanged.
 C152-C167 retain original acquisition/authority/recovery/warm scopes.
 C170transports72fields;C171handwritten bounded proof checker;C172reserves typed actions;
@@ -70,10 +73,9 @@ External fact/reference IDs and other facts retained;source files runtime-only.
 Single-owner synchronous episodes;no production changes/network/proof/answer/
 coreEvidenceState/durable DB. End after at most one attempt and two decisions.
 All formal attempted acquisitions succeeded. Learned behavior after failed/nonadmitted
-acquisition remains unmeasured;synthetic failure unit tests do not establish it.
-Suggested next boundary:successful versus failed acquisition with frozen reclassification,
-real consumed resource/outcome fields,no retry. C186 not registered at acceptance.
-No multiple-target/tool-selection,larger/repeated-variable/language/finalGateE claim.
+acquisition was not measured by C185;synthetic failure unit tests do not establish it.
+C186 addresses this boundary. No multiple-target/tool-selection,larger/repeated-variable/
+language/finalGateE claim. Controls keep every unnecessary/missed acquisition.
 
 ## Evidence / reviewer scope
 
@@ -96,6 +98,48 @@ C180/C179/C178/C177/C176/C174paths/hashes remain in previous addenda/runners.
 DataSHA256eaae9aef5f64a204fe4d249bccbd437cd42f90172cd6f0eeb91be834b9450c65.
 Retain all outputs; prior negative observations are never overwritten.
 
+## Active C186 — non-admission is not sufficient evidence
+
+C186-v5e-nonadmission-reclassification / V5-E-NONADMISSION-RECLASSIFICATION.
+Question:do frozen candidates retain correct NEEDS when attempted acquisition adds no
+admissible information,while still becoming SUFFICIENT after real successful admission?
+Same sixC181checkpoints/source seeds181001/2/3,same C185driver/runtime/target/inversebinding.
+No training/newseed/teacher/auxhead/threshold/ensemble/answer/proof/retry.
+Change ONLY provider return AFTER actual file read:FOUND_ZERO,FOUND_ONE,NO_DELIVERY,
+WRONG_VALUE(bit flip with witness unchanged),PROVIDER_FAILURE(existing exception).
+Failures are injected return-path cases,not realistic timeout/OSfile-open failures.
+Runtime validates/rejects using unchanged C173;it does not publish a fictitious0.
+
+All3712one-missing developmental rows x2layouts x5scenarios x8policies =296960episodes,
+80blocks. All3candidate models:111360episodes. Rulecontrols74240episodes.
+Static replay56376neural predictions;initiallive222720;postlive0..222720measured,
+upperbound501816includingreplay. All32successblocks replay original C185 NPZ
+inputs/decisions/logits<=1e-6;allfault INITIAL phases must match original C185 as well.
+Replay/source mismatch=>INVALID,not a new behavior. New fault POST errors=>scientific.
+Resources first11/4/step8,post7/3/step12;actual NONE0/MISSING_DELIVERY4/INVALID_EVIDENCE6
+outcomes stay visible. Failure retains entire unknown record/reference and all other
+facts. No status/permission/budget reset or proof/label correction. At mostONEattempt,
+TWODECISIONS;raw NEEDS ends UNRESOLVED,not a retry. Raw false SUFFICIENT stays scored.
+
+Expected correct candidates:23040attempts,9216publications,13824nonadmissions,88320skips.
+All3candidates/all37120episodes each must have0initial/post/missed/unnecessary/contract
+failures. Allpolicies must retainengineeringcontracts. MISSING_RULE3712calls/block,
+2944unnecessary and2944posterrors on faultblocks;NEVER_QUERY0calls/768missed perblock.
+Finite miss VALID NEGATIVE;replay/schema/nonfinite/source/protection/incomplete=>sameC186
+validity recovery. No C185result rewrite. Same4development groups,not independent semantics.
+
+Inherited92historicalpins,200protectedpaths plusouterC37/fixture.13artifacts:
+plan,replay,results,compressedtraces,NPZplus8unchangedC185snapshotbytes.
+Manifest0cbe7212e5bafd9fc52f3f315d2d4732afaca6eb11940c6fa16ac58aeb336edc.
+32newhelpertestsPASS on actual self-contained newmodule with SYNTHETICdelivery/fetch/
+packet-shapedtraces and replayarrays. NOT oldC185driver/C173owner/checkpoint integration.
+TwoPythonfilescompile,threeembeddedPythonblocksparse;notWindowsPowerShell execution.
+Full1317tests/200inputchain/official296960episodes UNEXECUTED;no new-condition model
+scores known. Existing source files unmodified;no production latency/peakVRAM claims.
+**1317expected=1285+32;70modules.** Run tools/run_c186.ps1 withC185/C184/C183/C182/C181/
+C180/C179/C178/C177/C176/C174summaries/ExpectedHead. Progressstaticreplay,blocks1/80..80/80,
+RESULT/POSTCHECK. JudgeC186->ledger/handoff->next. **No C187 before judgment.**
+
 ## Migration / project limits
 
 Monorepo C1745e05168e maps to standalone19603c7267;C173source2cc2b1f4 maps to61c78906.
@@ -103,4 +147,4 @@ d011b139runner-only migration fix enabled C174;new guards use standalone Gitblob
 No reset/rebase/history rewrite or historical artifact commit_sha modification.
 Gate E nine-family contract unchanged;final assessment requires full candidate,baselines,
 splits,numerical preregistration. Multi-Axis/MA-1 and PC-ALM/FHLC are SEPARATE tracks.
-No language,Vision,long-context,durable-memory,latency/VRAM claim. C186 not registered.
+No language,Vision,long-context,durable-memory,latency/VRAM claim. C187 not registered.
