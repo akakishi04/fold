@@ -1,11 +1,11 @@
 === C195 repository preflight ===
 === FOLD C195 V5-E generic-loop budget12 exhaustion safety ===
-repository = akakishi04/fold; branch = feat/sft-target-loss; commit = 33da93a7e227799988cad0762b1d73e6cdefe92f
+repository = akakishi04/fold; branch = feat/sft-target-loss; commit = 4cfa9238d335f734a58cb602baa7edf369eeb6b6
 changed variable = initial internal_remaining13 ->12 only; C194 generic loop reused unchanged
 accepted C191 budget12 predictions/read depths/exhaustion are the exact reference
 expected_focused_tests = 1605 (1581 existing +24 new); Gate_E = NOT_PASSED
 source_and_artifact_precheck = PASS; accepted C194 parent and C191 reference fixed
-output_dir = M:\asobiba\fold\runs\c195-v5e-budget12-exhaustion-c0ae48ff52a14fd996ff4168458e112c
+output_dir = M:\asobiba\fold\runs\c195-v5e-budget12-exhaustion-679b5e6fd9ab4117a7bb15428fd3a76e
 === focused regression ===
 test_boolean_canonicalizer_maps_only_selected_signed_channels (tests_lm.test_v05_controller.V05ControllerTests.test_boolean_canonicalizer_maps_only_selected_signed_channels) ... ok
 test_boolean_canonicalizer_rejects_ambiguous_threshold_value (tests_lm.test_v05_controller.V05ControllerTests.test_boolean_canonicalizer_rejects_ambiguous_threshold_value) ... ok
@@ -1602,8 +1602,8 @@ test_07_exhausted_status (tests_lm.test_v05_c195_generic_loop_budget12_exhaustio
 test_08_exhausted_resources_exact (tests_lm.test_v05_c195_generic_loop_budget12_exhaustion.C195Tests.test_08_exhausted_resources_exact) ... ok
 test_09_no_unauthorized_phase3_prediction (tests_lm.test_v05_c195_generic_loop_budget12_exhaustion.C195Tests.test_09_no_unauthorized_phase3_prediction) ... ok
 test_10_earlier_sufficient_still_stops (tests_lm.test_v05_c195_generic_loop_budget12_exhaustion.C195Tests.test_10_earlier_sufficient_still_stops) ... ok
-test_11_reference_replay_exact (tests_lm.test_v05_c195_generic_loop_budget12_exhaustion.C195Tests.test_11_reference_replay_exact) ... ERROR
-test_12_replay_detects_unauthorized_final (tests_lm.test_v05_c195_generic_loop_budget12_exhaustion.C195Tests.test_12_replay_detects_unauthorized_final) ... ERROR
+test_11_reference_replay_exact (tests_lm.test_v05_c195_generic_loop_budget12_exhaustion.C195Tests.test_11_reference_replay_exact) ... ok
+test_12_replay_detects_unauthorized_final (tests_lm.test_v05_c195_generic_loop_budget12_exhaustion.C195Tests.test_12_replay_detects_unauthorized_final) ... ok
 test_13_gate_accepts (tests_lm.test_v05_c195_generic_loop_budget12_exhaustion.C195Tests.test_13_gate_accepts) ... ok
 test_14_gate_requires_nine (tests_lm.test_v05_c195_generic_loop_budget12_exhaustion.C195Tests.test_14_gate_requires_nine) ... ok
 test_15_gate_rejects_fake_final (tests_lm.test_v05_c195_generic_loop_budget12_exhaustion.C195Tests.test_15_gate_rejects_fake_final) ... ok
@@ -1617,32 +1617,24 @@ test_22_reference_loader_rejects_schema (tests_lm.test_v05_c195_generic_loop_bud
 test_23_run_reuses_generic_loop (tests_lm.test_v05_c195_generic_loop_budget12_exhaustion.C195Tests.test_23_run_reuses_generic_loop) ... ok
 test_24_run_uses_child_reference_loader (tests_lm.test_v05_c195_generic_loop_budget12_exhaustion.C195Tests.test_24_run_uses_child_reference_loader) ... ok
 
-======================================================================
-ERROR: test_11_reference_replay_exact (tests_lm.test_v05_c195_generic_loop_budget12_exhaustion.C195Tests.test_11_reference_replay_exact)
 ----------------------------------------------------------------------
+Ran 1605 tests in 76.270s
+
+OK
+[C195] plan fixed; C194 generic loop held; only budget13->12; C191 exact reference
 Traceback (most recent call last):
-  File "M:\asobiba\fold\tests_lm\test_v05_c195_generic_loop_budget12_exhaustion.py", line 146, in test_11_reference_replay_exact
-    m=c195.reference_replay_metrics(arr,ref)
-  File "M:\asobiba\fold\fold_lm\v05_benchmarks\gate_e_c195_generic_loop_budget12_exhaustion.py", line 78, in reference_replay_metrics
-    ndelta=float(np.max(np.abs(zcur[nmask]-zref[nmask]))) if nmask.any() else 0.0
-                               ~~~~^^^^^^^
-IndexError: boolean index did not match indexed array along axis 0; size of axis is 1 but size of corresponding boolean axis is 3
-
-======================================================================
-ERROR: test_12_replay_detects_unauthorized_final (tests_lm.test_v05_c195_generic_loop_budget12_exhaustion.C195Tests.test_12_replay_detects_unauthorized_final)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "M:\asobiba\fold\tests_lm\test_v05_c195_generic_loop_budget12_exhaustion.py", line 156, in test_12_replay_detects_unauthorized_final
-    m=c195.reference_replay_metrics(arr,three_need_reference())
-  File "M:\asobiba\fold\fold_lm\v05_benchmarks\gate_e_c195_generic_loop_budget12_exhaustion.py", line 78, in reference_replay_metrics
-    ndelta=float(np.max(np.abs(zcur[nmask]-zref[nmask]))) if nmask.any() else 0.0
-                               ~~~~^^^^^^^
-IndexError: boolean index did not match indexed array along axis 0; size of axis is 1 but size of corresponding boolean axis is 3
-
-----------------------------------------------------------------------
-Ran 1605 tests in 71.110s
-
-FAILED (errors=2)
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "M:\asobiba\fold\fold_lm\v05_benchmarks\gate_e_c195_generic_loop_budget12_exhaustion.py", line 452, in <module>
+    if __name__=="__main__": main()
+                             ~~~~^^
+  File "M:\asobiba\fold\fold_lm\v05_benchmarks\gate_e_c195_generic_loop_budget12_exhaustion.py", line 451, in main
+    run(**vars(p.parse_args()))
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\fold_lm\v05_benchmarks\gate_e_c195_generic_loop_budget12_exhaustion.py", line 380, in run
+    base_totals["second_reads"]!=ref_rec["second_provider_calls"],
+                                 ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'second_provider_calls'
 === C195 POSTCHECK ===
 protected_inputs = preserved; tracked_tree = clean; execution_HEAD = preserved
 run_execution_valid = False
