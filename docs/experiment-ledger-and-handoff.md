@@ -8,29 +8,35 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C195 ACCEPTED PASS. C196 NOT REGISTERED at this acceptance commit.**
+**C195 ACCEPTED PASS. C196 ACTIVE / NOT YET JUDGED. C197 NOT REGISTERED.**
 
 C195 execution HEAD:
 `485d32b9dba0b0df34709d631a9d454629a1570e`
-C195 published log commit:
-`2589b6a70873384b8dae3c5932e7d42642478428`
+C195 acceptance commit:
+`988090c3d047eb1360dc06a7e3fb3956027124b3`
 C195 summary SHA:
 `614ffe9ee4794f102416bc5e51de1cd9510fde41ec4b43eb436377d9780a9b62`.
 
-C195:1605/1605;85824 episodes; all replay/runtime/status/resource/fake-final errors0;
-first reads85824; second34948; third8352; exhausted rows8352; sufficient rows77472.
+C195:1605/1605;85824 episodes; budget12 replay exact; exhausted rows8352;
+fake final0; unauthorized final inference0; all runtime/resource errors0.
 
-Claim:
-the accepted generic loop handles original budget12 safely and reproduces accepted C191 exactly.
+## Active C196
 
-## Next design
+One orchestration change:
+generic loop re-enters only after an actually admitted/published acquisition.
 
-C196 one question:
-with the generic loop and budget13 held, does initial RETRIEVE permission denial cause exactly
-one denied acquisition attempt followed by safe UNRESOLVED termination, with no provider call,
-publication, retry, fake evidence or fake SUFFICIENT?
+Arms:
+1. ALLOWED — exact accepted C194 replay under budget13.
+2. PERMISSION_REVOKED_AFTER_DECISION — learned iteration0 decision remains on allowed state,
+   then trusted refresh revokes RETRIEVE permission before action proposal.
 
-Reference semantics come from accepted C187 permission denial, but C196 tests them inside the
-generic multi-step loop.
+Denied-arm expected:
+one decision + one DENIED/PERMISSION_DENIED attempt, no dispatch/provider/publication/receipt/
+retry, no fact mutation/fake sufficient, final resources11/4/permission0/outcome2/step9.
+
+Expected regression1629;81 modules.
+Source pins141;protected paths374;artifacts5.
+Manifest:
+`cbbbcdac61d729e6c73a86d6e3c70ed74189db33bb4c9c2ea557becb630a2457`.
 
 C197 remains unregistered until C196 judgment.
