@@ -108,7 +108,24 @@ summary全文をチャットへ再掲しない。gateを決める deciding metri
 - execution-validity replay と scientific correctnessを分離する。
 - PASSでもGate E completionや一般化を自動的に主張しない。
 
-### 0.9 Handoff更新
+### 0.9 Experiment authoring quality gate
+
+新しいC番号をユーザーへ渡す前に、実装側で以下を必須チェックする。これを通していないCを「実行可能」と表現しない。
+
+- UTF-8 / NULなし / import可能なsource構造
+- manifest self-hash と固定SHAの一致
+- new test定義数とexpected regression総数の一致
+- runnerのmodule list件数とCLI引数index整合
+- **parent artifact contract audit**: childが読むNPZ/JSON/checkpointのschemaを、実際にそれを生成したparent Cのoutput contractと照合する
+- parent helper再利用時は「名前が似ている」だけで使わず、そのhelperがどのCのartifact schemaを読む関数か確認する
+- child自身にloaderがある場合、run pathが実際にそのloaderを呼んでいることをsource-level testで固定する
+- synthetic unit testだけでなく、少なくとも1本は本番run pathのcall ordering / resource accounting / loader dispatchを検証する
+- preregistrationに書いた数字（cohort, blocks, expected reads, protected count, artifact count）とcode定数を相互照合する
+
+このquality gateは科学的regressionとは別物で、**実験ハーネスの作者側の品質確認**である。
+ここで見つかる問題をユーザー実行時のINVALIDで初めて発見する状態を減らす。
+
+### 0.10 Handoff更新
 
 accepted result: `experiment-ledger-addendum-c{N}-c{N+1}.md` + authoritative handoff。
 INVALID: 同じCの execution-recovery addendumへ追記。

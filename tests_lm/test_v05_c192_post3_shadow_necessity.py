@@ -112,6 +112,10 @@ class C192Tests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             p=Path(td)/"p.npz";np.savez_compressed(p,x=np.zeros(1))
             with self.assertRaises(ValueError):c192.load_parent_predictions(p)
+        import inspect
+        source=inspect.getsource(c192.run)
+        self.assertIn('saved=load_parent_predictions(',source)
+        self.assertNotIn('saved=c191.load_parent_predictions(',source)
 
     def test_18_assess_shadow_pass(self):
         with mock.patch.object(c190,"logical_label",return_value=0):

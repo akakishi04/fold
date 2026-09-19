@@ -20,6 +20,23 @@ C191 summary SHA:
 C191: 1509/1509;85824 episodes; third acquisitions8352; final logical NEEDS0;
 fourth decision accepted0; all replay/action/contract counters0.
 
+## C192 invalid-attempt recovery
+
+First C192 attempt at execution HEAD `0c83f43c85dd535deb3fcccc2310a8e3d215f3a4`
+is **INVALID EXECUTION / RETRY SAME C192**. Precheck and all1533 tests passed. Benchmark
+stopped before block1 because the C192 run path accidentally used
+`c191.load_parent_predictions()`, which expects the C190 parent NPZ schema, instead of
+C192's own loader for the C191 output schema.
+
+Published log commit `e2a136ee81d861ea81b48d12697891ff42aca3a0`;
+log SHA256 `03d3ce1ddc01520ddc3876be7c9ce12a1ee4bd950386ca385bc651e608b85687`.
+
+Recovery changes only loader dispatch and adds a source-level assertion. No scientific
+condition changes. The authoring protocol now also requires parent artifact/schema/loader
+dispatch audits before presenting future C numbers as runnable.
+
+Retry SAME C192; C193 remains unregistered.
+
 ## Active C192
 
 One question:

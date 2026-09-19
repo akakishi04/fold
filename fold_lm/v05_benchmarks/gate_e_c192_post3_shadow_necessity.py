@@ -242,7 +242,7 @@ def run(*,output_dir,expected_head,**parents):
         tids=data["template_ids"][evfull]
 
         pdir=Path(parents["c191_summary"]).resolve().parent
-        saved=c191.load_parent_predictions(pdir/"episode-predictions.npz")
+        saved=load_parent_predictions(pdir/"episode-predictions.npz")
         require(np.array_equal(saved["row_indices"],source_rows)
                 and np.array_equal(saved["local_rows"],local_rows)
                 and np.array_equal(saved["world_codes"],world_codes),"C191 episode identity drift")
