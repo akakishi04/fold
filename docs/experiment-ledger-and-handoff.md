@@ -8,35 +8,39 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C194 ACCEPTED PASS. C195 NOT REGISTERED at this acceptance commit.**
+**C194 ACCEPTED PASS. C195 ACTIVE / NOT YET JUDGED. C196 NOT REGISTERED.**
 
-C194 scientific execution HEAD:
+C194 execution HEAD:
 `32e62fe1b2e8318daa766aff1bfcc1f0fc49d95a`
-C194 published log commit:
-`eaa3169e31e88eba0ec99a64c557099ba1a4f71e`
+C194 acceptance commit:
+`53b9d957763a76003321b63af2ed4255b5a6b835`
 C194 summary SHA:
 `6cdb274da944bc87cea29f2e093d4acdec6035dae6978adaf469f1d9b4dfa084`.
 
-C194:1581/1581;85824 episodes; all scientific errors0; C193 replay prediction/logit
-errors0; parent block mismatches0; first reads85824; second34948; third8352;
-final authoritative decision rows8352.
+C194:1581/1581;85824 episodes; scientific errors0; exact C193 prediction/logit/read-depth
+replay; generic bounded loop equivalent to accepted hand-unrolled C193 path.
 
-Claim:
-one generic state-driven bounded decide/acquire/reobserve loop reproduces accepted C193
-exactly. Hand-unrolled phase orchestration is no longer required for this development-family
-closure.
+## Active C195
 
-## Next design
+One variable:
+initial `internal_remaining 13 -> 12`.
 
-C195 one question:
-with the generic C194 loop held fixed and only initial internal budget changed13->12, does
-the loop reproduce accepted C191 budget-exhaustion behavior safely?
+Generic C194 loop is reused unchanged.
 
 Reference:
-accepted C191 budget12 predictions/read depths/final resources.
+accepted C191 budget12 behavior and prediction artifact.
 
-Expected boundary:
-third acquisition may consume the final3 internal units; the next scheduler debit must fail
-without state mutation, provider read, publication, or fake final SUFFICIENT decision.
+Question:
+does the generic loop stop safely at budget exhaustion after a third acquisition, with
+resources0/1/19, no fourth learned prediction, no fake SUFFICIENT, no extra read, while
+earlier-resolving rows still stop normally?
+
+Expected:
+928 exhausted rows/selector, exact C191 phase0/1/2 predictions and read depths.
+
+Expected regression1605;80 modules.
+Source pins136;protected paths363;artifacts5.
+Manifest:
+`ebfa3e2f916368b4e2b07efa072c9f9c2b4ec62cb0c77ac69e3cb1f527b90128`.
 
 C196 remains unregistered until C195 judgment.
