@@ -1,0 +1,144 @@
+# C189 acceptance / C190 handoff
+
+V5-E; repository `akakishi04/fold`; branch `feat/sft-target-loss`.
+
+## Formal judgment
+
+**C189 — ACCEPTED PASS.**
+**C190 NOT REGISTERED at this acceptance commit.**
+Gate E remains **NOT PASSED**. Earlier judgments, checkpoints and valid negatives remain unchanged.
+
+Successful C189 execution identity:
+- scientific execution HEAD: `051165ac5b14600d36f38064e36785d767de934d`
+- published log commit: `54f284f9242ff6a7f797a89cedf35c2c22e76164`
+- published log: `docs/experiment-run-logs/c189/latest.log`
+- published metadata log SHA256: `ff92437802e69a0c93d2572b46291112ea916285f240c139fd352bb3e851141d`
+- published metadata log bytes: **342650**
+- run: `runs/c189-v5e-live-multimissing-target-19ae6f0a2dd8402492df6beab82dc3a3/summary.json`
+- summary SHA256: `a9388db7e28e25cf1b12e7f78e3068228ee5b5562da12a3a626fe054fead4b7a`
+- focused regression: **1449/1449**, 47.334s
+- source/artifact precheck: PASS
+- protected inputs preserved; tracked tree clean; scientific execution HEAD preserved
+- `run_execution_valid = True`
+- production runtime modified: **False**
+- Gate E candidate: **False**
+
+The three earlier C189 attempts remain execution-invalid history:
+1. malformed source bytes / NUL;
+2. manifest SHA transcription mismatch;
+3. synthetic unit-test epoch mismatch.
+None is scientific evidence.
+
+## Deciding evidence
+
+C189 reused all nine accepted C188 selectors:
+3 frozen C181 INTERNAL_SEMANTICS bases x 3 frozen C188 target heads,
+crossed with selected-fact source bit 0/1.
+
+Formal workload:
+- 18 blocks
+- 1768 multi-missing PILOT NEEDS rows per block
+- **31824 live episodes**
+- discriminating target subset 528 per block
+- one real acquisition maximum per episode
+- one post-acquisition necessity decision
+- no training / fresh seed / answer / proof / network call
+
+Reaggregated totals from the complete RESULT:
+- failed: **0**
+- initial necessity errors: **0**
+- target errors: **0**
+- C188 target replay errors: **0**
+- selected-observed: **0**
+- missed acquisitions: **0**
+- post necessity errors: **0**
+- runtime/contract errors: **0**
+- reservations: **31824**
+- provider calls: **31824**
+- publications: **31824**
+- decision charges: **63648**
+- total internal charged: **159120**
+- actual file reads: **31824**
+- provider bytes read: **7001280**
+- target replay rows: **15912**
+- total base rows: **68952**
+- total target rows: **47736**
+
+All nine accepted C188 target prediction sets replayed exactly:
+- predictions equal in all 9
+- max target-logit difference 0.0 in all 9
+
+After the single live acquisition:
+- post SUFFICIENT: **19595**
+- post NEEDS: **12229**
+- total: 31824
+- post logical-label errors: 0
+
+Every one of the 18 blocks had zero deciding error and exactly 1768 reads/publications.
+
+## Scientific interpretation
+
+C189 closes the first live multi-target boundary in this bounded development family:
+
+```text
+current multi-missing TaskView
+-> one frozen C181 base forward
+   -> learned NEEDS
+   -> frozen C188 learned WHICH-fact target
+-> raw learned target binds exactly one external fact endpoint
+-> unchanged C172 reservation
+-> unchanged C173 real file read/admission
+-> actual updated TaskView
+-> frozen C181 necessity reclassification
+```
+
+The learned selected fact, not a teacher/fallback target, really drove the live bounded acquisition.
+The selected fact alone was published; non-selected missing facts remained unchanged.
+Post-acquisition necessity was correct for every actual updated state.
+
+The 12229 post-NEEDS episodes are especially important: one influential fact is not always enough.
+C189 deliberately stopped unresolved there, so iterative target planning remains untested.
+
+## Claim / non-claim
+
+Claim:
+- accepted learned necessity + learned target selection can be connected to actual C172/C173
+  single-step acquisition without target repair or state/accounting drift;
+- target logits/argmax remain exactly consistent with accepted C188 at the initial boundary;
+- actual post-state necessity remains correct.
+
+Non-claim:
+- no second learned target/acquisition;
+- no learned stopping beyond semantic SUFFICIENT vs NEEDS;
+- no learned tool/provider choice;
+- no optimal information-gain claim;
+- no renaming intervention in this C number;
+- no natural language, repeated variables, larger expressions or independent final holdout;
+- no answer/proof generation;
+- no Gate E completion or production adoption.
+
+## Reviewer verification boundary
+
+The remote published C189 log and metadata were fetched directly after the user reported completion.
+The complete RESULT payload was parsed and independently reaggregated for:
+18 block identities, all deciding counters, 31824 reads/publications, 9 parent replays,
+post SUFFICIENT/NEEDS totals, and workload totals.
+
+The local summary/artifact/checkpoint bytes were not independently rerun by the reviewer.
+The reported summary SHA is taken from the run postcheck; the remote metadata records the source
+console-log SHA/bytes generated by the publisher.
+
+## Next single boundary
+
+C190 should test only iterative learned acquisition:
+
+> When the actual state is still NEEDS after the first learned target acquisition,
+> can the same frozen C181+C188 components select a new valid missing target, execute one
+> second real C172/C173 RETRIEVE without repeating the first fact, and then correctly
+> reclassify the second updated state?
+
+Use complete worlds consistent with each initial visible row so both first and second provider
+answers come from one coherent source snapshot. No new training, tool choice, answer/proof or
+third acquisition.
+
+C190 must be separately preregistered after this acceptance commit.
