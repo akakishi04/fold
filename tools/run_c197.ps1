@@ -46,6 +46,12 @@ function Confirm-Repository {
 }
 if(-not(Test-Path -LiteralPath $Python -PathType Leaf)){throw "Authoritative Python missing"}
 Confirm-Repository
+Write-Output "=== C197 authoring syntax preflight ==="
+& $Python -m py_compile `
+    (Join-Path $Root "fold_lm\v05_benchmarks\gate_e_c197_provider_failure_generic_loop.py") `
+    (Join-Path $Root "tests_lm\test_v05_c197_provider_failure_generic_loop.py")
+if($LASTEXITCODE -ne 0){throw "C197 Python syntax preflight failed"}
+Write-Output "python_syntax_preflight = PASS"
 Write-Output "=== FOLD C197 V5-E provider-failure reason propagation ==="
 Write-Output "repository = akakishi04/fold; branch = feat/sft-target-loss; commit = $ExpectedHead"
 Write-Output "changed rule = non-admitted dispatch reason becomes generic-loop unresolved terminal reason"

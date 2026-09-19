@@ -20,6 +20,23 @@ C196 summary SHA:
 C196:1629/1629; ALLOWED exact C194 replay; permission-revoked arm85824 safe denials;
 provider/publication/receipt/retry all0.
 
+## C197 invalid-attempt recovery
+
+The first C197 attempt at execution HEAD `675af144558c9528a8cde9e79d20a0c447736b72`
+is **INVALID EXECUTION / RETRY SAME C197**.
+
+Published log commit: `938b316cad79fdbcf0ccb63738387a5a0acd0a63`.
+Log SHA256: `c4c3eeff5c2557bc102ec6ba47ddf0f83a274688e15a1e243b07f69da8a4710b`.
+
+Failure occurred while importing the C197 benchmark during source/artifact precheck.
+Two call sites contained literal backslash-n characters between `run_loop_reason_aware(`
+and the argument list, producing a Python SyntaxError. Regression and scientific benchmark
+did not start, so the attempt contributes no scientific evidence.
+
+Recovery changes only those two source formatting errors and adds Python `py_compile`
+preflight for the C197 benchmark/test modules. Scientific manifest, arms, cohort, seeds,
+checkpoints, source worlds, thresholds and gate remain unchanged.
+
 ## Active C197
 
 One orchestration change:

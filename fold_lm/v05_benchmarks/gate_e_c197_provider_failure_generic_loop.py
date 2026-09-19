@@ -307,12 +307,14 @@ def run(*,output_dir,expected_head,**parents):
                         if arm=="ALLOWED":
                             before_reads=sum(p.reads for p in real_providers.values())
                             before_bytes=sum(p.bytes_read for p in real_providers.values())
-                            observed,arrays,_=run_loop_reason_aware(\n                                views,world_codes,real_endpoints,bases[b],heads[b,h],initial)
+                            observed,arrays,_=run_loop_reason_aware(
+                                views,world_codes,real_endpoints,bases[b],heads[b,h],initial)
                             reads=sum(p.reads for p in real_providers.values())-before_reads
                             bytes_read=sum(p.bytes_read for p in real_providers.values())-before_bytes
                         else:
                             before_calls=sum(p.calls for p in fault_adapters.values())
-                            observed,arrays,_=run_loop_reason_aware(\n                                views,world_codes,fault_endpoints,bases[b],heads[b,h],initial)
+                            observed,arrays,_=run_loop_reason_aware(
+                                views,world_codes,fault_endpoints,bases[b],heads[b,h],initial)
                             reads=0;bytes_read=0
                             adapter_calls=sum(p.calls for p in fault_adapters.values())-before_calls
                             for rec in observed: rec["arm"]=arm
