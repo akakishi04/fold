@@ -84,9 +84,10 @@ Per selector:
 
 All9 must pass.
 
-A completed finite scientific mismatch is **ACCEPTED VALID NEGATIVE**.
-Source/hash/schema/parent replay infrastructure/nonfinite/incomplete/protection failure is
-**INVALID EXECUTION / RETRY SAME C194**.
+A completed finite scientific mismatch — including a finite prediction/logit/read-depth
+difference caused by the generic orchestration itself — is **ACCEPTED VALID NEGATIVE**.
+Source/hash/schema/parent-artifact identity/loader/nonfinite infrastructure/incomplete/
+protection failure is **INVALID EXECUTION / RETRY SAME C194**.
 
 ## Interpretation
 

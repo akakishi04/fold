@@ -379,24 +379,28 @@ def run(*,output_dir,expected_head,**parents):
                         score["parent_block_mismatch"]=0
                         score["failed"]=int(score["failed"] or replay_error)
                         scores.append(score)
+
+                    base_totals={k:sum(s[k] for s in scores) for k in parent.COUNTERS}
+                    reads=sum(p.reads for p in providers.values())-before
+                    parent_rec=p193["records"][idx]
+                    block_mismatch=int(any((
+                        base_totals["first_reads"]!=parent_rec["first_reads"],
+                        base_totals["second_reads"]!=parent_rec["second_reads"],
+                        base_totals["third_reads"]!=parent_rec["third_reads"],
+                        base_totals["final_decision_rows"]!=parent_rec["final_decision_rows"],
+                        reads!=parent_rec["actual_reads"])))
+                    if block_mismatch:
+                        for score in scores:
+                            score["parent_block_mismatch"]=1
+                            score["failed"]=1
+
+                    for j,(score,rec) in enumerate(zip(scores,observed,strict=True)):
                         trace.write(json.dumps(dict(base_seed=b,head_seed=h,
                             source_row=int(source_rows[j]),world_code=int(world_codes[j]),
                             score=score,trace=rec),
                             sort_keys=True,separators=(",",":"),allow_nan=False)+"\n")
 
                     totals={k:sum(s[k] for s in scores) for k in parent.COUNTERS}
-                    reads=sum(p.reads for p in providers.values())-before
-                    parent_rec=p193["records"][idx]
-                    block_mismatch=int(any((
-                        totals["first_reads"]!=parent_rec["first_reads"],
-                        totals["second_reads"]!=parent_rec["second_reads"],
-                        totals["third_reads"]!=parent_rec["third_reads"],
-                        totals["final_decision_rows"]!=parent_rec["final_decision_rows"],
-                        reads!=parent_rec["actual_reads"])))
-                    if block_mismatch:
-                        for score in scores:
-                            score["parent_block_mismatch"]=1
-                            score["failed"]=1
                     rec=dict(base_seed=b,head_seed=h,episodes=9536,actual_reads=reads,
                         parent_necessity_prediction_errors=replay["necessity_prediction_errors"],
                         parent_target_prediction_errors=replay["target_prediction_errors"],
@@ -405,7 +409,6 @@ def run(*,output_dir,expected_head,**parents):
                         parent_replay_error=int(replay_error*9536),
                         parent_block_mismatch=int(block_mismatch*9536),
                         **totals)
-                    rec["failed"]+=int(replay_error*9536)+int(block_mismatch*9536)
                     records.append(rec)
                     print(f"[C194] block={len(records)}/9 base={b} head={h} failed={rec['failed']} "
                           f"reads={reads} second={rec['second_reads']} third={rec['third_reads']} "

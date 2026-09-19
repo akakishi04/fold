@@ -202,6 +202,7 @@ class C194Tests(unittest.TestCase):
         source=inspect.getsource(c194.run)
         self.assertIn('saved=load_parent_predictions(',source)
         self.assertNotIn('saved=parent.load_parent_predictions(',source)
+        self.assertLess(source.index("block_mismatch=int"),source.index("trace.write("))
 
 if __name__=="__main__":
     unittest.main(verbosity=2)
