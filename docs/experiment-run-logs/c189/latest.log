@@ -1,0 +1,12 @@
+=== C189 repository preflight ===
+=== FOLD C189 V5-E live multi-missing target acquisition ===
+repository = akakishi04/fold; branch = feat/sft-target-loss; commit = 8733da67f8fee522d4deb2417c942ac734b582a9
+all nine frozen accepted C188 selectors; three frozen C181 INTERNAL_SEMANTICS bases; no training
+1768 PILOT NEEDS rows x2 selected-fact bits x9 selectors =31824 live episodes /18 blocks
+one shared initial forward emits necessity+target; exact learned target drives C172/C173 RETRIEVE
+identity/original C174 local layout only; max1 acquisition; post necessity once; no second acquisition/answer/proof
+expected_focused_tests = 1449 (1413 existing + 36 new); Gate_E = NOT_PASSED
+Traceback (most recent call last):
+  File "<string>", line 3, in <module>
+    from fold_lm.v05_benchmarks import gate_e_c189_live_multimissing_target as b
+SyntaxError: source code string cannot contain null bytes
