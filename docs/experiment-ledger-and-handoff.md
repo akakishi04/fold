@@ -73,6 +73,22 @@ Uploaded C188 log315279bytes SHA256
 `8f8308404031fc894db07360f80b54eebff3c64db05fc84e7eb50fba5dc1887b`.
 Canonical summary79138bytes/reconstructed hash exact.
 
+## C189 invalid-attempt recovery
+
+First C189 attempt at execution HEAD `8733da67f8fee522d4deb2417c942ac734b582a9`
+is **INVALID EXECUTION**: source/artifact precheck failed before regression/model work
+because the registered C189 benchmark source contained NUL/non-UTF-8 bytes
+(`SyntaxError: source code string cannot contain null bytes`).
+
+Published invalid log:
+`docs/experiment-run-logs/c189/latest.log` at log commit
+`a7fe8158df96f41541579be4f35722daf81e6687`,
+SHA256 `3bf74d001b1ec24cc202df77a9ab7ebe3ff5f17ff4122aafd3b643d5d0d7a5b2`.
+
+Recovery changes only source serialization/implementation validity. Scientific manifest,
+seeds, checkpoints, cohort, workload, gate and interpretation remain unchanged.
+Retry SAME C189; C190 remains unregistered.
+
 ## Active C189 — live learned multi-missing target acquisition
 
 Experiment:
