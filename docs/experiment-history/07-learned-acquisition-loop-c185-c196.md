@@ -1,4 +1,4 @@
-# Learned acquisition and generic loop — C185-C195
+# Learned acquisition and generic loop — C185-C196
 
 ## Scientific subject
 
@@ -147,10 +147,20 @@ C194/C195 therefore establish both sides of the explicit scheduler boundary:
 - budget13 -> authoritative final SUFFICIENT
 - budget12 -> safe exhaustion without fabricated completion
 
-## Current boundary after C195
+### C196 — result-aware generic loop under post-decision permission revocation — PASS
+Two full 85,824-episode arms:
+- ALLOWED reproduced accepted C194 exactly;
+- PERMISSION_REVOKED_AFTER_DECISION produced 85,824 DENIED/PERMISSION_DENIED attempts;
+- provider calls/publications/receipts/retries all 0;
+- fact mutation/fake SUFFICIENT/resource errors all 0.
+
+This establishes that loop continuation is conditioned on actual OBSERVATION_ADMITTED publication,
+not merely on attempting an acquisition.
+
+## Current boundary after C196
 
 Still not established:
-- generic-loop authority/provider denial behavior (C196 is active at this report cut);
+- post-reservation provider-failure reason propagation (C197 is active at this report cut);
 - learned resource policy;
 - arbitrary/unbounded looping;
 - learned tool/provider choice;

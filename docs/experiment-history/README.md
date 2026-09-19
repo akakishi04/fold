@@ -27,7 +27,7 @@ Git commits remain authoritative for exact reproduction.
 4. [Evidence lifecycle and live terminal path — C152-C167](04-evidence-lifecycle-live-terminal-c152-c167.md)
 5. [Structured interface and runtime contracts — C168-C173](05-structured-interface-contracts-c168-c173.md)
 6. [Learned necessity and semantic representation — C174-C184](06-learned-necessity-semantics-c174-c184.md)
-7. [Learned acquisition and generic loop — C185-C195](07-learned-acquisition-loop-c185-c195.md)
+7. [Learned acquisition and generic loop — C185-C196](07-learned-acquisition-loop-c185-c196.md)
 8. [Execution-invalid / harness recovery history](08-execution-invalid-recovery-history.md)
 
 ## Reading rule
