@@ -20,6 +20,19 @@ C194 summary SHA:
 C194:1581/1581;85824 episodes; scientific errors0; exact C193 prediction/logit/read-depth
 replay; generic bounded loop equivalent to accepted hand-unrolled C193 path.
 
+## C195 invalid-attempt recovery
+
+First C195 attempt at execution HEAD `33da93a7e227799988cad0762b1d73e6cdefe92f`
+is **INVALID EXECUTION / RETRY SAME C195**. Precheck passed; all1605 tests ran; exactly two
+C195 unit tests errored before benchmark execution because the synthetic C191 reference fixture
+omitted its leading batch dimension. The real C191 artifact contract is already batched.
+
+Published log commit `f216c5f701799516a152025f3be8c3d1b08f220e`;
+log SHA256 `67597c92c4b7b3e738424bc29ad242f71cd072152dc530b0d821508237d4f7ff`.
+
+Only the test fixture rank is corrected. No scientific condition changes.
+Retry SAME C195; C196 remains unregistered.
+
 ## Active C195
 
 One variable:

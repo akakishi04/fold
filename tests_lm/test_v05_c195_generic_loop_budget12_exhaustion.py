@@ -51,10 +51,10 @@ def initial_for(views,target_index=0):
 
 def three_need_reference():
     return dict(
-        necessity_predictions=np.asarray([1,1,1],dtype=np.int8),
-        necessity_logits=np.zeros((3,2),dtype=np.float32),
-        target_predictions=np.asarray([0,1,2],dtype=np.int8),
-        target_logits=np.zeros((3,4),dtype=np.float32))
+        necessity_predictions=np.asarray([[1,1,1]],dtype=np.int8),
+        necessity_logits=np.zeros((1,3,2),dtype=np.float32),
+        target_predictions=np.asarray([[0,1,2]],dtype=np.int8),
+        target_logits=np.zeros((1,3,4),dtype=np.float32))
 
 def good_records():
     rows=[]
