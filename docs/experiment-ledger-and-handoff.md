@@ -20,6 +20,18 @@ C190 summary SHA:
 C190: 1485/1485;85824 episodes; all scientific errors0; first reads85824;
 second reads34948; post2 NEEDS8352; initial replay deltas0.0.
 
+## C191 invalid-attempt recovery
+
+First C191 attempt at execution HEAD `329c40c4d418eebeffbbda6cc2513e35c6aeef86`
+is **INVALID EXECUTION**. Precheck passed; all1509 tests ran; exactly one wording-only
+C191 assertion failed before benchmark execution. Manifest says `exactly one unobserved fact`,
+while the test searched for `sole remaining unknown`. Only the test assertion is corrected.
+
+Published log commit `66010b575cb42008eea7404265da8372e265d36e`;
+log SHA256 `16d2c7b3ea9b2e214ad1df0fa6d873b45d1fcf882a588b64b56cace30bb5066c`.
+
+No scientific condition changes. Retry SAME C191; C192 remains unregistered.
+
 ## Active C191
 
 Question: with unchanged internal budget12, extend max acquisition horizon from2 to3.

@@ -181,7 +181,7 @@ class C191Tests(unittest.TestCase):
             self.assertEqual((p.reads,len(rec[0]["acquisitions"])),(2,2))
 
     def test_20_target2_scope_declared_trivial(self):
-        self.assertIn("sole remaining unknown",c191.manifest()["target2_scope"])
+        self.assertIn("exactly one unobserved fact",c191.manifest()["target2_scope"])
 
     def test_21_budget_is_unchanged(self):
         self.assertIn("start12/4/step7",c191.manifest()["resources"])
