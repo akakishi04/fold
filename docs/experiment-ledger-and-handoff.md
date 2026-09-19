@@ -54,6 +54,21 @@ actual-state reclassification. It deliberately stops on the 12229 remaining NEED
 The three earlier C189 attempts remain execution-invalid history only:
 malformed source bytes; manifest-hash transcription; synthetic test epoch mismatch.
 
+## C190 invalid-attempt recovery
+
+First C190 attempt at execution HEAD `e0e47b44dbda4a5a4ad470f42911d4ce2687e587`
+is **INVALID EXECUTION**. Precheck and all 1485 focused tests passed, then the benchmark
+stopped before model work because the C190 guard misread C188's discriminating
+`profile["eval_m2"/"eval_m3"] = 376/152` as full-cohort counts 1152/616.
+
+The full `evfull` mask itself is correct. Recovery checks full counts directly from
+`miss[evfull]` (1152/616) and separately checks discriminating counts (376/152; total528).
+No scientific condition changes. Published invalid log commit:
+`8ec5932922231f0f88478bd12c5d3de89f104df7`,
+log SHA256 `c875c9fab740753903636a6d9557c621ba85c8655fdd71deb47efb102e2943d6`.
+
+Retry SAME C190; C191 remains unregistered.
+
 ## Active C190 — iterative learned multi-missing acquisition
 
 Experiment:

@@ -492,8 +492,13 @@ def run(*,output_dir,expected_head,**parents):
         valid=parent.target_teacher(data["features"],data["template_ids"],metadata)
         _,_,evfull,miss,profile=target.cohort_masks(raw_all,data["labels"],data["split_codes"],valid)
         full_ix=np.flatnonzero(evfull)
-        require(len(full_ix)==1768 and profile["eval_m2"]+profile["eval_m3"]==1768
-                and profile["eval_m2"]==1152 and profile["eval_m3"]==616,"C190 cohort drift")
+        full_missing=miss[evfull]
+        require(len(full_ix)==1768
+                and int((full_missing==2).sum())==1152
+                and int((full_missing==3).sum())==616
+                and profile["eval_discriminating"]==528
+                and profile["eval_m2"]==376 and profile["eval_m3"]==152,
+                "C190 cohort drift")
         raw=torch.from_numpy(data["features"][evfull].copy())
         expanded,source_rows,local_rows,world_codes=expand_worlds(raw,full_ix)
         require(len(expanded)==9536,"C190 expanded cohort drift")
