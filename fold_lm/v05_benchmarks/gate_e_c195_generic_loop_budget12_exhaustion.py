@@ -153,6 +153,26 @@ def assess(record,reference_n,reference_t,template_id,metadata,world_bits):
 def expected_order():
     return [(b,h) for b in BASE_SEEDS for h in HEAD_SEEDS]
 
+def reference_block_expectations(ref_rec):
+    """Normalize the accepted C191 per-block record through its actual schema."""
+    required={"episodes","parent_second_reads","third_provider_calls","actual_reads",
+              "parent_final_needs","final_logical_needs","fourth_decision_accepted"}
+    require(isinstance(ref_rec,dict) and required.issubset(ref_rec),
+            "C191 reference record schema drift")
+    for key in required-{"episodes"}:
+        require(type(ref_rec[key]) is int and ref_rec[key]>=0,
+                "C191 reference record counter drift:"+key)
+    require(ref_rec["episodes"]==9536,"C191 reference episode count drift")
+    require(ref_rec["parent_final_needs"]==ref_rec["third_provider_calls"]==928,
+            "C191 reference exhausted/third-read count drift")
+    require(ref_rec["final_logical_needs"]==0
+            and ref_rec["fourth_decision_accepted"]==0,
+            "C191 reference final boundary drift")
+    return dict(second_reads=ref_rec["parent_second_reads"],
+                third_reads=ref_rec["third_provider_calls"],
+                exhausted_rows=ref_rec["third_provider_calls"],
+                actual_reads=ref_rec["actual_reads"])
+
 def gate(records):
     if [(r.get("base_seed"),r.get("head_seed")) for r in records]!=expected_order():
         return False
@@ -376,11 +396,12 @@ def run(*,output_dir,expected_head,**parents):
                     base_totals={k:sum(s[k] for s in scores) for k in COUNTERS}
                     reads=sum(p.reads for p in providers.values())-before
                     ref_rec=p191ref["records"][idx]
+                    ref_expected=reference_block_expectations(ref_rec)
                     block_mismatch=int(any((
-                        base_totals["second_reads"]!=ref_rec["second_provider_calls"],
-                        base_totals["third_reads"]!=ref_rec["final_needs"],
-                        base_totals["exhausted_rows"]!=ref_rec["final_needs"],
-                        reads!=ref_rec["actual_reads"])))
+                        base_totals["second_reads"]!=ref_expected["second_reads"],
+                        base_totals["third_reads"]!=ref_expected["third_reads"],
+                        base_totals["exhausted_rows"]!=ref_expected["exhausted_rows"],
+                        reads!=ref_expected["actual_reads"])))
                     if block_mismatch:
                         for score in scores:
                             score["reference_block_mismatch"]=1
@@ -394,7 +415,7 @@ def run(*,output_dir,expected_head,**parents):
 
                     totals={k:sum(s[k] for s in scores) for k in COUNTERS}
                     rec=dict(base_seed=b,head_seed=h,episodes=9536,actual_reads=reads,
-                        reference_exhausted_rows=ref_rec["final_needs"],
+                        reference_exhausted_rows=ref_expected["exhausted_rows"],
                         reference_necessity_prediction_errors=replay["necessity_prediction_errors"],
                         reference_target_prediction_errors=replay["target_prediction_errors"],
                         reference_unauthorized_final_predictions=replay["unauthorized_final_predictions"],

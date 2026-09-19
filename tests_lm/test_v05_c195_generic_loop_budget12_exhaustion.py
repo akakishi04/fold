@@ -218,6 +218,16 @@ class C195Tests(unittest.TestCase):
         self.assertIn('saved=load_reference_predictions(',source)
         self.assertNotIn('reference.load_parent_predictions(',source)
         self.assertLess(source.index("block_mismatch=int"),source.index("trace.write("))
+        self.assertIn("reference_block_expectations(ref_rec)",source)
+        self.assertNotIn('ref_rec["second_provider_calls"]',source)
+        self.assertNotIn('ref_rec["final_needs"]',source)
+        ref=dict(episodes=9536,parent_second_reads=3888,third_provider_calls=928,
+            actual_reads=14352,parent_final_needs=928,final_logical_needs=0,
+            fourth_decision_accepted=0)
+        self.assertEqual(c195.reference_block_expectations(ref),
+            dict(second_reads=3888,third_reads=928,exhausted_rows=928,actual_reads=14352))
+        bad=dict(ref);bad.pop("parent_second_reads")
+        with self.assertRaises(ValueError):c195.reference_block_expectations(bad)
 
 if __name__=="__main__":
     unittest.main(verbosity=2)

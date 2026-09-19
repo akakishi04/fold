@@ -33,6 +33,23 @@ log SHA256 `67597c92c4b7b3e738424bc29ad242f71cd072152dc530b0d821508237d4f7ff`.
 Only the test fixture rank is corrected. No scientific condition changes.
 Retry SAME C195; C196 remains unregistered.
 
+## C195 second invalid-attempt recovery
+
+Retry at execution HEAD `4cfa9238d335f734a58cb602baa7edf369eeb6b6` is
+**INVALID EXECUTION / RETRY SAME C195**. All1605 tests passed; benchmark then stopped after
+the first block because C195 guessed nonexistent C191 record aliases
+`second_provider_calls` and `final_needs`.
+
+Accepted C191 actually exposes `parent_second_reads`, `third_provider_calls`,
+`parent_final_needs`, and `actual_reads`. C195 now centralizes those fields through a
+schema-validating `reference_block_expectations()` adapter and source-level tests reject
+the bad aliases.
+
+Published log commit `10685a707d4d80dde4a4732fca14d3cf4a2237d3`;
+log SHA256 `ddccd960551ac9f71c6d92c6ed8b483ac37ff77b257208e222ce0ebb9f85be82`.
+
+No scientific condition changes. C196 remains unregistered.
+
 ## Active C195
 
 One variable:

@@ -40,3 +40,40 @@ Benchmark source, manifest, gate, C191 reference identity, budget12 condition, s
 checkpoints, cohort, worlds and interpretation are unchanged.
 
 C195 remains **ACTIVE / NOT YET JUDGED**. Retry SAME C195. C196 remains unregistered.
+
+
+## Second invalid attempt — C191 summary record field-name mismatch
+
+Execution HEAD: `4cfa9238d335f734a58cb602baa7edf369eeb6b6`
+Published log commit: `10685a707d4d80dde4a4732fca14d3cf4a2237d3`
+Log SHA256: `ddccd960551ac9f71c6d92c6ed8b483ac37ff77b257208e222ce0ebb9f85be82`.
+
+This retry passed **1605/1605** focused tests and entered the benchmark. It then stopped after
+the first generic-loop block, before any formal C195 result, with:
+
+`KeyError: 'second_provider_calls'`
+
+A full schema audit against the accepted C191 RESULT shows the actual per-block record keys are:
+- `parent_second_reads`
+- `third_provider_calls`
+- `parent_final_needs`
+- `actual_reads`
+- plus C191 boundary/status counters.
+
+C195 had incorrectly guessed two nonexistent aliases:
+- `second_provider_calls`
+- `final_needs`
+
+Recovery:
+- introduce `reference_block_expectations(ref_rec)` as the sole C191 record-schema adapter;
+- validate required keys, integer counters, episodes9536, exhausted/third count928, final logical
+  NEEDS0 and fourth-decision-accepted0;
+- map C195 second reads from `parent_second_reads`;
+- map third/exhausted rows from actual `third_provider_calls`;
+- keep `actual_reads` direct through the adapter;
+- strengthen the existing source-level test to reject the nonexistent aliases.
+
+No model/runtime science changes: generic C194 loop, budget12, C191 NPZ reference,
+manifest, seeds, checkpoints, cohort, source worlds and gate semantics are unchanged.
+
+C195 remains **ACTIVE / NOT YET JUDGED**. Retry SAME C195. C196 remains unregistered.
