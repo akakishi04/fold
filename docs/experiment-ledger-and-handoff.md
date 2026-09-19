@@ -7,6 +7,8 @@
 Repository `akakishi04/fold`; branch `feat/sft-target-loss`; local `M:\asobiba\fold`.
 Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5; `.venv-py31315\Scripts\python.exe`.
 Read `AGENTS.md`, `docs/experiment-conversation-handoff-protocol.md`, this file,
+and treat **Current response format (v2)** in the protocol as authoritative for formal-result,
+execution-recovery, operational, launcher, remote-log, and active-run branch-safety behavior.
 `docs/experiment-ledger-addendum-c189-c190.md`, and
 `docs/experiment-ledger-addendum-c190-preregistration.md`.
 
