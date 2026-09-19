@@ -1,60 +1,43 @@
 # FOLD Experiment Ledger and Handoff
 
-> Authoritative current state. Read AGENTS.md and docs/experiment-conversation-handoff-protocol.md.
-> Current response format (v2) is authoritative.
-
-## Environment
+> Authoritative current state. Current response format (v2) applies.
 
 Repository `akakishi04/fold`; branch `feat/sft-target-loss`; local `M:\asobiba\fold`.
-Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5; authoritative Python
-`.venv-py31315\Scripts\python.exe`.
-
-Remote logs: `docs/experiment-run-logs/c###/latest.log` + `latest.json`.
-Scientific execution HEAD and published log commit are distinct identities.
+Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
+**C190 ACCEPTED PASS. C191 ACTIVE / NOT YET JUDGED. C192 NOT REGISTERED.**
 
-**C190 ACCEPTED PASS. C191 NOT REGISTERED at this acceptance commit.**
-C189/C188/C187/C186/C185/C184/C183/C181 PASS; C182 VALID NEGATIVE.
-C180/C179/C178/C176 VALID NEGATIVE; C174/C175/C177 scoped PASS.
+C190 execution HEAD:
+`b3d04dae6ed621deba987162b3d63c8f815bbe72`
+C190 acceptance commit:
+`53b114aeeabbee2e5ea54ebf6f1396054b74132a`
+C190 summary SHA:
+`6902f97fd1fbcb1eb878884594a333ae41a0d35c83b872d287439386f7fabd59`.
 
-C190 successful scientific execution HEAD:
-`b3d04dae6ed621deba987162b3d63c8f815bbe72`.
+C190: 1485/1485;85824 episodes; all scientific errors0; first reads85824;
+second reads34948; post2 NEEDS8352; initial replay deltas0.0.
 
-C190 published log commit:
-`e47a6692ab7286f9f5ceecd4d987ad08a85ae25b`.
+## Active C191
 
-C190 summary:
-`runs/c190-v5e-iterative-multimissing-fce03e62811c4166a11280c32ecfc534/summary.json`
-SHA256 `6902f97fd1fbcb1eb878884594a333ae41a0d35c83b872d287439386f7fabd59`.
+Question: with unchanged internal budget12, extend max acquisition horizon from2 to3.
+On the 928 post2 NEEDS cases per selector, phase2 also exposes target2, then unchanged
+C172/C173 performs one third read from the same coherent world.
 
-## Accepted C190
+After third acquisition expected resources are:
+`0 internal /1 acquisition /step19`.
+A fourth scheduler decision must be refused without state mutation.
 
-1485/1485 tests; precheck PASS; run valid True; protected/tree/HEAD preserved.
-9 blocks /85824 coherent-world episodes.
+Target2 has one legal unobserved fact, so C191 is runtime closure/budget evidence, not
+alternative-target ranking evidence.
 
-All scientific errors zero.
-First reads85824.
-Post1 NEEDS / second reads34948.
-Post2 NEEDS8352 =928 per selector.
-Total reads120772.
-Initial C189 replay exact: argmax errors0; logit deltas0.0.
+Same 85824 episodes /9 selectors /16 coherent source worlds.
+No training/fresh seeds/resource increase/production runtime change.
+Expected regression1509;76 modules.
+Manifest `8cf89274974a4204156c2cb2eb1f87d101f8ab09b320dd7e649a4380ddb852f1`.
+Source pins116; protected paths304; artifacts21.
 
-Claim: same frozen C181+C188 path supports two sequential learned targets and two real
-C172/C173 acquisitions with correct post-state necessity in this bounded dev family.
-
-Non-claim: third acquisition, arbitrary loop, learned tool/provider, independent final holdout,
-language/larger expressions, answer/proof, Gate E.
-
-## Next design
-
-C191 one question:
-with original internal budget12 unchanged, can post2 NEEDS episodes perform exactly one third
-learned target/acquisition from the same coherent world, publish the last missing fact,
-consume the remaining3 internal units exactly, and stop with internal_remaining0 without a
-fourth learned decision?
-
-No resource increase. No new training. No new seed. No third-post learned sufficiency decision.
+No final learned post3 necessity decision in C191.
 C192 remains unregistered until C191 judgment.
