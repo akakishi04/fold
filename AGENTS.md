@@ -23,6 +23,7 @@
 - Router/署名が手製なら手製と記載する。操作列cacheをニューラル蒸留や推論プログラムの自動抽象化と呼ばない。latent/batch/GPUという名称だけで高速化を主張しない。
 - 数値カーネルはsolveを使用する。無言のjitter、保証外の近似、非有限値の黙殺をしない。数値計算の正しさと自然言語・因果・事実の正しさを分ける。
 - データ、出力、重み、索引、cacheは`.gitignore`で除外する。元グラフ、Q/U、index/provenance、padding、候補、学習中間状態も総コストに含める。小さいnumeric payloadだけで省メモリとしない。
+- 例外として、正式な`C###`実験の**console text logだけ**は会話引き継ぎ用documentationとして`docs/experiment-run-logs/c###/latest.log` + `latest.json`へミラーし、専用log commitでpushしてよい。`runs/`本体、dataset、NPZ、checkpoint、fixture、generated artifactは引き続きgitignore/local-onlyとし、log commitへ含めない。
 - 部品変更は`python -m unittest discover -s tests_reasoning -p test_components.py -v`と`python -m fold_reasoning.components_demo`で検証する。ローカルZIPを含む環境では`tests_reasoning`全体と`tests_lm`も実行する。
 - v0.1変更時は`python -m unittest discover -s tests -v`と`python demo.py --seed 20260909 --trials 100`も実行する。未実行の検証は明記する。
 - 未来のquery・正解操作・正解グラフは教師信号に限る。正解を検索対象やモデル入力に漏らさない。評価では候補数・計算予算・データ分割をそろえる。

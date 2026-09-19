@@ -20,6 +20,12 @@ After judging one experiment, prepare at most the next one in the SAME RESPONSE,
 separate acceptance commit followed by a separate preregistration commit. Never modify
 earlier scientific conditions to obtain PASS.
 
+Execution-log handoff: after each formal run, mirror only `runs/chatgpt-last.log` to
+`docs/experiment-run-logs/c###/latest.log` plus `latest.json` using
+`tools/publish_experiment_log.ps1`, commit/push that documentation, then the user may simply
+say 「終わった」. The next assistant fetches the remote published log and verifies metadata/SHA.
+Binary/data/run artifacts remain local-only.
+
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.

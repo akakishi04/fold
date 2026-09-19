@@ -213,25 +213,26 @@ C{N} prerequisite_summary = ...
 
 これは厳密な全文一致ではなく、実行中に正常進行を判断するための目印。
 
-### J. ログ回収
+### J. ログ公開 / 回収
 
-通常はPC用とスマホ/Termius用を両方付ける。
+標準運用は **ログをチャットへ貼らない**。正式C実験のouter PowerShellが完了したら、
+`tools/publish_experiment_log.ps1` で `runs/chatgpt-last.log` を
+`docs/experiment-run-logs/c{N}/latest.log` と `latest.json` へミラーし、
+専用の `logs(fold): publish C{N} execution log` commitとして同じ実験branchへpushする。
 
-PC:
+対象はconsole text logと小さいmetadataだけ。dataset / NPZ / checkpoint / source fixture /
+generated runtime directoryなどは従来どおりlocal-onlyで、ログ公開commitへ含めない。
 
-```powershell
-$log = "M:\asobiba\fold\runs\chatgpt-last.log"
-Get-Content -LiteralPath $log -Raw -Encoding UTF8 -ErrorAction Stop | Set-Clipboard
-```
+outer blockは、科学実験がPASS/FAIL/INVALIDのどれで終了しても `finally` でlog publishを試みる。
+publisherはbranch/origin、publish直前HEAD、tracked/staged state、source log path/size/UTF-8、
+staged pathをguardしてからpushする。
 
-スマホ / Termius (OSC 52):
+ユーザーは実験終了後、原則として **「終わった」だけ送ればよい**。
+assistantはGitHub上の `docs/experiment-run-logs/c{N}/latest.json` と `latest.log`
+を取得し、metadataのexecution_head / SHA256 / bytesを照合して正式判定する。
 
-```powershell
-$log = "M:\asobiba\fold\runs\chatgpt-last.log"
-$text = Get-Content -LiteralPath $log -Raw -Encoding UTF8 -ErrorAction Stop
-$b64 = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($text))
-[Console]::Write("$([char]27)]52;c;$b64$([char]7)")
-```
+pushが失敗した場合だけ従来のファイル添付またはclipboardをfallbackとして使う。
+OSC 52は標準経路ではない。
 
 ### K. 停止条件
 
@@ -239,12 +240,14 @@ $b64 = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($text))
 
 ```text
 C{N}の結果を判定するまではC{N+1}へ進まない。
-結果ログを貼ってもらったら、formal status / scientific interpretation / ledger update / next experiment の順で続ける。
+実行とlog pushが終わったらユーザーは「終わった」と送る。
+assistantはremoteのpublished logを取得し、formal status / scientific interpretation /
+ledger update / next experiment の順で続ける。
 ```
 
 ## 3. 結果ログを受け取ったときの標準返答
 
-ユーザーが実験ログを貼った場合は次の順序にする。
+ユーザーが実験ログを貼った場合、または「終わった」と通知してremote published logを取得した場合は次の順序にする。
 
 1. **Formal verdict** — PASS / VALID NEGATIVE / INVALID を最初に明示。
 2. **Execution validity** — regression、seed、artifact hashes、tree cleanliness、prerequisite、runtime modificationを確認。
