@@ -442,7 +442,7 @@ def manifest():
         limits="same four repeatedly inspected development groups;one acquisition only;fixed RETRIEVE/provider;no iterative planning,renaming,language,answer/proof or full GateE")
 
 
-MANIFEST_SHA = "6acccb0b116a57a34e4f91733d0a15ac345d144ba9b6cb0db8a1e7af4ecf0e47"
+MANIFEST_SHA = "e1ba8c1b84dc016410e91432eadfc53e28a46dd49cb91bf015d3336f37e8402e"
 
 
 def precheck(c188_summary, *args):

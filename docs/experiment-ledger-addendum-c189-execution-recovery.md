@@ -53,3 +53,17 @@ run's dedicated log commit while the old invalid log remains recoverable from co
 `a7fe8158df96f41541579be4f35722daf81e6687`.
 
 Retry SAME C189 only. Do not register C190 before C189 judgment.
+
+## Second invalid attempt — manifest hash transcription
+
+Retry execution HEAD: `e8e09e267d686427f2e3381e171e9f54b34533f6`.
+Published log commit: `0f0594ddb9dd0a607451318d7ba33a6ecd061a7e`.
+Log SHA256: `438ebe247d303d555719b679208e99d11224aae4d556182af4b8dd5d80ce6bca`.
+Log bytes: 1339.
+
+The UTF-8 source imported successfully and all inherited source/artifact checks reached the
+scientific-manifest guard. It then stopped with `ValueError: Manifest drift` before focused
+regression or model inference. Recomputing the exact canonical manifest object yields
+`e1ba8c1b84dc016410e91432eadfc53e28a46dd49cb91bf015d3336f37e8402e`.
+The old fixed SHA was incorrect; no manifest field or scientific condition is changed.
+C189 remains ACTIVE / NOT YET JUDGED; retry SAME C189.

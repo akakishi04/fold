@@ -223,7 +223,7 @@ Historical source pins expected: **107**.
 Protected paths expected: **258**.
 
 Scientific manifest SHA256:
-`6acccb0b116a57a34e4f91733d0a15ac345d144ba9b6cb0db8a1e7af4ecf0e47`.
+`e1ba8c1b84dc016410e91432eadfc53e28a46dd49cb91bf015d3336f37e8402e`.
 
 ## Interpretation boundary
 
@@ -259,3 +259,14 @@ Run only `tools/run_c189.ps1` with C188/C187/C186/C185/C184/C183/C182/C181/C180/
 C178/C177/C176/C174 summaries and the exact registered HEAD.
 
 Do not register or execute C190 until C189 is judged and ledger/handoff is updated.
+
+
+## Execution-recovery note
+
+The first two C189 attempts were execution-invalid before regression/model work.
+The second attempt showed that the valid UTF-8 source's scientific manifest serializes to
+SHA256 `e1ba8c1b84dc016410e91432eadfc53e28a46dd49cb91bf015d3336f37e8402e`.
+The previously written manifest hash was a transcription/serialization error. The manifest
+object, seeds, checkpoints, cohort, workload, gate, thresholds and interpretation are unchanged.
+This SHA correction is execution-recovery metadata only and does not alter the preregistered
+scientific conditions.

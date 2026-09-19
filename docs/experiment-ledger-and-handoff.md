@@ -89,6 +89,18 @@ Recovery changes only source serialization/implementation validity. Scientific m
 seeds, checkpoints, cohort, workload, gate and interpretation remain unchanged.
 Retry SAME C189; C190 remains unregistered.
 
+## C189 second invalid-attempt recovery
+
+Second attempt at execution HEAD `e8e09e267d686427f2e3381e171e9f54b34533f6` is also
+**INVALID EXECUTION** before regression/model work. UTF-8 import succeeded, then the fixed
+scientific-manifest SHA guard failed because the constant was a transcription error.
+Canonical manifest SHA is
+`e1ba8c1b84dc016410e91432eadfc53e28a46dd49cb91bf015d3336f37e8402e`.
+No manifest field, seed, checkpoint, cohort, workload, gate, threshold or interpretation changed.
+Published second-invalid log commit: `0f0594ddb9dd0a607451318d7ba33a6ecd061a7e`;
+log SHA256 `438ebe247d303d555719b679208e99d11224aae4d556182af4b8dd5d80ce6bca`.
+Retry SAME C189; C190 remains unregistered.
+
 ## Active C189 — live learned multi-missing target acquisition
 
 Experiment:
