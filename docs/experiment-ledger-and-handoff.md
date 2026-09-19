@@ -69,6 +69,25 @@ log SHA256 `c875c9fab740753903636a6d9557c621ba85c8655fdd71deb47efb102e2943d6`.
 
 Retry SAME C190; C191 remains unregistered.
 
+## C190 completed invalid run / replay recovery
+
+Completed C190 at execution HEAD `b934eff1e06c5ce0b75e08870dfd9a6753768b21`
+ran 1485/1485 tests and all 85824 episodes. All scientific target/action/post-state/
+contract counters were zero; first reads85824, second reads34948, post2 NEEDS8352.
+
+It is nevertheless **INVALID EXECUTION / RETRY SAME C190** because the fixed parent-logit
+replay <=1e-6 was exceeded under the expanded hidden-world batch layout
+(max necessity5.245208740234375e-06; target5.7220458984375e-06), while all parent argmax
+decisions remained exact.
+
+Recovery memoizes one recomputed frozen initial policy output per unique observable TaskView
+(1768 x9 =15912 actual initial policy rows) across its 4/8 hidden-world copies. Hidden world
+is not a policy/cache key. C189 saved outputs remain validation-only. Replay tolerance stays
+<=1e-6; all scientific conditions remain fixed.
+
+Published invalid log commit `da06a4544093930bc5392e05f42ffc2a3f0ac262`.
+Retry SAME C190; C191 remains unregistered.
+
 ## Active C190 — iterative learned multi-missing acquisition
 
 Experiment:
@@ -146,7 +165,7 @@ Expected regression **1485 =1449+36;75 modules**.
 Historical source pins111; protected paths277.
 Artifacts21 excluding summary.
 Manifest SHA
-`3feec9c60f007ee67cecd328614dca051777d485a37d482438275e1a8c31deea`.
+`ddca97a8c8de1687929b95e69f33c3073647017c3514871ae3db81d22605ef6d`.
 
 New files:
 - `fold_lm/v05_benchmarks/gate_e_c190_iterative_multimissing_acquisition.py`

@@ -35,6 +35,23 @@ def endpoint(tmp,code):
 def meter(n):
     return dict(rows=n,forward_calls=1,cell_calls=7,wall_clock_seconds=0.0)
 
+def cached_initial(views,target_index=0):
+    owners=[life.AcquisitionOwner(action.RuntimeState(v),{},max_dispatches=2) for v in views]
+    self_charge=[driver.charge_decision(o) for o in owners]
+    if not all(self_charge):
+        raise AssertionError("decision debit failed")
+    raw,_=parent.encode_views([o.state.view for o in owners])
+    n=len(raw)
+    unknown=target.missing_mask(raw).numpy()
+    tz=np.full((n,4),-np.inf,dtype=np.float32)
+    tz[unknown]=0.0
+    tz[np.arange(n),target_index]=1.0
+    return dict(raw=raw,
+        necessity_predictions=np.ones(n,dtype=np.int8),
+        target_predictions=np.full(n,target_index,dtype=np.int8),
+        necessity_logits=np.tile(np.asarray([[0.,1.]],dtype=np.float32),(n,1)),
+        target_logits=tz)
+
 class C190Tests(unittest.TestCase):
     def test_01_world_count(self):
         self.assertEqual(len(c190.WORLD_BITS),16)
@@ -103,10 +120,14 @@ class C190Tests(unittest.TestCase):
             p=Path(td)/"p.npz";self._parent_npz(p,False)
             with self.assertRaises(ValueError):c190.load_parent_predictions(p)
 
-    def test_13_make_views_unique_scopes(self):
-        raw=torch.from_numpy(np.stack([raw_row(),raw_row()]))
-        v=c190.make_views(raw,np.array([7,7]),np.array([3,7],dtype=np.int8),"x")
-        self.assertNotEqual(v[0].scope_id,v[1].scope_id)
+    def test_13_initial_policy_cache_unique_rows(self):
+        raw=torch.from_numpy(np.stack([raw_row(),raw_row((None,None,None,1))]))
+        base=graph.SharedGraphProbe(graph.ARMS[1]);head=target.TargetSelector()
+        cache,m=c190.initial_policy_cache(raw,np.array([7,8]),base,head)
+        self.assertEqual(cache["raw"].shape,(2,72))
+        self.assertEqual(cache["raw"][:,62].tolist(),[11,11])
+        self.assertEqual(cache["raw"][:,71].tolist(),[8,8])
+        self.assertEqual(m["rows"],2)
 
     def test_14_first_acquisition_real_io(self):
         with tempfile.TemporaryDirectory() as td:
@@ -135,35 +156,38 @@ class C190Tests(unittest.TestCase):
                 return (np.full(n,need,dtype=np.int8),np.zeros(n,dtype=np.int8),
                     np.tile(np.array([[1.,2.]],dtype=np.float32),(n,1)),
                     np.zeros((n,4),dtype=np.float32),meter(n))
+            initial=cached_initial(views,0)
             with mock.patch.object(parent,"combined_predict",combined):
-                rec,_,_=c190.run_block(views,np.array([3]),{3:ep},base,head)
+                rec,_,_=c190.run_block(views,np.array([3]),{3:ep},base,head,initial=initial)
             self.assertEqual((p.reads,len(rec[0]["acquisitions"]),len(rec[0]["phases"])),(1,1,2))
 
     def test_17_run_block_two_acquisitions(self):
         with tempfile.TemporaryDirectory() as td:
             ep,p=endpoint(td,3);views=c190.make_views(torch.from_numpy(np.stack([raw_row()])),np.array([0]),np.array([3]),"x")
-            base=graph.SharedGraphProbe(graph.ARMS[1]);head=target.TargetSelector();calls=[0]
+            base=graph.SharedGraphProbe(graph.ARMS[1]);head=target.TargetSelector()
             def combined(base,head,raw,**kw):
-                calls[0]+=1;n=len(raw);t=0 if calls[0]==1 else 2
-                return (np.ones(n,dtype=np.int8),np.full(n,t,dtype=np.int8),
+                n=len(raw)
+                return (np.ones(n,dtype=np.int8),np.full(n,2,dtype=np.int8),
                     np.tile(np.array([[0.,1.]],dtype=np.float32),(n,1)),
                     np.zeros((n,4),dtype=np.float32),meter(n))
             final=lambda base,raw,**kw:(np.zeros(len(raw),dtype=np.int8),np.zeros((len(raw),2),dtype=np.float32),meter(len(raw)))
+            initial=cached_initial(views,0)
             with mock.patch.object(parent,"combined_predict",combined),mock.patch.object(parent,"necessity_predict",final):
-                rec,_,_=c190.run_block(views,np.array([3]),{3:ep},base,head)
+                rec,_,_=c190.run_block(views,np.array([3]),{3:ep},base,head,initial=initial)
             self.assertEqual((p.reads,len(rec[0]["acquisitions"]),len(rec[0]["phases"])),(2,2,3))
 
     def test_18_run_block_never_third_acquisition(self):
         with tempfile.TemporaryDirectory() as td:
             ep,p=endpoint(td,3);views=c190.make_views(torch.from_numpy(np.stack([raw_row()])),np.array([0]),np.array([3]),"x")
-            base=graph.SharedGraphProbe(graph.ARMS[1]);head=target.TargetSelector();calls=[0]
+            base=graph.SharedGraphProbe(graph.ARMS[1]);head=target.TargetSelector()
             def combined(base,head,raw,**kw):
-                calls[0]+=1;n=len(raw);t=0 if calls[0]==1 else 2
-                return (np.ones(n,dtype=np.int8),np.full(n,t,dtype=np.int8),
+                n=len(raw)
+                return (np.ones(n,dtype=np.int8),np.full(n,2,dtype=np.int8),
                     np.zeros((n,2),dtype=np.float32),np.zeros((n,4),dtype=np.float32),meter(n))
             final=lambda base,raw,**kw:(np.ones(len(raw),dtype=np.int8),np.zeros((len(raw),2),dtype=np.float32),meter(len(raw)))
+            initial=cached_initial(views,0)
             with mock.patch.object(parent,"combined_predict",combined),mock.patch.object(parent,"necessity_predict",final):
-                rec,_,_=c190.run_block(views,np.array([3]),{3:ep},base,head)
+                rec,_,_=c190.run_block(views,np.array([3]),{3:ep},base,head,initial=initial)
             self.assertEqual(p.reads,2)
             self.assertEqual(rec[0]["status"],"UNRESOLVED")
 
@@ -174,20 +198,22 @@ class C190Tests(unittest.TestCase):
             def combined(base,head,raw,**kw):
                 calls[0]+=1;n=len(raw);need=1 if calls[0]==1 else 0
                 return np.full(n,need,dtype=np.int8),np.zeros(n,dtype=np.int8),np.zeros((n,2),np.float32),np.zeros((n,4),np.float32),meter(n)
+            initial=cached_initial(views,0)
             with mock.patch.object(parent,"combined_predict",combined):
-                rec,_,_=c190.run_block(views,np.array([3]),{3:ep},base,head)
+                rec,_,_=c190.run_block(views,np.array([3]),{3:ep},base,head,initial=initial)
             self.assertEqual((rec[0]["final"]["features"][62],rec[0]["final"]["features"][63],rec[0]["final"]["features"][71]),(7,3,12))
 
     def test_20_resource_state_after_two_acquisitions(self):
         with tempfile.TemporaryDirectory() as td:
             ep,_=endpoint(td,3);views=c190.make_views(torch.from_numpy(np.stack([raw_row()])),np.array([0]),np.array([3]),"x")
-            base=graph.SharedGraphProbe(graph.ARMS[1]);head=target.TargetSelector();calls=[0]
+            base=graph.SharedGraphProbe(graph.ARMS[1]);head=target.TargetSelector()
             def combined(base,head,raw,**kw):
-                calls[0]+=1;n=len(raw);t=0 if calls[0]==1 else 2
-                return np.ones(n,dtype=np.int8),np.full(n,t,dtype=np.int8),np.zeros((n,2),np.float32),np.zeros((n,4),np.float32),meter(n)
+                n=len(raw)
+                return np.ones(n,dtype=np.int8),np.full(n,2,dtype=np.int8),np.zeros((n,2),np.float32),np.zeros((n,4),np.float32),meter(n)
             final=lambda base,raw,**kw:(np.zeros(len(raw),dtype=np.int8),np.zeros((len(raw),2),np.float32),meter(len(raw)))
+            initial=cached_initial(views,0)
             with mock.patch.object(parent,"combined_predict",combined),mock.patch.object(parent,"necessity_predict",final):
-                rec,_,_=c190.run_block(views,np.array([3]),{3:ep},base,head)
+                rec,_,_=c190.run_block(views,np.array([3]),{3:ep},base,head,initial=initial)
             self.assertEqual((rec[0]["final"]["features"][62],rec[0]["final"]["features"][63],rec[0]["final"]["features"][71]),(3,2,16))
 
     def _good_records(self,second=4000):
@@ -249,6 +275,7 @@ class C190Tests(unittest.TestCase):
     def test_32_manifest_world_workload(self):
         m=c190.manifest()
         self.assertEqual((m["worlds_per_selector"],m["blocks"],m["episodes"]),(9536,9,85824))
+        self.assertEqual((m["logical_initial_episodes"],m["initial_unique_policy_rows"]),(85824,15912))
 
     def test_33_manifest_scope(self):
         m=c190.manifest()

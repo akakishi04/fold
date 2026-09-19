@@ -136,6 +136,26 @@ def load_parent_predictions(path):
             "C189 initial predictions unexpectedly depend on source bit")
     return out
 
+def initial_policy_cache(raw,row_indices,base,selector):
+    """Recompute one policy output per unique observable initial state, independent of hidden world."""
+    from fold_lm.v05 import structured_acquisition_lifecycle as life
+    from fold_lm.v05 import structured_action_runtime as action
+    from fold_lm.v05_benchmarks import gate_e_c185_single_missing_acquisition as driver
+    from fold_lm.v05_benchmarks import gate_e_c189_live_multimissing_target as parent
+    require(isinstance(raw,torch.Tensor) and raw.dtype==torch.int32 and raw.ndim==2
+            and raw.shape[1]==72 and len(raw)==len(row_indices)>0,
+            "Unique initial policy cohort required")
+    views=driver.make_views(raw,row_indices,driver.LAYOUTS[0],"C190-initial-policy-cache")
+    owners=[life.AcquisitionOwner(action.RuntimeState(v),{},max_dispatches=2) for v in views]
+    require(all(driver.charge_decision(o) for o in owners),
+            "Initial policy-cache decision budget unexpectedly exhausted")
+    charged,_=parent.encode_views([o.state.view for o in owners])
+    p,t,z,tz,m=parent.combined_predict(base,selector,charged,batch=BATCH)
+    require(p.shape==t.shape==(len(raw),) and z.shape==(len(raw),2) and tz.shape==(len(raw),4),
+            "Initial policy-cache output shape drift")
+    return dict(raw=charged,necessity_predictions=p,target_predictions=t,
+                necessity_logits=z,target_logits=tz),m
+
 def acquire(owner,target_index):
     from fold_lm.v05 import structured_action_runtime as action
     require(type(target_index) is int and 0 <= target_index < 4,"Local target required")
@@ -149,7 +169,7 @@ def acquire(owner,target_index):
     return dict(input_index=target_index,fact_id=fid,action=asdict(tr.result),
                 dispatch=asdict(dispatched) if dispatched else None)
 
-def run_block(views,world_codes,endpoints,base,selector):
+def run_block(views,world_codes,endpoints,base,selector,initial=None):
     from fold_lm.v05 import structured_acquisition_lifecycle as life
     from fold_lm.v05 import structured_action_runtime as action
     from fold_lm.v05 import structured_task_input as task
@@ -171,8 +191,28 @@ def run_block(views,world_codes,endpoints,base,selector):
     active=[i for i,o in enumerate(owners) if driver.charge_decision(o)]
     require(len(active)==n,"Initial decision budget unexpectedly exhausted")
     raw0,packets0=parent.encode_views([owners[i].state.view for i in active])
-    p0,t0,z0,tz0,m0=parent.combined_predict(base,selector,raw0,batch=BATCH)
-    for k in meter: meter[k]+=m0[k]
+    if initial is None:
+        p0,t0,z0,tz0,m0=parent.combined_predict(base,selector,raw0,batch=BATCH)
+        for k in meter: meter[k]+=m0[k]
+    else:
+        require(type(initial) is dict and set(initial)=={
+            "raw","necessity_predictions","target_predictions","necessity_logits","target_logits"},
+            "Exact initial policy cache required")
+        require(isinstance(initial["raw"],torch.Tensor) and torch.equal(raw0,initial["raw"]),
+                "Initial policy cache/input identity drift")
+        p0=np.asarray(initial["necessity_predictions"])
+        t0=np.asarray(initial["target_predictions"])
+        z0=np.asarray(initial["necessity_logits"])
+        tz0=np.asarray(initial["target_logits"])
+        require(p0.shape==t0.shape==(n,) and z0.shape==(n,2) and tz0.shape==(n,4)
+                and p0.dtype.kind in "iu" and t0.dtype.kind in "iu"
+                and np.isfinite(z0).all(),
+                "Invalid cached initial policy outputs")
+        unknown=__import__("fold_lm.v05_benchmarks.gate_e_c188_multimissing_target_selection",
+                           fromlist=["missing_mask"]).missing_mask(raw0).numpy()
+        require(np.isfinite(tz0[unknown]).all() and np.isneginf(tz0[~unknown]).all()
+                and np.array_equal(p0,z0.argmax(1)) and np.array_equal(t0,tz0.argmax(1)),
+                "Cached initial raw argmax/nonfinite drift")
     first=[]
     for j,i in enumerate(active):
         n_pred[i,0]=p0[j];n_logits[i,0]=z0[j];t_pred[i,0]=t0[j];t_logits[i,0]=tz0[j]
@@ -389,7 +429,7 @@ def manifest():
         worlds_per_selector=9536,missing2_worlds=4608,missing3_worlds=4928,
         selectors=9,blocks=9,episodes=85824,source_files=SOURCE_FILES,
         source_contract="16 complete four-fact C173 snapshots; one snapshot fixed per episode and shared by both possible acquisitions",
-        initial_replay="C190 initial necessity/target predictions and logits replay accepted C189 bit-independent initial outputs <=1e-6",
+        initial_replay="one recomputed C189-identical policy output per unique initial TaskView; hidden world copies reuse that output; logits replay accepted C189 <=1e-6",
         max_acquisitions_per_episode=2,max_decisions_per_episode=3,
         first_decision_resources="11internal/4acquisitions/step8",
         after_first_acquisition_second_decision="7internal/3acquisitions/step12",
@@ -398,13 +438,15 @@ def manifest():
         necessity_teacher="scoring only: C174 logical necessity at each actual visible state",
         gate="all9 blocks zero initial/replay/target0/post1/target1/repeat/second-action/post2/contract errors; second reads exactly iff logical post1 NEEDS",
         base_checkpoint_loads=3,target_checkpoint_loads=9,
-        live_initial_rows=85824,live_second_rows="observed,0..85824",live_final_rows="observed,0..85824",
+        logical_initial_episodes=85824,initial_unique_policy_rows=15912,
+        initial_policy_forward_calls=18,initial_policy_cell_calls=126,
+        live_second_rows="observed,0..85824",live_final_rows="observed,0..85824",
         training=0,fresh_seeds=0,network_calls=0,answer_generation=0,proof_checker_calls=0,core_evidence_writes=0,
         production_runtime_modified=False,gate_e_candidate=False,
         outputs=sorted(OUTPUTS),
-        limits="same repeatedly inspected four development groups;max2 acquisitions;fixed RETRIEVE/provider;no third acquisition,learned tool/provider,renaming,language,answer/proof or full GateE")
+        limits="same repeatedly inspected four development groups;exact-state initial policy memoization across hidden-world copies;max2 acquisitions;fixed RETRIEVE/provider;no third acquisition,learned tool/provider,renaming,language,answer/proof or full GateE")
 
-MANIFEST_SHA = "3feec9c60f007ee67cecd328614dca051777d485a37d482438275e1a8c31deea"
+MANIFEST_SHA = "ddca97a8c8de1687929b95e69f33c3073647017c3514871ae3db81d22605ef6d"
 
 def precheck(c189_summary,*args):
     from fold_lm.v05_benchmarks import gate_e_c189_live_multimissing_target as previous
@@ -445,10 +487,11 @@ def validate_result(p):
             and p["diagnostic_execution_valid"] is True,"Wrong/incomplete C190")
     require(p["episodes"]==85824 and len(p["records"])==9
             and p["base_checkpoint_loads"]==3 and p["target_checkpoint_loads"]==9
-            and p["live_initial_rows"]==85824
+            and p["logical_initial_episodes"]==85824 and p["initial_unique_policy_rows"]==15912
+            and p["initial_policy_forward_calls"]==18 and p["initial_policy_cell_calls"]==126
             and 0<=p["live_second_rows"]<=85824 and 0<=p["live_final_rows"]<=85824
-            and p["total_base_rows"]==p["live_initial_rows"]+p["live_second_rows"]+p["live_final_rows"]
-            and p["total_target_rows"]==p["live_initial_rows"]+p["live_second_rows"]
+            and p["total_base_rows"]==p["initial_unique_policy_rows"]+p["live_second_rows"]+p["live_final_rows"]
+            and p["total_target_rows"]==p["initial_unique_policy_rows"]+p["live_second_rows"]
             and len(p["source_blobs"])==111 and len(p["input_sha256"])==277
             and len(p["artifacts"])==21 and {a["file"] for a in p["artifacts"]}==OUTPUTS,
             "Workload/coverage drift")
@@ -539,14 +582,39 @@ def run(*,output_dir,expected_head,**parents):
             target_logits=np.full((9,9536,2,4),-np.inf,dtype=np.float32))
         parent_replay=[];live_second=0;live_final=0
         live_meter=dict(rows=0,forward_calls=0,cell_calls=0)
+        initial_meter=dict(rows=0,forward_calls=0,cell_calls=0)
+        local_tensor=torch.from_numpy(local_rows.astype(np.int64))
 
         with gzip.open(out/"episode-traces.jsonl.gz","wt",encoding="utf-8",newline="\n") as trace:
             for bi,b in enumerate(BASE_SEEDS):
                 for hi,h in enumerate(HEAD_SEEDS):
                     idx=bi*3+hi
+                    cache,cache_meter=initial_policy_cache(raw,full_ix,bases[b],heads[b,h])
+                    for k in initial_meter:initial_meter[k]+=cache_meter[k]
+                    parent_np_unique=saved["necessity_predictions"][idx,0,:,0]
+                    parent_nz_unique=saved["necessity_logits"][idx,0,:,0]
+                    parent_tp_unique=saved["target_predictions"][idx,0]
+                    parent_tz_unique=saved["target_logits"][idx,0]
+                    unknown_unique=target.missing_mask(cache["raw"]).numpy()
+                    nerr=int((cache["necessity_predictions"]!=parent_np_unique).sum())
+                    terr=int((cache["target_predictions"]!=parent_tp_unique).sum())
+                    ndelta=float(np.max(np.abs(cache["necessity_logits"]-parent_nz_unique)))
+                    tdelta=float(np.max(np.abs(cache["target_logits"][unknown_unique]-parent_tz_unique[unknown_unique])))
+                    require(nerr==terr==0 and ndelta<=ATOL and tdelta<=ATOL,
+                            "Accepted C189 unique initial policy replay drift")
+                    parent_replay.append(dict(base_seed=b,head_seed=h,
+                        necessity_prediction_errors=nerr,target_prediction_errors=terr,
+                        necessity_max_abs_logit_difference=ndelta,target_max_abs_logit_difference=tdelta))
+
+                    initial=dict(
+                        raw=cache["raw"][local_tensor],
+                        necessity_predictions=cache["necessity_predictions"][local_rows],
+                        target_predictions=cache["target_predictions"][local_rows],
+                        necessity_logits=cache["necessity_logits"][local_rows],
+                        target_logits=cache["target_logits"][local_rows])
                     before_reads=sum(p.reads for p in providers.values())
                     views=make_views(expanded,source_rows,world_codes,f"b{b}-h{h}")
-                    observed,arrays,meter=run_block(views,world_codes,endpoints,bases[b],heads[b,h])
+                    observed,arrays,meter=run_block(views,world_codes,endpoints,bases[b],heads[b,h],initial=initial)
                     for k in live_meter:live_meter[k]+=meter[k]
                     dense["necessity_predictions"][idx]=arrays["necessity_predictions"]
                     dense["necessity_logits"][idx]=arrays["necessity_logits"]
@@ -555,18 +623,11 @@ def run(*,output_dir,expected_head,**parents):
                     live_second+=sum(len(r["phases"])>=2 for r in observed)
                     live_final+=sum(len(r["phases"])>=3 for r in observed)
 
-                    parent_np=saved["necessity_predictions"][idx,0,local_rows,0]
-                    parent_nz=saved["necessity_logits"][idx,0,local_rows,0]
-                    parent_tp=saved["target_predictions"][idx,0,local_rows]
-                    parent_tz=saved["target_logits"][idx,0,local_rows]
-                    unknown0=target.missing_mask(expanded).numpy()
-                    nerr=int((arrays["necessity_predictions"][:,0]!=parent_np).sum())
-                    terr=int((arrays["target_predictions"][:,0]!=parent_tp).sum())
-                    ndelta=float(np.max(np.abs(arrays["necessity_logits"][:,0]-parent_nz)))
-                    tdelta=float(np.max(np.abs(arrays["target_logits"][:,0][unknown0]-parent_tz[unknown0])))
-                    parent_replay.append(dict(base_seed=b,head_seed=h,necessity_prediction_errors=nerr,
-                        target_prediction_errors=terr,necessity_max_abs_logit_difference=ndelta,
-                        target_max_abs_logit_difference=tdelta))
+                    parent_np=parent_np_unique[local_rows]
+                    parent_tp=parent_tp_unique[local_rows]
+                    require(np.array_equal(arrays["necessity_predictions"][:,0],parent_np)
+                            and np.array_equal(arrays["target_predictions"][:,0],parent_tp),
+                            "Expanded initial cache mapping drift")
 
                     scores=[]
                     for j,rec in enumerate(observed):
@@ -627,9 +688,13 @@ def run(*,output_dir,expected_head,**parents):
             status="PASS" if gate(records) else "FAIL",diagnostic_execution_valid=True,
             C189_summary_sha256=PARENT_SHA,source_blobs=pins,input_sha256=protected,
             artifacts=artifacts,records=records,parent_replay=parent_replay,totals=totals,
-            episodes=85824,live_initial_rows=85824,live_second_rows=live_second,
-            live_final_rows=live_final,total_base_rows=85824+live_second+live_final,
-            total_target_rows=85824+live_second,
+            episodes=85824,logical_initial_episodes=85824,
+            initial_unique_policy_rows=initial_meter["rows"],
+            initial_policy_forward_calls=initial_meter["forward_calls"],
+            initial_policy_cell_calls=initial_meter["cell_calls"],
+            live_second_rows=live_second,live_final_rows=live_final,
+            total_base_rows=initial_meter["rows"]+live_second+live_final,
+            total_target_rows=initial_meter["rows"]+live_second,
             live_inference_forward_calls=live_meter["forward_calls"],
             live_inference_cell_calls=live_meter["cell_calls"],
             base_checkpoint_loads=3,target_checkpoint_loads=9,
@@ -643,6 +708,7 @@ def run(*,output_dir,expected_head,**parents):
             wall_clock_seconds=time.perf_counter()-started,
             limitations=[
                 "same four repeatedly inspected development groups;not independent final confirmation",
+                "identical initial TaskViews across hidden-world copies share one recomputed frozen policy output;world code is not a cache key or model input",
                 "maximum two acquisitions;remaining NEEDS never triggers a third acquisition",
                 "fixed RETRIEVE and one coherent local snapshot provider;tool/provider choice remains handwritten",
                 "identity/original C174 local layout only;renaming path not retested",

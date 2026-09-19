@@ -1,41 +1,62 @@
-# C190 execution recovery — full-cohort guard
+# C190 execution recovery — parent logit batch-context replay
 
 ## Formal status
 
 **C190 remains ACTIVE / NOT YET JUDGED.**
-First C190 attempt is **INVALID EXECUTION / RETRY SAME C190**.
+The completed run at scientific execution HEAD
+`b934eff1e06c5ce0b75e08870dfd9a6753768b21` is
+**INVALID EXECUTION / RETRY SAME C190** under the preregistered parent-replay validity rule.
 C191 remains NOT REGISTERED. Gate E remains NOT PASSED.
 
-Invalid attempt:
-- scientific execution HEAD: `e0e47b44dbda4a5a4ad470f42911d4ce2687e587`
-- published log commit: `8ec5932922231f0f88478bd12c5d3de89f104df7`
-- log SHA256: `c875c9fab740753903636a6d9557c621ba85c8655fdd71deb47efb102e2943d6`
-- log bytes: 242123
-- source/artifact precheck: PASS
-- focused regression: **1485/1485 PASS**, 44.696s
-- benchmark model work: not started
-- failure: `ValueError: C190 cohort drift`
+Published log commit:
+`da06a4544093930bc5392e05f42ffc2a3f0ac262`.
 
-Cause:
-C188 `cohort_masks` reports `profile["eval_m2"] = 376` and
-`profile["eval_m3"] = 152` for the **discriminating primary subset**, while C190
-incorrectly treated those fields as the full multi-missing cohort counts 1152/616.
+Published log metadata:
+- SHA256 `7f025f7519a0ae9e2570e4091a3ea53a21555c8864a69265f60633e82bf1f883`
+- bytes 348826
 
-The actual full C190 mask `evfull` was already the correct 1768-row cohort.
-Recovery changes only the runtime guard:
-- full cohort counts are checked directly from `miss[evfull]`: 1152 missing2 / 616 missing3;
-- inherited discriminating profile is separately checked as 528 total = 376/152.
+Run summary:
+- 1485/1485 regression PASS
+- source/artifact precheck PASS
+- 9/9 blocks complete
+- 85824 coherent-world episodes
+- run_execution_valid True at runtime/postcheck layer
+- summary SHA256 `344cf2f7689ea3d8f6cc09467e48d8a42e1b1d0f3a36ddb82ca0a1d1d3b09421`
 
-Unchanged:
-- C190 experiment ID/stage;
-- manifest object and SHA;
-- seeds/checkpoints;
-- 1768-row cohort and coherent-world expansion;
-- 9536 episodes/selector / 85824 total;
-- two-acquisition maximum;
-- scoring teachers;
-- source snapshots;
-- fixed gate / thresholds / interpretation.
+Scientific counters were all zero:
+- failed0
+- initial_error0
+- initial_replay_error0
+- target0_error0
+- selected_observed0
+- first_acquisition_error0
+- post1_error0
+- target1_error0
+- repeated_target0
+- second_acquisition_error0
+- post2_error0
+- contract_error0
 
-This is implementation validity recovery only, not scientific evidence.
-Retry SAME C190.
+Live work:
+- first reads/publications85824
+- logical post1 NEEDS / second reads/publications34948
+- logical post2 NEEDS8352
+- total file reads120772
+
+Why INVALID rather than VALID NEGATIVE:
+the preregistration explicitly classified parent replay failure as execution invalidity.
+All nine blocks preserved parent argmax exactly, but raw float32 logits differed solely
+under the expanded 9536-row batch context:
+- necessity delta range 3.337860107421875e-06 .. 5.245208740234375e-06
+- target delta range 2.384185791015625e-06 .. 5.7220458984375e-06
+which exceeds the fixed <=1e-6 guard.
+
+Recovery:
+initial states duplicated only because hidden complete worlds differ; world code is not a
+policy input. Recompute each unique initial TaskView once in the accepted C189 1768-row
+ordering/batching, require the unchanged <=1e-6 parent replay, and memoize that frozen-model
+output across its identical world copies. Saved parent outputs are comparison-only, never
+policy inputs. Every world copy still owns independent runtime state and live acquisition.
+
+No scientific gate, tolerance, seed, checkpoint, source world, cohort, action, teacher or
+interpretation is changed.

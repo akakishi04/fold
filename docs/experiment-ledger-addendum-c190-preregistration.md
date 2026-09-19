@@ -199,7 +199,7 @@ Exactly 21 artifacts excluding summary:
 - sources/world-00.json ... sources/world-15.json
 
 Scientific manifest SHA256:
-`3feec9c60f007ee67cecd328614dca051777d485a37d482438275e1a8c31deea`.
+`ddca97a8c8de1687929b95e69f33c3073647017c3514871ae3db81d22605ef6d`.
 
 Expected historical source pins: **111**.
 Expected protected paths: **277**.
@@ -221,3 +221,38 @@ PASS does NOT establish:
 - production adoption or Gate E completion.
 
 Do not register C191 before C190 judgment.
+
+
+## Execution-recovery note — exact-state initial-policy memoization
+
+The first completed C190 run was scientifically error-free on all action/target/post-state
+counters but failed the preregistered parent-logit replay validity guard only.
+
+Observed expanded-batch replay maxima:
+- necessity: 5.245208740234375e-06
+- target: 5.7220458984375e-06
+- parent necessity argmax errors: 0
+- parent target argmax errors: 0
+
+The hidden source world is not part of the initial TaskView or numeric policy input, so each
+of the 4/8 world copies of one source row has the exact same initial observable state.
+The recovery therefore recomputes the frozen initial policy exactly once per unique
+1768-row initial cohort for each of the nine selectors, using the same ordering/batching
+as accepted C189, then memoizes that output across the identical hidden-world copies.
+
+This does NOT use C189 saved predictions as policy output. C189 saved values remain
+validation-only. It does not change seeds, checkpoints, episodes, worlds, teachers, target
+gate, acquisition gate, thresholds or interpretation.
+
+Execution accounting supersedes only the redundant initial-forward workload:
+- logical initial episodes: 85824
+- actual unique initial policy rows: 15912 = 1768 x 9
+- initial policy forwards: 18
+- initial shared-cell calls: 126
+- post-first and post-second live rows remain measured
+- all 85824 logical episodes still execute their own C172/C173 state/action lifecycle
+
+Scientific manifest SHA256 after this execution-only accounting clarification:
+`ddca97a8c8de1687929b95e69f33c3073647017c3514871ae3db81d22605ef6d`.
+
+The fixed replay threshold remains **<=1e-6**. No tolerance relaxation is permitted.
