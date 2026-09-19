@@ -4,6 +4,116 @@
 
 対象は主に `C###` 実験系列。個別実験の科学的仕様を置き換えるものではなく、`docs/experiment-ledger-and-handoff.md`、各 `experiment-ledger-addendum-*`、Gate decision、実験コードを人間と次のエージェントへ一貫して伝えるための運用規約である。
 
+## 0. Current response format (v2)
+
+この節が現在の会話フォーマットの authoritative rule。後続の A〜K は詳細チェックリストとして残すが、毎回その全項目を同じ長さで再掲する義務はない。
+
+### 0.1 返答モードを3つに分ける
+
+1. **Formal result mode** — ACCEPTED PASS / ACCEPTED VALID NEGATIVE を正式判定し、同じ返答内で次Cの設計・実装・preregistration・launcherまで準備する。
+2. **Execution recovery mode** — precheck / regression / source / artifact / replay / schema / nonfinite等で科学的結果が成立していないとき。同じCだけを修復し、次Cへ進まない。
+3. **Operational mode** — 実行中確認、Git認証、log push、短い技術質問。formal statusを変更しない。
+
+### 0.2 Formal result mode の順序
+
+```text
+1. Formal verdict
+2. Execution validity
+3. Deciding metrics
+4. Scientific interpretation
+5. Confound / non-claim
+6. Repository update
+7. Next C — one scientific question
+8. Changed / held constant
+9. Workload / fixed gate / interpretation boundary
+10. Registration HEAD
+11. Short launcher command
+12. Expected progress
+13. Stop condition
+```
+
+accepted resultでは acceptance commit と next-C preregistration commit を分離する。ただしユーザーにもう一度「続けて」と言わせず、同じ返答内で次C準備まで完了する。
+
+### 0.3 Execution recovery mode の順序
+
+```text
+1. C{N} — INVALID EXECUTION / RETRY SAME C{N}
+2. Failure phase — どこまで通ったか
+3. Root cause — 最小の技術原因
+4. Why not scientific evidence
+5. Minimal recovery — 科学条件は固定
+6. invalid log / recovery HEAD
+7. Short retry command
+8. Stop — C{N+1}へ進まない
+```
+
+INVALID時に新Cの設計・登録をしない。結果を見てthreshold / seed / cohort / comparator / gateを緩めてPASSへ変えない。
+
+### 0.4 実行コマンドはlauncherを標準にする
+
+長いinline PowerShellを毎回貼らず、repo内の `tools/run_c###.ps1` と `tools/invoke_c###.ps1` に詳細を固定する。ユーザー向け標準は原則これだけ:
+
+```powershell
+Set-Location -LiteralPath "M:\asobiba\fold"
+
+git pull --ff-only origin feat/sft-target-loss
+if ($LASTEXITCODE -ne 0) {
+    throw "Repository synchronization failed"
+}
+
+.\tools\invoke_c###.ps1 `
+    -ExpectedHead "<registered-head>"
+```
+
+expected regression count / branch / ExpectedHead /主要workloadは返答本文に出す。詳細hash/pathはrunner/preregistrationへ固定する。
+
+### 0.5 Remote log first
+
+通常はログ添付・clipboard・OSC52を要求しない。正式run後は `publish_experiment_log.ps1` が:
+
+```text
+docs/experiment-run-logs/c###/latest.log
+docs/experiment-run-logs/c###/latest.json
+```
+
+を専用log commitとしてpushする。ユーザーは原則 **「終わった」だけ送ればよい**。assistantはremoteからmetadata/logを取得して判定する。
+
+`latest.json.execution_head` が scientific execution HEAD。remote branch HEADはlog commitのため先へ進んでいてよい。`summary.commit_sha / metadata.execution_head / registered ExpectedHead` を区別して確認する。
+
+log pushだけ失敗した場合は科学実験を再実行しない。既存local log commitのpushを直す。log transport failureをscientific INVALIDと呼ばない。
+
+### 0.6 Active-run branch safety
+
+ユーザーが正式runを実行中は、同じexperiment branchのremote HEADを無関係なdocumentation変更で進めない。log pushがnon-fast-forwardになるため。
+
+作業中に基準文書等を更新する必要がある場合は別 `docs/...` branchへ保存し、formal run/log push完了後にexperiment branchへ取り込む。
+
+### 0.7 Scientific HEAD と log commit
+
+必ず別物として表記する:
+
+```text
+scientific execution HEAD = <実験コードを実行したcommit>
+published log commit      = <latest.log/latest.jsonだけのcommit>
+```
+
+formal verdictのexecution identityは前者。後者は証拠輸送/引き継ぎ用。
+
+### 0.8 数値の見せ方
+
+summary全文をチャットへ再掲しない。gateを決める deciding metrics を先に出し、必要なconfoundだけ追加する。
+
+- candidate error と control errorを分離する。
+- raw logit drift と argmax/action flipを分離する。
+- execution-validity replay と scientific correctnessを分離する。
+- PASSでもGate E completionや一般化を自動的に主張しない。
+
+### 0.9 Handoff更新
+
+accepted result: `experiment-ledger-addendum-c{N}-c{N+1}.md` + authoritative handoff。
+INVALID: 同じCの execution-recovery addendumへ追記。
+handoffは最新accepted evidence / active C / current recovery / claim boundary / next stopを中心にし、古い詳細はaddendumへ退避する。
+
 ## 1. 基本原則
 
 - 返答は「前実験の正式判定」から始める。`ACCEPTED PASS`、`ACCEPTED VALID NEGATIVE`、`INVALID EXECUTION / RETRY SAME C NUMBER`、`ACTIVE / NOT YET JUDGED` を曖昧にしない。
@@ -14,7 +124,7 @@
 - 長い実験では progress output を事前に示す。ユーザーが実行中に停止・再開・異常判定できるよう seed / phase / case / remaining を出す。
 - 実行前後に protected artifact、tracked tree、prerequisite identity 等の guard / postcheck を置く。
 - 有効な negative result は失敗扱いで捨てず、正式な科学的結果として ledger に残す。
-- 次のC番号へ自動で進まない。原則として **結果をユーザーが貼る → 判定する → ledger/handoffを更新する → 次Cを提示する** の順序にする。
+- accepted resultでは **remote log取得 → 判定 → ledger/handoff更新 → 同じ返答内で次Cを設計・実装・preregister** の順序にする。INVALIDではsame-C recoveryだけを行う。
 - チャットが変わっても、この文書と `experiment-ledger-and-handoff.md` を読めば同じ応答形式を再開できる状態を保つ。
 
 ## 2. 標準返答フォーマット
@@ -140,7 +250,7 @@ Expected HEAD: <full or short SHA>
 
 ### H. 実行コマンド
 
-原則として Windows PowerShell 用の **1本の再現可能ブロック** を提示する。
+現在の標準は **repo内launcherを短く呼ぶ** こと。runner/launcherが未整備な古いCだけ、下記の長いinline blockをfallbackとして使う。
 
 標準構造:
 
