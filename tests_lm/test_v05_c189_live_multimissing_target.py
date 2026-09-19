@@ -21,7 +21,7 @@ from fold_lm.v05_benchmarks import gate_e_c189_live_multimissing_target as c189
 
 
 def raw_row(visible=(None,0,None,1)):
-    x=np.zeros(72,dtype=np.int32);x[0]=7;x[1]=4
+    x=np.zeros(72,dtype=np.int32);x[0]=7;x[1]=4;x[2]=1;x[3]=1
     nodes=(
         (1,1,1,0,0,0),
         (1,1,2,0,0,0),
@@ -70,6 +70,7 @@ class C189Tests(unittest.TestCase):
         v=driver.make_views(r,np.array([7]),driver.LAYOUTS[0],"x")
         got,_=c189.encode_views(v)
         self.assertTrue(torch.equal(got,r))
+        self.assertEqual(got[0,2:4].tolist(),[1,1])
 
     def test_05_encode_views_no_canonicalization(self):
         r=raw_row();r[6],r[12]=2,1

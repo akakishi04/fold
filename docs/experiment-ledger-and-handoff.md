@@ -101,6 +101,17 @@ Published second-invalid log commit: `0f0594ddb9dd0a607451318d7ba33a6ecd061a7e`;
 log SHA256 `438ebe247d303d555719b679208e99d11224aae4d556182af4b8dd5d80ce6bca`.
 Retry SAME C189; C190 remains unregistered.
 
+## C189 third invalid-attempt recovery
+
+Third attempt at execution HEAD `5af67ef5e9b71a640f0787877af2e8cd7bb5ca2d` passed precheck and entered focused regression.
+The regression stopped at 1449 tests with exactly six new C189 acquisition-test failures.
+The synthetic C189 unit-test helper encoded evidence_time/revision as 0/0, unlike real C174
+rows and registered providers which use 1/1. C173 correctly rejected those synthetic dispatches
+as SOURCE_EPOCH_MISMATCH before provider IO. This is a test-fixture defect, not candidate evidence.
+Published log commit: `1da20c1db1f3127be3070c4f76088b7292fe7426`;
+log SHA256 `c2e8f17ed9b5ab934dc525707c6a70bf67c4141717ff5a174f60dcc90365090e`.
+Recovery changes only test fixture epoch/revision to 1/1. Retry SAME C189; C190 remains unregistered.
+
 ## Active C189 — live learned multi-missing target acquisition
 
 Experiment:

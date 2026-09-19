@@ -67,3 +67,23 @@ regression or model inference. Recomputing the exact canonical manifest object y
 `e1ba8c1b84dc016410e91432eadfc53e28a46dd49cb91bf015d3336f37e8402e`.
 The old fixed SHA was incorrect; no manifest field or scientific condition is changed.
 C189 remains ACTIVE / NOT YET JUDGED; retry SAME C189.
+
+## Third invalid attempt — test fixture epoch mismatch
+
+Retry execution HEAD: `5af67ef5e9b71a640f0787877af2e8cd7bb5ca2d`.
+Published log commit: `1da20c1db1f3127be3070c4f76088b7292fe7426`.
+Log SHA256: `c2e8f17ed9b5ab934dc525707c6a70bf67c4141717ff5a174f60dcc90365090e`.
+Log bytes: 239417.
+
+This attempt passed source/artifact precheck and entered the full focused regression.
+Existing historical tests and 30/36 new C189 tests passed, but six C189 acquisition tests
+failed before the benchmark ran. The failure was localized to the synthetic C189 unit-test
+helper `raw_row()`: it left structured-input header coordinates evidence_time/revision at
+0/0, while the real C174 source rows and registered C185-format providers use epoch 1/1.
+C173 therefore correctly rejected synthetic dispatches as SOURCE_EPOCH_MISMATCH before
+provider invocation, causing zero provider reads and one fewer internal charge.
+
+Recovery changes only the synthetic test fixture to encode evidence_time=1 and revision=1,
+matching the actual C174 TaskView contract. The benchmark source, scientific manifest,
+seeds, checkpoints, cohort, workload, gate, thresholds and interpretation are unchanged.
+C189 remains ACTIVE / NOT YET JUDGED. Retry SAME C189; C190 remains unregistered.
