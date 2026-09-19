@@ -1,0 +1,13 @@
+=== C197 repository preflight ===
+=== FOLD C197 V5-E provider-failure reason propagation ===
+repository = akakishi04/fold; branch = feat/sft-target-loss; commit = 675af144558c9528a8cde9e79d20a0c447736b72
+changed rule = non-admitted dispatch reason becomes generic-loop unresolved terminal reason
+arms = ALLOWED exact C196/C194 replay + PROVIDER_FAILURE_AFTER_RESERVATION
+expected_focused_tests = 1653 (1629 existing +24 new); Gate_E = NOT_PASSED
+Traceback (most recent call last):
+  File "<string>", line 3, in <module>
+    from fold_lm.v05_benchmarks import gate_e_c197_provider_failure_generic_loop as b
+  File "M:\asobiba\fold\fold_lm\v05_benchmarks\gate_e_c197_provider_failure_generic_loop.py", line 310
+    observed,arrays,_=run_loop_reason_aware(\n                                views,world_codes,real_endpoints,bases[b],heads[b,h],initial)
+                                             ^
+SyntaxError: unexpected character after line continuation character
