@@ -8,35 +8,33 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C195 ACCEPTED PASS. C196 ACTIVE / NOT YET JUDGED. C197 NOT REGISTERED.**
+**C196 ACCEPTED PASS. C197 NOT REGISTERED at this acceptance commit.**
 
-C195 execution HEAD:
-`485d32b9dba0b0df34709d631a9d454629a1570e`
-C195 acceptance commit:
-`988090c3d047eb1360dc06a7e3fb3956027124b3`
-C195 summary SHA:
-`614ffe9ee4794f102416bc5e51de1cd9510fde41ec4b43eb436377d9780a9b62`.
+C196 execution HEAD:
+`c1a4e68c785fab6441dd08892588add81f9486d6`
 
-C195:1605/1605;85824 episodes; budget12 replay exact; exhausted rows8352;
-fake final0; unauthorized final inference0; all runtime/resource errors0.
+C196 published log commit:
+`5a2605a9bac234a605b9f35394520fff2175db82`
 
-## Active C196
+C196 summary SHA:
+`b0de25067be3fb9ab24486e2936a62b26f6cf0446f3b85f7e97f7cb932d7e6fb`.
 
-One orchestration change:
-generic loop re-enters only after an actually admitted/published acquisition.
+C196:1629/1629; two85824-episode arms.
+ALLOWED reproduces accepted C194 exactly.
+PERMISSION_REVOKED_AFTER_DECISION:85824 learned decisions,85824 permission denials,
+provider calls/publications/receipts/retries all0, all scientific/resource errors0.
 
-Arms:
-1. ALLOWED — exact accepted C194 replay under budget13.
-2. PERMISSION_REVOKED_AFTER_DECISION — learned iteration0 decision remains on allowed state,
-   then trusted refresh revokes RETRIEVE permission before action proposal.
+Claim:
+generic loop continuation is conditioned on actual OBSERVATION_ADMITTED publication, not merely
+on a learned acquisition attempt. Dynamic permission revocation after the learned decision is
+contained safely.
 
-Denied-arm expected:
-one decision + one DENIED/PERMISSION_DENIED attempt, no dispatch/provider/publication/receipt/
-retry, no fact mutation/fake sufficient, final resources11/4/permission0/outcome2/step9.
+## Next design
 
-Expected regression1629;81 modules.
-Source pins141;protected paths374;artifacts5.
-Manifest:
-`cbbbcdac61d729e6c73a86d6e3c70ed74189db33bb4c9c2ea557becb630a2457`.
+C197 one question:
+if the first acquisition passes authority/reservation but the provider raises ProviderFailure on
+the single real call, does the same result-aware loop stop unresolved with no evidence, retry or
+fake completion?
 
-C197 remains unregistered until C196 judgment.
+Hold models, budget13, cohort, coherent worlds and learned initial decisions fixed.
+C198 remains unregistered until C197 judgment.
