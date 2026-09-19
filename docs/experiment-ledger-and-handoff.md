@@ -88,6 +88,19 @@ is not a policy/cache key. C189 saved outputs remain validation-only. Replay tol
 Published invalid log commit `da06a4544093930bc5392e05f42ffc2a3f0ac262`.
 Retry SAME C190; C191 remains unregistered.
 
+## C190 memoization-test recovery
+
+Retry at execution HEAD `40d53444067831d6ec3b1419142fdab36dd5be84` stopped in focused
+regression: 1485 tests ran, with exactly two C190 test errors and no benchmark execution.
+After initial-policy memoization, those tests still treated the first in-block
+`combined_predict` call as phase0; it is now phase1, causing a synthetic attempt to
+reacquire the already observed target. Only the two mocks are corrected.
+
+Published log commit `cc08b5c6c1075ae0598a7c5dca7843a854a67a60`;
+log SHA256 `3acc82e2e0788fdd8796cb6f29699f97e1de4b61050802e9e7ab21d828f07fb6`.
+
+No scientific condition changes. Retry SAME C190; C191 remains unregistered.
+
 ## Active C190 — iterative learned multi-missing acquisition
 
 Experiment:

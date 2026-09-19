@@ -60,3 +60,27 @@ policy inputs. Every world copy still owns independent runtime state and live ac
 
 No scientific gate, tolerance, seed, checkpoint, source world, cohort, action, teacher or
 interpretation is changed.
+
+
+## Memoization unit-test mock recovery
+
+Execution HEAD: `40d53444067831d6ec3b1419142fdab36dd5be84`
+Published log commit: `cc08b5c6c1075ae0598a7c5dca7843a854a67a60`
+Log SHA256: `3acc82e2e0788fdd8796cb6f29699f97e1de4b61050802e9e7ab21d828f07fb6`.
+
+Source/artifact precheck passed. Focused regression ran all 1485 tests and exactly two
+C190 tests errored before the benchmark:
+
+- test_16_run_block_stops_after_first_when_sufficient
+- test_19_resource_state_after_one_acquisition
+
+The execution-recovery change memoized the initial policy output, so `combined_predict`
+is no longer called for phase0 inside `run_block`. Those two tests still used a call-count
+mock that treated the first `combined_predict` call as phase0 and returned NEEDS/target0.
+It was actually phase1, so the test attempted to reacquire the already observed first target.
+
+Recovery changes only those mocks so their sole in-block combined call represents the
+post-first-acquisition SUFFICIENT phase. Benchmark source, manifest, replay threshold,
+seeds, checkpoints, cohort, worlds, gate and interpretation are unchanged.
+
+C190 remains ACTIVE / NOT YET JUDGED. Retry SAME C190.

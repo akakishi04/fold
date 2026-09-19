@@ -150,11 +150,11 @@ class C190Tests(unittest.TestCase):
     def test_16_run_block_stops_after_first_when_sufficient(self):
         with tempfile.TemporaryDirectory() as td:
             ep,p=endpoint(td,3);views=c190.make_views(torch.from_numpy(np.stack([raw_row()])),np.array([0]),np.array([3]),"x")
-            base=graph.SharedGraphProbe(graph.ARMS[1]);head=target.TargetSelector();calls=[0]
+            base=graph.SharedGraphProbe(graph.ARMS[1]);head=target.TargetSelector()
             def combined(base,head,raw,**kw):
-                calls[0]+=1;n=len(raw);need=1 if calls[0]==1 else 0
-                return (np.full(n,need,dtype=np.int8),np.zeros(n,dtype=np.int8),
-                    np.tile(np.array([[1.,2.]],dtype=np.float32),(n,1)),
+                n=len(raw)
+                return (np.zeros(n,dtype=np.int8),np.zeros(n,dtype=np.int8),
+                    np.tile(np.array([[2.,1.]],dtype=np.float32),(n,1)),
                     np.zeros((n,4),dtype=np.float32),meter(n))
             initial=cached_initial(views,0)
             with mock.patch.object(parent,"combined_predict",combined):
@@ -194,10 +194,10 @@ class C190Tests(unittest.TestCase):
     def test_19_resource_state_after_one_acquisition(self):
         with tempfile.TemporaryDirectory() as td:
             ep,_=endpoint(td,3);views=c190.make_views(torch.from_numpy(np.stack([raw_row()])),np.array([0]),np.array([3]),"x")
-            base=graph.SharedGraphProbe(graph.ARMS[1]);head=target.TargetSelector();calls=[0]
+            base=graph.SharedGraphProbe(graph.ARMS[1]);head=target.TargetSelector()
             def combined(base,head,raw,**kw):
-                calls[0]+=1;n=len(raw);need=1 if calls[0]==1 else 0
-                return np.full(n,need,dtype=np.int8),np.zeros(n,dtype=np.int8),np.zeros((n,2),np.float32),np.zeros((n,4),np.float32),meter(n)
+                n=len(raw)
+                return np.zeros(n,dtype=np.int8),np.zeros(n,dtype=np.int8),np.zeros((n,2),np.float32),np.zeros((n,4),np.float32),meter(n)
             initial=cached_initial(views,0)
             with mock.patch.object(parent,"combined_predict",combined):
                 rec,_,_=c190.run_block(views,np.array([3]),{3:ep},base,head,initial=initial)
