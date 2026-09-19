@@ -8,37 +8,30 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C192 ACCEPTED PASS. C193 ACTIVE / NOT YET JUDGED. C194 NOT REGISTERED.**
+**C193 ACCEPTED PASS. C194 NOT REGISTERED.**
 
-C192 execution HEAD:
-`583e7be99b3837690948634d9c8fc89967a5f573`
-C192 acceptance commit:
-`c7a577bb0b82ffaf78c81b1a973ab1c3a9409bc8`
-C192 summary SHA:
-`05d1b0b7783ca8c3e0313a32172f8f7068ec0c9542042e7cfe2246bb81446ee1`.
+C193 scientific execution HEAD:
+`7649392a506530de2ee881d9914148a4e88b197c`
+C193 published log commit:
+`4986197cd9f3265d379021bdd9b8f81e0105e047`
+C193 summary SHA:
+`660c4799c894ee2b3355d024fc446c5ff14ff69cad41c41b2b6b255ed4aa7416`.
 
-C192:1533/1533; shadow rows8352; shadow/logical/nonfinite/mutation/read-after-shadow
-errors all0. Frozen C181 recognizes every actual post3 fully observed state as SUFFICIENT;
-C191's remaining blocker was scheduler internal budget0.
+C193:1557/1557;85824 episodes; necessity/target/acquisition/contract/final-decision
+errors all0; first reads85824; second34948; third8352; authoritative final decision rows8352.
 
-## Active C193
+Claim:
+with only internal_remaining changed12->13, the frozen learned runtime closes the bounded
+three-acquisition path and executes the final SUFFICIENT decision authoritatively.
 
-One variable only:
-initial `internal_remaining 12 -> 13`.
+Non-claim:
+budget13 is diagnostic, not production default; no learned resource policy, arbitrary loop,
+independent holdout, tool/provider learning, language/answer/proof, or Gate E completion.
 
-Because the resource coordinate is model-visible, the entire learned path is rerun and
-rescored rather than forcing C191 prediction replay.
+## Current pause
 
-For three-acquisition paths expected authoritative resources:
-`13/4/7 ->12/4/8 ->8/3/12 ->4/2/16 ->0/1/20`.
+C194 is intentionally unregistered while independent research-report branches are reviewed:
+- `docs/reflex-path-hypothesis-report`
+- `docs/runtime-memory-auto-placement-idea`
 
-The final post3 necessity prediction is scheduler-authoritative and must be SUFFICIENT.
-
-Same85824 coherent-world episodes /9 frozen selector pairs.
-No training/fresh seeds/checkpoint/source/tool/provider changes.
-Expected regression1557;78 modules.
-Source pins126; protected paths342; artifacts4.
-Manifest:
-`c038222b91af95f557a39171c18ed75e791e32455d74556c771875b9c68a95b5`.
-
-C194 remains unregistered until C193 judgment.
+No report branch has been merged into the active experiment branch.
