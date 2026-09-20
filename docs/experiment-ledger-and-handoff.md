@@ -2,63 +2,65 @@
 
 > Authoritative current state. Current response format (v2) and Experiment authoring quality gate apply.
 
-Repository `akakishi04/fold`; branch `feat/sft-target-loss`; local `M:\asobiba\fold`.
+Repository `akakishi04/fold`; branch `feat/sft-target-loss`; local `M:\\asobiba\\fold`.
 Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C196 ACCEPTED PASS. C197 ACTIVE / NOT YET JUDGED. C198 NOT REGISTERED.**
+**C197 ACCEPTED PASS. C198 NOT REGISTERED.**
 
-C196 execution HEAD:
-`c1a4e68c785fab6441dd08892588add81f9486d6`
-C196 acceptance commit:
-`561cc91eaaa219a0c627a79b249aa07d76ad759b`
-C196 summary SHA:
-`b0de25067be3fb9ab24486e2936a62b26f6cf0446f3b85f7e97f7cb932d7e6fb`.
+C197 scientific execution HEAD:
+`7d9a09bba9ac2286806f40bc20c6ce45a21cb279`
 
-C196:1629/1629; ALLOWED exact C194 replay; permission-revoked arm85824 safe denials;
-provider/publication/receipt/retry all0.
+C197 published log commit:
+`b6f2cb6334c22f435320e0f2204b894152bd4797`
 
-## C197 invalid-attempt recovery
+C197 log SHA256:
+`2053ea31d161e732fb496ea1213612bafc4869df75aef3bdaa3ecbcd460581c6`
 
-The first C197 attempt at execution HEAD `675af144558c9528a8cde9e79d20a0c447736b72`
-is **INVALID EXECUTION / RETRY SAME C197**.
+C197 summary SHA256:
+`632e8af4a215d12adc83aa015da855c63605205c87832aa6a511dabfc4fd1ca5`
 
-Published log commit: `938b316cad79fdbcf0ccb63738387a5a0acd0a63`.
-Log SHA256: `c4c3eeff5c2557bc102ec6ba47ddf0f83a274688e15a1e243b07f69da8a4710b`.
+C197 deciding result:
+- focused regression **1653/1653**
+- ALLOWED: 9/9 blocks, accepted C196/C194 behavior preserved
+- PROVIDER_FAILURE_AFTER_RESERVATION: 85824/85824 failure attempts
+- provider calls 85824
+- publications 0
+- receipts 0
+- retries 0
+- fact mutation 0
+- fake SUFFICIENT 0
+- candidate_gate_passed True
+- run_execution_valid True
+- production runtime modified False
 
-Failure occurred while importing the C197 benchmark during source/artifact precheck.
-Two call sites contained literal backslash-n characters between `run_loop_reason_aware(`
-and the argument list, producing a Python SyntaxError. Regression and scientific benchmark
-did not start, so the attempt contributes no scientific evidence.
+The earlier C197 execution at
+`675af144558c9528a8cde9e79d20a0c447736b72`
+remains **INVALID EXECUTION** only. It stopped during source/import precheck because of malformed
+literal backslash-n text and contributes no scientific evidence.
 
-Recovery changes only those two source formatting errors and adds Python `py_compile`
-preflight for the C197 benchmark/test modules. Scientific manifest, arms, cohort, seeds,
-checkpoints, source worlds, thresholds and gate remain unchanged.
+## Accepted C197 claim boundary
 
-## Active C197
+The bounded generic result-aware loop preserves a post-reservation provider failure as
+`UNRESOLVED_ACQUISITION_PROVIDER_FAILURE`, rather than collapsing it to the action-level
+reservation reason. The provider is called once, but no observation is published and the loop
+does not retry or fabricate completion.
 
-One orchestration change:
-for a non-admitted acquisition, use `dispatch.reason` when dispatch exists; otherwise use
-`action.reason`.
+This does not establish retry policy, stale-reservation handling, attempt-limit handling,
+learned provider/tool/resource policy, independent final holdout, language/answer/proof, or
+full Gate E completion.
 
-Arms:
-1. ALLOWED — exact accepted C196/C194 replay.
-2. PROVIDER_FAILURE_AFTER_RESERVATION — same learned initial decision and SourceBinding,
-   successful reservation, one provider call raising ProviderFailure.
+## Next boundary
 
-Failure-arm required outcome:
-- action PENDING/ACQUISITION_RESERVED;
-- dispatch UNRESOLVED/PROVIDER_FAILURE;
-- orchestration status UNRESOLVED_ACQUISITION_PROVIDER_FAILURE;
-- one provider call;
-- zero publication/receipt/retry/fact mutation/fake sufficient;
-- final resources internal9/acquisitions3/available1/permitted1/outcomeNONE/step11.
+C198 is not yet registered at this handoff boundary.
 
-Expected regression1653;82 modules.
-Source pins146;protected paths385;artifacts5.
-Manifest:
-`7f7121c336e68dc58578e35f75b7c459986f5adbd2329344fc08514e468d58d2`.
+Next one-question intervention:
+after the learned decision and successful RETRIEVE reservation, change only the trusted
+TaskView evidence identity before dispatch. The dispatch should reject the old reservation as
+`STALE_RESERVATION`; the generic loop must preserve that reason, perform zero provider calls,
+zero publication/receipt/retry and no fake SUFFICIENT.
 
-C198 remains unregistered until C197 judgment.
+C198 must be authored and pass the experiment authoring quality gate before it is described as
+executable.
