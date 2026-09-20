@@ -228,7 +228,17 @@ Before execution, committed remote bytes must be re-fetched and reviewed for:
 
 Until review passes:
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
+
+review HEAD:
+`2687da216c6c47c3a334801556c28f239cecc9ca`
+
+Review re-fetched committed remote bytes and checked all30 source-string assertions against their
+exact target functions, C181/C188 checkpoint writer/fingerprint semantics, C199 stored-vs-executed
+target semantics, deterministic CPU inference settings, structured-v2 prefix/tail separation,
+comparison-only reference use, live-inference/action ordering, one-episode production-path
+integration, 37 source pins /79 protected inputs, runner/launcher argument wiring and C205
+non-registration.
 
 ## Execution / stop
 
