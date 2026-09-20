@@ -9,7 +9,7 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C202 ACCEPTED PASS. C203 NOT REGISTERED.**
+**C202 ACCEPTED PASS. C203 ACTIVE / NOT YET JUDGED. C204 NOT REGISTERED.**
 
 ## Accepted C202
 
@@ -39,33 +39,76 @@ C202 deciding result:
 - training/learned-forward/network0
 - production runtime modified False
 
-Accepted claim: each accepted learned target can execute through its exactly-one typed
-RETRIEVE/OBSERVE/ASK_USER channel using the real structured acquisition lifecycle, with matching
-provider isolation and exact selected-fact publication/resource semantics.
+Accepted claim: each accepted learned target can execute through its exactly-one typed channel using
+the real structured acquisition lifecycle, with matching-provider isolation and exact selected-fact
+publication/resource semantics.
 
-## Next boundary
+## Active C203
 
-C203 is not yet registered.
+Experiment:
+`C203-v5e-mixed-channel-multistep-replay`
 
-Next one-question intervention:
-replay the full accepted C199 ALLOWED multi-step necessity/target trace while assigning different
-semantic channels to different fact identities:
+Stage:
+`V5-E-MIXED-CHANNEL-MULTISTEP-REPLAY`
 
+One question:
+can the accepted C199 ALLOWED multi-step necessity/target trace be replayed exactly while
+fact-specific channel assignments switch within an episode, with correct channel dispatch,
+fact/value publication, parent resource accounting and final SUFFICIENT closure?
+
+Fixed layout:
 ```text
-fact0 -> RETRIEVE
-fact1 -> OBSERVE
-fact2 -> ASK_USER
-fact3 -> RETRIEVE
+fact0 RETRIEVE
+fact1 OBSERVE
+fact2 ASK_USER
+fact3 RETRIEVE
 ```
 
-Before each replayed learned decision, restore the accepted parent RETRIEVE-only runtime masks.
-After NEEDS+target, trusted scheduler temporarily enables all three channels, maps the selected fact
-through C201, dispatches through the C202 lifecycle, then restores parent masks before the next
-replayed decision.
+Fixed parent totals:
+- episodes85824
+- decisions214948
+- acquisitions129124
+- final SUFFICIENT85824
 
-The expected acquisition depth, per-channel call totals and within-episode channel-switch count
-must be derived only from the frozen accepted C199 prediction artifact and the fixed layout.
+The exact channel call totals and within-episode switch count are a deterministic projection of
+the frozen C199 prediction artifact through the fixed layout.
 
-C203 must pass authoring quality gate and post-authoring remote-byte review before execution.
+Decision/action separation:
+- before each replayed decision: parent RETRIEVE-only authority masks;
+- after NEEDS+target: temporarily all three runtime channels enabled;
+- C201 mapper + existing runtime/lifecycle dispatch;
+- parent masks restored before the next replayed decision.
+
+Scope:
+- training0
+- fresh seeds0
+- learned forward calls0
+- network0
+- production runtime modifiedFalse
+- Gate E candidateFalse
+
+Authoring:
+- expected regression **1813 =1785+28**
+- expected modules **88**
+- source pins31
+- protected inputs53
+- artifacts5
+- manifest
+  `2b9723733441019df8d73fa40fcf1421023c4765cbe6fdc91a31b2765b447ae6`
+
+## Post-authoring review
+
+**post_authoring_review = PENDING**
+
+Do not issue the C203 execution command until committed remote bytes and parent artifact contracts
+have been independently re-fetched and reviewed.
+
+## Stop condition
+
+Judge C203 before any C204 registration.
+
+- valid complete gate pass -> ACCEPTED PASS;
+- valid complete scientific miss -> ACCEPTED VALID NEGATIVE;
+- source/schema/hash/import/regression/incomplete/protection failure -> INVALID / RETRY SAME C203.
 
 Gate E remains NOT PASSED.
