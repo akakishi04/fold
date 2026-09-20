@@ -126,6 +126,32 @@ summary全文をチャットへ再掲しない。gateを決める deciding metri
 このquality gateは科学的regressionとは別物で、**実験ハーネスの作者側の品質確認**である。
 ここで見つかる問題をユーザー実行時のINVALIDで初めて発見する状態を減らす。
 
+### 0.9.1 Post-authoring review pass — 実装後の必須見直し
+
+新しいC番号の source / tests / runner / launcher / preregistration を**すべて書き終えた後**、
+ユーザーへ実行コマンドを渡す前に、必ず1回の独立した post-authoring review を行う。
+
+この review は「書きながら行った確認」とは別工程とし、**commit済みremote branchの実ファイルを
+再取得して読み直す**。in-memoryの生成内容だけを根拠にPASSさせない。
+
+最低限、以下を再確認する:
+
+- new/modified Python の import/compile可能性と、test assertion がdocstring/comment文字列へ誤反応しないこと
+- preregistration と code 定数 / manifest / workload / counts / thresholds の一致
+- parent artifact schema / summary adapter / loader dispatch の一致
+- runner の module数 / test数 / CLI引数 index / PowerShell引数順序
+- launcher の parent artifact path / ExpectedHead / log publication path
+- tracked tree / source pin / protected path 数の二重計上・欠落
+- source-level call ordering と scientific changed-variable が preregistration と一致
+- placeholder、古いC番号、古いHEAD、古いrun directory、コピペ残骸がないこと
+
+reviewで1件でも修正した場合、その修正後のremote bytesをもう一度確認してから
+**post-authoring review PASS** とする。PASSするまでは「実行可能」「そのまま実行してよい」
+とユーザーへ案内しない。
+
+preregistrationまたはauthoritative handoffには、少なくとも
+`post_authoring_review = PASS` と review対象HEADを残す。
+
 ### 0.10 Handoff更新
 
 accepted result: `experiment-ledger-addendum-c{N}-c{N+1}.md` + authoritative handoff。
