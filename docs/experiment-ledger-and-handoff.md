@@ -96,13 +96,17 @@ Authoring:
 
 ## Post-authoring review
 
-**post_authoring_review = PENDING**
+**post_authoring_review = PASS**
 
-The execution entrypoint changed to a generic active-experiment dispatcher. Re-review must verify:
-- handoff formal-state parsing resolves exactly C204;
-- stale experiment / stale ExpectedHead exits as SKIPPED before experiment/logging;
-- no log publication attempt occurs on preflight skip;
-- direct C204 launcher has the same pre-publish guards;
+launcher-safety review HEAD:
+`e7440e44db9b96330d65af2023c2278afddea447`
+
+Committed remote review confirmed:
+- formal-state parsing resolves exactly C204 ACTIVE;
+- stale ExpectedHead / stale experiment is an operational SKIPPED result before scientific execution;
+- skipped invocation never calls log publication;
+- direct C204 launcher carries the same pre-publish guards;
+- invoke_active.ps1 is part of the protected C204 path;
 - 33 new tests /1846 regression /38 source pins /80 protected inputs are aligned.
 
 ## Stop condition
