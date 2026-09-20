@@ -92,7 +92,7 @@ Authoring:
 - protected inputs79
 - artifacts5
 - manifest
-  `577f8a3e0b23e1833be89845a10445a85d8b337ebb1043d2df7dffae9913414a`
+  `3af3186623e7281c182361eafad0eb6336691e073e76e94ae089d5f2464f24af`
 
 ## Post-authoring review
 
