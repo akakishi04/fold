@@ -48,8 +48,78 @@ if(-not(Test-Path -LiteralPath $handoffPath -PathType Leaf)){
  return
 }
 $handoff=Get-Content -LiteralPath $handoffPath -Raw -Encoding UTF8
-if($handoff -notmatch '\*\*C204 ACTIVE / (NOT YET JUDGED|INVALID ATTEMPT RECOVERY)'){
- $m=[regex]::Match($handoff,'\*\*C(?<id>\d{3}) ACTIVE / (NOT YET JUDGED|INVALID ATTEMPT RECOVERY)')
+if($handoff -notmatch '(?m)^\*\*[^*\r\n]*C204 ACTIVE / (NOT YET JUDGED|INVALID ATTEMPT RECOVERY)[^*\r\n]*\*\*
+ $active=if($m.Success){"C"+$m.Groups["id"].Value}else{"UNRESOLVED"}
+ Skip-Invocation -Reason "STALE_EXPERIMENT" -Detail "requested=C204 active=$active"
+ return
+}
+
+$runArgs=@{
+ ExpectedHead=$ExpectedHead
+ C203Summary=(Join-Path $Root "runs\c203-v5e-mixed-channel-multistep-f8a35e95871341ddafa1a273aed80cfb\summary.json")
+ C202Summary=(Join-Path $Root "runs\c202-v5e-three-channel-dispatch-4c36064e0e7b4b87a8deb9714cb6aa66\summary.json")
+ C201Summary=(Join-Path $Root "runs\c201-v5e-selected-fact-channel-route-37e1d67baaff4cd7a67addeb75da0aca\summary.json")
+ C200Summary=(Join-Path $Root "runs\c200-v5e-acquisition-channel-input-d892b01c24ee49cfbb87758e7a208be0\summary.json")
+ C199Summary=(Join-Path $Root "runs\c199-v5e-attempt-limit-886ac50bbbe046ebba61316e6bf97268\summary.json")
+ C174Summary=(Join-Path $Root "runs\c174-v5e-learned-necessity-529b2018ef2a4a568a30fdb89b662410\summary.json")
+ C181Summary=(Join-Path $Root "runs\c181-v5e-internal-semantics-23f8363819474cccb05b0d1ecc8941ad\summary.json")
+ C188Summary=(Join-Path $Root "runs\c188-v5e-multimissing-target-selection-81830a0e8ba741519c9172bdf2f7a7bc\summary.json")
+}
+
+$failure=$null
+try{
+ & {
+   Write-Output "=== C204 repository preflight ==="
+   Write-Output "branch = $branchNow"
+   Write-Output "execution_head = $headNow"
+   .\tools\run_c204.ps1 @runArgs
+ } *>&1 | Tee-Object -FilePath $log
+}catch{$failure=$_}
+finally{
+ try{.\tools\publish_experiment_log.ps1 -ExperimentId C204 -LogPath $log -ExecutionHead $ExpectedHead}
+ catch{
+   if($null -ne $failure){throw "C204 execution failed and log publication also failed. Execution error: $($failure.Exception.Message); publish error: $($_.Exception.Message)"}
+   throw
+ }
+}
+if($null -ne $failure){throw $failure}
+){
+ $m=[regex]::Match($handoff,'(?m)^\*\*[^*\r\n]*C(?<id>\d{3}) ACTIVE / (NOT YET JUDGED|INVALID ATTEMPT RECOVERY)[^*\r\n]*\*\*
+ $active=if($m.Success){"C"+$m.Groups["id"].Value}else{"UNRESOLVED"}
+ Skip-Invocation -Reason "STALE_EXPERIMENT" -Detail "requested=C204 active=$active"
+ return
+}
+
+$runArgs=@{
+ ExpectedHead=$ExpectedHead
+ C203Summary=(Join-Path $Root "runs\c203-v5e-mixed-channel-multistep-f8a35e95871341ddafa1a273aed80cfb\summary.json")
+ C202Summary=(Join-Path $Root "runs\c202-v5e-three-channel-dispatch-4c36064e0e7b4b87a8deb9714cb6aa66\summary.json")
+ C201Summary=(Join-Path $Root "runs\c201-v5e-selected-fact-channel-route-37e1d67baaff4cd7a67addeb75da0aca\summary.json")
+ C200Summary=(Join-Path $Root "runs\c200-v5e-acquisition-channel-input-d892b01c24ee49cfbb87758e7a208be0\summary.json")
+ C199Summary=(Join-Path $Root "runs\c199-v5e-attempt-limit-886ac50bbbe046ebba61316e6bf97268\summary.json")
+ C174Summary=(Join-Path $Root "runs\c174-v5e-learned-necessity-529b2018ef2a4a568a30fdb89b662410\summary.json")
+ C181Summary=(Join-Path $Root "runs\c181-v5e-internal-semantics-23f8363819474cccb05b0d1ecc8941ad\summary.json")
+ C188Summary=(Join-Path $Root "runs\c188-v5e-multimissing-target-selection-81830a0e8ba741519c9172bdf2f7a7bc\summary.json")
+}
+
+$failure=$null
+try{
+ & {
+   Write-Output "=== C204 repository preflight ==="
+   Write-Output "branch = $branchNow"
+   Write-Output "execution_head = $headNow"
+   .\tools\run_c204.ps1 @runArgs
+ } *>&1 | Tee-Object -FilePath $log
+}catch{$failure=$_}
+finally{
+ try{.\tools\publish_experiment_log.ps1 -ExperimentId C204 -LogPath $log -ExecutionHead $ExpectedHead}
+ catch{
+   if($null -ne $failure){throw "C204 execution failed and log publication also failed. Execution error: $($failure.Exception.Message); publish error: $($_.Exception.Message)"}
+   throw
+ }
+}
+if($null -ne $failure){throw $failure}
+)
  $active=if($m.Success){"C"+$m.Groups["id"].Value}else{"UNRESOLVED"}
  Skip-Invocation -Reason "STALE_EXPERIMENT" -Detail "requested=C204 active=$active"
  return
