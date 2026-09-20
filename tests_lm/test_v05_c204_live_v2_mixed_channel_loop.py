@@ -37,7 +37,7 @@ def reference_one():
     # C199 semantics: terminal SUFFICIENT phase can still carry target-head output.
     t[0,0]=0;t[0,1]=1
     tz[0,0]=[1.0,0.0,0.0,0.0]
-    tz[0,1]=[0.0,1.0,0.0,0.0]
+    tz[0,1]=[-np.inf,1.0,0.0,0.0]
     return dict(
         necessity_predictions=n,necessity_logits=nz,
         target_predictions=t,target_logits=tz,
@@ -68,7 +68,7 @@ def combined_side_effect(*args,**kwargs):
         np.array([0],dtype=np.int8),
         np.array([1],dtype=np.int8),
         np.array([[1.0,0.0]],dtype=np.float32),
-        np.array([[0.0,1.0,0.0,0.0]],dtype=np.float32),
+        np.array([[-np.inf,1.0,0.0,0.0]],dtype=np.float32),
         dict(rows=1,forward_calls=1,cell_calls=7,wall_clock_seconds=0.0),
     )
 
