@@ -72,17 +72,15 @@ Scientific manifest, fixed channel layout, parent identities, gate and workload 
 
 ## Post-authoring review
 
-**post_authoring_review = PENDING**
+**post_authoring_review = PASS**
 
-The revised review must now include:
-- exact source-string assertion checks;
-- C199 writer-side artifact semantics;
-- parent gating semantics (stored target != executed acquisition);
-- budget13/make_views identity reconstruction;
-- authority grant/restore ordering;
-- runner/launcher/manifest/count contracts.
+semantic review HEAD:
+`25c6f41b6a3e9e5d250a2ccb3f6e5adcb0dd88dc`
 
-Do not issue the next retry command until this review passes.
+The revised review explicitly checked C199 writer-side target semantics, the distinction between
+stored target-head output and executed acquisition, NEEDS gating, terminal SUFFICIENT target
+exclusion, budget13/make_views reconstruction, authority grant/restore ordering, source-string
+assertions, runner/launcher/manifest/count contracts and C204 non-registration.
 
 ## Stop condition
 
