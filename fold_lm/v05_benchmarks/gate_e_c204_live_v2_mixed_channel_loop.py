@@ -45,7 +45,7 @@ REFERENCE_C199_EXECUTION = "48100f36f4f1acdf44d5cb1d508b907e19724c10"
 REFERENCE_C199_SHA = "0ee89c9720022146c9625bbe7cd4d02a615c411ff2f3f068d5dac91d5ab906f9"
 C181_SUMMARY_SHA = "bfc68d603682aabd719bc52d33de907a60389a8e1f58ea22ebaf33fa21906f98"
 C188_SUMMARY_SHA = "2a3ef27e9dec281159197775a15771b31b4945c9a0fa84787b4b812e9efb4153"
-MANIFEST_SHA = "577f8a3e0b23e1833be89845a10445a85d8b337ebb1043d2df7dffae9913414a"
+MANIFEST_SHA = "3af3186623e7281c182361eafad0eb6336691e073e76e94ae089d5f2464f24af"
 BASE_SEEDS = (181001,181002,181003)
 HEAD_SEEDS = (188001,188002,188003)
 ARM = "INTERNAL_SEMANTICS"
@@ -104,6 +104,7 @@ def manifest():
         episodes_per_block=9536,
         decision_input="construct structured-v2 packet live; exact first72 canonical v1 features feed frozen learned models; 12-bit tail never enters learned forward",
         inference="accepted C181 INTERNAL_SEMANTICS base + accepted C188 selector; raw argmax; no threshold repair",
+        inference_environment=dict(device="cpu",dtype="float32",threads=2,deterministic_algorithms=True),
         reference="accepted C199 ALLOWED necessity/target predictions and logits at each active phase",
         action_path="live NEEDS target -> trusted three-channel authority window -> C201 mapper -> existing acquisition lifecycle -> restore parent authority",
         fixed_parent_totals=dict(
@@ -680,6 +681,8 @@ def run(*,c203_summary,c202_summary,c201_summary,c200_summary,c199_summary,c174_
                 "Dirty tracked tree")
 
     guard()
+    torch.set_num_threads(2)
+    torch.use_deterministic_algorithms(True)
     p203,_,prediction_path,_,_,_,_,pins,protected = precheck(
         c203_summary,c202_summary,c201_summary,c200_summary,c199_summary,c174_summary,
         c181_summary,c188_summary,root
