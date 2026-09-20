@@ -229,14 +229,19 @@ Before execution, committed remote bytes must be re-fetched and reviewed for:
 
 Until review passes:
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-The launcher safety path changed after review. C204 must be re-reviewed with:
-- generic active-experiment dispatcher resolution;
-- stale ExpectedHead skip semantics;
-- direct C204 launcher preflight occurring before any log/publish try/finally;
-- no log publication attempt on preflight skip;
-- updated33-test /1846-regression /38-pin /80-protected contracts.
+launcher-safety review HEAD:
+`e7440e44db9b96330d65af2023c2278afddea447`
+
+Verified from committed remote bytes:
+- authoritative handoff resolves exactly C204 ACTIVE;
+- generic dispatcher rejects stale ExpectedHead before launcher dispatch;
+- generic dispatcher contains no publisher call;
+- direct C204 launcher checks branch/tree/HEAD/active experiment before entering its log/publish try/finally;
+- skipped invocations report experiment_executed=False and execution_log_publish_attempted=False;
+- active dispatcher is protected by C204;
+- 33 new tests /1846 regression /38 source pins /80 protected inputs are aligned.
 
 ## Execution / stop
 
