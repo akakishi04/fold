@@ -156,6 +156,7 @@ summary全文をチャットへ再掲しない。gateを決める deciding metri
 最低限、以下を再確認する:
 
 - new/modified Python の import/compile可能性と、test assertion がdocstring/comment文字列へ誤反応しないこと
+- new/modified PowerShell (`.ps1`) は、ユーザー実行前に `System.Management.Automation.Language.Parser.ParseFile()` のAST parser preflightを通す実行経路を必須にする。dispatcher自身は標準実行blockでparseし、dispatcherが選ぶexperiment launcherはdispatcher内部でparseしてからinvokeする
 - preregistration と code 定数 / manifest / workload / counts / thresholds の一致
 - parent artifact schema / summary adapter / loader dispatch の一致
 - runner の module数 / test数 / CLI引数 index / PowerShell引数順序
