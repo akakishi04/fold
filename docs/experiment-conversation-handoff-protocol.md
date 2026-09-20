@@ -78,7 +78,7 @@ if ($parseErrors.Count -gt 0) {
     -ExpectedHead "<registered-head>"
 ```
 
-`invoke_active.ps1` は authoritative handoff のformal-state行から唯一のACTIVE C番号を解決し、そのlauncherだけを呼ぶ。古いC番号のコマンド取り違えを標準経路から除去する。
+`invoke_active.ps1` は authoritative handoff の `## Formal state` セクションだけを切り出し、その中から唯一の `C### ACTIVE / ...` tokenを解決して、そのlauncherだけを呼ぶ。Markdown行全体やCRLFの行末には依存しない。古いC番号のコマンド取り違えを標準経路から除去する。
 
 expected regression count / branch / ExpectedHead /主要workloadは返答本文に出す。詳細hash/pathはrunner/preregistrationへ固定する。
 
