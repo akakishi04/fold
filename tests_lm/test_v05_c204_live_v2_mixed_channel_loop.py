@@ -310,5 +310,18 @@ class C204Tests(unittest.TestCase):
         self.assertIn("execution_log_publish_attempted = False",source)
 
 
+    def test_33_active_dispatcher_resolves_current_formal_state(self):
+        import re
+        root=Path(__file__).resolve().parents[1]
+        handoff=(root/"docs"/"experiment-ledger-and-handoff.md").read_text(encoding="utf-8")
+        matches=re.findall(
+            r"(?m)^\*\*[^*\r\n]*C(?P<id>\d{3}) ACTIVE / (?:NOT YET JUDGED|INVALID ATTEMPT RECOVERY)[^*\r\n]*\*\*$",
+            handoff,
+        )
+        self.assertEqual(matches,["204"])
+        source=(root/"tools"/"invoke_active.ps1").read_text(encoding="utf-8")
+        self.assertIn("(?m)^\\*\\*[^*\\r\\n]*C(?<id>\\d{3}) ACTIVE /",source)
+
+
 if __name__=="__main__":
     unittest.main(verbosity=2)
