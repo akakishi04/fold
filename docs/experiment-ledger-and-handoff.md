@@ -86,26 +86,24 @@ Model summaries/checkpoints:
 -3 INTERNAL_SEMANTICS bases +9 selector checkpoints must match accepted artifacts and C199 protected hashes.
 
 Authoring:
-- expected regression **1843 =1813+30**
+- expected regression **1846 =1813+33**
 - expected modules **89**
-- source pins37
-- protected inputs79
+- source pins38
+- protected inputs80
 - artifacts5
 - manifest
   `3af3186623e7281c182361eafad0eb6336691e073e76e94ae089d5f2464f24af`
 
 ## Post-authoring review
 
-**post_authoring_review = PASS**
+**post_authoring_review = PENDING**
 
-review HEAD:
-`2687da216c6c47c3a334801556c28f239cecc9ca`
-
-The review re-fetched committed remote bytes and verified all30 source-string assertions against
-their exact target functions, C181/C188 checkpoint writer/fingerprint semantics, C199 target writer
-gating, deterministic CPU inference settings, structured-v2 prefix/tail isolation,
-comparison-only C199 reference usage, live-inference/action ordering, the one-episode production
-path, 37 source pins /79 protected inputs, runner/launcher wiring and C205 non-registration.
+The execution entrypoint changed to a generic active-experiment dispatcher. Re-review must verify:
+- handoff formal-state parsing resolves exactly C204;
+- stale experiment / stale ExpectedHead exits as SKIPPED before experiment/logging;
+- no log publication attempt occurs on preflight skip;
+- direct C204 launcher has the same pre-publish guards;
+- 33 new tests /1846 regression /38 source pins /80 protected inputs are aligned.
 
 ## Stop condition
 
