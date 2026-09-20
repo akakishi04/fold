@@ -173,10 +173,14 @@ class C203Tests(unittest.TestCase):
         self.assertFalse(c203.gate(projection,records,totals))
 
     def test_22_source_replay_uses_saved_predictions(self):
-        source=inspect.getsource(c203.collect)
-        self.assertIn('predictions["necessity_predictions"]',inspect.getsource(c203.replay_block))
-        self.assertNotIn("combined_predict",source)
-        self.assertNotIn("necessity_predict",source)
+        collect_source=inspect.getsource(c203.collect)
+        replay_source=inspect.getsource(c203.replay_block)
+        self.assertIn('predictions["necessity_predictions"]',collect_source)
+        self.assertIn('predictions["target_predictions"]',collect_source)
+        self.assertIn("necessity[i,phase]",replay_source)
+        self.assertIn("targets[i,phase]",replay_source)
+        self.assertNotIn("combined_predict",collect_source+replay_source)
+        self.assertNotIn("necessity_predict",collect_source+replay_source)
 
     def test_23_replay_charges_decision_before_action_window(self):
         source=inspect.getsource(c203.replay_block)
