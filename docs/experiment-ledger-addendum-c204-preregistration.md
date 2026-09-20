@@ -193,18 +193,19 @@ C204 OWN:
 - `tests_lm/test_v05_c204_live_v2_mixed_channel_loop.py`
 - `tools/run_c204.ps1`
 - `tools/invoke_c204.ps1`
+- `tools/invoke_active.ps1`
 - this preregistration;
 - `docs/live-v2-mixed-channel-loop-v0.1.md`
 
 Expected:
-- source pins37;
-- protected inputs79;
+- source pins38;
+- protected inputs80;
 - output artifacts5;
-- new tests30;
-- focused regression **1843 =1813+30**;
+- new tests33;
+- focused regression **1846 =1813+33**;
 - regression modules **89**.
 
-The30 tests include a one-episode production-path integration:
+The33 tests include a one-episode production-path integration:
 v2 encode -> live mocked model output -> real mixed-channel mapper/action/acquisition dispatch ->
 publication -> next live decision -> SUFFICIENT.
 
@@ -228,21 +229,18 @@ Before execution, committed remote bytes must be re-fetched and reviewed for:
 
 Until review passes:
 
-`post_authoring_review = PASS`
+`post_authoring_review = PENDING`
 
-review HEAD:
-`2687da216c6c47c3a334801556c28f239cecc9ca`
-
-Review re-fetched committed remote bytes and checked all30 source-string assertions against their
-exact target functions, C181/C188 checkpoint writer/fingerprint semantics, C199 stored-vs-executed
-target semantics, deterministic CPU inference settings, structured-v2 prefix/tail separation,
-comparison-only reference use, live-inference/action ordering, one-episode production-path
-integration, 37 source pins /79 protected inputs, runner/launcher argument wiring and C205
-non-registration.
+The launcher safety path changed after review. C204 must be re-reviewed with:
+- generic active-experiment dispatcher resolution;
+- stale ExpectedHead skip semantics;
+- direct C204 launcher preflight occurring before any log/publish try/finally;
+- no log publication attempt on preflight skip;
+- updated33-test /1846-regression /38-pin /80-protected contracts.
 
 ## Execution / stop
 
-Use the final reviewed registration HEAD as `ExpectedHead`.
+Use the final reviewed registration HEAD as `ExpectedHead`. User-facing execution must call `tools/invoke_active.ps1`, not an experiment-numbered launcher.
 
 Expected progress:
 - C204 repository preflight
