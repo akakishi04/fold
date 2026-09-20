@@ -82,7 +82,7 @@ Workload:
 - expected regression **1677 =1653+24**;
 - expected modules **83**;
 - source pins151;
-- protected paths401;
+- protected paths396;
 - artifacts5;
 - no new training/fresh seeds/network/proof checking/answer generation;
 - production runtime modified False;
