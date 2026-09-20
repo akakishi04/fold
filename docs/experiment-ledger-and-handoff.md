@@ -9,7 +9,7 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C200 ACCEPTED PASS. C201 NOT REGISTERED.**
+**C200 ACCEPTED PASS. C201 ACTIVE / NOT YET JUDGED. C202 NOT REGISTERED.**
 
 ## Accepted C200
 
@@ -43,42 +43,86 @@ C200 deciding result:
 
 The earlier C200 attempt at
 `4334bf492fe4d98e22165bb785edf3bcc9def254`
-remains INVALID execution only; it failed in a false-positive authoring regression before the
-scientific diagnostic.
+remains INVALID execution only.
 
-Accepted claim: structured-task-input-v2 adds fact-specific
+Accepted claim: structured-task-input-v2 exposes fact-specific
 RETRIEVE/OBSERVE/ASK_USER eligibility as a strict12-bit tail while preserving the canonical
-v1 72-feature prefix and runtime authority separation.
+v1 72-feature prefix and separate runtime authority.
 
-## Next boundary
+## Active C201
 
-C201 is not yet registered.
+Experiment:
+`C201-v5e-selected-fact-channel-route`
 
-Next one-question intervention:
-combine an accepted learned fact target with an exactly-one declared v2 channel and produce a
-typed action proposal for that same fact, while leaving runtime authorization entirely to the
-existing structured action runtime.
+Stage:
+`V5-E-SELECTED-FACT-CHANNEL-ROUTE`
 
-Reference mapper contract:
+One question:
+can accepted C199 learned phase0 fact targets be mapped through exactly-one v2 channel metadata
+into the correct typed ActionProposal without changing the selected fact or absorbing runtime
+authority into the mapper?
 
-```text
-v2 view + trusted RuntimeState + selected fact_index
--> require view.base == state.view
--> require exactly one declared channel for selected fact
--> ActionProposal(action=<that channel>, fact_index=<same index>)
-```
+Reference mapper:
+`fold_lm/v05/structured_action_channel.py`
 
-The mapper must not:
-- inspect hidden values;
-- infer necessity;
-- change the selected fact;
-- intersect away denied/unavailable channels;
-- execute a provider;
-- bypass action.step authority.
+Registered route workload:
+-9 accepted target blocks;
+-9536 episodes/block;
+-3 channel variants;
+-**257472 route cases** total;
+-108 aggregate route records.
 
-C201 should use accepted C199 learned target predictions as the target source and register
-separate authority-cross controls for RETRIEVE/OBSERVE/ASK_USER.
+Required channel totals:
+- RETRIEVE85824
+- OBSERVE85824
+- ASK_USER85824
+- route mismatches0
 
-C201 must pass authoring quality gate and post-authoring remote-byte review before execution.
+Authority cross:
+-12 cases;
+- pending3;
+- permission denied6;
+- provider unavailable3;
+- failures0.
+
+Already-observed controls:
+-3;
+- all DENIED / ALREADY_OBSERVED.
+
+Invalid mapper controls:
+-7/7 rejected.
+
+Scope:
+- training0;
+- fresh seeds0;
+- learned forward calls0;
+- provider/network/evidence-write0;
+- production runtime modifiedFalse;
+- Gate E candidateFalse.
+
+Authoring:
+- expected regression **1759 =1731+28**
+- expected modules **86**
+- source pins15
+- protected inputs23
+- artifacts5
+- manifest
+  `615e3aa8374650ae95c889c6e6d9de4b6a5a076327e06838ccae1b74eb71df25`
+
+## Post-authoring review
+
+**post_authoring_review = PENDING**
+
+Do not issue the C201 execution command until the complete committed remote bytes for helper,
+benchmark, tests, runner, launcher, preregistration and mapper documentation have been re-fetched
+and independently reviewed.
+
+## Stop condition
+
+Judge C201 before any C202 registration.
+
+- valid complete gate pass -> ACCEPTED PASS;
+- valid complete scientific miss -> ACCEPTED VALID NEGATIVE;
+- source/schema/hash/import/regression/incomplete/protection failure -> INVALID / RETRY SAME C201.
 
 Gate E remains NOT PASSED.
