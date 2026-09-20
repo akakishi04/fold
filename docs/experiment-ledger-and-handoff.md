@@ -102,6 +102,29 @@ Authoring:
 
 C200 is an input-contract diagnostic only. It does not claim learned tool selection.
 
+## C200 invalid-attempt recovery
+
+The first C200 attempt at execution HEAD
+`4334bf492fe4d98e22165bb785edf3bcc9def254`
+is **INVALID EXECUTION / RETRY SAME C200**.
+
+Published log commit:
+`3016e13924cc9ead8730c67401cd2d1969d2f339`
+
+Log SHA256:
+`218adb7bbec8fa122b7ab591f2426e14200e98bc3d2f80e9c7c34552d81dfb1a`
+
+The run passed syntax/source prechecks and entered the 1731-test regression, where exactly one
+authoring test failed before the scientific diagnostic began. The failing test searched the
+entire v2 source text for the string `structured_action_runtime`; the name existed only in the
+module docstring, not as an import.
+
+Recovery changes only that guard to inspect Python AST import nodes. Scientific manifest,
+diagnostic groups, thresholds, parent identity and Gate E scope remain unchanged.
+
+**post_authoring_review = PENDING** until the complete committed C200 source/tests/runner/launcher/
+preregistration/recovery set has been re-fetched from remote and reviewed under the new protocol.
+
 ## Stop condition
 
 Judge C200 before any C201 registration.
