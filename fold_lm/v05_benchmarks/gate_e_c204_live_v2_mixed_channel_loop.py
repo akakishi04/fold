@@ -56,6 +56,7 @@ OWN = (
     "tests_lm/test_v05_c204_live_v2_mixed_channel_loop.py",
     "tools/run_c204.ps1",
     "tools/invoke_c204.ps1",
+    "tools/invoke_active.ps1",
     "docs/experiment-ledger-addendum-c204-preregistration.md",
     "docs/live-v2-mixed-channel-loop-v0.1.md",
 )
@@ -632,7 +633,7 @@ def precheck(c203_summary,c202_summary,c201_summary,c200_summary,c199_summary,c1
         allpins[name] = audit.git(root,"rev-parse","HEAD:"+name).decode().strip()
     protected.update(audit.protect_tree_files(root,allpins))
     pins.update({name:allpins[name] for name in OWN})
-    require(len(pins) == 37 and len(protected) == 79, "C204 source/protection count drift")
+    require(len(pins) == 38 and len(protected) == 80, "C204 source/protection count drift")
     require(digest(manifest()) == MANIFEST_SHA, "C204 manifest drift")
     return p203,c199,prediction_path,c174_result,pilot_path,p181,p188,pins,protected
 
@@ -651,8 +652,8 @@ def validate_result(payload):
         "Wrong/incomplete C204",
     )
     require(
-        len(payload["source_blobs"]) == 37
-        and len(payload["input_sha256"]) == 79
+        len(payload["source_blobs"]) == 38
+        and len(payload["input_sha256"]) == 80
         and len(payload["artifacts"]) == 5
         and {a["file"] for a in payload["artifacts"]} == OUTPUTS,
         "C204 coverage drift",
