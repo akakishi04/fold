@@ -572,8 +572,9 @@ def gate(records,totals):
         and totals.get("target_prediction_errors") == 0
         and totals.get("max_necessity_logit_delta",1.0) <= ATOL
         and totals.get("max_target_logit_delta",1.0) <= ATOL
-        and totals.get("inference_rows",0) > 0
+        and totals.get("inference_rows") == 214948
         and totals.get("inference_forward_calls",0) > 0
+        and totals.get("inference_cell_calls",0) > 0
         and all(
             r.get("failed") == 0 and r.get("projection_error") == 0
             and r.get("v2_prefix_error") == 0
