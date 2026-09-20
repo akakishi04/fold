@@ -238,18 +238,14 @@ Scientific manifest SHA256:
 Before execution, committed remote bytes for benchmark/tests/runner/launcher/preregistration/docs
 and parent artifact contracts must be independently re-fetched and reviewed.
 
-Review completed against committed remote bytes at:
+The first reviewed execution attempt at
+`13b1db0c595f6d4900a038693f6c0d87728e3996`
+was INVALID in regression because test22 inspected the wrong function namespace. The scientific
+manifest and gate remain unchanged.
 
-`869ab03706db9b97119d61cf10f5f8ca1aaa40de`
+The recovery changed only that source-audit test and strengthened the repository review rule.
 
-Reviewed: benchmark, 28 new tests, runner, launcher, preregistration, boundary docs, accepted
-C202/C199 identities, C174 summary/pilot-data contract, C199 prediction artifact, source/protected
-counts, manifest identity, 88-module/1813-test runner contract, py_compile inputs, all launcher
-parent paths, decision-before-action authority ordering, post-dispatch authority restoration,
-provider-channel isolation, fact/resource postconditions, stale C-number/HEAD/path residue and
-C204 non-registration.
-
-`post_authoring_review = PASS`
+`post_authoring_review = PENDING`
 
 ## Execution / stop
 
