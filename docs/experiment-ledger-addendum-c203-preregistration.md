@@ -245,7 +245,13 @@ manifest and gate remain unchanged.
 
 The recovery changed only that source-audit test and strengthened the repository review rule.
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
+
+revised review HEAD:
+`d7d79dc2b51a424f4c49b59244e2a7a27456ce29`
+
+The revised review mechanically evaluated every C203 source-string assertion against the exact
+function source it inspects, including caller/callee ownership and live-inference call guards.
 
 ## Execution / stop
 
