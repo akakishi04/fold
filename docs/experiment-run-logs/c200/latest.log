@@ -2,11 +2,11 @@
 === C200 authoring syntax preflight ===
 python_syntax_preflight = PASS
 === FOLD C200 V5-E acquisition-channel input contract ===
-repository = akakishi04/fold; branch = feat/sft-target-loss; commit = 4334bf492fe4d98e22165bb785edf3bcc9def254
+repository = akakishi04/fold; branch = feat/sft-target-loss; commit = 11181a355f13e7be2fda3957b9cdd45ad8868316
 v2 layout = exact v1 72-feature prefix + 12 per-fact channel bits
 expected_focused_tests = 1731 (1701 existing +30 new); Gate_E = NOT_PASSED
 source_and_artifact_precheck = PASS; accepted C199 parent fixed
-output_dir = M:\asobiba\fold\runs\c200-v5e-acquisition-channel-input-7f9c94c283aa470d8e049f09f3f3d324
+output_dir = M:\asobiba\fold\runs\c200-v5e-acquisition-channel-input-d892b01c24ee49cfbb87758e7a208be0
 === focused regression ===
 test_boolean_canonicalizer_maps_only_selected_signed_channels (tests_lm.test_v05_controller.V05ControllerTests.test_boolean_canonicalizer_maps_only_selected_signed_channels) ... ok
 test_boolean_canonicalizer_rejects_ambiguous_threshold_value (tests_lm.test_v05_controller.V05ControllerTests.test_boolean_canonicalizer_rejects_ambiguous_threshold_value) ... ok
@@ -1741,22 +1741,108 @@ test_25_v2_consumer_explicit_accept (tests_lm.test_v05_c200_acquisition_channel_
 test_26_gate_accepts_collected_summary (tests_lm.test_v05_c200_acquisition_channel_input.C200Tests.test_26_gate_accepts_collected_summary) ... ok
 test_27_gate_rejects_prefix_failure (tests_lm.test_v05_c200_acquisition_channel_input.C200Tests.test_27_gate_rejects_prefix_failure) ... ok
 test_28_gate_rejects_hidden_packet_mismatch (tests_lm.test_v05_c200_acquisition_channel_input.C200Tests.test_28_gate_rejects_hidden_packet_mismatch) ... ok
-test_29_source_has_no_action_execution_import (tests_lm.test_v05_c200_acquisition_channel_input.C200Tests.test_29_source_has_no_action_execution_import) ... FAIL
+test_29_source_has_no_action_execution_import (tests_lm.test_v05_c200_acquisition_channel_input.C200Tests.test_29_source_has_no_action_execution_import) ... ok
 test_30_source_layout_is_v1_prefix_plus_tail (tests_lm.test_v05_c200_acquisition_channel_input.C200Tests.test_30_source_layout_is_v1_prefix_plus_tail) ... ok
 
-======================================================================
-FAIL: test_29_source_has_no_action_execution_import (tests_lm.test_v05_c200_acquisition_channel_input.C200Tests.test_29_source_has_no_action_execution_import)
 ----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "M:\asobiba\fold\tests_lm\test_v05_c200_acquisition_channel_input.py", line 146, in test_29_source_has_no_action_execution_import
-    self.assertNotIn("structured_action_runtime", source)
-    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AssertionError: 'structured_action_runtime' unexpectedly found in '"""Opt-in structured task input v2 with per-fact acquisition-channel metadata.\n\nv2 is deliberately additive. The first 72 numeric features are exactly the canonical\nstructured-task-input-v1 packet. The final 12 numeric features are four fact slots x the\nthree registered acquisition channels RETRIEVE / OBSERVE / ASK_USER.\n\nChannel eligibility describes which acquisition mechanism is semantically applicable to\na fact. It does not grant runtime authority, imply current provider availability, consume\nbudget, reveal a hidden value, or select an action. Runtime availability/permission remains\nin the v1 resource coordinates and is enforced independently by structured_action_runtime.\n"""\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass\nfrom typing import Callable, TypeVar\n\nfrom . import structured_task_input as v1\n\nSCHEMA = "fold-structured-task-input-v2"\nCHANNELS = v1.TOOLS\nCHANNEL_WIDTH = len(CHANNELS)\nFEATURE_WIDTH = v1.FEATURE_WIDTH + v1.MAX_FACTS * CHANNEL_WIDTH\nT = TypeVar("T")\n\n\ndef _tuple(value):\n    if type(value) is not tuple:\n        raise TypeError("Immutable tuple required")\n\n\n@dataclass(frozen=True)\nclass FactChannels:\n    eligible: tuple[bool, bool, bool]\n\n    def __post_init__(self):\n        _tuple(self.eligible)\n        if len(self.eligible) != CHANNEL_WIDTH or any(type(x) is not bool for x in self.eligible):\n            raise ValueError("Exactly three Boolean acquisition-channel flags required")\n\n\n@dataclass(frozen=True)\nclass TaskView:\n    base: v1.TaskView\n    channels: tuple[FactChannels, ...]\n\n    def __post_init__(self):\n        if type(self.base) is not v1.TaskView:\n            raise TypeError("Canonical structured-v1 TaskView required")\n        _tuple(self.channels)\n        if len(self.channels) != len(self.base.facts):\n            raise ValueError("One channel descriptor per fact required")\n        if any(type(x) is not FactChannels for x in self.channels):\n            raise TypeError("Typed FactChannels required")\n\n\n@dataclass(frozen=True)\nclass PolicyInput:\n    schema: str\n    features: tuple[int, ...]\n    binding: v1.Binding\n\n\ndef encode(view: TaskView) -> PolicyInput:\n    """Losslessly append visible channel metadata to the canonical v1 packet."""\n    if type(view) is not TaskView:\n        raise TypeError("structured-v2 TaskView required")\n    parent = v1.encode(view.base)\n    features = list(parent.features)\n    for i in range(v1.MAX_FACTS):\n        if i < len(view.channels):\n            features.extend(int(x) for x in view.channels[i].eligible)\n        else:\n            features.extend((0, 0, 0))\n    if len(features) != FEATURE_WIDTH:\n        raise RuntimeError("Feature layout implementation mismatch")\n    return PolicyInput(SCHEMA, tuple(features), parent.binding)\n\n\ndef decode(packet: PolicyInput) -> TaskView:\n    """Strict canonical decoder; channel padding and flags must be exact."""\n    if type(packet) is not PolicyInput or packet.schema != SCHEMA:\n        raise ValueError("Explicit structured-v2 packet required")\n    if type(packet.binding) is not v1.Binding:\n        raise ValueError("Canonical v1 binding required")\n    _tuple(packet.features)\n    if len(packet.features) != FEATURE_WIDTH:\n        raise ValueError("Wrong v2 feature width")\n    for value in packet.features:\n        if type(value) is not int or value < 0 or value > v1.MAX_INTEGER:\n            raise ValueError("Exact bounded integer required")\n\n    parent = v1.decode(v1.PolicyInput(\n        v1.SCHEMA,\n        tuple(packet.features[:v1.FEATURE_WIDTH]),\n        packet.binding,\n    ))\n    tail = packet.features[v1.FEATURE_WIDTH:]\n    channels = []\n    for i in range(v1.MAX_FACTS):\n        values = tuple(tail[i*CHANNEL_WIDTH:(i+1)*CHANNEL_WIDTH])\n        if any(x not in (0, 1) for x in values):\n            raise ValueError("Channel flags must be canonical zero/one")\n        if i < len(parent.facts):\n            channels.append(FactChannels(tuple(bool(x) for x in values)))\n        elif any(values):\n            raise ValueError("Unused fact channel padding must be zero")\n    view = TaskView(parent, tuple(channels))\n    if encode(view) != packet:\n        raise ValueError("Noncanonical v2 packet")\n    return view\n\n\ndef declared_channels(view: TaskView, fact_index: int) -> tuple[str, ...]:\n    """Return semantic channel eligibility only; this is not runtime authorization."""\n    if type(view) is not TaskView or type(fact_index) is not int:\n        raise TypeError("Typed v2 view and integer fact index required")\n    if not 0 <= fact_index < len(view.channels):\n        raise ValueError("Fact index out of range")\n    spec = view.channels[fact_index]\n    return tuple(name for name, allowed in zip(CHANNELS, spec.eligible, strict=True) if allowed)\n\n\ndef visible_usable_channels(view: TaskView, fact_index: int) -> tuple[str, ...]:\n    """Policy-visible intersection of semantic eligibility and current resource masks.\n\n    This helper is a convenience for feature inspection only. The trusted action runtime\n    must still reauthorize every proposal and remains the execution authority.\n    """\n    declared = set(declared_channels(view, fact_index))\n    resources = view.base.resources\n    usable = []\n    for i, name in enumerate(CHANNELS):\n        if name in declared and resources.available[i] and resources.permitted[i]:\n            usable.append(name)\n    return tuple(usable)\n\n\ndef deliver(view: TaskView, consumer: Callable[[PolicyInput], T]) -> T:\n    """Versioned consumption boundary; no implicit v1 or legacy adaptation."""\n    if getattr(consumer, "input_schema", None) != SCHEMA:\n        raise TypeError("Consumer must explicitly accept structured-v2")\n    return consumer(encode(view))\n'
+Ran 1731 tests in 52.055s
 
-----------------------------------------------------------------------
-Ran 1731 tests in 54.179s
+OK
+[C200] channel input contract collected
+=== C200 RESULT ===
+{
+  "C199_summary_sha256": "0ee89c9720022146c9625bbe7cd4d02a615c411ff2f3f068d5dac91d5ab906f9",
+  "artifacts": [
+    {
+      "file": "channel-plan.json",
+      "serialized_bytes": 1879,
+      "sha256": "c3d5c513e9e37169916cd9fff6d1ccd371f09edf657a305360d4bf04ef3a6c1a"
+    },
+    {
+      "file": "mask-roundtrips.json",
+      "serialized_bytes": 6067,
+      "sha256": "7a66d7576e2202853969ae8cb542b1e3824da3a4c319f351d888f52e22d0efee"
+    },
+    {
+      "file": "runtime-cross.json",
+      "serialized_bytes": 147275,
+      "sha256": "bd145194c68e9a065decaa0d5f89c7794c6a1b4d30356fa2a518710a185d0e4b"
+    },
+    {
+      "file": "hidden-pairs.json",
+      "serialized_bytes": 4875,
+      "sha256": "a9ee8a7b2328fdedc92a2f6d2b8e1d518c1c5d77906a9ed4130d7e148cd2845f"
+    },
+    {
+      "file": "malformed.json",
+      "serialized_bytes": 1729,
+      "sha256": "3c2ea3fa9df6e2d300da0ac9f1216663918bd4783bb7457ed72672fe74bb4314"
+    }
+  ],
+  "commit_sha": "11181a355f13e7be2fda3957b9cdd45ad8868316",
+  "diagnostic_execution_valid": true,
+  "experiment_id": "C200-v5e-acquisition-channel-input",
+  "fresh_seed_count": 0,
+  "gate_e_candidate": false,
+  "input_sha256": {
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c200-preregistration.md": "d295affb4dfd33667741d460e72c263b2a8c1ee3aeedaa204bc04e04b03d9d67",
+    "M:\\asobiba\\fold\\docs\\structured-task-interface-v0.2.md": "a46ac637d44e3d00b87d9e67ee693836b48545f2f28c660795dec9eac4857710",
+    "M:\\asobiba\\fold\\fold_lm\\v05\\structured_task_input.py": "855429f224a3eebe692d7421bc119cddb38ad273a4e54160d6062a34b3b0f3c4",
+    "M:\\asobiba\\fold\\fold_lm\\v05\\structured_task_input_v2.py": "816f1103e41f207bff50a0af4c5a8b049c06a3a43bd2786d3afc2bd8738f112e",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c200_acquisition_channel_input.py": "3a45ebe45826eae879a850d97869abfcb70602ad54d0d6fb1b1a1260f585ad80",
+    "M:\\asobiba\\fold\\runs\\c199-v5e-attempt-limit-886ac50bbbe046ebba61316e6bf97268\\summary.json": "0ee89c9720022146c9625bbe7cd4d02a615c411ff2f3f068d5dac91d5ab906f9",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c200_acquisition_channel_input.py": "796f4e835181e4c1526806548b9e3b5e8da3ceed0e4963a79ba100218421dcdc",
+    "M:\\asobiba\\fold\\tools\\invoke_c200.ps1": "a0675df56086766dc979fd75a4d08dc5af1b6e33ea0dd8e0d97a9384f7bd2ec5",
+    "M:\\asobiba\\fold\\tools\\run_c200.ps1": "f43ab489bc9bcdea32a8af941646e104e83abc8f576fb1da89f25df585d4aba2"
+  },
+  "learned_forward_calls": 0,
+  "limitations": [
+    "input-contract diagnostic only",
+    "no learned acquisition-channel selector",
+    "no tool execution, answer generation or final Gate E"
+  ],
+  "network_calls": 0,
+  "production_runtime_modified": false,
+  "source_blobs": {
+    "docs/experiment-ledger-addendum-c200-preregistration.md": "652d73d3df2cef46a2fadfd3573861aeba3e155c",
+    "docs/structured-task-interface-v0.2.md": "5b3e9562c1cb87d4d4952f8541ea29f4592d5c63",
+    "fold_lm/v05/structured_task_input.py": "b874b6abf17fb938a5cc873ff2090c6493f00010",
+    "fold_lm/v05/structured_task_input_v2.py": "504f888e57e43ef3165cadc36b0ae723c068f112",
+    "fold_lm/v05_benchmarks/gate_e_c200_acquisition_channel_input.py": "bf43ead7a7a80bb70f1e10be4f1d2af67c68f3dd",
+    "tests_lm/test_v05_c200_acquisition_channel_input.py": "c139ad665d4d65fc87612d67ecd825d6f0e6b016",
+    "tools/invoke_c200.ps1": "b7c229f30f5c7ff05c8adfa41ac634029735c923",
+    "tools/run_c200.ps1": "c592d9d685a7fdb8bf2560b0658e97e3614f7803"
+  },
+  "stage": "V5-E-ACQUISITION-CHANNEL-INPUT",
+  "status": "PASS",
+  "summary": {
+    "channel_classes": 8,
+    "hidden_answer_diff_pairs": 6,
+    "hidden_packet_mismatches": 0,
+    "hidden_pairs": 12,
+    "malformed_cases": 18,
+    "malformed_rejected": 18,
+    "mask_roundtrips": 32,
+    "roundtrip_failures": 0,
+    "runtime_cross": 448,
+    "runtime_cross_failures": 0,
+    "v1_feature_width": 72,
+    "v1_prefix_preserved": true,
+    "v2_feature_width": 84
+  },
+  "training_steps": 0,
+  "wall_clock_seconds": 1.2260541999712586
+}
 
-FAILED (failures=1)
+summary = M:\asobiba\fold\runs\c200-v5e-acquisition-channel-input-d892b01c24ee49cfbb87758e7a208be0\summary.json
+summary_sha256 = 624889546c9b484003e3f2bc79c1d746de28ea168def13da1a2dc87fde73520e
+scientific_status = PASS
+mask_roundtrips = 32
+runtime_cross = 448
+hidden_pairs = 12
+malformed_rejected = 18
+v1_prefix_preserved = True
+candidate_gate_passed = True
 === C200 POSTCHECK ===
 protected_inputs = preserved; tracked_tree = clean; execution_HEAD = preserved
-run_execution_valid = False
+run_execution_valid = True
