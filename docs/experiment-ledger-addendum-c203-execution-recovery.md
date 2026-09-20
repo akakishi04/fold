@@ -198,3 +198,18 @@ Parent artifact review now includes **writer-side semantics**, not only key name
 For prediction artifacts, review must distinguish "prediction was computed/stored" from
 "prediction passed the parent action gate and was executed". Child depth/count/projection adapters
 must reproduce the parent gating semantics from the writer source.
+
+## Semantic-review result after second recovery
+
+Revised post-authoring review confirms:
+- C199 writer stores target output before per-row necessity gating;
+- C199 acquires only when necessity is NEEDS(1);
+- C203 projection ignores terminal SUFFICIENT target-head outputs;
+- every NEEDS phase requires and uses its corresponding target slot;
+- C203 final reference acquisition count is derived from NEEDS decisions;
+- unit fixture explicitly includes a nonnegative terminal target on a SUFFICIENT phase and still
+  requires one acquisition, matching parent semantics;
+- fixed parent totals remain decisions214948 / acquisitions129124 / final-SUFFICIENT85824;
+- no live combined/necessity prediction call exists in the replay path.
+
+No scientific condition changed.
