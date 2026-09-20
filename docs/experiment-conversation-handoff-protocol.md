@@ -117,6 +117,7 @@ summary全文をチャットへ再掲しない。gateを決める deciding metri
 - new test定義数とexpected regression総数の一致
 - runnerのmodule list件数とCLI引数index整合
 - **parent artifact contract audit**: childが読むNPZ/JSON/checkpointのschemaを、実際にそれを生成したparent Cのoutput contractと照合する
+- **parent artifact semantic audit**: schema/shapeだけでなく、parent writerが各fieldを**いつ・何を意味して保存するか**を生成コードから確認する。特に「predictionが保存された」ことと「そのpredictionが実際のactionとして採用された」ことを同一視しない。childのcount/depth/projectionはparentのaction gating条件（例: necessity==NEEDS）を再現する
 - parent helper再利用時は「名前が似ている」だけで使わず、そのhelperがどのCのartifact schemaを読む関数か確認する
 - child自身にloaderがある場合、run pathが実際にそのloaderを呼んでいることをsource-level testで固定する
 - **parent summary record contract audit**: 子実験が親summaryのdict fieldを読む場合、field名を推測しない。accepted summary/logから実際のkey setを取得し、専用adapterでrequired keys・型・意味的invariantを検証する。run pathからの直接 `ref_rec["..."]` 参照を最小化し、存在しない旧名/類似名をsource-level testで拒否する
