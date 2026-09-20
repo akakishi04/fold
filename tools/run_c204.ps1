@@ -35,7 +35,7 @@ Write-Output "python_syntax_preflight = PASS"
 Write-Output "=== FOLD C204 V5-E live-v2 mixed-channel loop ==="
 Write-Output "repository = akakishi04/fold; branch = feat/sft-target-loss; commit = $ExpectedHead"
 Write-Output "changed condition = saved trace replay -> live frozen C181/C188 inference"
-Write-Output "expected_focused_tests = 1843 (1813 existing +30 new); Gate_E = NOT_PASSED"
+Write-Output "expected_focused_tests = 1845 (1813 existing +32 new); Gate_E = NOT_PASSED"
 
 $Precheck=@'
 from pathlib import Path
@@ -54,7 +54,7 @@ from fold_lm.v05_benchmarks import gate_e_c204_live_v2_mixed_channel_loop as b
 names=b.regression_modules(Path.cwd())
 assert len(names)==len(set(names))==89
 suite=unittest.defaultTestLoader.loadTestsFromNames(names)
-assert suite.countTestCases()==1843,f'Expected1843 tests, got{suite.countTestCases()}'
+assert suite.countTestCases()==1845,f'Expected1845 tests, got{suite.countTestCases()}'
 r=unittest.TextTestRunner(verbosity=2).run(suite)
 sys.exit(0 if r.wasSuccessful() else 1)
 '@
