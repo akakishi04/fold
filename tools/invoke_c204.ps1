@@ -5,6 +5,55 @@ Set-StrictMode -Version Latest
 $Root=Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $Root
 $log=Join-Path $Root "runs\chatgpt-last.log"
+$ExperimentId="C204"
+$Branch="feat/sft-target-loss"
+
+function Skip-Invocation {
+ param([Parameter(Mandatory=$true)][string]$Reason,[string]$Detail="")
+ Write-Output "=== $ExperimentId invocation skipped ==="
+ Write-Output "invocation_skipped = $Reason"
+ if(-not [string]::IsNullOrWhiteSpace($Detail)){Write-Output "detail = $Detail"}
+ Write-Output "experiment_executed = False"
+ Write-Output "execution_log_publish_attempted = False"
+}
+
+# Repository/active-experiment guards are intentionally outside the log/publish try/finally.
+# A stale command is an operational skip, not an experiment execution and not a publishable log.
+$branchNow=git branch --show-current
+if($LASTEXITCODE -ne 0 -or $branchNow -ne $Branch){
+ Skip-Invocation -Reason "WRONG_BRANCH" -Detail "expected=$Branch actual=$branchNow"
+ return
+}
+$dirty=@(git status --porcelain --untracked-files=no)
+if($LASTEXITCODE -ne 0){
+ Skip-Invocation -Reason "GIT_STATUS_FAILED"
+ return
+}
+if($dirty.Count -gt 0){
+ Skip-Invocation -Reason "DIRTY_TRACKED_TREE"
+ return
+}
+$headNow=git rev-parse HEAD
+if($LASTEXITCODE -ne 0){
+ Skip-Invocation -Reason "HEAD_LOOKUP_FAILED"
+ return
+}
+if($headNow -ne $ExpectedHead){
+ Skip-Invocation -Reason "STALE_EXPECTED_HEAD" -Detail "expected=$ExpectedHead current=$headNow"
+ return
+}
+$handoffPath=Join-Path $Root "docs\experiment-ledger-and-handoff.md"
+if(-not(Test-Path -LiteralPath $handoffPath -PathType Leaf)){
+ Skip-Invocation -Reason "HANDOFF_MISSING"
+ return
+}
+$handoff=Get-Content -LiteralPath $handoffPath -Raw -Encoding UTF8
+if($handoff -notmatch '\*\*C204 ACTIVE / (NOT YET JUDGED|INVALID ATTEMPT RECOVERY)'){
+ $m=[regex]::Match($handoff,'\*\*C(?<id>\d{3}) ACTIVE / (NOT YET JUDGED|INVALID ATTEMPT RECOVERY)')
+ $active=if($m.Success){"C"+$m.Groups["id"].Value}else{"UNRESOLVED"}
+ Skip-Invocation -Reason "STALE_EXPERIMENT" -Detail "requested=C204 active=$active"
+ return
+}
 
 $runArgs=@{
  ExpectedHead=$ExpectedHead
@@ -22,12 +71,8 @@ $failure=$null
 try{
  & {
    Write-Output "=== C204 repository preflight ==="
-   $branch=git branch --show-current
-   if($LASTEXITCODE -ne 0 -or $branch -ne "feat/sft-target-loss"){throw "Unexpected branch: $branch"}
-   $dirty=@(git status --porcelain --untracked-files=no)
-   if($LASTEXITCODE -ne 0 -or $dirty.Count -gt 0){throw "Tracked working tree is not clean"}
-   $head=git rev-parse HEAD
-   if($LASTEXITCODE -ne 0 -or $head -ne $ExpectedHead){throw "Unexpected synchronized HEAD: $head"}
+   Write-Output "branch = $branchNow"
+   Write-Output "execution_head = $headNow"
    .\tools\run_c204.ps1 @runArgs
  } *>&1 | Tee-Object -FilePath $log
 }catch{$failure=$_}
