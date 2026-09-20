@@ -245,10 +245,14 @@ manifest and gate remain unchanged.
 
 The recovery changed only that source-audit test and strengthened the repository review rule.
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-The second invalid attempt exposed a parent artifact semantic-adapter error. The next review must
-include writer-side C199 target semantics in addition to the existing source-assertion checks.
+semantic review HEAD:
+`25c6f41b6a3e9e5d250a2ccb3f6e5adcb0dd88dc`
+
+The revised review checked the C199 writer-side target semantics against the C203 adapter, including
+stored-vs-executed target distinction, NEEDS gating, terminal SUFFICIENT target exclusion, exact
+source-string assertions, runner/launcher wiring and C204 non-registration.
 
 ## Execution / stop
 
