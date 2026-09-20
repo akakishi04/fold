@@ -115,3 +115,86 @@ The revised committed source audit now verifies mechanically that:
 - dispatch precedes parent-authority restoration.
 
 No scientific condition changed.
+
+## Second invalid attempt — parent artifact semantic adapter
+
+Disposition: **INVALID EXECUTION / RETRY SAME C203**.
+
+- execution HEAD: `fad0c9df501e38159dfe77b746c63456534024c4`
+- published log commit: `529c081e898eb75a68eccf99113c49ff7aa6b681`
+- log SHA256: `11bca2741e2d5a36dd9ebd2e834307f057babb7fca65b00405d35f69727d1277`
+- focused regression: **1813/1813 PASS**
+- C203 block progress records: **0**
+- scientific provider calls/publications: **0**
+- run_execution_valid: False
+
+Failure occurred at the first parent-artifact projection before any C203 acquisition dispatch:
+
+```text
+ValueError: Accepted target/decision depth mismatch
+```
+
+### Root cause
+
+C203 treated every nonnegative entry of the accepted C199 `target_predictions` array as an
+executed acquisition target.
+
+That interpretation is wrong. C199 writes target-head outputs for every active row whenever
+`any_missing` is true for the active batch, **before** checking that row's necessity decision.
+Therefore a row whose necessity is `SUFFICIENT(0)` can still have a nonnegative target prediction
+stored at that terminal phase. That target was computed but never acted on.
+
+C199 action gating is:
+
+```text
+save necessity/target prediction
+if necessity == SUFFICIENT:
+    stop; target is unused
+else:
+    validate target
+    acquire target
+```
+
+The accepted parent totals prove the action semantics:
+
+```text
+first acquisitions   85824
+second acquisitions  34948
+third acquisitions    8352
+---------------------------
+total acquisitions  129124
+
+decisions           214948
+final SUFFICIENT      85824
+```
+
+### Minimal recovery
+
+C203 projection now derives acquisition depth from `necessity == NEEDS(1)`, not from
+`target_predictions >= 0`.
+
+For each replayed phase:
+- necessity0: stop; ignore any stored target-head output at that phase;
+- necessity1: require the corresponding target slot and project/execute that target.
+
+Final per-episode reference acquisition count is likewise the number of accepted NEEDS decisions.
+
+The C203 unit fixture now deliberately includes a nonnegative target prediction on a terminal
+SUFFICIENT phase, matching C199 writer semantics. Existing projection-count tests therefore catch
+this semantic mistake.
+
+Unchanged:
+- C203 scientific question;
+- fixed fact-to-channel layout;
+- accepted C199/C202/C174 identities;
+- decisions214948 / acquisitions129124 / final-SUFFICIENT85824 fixed totals;
+- manifest SHA;
+- gate/workload;
+- production runtime scope.
+
+### Process correction
+
+Parent artifact review now includes **writer-side semantics**, not only key names, dtype and shape.
+For prediction artifacts, review must distinguish "prediction was computed/stored" from
+"prediction passed the parent action gate and was executed". Child depth/count/projection adapters
+must reproduce the parent gating semantics from the writer source.
