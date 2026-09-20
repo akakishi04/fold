@@ -58,7 +58,30 @@ $handoff=Get-Content -LiteralPath $handoffPath -Raw -Encoding UTF8
 
 $matches=[regex]::Matches(
     $handoff,
-    '\*\*C(?<id>\d{3}) ACTIVE / (?<state>NOT YET JUDGED|INVALID ATTEMPT RECOVERY)\.?(?: C\d{3} NOT REGISTERED\.)?\*\*'
+    '(?m)^\*\*[^*\r\n]*C(?<id>\d{3}) ACTIVE / (?<state>NOT YET JUDGED|INVALID ATTEMPT RECOVERY)[^*\r\n]*\*\*
+if($matches.Count -ne 1){
+    Skip-Invocation -Reason "ACTIVE_EXPERIMENT_UNRESOLVED" -Detail "matches=$($matches.Count)"
+    return
+}
+
+$activeExperiment="C"+$matches[0].Groups["id"].Value
+$launcher=Join-Path $Root ("tools\invoke_"+$activeExperiment.ToLowerInvariant()+".ps1")
+if(-not(Test-Path -LiteralPath $launcher -PathType Leaf)){
+    Skip-Invocation -Reason "ACTIVE_LAUNCHER_MISSING" -Detail "active=$activeExperiment"
+    return
+}
+
+Write-Output "=== FOLD active experiment dispatcher ==="
+Write-Output "active_experiment = $activeExperiment"
+Write-Output "expected_head = $ExpectedHead"
+Write-Output "current_head = $currentHead"
+Write-Output "launcher = $launcher"
+
+& $launcher -ExpectedHead $ExpectedHead
+if($LASTEXITCODE -ne 0){
+    exit $LASTEXITCODE
+}
+
 )
 if($matches.Count -ne 1){
     Skip-Invocation -Reason "ACTIVE_EXPERIMENT_UNRESOLVED" -Detail "matches=$($matches.Count)"
