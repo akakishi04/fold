@@ -61,6 +61,19 @@ if ($LASTEXITCODE -ne 0) {
     throw "Repository synchronization failed"
 }
 
+$entry = (Resolve-Path -LiteralPath ".\\tools\\invoke_active.ps1").Path
+$tokens = $null
+$parseErrors = $null
+[System.Management.Automation.Language.Parser]::ParseFile(
+    $entry,
+    [ref]$tokens,
+    [ref]$parseErrors
+) | Out-Null
+if ($parseErrors.Count -gt 0) {
+    $parseErrors | ForEach-Object { Write-Error $_.Message }
+    throw "Active launcher syntax preflight failed"
+}
+
 .\\tools\\invoke_active.ps1 `
     -ExpectedHead "<registered-head>"
 ```
