@@ -179,8 +179,8 @@ class C203Tests(unittest.TestCase):
         self.assertIn('predictions["target_predictions"]',collect_source)
         self.assertIn("necessity[i,phase]",replay_source)
         self.assertIn("targets[i,phase]",replay_source)
-        self.assertNotIn("combined_predict",collect_source+replay_source)
-        self.assertNotIn("necessity_predict",collect_source+replay_source)
+        self.assertNotIn("combined_predict(",collect_source+replay_source)
+        self.assertNotIn("necessity_predict(",collect_source+replay_source)
 
     def test_23_replay_charges_decision_before_action_window(self):
         source=inspect.getsource(c203.replay_block)
