@@ -51,21 +51,39 @@ INVALID時に新Cの設計・登録をしない。結果を見てthreshold / see
 
 ### 0.4 実行コマンドはlauncherを標準にする
 
-長いinline PowerShellを毎回貼らず、repo内の `tools/run_c###.ps1` と `tools/invoke_c###.ps1` に詳細を固定する。ユーザー向け標準は原則これだけ:
+長いinline PowerShellを毎回貼らず、repo内の `tools/run_c###.ps1` と `tools/invoke_c###.ps1` に詳細を固定する。ユーザー向け標準は原則 **active experiment dispatcher** を使う。experiment番号付きlauncherをユーザーに直接選ばせない:
 
 ```powershell
-Set-Location -LiteralPath "M:\asobiba\fold"
+Set-Location -LiteralPath "M:\\asobiba\\fold"
 
 git pull --ff-only origin feat/sft-target-loss
 if ($LASTEXITCODE -ne 0) {
     throw "Repository synchronization failed"
 }
 
-.\tools\invoke_c###.ps1 `
+.\\tools\\invoke_active.ps1 `
     -ExpectedHead "<registered-head>"
 ```
 
+`invoke_active.ps1` は authoritative handoff のformal-state行から唯一のACTIVE C番号を解決し、そのlauncherだけを呼ぶ。古いC番号のコマンド取り違えを標準経路から除去する。
+
 expected regression count / branch / ExpectedHead /主要workloadは返答本文に出す。詳細hash/pathはrunner/preregistrationへ固定する。
+
+
+### 0.4.1 Launcher preflight skip rule
+
+experiment execution/loggingより前に branch / tracked-tree / ExpectedHead / ACTIVE experiment を検証する。
+
+以下は **operational skip** であり scientific execution ではない:
+- wrong branch;
+- dirty tracked tree;
+- stale ExpectedHead;
+- requested experiment != authoritative ACTIVE experiment;
+- ACTIVE experimentを一意に解決できない。
+
+この場合launcherは `invocation_skipped = <reason>`、`experiment_executed = False`、`execution_log_publish_attempted = False` を表示して終了する。**log publishを呼ばない。** INVALID scientific resultとして記録もしない。
+
+experiment番号付き `invoke_c###.ps1` を直接呼んだ場合も、同じpreflightをlogging/publishの `try/finally` より前に置く。publisherのHEAD guard自体は弱めない。
 
 ### 0.5 Remote log first
 
@@ -296,7 +314,7 @@ Expected HEAD: <full or short SHA>
 
 ### H. 実行コマンド
 
-現在の標準は **repo内launcherを短く呼ぶ** こと。runner/launcherが未整備な古いCだけ、下記の長いinline blockをfallbackとして使う。
+現在の標準は **`tools/invoke_active.ps1` を短く呼ぶ** こと。runner/launcherが未整備な古いCだけ、下記の長いinline blockをfallbackとして使う。
 
 標準構造:
 
@@ -379,7 +397,7 @@ C{N} prerequisite_summary = ...
 対象はconsole text logと小さいmetadataだけ。dataset / NPZ / checkpoint / source fixture /
 generated runtime directoryなどは従来どおりlocal-onlyで、ログ公開commitへ含めない。
 
-outer blockは、科学実験がPASS/FAIL/INVALIDのどれで終了しても `finally` でlog publishを試みる。
+launcher preflightを通過して科学実験を開始した後は、PASS/FAIL/INVALIDのどれで終了しても outer block の `finally` でlog publishを試みる。**preflight skip時はouter execution/logging blockへ入らず、log publishを試みない。**
 publisherはbranch/origin、publish直前HEAD、tracked/staged state、source log path/size/UTF-8、
 staged pathをguardしてからpushする。
 
