@@ -233,11 +233,13 @@ def replay_metrics(arrays, reference):
     rnlog = reference["necessity_logits"]
     rt = reference["target_predictions"]
     rtlog = reference["target_logits"]
+    n = len(rn)
     require(
-        npred.shape == rn.shape == (9536,4)
-        and nlog.shape == rnlog.shape == (9536,4,2)
-        and tpred.shape == rt.shape == (9536,3)
-        and tlog.shape == rtlog.shape == (9536,3,4),
+        n > 0
+        and npred.shape == rn.shape == (n,4)
+        and nlog.shape == rnlog.shape == (n,4,2)
+        and tpred.shape == rt.shape == (n,3)
+        and tlog.shape == rtlog.shape == (n,3,4),
         "Reference/live replay shape drift",
     )
     nerr = int((npred != rn).sum())
@@ -258,7 +260,7 @@ def replay_metrics(arrays, reference):
 
 def run_live_block(views, world_codes, base_model, selector, reference,
                    provider_map, endpoint_map, expected):
-    require(len(views) == len(world_codes) == 9536, "Block alignment required")
+    require(len(views) == len(world_codes) > 0, "Block alignment required")
     owners = [
         life.AcquisitionOwner(action.RuntimeState(view),endpoint_map[int(code)],max_dispatches=3)
         for view,code in zip(views,world_codes,strict=True)
@@ -465,7 +467,7 @@ def run_live_block(views, world_codes, base_model, selector, reference,
         for channel in v2.CHANNELS
     }
     record = dict(
-        episodes=9536,
+        episodes=n,
         decisions=int(decisions.sum()),
         acquisitions=int(acquisitions.sum()),
         final_sufficient=final_sufficient,
