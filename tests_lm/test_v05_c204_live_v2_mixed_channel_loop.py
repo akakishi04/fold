@@ -295,14 +295,17 @@ class C204Tests(unittest.TestCase):
         self.assertIn("invocation_skipped = $Reason",source)
         self.assertIn("execution_log_publish_attempted = False",source)
         self.assertNotIn("publish_experiment_log.ps1",source)
-        self.assertLess(source.index("if($currentHead -ne $ExpectedHead)"),source.index("& $launcher -ExpectedHead"))
+        self.assertIn("[System.Management.Automation.Language.Parser]::ParseFile",source)
+        self.assertIn('ACTIVE_LAUNCHER_PARSE_ERROR',source)
+        self.assertLess(source.index("if ($currentHead -ne $ExpectedHead)"),source.index("& $launcher -ExpectedHead"))
         self.assertLess(source.index("ACTIVE_EXPERIMENT_UNRESOLVED"),source.index("& $launcher -ExpectedHead"))
+        self.assertLess(source.index("[System.Management.Automation.Language.Parser]::ParseFile"),source.index("& $launcher -ExpectedHead"))
 
     def test_32_c204_launcher_stale_guard_precedes_logging_and_publish(self):
         source=(Path(__file__).resolve().parents[1]/"tools"/"invoke_c204.ps1").read_text(encoding="utf-8")
-        guard=source.index("if($headNow -ne $ExpectedHead)")
-        active=source.index('if($handoff -notmatch')
-        logging=source.index("$failure=$null")
+        guard=source.index("if ($headNow -ne $ExpectedHead)")
+        active=source.index("$activeMatch = [regex]::Match")
+        logging=source.index("$failure = $null")
         publish=source.index("publish_experiment_log.ps1")
         self.assertLess(guard,logging)
         self.assertLess(active,logging)
@@ -320,7 +323,7 @@ class C204Tests(unittest.TestCase):
         )
         self.assertEqual(matches,["204"])
         source=(root/"tools"/"invoke_active.ps1").read_text(encoding="utf-8")
-        self.assertIn("(?m)^\\*\\*[^*\\r\\n]*C(?<id>\\d{3}) ACTIVE /",source)
+        self.assertIn("$activePattern = '(?m)^\\*\\*[^*\\r\\n]*C(?<id>\\d{3}) ACTIVE /",source)
 
 
 if __name__=="__main__":
