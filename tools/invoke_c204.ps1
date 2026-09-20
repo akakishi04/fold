@@ -58,8 +58,14 @@ if (-not (Test-Path -LiteralPath $handoffPath -PathType Leaf)) {
     return
 }
 $handoff = Get-Content -LiteralPath $handoffPath -Raw -Encoding UTF8
-$activePattern = '(?m)^\*\*[^*\r\n]*C(?<id>\d{3}) ACTIVE / (?<state>NOT YET JUDGED|INVALID ATTEMPT RECOVERY)[^*\r\n]*\*\*$'
-$activeMatch = [regex]::Match($handoff, $activePattern)
+$formalPattern = '(?ms)^## Formal state\s+(?<body>.*?)(?=^## |\z)'
+$formalMatch = [regex]::Match($handoff, $formalPattern)
+if (-not $formalMatch.Success) {
+    Skip-Invocation -Reason "FORMAL_STATE_UNRESOLVED"
+    return
+}
+$activePattern = 'C(?<id>\d{3}) ACTIVE / (?<state>NOT YET JUDGED|INVALID ATTEMPT RECOVERY)'
+$activeMatch = [regex]::Match($formalMatch.Groups["body"].Value, $activePattern)
 if (-not $activeMatch.Success -or $activeMatch.Groups["id"].Value -ne "204") {
     $active = if ($activeMatch.Success) { "C" + $activeMatch.Groups["id"].Value } else { "UNRESOLVED" }
     Skip-Invocation -Reason "STALE_EXPERIMENT" -Detail "requested=C204 active=$active"
