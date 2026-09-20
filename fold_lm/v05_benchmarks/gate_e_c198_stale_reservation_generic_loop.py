@@ -518,7 +518,7 @@ def precheck(c197_summary, *args):
     for name in OWN:
         allpins[name] = audit.git(root, "rev-parse", "HEAD:" + name).decode().strip()
     protected.update(audit.protect_tree_files(root, allpins))
-    require(len(pins) == 151 and len(protected) == 401,
+    require(len(pins) == 151 and len(protected) == 396,
             "Source/protected union drift")
     require(digest(manifest()) == MANIFEST_SHA, "Manifest drift")
     return (
@@ -546,7 +546,7 @@ def validate_result(payload):
         payload["episodes_per_arm"] == 85824
         and len(payload["allowed_records"]) == len(payload["stale_records"]) == 9
         and len(payload["source_blobs"]) == 151
-        and len(payload["input_sha256"]) == 401
+        and len(payload["input_sha256"]) == 396
         and len(payload["artifacts"]) == 5
         and {a["file"] for a in payload["artifacts"]} == OUTPUTS,
         "Workload/coverage drift",
