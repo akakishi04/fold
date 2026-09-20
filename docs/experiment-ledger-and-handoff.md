@@ -96,18 +96,16 @@ Authoring:
 
 ## Post-authoring review
 
-**post_authoring_review = PASS**
+**post_authoring_review = PENDING**
 
-launcher-safety review HEAD:
-`e7440e44db9b96330d65af2023c2278afddea447`
-
-Committed remote review confirmed:
-- formal-state parsing resolves exactly C204 ACTIVE;
-- stale ExpectedHead / stale experiment is an operational SKIPPED result before scientific execution;
-- skipped invocation never calls log publication;
-- direct C204 launcher carries the same pre-publish guards;
-- invoke_active.ps1 is part of the protected C204 path;
-- 33 new tests /1846 regression /38 source pins /80 protected inputs are aligned.
+The active dispatcher and direct C204 launcher were rewritten after a PowerShell parse error.
+Re-review must confirm:
+- authoritative formal-state parsing resolves exactly C204;
+- invoke_active.ps1 syntax structure is complete and selected launcher is parsed with PowerShell Parser.ParseFile before invocation;
+- direct C204 launcher performs stale guards before its log/publish try/finally;
+- stale/skipped paths never call log publication;
+- test31-33 source assertions match the rewritten launcher bytes;
+- 33 new tests /1846 regression /38 source pins /80 protected inputs remain aligned.
 
 ## Stop condition
 
