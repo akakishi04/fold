@@ -229,12 +229,17 @@ Before execution, committed remote bytes must be re-fetched and reviewed for:
 
 Until review passes:
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-The active dispatcher and direct C204 launcher were rewritten after a PowerShell parse error. The
-next review must re-check their complete committed bytes, test31-33 source assertions, selected
-launcher parse guard, stale-command skip ordering, updated protocol/AGENTS execution rule and
-current formal-state resolution before any execution command is issued.
+PowerShell launcher review HEAD:
+`8ff59c9bcd17def4d4e05200d2fd305446296abf`
+
+Committed remote review verified balanced launcher structure, closed regex literals, complete regex
+calls, authoritative handoff resolving exactly C204 ACTIVE, outer AST parser preflight for
+invoke_active.ps1, selected-launcher Parser.ParseFile guard inside invoke_active.ps1, stale-command
+skip ordering before any experiment/log publication, direct C204 preflight before try/finally,
+test31-33 alignment, 33 new tests /1846 regression /38 source pins /80 protected inputs and C205
+non-registration.
 
 ## Execution / stop
 
