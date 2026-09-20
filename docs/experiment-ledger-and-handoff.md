@@ -9,7 +9,7 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C201 ACCEPTED PASS. C202 NOT REGISTERED.**
+**C201 ACCEPTED PASS. C202 ACTIVE / NOT YET JUDGED. C203 NOT REGISTERED.**
 
 ## Accepted C201
 
@@ -29,11 +29,10 @@ C201 deciding result:
 - focused regression **1759/1759**
 - route cases257472
 - route mismatches0
-- RETRIEVE / OBSERVE / ASK_USER each85824
+- RETRIEVE/OBSERVE/ASK_USER each85824
 - authority cross12 / failures0
-- pending3 / permission-denied6 / unavailable3
 - already-observed controls3/3
-- invalid mapper cases7/7 rejected
+- invalid mapper7/7 rejected
 - candidate_gate_passed True
 - run_execution_valid True
 - training/learned-forward/provider/network/evidence-write0
@@ -43,31 +42,77 @@ Accepted claim: accepted learned fact targets can be preserved exactly while exa
 channel metadata produces the matching typed ActionProposal, with runtime authority remaining
 separate and authoritative.
 
-## Next boundary
+## Active C202
 
-C202 is not yet registered.
+Experiment:
+`C202-v5e-three-channel-acquisition-dispatch`
 
-Next one-question intervention:
-keep accepted C199 learned phase0 targets, C200 v2 metadata and C201 mapper fixed, then execute the
-typed proposal through the real structured acquisition lifecycle for each one-hot channel.
+Stage:
+`V5-E-THREE-CHANNEL-ACQUISITION-DISPATCH`
 
-Registered design direction:
--257472 acquisitions =85824 accepted targets x3 channels;
--each episode starts from a post-decision state internal12/acquisitions4/step8;
--all three runtime channels available/permitted;
--each selected fact declares exactly one semantic channel;
--only that matching endpoint may receive the request;
--dispatch must publish exactly the selected fact's registered coherent-world value;
--nonselected facts stay UNOBSERVED;
--one receipt only;
--final internal9/acquisitions3/step11/outcome NONE/pending none.
+One question:
+can each accepted learned target, under each exactly-one RETRIEVE/OBSERVE/ASK_USER variant,
+execute through the real structured acquisition lifecycle and publish exactly the selected
+coherent-world fact without cross-channel provider work or nonselected fact mutation?
 
-C202 uses in-memory bounded source fixtures to isolate typed channel dispatch from filesystem
-latency. The actual structured acquisition lifecycle still validates source binding, delivery
-binding, source document and publication semantics.
+Registered workload:
+-9 target blocks;
+-9536 targets/block;
+-3 channels;
+-**257472 acquisitions** total;
+-27 block/channel records.
 
-C202 is not a learned channel-preference claim and not a final Gate E run.
+Required channel provider totals:
+- RETRIEVE85824
+- OBSERVE85824
+- ASK_USER85824
 
-C202 must pass the authoring quality gate and post-authoring remote-byte review before execution.
+Per case:
+- typed proposal preserves selected fact;
+- ActionResult PENDING / ACQUISITION_RESERVED;
+- DispatchResult PUBLISHED / OBSERVATION_ADMITTED;
+- only matching channel provider called once;
+- selected fact OBSERVED at registered world bit;
+- nonselected facts unchanged UNOBSERVED;
+- one receipt;
+- final resources internal9/acquisitions3/all channels available+permitted/outcome NONE/step11;
+- pending none / runtime terminal none.
+
+Fixture:
+- in-memory coherent C190 world documents;
+- actual lifecycle source/delivery/document/publication validation remains active;
+- not a real sensor/user/network transport.
+
+Scope:
+- training0;
+- fresh seeds0;
+- learned forward calls0;
+- network0;
+- production runtime modifiedFalse;
+- Gate E candidateFalse.
+
+Authoring:
+- expected regression **1785 =1759+26**
+- expected modules **87**
+- source pins25
+- protected inputs39
+- artifacts5
+- manifest
+  `24bd6b04647342e8114a6e8245af046cfdae242a06d65c0a46286f577267406e`
+
+## Post-authoring review
+
+**post_authoring_review = PENDING**
+
+Do not issue the C202 execution command until committed remote bytes have been re-fetched and
+independently reviewed.
+
+## Stop condition
+
+Judge C202 before any C203 registration.
+
+- valid complete gate pass -> ACCEPTED PASS;
+- valid complete scientific miss -> ACCEPTED VALID NEGATIVE;
+- source/schema/hash/import/regression/incomplete/protection failure -> INVALID / RETRY SAME C202.
 
 Gate E remains NOT PASSED.
