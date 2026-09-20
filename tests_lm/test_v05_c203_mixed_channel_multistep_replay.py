@@ -14,8 +14,11 @@ def fake_predictions():
     n=np.full((2,9,9536,4),-1,dtype=np.int8)
     t=np.full((2,9,9536,3),-1,dtype=np.int8)
     # Every row: NEEDS target0 -> SUFFICIENT.
+    # Match C199 writer semantics: terminal SUFFICIENT rows can still carry a target-head
+    # prediction because target inference is batched whenever any active row is missing facts.
     n[0,:,:,0]=1;n[0,:,:,1]=0
     t[0,:,:,0]=0
+    t[0,:,:,1]=1
     return {
         "necessity_predictions":n,
         "target_predictions":t,
@@ -173,14 +176,17 @@ class C203Tests(unittest.TestCase):
         self.assertFalse(c203.gate(projection,records,totals))
 
     def test_22_source_replay_uses_saved_predictions(self):
+        projection_source=inspect.getsource(c203.expected_projection)
         collect_source=inspect.getsource(c203.collect)
         replay_source=inspect.getsource(c203.replay_block)
-        self.assertIn('predictions["necessity_predictions"]',collect_source)
-        self.assertIn('predictions["target_predictions"]',collect_source)
+        self.assertIn('predictions["necessity_predictions"]',projection_source)
+        self.assertIn('predictions["target_predictions"]',projection_source)
+        self.assertIn("if decision == 0",projection_source)
         self.assertIn("necessity[i,phase]",replay_source)
         self.assertIn("targets[i,phase]",replay_source)
-        self.assertNotIn("combined_predict(",collect_source+replay_source)
-        self.assertNotIn("necessity_predict(",collect_source+replay_source)
+        self.assertIn("int(x) == 1",replay_source)
+        self.assertNotIn("combined_predict(",projection_source+collect_source+replay_source)
+        self.assertNotIn("necessity_predict(",projection_source+collect_source+replay_source)
 
     def test_23_replay_charges_decision_before_action_window(self):
         source=inspect.getsource(c203.replay_block)
