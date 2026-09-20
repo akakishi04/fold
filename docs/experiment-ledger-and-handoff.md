@@ -8,100 +8,52 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C197 ACCEPTED PASS. C198 ACTIVE / NOT YET JUDGED. C199 NOT REGISTERED.**
+**C198 ACCEPTED PASS. C199 NOT REGISTERED.**
 
-## Accepted C197
+## Accepted C198
 
 Scientific execution HEAD:
-`7d9a09bba9ac2286806f40bc20c6ce45a21cb279`
+`e5a09864497fa38a9eac8d400b5162e33e99ec0d`
 
 Published log commit:
-`b6f2cb6334c22f435320e0f2204b894152bd4797`
+`49fcb1145acdcf3efd20afb5edf2740585265655`
 
 Log SHA256:
-`2053ea31d161e732fb496ea1213612bafc4869df75aef3bdaa3ecbcd460581c6`
+`f8f0de3e15725926bba692dba294b402763c480ac7e63965cda795d6644a0dee`
 
 Summary SHA256:
-`632e8af4a215d12adc83aa015da855c63605205c87832aa6a511dabfc4fd1ca5`
+`9cbb99e6ad200c5a9b88438abf140c58dd293661d8765f3460e3d2a7c70a8e75`
 
-C197 deciding result:
-- focused regression **1653/1653**
-- ALLOWED 9/9 accepted C196/C194 replay
-- PROVIDER_FAILURE_AFTER_RESERVATION 85824/85824
-- provider calls 85824
-- publications 0
-- receipts 0
-- retries 0
-- fact mutation 0
-- fake SUFFICIENT 0
+C198 deciding result:
+- focused regression **1677/1677**
+- ALLOWED 9/9 accepted replay
+- STALE_RESERVATION_AFTER_RESERVATION 85824/85824
+- stale provider calls0
+- stale provider reads0
+- publications0
+- receipts0
+- retries0
+- fact mutation0
+- fake SUFFICIENT0
 - candidate_gate_passed True
 - run_execution_valid True
 - production runtime modified False
 
-The earlier execution at
-`675af144558c9528a8cde9e79d20a0c447736b72`
-is retained as **INVALID EXECUTION** only and contributes no scientific evidence.
+Accepted claim: after successful reservation, a trusted evidence-identity refresh makes the
+reservation stale; the generic loop preserves `STALE_RESERVATION`, performs no provider work,
+publishes no evidence and does not retry.
 
-Accepted claim: the bounded result-aware generic loop preserves a post-reservation provider
-failure as `UNRESOLVED_ACQUISITION_PROVIDER_FAILURE` without retry or fabricated evidence.
+## Next boundary
 
-## Active C198
+C199 is not yet registered at this handoff boundary.
 
-Experiment:
-`C198-v5e-stale-reservation-generic-loop`
+Next one-question intervention:
+hold the accepted learned models, budget13 cohort, source worlds and orchestration fixed, and
+change only the trusted AcquisitionOwner dispatch limit from3 to1. After one successful
+acquisition, rows that still need another observation should reserve the second acquisition
+but dispatch must deny it as `ATTEMPT_LIMIT`, with no second provider call/publication and no
+third learned decision. Rows made sufficient by the first observation must still stop normally.
 
-Stage:
-`V5-E-STALE-RESERVATION-GENERIC-LOOP`
+C199 must pass the experiment authoring quality gate before it is described as executable.
 
-One changed condition:
-after the first successful RETRIEVE reservation, the trusted scheduler advances
-`evidence_time` and `revision` exactly +1 before dispatch. Facts/resources/authority and
-source binding remain otherwise fixed.
-
-Arms:
-1. **ALLOWED** — exact accepted C197 allowed replay.
-2. **STALE_RESERVATION_AFTER_RESERVATION** — reservation succeeds, trusted refresh invalidates
-   the reservation, dispatch must return `REJECTED / STALE_RESERVATION`.
-
-Required stale-arm terminal behavior:
-- generic-loop status `UNRESOLVED_ACQUISITION_STALE_RESERVATION`;
-- provider calls 0;
-- actual provider reads 0;
-- publications 0;
-- receipts 0;
-- retries 0;
-- fact mutation 0;
-- fake SUFFICIENT 0;
-- final resources internal10 / acquisitions3 / available1 / permitted1 / outcomeNONE / step10;
-- final evidence_time and revision exactly initial+1;
-- pending none.
-
-Workload:
-- 2 x85824 episodes;
-- 9 selector blocks / arm;
-- expected regression **1677 =1653+24**;
-- expected modules **83**;
-- source pins151;
-- protected paths396;
-- artifacts5;
-- no new training/fresh seeds/network/proof checking/answer generation;
-- production runtime modified False;
-- Gate E candidate False.
-
-Manifest:
-`e108bcaefdb882f05420c078a4866272afe375d48e62e50ac726241fed2a44e9`
-
-C198 uses an explicit loader for the accepted C197 prediction artifact and verifies the
-2x9x9536 parent schema before execution. The one-row integration coverage fixes call ordering:
-reservation -> trusted refresh -> stale dispatch, with a provider sentinel that fails if called.
-
-## Stop condition
-
-Judge C198 before any C199 registration.
-
-- valid complete gate pass -> ACCEPTED PASS;
-- valid complete scientific miss -> ACCEPTED VALID NEGATIVE;
-- source/schema/hash/nonfinite/regression/incomplete/protection failure -> INVALID / RETRY SAME C198.
-
-**Gate E remains NOT PASSED regardless of C198 until a later explicitly registered Gate E
-completion experiment satisfies its own contract.**
+Gate E remains NOT PASSED.
