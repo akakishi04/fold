@@ -89,3 +89,29 @@ The post-authoring review protocol now explicitly requires mechanical cross-chec
 caller/callee ownership of expected strings.
 
 C203 must pass the revised post-authoring review before the retry command is issued.
+
+## Revised-review finding before retry
+
+After fixing the caller/callee mismatch, the strengthened mechanical review caught a second
+latent false positive **before** another user execution:
+
+```python
+self.assertNotIn("necessity_predict", collect_source + replay_source)
+```
+
+This substring also matches the valid artifact key name `necessity_predictions`. The guard was
+therefore narrowed to actual call syntax:
+
+```python
+"necessity_predict("
+"combined_predict("
+```
+
+The revised committed source audit now verifies mechanically that:
+- `collect()` contains both accepted artifact reads;
+- `replay_block()` consumes the sliced `necessity` / `targets` parameters;
+- neither replay path contains live `combined_predict(` or `necessity_predict(` calls;
+- decision charge precedes the temporary authority window;
+- dispatch precedes parent-authority restoration.
+
+No scientific condition changed.
