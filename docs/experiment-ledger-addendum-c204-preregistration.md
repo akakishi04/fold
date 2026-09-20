@@ -229,19 +229,12 @@ Before execution, committed remote bytes must be re-fetched and reviewed for:
 
 Until review passes:
 
-`post_authoring_review = PASS`
+`post_authoring_review = PENDING`
 
-launcher-safety review HEAD:
-`e7440e44db9b96330d65af2023c2278afddea447`
-
-Verified from committed remote bytes:
-- authoritative handoff resolves exactly C204 ACTIVE;
-- generic dispatcher rejects stale ExpectedHead before launcher dispatch;
-- generic dispatcher contains no publisher call;
-- direct C204 launcher checks branch/tree/HEAD/active experiment before entering its log/publish try/finally;
-- skipped invocations report experiment_executed=False and execution_log_publish_attempted=False;
-- active dispatcher is protected by C204;
-- 33 new tests /1846 regression /38 source pins /80 protected inputs are aligned.
+The active dispatcher and direct C204 launcher were rewritten after a PowerShell parse error. The
+next review must re-check their complete committed bytes, test31-33 source assertions, selected
+launcher parse guard, stale-command skip ordering, updated protocol/AGENTS execution rule and
+current formal-state resolution before any execution command is issued.
 
 ## Execution / stop
 
