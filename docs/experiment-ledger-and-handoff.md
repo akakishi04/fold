@@ -1,7 +1,7 @@
 # FOLD Experiment Ledger and Handoff
 
 > Authoritative current state. Current response format (v2), Experiment authoring quality gate,
-> and post-authoring review pass apply.
+> post-authoring review, and parent artifact semantic audit apply.
 
 Repository `akakishi04/fold`; branch `feat/sft-target-loss`; local `M:\\asobiba\\fold`.
 Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
@@ -9,81 +9,64 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C202 ACCEPTED PASS. C203 ACTIVE / INVALID ATTEMPT RECOVERY. C204 NOT REGISTERED.**
+**C203 ACCEPTED PASS. C204 NOT REGISTERED.**
 
-## Accepted C202
+## Accepted C203
 
 Scientific execution HEAD:
-`a140f33b02aa4056b7c1fcff9041b09f9b7342c4`
+`293b440adfddcbda0a18fd66184768c27aff49a2`
 
 Published log commit:
-`bdf66220a633c8e3f261e09b7491369aec7f1994`
+`618772f2736279ae6389bfc5e488d1eb7c6b2553`
+
+Log SHA256:
+`f995c62b78b8dd23d2f29244c3ef52e4ea5243cbea6f3fbf0dacb968126ce8c2`
 
 Summary SHA256:
-`b568d8b652802c16fb75b85416c6d4ed956abcf767164d688ee39be1178e8c82`
+`5fb52a6f056eea1fcf2ff719a9fa8c9efa9cc0d941ea26f50fdceed4c2db56c2`
 
-Accepted claim: each accepted learned target can execute through its exactly-one typed channel using
-the real structured acquisition lifecycle, with matching-provider isolation and exact selected-fact
-publication/resource semantics.
+C203 deciding result:
+- focused regression **1813/1813**
+- episodes85824
+- learned decisions214948
+- acquisitions129124
+- final SUFFICIENT85824
+- RETRIEVE88918 / OBSERVE21252 / ASK_USER18954
+- within-episode channel switches32564
+- failures0
+- projection errors0
+- decision/target/route/action/dispatch/provider-channel/receipt/fact-update/resource/final-status errors0
+- candidate_gate_passed True
+- run_execution_valid True
+- production runtime modified False
 
-## Active C203
+Accepted claim: the accepted C199 multi-step decision trace can execute through the fixed
+fact-specific mixed-channel layout, including32564 within-episode channel switches, while preserving
+parent decision/acquisition depth, exact provider routing, fact publication, resource accounting and
+final SUFFICIENT closure.
 
-Experiment:
-`C203-v5e-mixed-channel-multistep-replay`
+## Next boundary
 
-C203 remains **INVALID EXECUTION / RETRY SAME C203**. No C203 scientific result exists yet.
+C204 is not yet registered.
 
-### Invalid attempt 1
+Next one-question intervention:
+replace only the saved necessity/target replay with **live frozen-model inference after every
+mixed-channel observation**.
 
-- execution HEAD: `13b1db0c595f6d4900a038693f6c0d87728e3996`
-- published log commit: `c437165ea115592fa6449791b62419f5ce0bb4ad`
-- failure: 1812/1813 regression; source-audit test targeted wrong caller/callee namespace.
-- scientific diagnostic not started.
+At each decision:
+- restore parent RETRIEVE-only authority;
+- charge decision;
+- construct current structured-v2 packet;
+- require v2[0:72] == canonical v1 packet exactly;
+- feed only that72-feature prefix to the accepted frozen C181/C188 models;
+- compare live necessity/target predictions and logits to the accepted C199 ALLOWED artifact;
+- execute live NEEDS target through the unchanged fixed C203 fact->channel layout;
+- restore parent authority and repeat.
 
-### Invalid attempt 2
+C204 must use the accepted C181 INTERNAL_SEMANTICS bases and C188 selectors with their protected
+checkpoint identities. No retraining, threshold repair or saved-decision substitution is allowed.
 
-- execution HEAD: `fad0c9df501e38159dfe77b746c63456534024c4`
-- published log commit: `529c081e898eb75a68eccf99113c49ff7aa6b681`
-- log SHA256: `11bca2741e2d5a36dd9ebd2e834307f057babb7fca65b00405d35f69727d1277`
-- focused regression: **1813/1813 PASS**
-- failure occurred before block1/provider execution in parent-artifact projection;
-- provider calls/publications0;
-- run_execution_valid False.
+C204 must pass authoring quality gate, parent writer/consumer semantic audit and post-authoring
+remote-byte review before execution.
 
-Root cause:
-C203 counted all nonnegative C199 target-head outputs as acquisitions. C199 writer stores a target
-output for active rows whenever any row in the active batch still has missing facts, before checking
-that row's necessity decision. A terminal SUFFICIENT row may therefore have a stored but unused
-target prediction.
-
-Recovery:
-- acquisition depth now comes from `necessity == NEEDS(1)`;
-- terminal SUFFICIENT target-head output is ignored;
-- every NEEDS phase must have a valid corresponding target;
-- final reference acquisition count is the NEEDS count;
-- unit fixture now reproduces C199 terminal-target writer semantics.
-
-Fixed parent totals remain:
-- decisions214948;
-- acquisitions129124;
-- final SUFFICIENT85824.
-
-Scientific manifest, fixed channel layout, parent identities, gate and workload are unchanged.
-
-## Post-authoring review
-
-**post_authoring_review = PASS**
-
-semantic review HEAD:
-`25c6f41b6a3e9e5d250a2ccb3f6e5adcb0dd88dc`
-
-The revised review explicitly checked C199 writer-side target semantics, the distinction between
-stored target-head output and executed acquisition, NEEDS gating, terminal SUFFICIENT target
-exclusion, budget13/make_views reconstruction, authority grant/restore ordering, source-string
-assertions, runner/launcher/manifest/count contracts and C204 non-registration.
-
-## Stop condition
-
-Retry same C203 only after revised post-authoring review PASS.
-
-C204 remains unregistered.
+Gate E remains NOT PASSED.
