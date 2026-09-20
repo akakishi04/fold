@@ -96,16 +96,17 @@ Authoring:
 
 ## Post-authoring review
 
-**post_authoring_review = PENDING**
+**post_authoring_review = PASS**
 
-The active dispatcher and direct C204 launcher were rewritten after a PowerShell parse error.
-Re-review must confirm:
-- authoritative formal-state parsing resolves exactly C204;
-- invoke_active.ps1 syntax structure is complete and selected launcher is parsed with PowerShell Parser.ParseFile before invocation;
-- direct C204 launcher performs stale guards before its log/publish try/finally;
-- stale/skipped paths never call log publication;
-- test31-33 source assertions match the rewritten launcher bytes;
-- 33 new tests /1846 regression /38 source pins /80 protected inputs remain aligned.
+PowerShell launcher review HEAD:
+`8ff59c9bcd17def4d4e05200d2fd305446296abf`
+
+Committed remote review verified balanced launcher structure, closed regex literals, complete regex
+calls, authoritative handoff resolving exactly C204 ACTIVE, outer AST parser preflight for
+invoke_active.ps1, selected-launcher Parser.ParseFile guard inside invoke_active.ps1, stale-command
+skip ordering before any experiment/log publication, direct C204 preflight before try/finally,
+test31-33 alignment, 33 new tests /1846 regression /38 source pins /80 protected inputs and C205
+non-registration.
 
 ## Stop condition
 
