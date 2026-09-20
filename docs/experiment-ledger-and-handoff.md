@@ -31,46 +31,58 @@ publication/resource semantics.
 Experiment:
 `C203-v5e-mixed-channel-multistep-replay`
 
-The first C203 attempt is **INVALID EXECUTION / RETRY SAME C203**.
+C203 remains **INVALID EXECUTION / RETRY SAME C203**. No C203 scientific result exists yet.
 
-Invalid execution HEAD:
-`13b1db0c595f6d4900a038693f6c0d87728e3996`
+### Invalid attempt 1
 
-Published invalid log commit:
-`c437165ea115592fa6449791b62419f5ce0bb4ad`
+- execution HEAD: `13b1db0c595f6d4900a038693f6c0d87728e3996`
+- published log commit: `c437165ea115592fa6449791b62419f5ce0bb4ad`
+- failure: 1812/1813 regression; source-audit test targeted wrong caller/callee namespace.
+- scientific diagnostic not started.
 
-Log SHA256:
-`cb59ebfadd11bbee559861ce38dddca027af9b3c28e93e08da619a7d3a658371`
+### Invalid attempt 2
 
-Failure:
-- repository/syntax/source prechecks PASS;
-- focused regression1813;
--1812 PASS /1 FAIL;
-- scientific diagnostic did not start;
+- execution HEAD: `fad0c9df501e38159dfe77b746c63456534024c4`
+- published log commit: `529c081e898eb75a68eccf99113c49ff7aa6b681`
+- log SHA256: `11bca2741e2d5a36dd9ebd2e834307f057babb7fca65b00405d35f69727d1277`
+- focused regression: **1813/1813 PASS**
+- failure occurred before block1/provider execution in parent-artifact projection;
+- provider calls/publications0;
 - run_execution_valid False.
 
 Root cause:
-test22 incorrectly required the caller string
-`predictions["necessity_predictions"]`
-inside `replay_block()`, even though replay_block receives already-sliced `necessity` and
-`targets` parameters. The implementation path was correct; the source-audit assertion targeted
-the wrong function namespace.
+C203 counted all nonnegative C199 target-head outputs as acquisitions. C199 writer stores a target
+output for active rows whenever any row in the active batch still has missing facts, before checking
+that row's necessity decision. A terminal SUFFICIENT row may therefore have a stored but unused
+target prediction.
 
 Recovery:
-- test22 now checks parent artifact reads in `collect()`;
-- checks callee usage in `replay_block()`;
-- no scientific condition, parent identity, workload, manifest or gate changed.
+- acquisition depth now comes from `necessity == NEEDS(1)`;
+- terminal SUFFICIENT target-head output is ignored;
+- every NEEDS phase must have a valid corresponding target;
+- final reference acquisition count is the NEEDS count;
+- unit fixture now reproduces C199 terminal-target writer semantics.
+
+Fixed parent totals remain:
+- decisions214948;
+- acquisitions129124;
+- final SUFFICIENT85824.
+
+Scientific manifest, fixed channel layout, parent identities, gate and workload are unchanged.
 
 ## Post-authoring review
 
-**post_authoring_review = PASS**
+**post_authoring_review = PENDING**
 
-revised review HEAD:
-`d7d79dc2b51a424f4c49b59244e2a7a27456ce29`
+The revised review must now include:
+- exact source-string assertion checks;
+- C199 writer-side artifact semantics;
+- parent gating semantics (stored target != executed acquisition);
+- budget13/make_views identity reconstruction;
+- authority grant/restore ordering;
+- runner/launcher/manifest/count contracts.
 
-The revised review mechanically evaluated every C203 source-string assertion against the exact
-function source it inspects, including caller/callee ownership, live-inference call guards,
-decision/action ordering, parent artifact contracts, runner/launcher wiring and C204 non-registration.
+Do not issue the next retry command until this review passes.
 
 ## Stop condition
 
