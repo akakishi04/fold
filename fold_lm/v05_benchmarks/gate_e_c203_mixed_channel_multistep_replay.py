@@ -178,14 +178,22 @@ def expected_projection(predictions):
         acquisitions = decisions = switches = final_sufficient = 0
         for row in range(9536):
             decisions_row = [int(x) for x in n[block,row] if int(x) >= 0]
-            targets_row = [int(x) for x in t[block,row] if int(x) >= 0]
             require(decisions_row and decisions_row[-1] == 0,
                     "Accepted trace must terminate SUFFICIENT")
             require(all(x == 1 for x in decisions_row[:-1]),
                     "Accepted trace has nonterminal non-NEEDS decision")
-            require(len(targets_row) == len(decisions_row)-1,
-                    "Accepted target/decision depth mismatch")
-            require(all(0 <= x < 4 for x in targets_row), "Accepted target out of range")
+            targets_row = []
+            for phase, decision in enumerate(decisions_row):
+                if decision == 0:
+                    continue
+                require(phase < t.shape[2], "Accepted NEEDS phase lacks target slot")
+                target = int(t[block,row,phase])
+                require(0 <= target < 4, "Accepted NEEDS target out of range")
+                targets_row.append(target)
+            # C199 stores target-head output for every active row whenever the batch still
+            # has missing facts. A SUFFICIENT row may therefore have a nonnegative target
+            # prediction at its terminal phase; that prediction was not acted on and is
+            # intentionally excluded from acquisition depth/projection.
             channels = [CHANNEL_LAYOUT[x] for x in targets_row]
             for channel in channels:
                 channel_counts[channel] += 1
@@ -348,7 +356,9 @@ def replay_block(views, world_codes, necessity, targets, provider_map, endpoint_
         decisions = int(episode_decisions[i])
         acquisitions = int(episode_acquisitions[i])
         ref_decisions = int((necessity[i] >= 0).sum())
-        ref_acquisitions = int((targets[i] >= 0).sum())
+        ref_acquisitions = sum(
+            int(x) == 1 for x in necessity[i] if int(x) >= 0
+        )
         if (decisions,acquisitions) != (ref_decisions,ref_acquisitions):
             counters["decision_trace_error"] += 1
             counters["failed"] += 1
