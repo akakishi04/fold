@@ -42,7 +42,7 @@ PARENT_C202_SHA = "b568d8b652802c16fb75b85416c6d4ed956abcf767164d688ee39be1178e8
 TARGET_C199_EXECUTION = "48100f36f4f1acdf44d5cb1d508b907e19724c10"
 TARGET_C199_SHA = "0ee89c9720022146c9625bbe7cd4d02a615c411ff2f3f068d5dac91d5ab906f9"
 C174_SHA = "3e69b7d8cff9e1cfdab7d06c58d45f83d1f596ac793c85c4c34ff620f8637d36"
-MANIFEST_SHA = "d40a52873185e5dda35bfa4f55da075f35f2739999e5dff3dd30d4b116b97eee"
+MANIFEST_SHA = "2b9723733441019df8d73fa40fcf1421023c4765cbe6fdc91a31b2765b447ae6"
 CHANNEL_LAYOUT = ("RETRIEVE", "OBSERVE", "ASK_USER", "RETRIEVE")
 PARENT_AVAILABLE = (True, False, False)
 PARENT_PERMITTED = (True, False, False)
@@ -100,7 +100,9 @@ def manifest():
         decision_source="accepted C199 ALLOWED saved necessity/target predictions; no new learned forward",
         model_visible_authority="before every replayed decision restore accepted RETRIEVE-only available/permitted masks",
         action_authority="after NEEDS+target trusted scheduler temporarily enables all three channels, dispatches selected fact through fixed one-hot channel, then restores parent masks",
-        expected_acquisitions="deterministic count of nonnegative C199 ALLOWED target predictions",
+        expected_decisions_total=214948,
+        expected_acquisitions_total=129124,
+        expected_final_sufficient=85824,
         expected_channel_counts="deterministic projection of accepted target indices through fixed channel_layout",
         expected_switches="deterministic within-episode transitions between consecutive projected acquisition channels",
         training_steps=0,
@@ -464,8 +466,11 @@ def gate(projection, records, totals):
     return (
         len(records) == 9
         and totals.get("episodes") == 85824
-        and totals.get("decisions") == expected["decisions"]
-        and totals.get("acquisitions") == expected["acquisitions"]
+        and expected["decisions"] == 214948
+        and expected["acquisitions"] == 129124
+        and expected["final_sufficient"] == 85824
+        and totals.get("decisions") == 214948
+        and totals.get("acquisitions") == 129124
         and totals.get("final_sufficient") == 85824
         and totals.get("channel_counts") == expected["channel_counts"]
         and totals.get("channel_switches") == expected["channel_switches"]
