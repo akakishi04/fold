@@ -202,7 +202,7 @@ PASS does not establish:
 - expected focused regression **1677 =1653 existing +24 new**;
 - expected regression modules **83**;
 - historical source pins **151**;
-- protected paths **401**;
+- protected paths **396**;
 - output artifacts **5** excluding summary;
 - no new training / fresh seeds / network / proof checking / answer generation;
 - production runtime modified False;
