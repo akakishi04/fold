@@ -252,9 +252,16 @@ Before the user receives an execution command, the complete committed C201
 source/tests/runner/launcher/preregistration/docs must be re-fetched from remote and independently
 reviewed under the repository post-authoring review rule.
 
-Until that review passes:
+Review completed against committed remote bytes at:
 
-`post_authoring_review = PENDING`
+`ba9759785254839892439814d695312ae65bf266`
+
+Reviewed: helper, benchmark, 28 new tests, runner, launcher, preregistration, mapper docs,
+parent identities/artifact schema, source/protected counts, module/test counts, py_compile inputs,
+CLI argument wiring, launcher run paths, log publication, stale C-number/HEAD/path residue,
+and authority-separation source invariants.
+
+`post_authoring_review = PASS`
 
 ## Execution / stop
 
