@@ -229,12 +229,16 @@ Before execution, committed remote bytes must be re-fetched and reviewed for:
 
 Until review passes:
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-The ACTIVE resolver changed from whole-line Markdown anchoring to a CRLF-safe `## Formal state`
-section parser. Re-review must confirm section extraction, exactly-one C204 ACTIVE token, dispatcher
-and direct-launcher syntax structure, parser guards, stale-command skip ordering, test31-33
-alignment, 33-test/1846-regression contracts and C205 non-registration.
+CRLF-safe active resolver review HEAD:
+`2a130721a2ddfbfc09d0d1a89ca935920ce667f5`
+
+Committed remote review verified that `## Formal state` is found, exactly one `C204 ACTIVE / NOT YET JUDGED`
+token is resolved from that section, launcher delimiters/regex literals are structurally complete,
+selected-launcher Parser.ParseFile and stale-command guards precede execution, skipped paths do not
+publish logs, test31-33 match the rewritten resolver, and the 33-test /1846-regression /38-source-pin /
+80-protected-input contracts remain aligned.
 
 ## Execution / stop
 
