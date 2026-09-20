@@ -1,5 +1,6 @@
 import inspect
 import unittest
+from pathlib import Path
 from unittest import mock
 
 import numpy as np
@@ -287,6 +288,26 @@ class C204Tests(unittest.TestCase):
         source=inspect.getsource(c204.manifest)
         self.assertIn("training_steps=0",source)
         self.assertIn("production_runtime_modified=False",source)
+
+
+    def test_31_active_dispatcher_guards_before_launcher(self):
+        source=(Path(__file__).resolve().parents[1]/"tools"/"invoke_active.ps1").read_text(encoding="utf-8")
+        self.assertIn("invocation_skipped = $Reason",source)
+        self.assertIn("execution_log_publish_attempted = False",source)
+        self.assertNotIn("publish_experiment_log.ps1",source)
+        self.assertLess(source.index("if($currentHead -ne $ExpectedHead)"),source.index("& $launcher -ExpectedHead"))
+        self.assertLess(source.index("ACTIVE_EXPERIMENT_UNRESOLVED"),source.index("& $launcher -ExpectedHead"))
+
+    def test_32_c204_launcher_stale_guard_precedes_logging_and_publish(self):
+        source=(Path(__file__).resolve().parents[1]/"tools"/"invoke_c204.ps1").read_text(encoding="utf-8")
+        guard=source.index("if($headNow -ne $ExpectedHead)")
+        active=source.index('if($handoff -notmatch')
+        logging=source.index("$failure=$null")
+        publish=source.index("publish_experiment_log.ps1")
+        self.assertLess(guard,logging)
+        self.assertLess(active,logging)
+        self.assertLess(logging,publish)
+        self.assertIn("execution_log_publish_attempted = False",source)
 
 
 if __name__=="__main__":
