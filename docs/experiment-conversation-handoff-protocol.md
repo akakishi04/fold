@@ -143,6 +143,7 @@ summary全文をチャットへ再掲しない。gateを決める deciding metri
 - launcher の parent artifact path / ExpectedHead / log publication path
 - tracked tree / source pin / protected path 数の二重計上・欠落
 - source-level call ordering と scientific changed-variable が preregistration と一致
+- `inspect.getsource()` / source文字列assertionを使うauthoring testは、**assertionが参照する正確な関数sourceを機械的に再照合**する。caller/calleeをまたぐ場合は、どの文字列がどちらの関数に存在すべきかを分けて確認し、別関数のsourceへ誤ってassertしていないことを確認する
 - placeholder、古いC番号、古いHEAD、古いrun directory、コピペ残骸がないこと
 
 reviewで1件でも修正した場合、その修正後のremote bytesをもう一度確認してから
