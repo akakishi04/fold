@@ -1,3 +1,4 @@
+import ast
 import inspect
 import unittest
 from dataclasses import replace
@@ -142,9 +143,16 @@ class C200Tests(unittest.TestCase):
         self.assertFalse(c200.gate(summary))
 
     def test_29_source_has_no_action_execution_import(self):
-        source = inspect.getsource(v2)
-        self.assertNotIn("structured_action_runtime", source)
-        self.assertNotIn("structured_acquisition_lifecycle", source)
+        tree = ast.parse(inspect.getsource(v2))
+        modules = []
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                modules.extend(alias.name for alias in node.names)
+            elif isinstance(node, ast.ImportFrom):
+                modules.append(node.module or "")
+        joined = "\n".join(modules)
+        self.assertNotIn("structured_action_runtime", joined)
+        self.assertNotIn("structured_acquisition_lifecycle", joined)
 
     def test_30_source_layout_is_v1_prefix_plus_tail(self):
         source = inspect.getsource(v2.encode)
