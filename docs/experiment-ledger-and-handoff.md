@@ -96,17 +96,17 @@ Authoring:
 
 ## Post-authoring review
 
-**post_authoring_review = PASS**
+**post_authoring_review = PENDING**
 
-PowerShell launcher review HEAD:
-`8ff59c9bcd17def4d4e05200d2fd305446296abf`
-
-Committed remote review verified balanced launcher structure, closed regex literals, complete regex
-calls, authoritative handoff resolving exactly C204 ACTIVE, outer AST parser preflight for
-invoke_active.ps1, selected-launcher Parser.ParseFile guard inside invoke_active.ps1, stale-command
-skip ordering before any experiment/log publication, direct C204 preflight before try/finally,
-test31-33 alignment, 33 new tests /1846 regression /38 source pins /80 protected inputs and C205
-non-registration.
+The ACTIVE resolver changed from whole-line Markdown anchoring to a CRLF-safe `## Formal state`
+section parser. Re-review must confirm:
+- formal section extraction is independent of CRLF/Markdown decoration;
+- exactly one C204 ACTIVE token is found inside that section;
+- invoke_active.ps1 and invoke_c204.ps1 remain structurally complete;
+- outer and selected-launcher PowerShell parser guards remain before execution;
+- stale/skipped paths do not publish logs;
+- test31-33 match the new resolver;
+- 33 new tests /1846 regression /38 source pins /80 protected inputs remain aligned.
 
 ## Stop condition
 
