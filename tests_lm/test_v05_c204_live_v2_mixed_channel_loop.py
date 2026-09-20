@@ -297,6 +297,9 @@ class C204Tests(unittest.TestCase):
         self.assertNotIn("publish_experiment_log.ps1",source)
         self.assertIn("[System.Management.Automation.Language.Parser]::ParseFile",source)
         self.assertIn('ACTIVE_LAUNCHER_PARSE_ERROR',source)
+        self.assertIn('FORMAL_STATE_UNRESOLVED',source)
+        self.assertIn('$formalMatch = [regex]::Match($handoff, $formalPattern)',source)
+        self.assertIn('$activeMatches = [regex]::Matches($formalMatch.Groups["body"].Value, $activePattern)',source)
         self.assertLess(source.index("if ($currentHead -ne $ExpectedHead)"),source.index("& $launcher -ExpectedHead"))
         self.assertLess(source.index("ACTIVE_EXPERIMENT_UNRESOLVED"),source.index("& $launcher -ExpectedHead"))
         self.assertLess(source.index("[System.Management.Automation.Language.Parser]::ParseFile"),source.index("& $launcher -ExpectedHead"))
@@ -317,13 +320,20 @@ class C204Tests(unittest.TestCase):
         import re
         root=Path(__file__).resolve().parents[1]
         handoff=(root/"docs"/"experiment-ledger-and-handoff.md").read_text(encoding="utf-8")
-        matches=re.findall(
-            r"(?m)^\*\*[^*\r\n]*C(?P<id>\d{3}) ACTIVE / (?:NOT YET JUDGED|INVALID ATTEMPT RECOVERY)[^*\r\n]*\*\*$",
+        formal=re.search(
+            r"(?ms)^## Formal state\s+(?P<body>.*?)(?=^## |\Z)",
             handoff,
+        )
+        self.assertIsNotNone(formal)
+        matches=re.findall(
+            r"C(?P<id>\d{3}) ACTIVE / (?:NOT YET JUDGED|INVALID ATTEMPT RECOVERY)",
+            formal.group("body"),
         )
         self.assertEqual(matches,["204"])
         source=(root/"tools"/"invoke_active.ps1").read_text(encoding="utf-8")
-        self.assertIn("$activePattern = '(?m)^\\*\\*[^*\\r\\n]*C(?<id>\\d{3}) ACTIVE /",source)
+        self.assertIn("$formalPattern = '(?ms)^## Formal state\\s+",source)
+        self.assertIn("$activePattern = 'C(?<id>\\d{3}) ACTIVE /",source)
+        self.assertNotIn("[^*\\r\\n]*C(?<id>",source)
 
 
 if __name__=="__main__":
