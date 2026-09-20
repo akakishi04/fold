@@ -247,9 +247,18 @@ Scientific manifest SHA256:
 Before any execution command is issued, committed remote bytes for benchmark/tests/runner/launcher/
 preregistration/docs must be re-fetched and independently reviewed.
 
-Until that review passes:
+Review completed against committed remote bytes at:
 
-`post_authoring_review = PENDING`
+`8879022df0aa6c904399fea21d7187614378d557`
+
+Reviewed: benchmark, 26 new tests, runner, launcher, preregistration, dispatch-boundary docs,
+accepted C201/C200/C199 identities, C199 prediction artifact schema/path, four historical runtime/
+source pins, 25 source pins /39 protected inputs, manifest identity, 87-module/1785-test runner
+contract, py_compile inputs, three launcher parent run paths, ExpectedHead/log publication wiring,
+provider-channel isolation, selected/nonselected fact postconditions, resource postcondition, stale
+C-number/HEAD/path residue and C203 non-registration.
+
+`post_authoring_review = PASS`
 
 ## Execution / stop
 
