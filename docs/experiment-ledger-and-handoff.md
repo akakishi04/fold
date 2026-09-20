@@ -8,7 +8,7 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C198 ACCEPTED PASS. C199 NOT REGISTERED.**
+**C198 ACCEPTED PASS. C199 ACTIVE / NOT YET JUDGED. C200 NOT REGISTERED.**
 
 ## Accepted C198
 
@@ -27,7 +27,7 @@ Summary SHA256:
 C198 deciding result:
 - focused regression **1677/1677**
 - ALLOWED 9/9 accepted replay
-- STALE_RESERVATION_AFTER_RESERVATION 85824/85824
+- stale reservation rows85824
 - stale provider calls0
 - stale provider reads0
 - publications0
@@ -39,21 +39,76 @@ C198 deciding result:
 - run_execution_valid True
 - production runtime modified False
 
-Accepted claim: after successful reservation, a trusted evidence-identity refresh makes the
+Accepted claim: after a successful reservation, a trusted evidence-identity refresh makes the
 reservation stale; the generic loop preserves `STALE_RESERVATION`, performs no provider work,
 publishes no evidence and does not retry.
 
-## Next boundary
+## Active C199
 
-C199 is not yet registered at this handoff boundary.
+Experiment:
+`C199-v5e-attempt-limit-generic-loop`
 
-Next one-question intervention:
-hold the accepted learned models, budget13 cohort, source worlds and orchestration fixed, and
-change only the trusted AcquisitionOwner dispatch limit from3 to1. After one successful
-acquisition, rows that still need another observation should reserve the second acquisition
-but dispatch must deny it as `ATTEMPT_LIMIT`, with no second provider call/publication and no
-third learned decision. Rows made sufficient by the first observation must still stop normally.
+Stage:
+`V5-E-ATTEMPT-LIMIT-GENERIC-LOOP`
 
-C199 must pass the experiment authoring quality gate before it is described as executable.
+Single changed condition:
+```text
+ALLOWED:            AcquisitionOwner max_dispatches = 3
+DISPATCH_LIMIT_ONE: AcquisitionOwner max_dispatches = 1
+```
+
+The first acquisition remains fully admitted. If the accepted C198 policy still requests a
+second acquisition, the second reservation is created but dispatch must return
+`DENIED / ATTEMPT_LIMIT`.
+
+Frozen accepted C198 second-request counts:
+- total ATTEMPT_LIMIT rows **34948**
+- SUFFICIENT-after-first rows **50876**
+
+Required intervention behavior:
+- first reads/provider calls/publications/receipts:9536 per block;
+- learned decisions:19072 per block;
+- attempt_limit_rows exactly equal accepted C198 `second_reads` for that block;
+- second provider calls0;
+- second publications0;
+- no third learned prediction;
+- prefix predictions/logits exact to C198 ALLOWED;
+- limit rows terminate `UNRESOLVED_ACQUISITION_ATTEMPT_LIMIT`;
+- sufficient rows terminate normally;
+- no fake completion.
+
+Limit-row final resource contract:
+`internal6 / acquisitions2 / available1 / permitted1 / outcome ATTEMPT_LIMIT / step14`.
+
+Sufficient-after-first final resource contract:
+`internal8 / acquisitions3 / available1 / permitted1 / outcome NONE / step12`.
+
+Workload:
+-2 x85824 episodes;
+-9 selector blocks / arm;
+-expected regression **1701 =1677+24**;
+-expected modules **84**;
+-source pins156;
+-protected paths407;
+-artifacts5;
+-no new training/fresh seeds/network/proof checking/answer generation;
+-production runtime modified False;
+-Gate E candidate False.
+
+Manifest:
+`3bda32133c97539c4e327899e08859e57df9361caa50657e22000374e65bacec`
+
+C199 owns the C198 artifact loader and fixes the parent prediction schema before execution.
+The integration test uses a real first FileSnapshotProvider acquisition and then exercises the
+real owner dispatch limit; learned second-step output is deterministic test scaffolding only,
+not scientific benchmark evidence.
+
+## Stop condition
+
+Judge C199 before any C200 registration.
+
+- valid complete gate pass -> ACCEPTED PASS;
+- valid complete scientific miss -> ACCEPTED VALID NEGATIVE;
+- source/schema/hash/nonfinite/regression/incomplete/protection failure -> INVALID / RETRY SAME C199.
 
 Gate E remains NOT PASSED.
