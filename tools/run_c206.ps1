@@ -39,7 +39,7 @@ Write-Output "python_syntax_preflight = PASS"
 Write-Output "=== FOLD C206 V5-E terminal derived-result integration ==="
 Write-Output "repository = akakishi04/fold; branch = feat/sft-target-loss; commit = $ExpectedHead"
 Write-Output "changed condition = terminal SUFFICIENT TaskView -> production VERIFIED_DERIVED output"
-Write-Output "expected_focused_tests = 1899 (1900 loaded -1 exact mutable historical test); Gate_E = NOT_PASSED"
+Write-Output "expected_focused_tests = 1901 (1902 loaded -1 exact mutable historical test); Gate_E = NOT_PASSED"
 
 $Precheck=@'
 from pathlib import Path
@@ -62,7 +62,7 @@ from fold_lm.v05_benchmarks import gate_e_c206_terminal_derived_result_integrati
 names=b.regression_modules(Path.cwd())
 assert len(names)==len(set(names))==91
 suite=b.regression_suite(Path.cwd())
-assert suite.countTestCases()==1899,f'Expected1899 tests, got{suite.countTestCases()}'
+assert suite.countTestCases()==1901,f'Expected1901 tests, got{suite.countTestCases()}'
 r=unittest.TextTestRunner(verbosity=2).run(suite)
 sys.exit(0 if r.wasSuccessful() else 1)
 '@
