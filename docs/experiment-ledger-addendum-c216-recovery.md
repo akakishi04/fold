@@ -187,4 +187,29 @@ Unchanged:
 - Writer/Port Selector/Coverage boundaries;
 - Gate F interpretation.
 
-`post_authoring_recovery_review_2 = PENDING`
+`post_authoring_recovery_review_2 = PASS`
+
+review HEAD:
+`926979cdc19fab3b44c12869ed1b551b0b56f55a`
+
+Second recovery review verified:
+- actual FOLD-R `torch.linalg.solve` selected-value float64 bit patterns are exactly
+  `13818898080148657814 / 0 / 4595526043293882006`;
+- the deterministic 36-row dataset generated from that numeric path hashes to
+  `9ded8a1b17cf721407e5d28c9dd6350159d0a17721f39bf9b57a911b78aa3f61`;
+- TRAIN/EVAL target counts remain [8,8,8] / [4,4,4] and the six/three pair split is unchanged;
+- the manifest independently recomputes to
+  `77d42cd12ce26e592b7e4798ba844e6a8147af4f3f45fc870fb48790b36cbdd7`;
+- benchmark source differs from the second-invalid execution version only in DATA_SHA and
+  MANIFEST_SHA;
+- production Reader source, C216 runner and C216 launcher are byte-identical to the
+  second-invalid execution version;
+- existing test13 now pins the exact float64 bit patterns; total C216 tests remain36;
+- restored historical `tools/run_c167.ps1` remains exact blob
+  `7c5d6e9838d4ce7bd2bfec0e43458eb749fd1789` and yields51 unique seed modules;
+- source/protection accounting remains130/136 and focused regression registration remains2185;
+- complete PowerShell guard/source-string contract remains satisfied;
+- C217 remains unregistered.
+
+No split, seed, model architecture, optimizer, workload, threshold, or interpretation boundary
+changed during recovery.
