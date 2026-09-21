@@ -270,7 +270,7 @@ def _eval(nodes,bits):
 def _binary_nodes(kind):
     require(kind in ("AND","OR"),"binary operator required")
     return (
-        v1.Node("FACT",0,negate=1),
+        v1.Node("FACT",0,negate=True),
         v1.Node("FACT",1),
         v1.Node(kind,left=0,right=1),
     )
@@ -280,19 +280,19 @@ def _hard_nodes(unit):
     if unit % 2 == 0:
         # ((NOT A OR B) AND C) OR NOT D
         return (
-            v1.Node("FACT",0,negate=1),
+            v1.Node("FACT",0,negate=True),
             v1.Node("FACT",1),
             v1.Node("OR",left=0,right=1),
             v1.Node("FACT",2),
             v1.Node("AND",left=2,right=3),
-            v1.Node("FACT",3,negate=1),
+            v1.Node("FACT",3,negate=True),
             v1.Node("OR",left=4,right=5),
         )
     # NOT A AND (B OR (NOT C AND D))
     return (
-        v1.Node("FACT",0,negate=1),
+        v1.Node("FACT",0,negate=True),
         v1.Node("FACT",1),
-        v1.Node("FACT",2,negate=1),
+        v1.Node("FACT",2,negate=True),
         v1.Node("FACT",3),
         v1.Node("AND",left=2,right=3),
         v1.Node("OR",left=1,right=4),
@@ -344,7 +344,7 @@ def make_holdout_case(family,unit,condition):
 
     if family=="sufficient_known":
         bit=int(condition)
-        nodes=(v1.Node("FACT",0,negate=1),)
+        nodes=(v1.Node("FACT",0,negate=True),)
         view=_base_view(
             case_id,nodes,
             (_fact("A","OBSERVED",bit,(f"holdout:{unit_id}:A",)),),
