@@ -1,206 +1,30 @@
 # FOLD Experiment Ledger and Handoff
 
-> Authoritative current state. Current response format (v2), Experiment authoring quality gate,
-> post-authoring review, PowerShell parser preflight, parent artifact semantic audit, historical
-> regression immutability, semantic count contracts, and Python import-binding audit apply.
+> Authoritative current state. Historical experiment detail lives in
+> `docs/experiment-ledger-addendum-*.md`. Follow
+> `docs/experiment-conversation-handoff-protocol.md` and `AGENTS.md`.
 
-Repository `akakishi04/fold`; branch `feat/sft-target-loss`; local `M:\\asobiba\\fold`.
-Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
+Repository: `akakishi04/fold`  
+Branch: `feat/sft-target-loss`  
+Local repository: `M:\\asobiba\\fold`  
+Authoritative Python: 3.13.15 / PyTorch 2.10.0+cu130 / NumPy 2.3.5.
 
 ## Formal state
 
-Gate A/B PASSED; C/D PASSED in measured scope; **Gate E PASSED**.
-**C215 ACCEPTED PASS. C216 NOT REGISTERED.**
+- Gate A: **PASSED**
+- Gate B: **PASSED**
+- Gate C: **PASSED in measured scope**
+- Gate D: **PASSED in measured scope**
+- Gate E: **PASSED**
+- Gate F: **NOT PASSED**
+- **C215 ACCEPTED PASS**
+- **C216 NOT REGISTERED**
 
-## Accepted C210
+There is no ACTIVE C experiment during the post-C215 maintenance checkpoint.
 
-Scientific execution HEAD:
-`002543b8d1394c127b915b3bfe4591ce20c8939d`
+## Gate E checkpoint
 
-Published log commit:
-`a04e7cdc5b42939e2d65f395f12da450a896bf0f`
-
-Log SHA256:
-`f1365f6d364c5bf0729ef7240f69c2c566004eef554a35c08b8b32355039f0d3`
-
-Summary SHA256:
-`1b4242f15fdf3ca48374660d5c3339ff5c17dc9cd4f4833852f5e1bccb349366`
-
-C210 deciding result:
-- focused regression **1997/1997**
-- policy-episode evaluations1584
-- measurement_complete True
-- run_execution_valid True
-- numerical margin registration False
-- candidate selection False
-- independent holdout created False
-
-INTERNAL_ONLY:
-- correct48 / answered48 / unresolved96
-- attempts0 / provider calls0 / publications0 / user turns0
-- wrong abstention80 / wrong answers0
-
-FIXED_ACQUISITION:
-- correct128 / answered128 / unresolved16
-- attempts96 / provider calls90 / publications80 / user turns16
-- wrong abstention0 / wrong answers0
-- authority violations0 / malformed publications0
-
-All9 candidate model pairs are identical in full policy and per-family summaries:
-- correct128 / answered128 / unresolved16
-- attempts96 / provider calls90 / publications80 / user turns16
-- wrong abstention0 / wrong answers0
-- unnecessary acquisition0 / missed necessary acquisition0
-- premature sufficient0 / repeated NEEDS0 / invalid target0
-- inference rows224 / forward calls2 / cell calls14
-
-Accepted claim: the matched development measurement is complete. This acceptance refers to the
-retry execution at `002543b8d1394c127b915b3bfe4591ce20c8939d`; the earlier unprotected attempt
-remains invalid historical evidence. C210 does not itself select a candidate or register numerical
-acceptance margins.
-
-## Accepted C211
-
-Experiment:
-`C211-v5e-deciding-manifest-freeze`
-
-Stage:
-`V5-E-DECIDING-MANIFEST-FREEZE`
-
-One question:
-can the complete deciding Gate E registration be frozen from accepted development evidence without
-evaluating the deciding holdout?
-
-Frozen candidate:
-`CANDIDATE-181001-188001`
-
-Tie-break requires all9 C210 candidate full policy/family summaries to be exactly equal before
-lexicographic selection.
-
-Pinned checkpoint hashes:
-- base `3f1bad426640c58ad8479a226cb2292991e014ec88bfbc0931a538e0f81e8289`
-- selector `02547ed98ce155f6c260b5dbdf8fe5e2bb7dc4ce40248c77d511ab8089e6178d`
-
-C211 creates a144-episode /72-unit independent nine-family deciding holdout with expression
-signatures disjoint from C207 development, freezes exact artifact hashes and registers:
-- zero-episode noninferiority margins versus FIXED_ACQUISITION;
-- +1-episode strict improvement margins versus INTERNAL_ONLY for two primary claims;
-- one-sided exact paired McNemar with Holm alpha0.05 across exactly2 claims;
-- hard-zero runtime/safety rules;
-- zero-floor unsupported-assertion limitation;
-- candidate compute ceilings;
-- stopping/invalidity rules.
-
-C211 performs no holdout policy/model evaluation.
-
-Authoring:
-- source pins93
-- protected inputs177
-- artifacts5
-- tests28
-- regression modules96
-- focused regression2025
-- manifest `8a24beda4da38c331b6c10ed4c46159073a78e1c426ccb580d9a861742e1db99`
-
-## Post-authoring review
-
-**post_authoring_review = PASS**
-
-recovery review HEAD:
-`93012e0607772d64c9a57040540f3b60b2b32fd1`
-
-Recovery review verified the Boolean-negation fix on committed remote bytes: no integer negate
-literals remain, six explicit Boolean negations are covered by type assertions, and all C211
-scientific identities, manifest/rules, 93/177 protection accounting, 2025 regression contract,
-no-evaluation boundary and C212 non-registration remain unchanged.
-
-Do not issue C211 execution command until committed remote bytes are independently reviewed for
-parent identity, candidate tie/checkpoints, holdout independence, decision rules, no-evaluation
-boundary, regression counts, aliases, PowerShell parser chain and CLI indexes.
-
-
-## Invalid C211 attempt
-
-Scientific execution HEAD:
-`16280454018b779aba0112e34317d2b1bd4c1f77`
-
-Published log commit:
-`ca0e0334b1a425dab002ea9df3e921a6480bb75c`
-
-Log SHA256:
-`da6840a3c6326227b9b3b932ad888bf42349bebcc0748784e87c39f69b6aebd3`
-
-Failure phase:
-- repository preflight PASS;
-- Python syntax preflight PASS;
-- source/artifact precheck PASS;
-- focused regression started;
-- inherited C100-C210 tests reached **1997 executed / all passed**;
-- C211 class setup failed before its28 tests could execute.
-
-Root cause:
-`gate_e_c211_deciding_manifest_freeze.py` constructed negated leaves with integer
-`negate=1`, while production `structured_task_input.Node` requires
-`type(negate) is bool`. The first holdout case therefore raised
-`ValueError("Invalid node kind/negation")`.
-
-Formal disposition:
-**INVALID EXECUTION / RETRY SAME C211**.
-
-No deciding manifest was frozen and no holdout policy/model evaluation occurred.
-
-Recovery:
-- replace all six C211 `negate=1` literals with `negate=True`;
-- strengthen existing C211 tests to assert Boolean negation type;
-- preserve candidate, holdout construction semantics, margins, statistics, manifest SHA,
-  workload and C212 non-registration;
-- re-review corrected committed bytes before retry.
-
-## Accepted C211 execution
-
-Scientific execution HEAD:
-`9cedc79a02441e9cddb0efc0c8bbc7714f9112db`
-
-Published log commit:
-`c35a76b33c1782dc6caa1916c9fc3f7658bbbba7`
-
-Log SHA256:
-`93992504ae7dae472911521e5bed336f57407e4bc8dfc3542b6e60863da1c25c`
-
-Summary SHA256:
-`97f5c1fde9128651ae842046e706219a50e0f34238b87d17d253e89d71279263`
-
-Deciding result:
-- focused regression **2025/2025**;
-- status **PASS**;
-- candidate_gate_passed True;
-- run_execution_valid True;
-- selected candidate `CANDIDATE-181001-188001`;
-- holdout episodes144 / dependence units72 /16 per family;
-- expression-signature overlap0;
-- development unit overlap0;
-- development case overlap0;
-- hidden payload errors0;
-- pair errors0;
-- equal-visible units50;
-- holdout_evaluated False;
-- model_forward_calls0;
-- baseline_policy_calls0.
-
-Frozen deciding artifacts:
-- visible `1197f59ab6bf659929ecb7a9f42df27ea28e81586c4602f8e1eb96da17be126b`;
-- scorer `3975c10afc2e644f5279de4d46459d1aa250c6e7b381bb944b0b8cf6b585ff22`;
-- units `630d9c94b4aee67f55c3f9704ad6a508679e01450da73dd18a8935b4bac8dc34`;
-- decision rules `d143f2a6b4b96c672131daf22dea5c207d42375440c7d403ee95b9782fd75bcc`;
-- deciding manifest `f9356e87b210bc7d836d016a9ad7a4f841a9a651b3bb9faf9428b0415df9e6d6`.
-
-Formal disposition:
-**C211 ACCEPTED PASS**.
-
-Accepted claim: the complete Gate E deciding registration is frozen without evaluating the deciding
-holdout. C211 does not itself establish Gate E performance or pass Gate E.
-
-## Accepted C212
+C212 formally passed Gate E.
 
 Scientific execution HEAD:
 `4d1436c1ba12721b1c802fb5d76e359b3a62841f`
@@ -208,181 +32,48 @@ Scientific execution HEAD:
 Published log commit:
 `3163014d0672ab8905a06c37ae6698e9ea9c80bc`
 
-Log SHA256:
-`146dee38ca4823ac0bf8aeabd9c4defec92d967b184adc7e5f441b5526943ca0`
-
 Summary SHA256:
 `3685c37dd6e2c7fea92723548446b86f4ee8d068f7dd00afe3e2337f8bca8bce`
 
-Formal outcome:
-**GATE_E_PASSED**.
-
-Execution validity:
-- focused regression **2055/2055**;
-- source/artifact precheck PASS;
--432/432 matched policy-episode evaluations;
-- protected inputs preserved;
-- tracked tree clean;
-- run_execution_valid True.
-
-Deciding metrics:
+Key deciding result:
+-144 independent holdout episodes /432 policy-episode evaluations;
 - candidate correct128 / answered128 / wrong abstention0 / wrong answer0;
-- FIXED_ACQUISITION correct128 / answered128 / wrong abstention0;
-- INTERNAL_ONLY correct48 / answered48 / wrong abstention80;
-- candidate vs fixed: all overall and all per-family zero-margin noninferiority checks PASS;
-- candidate vs internal useful-correct margin **+80 episodes**;
-- candidate vs internal positive-acquisition-gain margin **+80 episodes**;
-- both one-sided exact paired McNemar p = `8.271806125530277e-25`;
-- Holm [0.025,0.05] both PASS;
-- hard-zero gate PASS;
-- compute ceiling PASS:144 initial +80 post =224 rows,2 forward calls,14 cell calls;
-- guarded unsupported assertions0 with `NOT_DEMONSTRATED_ZERO_FLOOR` comparative limitation preserved.
+- zero-margin noninferiority versus FIXED_ACQUISITION passed overall and per-family;
+- two registered strict improvements versus INTERNAL_ONLY were +80 episodes each;
+- exact paired McNemar + Holm passed;
+- hard-zero/output/compute rules passed.
 
-Accepted claim:
-within the preregistered independent144-episode Gate E holdout and shared symbolic answer boundary,
-the frozen selected candidate satisfies every frozen Gate E rule.
+Full resident log intentionally retained at:
+`docs/experiment-run-logs/c212/latest.log`.
 
-Non-claim:
-this does not establish general natural-language intelligence, FOLD-R memory integration, variable-
-length I/O, Vision, or large-scale practical superiority.
+## Accepted V5-F chain
 
-## Accepted C213
+### C213 — memory operation contract
 
 Scientific execution HEAD:
 `f59f615b5d409400c9fc5247270a37960ffac197`
 
-Published log commit:
-`78751428cc8397c82488dfd4bf205aa9ac62bc97`
-
-Log SHA256:
-`18a09bfbe223d87f1e0f6b317d07fa72e324485c7af7aa2993f9d6e388850944`
-
 Summary SHA256:
 `370ee39bcd32da4ce797ecfb21ce3b863013c788f6daaaf0fb9a10edac643b43`
 
-Formal disposition:
-**C213 ACCEPTED PASS**.
-
-Execution validity:
-- focused regression **2083/2083**;
-- Python syntax preflight PASS;
-- source/artifact precheck PASS;
-- protected inputs preserved;
-- tracked tree clean;
-- run_execution_valid True.
-
-Deciding metrics:
-- successful memory mutations6;
-- reads8;
-- SUPPORTED3 / MISSING2 / RETRACTED1 / STALE_REVISION1 / OUT_OF_SCOPE1;
-- final memory revision6;
-- final evidence revision4;
-- final evidence time3;
-- final exported observations1;
-- exported hypotheses0;
-- stale mutation rejected True;
-- observed-scope END rejected True;
-- ended-scope mutation rejected True;
-- learned Writer/Reader calls0;
-- FOLD-R capsule calls0;
-- model forward calls0.
-
 Accepted claim:
-the deterministic V5-F memory operation/scope/revision/provenance boundary is internally coherent
-and can export authoritative observed evidence without promoting hypotheses.
+ASSERT/REPLACE/RETRACT/ASSUME/END_SCOPE/QUERY semantics preserve factor identity, scope, revision and
+provenance; hypotheses do not enter authoritative EvidenceState.
 
-Non-claim:
-C213 does not establish FOLD-R numeric correction closure, H1/H2 memory compression, learned memory
-routing, natural-language memory extraction or Gate F.
-
-## Accepted C214
+### C214 — memory capsule closure
 
 Scientific execution HEAD:
 `b4a020aeb006ec758e06ce1dc6d1b0ad5784e150`
 
-Published log commit:
-`706c83c2fd59043b621b0ee0011fb046384026a3`
-
-Log SHA256:
-`edaaf71e2d207c68f25a4626c31ad31ee72335611f38853f2db9aa66ffecda9c`
-
 Summary SHA256:
 `bd7a310fc89873b4571d1748a96fa1a121d147a0617d48e2d8824d4769deb37d`
 
-Formal disposition:
-**C214 ACCEPTED PASS**.
-
-Execution validity:
-- focused regression **2115/2115**;
-- Python syntax preflight PASS;
-- source/artifact precheck PASS;
-- protected inputs preserved;
-- tracked tree clean;
-- run_execution_valid True.
-
-Deciding metrics:
-- supported snapshots7/7;
-- capsule/full-reference statuses all matched;
-- max absolute readout error `1.1102230246251565e-16` <= registered `1e-10`;
-- observed-factor count sequence [0,1,1,2,1,1,1];
-- ASSUME readout delta0;
-- END_SCOPE readout delta0;
-- OUT_OF_SCOPE control exact;
-- NUMERIC_UNSAFE control exact;
-- non-supported value exposures0;
-- final exported observed factor `beta` only;
-- learned Writer/Reader/Port Selector/model-forward calls0.
-
 Accepted claim:
-accepted C213 observed edit semantics can be projected into the existing fixed-port FOLD-R response
-capsule while preserving supported readouts against an independent full-memory solve within the
-registered float64 tolerance, with hypothesis isolation and explicit capability/numeric failure
-states.
+accepted C213 observed edits project into the existing fixed-port response capsule and match an
+independent full-memory solve within the registered float64 tolerance. OUT_OF_SCOPE and
+NUMERIC_UNSAFE remain distinct.
 
-Non-claim:
-C214 does not establish H1/H2 chunk commit, learned Writer/Reader/Port Selector, natural-language
-memory extraction, memory-cost advantage or Gate F.
-
-## Invalid C215 attempt
-
-Scientific execution HEAD:
-`ea67be1d0916b209038d454cdb607b0479340f6e`
-
-Published log commit:
-`6138b515b0862c6cdb93b8622c0e5778cb5161d1`
-
-Log SHA256:
-`1f986d85aab2bc87ecf9071b0707b5a98bb9dc9782097b44b8086b4159a4bde2`
-
-Failure phase:
-- repository preflight PASS;
-- Python syntax preflight PASS;
-- accepted C214 source/artifact precheck PASS;
--2148 focused tests passed;
-- C215 tests01-33 passed;
-- C215 test34 failed;
-- H1/H2 scientific fixture did not run;
-- run_execution_valid False.
-
-Root cause:
-`test_34_powershell_guards_and_parent_path` asserts the exact launcher source fragment
-`$runnerPath = Join-Path $Root "tools\\run_c215.ps1"`.
-The committed launcher used the semantically equivalent compact spelling
-`$runnerPath=Join-Path ...`.
-
-Formal disposition:
-**C215 INVALID EXECUTION / RETRY SAME C215**.
-
-Minimal recovery:
-only `tools/invoke_c215.ps1` spacing was changed at
-`0b3bed031a71313d9ea2ad670b563394638665d2`.
-Scientific conditions, manifest, fixture, thresholds, parent identities, counts and Gate F
-interpretation remain fixed.
-
-Recovery addendum:
-`docs/experiment-ledger-addendum-c215-recovery.md`.
-
-## Accepted C215
+### C215 — H1/H2 chunk commit
 
 Scientific execution HEAD:
 `663f42ca21f977b6530e4df8709fc306c2ebd8c9`
@@ -396,53 +87,123 @@ Log SHA256:
 Summary SHA256:
 `96b3e5b9cf465b9dea33920de095fc5d7d8e4c0cba960d64597c95fc15eda237`
 
-Formal disposition:
-**C215 ACCEPTED PASS**.
-
-Execution validity:
+Execution:
 - focused regression **2149/2149**;
-- Python syntax preflight PASS;
 - source/artifact precheck PASS;
 - protected inputs preserved;
 - tracked tree clean;
 - run_execution_valid True.
 
 Deciding metrics:
-- snapshots9;
-- status sequence SUPPORTED/HOT_REQUIRED/SUPPORTED/SUPPORTED/HOT_REQUIRED/SUPPORTED/SUPPORTED/SUPPORTED/SUPPORTED;
-- commit statuses COMMITTED/COMMITTED;
-- commit semantic clocks unchanged True;
+-9 snapshots;
+- status sequence:
+  `SUPPORTED,HOT_REQUIRED,SUPPORTED,SUPPORTED,HOT_REQUIRED,SUPPORTED,SUPPORTED,SUPPORTED,SUPPORTED`;
+- two chunk commits, both COMMITTED;
+- semantic clocks unchanged across commit;
 - commit readout deltas [0.0,0.0];
-- final storage epoch2;
+- final storage_epoch2;
 - final semantic clocks memory6/evidence4/time3;
 - final H2 factor beta only;
-- operation history entries0;
-- max absolute error `1.1102230246251565e-16` <= registered `1e-10`;
-- OUT_OF_SCOPE and NUMERIC_UNSAFE controls exact with state preservation;
+- operation-history entries0;
+- capsule/full-reference max abs error `1.1102230246251565e-16` <= `1e-10`;
+- OUT_OF_SCOPE and NUMERIC_UNSAFE controls preserved state and exposed no numeric value;
 - learned Writer/Reader/Port Selector/Coverage classifier/model-forward calls0.
 
 Accepted claim:
-the deterministic H1/H2 chunk-commit boundary preserves supported readouts and semantic clocks while
-moving observed records into H2, and committed-factor REPLACE/RETRACT works from current protected-
-factor descriptors without replaying hidden operation history.
+the deterministic H1/H2 chunk-commit boundary can move supported observed records from H1 into H2
+without changing semantic clocks or readout, and committed-factor REPLACE/RETRACT can operate from
+current protected-factor descriptors without replaying hidden operation history.
 
 Non-claim:
-C215 does not establish learned memory routing, natural-language memory writing/reading, compression
-advantage, end-to-end memory cost superiority, or Gate F.
+C215 does not establish learned memory routing, natural-language memory extraction, compression
+advantage, total memory-cost superiority, or Gate F.
 
-Historical invalid C215 attempts remain documented in:
+Historical invalid C215 launcher-guard attempts are retained in:
 `docs/experiment-ledger-addendum-c215-recovery.md`.
 
-## Maintenance checkpoint after C215
+Full resident log intentionally retained at:
+`docs/experiment-run-logs/c215/latest.log`.
 
-Repository/script/log cleanup is now allowed because C215 has a formal accepted result.
-C216 remains unregistered during maintenance.
+## C215 maintenance checkpoint
 
+Maintenance working-tree prune commit:
+`44075b22bfc619ba5cf14e4c1f2efd65fd7a5c46`
+
+Post-prune accepted-source audit:
+- C215 source pins checked: **122/122**
+- missing source pins: **0**
+- SHA mismatches: **0**
+
+Harness before -> after:
+- C-numbered invoke scripts: **27 -> 16**
+- C-numbered run scripts: **73 -> 17**
+
+Retained source-pinned harness:
+- `tools/run_c171.ps1`
+- `tools/run_c200.ps1` through `tools/run_c215.ps1`
+- `tools/invoke_c200.ps1` through `tools/invoke_c215.ps1`
+- shared `tools/invoke_active.ps1`
+- shared `tools/publish_experiment_log.ps1`
+
+Pruned historical harness remains recoverable from Git history.
+
+Log retention after maintenance:
+- compact `latest.json` receipts retained for **27/27** C189-C215 experiments;
+- full resident logs retained only for C212 (Gate E decision) and C215 (latest checkpoint);
+- resident full-log payload reduced from about **11.89 MiB** to about **1.35 MiB**;
+- pruned full logs remain recoverable from Git history.
+
+Maintenance policy:
+- `tools/README-experiment-harness.md`
+- `docs/experiment-run-logs/README.md`
+
+This cleanup is not a history rewrite; old blobs still exist in Git history / pack storage.
+
+## Current V5-F architecture boundary
+
+Established, deterministic reference path:
+
+```text
+MemoryOp semantics
+  -> H1 hot relational state
+  -> fixed capability / relation-to-port mapping
+  -> H2 response-capsule state
+  -> SUPPORTED / HOT_REQUIRED / OUT_OF_SCOPE / NUMERIC_UNSAFE
+  -> numeric readout
+```
+
+Still unestablished:
+- learned Writer;
+- learned Reader;
+- learned Port Selector / Capsule Router;
+- learned Coverage classifier;
+- natural-language-to-memory operation mapping;
+- end-to-end memory bytes/latency advantage versus full-history baseline;
+- Gate F deciding holdout.
+
+## Historical references
+
+Detailed C-series history remains in:
+- `docs/experiment-ledger-addendum-*.md`
+- C215 recovery: `docs/experiment-ledger-addendum-c215-recovery.md`
+- protocol: `docs/experiment-conversation-handoff-protocol.md`
+- roadmap: `docs/development-roadmap-v0.5.md`
+
+Pruned logs/scripts are recoverable with `git log --all -- <path>` and
+`git show <commit>:<path>`.
+
+## Next boundary
+
+C216 is **not registered**.
+
+The next V5-F experiment should introduce only one learned memory component at a time; do not mix
+learned Writer, Reader, Port Selector, Coverage classifier and cost optimization in one C number.
+
+Before registering C216, choose the single next scientific question and preregister its split,
+training budget, baseline and interpretation boundary.
 
 ## Stop condition
 
-C215 is closed as **ACCEPTED PASS**.
+Maintenance checkpoint is complete.
 
-Perform the planned experiment-harness/log maintenance before registering C216.
-
-Gate E remains **PASSED**. Gate F remains **NOT PASSED**.
+Do not treat C215 as Gate F completion. Gate F remains **NOT PASSED**.
