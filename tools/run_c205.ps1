@@ -36,7 +36,7 @@ Write-Output "python_syntax_preflight = PASS"
 Write-Output "=== FOLD C205 V5-E phase0 batch-composition attribution ==="
 Write-Output "repository = akakishi04/fold; branch = feat/sft-target-loss; commit = $ExpectedHead"
 Write-Output "changed condition = phase0 unique1768 vs direct-expanded9536 frozen inference"
-Write-Output "expected_focused_tests = 1870 (1846 existing +24 new); Gate_E = NOT_PASSED"
+Write-Output "expected_focused_tests = 1871 (1846 existing +25 new); Gate_E = NOT_PASSED"
 
 $Precheck=@'
 from pathlib import Path
@@ -55,7 +55,7 @@ from fold_lm.v05_benchmarks import gate_e_c205_phase0_batch_composition_attribut
 names=b.regression_modules(Path.cwd())
 assert len(names)==len(set(names))==90
 suite=unittest.defaultTestLoader.loadTestsFromNames(names)
-assert suite.countTestCases()==1870,f'Expected1870 tests, got{suite.countTestCases()}'
+assert suite.countTestCases()==1871,f'Expected1871 tests, got{suite.countTestCases()}'
 r=unittest.TextTestRunner(verbosity=2).run(suite)
 sys.exit(0 if r.wasSuccessful() else 1)
 '@
