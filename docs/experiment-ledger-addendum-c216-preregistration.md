@@ -225,4 +225,11 @@ MANIFEST_SHA 77d42cd12ce26e592b7e4798ba844e6a8147af4f3f45fc870fb48790b36cbdd7
 
 Existing test13 now pins the exact float64 bit patterns emitted by the FOLD-R solve path.
 
-`post_authoring_recovery_review_2 = PENDING`
+`post_authoring_recovery_review_2 = PASS`
+
+recovery review HEAD:
+`926979cdc19fab3b44c12869ed1b551b0b56f55a`
+
+The actual FOLD-R solve-path dataset bytes, exact float64 feature bits, corrected dataset/
+manifest hashes,130/136 protection accounting, and unchanged Reader scientific conditions
+passed committed-remote re-review.
