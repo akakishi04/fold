@@ -230,11 +230,20 @@ class C206Tests(unittest.TestCase):
         self.assertIn("p205.get(\"source_blobs\") == pins",source)
 
     def test_25_regression_preserves_exact_historical_exclusion(self):
-        source=inspect.getsource(c206.regression_suite)
-        self.assertIn("c205.HISTORICAL_DYNAMIC_TEST_EXCLUSIONS",source)
-        self.assertIn("ids.count(excluded) == 1",source)
-        self.assertIn("len(tests) == 1900",source)
-        self.assertIn("len(kept) == 1899",source)
+        root=Path(__file__).resolve().parents[1]
+        names=c206.regression_modules(root)
+        loaded=unittest.defaultTestLoader.loadTestsFromNames(names)
+        all_ids=[test.id() for test in c205._iter_tests(loaded)]
+        self.assertEqual(len(all_ids),1902)
+        for excluded in c205.HISTORICAL_DYNAMIC_TEST_EXCLUSIONS:
+            self.assertEqual(all_ids.count(excluded),1)
+
+        suite=c206.regression_suite(root)
+        kept_ids=[test.id() for test in c205._iter_tests(suite)]
+        self.assertEqual(len(kept_ids),1901)
+        self.assertFalse(
+            any(x in kept_ids for x in c205.HISTORICAL_DYNAMIC_TEST_EXCLUSIONS)
+        )
 
     def test_26_scope_has_no_learning(self):
         m=c206.manifest()
