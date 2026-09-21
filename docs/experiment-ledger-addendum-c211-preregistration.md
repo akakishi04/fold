@@ -325,13 +325,17 @@ Before execution, committed remote bytes must be independently reviewed for:
 
 Until review passes:
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-Previous review HEAD:
-`4a64648baa7b92ed14bbbce5fd1da4e9bee19daa`
+recovery review HEAD:
+`93012e0607772d64c9a57040540f3b60b2b32fd1`
 
-That review is superseded by the Boolean-negation recovery source/test change. Corrected committed
-remote bytes must be independently re-reviewed before retry.
+Committed remote recovery review verified zero integer negation literals, exactly six Boolean
+`negate=True` holdout literals, explicit Boolean-type tests, unchanged accepted C210 retry
+identity/checkpoint/source pins, unchanged scientific manifest and decision rules, 28 C211 tests,
+semantic2026-loaded/2025-kept regression accounting, runner/launcher recovery routing,
+93 source pins /177 protected inputs, no holdout policy/model evaluation, and C212
+non-registration.
 
 
 ## Invalid first execution / same-C recovery
