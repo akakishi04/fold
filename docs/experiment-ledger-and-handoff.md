@@ -10,7 +10,7 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C205 ACCEPTED PASS. C206 ACTIVE / NOT YET JUDGED. C207 NOT REGISTERED.**
+**C205 ACCEPTED PASS. C206 ACTIVE / INVALID ATTEMPT RECOVERY. C207 NOT REGISTERED.**
 
 ## Accepted C205
 
@@ -118,20 +118,41 @@ Authoring:
 Historical mutable-state regression exclusion remains the one exact accepted C204 test ID.
 Accepted C204 bytes remain unchanged.
 
+## Invalid C206 attempt
+
+Execution HEAD:
+`95d087011a7071ad920b9ab1620706b9e0b74205`
+
+Published log commit:
+`922b51eaaf5dfbace77644d658bd4f17dab71218`
+
+Log SHA256:
+`3a3d8be20e2eec475b8512a5f284bec75d5c0708b7e9f04ff5606b13506a590f`
+
+- focused regression1901;
+-1900 PASS /1 FAIL;
+- all scientific preconditions passed;
+- failing test was C206 test25 with stale source-string count literals 1900/1899;
+- implementation and runner already used1902 loaded /1901 kept;
+- scientific diagnostic did not start;
+- run_execution_valid False.
+
+Recovery:
+- test25 now builds the actual module loader/suite and semantically checks1902 candidate IDs ->1901 kept;
+- exact historical exclusion still occurs once;
+- scientific question/workload/verifier/output gate unchanged.
+
 ## Post-authoring review
 
-**post_authoring_review = PASS**
+**post_authoring_review = PENDING**
 
-review HEAD:
-`cdeaef9f22f25a7fc5a74994d250fcac3a10cb04`
-
-Committed remote review verified accepted C205 identity/gate, all6 C171 historical input hashes
-uniquely against the C199 protected set with no parent-pin overlap, benchmark-only proof producer vs
-production verifier separation, independent completion/world checks, opposite-value rejection,
-TaskView/resource purity, exact C203 mixed-channel replay ordering, 30 source/test assertions,
-1902 loaded candidates ->1901 focused tests with the one exact historical dynamic exclusion,
-91 modules /56 source pins /110 protected inputs /5 artifacts, C206 launcher->runner parser guards,
-and C207 non-registration.
+Re-review must verify:
+- test25 contains no source-string numeric suite-count assertions;
+- test25 loads the actual modules and counts1902 candidate IDs /1901 kept IDs;
+- the one exact historical mutable test ID occurs exactly once and is excluded;
+- accepted C205/C171 identities remain unchanged;
+- C206 scientific/runtime/verifier conditions remain unchanged;
+- parser/count/source/protected contracts and C207 non-registration remain valid.
 
 ## Stop condition
 
