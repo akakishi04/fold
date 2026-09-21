@@ -64,8 +64,7 @@ OUTPUTS = {
     "workload.json",
 }
 HISTORICAL_DYNAMIC_TEST_EXCLUSIONS = (
-    "tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests."
-    "test_33_active_dispatcher_resolves_current_formal_state",
+    "tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state",
 )
 
 
