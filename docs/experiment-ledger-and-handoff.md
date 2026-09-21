@@ -291,10 +291,15 @@ Recovery detail:
 
 ## C216 recovery review
 
-**post_authoring_recovery_review = PENDING**
+**post_authoring_recovery_review = PASS**
 
-Do not retry until the restored runner, inherited regression module seed list, updated130/136
-accounting, manifest and unchanged scientific blobs are independently re-reviewed.
+recovery review HEAD:
+`a69385699fa616d209bb7a1352c8e94bbe241b08`
+
+Committed-remote recovery review verified the exact restored `run_c167.ps1` blob and its51 unique
+historical regression modules, updated130/136 source/protection accounting, independently recomputed
+C216 manifest/data hashes, unchanged Reader/runner/launcher scientific path, complete PowerShell
+guard contract, and C217 non-registration.
 
 
 ## Stop condition
