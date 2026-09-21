@@ -10,7 +10,7 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E PASSED**.
-**C213 ACCEPTED PASS. C214 ACTIVE / NOT YET JUDGED. C215 NOT REGISTERED.**
+**C214 ACCEPTED PASS. C215 NOT REGISTERED.**
 
 ## Accepted C210
 
@@ -295,71 +295,72 @@ Non-claim:
 C213 does not establish FOLD-R numeric correction closure, H1/H2 memory compression, learned memory
 routing, natural-language memory extraction or Gate F.
 
-## Active C214
+## Accepted C214
 
-Experiment:
-`C214-v5f-memory-capsule-closure`
+Scientific execution HEAD:
+`b4a020aeb006ec758e06ce1dc6d1b0ad5784e150`
 
-Stage:
-`V5-F-MEMORY-CAPSULE-CLOSURE`
+Published log commit:
+`706c83c2fd59043b621b0ee0011fb046384026a3`
 
-One question:
-when accepted C213 observed edit semantics are projected into the existing fixed-port FOLD-R
-response capsule, do supported edit sequences produce the same readout as an independent full-memory
-reference within registered float64 tolerance?
+Log SHA256:
+`edaaf71e2d207c68f25a4626c31ad31ee72335611f38853f2db9aa66ffecda9c`
 
-Changed variable:
-- new `fold_lm/v05/memory_capsule_bridge.py` semantic-to-numeric adapter only.
+Summary SHA256:
+`bd7a310fc89873b4571d1748a96fa1a121d147a0617d48e2d8824d4769deb37d`
 
-Held constant / absent:
-- learned Writer/Reader;
-- Port Selector;
-- H1/H2 compiler;
-- language parsing;
-- model inference;
-- training;
-- existing response-capsule algebra.
+Formal disposition:
+**C214 ACCEPTED PASS**.
 
-Registered fixture:
-- variables4 / update rank2 / readout dim2;
--7 supported snapshots;
-- factor-count sequence [0,1,1,2,1,1,1];
-- capsule/full-reference max abs error <=1e-10;
-- ASSUME and END_SCOPE numeric deltas0;
-- unknown observed relation -> OUT_OF_SCOPE;
-- unsafe registered update -> NUMERIC_UNSAFE;
-- final exported observed factor beta only.
+Execution validity:
+- focused regression **2115/2115**;
+- Python syntax preflight PASS;
+- source/artifact precheck PASS;
+- protected inputs preserved;
+- tracked tree clean;
+- run_execution_valid True.
 
-Authoring:
-- source pins115;
-- protected inputs217;
-- artifacts5;
-- tests32;
-- regression modules99;
-- focused regression2115;
-- manifest `dc2354bd35d94ef0d8b7e5f4c6bed820f5166f0ce20948df612b30d1b0465915`.
+Deciding metrics:
+- supported snapshots7/7;
+- capsule/full-reference statuses all matched;
+- max absolute readout error `1.1102230246251565e-16` <= registered `1e-10`;
+- observed-factor count sequence [0,1,1,2,1,1,1];
+- ASSUME readout delta0;
+- END_SCOPE readout delta0;
+- OUT_OF_SCOPE control exact;
+- NUMERIC_UNSAFE control exact;
+- non-supported value exposures0;
+- final exported observed factor `beta` only;
+- learned Writer/Reader/Port Selector/model-forward calls0.
 
-## Post-authoring review
+Accepted claim:
+accepted C213 observed edit semantics can be projected into the existing fixed-port FOLD-R response
+capsule while preserving supported readouts against an independent full-memory solve within the
+registered float64 tolerance, with hypothesis isolation and explicit capability/numeric failure
+states.
 
-**post_authoring_review = PASS**
+Non-claim:
+C214 does not establish H1/H2 chunk commit, learned Writer/Reader/Port Selector, natural-language
+memory extraction, memory-cost advantage or Gate F.
 
-review HEAD:
-`7453cf9b62b86a3970e2a549028d604e329ec525`
+## Next boundary
 
-Committed remote review verified accepted C213 summary/validation identity, existing response-
-capsule source identity, relation-to-port mapping and full-reference parity, hypothesis exclusion,
-replacement/retraction semantics, OUT_OF_SCOPE vs NUMERIC_UNSAFE separation,32 tests,
-semantic2116-loaded/2115-kept regression accounting, zero unbound executable aliases, exact runner
-argv/postcheck wiring, launcher parser ordering,115 source pins /217 protected inputs, accepted
-C213 local summary path and C215 non-registration.
+C215 is not yet registered.
 
-Independent numeric reconstruction produced max capsule/full error approximately1.11e-16 across
-the seven registered supported snapshots; all safe updates remained SPD and the unsafe control
-alone crossed the SPD boundary.
+Next one-question intervention:
+
+> Can a deterministic H1 hot-memory / H2 capsule-bank chunk-commit boundary preserve supported
+> readouts and explicit capability status across commit, post-commit updates and scope/revision
+> changes without replaying hidden full history?
+
+C215 must keep learned Writer/Reader/Port Selector disabled and introduce only H1/H2 commit and
+Capability Contract semantics.
 
 
 ## Stop condition
 
-Judge C214 before any C215 registration.
+C214 is closed as **ACCEPTED PASS**.
+
+C215 remains **NOT REGISTERED** until preregistration, authoring and post-authoring review complete.
 
 Gate E remains **PASSED**. Gate F remains **NOT PASSED**.
