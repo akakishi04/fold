@@ -10,7 +10,7 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C210 ACCEPTED PASS. C211 NOT REGISTERED.**
+**C210 ACCEPTED PASS. C211 ACTIVE / NOT YET JUDGED. C212 NOT REGISTERED.**
 
 ## Accepted C210
 
@@ -59,42 +59,59 @@ retry execution at `002543b8d1394c127b915b3bfe4591ce20c8939d`; the earlier unpro
 remains invalid historical evidence. C210 does not itself select a candidate or register numerical
 acceptance margins.
 
-## Next boundary
+## Active C211
 
-C211 is not yet registered.
+Experiment:
+`C211-v5e-deciding-manifest-freeze`
 
-Next one-question intervention:
+Stage:
+`V5-E-DECIDING-MANIFEST-FREEZE`
 
-> Can the complete deciding Gate E manifest be frozen now, using only accepted development evidence,
-> without evaluating the deciding holdout?
+One question:
+can the complete deciding Gate E registration be frozen from accepted development evidence without
+evaluating the deciding holdout?
 
-Candidate identity rule:
-- verify all9 C210 candidate full summaries and full family summaries are identical;
-- lexicographic tie-break selects
-  `CANDIDATE-181001-188001`;
-- base checkpoint SHA256
-  `3f1bad426640c58ad8479a226cb2292991e014ec88bfbc0931a538e0f81e8289`;
-- selector checkpoint SHA256
-  `02547ed98ce155f6c260b5dbdf8fe5e2bb7dc4ce40248c77d511ab8089e6178d`.
+Frozen candidate:
+`CANDIDATE-181001-188001`
 
-C211 must freeze:
-- independent144-episode /72-unit nine-family holdout with semantic templates not present in C207;
-- exact visible/scorer/unit hashes;
-- candidate/baseline identities;
-- output schema and shared symbolic-answer disclosure;
-- source/fault/budget schedule;
+Tie-break requires all9 C210 candidate full policy/family summaries to be exactly equal before
+lexicographic selection.
+
+Pinned checkpoint hashes:
+- base `3f1bad426640c58ad8479a226cb2292991e014ec88bfbc0931a538e0f81e8289`
+- selector `02547ed98ce155f6c260b5dbdf8fe5e2bb7dc4ce40248c77d511ab8089e6178d`
+
+C211 creates a144-episode /72-unit independent nine-family deciding holdout with expression
+signatures disjoint from C207 development, freezes exact artifact hashes and registers:
+- zero-episode noninferiority margins versus FIXED_ACQUISITION;
+- +1-episode strict improvement margins versus INTERNAL_ONLY for two primary claims;
+- one-sided exact paired McNemar with Holm alpha0.05 across exactly2 claims;
 - hard-zero runtime/safety rules;
-- zero-loss noninferiority versus FIXED_ACQUISITION on useful resolution/coverage/wrong abstention/
-  unnecessary acquisition/user turns;
-- +1-episode minimum strict improvement versus INTERNAL_ONLY on useful correct resolution and
-  acquisition gain;
-- one-sided exact paired McNemar tests for those two improvement claims, Holm familywise alpha0.05;
-- per-family no-worse-than-fixed rules;
-- unsupported-assertion floor rule: guarded candidate must remain0; strict reduction against the
-  already-zero guarded internal baseline is explicitly not demonstrated;
-- stop/invalidity rules.
+- zero-floor unsupported-assertion limitation;
+- candidate compute ceilings;
+- stopping/invalidity rules.
 
-C211 performs no model/baseline forward and no deciding holdout evaluation. Only after C211
-acceptance may a later C execute the frozen holdout once.
+C211 performs no holdout policy/model evaluation.
+
+Authoring:
+- source pins89
+- protected inputs173
+- artifacts5
+- tests28
+- regression modules96
+- focused regression2025
+- manifest `81e13c77066aa61f6487d341488812c00ad057fba97a30c31c62e9e2bc6fb859`
+
+## Post-authoring review
+
+**post_authoring_review = PENDING**
+
+Do not issue C211 execution command until committed remote bytes are independently reviewed for
+parent identity, candidate tie/checkpoints, holdout independence, decision rules, no-evaluation
+boundary, regression counts, aliases, PowerShell parser chain and CLI indexes.
+
+## Stop condition
+
+Judge C211 before any C212 registration.
 
 Gate E remains NOT PASSED.
