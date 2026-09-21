@@ -142,24 +142,40 @@ Recovery:
 - exact historical exclusion still occurs once;
 - scientific question/workload/verifier/output gate unchanged.
 
+## Second invalid C206 attempt
+
+Execution HEAD:
+`ffaac098988476d2db483005d487bddd02102f32`
+
+Published log commit:
+`98fb270d0dc43bf4a7c2689e985748a5c86a3196`
+
+Log SHA256:
+`f9ee35e596e7e35d2340c977f0035955da188e1b404ae5a16e1d5de6dc98c77a`
+
+- focused regression1901;
+-1900 PASS /1 ERROR;
+- failing test was C206 test25;
+- error: `NameError: name 'c205' is not defined`;
+- scientific diagnostic did not start;
+- run_execution_valid False.
+
+Recovery:
+- test25 now uses `c206.c205`, the parent module binding already imported by C206;
+- test25 additionally AST-audits bare `c###.` module aliases against module-level imports;
+- no scientific condition changed.
+
 ## Post-authoring review
 
-**post_authoring_review = PASS**
+**post_authoring_review = PENDING**
 
-recovery review HEAD:
-`dfe8d38063a5f98e6bf6ebdac49c59376ee5914e`
-
-Committed remote review verified:
-- test25 has no stale source-string count literals and does not inspect regression_suite source;
-- actual91 modules load1902 candidate IDs;
-- the exact historical dynamic test occurs once and is excluded;
-- the real regression_suite retains1901 tests;
-- runner uses that suite;
-- C206 manifest/scientific code and accepted C205/C171 identities are unchanged;
-- source pins56 / protected inputs110;
-- verifier/opposite-control and no-promotion boundaries unchanged;
-- dispatcher -> C206 launcher -> C206 runner parser chain intact;
-- C207 remains unregistered.
+Re-review must verify:
+- test25 has no bare unimported `c205` reference;
+- AST alias-binding audit reports no unbound runtime `c###.` module alias;
+- semantic suite count remains1902 loaded /1901 kept;
+- exact historical exclusion remains one ID only;
+- accepted C205/C171 identities and C206 scientific manifest are unchanged;
+- parser/count/source/protected contracts and C207 non-registration remain valid.
 
 ## Stop condition
 
