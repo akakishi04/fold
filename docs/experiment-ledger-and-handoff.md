@@ -10,7 +10,7 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E PASSED**.
-**C214 ACCEPTED PASS. C215 NOT REGISTERED.**
+**C214 ACCEPTED PASS. C215 ACTIVE / NOT YET JUDGED. C216 NOT REGISTERED.**
 
 ## Accepted C210
 
@@ -343,24 +343,52 @@ Non-claim:
 C214 does not establish H1/H2 chunk commit, learned Writer/Reader/Port Selector, natural-language
 memory extraction, memory-cost advantage or Gate F.
 
-## Next boundary
+## Active C215
 
-C215 is not yet registered.
+Experiment:
+`C215-v5f-h1-h2-chunk-commit`
 
-Next one-question intervention:
+Stage:
+`V5-F-H1-H2-CHUNK-COMMIT`
 
-> Can a deterministic H1 hot-memory / H2 capsule-bank chunk-commit boundary preserve supported
-> readouts and explicit capability status across commit, post-commit updates and scope/revision
-> changes without replaying hidden full history?
+One question:
+can a deterministic H1 hot-memory / H2 capsule-bank chunk-commit boundary preserve readouts and
+capability status across representation-only commit and post-commit edits without replaying hidden
+operation history?
 
-C215 must keep learned Writer/Reader/Port Selector disabled and introduce only H1/H2 commit and
-Capability Contract semantics.
+Registered main fixture:
+- snapshots9;
+- status sequence SUPPORTED/HOT_REQUIRED/SUPPORTED/SUPPORTED/HOT_REQUIRED/SUPPORTED/SUPPORTED/SUPPORTED/SUPPORTED;
+- H1 observed counts [0,1,0,0,1,0,0,0,0];
+- H2 factor counts [0,0,1,1,1,2,1,1,1];
+- two COMMITTED transitions;
+- semantic clocks unchanged on commit;
+- commit readout deltas [0.0,0.0];
+- final storage epoch2 and semantic clocks6/4/3;
+- operation history entries0.
 
+Controls:
+- NOOP commit;
+- OUT_OF_SCOPE read/commit with state preservation;
+- NUMERIC_UNSAFE read/commit with state preservation.
+
+Authoring:
+- source pins122;
+- protected inputs230;
+- artifacts5;
+- tests34;
+- regression modules100;
+- focused regression2149;
+- manifest `90327cc0691bc80d7faf78f77e36a501f178ac9f861b0524f6e174be3635f9bf`.
+
+## Post-authoring review
+
+**post_authoring_review = PENDING**
+
+Do not issue C215 execution command until committed remote bytes are independently reviewed.
 
 ## Stop condition
 
-C214 is closed as **ACCEPTED PASS**.
-
-C215 remains **NOT REGISTERED** until preregistration, authoring and post-authoring review complete.
+Judge C215 before any C216 registration.
 
 Gate E remains **PASSED**. Gate F remains **NOT PASSED**.
