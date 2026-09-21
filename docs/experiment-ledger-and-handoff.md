@@ -10,7 +10,7 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E PASSED**.
-**C213 ACCEPTED PASS. C214 NOT REGISTERED.**
+**C213 ACCEPTED PASS. C214 ACTIVE / NOT YET JUDGED. C215 NOT REGISTERED.**
 
 ## Accepted C210
 
@@ -295,24 +295,63 @@ Non-claim:
 C213 does not establish FOLD-R numeric correction closure, H1/H2 memory compression, learned memory
 routing, natural-language memory extraction or Gate F.
 
-## Next boundary
+## Active C214
 
-C214 is not yet registered.
+Experiment:
+`C214-v5f-memory-capsule-closure`
 
-Next one-question intervention:
+Stage:
+`V5-F-MEMORY-CAPSULE-CLOSURE`
 
-> When the accepted C213 memory edit semantics are projected into the existing FOLD-R response
-> capsule, do supported edit sequences produce the same registered readout as a full-memory
-> reference within numerical tolerance?
+One question:
+when accepted C213 observed edit semantics are projected into the existing fixed-port FOLD-R
+response capsule, do supported edit sequences produce the same readout as an independent full-memory
+reference within registered float64 tolerance?
 
-C214 must keep Writer/Reader/Port Selector learning disabled and test only the numeric
-semantic-to-capsule bridge.
+Changed variable:
+- new `fold_lm/v05/memory_capsule_bridge.py` semantic-to-numeric adapter only.
+
+Held constant / absent:
+- learned Writer/Reader;
+- Port Selector;
+- H1/H2 compiler;
+- language parsing;
+- model inference;
+- training;
+- existing response-capsule algebra.
+
+Registered fixture:
+- variables4 / update rank2 / readout dim2;
+-7 supported snapshots;
+- factor-count sequence [0,1,1,2,1,1,1];
+- capsule/full-reference max abs error <=1e-10;
+- ASSUME and END_SCOPE numeric deltas0;
+- unknown observed relation -> OUT_OF_SCOPE;
+- unsafe registered update -> NUMERIC_UNSAFE;
+- final exported observed factor beta only.
+
+Authoring:
+- source pins115;
+- protected inputs217;
+- artifacts5;
+- tests32;
+- regression modules99;
+- focused regression2115;
+- manifest `dc2354bd35d94ef0d8b7e5f4c6bed820f5166f0ce20948df612b30d1b0465915`.
+
+## Post-authoring review
+
+**post_authoring_review = PENDING**
+
+Do not issue C214 execution command until committed remote bytes are independently reviewed for
+accepted C213 identity, response-capsule source identity, relation-to-port mapping, full-reference
+parity, hypothesis exclusion, replace/retract semantics, capability/numeric status separation,
+regression counts, aliases, PowerShell/argv wiring,115/217 protection accounting and C215
+non-registration.
 
 
 ## Stop condition
 
-C213 is closed as **ACCEPTED PASS**.
-
-C214 remains **NOT REGISTERED** until preregistration, authoring and post-authoring review complete.
+Judge C214 before any C215 registration.
 
 Gate E remains **PASSED**. Gate F remains **NOT PASSED**.
