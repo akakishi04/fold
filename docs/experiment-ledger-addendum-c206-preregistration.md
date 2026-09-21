@@ -209,9 +209,9 @@ The accepted C204 file remains unchanged.
 Regression accounting:
 
 ```text
-1900 loaded candidates
+1902 loaded candidates
 -1 exact historical mutable-state test
-=1899 executed focused regression tests
+=1901 executed focused regression tests
 ```
 
 ## Authoring quality gate
@@ -228,8 +228,8 @@ Expected:
 - source pins56;
 - protected inputs110;
 - output artifacts5;
-- new tests28;
-- focused regression **1899**;
+- new tests30;
+- focused regression **1901**;
 - regression modules **91**.
 
 Scientific manifest SHA256:
@@ -265,7 +265,7 @@ Expected progress:
 - C206 repository preflight
 - Python syntax preflight
 - source/artifact precheck PASS
-- focused regression1899/1899
+- focused regression1901/1901
 -9 block progress records
 - RESULT
 - POSTCHECK
