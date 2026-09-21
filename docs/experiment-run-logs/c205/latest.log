@@ -1,14 +1,14 @@
 === C205 repository preflight ===
 branch = feat/sft-target-loss
-execution_head = 37509d34e1ccfc8abf3e92fca708327a5335e4ea
+execution_head = c78b79e95b92552c032df05220868122398fd339
 === C205 authoring syntax preflight ===
 python_syntax_preflight = PASS
 === FOLD C205 V5-E phase0 batch-composition attribution ===
-repository = akakishi04/fold; branch = feat/sft-target-loss; commit = 37509d34e1ccfc8abf3e92fca708327a5335e4ea
+repository = akakishi04/fold; branch = feat/sft-target-loss; commit = c78b79e95b92552c032df05220868122398fd339
 changed condition = phase0 unique1768 vs direct-expanded9536 frozen inference
-expected_focused_tests = 1871 (1846 existing +25 new); Gate_E = NOT_PASSED
+expected_focused_tests = 1871 (1846 historical -1 mutable-state test +26 C205 new); Gate_E = NOT_PASSED
 source_and_artifact_precheck = PASS; accepted C204-valid-negative/C199/C181/C188 lineage fixed
-output_dir = M:\asobiba\fold\runs\c205-v5e-phase0-batch-attribution-1c8047b0c3e84fb68c130e2072caa7b7
+output_dir = M:\asobiba\fold\runs\c205-v5e-phase0-batch-attribution-dfe8de2821934f1785f5ce925ca2d3c9
 === focused regression ===
 test_boolean_canonicalizer_maps_only_selected_signed_channels (tests_lm.test_v05_controller.V05ControllerTests.test_boolean_canonicalizer_maps_only_selected_signed_channels) ... ok
 test_boolean_canonicalizer_rejects_ambiguous_threshold_value (tests_lm.test_v05_controller.V05ControllerTests.test_boolean_canonicalizer_rejects_ambiguous_threshold_value) ... ok
@@ -1859,7 +1859,6 @@ test_29_regression_adds_one_module (tests_lm.test_v05_c204_live_v2_mixed_channel
 test_30_scope_no_training (tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_30_scope_no_training) ... ok
 test_31_active_dispatcher_guards_before_launcher (tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_31_active_dispatcher_guards_before_launcher) ... ok
 test_32_c204_launcher_stale_guard_precedes_logging_and_publish (tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_32_c204_launcher_stale_guard_precedes_logging_and_publish) ... ok
-test_33_active_dispatcher_resolves_current_formal_state (tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state) ... FAIL
 test_01_manifest_hash (tests_lm.test_v05_c205_phase0_batch_composition_attribution.C205Tests.test_01_manifest_hash) ... ok
 test_02_manifest_scope (tests_lm.test_v05_c205_phase0_batch_composition_attribution.C205Tests.test_02_manifest_scope) ... ok
 test_03_manifest_does_not_relax_tolerance (tests_lm.test_v05_c205_phase0_batch_composition_attribution.C205Tests.test_03_manifest_does_not_relax_tolerance) ... ok
@@ -1885,31 +1884,527 @@ test_22_run_sets_parent_deterministic_environment (tests_lm.test_v05_c205_phase0
 test_23_run_has_no_runtime_acquisition_dispatch (tests_lm.test_v05_c205_phase0_batch_composition_attribution.C205Tests.test_23_run_has_no_runtime_acquisition_dispatch) ... ok
 test_24_regression_adds_one_module (tests_lm.test_v05_c205_phase0_batch_composition_attribution.C205Tests.test_24_regression_adds_one_module) ... ok
 test_25_c205_launcher_parses_runner_before_logging (tests_lm.test_v05_c205_phase0_batch_composition_attribution.C205Tests.test_25_c205_launcher_parses_runner_before_logging) ... ok
-
-======================================================================
-FAIL: test_33_active_dispatcher_resolves_current_formal_state (tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "M:\asobiba\fold\tests_lm\test_v05_c204_live_v2_mixed_channel_loop.py", line 332, in test_33_active_dispatcher_resolves_current_formal_state
-    self.assertEqual(matches,["204"])
-    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
-AssertionError: Lists differ: ['205'] != ['204']
-
-First differing element 0:
-'205'
-'204'
-
-- ['205']
-?     ^
-
-+ ['204']
-?     ^
-
+test_26_regression_suite_excludes_only_mutable_historical_active_state (tests_lm.test_v05_c205_phase0_batch_composition_attribution.C205Tests.test_26_regression_suite_excludes_only_mutable_historical_active_state) ... ok
 
 ----------------------------------------------------------------------
-Ran 1871 tests in 42.894s
+Ran 1871 tests in 43.028s
 
-FAILED (failures=1)
+OK
+[C205] block=1/9 base=181001 head=188001 unique_n=0 expanded_n=4.76837158e-06
+[C205] block=2/9 base=181001 head=188002 unique_n=0 expanded_n=4.76837158e-06
+[C205] block=3/9 base=181001 head=188003 unique_n=0 expanded_n=4.76837158e-06
+[C205] block=4/9 base=181002 head=188001 unique_n=0 expanded_n=3.57627869e-06
+[C205] block=5/9 base=181002 head=188002 unique_n=0 expanded_n=3.57627869e-06
+[C205] block=6/9 base=181002 head=188003 unique_n=0 expanded_n=3.57627869e-06
+[C205] block=7/9 base=181003 head=188001 unique_n=0 expanded_n=5.00679016e-06
+[C205] block=8/9 base=181003 head=188002 unique_n=0 expanded_n=5.00679016e-06
+[C205] block=9/9 base=181003 head=188003 unique_n=0 expanded_n=5.00679016e-06
+[C205] phase0 batch-composition attribution collected
+=== C205 RESULT ===
+{
+  "C199_reference_summary_sha256": "0ee89c9720022146c9625bbe7cd4d02a615c411ff2f3f068d5dac91d5ab906f9",
+  "C204_summary_sha256": "9c02e4dbd497fbc91ae25c02f4cc5a3baad0af8cf9cc296f2bac0f6f8ffe72e9",
+  "acquisitions": 0,
+  "artifacts": [
+    {
+      "file": "attribution-plan.json",
+      "serialized_bytes": 5802,
+      "sha256": "88d38a761fd045953ab4f08dc3767c783505a20fb116d8763c8a6a6e59476fb6"
+    },
+    {
+      "file": "canonical-unique.json",
+      "serialized_bytes": 2694,
+      "sha256": "a49b88cdda9892bc6ed475b6c1704531ee202007bd06c5edeb322ef32fb55b7f"
+    },
+    {
+      "file": "expanded-direct.json",
+      "serialized_bytes": 2673,
+      "sha256": "9c7e5defcf5032d37afc2f86e9fd085a68a9d2723ee847d07bd26631ac16a002"
+    },
+    {
+      "file": "c204-max-match.json",
+      "serialized_bytes": 3336,
+      "sha256": "dba53eb7b71446368f60ffd55c493df563c7aa53c9b486e77101107fdbd28062"
+    },
+    {
+      "file": "workload.json",
+      "serialized_bytes": 182,
+      "sha256": "309aca6b1e61ef77550ee95c2a0b4aba6d61398015e46bf2014e7aa8feb91798"
+    }
+  ],
+  "c204_max_match": [
+    {
+      "base_seed": 181001,
+      "block": 0,
+      "head_seed": 188001,
+      "necessity_expanded_max": 4.76837158203125e-06,
+      "necessity_parent_max": 4.76837158203125e-06,
+      "necessity_parent_max_delta_difference": 0.0,
+      "target_expanded_max": 3.814697265625e-06,
+      "target_parent_max": 3.814697265625e-06,
+      "target_parent_max_delta_difference": 0.0
+    },
+    {
+      "base_seed": 181001,
+      "block": 1,
+      "head_seed": 188002,
+      "necessity_expanded_max": 4.76837158203125e-06,
+      "necessity_parent_max": 4.76837158203125e-06,
+      "necessity_parent_max_delta_difference": 0.0,
+      "target_expanded_max": 5.7220458984375e-06,
+      "target_parent_max": 5.7220458984375e-06,
+      "target_parent_max_delta_difference": 0.0
+    },
+    {
+      "base_seed": 181001,
+      "block": 2,
+      "head_seed": 188003,
+      "necessity_expanded_max": 4.76837158203125e-06,
+      "necessity_parent_max": 4.76837158203125e-06,
+      "necessity_parent_max_delta_difference": 0.0,
+      "target_expanded_max": 3.814697265625e-06,
+      "target_parent_max": 3.814697265625e-06,
+      "target_parent_max_delta_difference": 0.0
+    },
+    {
+      "base_seed": 181002,
+      "block": 3,
+      "head_seed": 188001,
+      "necessity_expanded_max": 3.5762786865234375e-06,
+      "necessity_parent_max": 3.5762786865234375e-06,
+      "necessity_parent_max_delta_difference": 0.0,
+      "target_expanded_max": 3.814697265625e-06,
+      "target_parent_max": 3.814697265625e-06,
+      "target_parent_max_delta_difference": 0.0
+    },
+    {
+      "base_seed": 181002,
+      "block": 4,
+      "head_seed": 188002,
+      "necessity_expanded_max": 3.5762786865234375e-06,
+      "necessity_parent_max": 3.5762786865234375e-06,
+      "necessity_parent_max_delta_difference": 0.0,
+      "target_expanded_max": 3.814697265625e-06,
+      "target_parent_max": 3.814697265625e-06,
+      "target_parent_max_delta_difference": 0.0
+    },
+    {
+      "base_seed": 181002,
+      "block": 5,
+      "head_seed": 188003,
+      "necessity_expanded_max": 3.5762786865234375e-06,
+      "necessity_parent_max": 3.5762786865234375e-06,
+      "necessity_parent_max_delta_difference": 0.0,
+      "target_expanded_max": 2.384185791015625e-06,
+      "target_parent_max": 2.384185791015625e-06,
+      "target_parent_max_delta_difference": 0.0
+    },
+    {
+      "base_seed": 181003,
+      "block": 6,
+      "head_seed": 188001,
+      "necessity_expanded_max": 5.0067901611328125e-06,
+      "necessity_parent_max": 5.0067901611328125e-06,
+      "necessity_parent_max_delta_difference": 0.0,
+      "target_expanded_max": 4.291534423828125e-06,
+      "target_parent_max": 4.291534423828125e-06,
+      "target_parent_max_delta_difference": 0.0
+    },
+    {
+      "base_seed": 181003,
+      "block": 7,
+      "head_seed": 188002,
+      "necessity_expanded_max": 5.0067901611328125e-06,
+      "necessity_parent_max": 5.0067901611328125e-06,
+      "necessity_parent_max_delta_difference": 0.0,
+      "target_expanded_max": 2.86102294921875e-06,
+      "target_parent_max": 2.86102294921875e-06,
+      "target_parent_max_delta_difference": 0.0
+    },
+    {
+      "base_seed": 181003,
+      "block": 8,
+      "head_seed": 188003,
+      "necessity_expanded_max": 5.0067901611328125e-06,
+      "necessity_parent_max": 5.0067901611328125e-06,
+      "necessity_parent_max_delta_difference": 0.0,
+      "target_expanded_max": 2.384185791015625e-06,
+      "target_parent_max": 2.384185791015625e-06,
+      "target_parent_max_delta_difference": 0.0
+    }
+  ],
+  "canonical_unique": [
+    {
+      "base_seed": 181001,
+      "block": 0,
+      "expanded_prefix_mismatches": 0,
+      "head_seed": 188001,
+      "necessity_max_abs_logit_difference": 0.0,
+      "necessity_prediction_errors": 0,
+      "prefix_errors": 0,
+      "target_max_abs_logit_difference": 0.0,
+      "target_prediction_errors": 0
+    },
+    {
+      "base_seed": 181001,
+      "block": 1,
+      "expanded_prefix_mismatches": 0,
+      "head_seed": 188002,
+      "necessity_max_abs_logit_difference": 0.0,
+      "necessity_prediction_errors": 0,
+      "prefix_errors": 0,
+      "target_max_abs_logit_difference": 0.0,
+      "target_prediction_errors": 0
+    },
+    {
+      "base_seed": 181001,
+      "block": 2,
+      "expanded_prefix_mismatches": 0,
+      "head_seed": 188003,
+      "necessity_max_abs_logit_difference": 0.0,
+      "necessity_prediction_errors": 0,
+      "prefix_errors": 0,
+      "target_max_abs_logit_difference": 0.0,
+      "target_prediction_errors": 0
+    },
+    {
+      "base_seed": 181002,
+      "block": 3,
+      "expanded_prefix_mismatches": 0,
+      "head_seed": 188001,
+      "necessity_max_abs_logit_difference": 0.0,
+      "necessity_prediction_errors": 0,
+      "prefix_errors": 0,
+      "target_max_abs_logit_difference": 0.0,
+      "target_prediction_errors": 0
+    },
+    {
+      "base_seed": 181002,
+      "block": 4,
+      "expanded_prefix_mismatches": 0,
+      "head_seed": 188002,
+      "necessity_max_abs_logit_difference": 0.0,
+      "necessity_prediction_errors": 0,
+      "prefix_errors": 0,
+      "target_max_abs_logit_difference": 0.0,
+      "target_prediction_errors": 0
+    },
+    {
+      "base_seed": 181002,
+      "block": 5,
+      "expanded_prefix_mismatches": 0,
+      "head_seed": 188003,
+      "necessity_max_abs_logit_difference": 0.0,
+      "necessity_prediction_errors": 0,
+      "prefix_errors": 0,
+      "target_max_abs_logit_difference": 0.0,
+      "target_prediction_errors": 0
+    },
+    {
+      "base_seed": 181003,
+      "block": 6,
+      "expanded_prefix_mismatches": 0,
+      "head_seed": 188001,
+      "necessity_max_abs_logit_difference": 0.0,
+      "necessity_prediction_errors": 0,
+      "prefix_errors": 0,
+      "target_max_abs_logit_difference": 0.0,
+      "target_prediction_errors": 0
+    },
+    {
+      "base_seed": 181003,
+      "block": 7,
+      "expanded_prefix_mismatches": 0,
+      "head_seed": 188002,
+      "necessity_max_abs_logit_difference": 0.0,
+      "necessity_prediction_errors": 0,
+      "prefix_errors": 0,
+      "target_max_abs_logit_difference": 0.0,
+      "target_prediction_errors": 0
+    },
+    {
+      "base_seed": 181003,
+      "block": 8,
+      "expanded_prefix_mismatches": 0,
+      "head_seed": 188003,
+      "necessity_max_abs_logit_difference": 0.0,
+      "necessity_prediction_errors": 0,
+      "prefix_errors": 0,
+      "target_max_abs_logit_difference": 0.0,
+      "target_prediction_errors": 0
+    }
+  ],
+  "commit_sha": "c78b79e95b92552c032df05220868122398fd339",
+  "diagnostic_execution_valid": true,
+  "expanded_direct": [
+    {
+      "base_seed": 181001,
+      "block": 0,
+      "head_seed": 188001,
+      "necessity_max_abs_logit_difference": 4.76837158203125e-06,
+      "necessity_prediction_errors": 0,
+      "prefix_errors": 0,
+      "target_max_abs_logit_difference": 3.814697265625e-06,
+      "target_prediction_errors": 0
+    },
+    {
+      "base_seed": 181001,
+      "block": 1,
+      "head_seed": 188002,
+      "necessity_max_abs_logit_difference": 4.76837158203125e-06,
+      "necessity_prediction_errors": 0,
+      "prefix_errors": 0,
+      "target_max_abs_logit_difference": 5.7220458984375e-06,
+      "target_prediction_errors": 0
+    },
+    {
+      "base_seed": 181001,
+      "block": 2,
+      "head_seed": 188003,
+      "necessity_max_abs_logit_difference": 4.76837158203125e-06,
+      "necessity_prediction_errors": 0,
+      "prefix_errors": 0,
+      "target_max_abs_logit_difference": 3.814697265625e-06,
+      "target_prediction_errors": 0
+    },
+    {
+      "base_seed": 181002,
+      "block": 3,
+      "head_seed": 188001,
+      "necessity_max_abs_logit_difference": 3.5762786865234375e-06,
+      "necessity_prediction_errors": 0,
+      "prefix_errors": 0,
+      "target_max_abs_logit_difference": 3.814697265625e-06,
+      "target_prediction_errors": 0
+    },
+    {
+      "base_seed": 181002,
+      "block": 4,
+      "head_seed": 188002,
+      "necessity_max_abs_logit_difference": 3.5762786865234375e-06,
+      "necessity_prediction_errors": 0,
+      "prefix_errors": 0,
+      "target_max_abs_logit_difference": 3.814697265625e-06,
+      "target_prediction_errors": 0
+    },
+    {
+      "base_seed": 181002,
+      "block": 5,
+      "head_seed": 188003,
+      "necessity_max_abs_logit_difference": 3.5762786865234375e-06,
+      "necessity_prediction_errors": 0,
+      "prefix_errors": 0,
+      "target_max_abs_logit_difference": 2.384185791015625e-06,
+      "target_prediction_errors": 0
+    },
+    {
+      "base_seed": 181003,
+      "block": 6,
+      "head_seed": 188001,
+      "necessity_max_abs_logit_difference": 5.0067901611328125e-06,
+      "necessity_prediction_errors": 0,
+      "prefix_errors": 0,
+      "target_max_abs_logit_difference": 4.291534423828125e-06,
+      "target_prediction_errors": 0
+    },
+    {
+      "base_seed": 181003,
+      "block": 7,
+      "head_seed": 188002,
+      "necessity_max_abs_logit_difference": 5.0067901611328125e-06,
+      "necessity_prediction_errors": 0,
+      "prefix_errors": 0,
+      "target_max_abs_logit_difference": 2.86102294921875e-06,
+      "target_prediction_errors": 0
+    },
+    {
+      "base_seed": 181003,
+      "block": 8,
+      "head_seed": 188003,
+      "necessity_max_abs_logit_difference": 5.0067901611328125e-06,
+      "necessity_prediction_errors": 0,
+      "prefix_errors": 0,
+      "target_max_abs_logit_difference": 2.384185791015625e-06,
+      "target_prediction_errors": 0
+    }
+  ],
+  "experiment_id": "C205-v5e-phase0-batch-composition-attribution",
+  "fresh_seed_count": 0,
+  "gate_e_candidate": false,
+  "input_sha256": {
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c200-preregistration.md": "d295affb4dfd33667741d460e72c263b2a8c1ee3aeedaa204bc04e04b03d9d67",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c201-preregistration.md": "8499f6bcba6e896cc1339ae748c8a25d4b705f0e897686c9269031aa886da390",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c202-preregistration.md": "52cd25f6ecd8c8dbb5c2e2824596f463b904699fc7e40ce0a37d5e72673701b3",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c203-preregistration.md": "ffa6d277d1472221dc59d8499d0007523d75804bd838bfff37325bb5f7838efc",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c204-preregistration.md": "e182737b738cc30c072df812c46e5a439f59e637fc40a99c3414df867f80b90b",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c205-preregistration.md": "52c4b19282befcaffa0e68b718f487adc4ba7430ac514b59e3e89f892f13da85",
+    "M:\\asobiba\\fold\\docs\\live-v2-mixed-channel-loop-v0.1.md": "4064060702ed0a522681d11218af4261c934fb21cb4a7739f895eeafb42b7df4",
+    "M:\\asobiba\\fold\\docs\\mixed-channel-multistep-replay-v0.1.md": "daddf3c52fe03306aa72e5bf7939e753ef0f6c4da467b1f978104c5e7ae6ec1e",
+    "M:\\asobiba\\fold\\docs\\phase0-batch-composition-attribution-v0.1.md": "ce4e3218312b6d34e03f606eef4fd9298414e32b49db5ab04ed0a42ec2ad53bc",
+    "M:\\asobiba\\fold\\docs\\structured-action-channel-v0.1.md": "f4879a843964bcbe98d427985d470ec29377303b15095128b629bafd33664655",
+    "M:\\asobiba\\fold\\docs\\structured-task-interface-v0.2.md": "a46ac637d44e3d00b87d9e67ee693836b48545f2f28c660795dec9eac4857710",
+    "M:\\asobiba\\fold\\docs\\three-channel-acquisition-dispatch-v0.1.md": "3594910686e00f66a0ce5a45f6520dc53e7abd10e88ca892886b2eefe442c4c4",
+    "M:\\asobiba\\fold\\fold_lm\\v05\\structured_acquisition_lifecycle.py": "9b3a2ab6a5d2043636fa72f28d9f1ee6f8272b0afd697f143b8ade1a662d17b3",
+    "M:\\asobiba\\fold\\fold_lm\\v05\\structured_action_channel.py": "58eab69bc48a2016595fee27b31e23046176bf815d6e67cf32befe9b5f0104c0",
+    "M:\\asobiba\\fold\\fold_lm\\v05\\structured_action_runtime.py": "cf311de725e02825782d5619ca6ee027460ccba3c19ce5c6db16daeb03abe57b",
+    "M:\\asobiba\\fold\\fold_lm\\v05\\structured_task_input.py": "855429f224a3eebe692d7421bc119cddb38ad273a4e54160d6062a34b3b0f3c4",
+    "M:\\asobiba\\fold\\fold_lm\\v05\\structured_task_input_v2.py": "816f1103e41f207bff50a0af4c5a8b049c06a3a43bd2786d3afc2bd8738f112e",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c185_single_missing_acquisition.py": "460b0a1c4590e9b639e022eaa8bb5220fa5158c5167bb64e7f81e14837314224",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c190_iterative_multimissing_acquisition.py": "32ac71c17dd540a0a506f7f5cad15c771a02ba173f3593ca085568074d8380ff",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c200_acquisition_channel_input.py": "3a45ebe45826eae879a850d97869abfcb70602ad54d0d6fb1b1a1260f585ad80",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c201_selected_fact_channel_route.py": "394d23f4c26d8e1285474f9538a98a82f60c4f235b9089dd4e32d1e9def2d6b2",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c202_three_channel_acquisition_dispatch.py": "97282a562fa0128b8d8ef7266d715f384a9dcdb1b7c25a169c95e2b1a254e082",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c203_mixed_channel_multistep_replay.py": "13a4b5a0f102739606f86f466712556ecf616843056cbe1a96bae70ac50ca74c",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c204_live_v2_mixed_channel_loop.py": "71a1af20caf624f86225ee32899276bc53e1eefa2403c806f48a5d68d6d1e4c4",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c205_phase0_batch_composition_attribution.py": "3d30b5d9e96d489b4ba6f754be609eb7ea8650e668452f9387406b34119615af",
+    "M:\\asobiba\\fold\\runs\\c174-v5e-learned-necessity-529b2018ef2a4a568a30fdb89b662410\\pilot-data.npz": "a667ecdc925b997e5b011303f72cce10d84a2c3145ed55594d5e013bb736ca03",
+    "M:\\asobiba\\fold\\runs\\c174-v5e-learned-necessity-529b2018ef2a4a568a30fdb89b662410\\summary.json": "3e69b7d8cff9e1cfdab7d06c58d45f83d1f596ac793c85c4c34ff620f8637d36",
+    "M:\\asobiba\\fold\\runs\\c181-v5e-internal-semantics-23f8363819474cccb05b0d1ecc8941ad\\probe-181001-INTERNAL_SEMANTICS.pt": "3f1bad426640c58ad8479a226cb2292991e014ec88bfbc0931a538e0f81e8289",
+    "M:\\asobiba\\fold\\runs\\c181-v5e-internal-semantics-23f8363819474cccb05b0d1ecc8941ad\\probe-181002-INTERNAL_SEMANTICS.pt": "d79e87b505b98930e5b0f40b52665f2957fe7737dea032b59259283b45bf1800",
+    "M:\\asobiba\\fold\\runs\\c181-v5e-internal-semantics-23f8363819474cccb05b0d1ecc8941ad\\probe-181003-INTERNAL_SEMANTICS.pt": "fb6d98286eafbbc890b103220e07df4d2f398008623aa5ffa96946433a857da4",
+    "M:\\asobiba\\fold\\runs\\c181-v5e-internal-semantics-23f8363819474cccb05b0d1ecc8941ad\\summary.json": "bfc68d603682aabd719bc52d33de907a60389a8e1f58ea22ebaf33fa21906f98",
+    "M:\\asobiba\\fold\\runs\\c188-v5e-multimissing-target-selection-81830a0e8ba741519c9172bdf2f7a7bc\\selector-181001-188001.pt": "02547ed98ce155f6c260b5dbdf8fe5e2bb7dc4ce40248c77d511ab8089e6178d",
+    "M:\\asobiba\\fold\\runs\\c188-v5e-multimissing-target-selection-81830a0e8ba741519c9172bdf2f7a7bc\\selector-181001-188002.pt": "a3829e15a53624db3b3b5ebde797722f482ff89868a3aee0adcae8d9e8f3c8d6",
+    "M:\\asobiba\\fold\\runs\\c188-v5e-multimissing-target-selection-81830a0e8ba741519c9172bdf2f7a7bc\\selector-181001-188003.pt": "5a6ac005bca34035d8a7bc501ec5d8c5c0683755f11ab248939e9734e9514c10",
+    "M:\\asobiba\\fold\\runs\\c188-v5e-multimissing-target-selection-81830a0e8ba741519c9172bdf2f7a7bc\\selector-181002-188001.pt": "c41b74df066890775b6f8bd1eddc5e6ac527d80ac20d42818044f6050a80a19b",
+    "M:\\asobiba\\fold\\runs\\c188-v5e-multimissing-target-selection-81830a0e8ba741519c9172bdf2f7a7bc\\selector-181002-188002.pt": "68e87800945bdb1803378b68df0b0df5d00199898665733a35b0f5271336e8d9",
+    "M:\\asobiba\\fold\\runs\\c188-v5e-multimissing-target-selection-81830a0e8ba741519c9172bdf2f7a7bc\\selector-181002-188003.pt": "77cb6176a750d31a9f58908439b5a6036444aaab268b044103abf351d1235789",
+    "M:\\asobiba\\fold\\runs\\c188-v5e-multimissing-target-selection-81830a0e8ba741519c9172bdf2f7a7bc\\selector-181003-188001.pt": "b8e91706ffb1bce697bbd397a3147c6be930f870a5609322cf23d5dfa26778d9",
+    "M:\\asobiba\\fold\\runs\\c188-v5e-multimissing-target-selection-81830a0e8ba741519c9172bdf2f7a7bc\\selector-181003-188002.pt": "cafd3306ca434581bfb3951b3895e8bd045178c4afe5c3ac391bf9f98aa30376",
+    "M:\\asobiba\\fold\\runs\\c188-v5e-multimissing-target-selection-81830a0e8ba741519c9172bdf2f7a7bc\\selector-181003-188003.pt": "f69c3e60b90163836d4fc708214352d1e332b21644b21a2b3fb924998cfafe2c",
+    "M:\\asobiba\\fold\\runs\\c188-v5e-multimissing-target-selection-81830a0e8ba741519c9172bdf2f7a7bc\\summary.json": "2a3ef27e9dec281159197775a15771b31b4945c9a0fa84787b4b812e9efb4153",
+    "M:\\asobiba\\fold\\runs\\c199-v5e-attempt-limit-886ac50bbbe046ebba61316e6bf97268\\episode-predictions.npz": "a1b9f97dbad677cf8b7a01b725cca46449acd9ddc622854dd32665c42a61910c",
+    "M:\\asobiba\\fold\\runs\\c199-v5e-attempt-limit-886ac50bbbe046ebba61316e6bf97268\\summary.json": "0ee89c9720022146c9625bbe7cd4d02a615c411ff2f3f068d5dac91d5ab906f9",
+    "M:\\asobiba\\fold\\runs\\c200-v5e-acquisition-channel-input-d892b01c24ee49cfbb87758e7a208be0\\channel-plan.json": "c3d5c513e9e37169916cd9fff6d1ccd371f09edf657a305360d4bf04ef3a6c1a",
+    "M:\\asobiba\\fold\\runs\\c200-v5e-acquisition-channel-input-d892b01c24ee49cfbb87758e7a208be0\\hidden-pairs.json": "a9ee8a7b2328fdedc92a2f6d2b8e1d518c1c5d77906a9ed4130d7e148cd2845f",
+    "M:\\asobiba\\fold\\runs\\c200-v5e-acquisition-channel-input-d892b01c24ee49cfbb87758e7a208be0\\malformed.json": "3c2ea3fa9df6e2d300da0ac9f1216663918bd4783bb7457ed72672fe74bb4314",
+    "M:\\asobiba\\fold\\runs\\c200-v5e-acquisition-channel-input-d892b01c24ee49cfbb87758e7a208be0\\mask-roundtrips.json": "7a66d7576e2202853969ae8cb542b1e3824da3a4c319f351d888f52e22d0efee",
+    "M:\\asobiba\\fold\\runs\\c200-v5e-acquisition-channel-input-d892b01c24ee49cfbb87758e7a208be0\\runtime-cross.json": "bd145194c68e9a065decaa0d5f89c7794c6a1b4d30356fa2a518710a185d0e4b",
+    "M:\\asobiba\\fold\\runs\\c200-v5e-acquisition-channel-input-d892b01c24ee49cfbb87758e7a208be0\\summary.json": "624889546c9b484003e3f2bc79c1d746de28ea168def13da1a2dc87fde73520e",
+    "M:\\asobiba\\fold\\runs\\c201-v5e-selected-fact-channel-route-37e1d67baaff4cd7a67addeb75da0aca\\authority-cross.json": "da1cb187e11720d690f1773fc46a0ccfa3f954bb6fd9c8e36dd4b49871eb738a",
+    "M:\\asobiba\\fold\\runs\\c201-v5e-selected-fact-channel-route-37e1d67baaff4cd7a67addeb75da0aca\\channel-route-plan.json": "66fa768748062b3568891d94c1bb0abc658b4c5e93e4bffd867cc4530dece72c",
+    "M:\\asobiba\\fold\\runs\\c201-v5e-selected-fact-channel-route-37e1d67baaff4cd7a67addeb75da0aca\\invalid-mapper.json": "5d8dfd5f389a6c6165ee8bf00c69b8fa12498d0e882a7470508fb412cb8ec613",
+    "M:\\asobiba\\fold\\runs\\c201-v5e-selected-fact-channel-route-37e1d67baaff4cd7a67addeb75da0aca\\learned-target-routes.json": "71fe490126ba254d7f5139be61965b4bc8e8bb8a8794fdbe3abdff66466b6b9e",
+    "M:\\asobiba\\fold\\runs\\c201-v5e-selected-fact-channel-route-37e1d67baaff4cd7a67addeb75da0aca\\observed-controls.json": "cc79872b14394a3ec896136e2bb549238e0968344eed7884fd5aa79e5c74bc95",
+    "M:\\asobiba\\fold\\runs\\c201-v5e-selected-fact-channel-route-37e1d67baaff4cd7a67addeb75da0aca\\summary.json": "c27ff79f20811ce373d175617b2a556c3c847d631f096fb401cb0251ad4fca4c",
+    "M:\\asobiba\\fold\\runs\\c202-v5e-three-channel-dispatch-4c36064e0e7b4b87a8deb9714cb6aa66\\block-results.json": "c2b59a9651eefafab4b6aea7759b5c9d8beedabffa11ae60239cb98cc854b713",
+    "M:\\asobiba\\fold\\runs\\c202-v5e-three-channel-dispatch-4c36064e0e7b4b87a8deb9714cb6aa66\\dispatch-plan.json": "25cf905f88ed1030800f834171b480ef5b5b0a85de96ca2986b0d14d4451bb29",
+    "M:\\asobiba\\fold\\runs\\c202-v5e-three-channel-dispatch-4c36064e0e7b4b87a8deb9714cb6aa66\\postconditions.json": "067a9d0d5c5cae12fde414424137256724e4c7a58e791fd796aeedd949013d48",
+    "M:\\asobiba\\fold\\runs\\c202-v5e-three-channel-dispatch-4c36064e0e7b4b87a8deb9714cb6aa66\\provider-totals.json": "ad77e131bc54d25d5b62c2ea283a9ed9a1f95750904505cd148dd16ad177d9db",
+    "M:\\asobiba\\fold\\runs\\c202-v5e-three-channel-dispatch-4c36064e0e7b4b87a8deb9714cb6aa66\\summary.json": "b568d8b652802c16fb75b85416c6d4ed956abcf767164d688ee39be1178e8c82",
+    "M:\\asobiba\\fold\\runs\\c202-v5e-three-channel-dispatch-4c36064e0e7b4b87a8deb9714cb6aa66\\target-distribution.json": "c711e1d2a12a68bac91cc48e59ad9a1871a58da80b6a9ca080dc5fb3b642a7e0",
+    "M:\\asobiba\\fold\\runs\\c203-v5e-mixed-channel-multistep-f8a35e95871341ddafa1a273aed80cfb\\block-results.json": "732d200dee5b67627504892cb841121321511a4e34a7d146889f996afc7f60d9",
+    "M:\\asobiba\\fold\\runs\\c203-v5e-mixed-channel-multistep-f8a35e95871341ddafa1a273aed80cfb\\expected-projection.json": "2f57e44f249b2052da24f02ea54562b7c55b5f7c1d3754517de6daf6202dd30e",
+    "M:\\asobiba\\fold\\runs\\c203-v5e-mixed-channel-multistep-f8a35e95871341ddafa1a273aed80cfb\\mixed-loop-plan.json": "7e4168ad6a2ca46ad9347a514f8a3041893d0c8bf737f3137a1e18b9978e9b52",
+    "M:\\asobiba\\fold\\runs\\c203-v5e-mixed-channel-multistep-f8a35e95871341ddafa1a273aed80cfb\\postconditions.json": "511717d2f978a7b113846eaa08048e64a3a154c164f50a3ffec04a927b699b47",
+    "M:\\asobiba\\fold\\runs\\c203-v5e-mixed-channel-multistep-f8a35e95871341ddafa1a273aed80cfb\\provider-totals.json": "96b6e14551b2ddf2c53b63ed9f27cc0219559698dc8978eafe8c6354e1319908",
+    "M:\\asobiba\\fold\\runs\\c203-v5e-mixed-channel-multistep-f8a35e95871341ddafa1a273aed80cfb\\summary.json": "5fb52a6f056eea1fcf2ff719a9fa8c9efa9cc0d941ea26f50fdceed4c2db56c2",
+    "M:\\asobiba\\fold\\runs\\c204-v5e-live-v2-mixed-channel-91f31086978f4d2fa54dfe8abcf78200\\block-results.json": "653199eb188e9b0e40c3766837f6358fb6613257632136aa6a6e5a5ca54d4625",
+    "M:\\asobiba\\fold\\runs\\c204-v5e-live-v2-mixed-channel-91f31086978f4d2fa54dfe8abcf78200\\live-v2-plan.json": "102739b10f32462e98e8130b3c2ee5282ea10365ec9e4cea857f23699680196d",
+    "M:\\asobiba\\fold\\runs\\c204-v5e-live-v2-mixed-channel-91f31086978f4d2fa54dfe8abcf78200\\postconditions.json": "3dccff240a746a4780ff53b340591accfb852f0af99907a3da156dc833b6edfb",
+    "M:\\asobiba\\fold\\runs\\c204-v5e-live-v2-mixed-channel-91f31086978f4d2fa54dfe8abcf78200\\prediction-replay.json": "c5279a27b88da58f1ab61e1a425bae6397cf8f93860a8dc41572dac6d36d4d22",
+    "M:\\asobiba\\fold\\runs\\c204-v5e-live-v2-mixed-channel-91f31086978f4d2fa54dfe8abcf78200\\provider-totals.json": "96b6e14551b2ddf2c53b63ed9f27cc0219559698dc8978eafe8c6354e1319908",
+    "M:\\asobiba\\fold\\runs\\c204-v5e-live-v2-mixed-channel-91f31086978f4d2fa54dfe8abcf78200\\summary.json": "9c02e4dbd497fbc91ae25c02f4cc5a3baad0af8cf9cc296f2bac0f6f8ffe72e9",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c200_acquisition_channel_input.py": "796f4e835181e4c1526806548b9e3b5e8da3ceed0e4963a79ba100218421dcdc",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c201_selected_fact_channel_route.py": "63fb0901bca6b5538afc4369cdf3a12a7fc53d5305758c289314ecfe1155b3a3",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c202_three_channel_acquisition_dispatch.py": "575291e64925d7e7ac948fd7722bc6395bd1234b6b3f8cc496d5a1c61d2de590",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c203_mixed_channel_multistep_replay.py": "4b0e30a0f1c87dc5d8646ab511447511b2f0c197db281db10f2d0d210faec36f",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c204_live_v2_mixed_channel_loop.py": "4733d41786aee978cef3982ebc9d12e0b7ee6b7076b92dec8c73857f94e89c81",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c205_phase0_batch_composition_attribution.py": "db05a98bf7232d61fc49b28d4fef0f70c674c571c725353019c73d324955fd72",
+    "M:\\asobiba\\fold\\tools\\invoke_active.ps1": "57a0f1ffa3a9370b5261ec5bf1e9eb3d778dc84f19f35c51e21174f61735a95b",
+    "M:\\asobiba\\fold\\tools\\invoke_c200.ps1": "a0675df56086766dc979fd75a4d08dc5af1b6e33ea0dd8e0d97a9384f7bd2ec5",
+    "M:\\asobiba\\fold\\tools\\invoke_c201.ps1": "4259002937ebc81b778e28a95e65f9275219b0d47b656d925e4130ffffbeaa3c",
+    "M:\\asobiba\\fold\\tools\\invoke_c202.ps1": "c317ec0aab4ea773ecc037d1559d6a8989ceef49698259c8b46fe0b7dff85434",
+    "M:\\asobiba\\fold\\tools\\invoke_c203.ps1": "5d3f1a8fbd478a638774818d2c22841c804455bcd19e4840de77b5937d4841b0",
+    "M:\\asobiba\\fold\\tools\\invoke_c204.ps1": "2afd0a6aa121776fa300db26bf25f9a787354b85d863703a5ebfa366cb019648",
+    "M:\\asobiba\\fold\\tools\\invoke_c205.ps1": "af8436413c6d451e85056d2e562b021c5378bc0a7e732bb3b3df61cc573dfbd4",
+    "M:\\asobiba\\fold\\tools\\run_c200.ps1": "f43ab489bc9bcdea32a8af941646e104e83abc8f576fb1da89f25df585d4aba2",
+    "M:\\asobiba\\fold\\tools\\run_c201.ps1": "ad58b4d90b4eb0807c0bfbe25c45da7bbb75e62ff16fa3fd99c1c0c261a9bb57",
+    "M:\\asobiba\\fold\\tools\\run_c202.ps1": "d318c1e87f930e9e9c06eabb9be0a5d252a17c8e1073dac24897c5112e114781",
+    "M:\\asobiba\\fold\\tools\\run_c203.ps1": "a927866d5b92757912a4d90560d3793da24aad04d2da9e70e5b3417c3b76a3e7",
+    "M:\\asobiba\\fold\\tools\\run_c204.ps1": "05e47bb3b6c6d3acaca55e2ea251953e44485b7c0f9a5c344dd9f4d59b4cf42d",
+    "M:\\asobiba\\fold\\tools\\run_c205.ps1": "c963d9eb0b3d03eaa4d9175f561e313e846afcc43cafd396bbe94e65fa79bcd0"
+  },
+  "limitations": [
+    "phase0 numeric attribution only",
+    "no runtime acquisitions or action replay",
+    "same1e-6 tolerance; no post-hoc relaxation",
+    "development cohort, not independent holdout",
+    "does not retroactively convert C204 to PASS"
+  ],
+  "network_calls": 0,
+  "production_runtime_modified": false,
+  "source_blobs": {
+    "docs/experiment-ledger-addendum-c200-preregistration.md": "652d73d3df2cef46a2fadfd3573861aeba3e155c",
+    "docs/experiment-ledger-addendum-c201-preregistration.md": "52e2174f4a31aa25c32d2a8459506b17ad340f04",
+    "docs/experiment-ledger-addendum-c202-preregistration.md": "a6cff437627d961f5713709a9bd2f5df103a4392",
+    "docs/experiment-ledger-addendum-c203-preregistration.md": "c02f53692572e6fa24e22822cd1142a2faa8f53f",
+    "docs/experiment-ledger-addendum-c204-preregistration.md": "f54601f53f044387329c90c2b0d7f9a58a6d8b85",
+    "docs/experiment-ledger-addendum-c205-preregistration.md": "55d264925b4f1acb3fafb570fcce65d9f1bd23e3",
+    "docs/live-v2-mixed-channel-loop-v0.1.md": "7cf06e3cba985fd2cc9dc35b180bd14f89dd4c8e",
+    "docs/mixed-channel-multistep-replay-v0.1.md": "02c82462b9aa5cc2548a077fe6ab54ec50b58e2a",
+    "docs/phase0-batch-composition-attribution-v0.1.md": "e9379b7d63c27fddb3a6a1bb1b9e52c5928ed99f",
+    "docs/structured-action-channel-v0.1.md": "05f1966ca828202b797e95ba995b268e8df8cdf5",
+    "docs/structured-task-interface-v0.2.md": "5b3e9562c1cb87d4d4952f8541ea29f4592d5c63",
+    "docs/three-channel-acquisition-dispatch-v0.1.md": "6942ce066ddad44121f5b3409ddae2371b84f163",
+    "fold_lm/v05/structured_acquisition_lifecycle.py": "e7fa5cbddbb650ab43b3b69683082a6edc0ac4da",
+    "fold_lm/v05/structured_action_channel.py": "18f85a768456940783ffbfa1c2cb574519d998ab",
+    "fold_lm/v05/structured_action_runtime.py": "672a79ea1c6e6467b1a5f1a474c843ce23fd1b04",
+    "fold_lm/v05/structured_task_input.py": "b874b6abf17fb938a5cc873ff2090c6493f00010",
+    "fold_lm/v05/structured_task_input_v2.py": "504f888e57e43ef3165cadc36b0ae723c068f112",
+    "fold_lm/v05_benchmarks/gate_e_c185_single_missing_acquisition.py": "15f7cfec66d8bf9f27cbd25e169893f62ceaa7dc",
+    "fold_lm/v05_benchmarks/gate_e_c190_iterative_multimissing_acquisition.py": "aab7c2fee08327d5c4f3ff4e3e76eb592f3fdfef",
+    "fold_lm/v05_benchmarks/gate_e_c200_acquisition_channel_input.py": "bf43ead7a7a80bb70f1e10be4f1d2af67c68f3dd",
+    "fold_lm/v05_benchmarks/gate_e_c201_selected_fact_channel_route.py": "6b7029433e8dde0db0b43ff0f844d25f7405cb46",
+    "fold_lm/v05_benchmarks/gate_e_c202_three_channel_acquisition_dispatch.py": "4a64e5ddc788165ccb4980710e6fff4678e0ae21",
+    "fold_lm/v05_benchmarks/gate_e_c203_mixed_channel_multistep_replay.py": "5cb7560d5a70370f3d133e9a43d31d8cda88e6c6",
+    "fold_lm/v05_benchmarks/gate_e_c204_live_v2_mixed_channel_loop.py": "929ee89f93db385202ea477e12abf63c3d387c30",
+    "fold_lm/v05_benchmarks/gate_e_c205_phase0_batch_composition_attribution.py": "56642fdd3ded16570a31cc79e78bce9f2151d06c",
+    "tests_lm/test_v05_c200_acquisition_channel_input.py": "c139ad665d4d65fc87612d67ecd825d6f0e6b016",
+    "tests_lm/test_v05_c201_selected_fact_channel_route.py": "ebe33c63503dfb4c7a3fed5b6bd4e85f2acc7286",
+    "tests_lm/test_v05_c202_three_channel_acquisition_dispatch.py": "2c3a3aec26b7f958eda7f6c72176ba54069faaae",
+    "tests_lm/test_v05_c203_mixed_channel_multistep_replay.py": "177356c68da3fc8d88bc40397762ca9bf5e5b4dd",
+    "tests_lm/test_v05_c204_live_v2_mixed_channel_loop.py": "e6af66893ea54034787ab4cb07c2d80837e3dc13",
+    "tests_lm/test_v05_c205_phase0_batch_composition_attribution.py": "9301bf68d7433535d5521cca8fadf6643b7ca6d8",
+    "tools/invoke_active.ps1": "86b5606a5b212b12f416abedac0923da634f88e3",
+    "tools/invoke_c200.ps1": "b7c229f30f5c7ff05c8adfa41ac634029735c923",
+    "tools/invoke_c201.ps1": "2da127d54cf30f6b77696f6b8f8aa2568f6b72c1",
+    "tools/invoke_c202.ps1": "9dffb325582c3dfadeaa95cc2c81f5e4f87aceba",
+    "tools/invoke_c203.ps1": "0d92dbb3e6a0a6b5375a82c06ab2de6e8a30c7e1",
+    "tools/invoke_c204.ps1": "b3ffeb04ebee921c3f2f7379df7dfb8abd032f1b",
+    "tools/invoke_c205.ps1": "00f5f49a0f18f8bf70e4c7db6f862c1d89bff305",
+    "tools/run_c200.ps1": "c592d9d685a7fdb8bf2560b0658e97e3614f7803",
+    "tools/run_c201.ps1": "f4ffa2dfe60f9388f96d8d7e3d8a747703d59d31",
+    "tools/run_c202.ps1": "e70b83d683c41ef6c4cf7b997997af93a70f1e92",
+    "tools/run_c203.ps1": "a3083e05f4e8d191c4ecb0d2132aa3ded07455e9",
+    "tools/run_c204.ps1": "57a191f79ddd62c972cf7cf146b76af8c1810171",
+    "tools/run_c205.ps1": "3567646ebb65c99709fce5973995ae01261ea4e4"
+  },
+  "stage": "V5-E-PHASE0-BATCH-COMPOSITION-ATTRIBUTION",
+  "status": "PASS",
+  "training_steps": 0,
+  "wall_clock_seconds": 30.263576400000602,
+  "workload": {
+    "canonical_cell_calls": 126,
+    "canonical_forward_calls": 18,
+    "canonical_rows": 15912,
+    "expanded_cell_calls": 630,
+    "expanded_forward_calls": 90,
+    "expanded_rows": 85824
+  }
+}
+
+summary = M:\asobiba\fold\runs\c205-v5e-phase0-batch-attribution-dfe8de2821934f1785f5ce925ca2d3c9\summary.json
+summary_sha256 = 2f60e87aa7158bf22e1a4f6b15904a4e66096a1db81a6477e0b398be87fc3c2b
+scientific_status = PASS
+canonical_max_necessity_delta = 0.0
+canonical_max_target_delta = 0.0
+expanded_max_necessity_delta = 5.0067901611328125e-06
+expanded_max_target_delta = 5.7220458984375e-06
+max_parent_necessity_match_error = 0.0
+max_parent_target_match_error = 0.0
+workload = {'canonical_cell_calls': 126, 'canonical_forward_calls': 18, 'canonical_rows': 15912, 'expanded_cell_calls': 630, 'expanded_forward_calls': 90, 'expanded_rows': 85824}
+candidate_gate_passed = True
 === C205 POSTCHECK ===
 protected_inputs = preserved; tracked_tree = clean; execution_HEAD = preserved
-run_execution_valid = False
+run_execution_valid = True
