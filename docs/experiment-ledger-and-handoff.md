@@ -413,10 +413,17 @@ only `tools/invoke_c215.ps1` spacing changed at
 
 ## C215 second recovery review
 
-**post_authoring_recovery_review_2 = PENDING**
+**post_authoring_recovery_review_2 = PASS**
 
-Do not issue retry until the complete C215 test34 source contract is checked against the repaired
-launcher and the scientific blobs are confirmed unchanged.
+review HEAD:
+`ca0da7cd1f35aef3e064eed9e8a9d225b51aa28f`
+
+Second recovery review checked the complete C215 test34 launcher contract, not only the previously
+failing fragment. All required source strings and parser ordering now match. Git compare shows the
+second repair changes only `tools/invoke_c215.ps1`, and runner,34 tests,H1/H2 source,C215
+benchmark, preregistration and design-document blobs remain identical to second invalid execution
+HEAD `2204d5dbf56b969daf3aef8d0df68ee9bc7a8eab`. Scientific conditions remain frozen and C216
+remains unregistered.
 
 ## Stop condition
 
