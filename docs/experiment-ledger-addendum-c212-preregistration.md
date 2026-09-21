@@ -324,9 +324,24 @@ Before execution, committed remote bytes must be independently re-fetched and re
 
 Until review passes:
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-Do not issue the C212 execution command before post-authoring review PASS.
+review HEAD:
+`13f1c1fd7d8fb21f459ebe645c3e73c1886932d4`
+
+Committed remote review verified the accepted C211 summary and all five frozen artifact hashes,
+selected candidate/checkpoint identity, exact C211 decision-rule equality, matched three-policy
+144-case coverage, 99 source pins /189 protected inputs, 30 C212 tests,
+semantic2056-loaded/2055-kept regression accounting, zero unbound executable c### aliases,
+runner argv[1..16]/postcheck argv18 wiring, launcher parser-before-execution ordering, accepted
+C211 local summary path, valid-negative zero-exit semantics, no post-holdout adaptation, and C213
+non-registration.
+
+The review also strengthened completion validity so all three policies must cover the identical
+144-case set, and source-level tests confirm the frozen C210 candidate/resolver path does not
+directly construct observation Facts.
+
+Do not execute C212 from any HEAD other than the final reviewed handoff HEAD supplied to the user.
 
 ## Execution / stop
 
