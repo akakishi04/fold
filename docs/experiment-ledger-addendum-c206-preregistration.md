@@ -254,12 +254,18 @@ Before execution, committed remote bytes must be independently reviewed for:
 
 Until review passes:
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-The second C206 retry was INVALID in regression because semantic test25 referenced bare `c205`
-without importing it. The scientific code did not run. test25 now binds through the already-imported
-parent namespace `c206.c205` and also performs an AST-based module-alias binding audit. Revised
-remote bytes must be independently reviewed before retry.
+second-recovery review HEAD:
+`fbdac7b62a8fc607031d006002ec299c1c3bc783`
+
+Committed remote review verified that test25 uses only the imported `c206` namespace for C205
+helpers, performs its own AST-based `c###.` import-binding audit, and has no bare unbound C205 alias.
+A cross-file remote audit found zero unbound executable `c###.` aliases in both the C206 benchmark
+and C206 tests. Semantic suite accounting remains1902 loaded /1901 kept, the exact historical
+exclusion is unchanged, C205/C171 identities and the C206 manifest/scientific code remain unchanged,
+source pins/protected inputs remain56/110, and the PowerShell parser chain/C207 non-registration are
+intact.
 
 ## Execution / stop
 
