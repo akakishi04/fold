@@ -1,14 +1,14 @@
 === C206 repository preflight ===
 branch = feat/sft-target-loss
-execution_head = 95d087011a7071ad920b9ab1620706b9e0b74205
+execution_head = ffaac098988476d2db483005d487bddd02102f32
 === C206 authoring syntax preflight ===
 python_syntax_preflight = PASS
 === FOLD C206 V5-E terminal derived-result integration ===
-repository = akakishi04/fold; branch = feat/sft-target-loss; commit = 95d087011a7071ad920b9ab1620706b9e0b74205
+repository = akakishi04/fold; branch = feat/sft-target-loss; commit = ffaac098988476d2db483005d487bddd02102f32
 changed condition = terminal SUFFICIENT TaskView -> production VERIFIED_DERIVED output
 expected_focused_tests = 1901 (1902 loaded -1 exact mutable historical test); Gate_E = NOT_PASSED
 source_and_artifact_precheck = PASS; accepted C205/C199/C171 lineage fixed
-output_dir = M:\asobiba\fold\runs\c206-v5e-terminal-derived-2f7883fb88c54c1397dbee6cc874178b
+output_dir = M:\asobiba\fold\runs\c206-v5e-terminal-derived-6bc75cd247a14ce2aa3c4143ee2945d3
 === focused regression ===
 test_boolean_canonicalizer_maps_only_selected_signed_channels (tests_lm.test_v05_controller.V05ControllerTests.test_boolean_canonicalizer_maps_only_selected_signed_channels) ... ok
 test_boolean_canonicalizer_rejects_ambiguous_threshold_value (tests_lm.test_v05_controller.V05ControllerTests.test_boolean_canonicalizer_rejects_ambiguous_threshold_value) ... ok
@@ -1909,7 +1909,7 @@ test_21_source_uses_benchmark_only_proof_fixture (tests_lm.test_v05_c206_termina
 test_22_source_uses_production_verifier (tests_lm.test_v05_c206_terminal_derived_result_integration.C206Tests.test_22_source_uses_production_verifier) ... ok
 test_23_source_never_promotes_derived_to_observed (tests_lm.test_v05_c206_terminal_derived_result_integration.C206Tests.test_23_source_never_promotes_derived_to_observed) ... ok
 test_24_precheck_pins_c171_history_and_c205_parent (tests_lm.test_v05_c206_terminal_derived_result_integration.C206Tests.test_24_precheck_pins_c171_history_and_c205_parent) ... ok
-test_25_regression_preserves_exact_historical_exclusion (tests_lm.test_v05_c206_terminal_derived_result_integration.C206Tests.test_25_regression_preserves_exact_historical_exclusion) ... FAIL
+test_25_regression_preserves_exact_historical_exclusion (tests_lm.test_v05_c206_terminal_derived_result_integration.C206Tests.test_25_regression_preserves_exact_historical_exclusion) ... ERROR
 test_26_scope_has_no_learning (tests_lm.test_v05_c206_terminal_derived_result_integration.C206Tests.test_26_scope_has_no_learning) ... ok
 test_27_replay_verifies_only_after_sufficient_decision (tests_lm.test_v05_c206_terminal_derived_result_integration.C206Tests.test_27_replay_verifies_only_after_sufficient_decision) ... ok
 test_28_gate_requires_exact_verifier_calls (tests_lm.test_v05_c206_terminal_derived_result_integration.C206Tests.test_28_gate_requires_exact_verifier_calls) ... ok
@@ -1917,18 +1917,18 @@ test_29_c206_launcher_parses_runner_before_logging (tests_lm.test_v05_c206_termi
 test_30_c206_launcher_formal_state_check_is_source_static (tests_lm.test_v05_c206_terminal_derived_result_integration.C206Tests.test_30_c206_launcher_formal_state_check_is_source_static) ... ok
 
 ======================================================================
-FAIL: test_25_regression_preserves_exact_historical_exclusion (tests_lm.test_v05_c206_terminal_derived_result_integration.C206Tests.test_25_regression_preserves_exact_historical_exclusion)
+ERROR: test_25_regression_preserves_exact_historical_exclusion (tests_lm.test_v05_c206_terminal_derived_result_integration.C206Tests.test_25_regression_preserves_exact_historical_exclusion)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
   File "M:\asobiba\fold\tests_lm\test_v05_c206_terminal_derived_result_integration.py", line 236, in test_25_regression_preserves_exact_historical_exclusion
-    self.assertIn("len(tests) == 1900",source)
-    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AssertionError: 'len(tests) == 1900' not found in 'def regression_suite(root):\n    names = regression_modules(root)\n    loaded = unittest.defaultTestLoader.loadTestsFromNames(names)\n    tests = list(c205._iter_tests(loaded))\n    ids = [test.id() for test in tests]\n    for excluded in c205.HISTORICAL_DYNAMIC_TEST_EXCLUSIONS:\n        require(ids.count(excluded) == 1, "Historical dynamic test identity drift:" + excluded)\n    kept = [\n        test for test in tests\n        if test.id() not in c205.HISTORICAL_DYNAMIC_TEST_EXCLUSIONS\n    ]\n    require(\n        len(tests) == 1902\n        and len(kept) == 1901\n        and not any(\n            test.id() in c205.HISTORICAL_DYNAMIC_TEST_EXCLUSIONS\n            for test in kept\n        ),\n        "C206 focused regression filtering drift",\n    )\n    return unittest.TestSuite(kept)\n'
+    all_ids=[test.id() for test in c205._iter_tests(loaded)]
+                                   ^^^^
+NameError: name 'c205' is not defined. Did you mean: 'c202'?
 
 ----------------------------------------------------------------------
-Ran 1901 tests in 44.100s
+Ran 1901 tests in 49.785s
 
-FAILED (failures=1)
+FAILED (errors=1)
 === C206 POSTCHECK ===
 protected_inputs = preserved; tracked_tree = clean; execution_HEAD = preserved
 run_execution_valid = False
