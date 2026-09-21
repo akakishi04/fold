@@ -105,3 +105,71 @@ Recovery review verified:
 Scientific conditions remain frozen.
 
 Retry only after committed remote bytes are re-reviewed.
+
+
+---
+
+## Second invalid retry attempt
+
+Scientific execution HEAD:
+`2204d5dbf56b969daf3aef8d0df68ee9bc7a8eab`
+
+Published log commit:
+`31a3852541f554099fb60841d0052cd85f62b448`
+
+Log SHA256:
+`1dbd19cfbe5bf75615cbef3f50da33a996183471bad8201392891fae9edaf3f3`
+
+Failure phase:
+- repository preflight PASS;
+- Python syntax preflight PASS;
+- accepted C214 source/artifact precheck PASS;
+- C215 tests01-33 PASS;
+- C215 test34 ERROR;
+- scientific H1/H2 fixture did not run;
+- run_execution_valid False.
+
+Regression result:
+
+```text
+Ran 2149 tests
+FAILED (errors=1)
+```
+
+Root cause:
+the same source-level guard test also requires the later exact fragment:
+
+```powershell
+$failure = $null
+```
+
+The retry launcher still used:
+
+```powershell
+$failure=$null
+```
+
+so the ordering assertion raised `ValueError: substring not found`.
+
+This is again an authoring/launcher formatting mismatch, not scientific evidence.
+
+Second minimal recovery:
+only `tools/invoke_c215.ps1` changes:
+
+```text
+$failure=$null
+->
+$failure = $null
+```
+
+Patch commit:
+`0d60be885b71bfea14d58f066a3ff3922d0fee03`
+
+Git compare from the second published invalid log commit to this patch reports exactly one modified
+file, `tools/invoke_c215.ps1`, with one addition and one deletion.
+
+Scientific conditions remain frozen.
+
+## Second recovery review
+
+`post_authoring_recovery_review_2 = PENDING`
