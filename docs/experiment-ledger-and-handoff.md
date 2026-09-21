@@ -10,7 +10,7 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E PASSED**.
-**C214 ACCEPTED PASS. C215 ACTIVE / NOT YET JUDGED. C216 NOT REGISTERED.**
+**C214 ACCEPTED PASS. C215 ACTIVE / INVALID ATTEMPT RECOVERY. C216 NOT REGISTERED.**
 
 ## Accepted C210
 
@@ -343,63 +343,58 @@ Non-claim:
 C214 does not establish H1/H2 chunk commit, learned Writer/Reader/Port Selector, natural-language
 memory extraction, memory-cost advantage or Gate F.
 
-## Active C215
+## Invalid C215 attempt
 
-Experiment:
-`C215-v5f-h1-h2-chunk-commit`
+Scientific execution HEAD:
+`ea67be1d0916b209038d454cdb607b0479340f6e`
 
-Stage:
-`V5-F-H1-H2-CHUNK-COMMIT`
+Published log commit:
+`6138b515b0862c6cdb93b8622c0e5778cb5161d1`
 
-One question:
-can a deterministic H1 hot-memory / H2 capsule-bank chunk-commit boundary preserve readouts and
-capability status across representation-only commit and post-commit edits without replaying hidden
-operation history?
+Log SHA256:
+`1f986d85aab2bc87ecf9071b0707b5a98bb9dc9782097b44b8086b4159a4bde2`
 
-Registered main fixture:
-- snapshots9;
-- status sequence SUPPORTED/HOT_REQUIRED/SUPPORTED/SUPPORTED/HOT_REQUIRED/SUPPORTED/SUPPORTED/SUPPORTED/SUPPORTED;
-- H1 observed counts [0,1,0,0,1,0,0,0,0];
-- H2 factor counts [0,0,1,1,1,2,1,1,1];
-- two COMMITTED transitions;
-- semantic clocks unchanged on commit;
-- commit readout deltas [0.0,0.0];
-- final storage epoch2 and semantic clocks6/4/3;
-- operation history entries0.
+Failure phase:
+- repository preflight PASS;
+- Python syntax preflight PASS;
+- accepted C214 source/artifact precheck PASS;
+-2148 focused tests passed;
+- C215 tests01-33 passed;
+- C215 test34 failed;
+- H1/H2 scientific fixture did not run;
+- run_execution_valid False.
 
-Controls:
-- NOOP commit;
-- OUT_OF_SCOPE read/commit with state preservation;
-- NUMERIC_UNSAFE read/commit with state preservation.
+Root cause:
+`test_34_powershell_guards_and_parent_path` asserts the exact launcher source fragment
+`$runnerPath = Join-Path $Root "tools\\run_c215.ps1"`.
+The committed launcher used the semantically equivalent compact spelling
+`$runnerPath=Join-Path ...`.
 
-Authoring:
-- source pins122;
-- protected inputs230;
-- artifacts5;
-- tests34;
-- regression modules100;
-- focused regression2149;
-- manifest `90327cc0691bc80d7faf78f77e36a501f178ac9f861b0524f6e174be3635f9bf`.
+Formal disposition:
+**C215 INVALID EXECUTION / RETRY SAME C215**.
 
-## Post-authoring review
+Minimal recovery:
+only `tools/invoke_c215.ps1` spacing was changed at
+`0b3bed031a71313d9ea2ad670b563394638665d2`.
+Scientific conditions, manifest, fixture, thresholds, parent identities, counts and Gate F
+interpretation remain fixed.
 
-**post_authoring_review = PASS**
+Recovery addendum:
+`docs/experiment-ledger-addendum-c215-recovery.md`.
 
-review HEAD:
-`7f8981f6d1ef648c61d2b09f58808cf507fb48d9`
+## C215 recovery review
 
-Committed remote review verified 34 C215 tests, 122 source pins /230 protected inputs,
-semantic2150-loaded/2149-kept regression accounting, zero unbound executable aliases, exact19
-parent-summary precheck argv and postcheck argv[1..21] wiring, accepted C214 local summary path,
-H1/H2 placement and representation-only commit clocks, no operation-history field, HOT_REQUIRED
-routing, post-commit REPLACE/RETRACT behavior, OUT_OF_SCOPE/NUMERIC_UNSAFE commit preservation,
-and C216 non-registration.
+**post_authoring_recovery_review = PENDING**
 
-Independent numeric reconstruction confirmed all registered safe relation combinations remain SPD
-while the unsafe control does not.
+Do not issue retry until committed remote bytes are re-reviewed.
+
 
 ## Stop condition
 
-Judge C215 before any C216 registration.
+Retry **C215 only** after recovery review PASS.
+
+Do not register C216.
+
+Repository/script/log cleanup remains deferred until C215 receives a formal accepted result.
 
 Gate E remains **PASSED**. Gate F remains **NOT PASSED**.
