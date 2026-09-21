@@ -110,7 +110,7 @@ Scope:
 - Gate E candidateFalse
 
 Authoring:
-- expected regression **1870 =1846+24**
+- expected regression **1871 =1846+25**
 - modules **90**
 - source pins44
 - protected inputs92
