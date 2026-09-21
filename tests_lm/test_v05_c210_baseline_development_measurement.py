@@ -208,6 +208,12 @@ class C210Tests(unittest.TestCase):
         self.assertIn('p207.get("scorer_sha256")==SCORER_SHA',source)
         self.assertIn('"development-scorer.json"',source)
         self.assertIn('p209.get("visible_sha256")==VISIBLE_SHA',source)
+        self.assertIn('current_c189==C189_SOURCE_BLOB',source)
+        self.assertIn('pins[C189_SOURCE_FILE]=C189_SOURCE_BLOB',source)
+        self.assertEqual(
+            c210.C189_SOURCE_BLOB,
+            "b34b40d84ab6597cc1cd26e47f64d58254d3304f",
+        )
 
     def test_21_regression_suite_semantic_counts(self):
         root=Path(__file__).resolve().parents[1]
