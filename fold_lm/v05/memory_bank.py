@@ -18,6 +18,9 @@ from . import memory_bridge as memory
 from . import memory_capsule_bridge as numeric
 
 
+SCHEMA = "fold-v5f-h1-h2-bank-v1"
+
+
 class BankReadStatus(str, Enum):
     SUPPORTED = "SUPPORTED"
     HOT_REQUIRED = "HOT_REQUIRED"
