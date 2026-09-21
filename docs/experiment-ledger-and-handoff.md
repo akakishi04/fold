@@ -104,13 +104,15 @@ Authoring:
 
 ## Post-authoring review
 
-**post_authoring_review = PENDING**
+**post_authoring_review = PASS**
 
-Previous review HEAD:
-`4a64648baa7b92ed14bbbce5fd1da4e9bee19daa`
+recovery review HEAD:
+`93012e0607772d64c9a57040540f3b60b2b32fd1`
 
-That review is superseded by the C211 Boolean-negation recovery change. Corrected committed bytes
-must be independently re-reviewed before retry.
+Recovery review verified the Boolean-negation fix on committed remote bytes: no integer negate
+literals remain, six explicit Boolean negations are covered by type assertions, and all C211
+scientific identities, manifest/rules, 93/177 protection accounting, 2025 regression contract,
+no-evaluation boundary and C212 non-registration remain unchanged.
 
 Do not issue C211 execution command until committed remote bytes are independently reviewed for
 parent identity, candidate tie/checkpoints, holdout independence, decision rules, no-evaluation
