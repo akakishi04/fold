@@ -227,7 +227,7 @@ Data:
 - HOT and COMMITTED placements;
 -36 rows total,24 TRAIN,12 EVAL;
 - balanced classes;
-- data SHA `ab0c6da658576d12fc786ad3dfcef94f3acc063d8263dd175d67eec7af6a14eb`.
+- data SHA `9ded8a1b17cf721407e5d28c9dd6350159d0a17721f39bf9b57a911b78aa3f61`.
 
 Training:
 - seeds216001/216002/216003;
@@ -250,7 +250,7 @@ Authoring:
 - regression modules101;
 - loaded2186 / focused2185;
 - historical regression dependency `tools/run_c167.ps1` blob `7c5d6e9838d4ce7bd2bfec0e43458eb749fd1789`;
-- manifest `91e8afd97d667b67f1164e87628f62b4bcf2347e2884537ec3e54c2baa6b385c`.
+- manifest `77d42cd12ce26e592b7e4798ba844e6a8147af4f3f45fc870fb48790b36cbdd7`.
 
 ## Invalid C216 attempt
 
@@ -300,6 +300,45 @@ Committed-remote recovery review verified the exact restored `run_c167.ps1` blob
 historical regression modules, updated130/136 source/protection accounting, independently recomputed
 C216 manifest/data hashes, unchanged Reader/runner/launcher scientific path, complete PowerShell
 guard contract, and C217 non-registration.
+
+
+## C216 second invalid retry
+
+Scientific execution HEAD:
+`c7179ddeaed2e092d3f1f6090e9bd09a1ff9c75e`
+
+Published log commit:
+`cfdb0a89a7bf7d14ae1bf7b541f7722dd8adecb1`
+
+Log SHA256:
+`fb028f5c206e42603cab2dc14fcd2276b8c3f98e4416378bf8b65901256f097f`
+
+Failure phase:
+- prechecks PASS;
+- inherited regression reached2149 passed;
+- C216 setUpClass failed on dataset content SHA before36 C216 tests and before Reader training;
+- run_execution_valid False.
+
+Root cause:
+the registered hash used an algebraically equivalent direct Python division while the real dataset
+uses the accepted FOLD-R `torch.linalg.solve` path. The nonzero selected scalar differs by one
+float64 ULP. Semantic dataset membership and all labels are unchanged.
+
+Formal disposition:
+**C216 INVALID EXECUTION / RETRY SAME C216**.
+
+Correct identities:
+- DATA SHA `9ded8a1b17cf721407e5d28c9dd6350159d0a17721f39bf9b57a911b78aa3f61`
+- manifest SHA `77d42cd12ce26e592b7e4798ba844e6a8147af4f3f45fc870fb48790b36cbdd7`
+
+Scientific split, model, seeds, workload and gates remain frozen.
+
+## C216 second recovery review
+
+**post_authoring_recovery_review_2 = PENDING**
+
+Do not retry until corrected dataset/manifest identities, exact float64 feature bits, unchanged
+scientific conditions and full regression/PowerShell contracts are independently re-reviewed.
 
 
 ## Stop condition
