@@ -1,6 +1,6 @@
 # C211 preregistration — deciding manifest freeze
 
-**C210 ACCEPTED PASS. C211 ACTIVE / NOT YET JUDGED. C212 NOT REGISTERED.**
+**C210 ACCEPTED PASS. C211 ACTIVE / INVALID ATTEMPT RECOVERY. C212 NOT REGISTERED.**
 Gate E remains **NOT PASSED**.
 
 ## Scientific question
@@ -325,18 +325,38 @@ Before execution, committed remote bytes must be independently reviewed for:
 
 Until review passes:
 
-`post_authoring_review = PASS`
+`post_authoring_review = PENDING`
 
-review HEAD:
+Previous review HEAD:
 `4a64648baa7b92ed14bbbce5fd1da4e9bee19daa`
 
-Corrected committed remote review verified the accepted C210 retry identity
-(`002543b8...` / summary `1b4242f...`), the corrected C210 candidate-policy blob
-`309e1a54...`, exact9-way development tie and checkpoint pins, independent holdout
-expression/unit/case separation, frozen 0/+1 margins and McNemar/Holm rules, zero-floor limitation,
-no holdout policy/model evaluation path, 28 C211 tests, semantic2026-loaded/2025-kept regression
-accounting, runner argv wiring, dispatcher/launcher parser chain, corrected 93 source pins /
-177 protected inputs, and C212 non-registration.
+That review is superseded by the Boolean-negation recovery source/test change. Corrected committed
+remote bytes must be independently re-reviewed before retry.
+
+
+## Invalid first execution / same-C recovery
+
+Invalid execution:
+- execution HEAD:
+  `16280454018b779aba0112e34317d2b1bd4c1f77`
+- published log commit:
+  `ca0e0334b1a425dab002ea9df3e921a6480bb75c`
+- log SHA256:
+  `da6840a3c6326227b9b3b932ad888bf42349bebcc0748784e87c39f69b6aebd3`
+
+The run passed repository/Python/source prechecks and all1997 inherited executed regression tests,
+then C211 `setUpClass` failed while generating the first holdout case because the new source passed
+integer `1` to the strictly Boolean `Node.negate` field.
+
+This is an authoring/runtime type defect, not scientific evidence.
+
+Recovery changes only representation spelling:
+- six `negate=1` literals -> `negate=True`;
+- existing tests explicitly assert Boolean negation;
+- scientific question, candidate, holdout semantics, fixed counts, margins/statistics, budgets,
+  manifest object/SHA and no-evaluation boundary remain unchanged.
+
+Retry the same C211 only after post-authoring review PASS.
 
 ## Execution / stop
 
