@@ -294,9 +294,21 @@ Before execution, committed remote bytes must be independently reviewed for:
 
 Until review passes:
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-Do not issue C213 execution command before post-authoring review PASS.
+review HEAD:
+`42b8ae80733e6c5547ba0f679c27aa0cec40dd7a`
+
+Committed remote review verified accepted C212/Gate E identity and decision artifact, exact V5 state
+provenance blob, all seven C213 OWN files, manifest/hash registration, 107 source pins /203
+protected inputs, 28 tests, semantic2084-loaded/2083-kept regression accounting, zero unbound
+executable c### aliases, exact six-operation/eight-read fixture, distinct read-status contract,
+observed/hypothesis revision split, observed-only EvidenceState export, stale-write rejection,
+scope/factor lifecycle, runner argv[1..17]/postcheck argv19 wiring, launcher parser ordering and
+accepted C212 local summary path, and C214 non-registration.
+
+No learned Writer/Reader, Port Selector, FOLD-R capsule, H1/H2 compiler or model-forward path is
+present in C213.
 
 ## Execution / stop
 
