@@ -88,7 +88,32 @@ Updated manifest SHA:
 
 ## Recovery review
 
-`post_authoring_recovery_review = PENDING`
+post_authoring_recovery_review = PASS
+
+review HEAD:
+`a69385699fa616d209bb7a1352c8e94bbe241b08`
+
+Recovery review verified:
+- restored `tools/run_c167.ps1` blob exactly
+  `7c5d6e9838d4ce7bd2bfec0e43458eb749fd1789`;
+- its historical module-list parser yields exactly51 unique test modules;
+- C176/C177/C178 are the historical builders that directly read that file; sampled downstream
+  regression builders only inherit/append modules and do not introduce another deleted-script dependency;
+- Reader production source, C216 runner and C216 launcher are unchanged from the invalid scientific
+  execution HEAD;
+- the only C216 benchmark/test changes are execution-validity protection for the historical runner;
+- C216 manifest hash independently recomputes to
+  `91e8afd97d667b67f1164e87628f62b4bcf2347e2884537ec3e54c2baa6b385c`;
+- deterministic Reader dataset SHA independently recomputes to
+  `ab0c6da658576d12fc786ad3dfcef94f3acc063d8263dd175d67eec7af6a14eb`;
+- TRAIN/EVAL target counts remain [8,8,8] / [4,4,4];
+- source/protection accounting is130/136;
+- C216 test count remains36 and focused regression registration remains2185;
+- complete PowerShell source contract remains unchanged and satisfied;
+- C217 remains unregistered.
+
+Scientific split, seeds, model, optimizer, training workload, thresholds and interpretation boundary
+remain frozen.
 
 Retry C216 only after committed remote bytes are reviewed, including a successful construction of
 the full inherited regression module list with restored `run_c167.ps1`.
