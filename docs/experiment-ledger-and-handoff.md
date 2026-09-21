@@ -10,7 +10,7 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E PASSED**.
-**C212 ACCEPTED PASS / GATE_E_PASSED. C213 NOT REGISTERED.**
+**C212 ACCEPTED PASS / GATE_E_PASSED. C213 ACTIVE / NOT YET JUDGED. C214 NOT REGISTERED.**
 
 ## Accepted C210
 
@@ -246,17 +246,62 @@ Non-claim:
 this does not establish general natural-language intelligence, FOLD-R memory integration, variable-
 length I/O, Vision, or large-scale practical superiority.
 
-## Next boundary
+## Active C213
 
-Roadmap moves to **V5-F — FOLD-R / memory integration**.
+Experiment:
+`C213-v5f-memory-operation-contract`
 
-C213 is not yet registered. The next experiment must isolate the memory semantic boundary before
-learned Writer/Reader/Port Selector or H1/H2 capsule compilation is introduced.
+Stage:
+`V5-F-MEMORY-OPERATION-CONTRACT`
+
+One question:
+can a deterministic V5-F memory bridge preserve ASSERT/RETRACT/REPLACE/ASSUME/END_SCOPE/QUERY
+semantics across factor identity, scope, exact memory revision and provenance while exporting only
+observed records into authoritative V5 EvidenceState?
+
+Changed variable:
+- new `fold_lm/v05/memory_bridge.py` semantic reference boundary only.
+
+Held constant / absent:
+- learned Writer/Reader;
+- Port Selector;
+- FOLD-R numeric capsule;
+- H1/H2 compiler;
+- model inference;
+- training.
+
+Registered fixture:
+-6 successful mutations;
+-8 reads;
+- final memory revision6;
+- final evidence revision4 / evidence time3;
+- read statuses SUPPORTED3 / MISSING2 / RETRACTED1 / STALE_REVISION1 / OUT_OF_SCOPE1;
+- exported hypotheses0;
+- stale mutation rejected;
+- observed scope END rejected;
+- ended-scope mutation rejected.
+
+Authoring:
+- source pins107;
+- protected inputs203;
+- artifacts5;
+- tests28;
+- regression modules98;
+- focused regression2083;
+- manifest `daadfa2445e72512553e400373a0a479850bf8d5657713d068f0a164e488cc79`.
+
+## Post-authoring review
+
+**post_authoring_review = PENDING**
+
+Do not issue C213 execution command until committed remote bytes are independently reviewed for
+accepted C212 identity, V5 state provenance, memory operation field semantics, revision clocks,
+scope/factor lifecycle, observed-only export, regression counts, aliases, PowerShell/argv wiring,
+107/203 protection accounting and C214 non-registration.
 
 
 ## Stop condition
 
-C212 is closed as **ACCEPTED PASS / GATE_E_PASSED**.
+Judge C213 before any C214 registration.
 
-C213 remains **NOT REGISTERED** until its separate V5-F preregistration, authoring and post-authoring
-review are complete.
+Gate E remains **PASSED**. Gate F remains **NOT PASSED**.
