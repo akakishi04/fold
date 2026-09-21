@@ -473,3 +473,24 @@ ledger update / next experiment の順で続ける。
 - 実際のrepository stateと食い違うサンプルコマンドを出さない。必要なら先にremote branchを確認する。
 
 このprotocolの目的は、個々の実験説明をきれいに見せることではなく、**どのチャット・どのエージェントからでも、科学的claim scopeと実行再現性を失わずに次の1実験へ継続できること**である。
+
+
+## Direct deciding-path dependency source-pin audit
+
+Before an experiment is executable, every repository-local Python/PowerShell file that is directly
+used on the deciding scientific path must be covered by the experiment's immutable source identity
+or protected-input set.
+
+Review must inspect actual imports/calls, not only inherited source unions. In particular:
+
+- enumerate repository-local modules directly imported or lazily imported by deciding-path functions;
+- distinguish standard-library / external package dependencies from repository-local source;
+- require every repository-local deciding dependency to be either already present in source_blobs or
+  explicitly added with a Git blob pin;
+- verify the current committed blob equals the registered blob before execution;
+- ensure the protected-input accounting includes each newly added direct dependency;
+- a discovered unpinned deciding dependency after execution is a protection failure and therefore an
+  INVALID execution / RETRY SAME C, even if numeric results are otherwise complete.
+
+An execution commit SHA is useful forensic evidence but does not replace the preregistered
+source/protection coverage requirement.
