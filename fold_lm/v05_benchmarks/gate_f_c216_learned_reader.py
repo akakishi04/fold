@@ -36,7 +36,7 @@ PARENT_C215_EXECUTION = "663f42ca21f977b6530e4df8709fc306c2ebd8c9"
 PARENT_C215_SHA = "96b3e5b9cf465b9dea33920de095fc5d7d8e4c0cba960d64597c95fc15eda237"
 PARENT_C215_VALIDATION_SHA = "1aa90b651d2f25a2ae72173e2e4e072236572e4057f40a35180a592980e90bd3"
 DATA_SHA = "ab0c6da658576d12fc786ad3dfcef94f3acc063d8263dd175d67eec7af6a14eb"
-MANIFEST_SHA = "5332239247d95f6bcd98e328e12f8596aed765b4fa8780b71e1bfb5329fe521a"
+MANIFEST_SHA = "91e8afd97d667b67f1164e87628f62b4bcf2347e2884537ec3e54c2baa6b385c"
 
 VALUES = (-1, 0, 1)
 EVAL_PAIRS = ((0, 1), (1, 2), (2, 0))
@@ -97,6 +97,8 @@ def manifest():
         parent_c215_sha256=PARENT_C215_SHA,
         parent_c215_validation_sha256=PARENT_C215_VALIDATION_SHA,
         data_sha256=DATA_SHA,
+        historical_regression_runner=HISTORICAL_REGRESSION_RUNNER,
+        historical_regression_runner_blob=HISTORICAL_REGRESSION_RUNNER_BLOB,
         semantic_values=list(VALUES),
         pair_count=9,
         train_pairs=6,
@@ -458,6 +460,18 @@ def precheck(c215_summary, root):
     )
 
     pins = dict(p215["source_blobs"])
+    historical_blob = audit.git(
+        root, "rev-parse", "HEAD:" + HISTORICAL_REGRESSION_RUNNER
+    ).decode().strip()
+    require(
+        historical_blob == HISTORICAL_REGRESSION_RUNNER_BLOB,
+        "Historical regression runner changed",
+    )
+    require(
+        HISTORICAL_REGRESSION_RUNNER not in pins,
+        "Historical regression runner unexpectedly already parent-pinned",
+    )
+    pins[HISTORICAL_REGRESSION_RUNNER] = HISTORICAL_REGRESSION_RUNNER_BLOB
     protected = {str(Path(c215_summary).resolve()): PARENT_C215_SHA}
     validation_seen = False
     for artifact in p215["artifacts"]:
@@ -491,8 +505,8 @@ def precheck(c215_summary, root):
     protected.update(audit.protect_tree_files(root, allpins))
     pins.update({name: allpins[name] for name in OWN})
 
-    require(len(pins) == 129, "C216 source pin count drift")
-    require(len(protected) == 135, "C216 protected input count drift")
+    require(len(pins) == 130, "C216 source pin count drift")
+    require(len(protected) == 136, "C216 protected input count drift")
     require(digest(manifest()) == MANIFEST_SHA, "C216 manifest drift")
     return p215, pins, protected
 
@@ -534,8 +548,8 @@ def validate_result(payload):
         "Wrong/incomplete C216",
     )
     require(
-        len(payload["source_blobs"]) == 129
-        and len(payload["input_sha256"]) == 135
+        len(payload["source_blobs"]) == 130
+        and len(payload["input_sha256"]) == 136
         and len(payload["artifacts"]) == 5
         and {a["file"] for a in payload["artifacts"]} == OUTPUTS,
         "C216 coverage drift",
