@@ -217,8 +217,7 @@ class C205Tests(unittest.TestCase):
         self.assertEqual(len(ids),1871)
         self.assertEqual(
             c205.HISTORICAL_DYNAMIC_TEST_EXCLUSIONS,
-            ("tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests."
-             "test_33_active_dispatcher_resolves_current_formal_state",),
+            ("tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state",),
         )
         self.assertFalse(any(x in ids for x in c205.HISTORICAL_DYNAMIC_TEST_EXCLUSIONS))
 
