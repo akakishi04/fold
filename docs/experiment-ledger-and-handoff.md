@@ -180,9 +180,14 @@ Recovery:
 
 ## Post-authoring review
 
-**post_authoring_review = PENDING**
+**post_authoring_review = PASS**
 
-Re-review must verify:
+recovery review HEAD:
+`1c483c9999b800fe44c2fa580455b619516cc23e`
+
+Committed remote review verified the complete deciding-path dependency chain and no further unpinned deciding helper remains. Scientific policy identities, checkpoints, fixtures, workload and measurement semantics are unchanged.
+
+Re-review verified:
 - deciding-path C175/C179/C182/C189 helper blobs are explicitly source-pinned;
 - source/protected counts are87/165;
 - every other C210 scientific condition remains unchanged;
