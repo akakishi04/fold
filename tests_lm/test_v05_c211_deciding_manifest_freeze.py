@@ -28,6 +28,18 @@ class C211Tests(unittest.TestCase):
         self.assertEqual(c["base_seed"],181001)
         self.assertEqual(c["head_seed"],188001)
         self.assertEqual(
+            c211.PARENT_C210_EXECUTION,
+            "002543b8d1394c127b915b3bfe4591ce20c8939d",
+        )
+        self.assertEqual(
+            c211.PARENT_C210_SHA,
+            "1b4242f15fdf3ca48374660d5c3339ff5c17dc9cd4f4833852f5e1bccb349366",
+        )
+        self.assertEqual(
+            c["candidate_policy_blob"],
+            "309e1a54a00ef828cea29f705e69d9a56df899d9",
+        )
+        self.assertEqual(
             c["base_checkpoint_sha256"],
             "3f1bad426640c58ad8479a226cb2292991e014ec88bfbc0931a538e0f81e8289",
         )
@@ -257,6 +269,14 @@ class C211Tests(unittest.TestCase):
         self.assertIn("RUNNER_PARSE_ERROR",launcher)
         self.assertIn('$runnerPath = Join-Path $Root "tools\\run_c211.ps1"',launcher)
         self.assertIn('$activeMatch.Groups["id"].Value -ne "211"',launcher)
+        self.assertIn(
+            "runs\\c210-v5e-baseline-development-ed5d0ad0a17d41b9a576fc41683005cd\\summary.json",
+            launcher,
+        )
+        self.assertNotIn(
+            "c210-v5e-baseline-development-4dc4cf58d73b4621a7d7b6b96edc4fc6",
+            launcher,
+        )
         self.assertLess(
             launcher.index("[System.Management.Automation.Language.Parser]::ParseFile"),
             launcher.index("$failure = $null"),
