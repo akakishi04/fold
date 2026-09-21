@@ -304,6 +304,12 @@ class C212Tests(unittest.TestCase):
         for pid in c212.POLICY_IDS:
             all_rows.extend(rows[pid])
         self.assertFalse(c212.measurement_complete(policy,family,all_rows[:-1],meter))
+        mismatched=[dict(r) for r in all_rows]
+        for row in mismatched:
+            if row["policy_id"]==c212.SELECTED_POLICY:
+                row["case_id"]=row["case_id"]+"-DRIFT"
+                break
+        self.assertFalse(c212.measurement_complete(policy,family,mismatched,meter))
 
     def test_25_precheck_source_requires_exact_c211_artifacts(self):
         source=inspect.getsource(c212.precheck)
