@@ -109,9 +109,9 @@ Authoring:
 - source pins56
 - protected inputs110
 - artifacts5
-- new tests28
+- new tests30
 - regression modules91
-- focused regression1899
+- focused regression1901
 - manifest
   `4841fda580c84bc66fb66f2fb123d08ec0dd7feedf29ab2aecbf85954970ac51`
 
