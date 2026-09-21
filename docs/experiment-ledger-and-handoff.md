@@ -100,19 +100,14 @@ Authoring:
 - tests28
 - regression modules96
 - focused regression2025
-- manifest `81e13c77066aa61f6487d341488812c00ad057fba97a30c31c62e9e2bc6fb859`
+- manifest `8a24beda4da38c331b6c10ed4c46159073a78e1c426ccb580d9a861742e1db99`
 
 ## Post-authoring review
 
-**post_authoring_review = PASS**
+**post_authoring_review = PENDING**
 
-review HEAD:
-`95b5b973f922a4da0c58843582dabfea056f2df6`
-
-Committed remote review verified parent identity, candidate tie/checkpoints, independent holdout
-separation, frozen margins/statistics/floor rule, no-evaluation boundary, 28 tests, 2025 focused
-regression, zero unbound aliases, CLI indexes, parser chain, 89 source pins /173 protected inputs,
-and C212 non-registration.
+The previous C211 review is superseded: it reviewed an obsolete invalid-attempt C210 parent
+identity. The corrected C211 bytes must be independently re-reviewed before execution.
 
 Do not issue C211 execution command until committed remote bytes are independently reviewed for
 parent identity, candidate tie/checkpoints, holdout independence, decision rules, no-evaluation
