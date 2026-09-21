@@ -233,16 +233,16 @@ class C206Tests(unittest.TestCase):
         root=Path(__file__).resolve().parents[1]
         names=c206.regression_modules(root)
         loaded=unittest.defaultTestLoader.loadTestsFromNames(names)
-        all_ids=[test.id() for test in c205._iter_tests(loaded)]
+        all_ids=[test.id() for test in c206.c205._iter_tests(loaded)]
         self.assertEqual(len(all_ids),1902)
-        for excluded in c205.HISTORICAL_DYNAMIC_TEST_EXCLUSIONS:
+        for excluded in c206.c205.HISTORICAL_DYNAMIC_TEST_EXCLUSIONS:
             self.assertEqual(all_ids.count(excluded),1)
 
         suite=c206.regression_suite(root)
-        kept_ids=[test.id() for test in c205._iter_tests(suite)]
+        kept_ids=[test.id() for test in c206.c205._iter_tests(suite)]
         self.assertEqual(len(kept_ids),1901)
         self.assertFalse(
-            any(x in kept_ids for x in c205.HISTORICAL_DYNAMIC_TEST_EXCLUSIONS)
+            any(x in kept_ids for x in c206.c205.HISTORICAL_DYNAMIC_TEST_EXCLUSIONS)
         )
 
     def test_26_scope_has_no_learning(self):
