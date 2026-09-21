@@ -1,5 +1,6 @@
 import inspect
 import unittest
+from pathlib import Path
 
 import numpy as np
 
@@ -198,6 +199,15 @@ class C205Tests(unittest.TestCase):
         source=inspect.getsource(c205.regression_modules)
         self.assertIn("== 89",source)
         self.assertIn("test_v05_c205_phase0_batch_composition_attribution",source)
+
+
+    def test_25_c205_launcher_parses_runner_before_logging(self):
+        root=Path(__file__).resolve().parents[1]
+        source=(root/"tools"/"invoke_c205.ps1").read_text(encoding="utf-8")
+        self.assertIn("[System.Management.Automation.Language.Parser]::ParseFile",source)
+        self.assertIn('RUNNER_PARSE_ERROR',source)
+        self.assertIn('$runnerPath = Join-Path $Root "tools\\run_c205.ps1"',source)
+        self.assertLess(source.index("[System.Management.Automation.Language.Parser]::ParseFile"),source.index("$failure = $null"))
 
 
 if __name__=="__main__":
