@@ -201,12 +201,23 @@ C205 OWN:
 - this preregistration;
 - `docs/phase0-batch-composition-attribution-v0.1.md`
 
+Historical dynamic regression exclusion:
+
+```text
+tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state
+```
+
+This exact accepted C204 test reads the mutable current handoff and asserts C204 ACTIVE. It is
+excluded only by exact ID because C205 correctly makes C205 active. Accepted C204 source/test bytes
+remain untouched. C205 adds an immutable replacement test that verifies the exclusion identity,
+single-occurrence requirement and final1871 suite size.
+
 Expected:
 - source pins44;
 - protected inputs92;
 - output artifacts5;
-- new tests25;
-- focused regression **1871 =1846+25**;
+- new tests26;
+- focused regression **1871 =1846 inherited -1 exact mutable historical test +26 C205 tests**;
 - regression modules **90**.
 
 Scientific manifest SHA256:
@@ -230,12 +241,11 @@ Before execution, committed remote bytes must be independently reviewed for:
 
 Until review passes:
 
-`post_authoring_review = PASS`
+`post_authoring_review = PENDING`
 
-review HEAD:
-`2f77e3fbb7673c09a2a0067cf32e84dbb9793ea1`
-
-Committed remote review verified C204 accepted-valid-negative semantics, C199 phase0 unique-cache + local_rows writer semantics, C181/C188 checkpoint lineage, exact unique-expanded prefix identity comparison, unchanged1e-6 tolerance, all source-string assertions against their exact functions, active C205 formal-state resolution, generic selected-launcher parser guard, C205 runner Parser.ParseFile before logging, 25 new tests /1871 regression /44 source pins /92 protected inputs /5 artifacts, and C206 non-registration.
+The first C205 execution was INVALID in regression because an accepted C204 operational test asserted
+the mutable current ACTIVE value. C205 now uses an exact-ID immutable regression suite and adds an
+immutable replacement test. The revised committed bytes must be independently reviewed before retry.
 
 ## Execution / stop
 
