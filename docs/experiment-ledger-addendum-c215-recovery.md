@@ -172,4 +172,20 @@ Scientific conditions remain frozen.
 
 ## Second recovery review
 
-`post_authoring_recovery_review_2 = PENDING`
+post_authoring_recovery_review_2 = PASS
+
+review HEAD:
+`ca0da7cd1f35aef3e064eed9e8a9d225b51aa28f`
+
+Second recovery review verified:
+- Git compare from published second-invalid log commit `31a3852541f554099fb60841d0052cd85f62b448`
+  to repair `0d60be885b71bfea14d58f066a3ff3922d0fee03` changes only
+  `tools/invoke_c215.ps1`, one addition / one deletion;
+- the remaining repair is exactly `$failure=$null` -> `$failure = $null`;
+- the complete C215 test34 contract now matches the launcher: focused-test marker, parser call,
+  RUNNER_PARSE_ERROR, runnerPath spacing, active C215 token, accepted C214 summary path,
+  `$failure = $null`, and parser-before-failure ordering;
+- runner,34 tests,H1/H2 source,C215 benchmark, preregistration and design document blobs are unchanged
+  from second invalid execution HEAD `2204d5dbf56b969daf3aef8d0df68ee9bc7a8eab`;
+- scientific conditions remain frozen;
+- C216 remains unregistered.
