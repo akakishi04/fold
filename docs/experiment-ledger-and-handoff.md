@@ -335,10 +335,15 @@ Scientific split, model, seeds, workload and gates remain frozen.
 
 ## C216 second recovery review
 
-**post_authoring_recovery_review_2 = PENDING**
+**post_authoring_recovery_review_2 = PASS**
 
-Do not retry until corrected dataset/manifest identities, exact float64 feature bits, unchanged
-scientific conditions and full regression/PowerShell contracts are independently re-reviewed.
+recovery review HEAD:
+`926979cdc19fab3b44c12869ed1b551b0b56f55a`
+
+Committed-remote review verified the corrected actual FOLD-R solve-path dataset SHA, exact
+float64 feature bits, corrected manifest SHA, unchanged Reader/runner/launcher scientific
+path,130/136 protection accounting, restored historical regression runner,2185 regression
+contract, complete PowerShell guard contract and C217 non-registration.
 
 
 ## Stop condition
