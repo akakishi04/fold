@@ -10,7 +10,7 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C210 ACCEPTED PASS. C211 ACTIVE / INVALID ATTEMPT RECOVERY. C212 NOT REGISTERED.**
+**C210 ACCEPTED PASS. C211 ACCEPTED PASS. C212 NOT REGISTERED.**
 
 ## Accepted C210
 
@@ -59,7 +59,7 @@ retry execution at `002543b8d1394c127b915b3bfe4591ce20c8939d`; the earlier unpro
 remains invalid historical evidence. C210 does not itself select a candidate or register numerical
 acceptance margins.
 
-## Active C211
+## Accepted C211
 
 Experiment:
 `C211-v5e-deciding-manifest-freeze`
@@ -156,8 +156,70 @@ Recovery:
   workload and C212 non-registration;
 - re-review corrected committed bytes before retry.
 
+## Accepted C211 execution
+
+Scientific execution HEAD:
+`9cedc79a02441e9cddb0efc0c8bbc7714f9112db`
+
+Published log commit:
+`c35a76b33c1782dc6caa1916c9fc3f7658bbbba7`
+
+Log SHA256:
+`93992504ae7dae472911521e5bed336f57407e4bc8dfc3542b6e60863da1c25c`
+
+Summary SHA256:
+`97f5c1fde9128651ae842046e706219a50e0f34238b87d17d253e89d71279263`
+
+Deciding result:
+- focused regression **2025/2025**;
+- status **PASS**;
+- candidate_gate_passed True;
+- run_execution_valid True;
+- selected candidate `CANDIDATE-181001-188001`;
+- holdout episodes144 / dependence units72 /16 per family;
+- expression-signature overlap0;
+- development unit overlap0;
+- development case overlap0;
+- hidden payload errors0;
+- pair errors0;
+- equal-visible units50;
+- holdout_evaluated False;
+- model_forward_calls0;
+- baseline_policy_calls0.
+
+Frozen deciding artifacts:
+- visible `1197f59ab6bf659929ecb7a9f42df27ea28e81586c4602f8e1eb96da17be126b`;
+- scorer `3975c10afc2e644f5279de4d46459d1aa250c6e7b381bb944b0b8cf6b585ff22`;
+- units `630d9c94b4aee67f55c3f9704ad6a508679e01450da73dd18a8935b4bac8dc34`;
+- decision rules `d143f2a6b4b96c672131daf22dea5c207d42375440c7d403ee95b9782fd75bcc`;
+- deciding manifest `f9356e87b210bc7d836d016a9ad7a4f841a9a651b3bb9faf9428b0415df9e6d6`.
+
+Formal disposition:
+**C211 ACCEPTED PASS**.
+
+Accepted claim: the complete Gate E deciding registration is frozen without evaluating the deciding
+holdout. C211 does not itself establish Gate E performance or pass Gate E.
+
+## Next boundary
+
+C212 is not yet registered.
+
+Next one-question intervention:
+
+> Under the exact accepted C211 deciding manifest, does the frozen selected candidate satisfy every
+> preregistered Gate E rule on the independent holdout when compared with INTERNAL_ONLY and
+> FIXED_ACQUISITION?
+
+C212 must execute the frozen deciding holdout once with no retraining, no candidate change, no
+threshold relaxation and no failed-family removal.
+
+Gate E remains NOT PASSED until C212 is judged.
+
+
 ## Stop condition
 
-Judge C211 before any C212 registration.
+C211 is closed as **ACCEPTED PASS**.
 
-Gate E remains NOT PASSED.
+C212 remains **NOT REGISTERED** until its separate preregistration/authoring/review is complete.
+
+Gate E remains **NOT PASSED**.
