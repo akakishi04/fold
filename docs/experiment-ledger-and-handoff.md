@@ -9,7 +9,7 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C204 ACCEPTED VALID NEGATIVE. C205 ACTIVE / NOT YET JUDGED. C206 NOT REGISTERED.**
+**C204 ACCEPTED VALID NEGATIVE. C205 ACTIVE / INVALID ATTEMPT RECOVERY. C206 NOT REGISTERED.**
 
 ## Accepted C204
 
@@ -110,7 +110,7 @@ Scope:
 - Gate E candidateFalse
 
 Authoring:
-- expected regression **1871 =1846+25**
+- expected regression **1871 =1846 inherited -1 exact mutable historical test +26 C205 tests**
 - modules **90**
 - source pins44
 - protected inputs92
@@ -118,18 +118,43 @@ Authoring:
 - manifest
   `316f8ec5e4654a321aff67ddf48e067feb29cf786e330697230ad3187e6f8c0c`
 
+## Invalid C205 attempt
+
+Execution HEAD:
+`37509d34e1ccfc8abf3e92fca708327a5335e4ea`
+
+Published log commit:
+`81346818971e8586dbd1629563f76a847c6e279a`
+
+Log SHA256:
+`e98725bfd5c20b9e612f3640cf931f86beb5c00618f1e92b1c9e77a5d10d420b`
+
+- focused regression1871;
+-1870 PASS /1 FAIL;
+- failing test was accepted C204 test33 asserting current ACTIVE == C204;
+- current ACTIVE correctly equals C205;
+- all25 original C205 tests PASS;
+- scientific diagnostic did not start;
+- run_execution_valid False.
+
+Recovery:
+- accepted C204 files remain unchanged;
+- C205 focused suite excludes exactly that one mutable historical test ID;
+- C205 adds an immutable replacement test;
+- total executed regression remains1871;
+- scientific question/tolerance/workload/gate unchanged.
+
 ## Post-authoring review
 
-**post_authoring_review = PASS**
+**post_authoring_review = PENDING**
 
-review HEAD:
-`2f77e3fbb7673c09a2a0067cf32e84dbb9793ea1`
-
-Committed remote review verified C204 accepted-valid-negative semantics, C199 phase0 unique-cache +
-local_rows writer semantics, C181/C188 checkpoint lineage, exact unique-expanded prefix identity,
-unchanged1e-6 tolerance, source-string assertions, active C205 resolution, generic selected-launcher
-parser guard, C205 runner Parser.ParseFile before logging, 25 new tests /1871 regression /44 source
-pins /92 protected inputs /5 artifacts, and C206 non-registration.
+Re-review must verify:
+- exact excluded test ID occurs once in the inherited suite;
+- no wildcard/prefix filtering;
+- accepted C204 source/test blobs are unchanged;
+- C205 replacement test is immutable and suite size is1871;
+- C205 scientific question,1e-6 tolerance, workload and attribution gate are unchanged;
+- launcher/parser/count contracts and C206 non-registration remain valid.
 
 ## Stop condition
 
