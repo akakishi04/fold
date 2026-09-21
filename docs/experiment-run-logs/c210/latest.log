@@ -1,14 +1,14 @@
 === C210 repository preflight ===
 branch = feat/sft-target-loss
-execution_head = 633ce9bed165d30b0adb671c1faf12d34a9ad0cc
+execution_head = 002543b8d1394c127b915b3bfe4591ce20c8939d
 === C210 authoring syntax preflight ===
 python_syntax_preflight = PASS
 === FOLD C210 V5-E baseline development measurement ===
-repository = akakishi04/fold; branch = feat/sft-target-loss; commit = 633ce9bed165d30b0adb671c1faf12d34a9ad0cc
+repository = akakishi04/fold; branch = feat/sft-target-loss; commit = 002543b8d1394c127b915b3bfe4591ce20c8939d
 changed condition = matched development measurement only; no performance threshold or candidate selection
 expected_focused_tests = 1997 (1998 loaded -1 exact mutable historical test); Gate_E = NOT_PASSED
 source_and_artifact_precheck = PASS; accepted C209/C207 development identities fixed
-output_dir = M:\asobiba\fold\runs\c210-v5e-baseline-development-4dc4cf58d73b4621a7d7b6b96edc4fc6
+output_dir = M:\asobiba\fold\runs\c210-v5e-baseline-development-ed5d0ad0a17d41b9a576fc41683005cd
 === focused regression ===
 test_boolean_canonicalizer_maps_only_selected_signed_channels (tests_lm.test_v05_controller.V05ControllerTests.test_boolean_canonicalizer_maps_only_selected_signed_channels) ... ok
 test_boolean_canonicalizer_rejects_ambiguous_threshold_value (tests_lm.test_v05_controller.V05ControllerTests.test_boolean_canonicalizer_rejects_ambiguous_threshold_value) ... ok
@@ -2013,7 +2013,7 @@ test_23_policy_source_does_not_read_scorer (tests_lm.test_v05_c210_baseline_deve
 test_24_powershell_guards_are_static_and_parse_runner (tests_lm.test_v05_c210_baseline_development_measurement.C210Tests.test_24_powershell_guards_are_static_and_parse_runner) ... ok
 
 ----------------------------------------------------------------------
-Ran 1997 tests in 68.218s
+Ran 1997 tests in 63.132s
 
 OK
 [C210] CANDIDATE-181001-188001 correct=128 answered=128 attempts=96 provider_calls=90
@@ -2032,8 +2032,8 @@ OK
   "artifacts": [
     {
       "file": "measurement-plan.json",
-      "serialized_bytes": 11187,
-      "sha256": "fa628fddc195d8457b0b545ede9690deb883bbe4fdce173d25a3fc2367ffcb69"
+      "serialized_bytes": 11626,
+      "sha256": "b14e84b9cefea697d8e2b7f12949568f853c2542ec19163696685a1719b6c650"
     },
     {
       "file": "episode-results.json",
@@ -2149,7 +2149,7 @@ OK
     }
   ],
   "candidate_selection": false,
-  "commit_sha": "633ce9bed165d30b0adb671c1faf12d34a9ad0cc",
+  "commit_sha": "002543b8d1394c127b915b3bfe4591ce20c8939d",
   "diagnostic_execution_valid": true,
   "episode_results": [
     {
@@ -77831,7 +77831,7 @@ OK
     "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c207-preregistration.md": "4f811b8a69592fd133e534beedc043913f1220deef67dc78849d698d572ed56b",
     "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c208-preregistration.md": "109c48fdbe3adbaee9254a954f158489b14c4043feb7187fb42065e0093c7301",
     "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c209-preregistration.md": "c58543b985423e8b211b98e667934c618d085f66143bbdf66cd6e5824bcba5e6",
-    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c210-preregistration.md": "4d695f2bdf75fb6e4213675188e68d8005b622ce45cba6ca5e170658480241f0",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c210-preregistration.md": "52d9547a6c0b23c462ce7faceda8d16afaf81113c54d07bd69de6eee92153d9f",
     "M:\\asobiba\\fold\\docs\\live-v2-mixed-channel-loop-v0.1.md": "4064060702ed0a522681d11218af4261c934fb21cb4a7739f895eeafb42b7df4",
     "M:\\asobiba\\fold\\docs\\mixed-channel-multistep-replay-v0.1.md": "daddf3c52fe03306aa72e5bf7939e753ef0f6c4da467b1f978104c5e7ae6ec1e",
     "M:\\asobiba\\fold\\docs\\nine-family-development-manifest-v0.1.md": "a4fa7fa5bff3f4d4e777af839d2c77bfd45f50855cec3f3372ca64edb19ff863",
@@ -77850,9 +77850,13 @@ OK
     "M:\\asobiba\\fold\\fold_lm\\v05\\structured_task_input.py": "855429f224a3eebe692d7421bc119cddb38ad273a4e54160d6062a34b3b0f3c4",
     "M:\\asobiba\\fold\\fold_lm\\v05\\structured_task_input_v2.py": "816f1103e41f207bff50a0af4c5a8b049c06a3a43bd2786d3afc2bd8738f112e",
     "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c171_derived_result.py": "5af4eb891167fafb69382da7897473f3a033a097cc9bceb7e24599dee99c5368",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c175_frozen_prediction_audit.py": "9ceb8674f1325acb7dc62feeef7d83e5cc63ace539c0b478831bb13a7b16d674",
     "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c178_visible_leaf_binding.py": "01537813734942589c979a7819752dcd2913d4a2851add2a5aae82b436841852",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c179_shared_graph.py": "6e8b2d637ce4bf706b3f38cb741ded8e19def833a68ee1401d5a1c9416f863d0",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c182_frozen_fact_renaming.py": "e02a9acbcb39d93a6cfb0d5b17dbf61ecb0437cbc1fdac667a31f54e18b86626",
     "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c185_single_missing_acquisition.py": "460b0a1c4590e9b639e022eaa8bb5220fa5158c5167bb64e7f81e14837314224",
     "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c188_multimissing_target_selection.py": "98bafc5fd08c1434a77d9a4d584bf31f6db9931cf593cf457949bc9230064ee2",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c189_live_multimissing_target.py": "75881ca03596fe16629e259f8621050b5ff13df81d999be49fb63d366411c799",
     "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c190_iterative_multimissing_acquisition.py": "32ac71c17dd540a0a506f7f5cad15c771a02ba173f3593ca085568074d8380ff",
     "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c200_acquisition_channel_input.py": "3a45ebe45826eae879a850d97869abfcb70602ad54d0d6fb1b1a1260f585ad80",
     "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c201_selected_fact_channel_route.py": "394d23f4c26d8e1285474f9538a98a82f60c4f235b9089dd4e32d1e9def2d6b2",
@@ -77864,7 +77868,7 @@ OK
     "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c207_nine_family_development_manifest.py": "68bb05c995cd303b7ae06f236d17671fcb2b1cba375e44552b1d30efcdbd568a",
     "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c208_candidate_input_compatibility_preflight.py": "cfcea8477fd4f98f7fad076606bcf6fd992e02e168dc9ad6f97535b464acab4a",
     "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c209_visible_only_candidate_projection.py": "dad94e9f8acb6a0d0e48f11b7be441ae075a06e48f8f0a2148b7c364d83d60be",
-    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c210_baseline_development_measurement.py": "4b72a3c16899707aa02c5806e0e497ddddf9c384837fbabfc73ed4aa27e77956",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c210_baseline_development_measurement.py": "5e4a491ab2ef0df07d669f12a03e77c5307c56d2a194675b869414d60eaedb73",
     "M:\\asobiba\\fold\\runs\\c174-v5e-learned-necessity-529b2018ef2a4a568a30fdb89b662410\\pilot-data.npz": "a667ecdc925b997e5b011303f72cce10d84a2c3145ed55594d5e013bb736ca03",
     "M:\\asobiba\\fold\\runs\\c174-v5e-learned-necessity-529b2018ef2a4a568a30fdb89b662410\\summary.json": "3e69b7d8cff9e1cfdab7d06c58d45f83d1f596ac793c85c4c34ff620f8637d36",
     "M:\\asobiba\\fold\\runs\\c181-v5e-internal-semantics-23f8363819474cccb05b0d1ecc8941ad\\probe-181001-INTERNAL_SEMANTICS.pt": "3f1bad426640c58ad8479a226cb2292991e014ec88bfbc0931a538e0f81e8289",
@@ -77954,7 +77958,7 @@ OK
     "M:\\asobiba\\fold\\tests_lm\\test_v05_c207_nine_family_development_manifest.py": "58b295f0d6147d546e638a7972df4b825055a6c436bf5ac9ed1ef217ae53cf2d",
     "M:\\asobiba\\fold\\tests_lm\\test_v05_c208_candidate_input_compatibility_preflight.py": "6ae7f023b160b01d5b09ac0669741d184cf82a3ec623681c2fa55986989a3857",
     "M:\\asobiba\\fold\\tests_lm\\test_v05_c209_visible_only_candidate_projection.py": "d43526a3653c4a2ba83208611d6d04560d0097691e8695d1ccc53f898ffba0cb",
-    "M:\\asobiba\\fold\\tests_lm\\test_v05_c210_baseline_development_measurement.py": "13a2483b1d128dd46d00f9133a72784a04ab1374ecda5422e8bf1d764dfdf9b2",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c210_baseline_development_measurement.py": "9e15d128c56ad0d1145a9ec39ef01035389f5968995652a55cbd2a690d430672",
     "M:\\asobiba\\fold\\tools\\invoke_active.ps1": "57a0f1ffa3a9370b5261ec5bf1e9eb3d778dc84f19f35c51e21174f61735a95b",
     "M:\\asobiba\\fold\\tools\\invoke_c200.ps1": "a0675df56086766dc979fd75a4d08dc5af1b6e33ea0dd8e0d97a9384f7bd2ec5",
     "M:\\asobiba\\fold\\tools\\invoke_c201.ps1": "4259002937ebc81b778e28a95e65f9275219b0d47b656d925e4130ffffbeaa3c",
@@ -78389,7 +78393,7 @@ OK
     "docs/experiment-ledger-addendum-c207-preregistration.md": "eb32f48518fa4a2c469c66ed61172c1ef8a8f936",
     "docs/experiment-ledger-addendum-c208-preregistration.md": "bcb6c0b0a7a521e0ce9ff1aa2f62fdd9e8ed237c",
     "docs/experiment-ledger-addendum-c209-preregistration.md": "190ae2d180879a7ecdd5b3e1c0c74261b5d31cf4",
-    "docs/experiment-ledger-addendum-c210-preregistration.md": "d12f7fe70b197e5a4164dfa9791cfac69301b9ad",
+    "docs/experiment-ledger-addendum-c210-preregistration.md": "6d1547b8f0e8e66377bed6a17e3a2b5fd8a78a6d",
     "docs/live-v2-mixed-channel-loop-v0.1.md": "7cf06e3cba985fd2cc9dc35b180bd14f89dd4c8e",
     "docs/mixed-channel-multistep-replay-v0.1.md": "02c82462b9aa5cc2548a077fe6ab54ec50b58e2a",
     "docs/nine-family-development-manifest-v0.1.md": "8b71cae0c8834dcce3cd14f0ee3154136dca3ee7",
@@ -78408,9 +78412,13 @@ OK
     "fold_lm/v05/structured_task_input.py": "b874b6abf17fb938a5cc873ff2090c6493f00010",
     "fold_lm/v05/structured_task_input_v2.py": "504f888e57e43ef3165cadc36b0ae723c068f112",
     "fold_lm/v05_benchmarks/gate_e_c171_derived_result.py": "ff84a03ac6ce96579e84acb2fd2f867c5be33e3e",
+    "fold_lm/v05_benchmarks/gate_e_c175_frozen_prediction_audit.py": "efd1bb246442fb4f472e33e450c16b192acfa18a",
     "fold_lm/v05_benchmarks/gate_e_c178_visible_leaf_binding.py": "2ec87851f1f75533dd2225243d0c1baeda9c9a2a",
+    "fold_lm/v05_benchmarks/gate_e_c179_shared_graph.py": "504c79b6a881c64dba2494ef6ad35bffd9099f5a",
+    "fold_lm/v05_benchmarks/gate_e_c182_frozen_fact_renaming.py": "a5fb10af6238d425f82b093a0c3676d247b1f0e3",
     "fold_lm/v05_benchmarks/gate_e_c185_single_missing_acquisition.py": "15f7cfec66d8bf9f27cbd25e169893f62ceaa7dc",
     "fold_lm/v05_benchmarks/gate_e_c188_multimissing_target_selection.py": "0819bc70377a949fe1c17a66be559336bbda96e1",
+    "fold_lm/v05_benchmarks/gate_e_c189_live_multimissing_target.py": "b34b40d84ab6597cc1cd26e47f64d58254d3304f",
     "fold_lm/v05_benchmarks/gate_e_c190_iterative_multimissing_acquisition.py": "aab7c2fee08327d5c4f3ff4e3e76eb592f3fdfef",
     "fold_lm/v05_benchmarks/gate_e_c200_acquisition_channel_input.py": "bf43ead7a7a80bb70f1e10be4f1d2af67c68f3dd",
     "fold_lm/v05_benchmarks/gate_e_c201_selected_fact_channel_route.py": "6b7029433e8dde0db0b43ff0f844d25f7405cb46",
@@ -78422,7 +78430,7 @@ OK
     "fold_lm/v05_benchmarks/gate_e_c207_nine_family_development_manifest.py": "d824f1203f6098147a993a8fffb36b29f7654cc9",
     "fold_lm/v05_benchmarks/gate_e_c208_candidate_input_compatibility_preflight.py": "4aa2f11687f76e8e7ed6228441412e4f4f161cd6",
     "fold_lm/v05_benchmarks/gate_e_c209_visible_only_candidate_projection.py": "d207f97046b7e36cdc27f1fbf99d7bb8c14091f0",
-    "fold_lm/v05_benchmarks/gate_e_c210_baseline_development_measurement.py": "917b8e74dfc1ebe5593bda009b3ba898aa0e8abe",
+    "fold_lm/v05_benchmarks/gate_e_c210_baseline_development_measurement.py": "309e1a54a00ef828cea29f705e69d9a56df899d9",
     "tests_lm/test_v05_c171_derived_result.py": "1ef6305f53ac3c40871405f8ea9485e3e0c87cff",
     "tests_lm/test_v05_c200_acquisition_channel_input.py": "c139ad665d4d65fc87612d67ecd825d6f0e6b016",
     "tests_lm/test_v05_c201_selected_fact_channel_route.py": "ebe33c63503dfb4c7a3fed5b6bd4e85f2acc7286",
@@ -78434,7 +78442,7 @@ OK
     "tests_lm/test_v05_c207_nine_family_development_manifest.py": "ef9106b69ac61cd02319670aac03db350df98337",
     "tests_lm/test_v05_c208_candidate_input_compatibility_preflight.py": "6a8989bebe34f28d5e03b5d86adaa195fabad4db",
     "tests_lm/test_v05_c209_visible_only_candidate_projection.py": "8b250ffd4219af1eaac39ca2a6e0c3940300b70d",
-    "tests_lm/test_v05_c210_baseline_development_measurement.py": "0f2dd3997a3d066247c7a0298f6ca337af8cbdc4",
+    "tests_lm/test_v05_c210_baseline_development_measurement.py": "5b88db44bb17d256aeebbbb72b877bc5d572662b",
     "tools/invoke_active.ps1": "86b5606a5b212b12f416abedac0923da634f88e3",
     "tools/invoke_c200.ps1": "b7c229f30f5c7ff05c8adfa41ac634029735c923",
     "tools/invoke_c201.ps1": "2da127d54cf30f6b77696f6b8f8aa2568f6b72c1",
@@ -78466,8 +78474,8 @@ OK
   "visible_sha256": "c7be54e9686212e06f072e754c75239e8f4261717986e3e933e40f35b4ee0543"
 }
 
-summary = M:\asobiba\fold\runs\c210-v5e-baseline-development-4dc4cf58d73b4621a7d7b6b96edc4fc6\summary.json
-summary_sha256 = 785c2aa2bfa29e0861c082dee0557f21cac4c2a6647268e552965c2ecd15b7a2
+summary = M:\asobiba\fold\runs\c210-v5e-baseline-development-ed5d0ad0a17d41b9a576fc41683005cd\summary.json
+summary_sha256 = 1b4242f15fdf3ca48374660d5c3339ff5c17dc9cd4f4833852f5e1bccb349366
 scientific_status = PASS
 policy_episode_evaluations = 1584
 internal_only = {"acquisition_attempts": 0, "acquisition_gain": 0, "answerable": 128, "answerable_correct_rate": 0.375, "answered": 48, "authority_violation": 0, "correct": 48, "coverage": 0.3333333333333333, "episodes": 144, "guarded_unsupported_assertion": 0, "inference_rows": 0, "internal_charged": 0, "invalid_target": 0, "malformed_publication": 0, "missed_necessary_acquisition": 80, "pre_correct": 48, "pre_resolved": 48, "premature_sufficient": 0, "provider_calls": 0, "provider_publication_rate": 0.0, "publications": 0, "repeated_need_after_success": 0, "resolver_checked_steps": 120, "resolver_verifier_calls": 48, "unnecessary_acquisition": 0, "unresolved": 96, "useful_correct_resolution": 0.3333333333333333, "user_turns": 0, "wrong_abstention": 80, "wrong_abstention_rate": 0.625, "wrong_answer": 0}
