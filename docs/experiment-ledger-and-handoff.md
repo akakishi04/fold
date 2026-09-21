@@ -15,16 +15,16 @@ Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
 ## Accepted C210
 
 Scientific execution HEAD:
-`633ce9bed165d30b0adb671c1faf12d34a9ad0cc`
+`002543b8d1394c127b915b3bfe4591ce20c8939d`
 
 Published log commit:
-`482d36ca1563fc7379fa48c346e255a526a48cec`
+`a04e7cdc5b42939e2d65f395f12da450a896bf0f`
 
 Log SHA256:
-`158e54bde84b156ebd665285ea85f32224dc943174ed9cc46997fd71753434fd`
+`f1365f6d364c5bf0729ef7240f69c2c566004eef554a35c08b8b32355039f0d3`
 
 Summary SHA256:
-`785c2aa2bfa29e0861c082dee0557f21cac4c2a6647268e552965c2ecd15b7a2`
+`1b4242f15fdf3ca48374660d5c3339ff5c17dc9cd4f4833852f5e1bccb349366`
 
 C210 deciding result:
 - focused regression **1997/1997**
@@ -54,8 +54,10 @@ All9 candidate model pairs are identical in full policy and per-family summaries
 - premature sufficient0 / repeated NEEDS0 / invalid target0
 - inference rows224 / forward calls2 / cell calls14
 
-Accepted claim: the matched development measurement is complete. C210 does not itself select a
-candidate or register numerical acceptance margins.
+Accepted claim: the matched development measurement is complete. This acceptance refers to the
+retry execution at `002543b8d1394c127b915b3bfe4591ce20c8939d`; the earlier unprotected attempt
+remains invalid historical evidence. C210 does not itself select a candidate or register numerical
+acceptance margins.
 
 ## Next boundary
 
