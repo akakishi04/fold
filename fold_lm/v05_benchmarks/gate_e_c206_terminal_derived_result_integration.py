@@ -564,8 +564,8 @@ def regression_suite(root):
         if test.id() not in c205.HISTORICAL_DYNAMIC_TEST_EXCLUSIONS
     ]
     require(
-        len(tests) == 1900
-        and len(kept) == 1899
+        len(tests) == 1902
+        and len(kept) == 1901
         and not any(
             test.id() in c205.HISTORICAL_DYNAMIC_TEST_EXCLUSIONS
             for test in kept
