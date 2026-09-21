@@ -1,7 +1,8 @@
 # FOLD Experiment Ledger and Handoff
 
 > Authoritative current state. Current response format (v2), Experiment authoring quality gate,
-> post-authoring review, PowerShell parser preflight, and parent artifact semantic audit apply.
+> post-authoring review, PowerShell parser preflight, parent artifact semantic audit, and historical
+> regression immutability apply.
 
 Repository `akakishi04/fold`; branch `feat/sft-target-loss`; local `M:\\asobiba\\fold`.
 Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
@@ -9,166 +10,66 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C204 ACCEPTED VALID NEGATIVE. C205 ACTIVE / INVALID ATTEMPT RECOVERY. C206 NOT REGISTERED.**
+**C205 ACCEPTED PASS. C206 NOT REGISTERED.**
 
-## Accepted C204
+## Accepted C205
 
 Scientific execution HEAD:
-`0ef49a4f97b516a00066df4986c062f98fda676d`
+`c78b79e95b92552c032df05220868122398fd339`
 
 Published log commit:
-`df0a850ee298c643a7b775988cef69cd24b42655`
+`fd05da86e40e81feb96a3e7b6011e9d229299176`
 
 Log SHA256:
-`f1c4db1a22d61b0ebfc09ff21937e500eefe6f43f1d198b3c2920fcc07c2b56a`
+`1dd3973c15013fb95296fda482eebe52298377c56eee3a9a50c7c3b0ee260427`
 
 Summary SHA256:
-`9c02e4dbd497fbc91ae25c02f4cc5a3baad0af8cf9cc296f2bac0f6f8ffe72e9`
+`2f60e87aa7158bf22e1a4f6b15904a4e66096a1db81a6477e0b398be87fc3c2b`
 
-Execution validity:
-- focused regression **1846/1846**
-- all9 live blocks completed
+C205 deciding result:
+- focused regression **1871/1871**
+-9/9 attribution blocks completed
+- canonical unique rows15912 / forward calls18 / cell calls126
+- canonical max necessity logit delta **0.0**
+- canonical max target logit delta **0.0**
+- expanded direct rows85824 / forward calls90 / cell calls630
+- expanded max necessity logit delta **5.0067901611328125e-06**
+- expanded max target logit delta **5.7220458984375e-06**
+- max C204 necessity-max match error **0.0**
+- max C204 target-max match error **0.0**
+- candidate_gate_passed True
 - run_execution_valid True
-- protected inputs preserved
-- tracked tree clean
-- execution HEAD preserved
 - production runtime modified False
 
-Behavioral/runtime equivalence:
-- episodes85824
-- decisions214948
-- acquisitions129124
-- final SUFFICIENT85824
-- v2 packets214948
-- inference rows214948
-- necessity prediction errors0
-- target prediction errors0
-- v2 prefix errors0
-- RETRIEVE88918 / OBSERVE21252 / ASK_USER18954
-- channel switches32564
-- failures0 / projection errors0
+Accepted claim: C204's gate-breaking numeric replay maxima are fully reproduced by phase0
+duplicate-expanded batching. Canonical unique structured-v2 phase0 inference reproduces C199 logits
+exactly. C204 remains ACCEPTED VALID NEGATIVE under its original1e-6 whole-run gate.
 
-Valid negative condition:
-- max necessity logit delta `5.0067901611328125e-06`
-- max target logit delta `5.7220458984375e-06`
-- preregistered tolerance `1e-6`
-- scientific_status FAIL
-- candidate_gate_passed False
+## Next boundary
 
-Accepted claim: live frozen inference from the exact72-feature prefix of structured-v2 reproduces
-all accepted C199/C203 argmax decisions and runtime behavior, but not logits within the fixed1e-6
-numeric replay tolerance.
+C206 is not yet registered.
 
-## Active C205
+Gate E contract still requires a derived-result output boundary with supporting references. A
+logical conclusion must not be represented as an observed fact.
 
-Experiment:
-`C205-v5e-phase0-batch-composition-attribution`
+Next one-question intervention:
 
-Stage:
-`V5-E-PHASE0-BATCH-COMPOSITION-ATTRIBUTION`
+> After reconstructing the accepted mixed-channel terminal SUFFICIENT states, can every terminal
+> Boolean conclusion be emitted through the production `structured_derived_result.verify` contract
+> as `VERIFIED_DERIVED`, bound to exactly the actually observed supporting references, while
+> verification leaves observations/resources unchanged and rejects the opposite conclusion?
 
-One question:
-are the C204 gate-breaking logit maxima fully attributable to phase0 duplicate-expanded batch
-composition rather than structured-v2 prefix/state semantics?
+C206 should:
+- hold the accepted C203/C204 behavioral trajectory fixed using the accepted C199 saved decision trace;
+- replay actual mixed-channel acquisition through C201/C202/C173;
+- use C171's benchmark-only proof fixture only as a reference candidate producer;
+- use production `structured_derived_result.verify` as the deciding checker;
+- compare the candidate conclusion to the independent C171 completion evaluator;
+- verify the opposite conclusion is rejected;
+- verify derived verification never changes fact status/value/reference/resource state;
+- add no training, new seed, language generation or final Gate E claim.
 
-Registered comparison:
-- canonical unique:1768 unique phase0 states -> v2 prefix -> frozen inference -> expand by local_rows;
-- expanded direct:9536 world-expanded duplicate phase0 states -> v2 prefix -> frozen inference directly.
-
-Both use:
-- same accepted C181/C188 checkpoints;
-- BATCH1024;
-- CPU float32;
-- threads2;
-- deterministic algorithms;
-- raw argmax;
-- same C199 phase0 reference;
-- unchanged1e-6 tolerance.
-
-Required canonical path:
-- prefix errors0
-- expanded-prefix mismatches0
-- prediction errors0
-- both max logit deltas <=1e-6
-
-Required expanded path:
-- prefix errors0
-- prediction errors0
-- both max logit deltas >1e-6
-- each block max must reproduce the corresponding C204 whole-loop block max within1e-12
-
-Registered workload:
-- canonical rows15912 / forward calls18 / cell calls126
-- expanded rows85824 / forward calls90 / cell calls630
-
-Scope:
-- training0
-- fresh seeds0
-- acquisitions0
-- network0
-- production runtime modifiedFalse
-- Gate E candidateFalse
-
-Authoring:
-- expected regression **1871 =1846 inherited -1 exact mutable historical test +26 C205 tests**
-- modules **90**
-- source pins44
-- protected inputs92
-- artifacts5
-- manifest
-  `316f8ec5e4654a321aff67ddf48e067feb29cf786e330697230ad3187e6f8c0c`
-
-## Invalid C205 attempt
-
-Execution HEAD:
-`37509d34e1ccfc8abf3e92fca708327a5335e4ea`
-
-Published log commit:
-`81346818971e8586dbd1629563f76a847c6e279a`
-
-Log SHA256:
-`e98725bfd5c20b9e612f3640cf931f86beb5c00618f1e92b1c9e77a5d10d420b`
-
-- focused regression1871;
--1870 PASS /1 FAIL;
-- failing test was accepted C204 test33 asserting current ACTIVE == C204;
-- current ACTIVE correctly equals C205;
-- all25 original C205 tests PASS;
-- scientific diagnostic did not start;
-- run_execution_valid False.
-
-Recovery:
-- accepted C204 files remain unchanged;
-- C205 focused suite excludes exactly that one mutable historical test ID;
-- C205 adds an immutable replacement test;
-- total executed regression remains1871;
-- scientific question/tolerance/workload/gate unchanged.
-
-## Post-authoring review
-
-**post_authoring_review = PASS**
-
-recovery review HEAD:
-`2bd2ec0424db21e8ed2bfa0c7be07f8148d69afa`
-
-Committed remote review verified:
-- accepted C204 test blob unchanged;
-- one exact historical mutable-state test ID excluded with exact-once guard and no wildcard;
--1872 loaded candidates ->1871 executed regression tests;
--26 C205 immutable tests including the replacement contract;
-- runner uses `regression_suite()`;
-- C205 scientific question,1e-6 tolerance, workload and attribution gate unchanged;
-- source pins44 / protected inputs92;
-- dispatcher -> C205 launcher -> C205 runner parser guards precede execution/logging;
-- C206 remains unregistered.
-
-## Stop condition
-
-Judge C205 before any C206 registration.
-
-- valid complete gate pass -> ACCEPTED PASS;
-- valid complete scientific miss -> ACCEPTED VALID NEGATIVE;
-- source/schema/hash/checkpoint/reference/regression/incomplete/protection failure
-  -> INVALID / RETRY SAME C205.
+C206 must pass authoring quality gate, immutable historical regression handling, PowerShell parser
+preflight and post-authoring remote-byte review before execution.
 
 Gate E remains NOT PASSED.
