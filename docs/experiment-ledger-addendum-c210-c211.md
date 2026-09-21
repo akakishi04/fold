@@ -7,12 +7,12 @@
 Gate E remains **NOT PASSED**.
 
 Successful C210:
-- scientific execution HEAD: `633ce9bed165d30b0adb671c1faf12d34a9ad0cc`
-- published log commit: `482d36ca1563fc7379fa48c346e255a526a48cec`
-- log SHA256: `158e54bde84b156ebd665285ea85f32224dc943174ed9cc46997fd71753434fd`
-- summary: `runs/c210-v5e-baseline-development-4dc4cf58d73b4621a7d7b6b96edc4fc6/summary.json`
-- summary SHA256: `785c2aa2bfa29e0861c082dee0557f21cac4c2a6647268e552965c2ecd15b7a2`
-- focused regression: **1997/1997** in 68.218s
+- scientific execution HEAD: `002543b8d1394c127b915b3bfe4591ce20c8939d`
+- published log commit: `a04e7cdc5b42939e2d65f395f12da450a896bf0f`
+- log SHA256: `f1365f6d364c5bf0729ef7240f69c2c566004eef554a35c08b8b32355039f0d3`
+- summary: `runs/c210-v5e-baseline-development-ed5d0ad0a17d41b9a576fc41683005cd/summary.json`
+- summary SHA256: `1b4242f15fdf3ca48374660d5c3339ff5c17dc9cd4f4833852f5e1bccb349366`
+- focused regression: **1997/1997** in 63.132s
 - policy-episode evaluations1584
 - measurement_complete True
 - run_execution_valid True
