@@ -84,7 +84,7 @@ Unchanged:
 - Gate F interpretation.
 
 Updated manifest SHA:
-`91e8afd97d667b67f1164e87628f62b4bcf2347e2884537ec3e54c2baa6b385c`
+`77d42cd12ce26e592b7e4798ba844e6a8147af4f3f45fc870fb48790b36cbdd7`
 
 ## Recovery review
 
@@ -103,9 +103,9 @@ Recovery review verified:
   execution HEAD;
 - the only C216 benchmark/test changes are execution-validity protection for the historical runner;
 - C216 manifest hash independently recomputes to
-  `91e8afd97d667b67f1164e87628f62b4bcf2347e2884537ec3e54c2baa6b385c`;
+  `77d42cd12ce26e592b7e4798ba844e6a8147af4f3f45fc870fb48790b36cbdd7`;
 - deterministic Reader dataset SHA independently recomputes to
-  `ab0c6da658576d12fc786ad3dfcef94f3acc063d8263dd175d67eec7af6a14eb`;
+  `9ded8a1b17cf721407e5d28c9dd6350159d0a17721f39bf9b57a911b78aa3f61`;
 - TRAIN/EVAL target counts remain [8,8,8] / [4,4,4];
 - source/protection accounting is130/136;
 - C216 test count remains36 and focused regression registration remains2185;
@@ -117,3 +117,74 @@ remain frozen.
 
 Retry C216 only after committed remote bytes are reviewed, including a successful construction of
 the full inherited regression module list with restored `run_c167.ps1`.
+
+
+---
+
+## Second invalid retry — dataset byte identity
+
+Scientific execution HEAD:
+`c7179ddeaed2e092d3f1f6090e9bd09a1ff9c75e`
+
+Published log commit:
+`cfdb0a89a7bf7d14ae1bf7b541f7722dd8adecb1`
+
+Log SHA256:
+`fb028f5c206e42603cab2dc14fcd2276b8c3f98e4416378bf8b65901256f097f`
+
+Failure phase:
+- repository preflight PASS;
+- Python syntax preflight PASS;
+- accepted C215 source/artifact precheck PASS;
+- historical regression runner restored successfully;
+- inherited C100-C215 regression tests reached2149 passed;
+- C216 test class setup failed before its36 tests could execute;
+- learned Reader training did not run;
+- run_execution_valid False.
+
+Failure:
+
+```text
+ValueError: C216 dataset content drift
+```
+
+Root cause:
+the originally registered dataset SHA was calculated from the algebraically equivalent Python
+expression `0.75 / 4.25`. The actual C216 dataset is generated through the accepted FOLD-R
+`torch.linalg.solve` response-capsule path. For the nonzero scalar readout those paths differ by
+one float64 ULP. Semantic values, pair membership, labels, placement and class balance are unchanged.
+
+Actual FOLD-R selected-value bit patterns:
+
+```text
+-1 -> 13818898080148657814
+ 0 -> 0
++1 -> 4595526043293882006
+```
+
+Correct dataset SHA256:
+
+`9ded8a1b17cf721407e5d28c9dd6350159d0a17721f39bf9b57a911b78aa3f61`
+
+Correct manifest SHA256:
+
+`77d42cd12ce26e592b7e4798ba844e6a8147af4f3f45fc870fb48790b36cbdd7`
+
+Recovery:
+- update DATA_SHA to the bytes actually produced by the preregistered FOLD-R numeric path;
+- update manifest hash accordingly;
+- strengthen existing test13 to assert the exact three float64 bit patterns.
+
+Unchanged:
+-36 rows /24 TRAIN /12 EVAL;
+- TRAIN six pair combinations / EVAL three pair combinations;
+- target balances [8,8,8] / [4,4,4];
+- Reader1->8->3 /43 parameters;
+- seeds216001/216002/216003;
+- Adam lr0.02 /400 steps each;
+-1215 Reader-forward accounting;
+- all scientific accuracy/control thresholds;
+- Writer/Port Selector/Coverage boundaries;
+- Gate F interpretation.
+
+`post_authoring_recovery_review_2 = PENDING`
