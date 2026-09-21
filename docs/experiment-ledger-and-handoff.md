@@ -18,7 +18,7 @@ Authoritative Python: 3.13.15 / PyTorch 2.10.0+cu130 / NumPy 2.3.5.
 - Gate E: **PASSED**
 - Gate F: **NOT PASSED**
 - **C215 ACCEPTED PASS**
-- **C216 ACTIVE / NOT YET JUDGED**
+- **C216 ACTIVE / INVALID ATTEMPT RECOVERY**
 - **C217 NOT REGISTERED**
 
 C216 is the unique ACTIVE experiment.
@@ -135,9 +135,12 @@ Post-prune accepted-source audit:
 - missing source pins: **0**
 - SHA mismatches: **0**
 
-Harness before -> after:
+Harness maintenance at C215:
 - C-numbered invoke scripts: **27 -> 16**
 - C-numbered run scripts: **73 -> 17**
+
+Recovery note:
+- `tools/run_c167.ps1` was restored after the first C216 attempt exposed it as historical regression infrastructure; it must not be pruned again.
 
 Retained source-pinned harness:
 - `tools/run_c171.ps1`
@@ -240,30 +243,64 @@ Fixed gate per seed:
 - checkpoint roundtrip exact.
 
 Authoring:
-- source pins129;
-- protected inputs135;
+- source pins130;
+- protected inputs136;
 - artifacts5;
 - C216 tests36;
 - regression modules101;
 - loaded2186 / focused2185;
-- manifest `5332239247d95f6bcd98e328e12f8596aed765b4fa8780b71e1bfb5329fe521a`.
+- historical regression dependency `tools/run_c167.ps1` blob `7c5d6e9838d4ce7bd2bfec0e43458eb749fd1789`;
+- manifest `91e8afd97d667b67f1164e87628f62b4bcf2347e2884537ec3e54c2baa6b385c`.
 
-## C216 post-authoring review
+## Invalid C216 attempt
 
-**post_authoring_review = PASS**
+Scientific execution HEAD:
+`8b550a92ab8db94d4a5c8ad7da7dadac1609ad6b`
 
-review HEAD:
-`7b6ec7b075fb018c489d234bd2505c53a7802b48`
+Published log commit:
+`c8f24d453455f97389c2e0935339e379d2a98e47`
 
-Committed remote review verified accepted C215 checkpoint identity,122 parent source blobs,129/135
-C216 protection accounting, all direct repository dependencies, fixed pair split/data hash, Reader
-input isolation,1215-forward workload accounting,36 tests /101 modules /2186-loaded/2185-focused
-regression contract, Python c### alias bindings, exact runner argv ordering, the complete PowerShell
-test35 source contract and C217 non-registration.
+Log SHA256:
+`7efe5c61f4d8b727124e6030d6a93752bc215a96ef236ba055dda7807ab7ff62`
+
+Failure phase:
+- repository preflight PASS;
+- Python syntax preflight PASS;
+- accepted C215 source/artifact precheck PASS;
+- focused regression failed while constructing the inherited module list;
+- learned Reader pilot did not run;
+- run_execution_valid False.
+
+Root cause:
+post-C215 maintenance pruned `tools/run_c167.ps1`, but historical C176-C178
+`regression_modules()` reconstruct the immutable 51-module regression seed list from that file.
+
+Formal disposition:
+**C216 INVALID EXECUTION / RETRY SAME C216**.
+
+Minimal recovery:
+- restore exact historical blob
+  `tools/run_c167.ps1 = 7c5d6e9838d4ce7bd2bfec0e43458eb749fd1789`;
+- register that file as a protected C216 historical-regression dependency;
+- update validity accounting to130 source pins /136 protected inputs;
+- keep Reader architecture, data split/hash, seeds, training workload, PASS gate and interpretation
+  unchanged.
+
+Recovery detail:
+`docs/experiment-ledger-addendum-c216-recovery.md`.
+
+## C216 recovery review
+
+**post_authoring_recovery_review = PENDING**
+
+Do not retry until the restored runner, inherited regression module seed list, updated130/136
+accounting, manifest and unchanged scientific blobs are independently re-reviewed.
 
 
 ## Stop condition
 
-Judge C216 before any C217 registration.
+Retry **C216 only** after recovery review PASS.
+
+Do not register C217.
 
 Gate E remains **PASSED**. Gate F remains **NOT PASSED**.
