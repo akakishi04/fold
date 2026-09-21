@@ -299,6 +299,11 @@ class C216Tests(unittest.TestCase):
             "fold_lm/v05_benchmarks/gate_f_c215_h1_h2_chunk_commit.py",
             c216.DIRECT_REPO_DEPENDENCIES,
         )
+        self.assertEqual(c216.HISTORICAL_REGRESSION_RUNNER, "tools/run_c167.ps1")
+        self.assertEqual(
+            c216.HISTORICAL_REGRESSION_RUNNER_BLOB,
+            "7c5d6e9838d4ce7bd2bfec0e43458eb749fd1789",
+        )
 
     def test_32_regression_suite_semantic_counts(self):
         root = Path(__file__).resolve().parents[1]
