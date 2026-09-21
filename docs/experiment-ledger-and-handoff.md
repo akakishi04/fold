@@ -167,15 +167,21 @@ Recovery:
 
 ## Post-authoring review
 
-**post_authoring_review = PENDING**
+**post_authoring_review = PASS**
 
-Re-review must verify:
-- test25 has no bare unimported `c205` reference;
-- AST alias-binding audit reports no unbound runtime `c###.` module alias;
-- semantic suite count remains1902 loaded /1901 kept;
-- exact historical exclusion remains one ID only;
+second-recovery review HEAD:
+`fbdac7b62a8fc607031d006002ec299c1c3bc783`
+
+Committed remote review verified:
+- test25 uses `c206.c205` and has no bare unimported C205 alias;
+- test25 AST-audits executable `c###.` references against module imports;
+- cross-file alias audit found zero unbound executable aliases in C206 benchmark/tests;
+- actual suite accounting remains1902 loaded /1901 kept;
+- one exact historical exclusion remains unchanged;
 - accepted C205/C171 identities and C206 scientific manifest are unchanged;
-- parser/count/source/protected contracts and C207 non-registration remain valid.
+- source pins56 / protected inputs110;
+- dispatcher -> C206 launcher -> C206 runner parser chain intact;
+- C207 remains unregistered.
 
 ## Stop condition
 
