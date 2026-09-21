@@ -10,7 +10,7 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C210 ACCEPTED PASS. C211 ACCEPTED PASS. C212 NOT REGISTERED.**
+**C211 ACCEPTED PASS. C212 ACTIVE / NOT YET JUDGED. C213 NOT REGISTERED.**
 
 ## Accepted C210
 
@@ -200,26 +200,70 @@ Formal disposition:
 Accepted claim: the complete Gate E deciding registration is frozen without evaluating the deciding
 holdout. C211 does not itself establish Gate E performance or pass Gate E.
 
-## Next boundary
+## Active C212
 
-C212 is not yet registered.
+Experiment:
+`C212-v5e-deciding-holdout-execution`
 
-Next one-question intervention:
+Stage:
+`V5-E-DECIDING-HOLDOUT-EXECUTION`
 
-> Under the exact accepted C211 deciding manifest, does the frozen selected candidate satisfy every
-> preregistered Gate E rule on the independent holdout when compared with INTERNAL_ONLY and
-> FIXED_ACQUISITION?
+One question:
+under the exact accepted C211 deciding manifest, does the frozen selected candidate satisfy every
+preregistered Gate E rule on the independent holdout relative to INTERNAL_ONLY and
+FIXED_ACQUISITION?
 
-C212 must execute the frozen deciding holdout once with no retraining, no candidate change, no
-threshold relaxation and no failed-family removal.
+Frozen parent:
+- C211 execution `9cedc79a02441e9cddb0efc0c8bbc7714f9112db`;
+- C211 summary `97f5c1fde9128651ae842046e706219a50e0f34238b87d17d253e89d71279263`;
+- deciding manifest `f9356e87b210bc7d836d016a9ad7a4f841a9a651b3bb9faf9428b0415df9e6d6`;
+- decision rules `d143f2a6b4b96c672131daf22dea5c207d42375440c7d403ee95b9782fd75bcc`.
 
-Gate E remains NOT PASSED until C212 is judged.
+Frozen holdout:
+- visible `1197f59ab6bf659929ecb7a9f42df27ea28e81586c4602f8e1eb96da17be126b`;
+- scorer `3975c10afc2e644f5279de4d46459d1aa250c6e7b381bb944b0b8cf6b585ff22`;
+- units `630d9c94b4aee67f55c3f9704ad6a508679e01450da73dd18a8935b4bac8dc34`.
+
+Policies:
+- INTERNAL_ONLY;
+- FIXED_ACQUISITION;
+- CANDIDATE-181001-188001.
+
+Workload:
+-144 episodes per policy;
+-432 policy-episode evaluations total;
+- one holdout execution;
+- no retraining / candidate change / threshold relaxation / family removal.
+
+Frozen decision gate:
+- zero-margin overall and per-family noninferiority versus FIXED_ACQUISITION;
+- +1 episode minimum for useful correct resolution and positive acquisition gain versus INTERNAL_ONLY;
+- one-sided exact paired McNemar with Holm alpha0.05 over exactly2 primary claims;
+- hard-zero runtime/safety rules;
+- compute ceiling;
+- unsupported-assertion zero-floor limitation.
+
+Authoring:
+- source pins99;
+- protected inputs189;
+- artifacts5;
+- tests30;
+- regression modules97;
+- focused regression2055;
+- manifest `1e9c1fd0de152ccd070a267383e46fbe73ff5c55114fe984c85ecd7274347898`.
+
+## Post-authoring review
+
+**post_authoring_review = PENDING**
+
+Do not issue the C212 execution command until committed remote bytes are independently reviewed for
+parent/artifact identity, exact frozen rules, scorer separation, paired-statistics semantics,
+hard-zero/compute rules, valid-negative versus INVALID separation, regression counts, aliases,
+PowerShell parser/argv wiring, source/protection counts and C213 non-registration.
 
 
 ## Stop condition
 
-C211 is closed as **ACCEPTED PASS**.
+Judge C212 before any C213 registration.
 
-C212 remains **NOT REGISTERED** until its separate preregistration/authoring/review is complete.
-
-Gate E remains **NOT PASSED**.
+Gate E remains **NOT PASSED** until a complete valid C212 result is formally judged.
