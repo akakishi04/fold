@@ -10,7 +10,7 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C210 ACCEPTED PASS. C211 ACTIVE / NOT YET JUDGED. C212 NOT REGISTERED.**
+**C210 ACCEPTED PASS. C211 ACTIVE / INVALID ATTEMPT RECOVERY. C212 NOT REGISTERED.**
 
 ## Accepted C210
 
@@ -104,20 +104,55 @@ Authoring:
 
 ## Post-authoring review
 
-**post_authoring_review = PASS**
+**post_authoring_review = PENDING**
 
-review HEAD:
+Previous review HEAD:
 `4a64648baa7b92ed14bbbce5fd1da4e9bee19daa`
 
-Corrected remote review verified the accepted C210 retry identity and local summary path,
-candidate tie/checkpoint/source pins, independent holdout separation, frozen decision rules,
-no-evaluation boundary, 28 tests, semantic2026-loaded/2025-kept regression accounting,
-runner/launcher parser and argv wiring, 93 source pins /177 protected inputs, and C212
-non-registration.
+That review is superseded by the C211 Boolean-negation recovery change. Corrected committed bytes
+must be independently re-reviewed before retry.
 
 Do not issue C211 execution command until committed remote bytes are independently reviewed for
 parent identity, candidate tie/checkpoints, holdout independence, decision rules, no-evaluation
 boundary, regression counts, aliases, PowerShell parser chain and CLI indexes.
+
+
+## Invalid C211 attempt
+
+Scientific execution HEAD:
+`16280454018b779aba0112e34317d2b1bd4c1f77`
+
+Published log commit:
+`ca0e0334b1a425dab002ea9df3e921a6480bb75c`
+
+Log SHA256:
+`da6840a3c6326227b9b3b932ad888bf42349bebcc0748784e87c39f69b6aebd3`
+
+Failure phase:
+- repository preflight PASS;
+- Python syntax preflight PASS;
+- source/artifact precheck PASS;
+- focused regression started;
+- inherited C100-C210 tests reached **1997 executed / all passed**;
+- C211 class setup failed before its28 tests could execute.
+
+Root cause:
+`gate_e_c211_deciding_manifest_freeze.py` constructed negated leaves with integer
+`negate=1`, while production `structured_task_input.Node` requires
+`type(negate) is bool`. The first holdout case therefore raised
+`ValueError("Invalid node kind/negation")`.
+
+Formal disposition:
+**INVALID EXECUTION / RETRY SAME C211**.
+
+No deciding manifest was frozen and no holdout policy/model evaluation occurred.
+
+Recovery:
+- replace all six C211 `negate=1` literals with `negate=True`;
+- strengthen existing C211 tests to assert Boolean negation type;
+- preserve candidate, holdout construction semantics, margins, statistics, manifest SHA,
+  workload and C212 non-registration;
+- re-review corrected committed bytes before retry.
 
 ## Stop condition
 
