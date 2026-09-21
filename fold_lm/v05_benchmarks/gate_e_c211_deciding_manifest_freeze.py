@@ -749,7 +749,7 @@ def precheck(
     protected.update(audit.protect_tree_files(root,allpins))
     pins.update({name:allpins[name] for name in OWN})
 
-    require(len(pins)==89 and len(protected)==173,"C211 source/protection count drift")
+    require(len(pins)==93 and len(protected)==177,"C211 source/protection count drift")
     require(digest(manifest())==MANIFEST_SHA,"C211 manifest drift")
     return p210,development_visible_path,pins,protected
 
@@ -784,8 +784,8 @@ def validate_result(payload):
         "Wrong/incomplete C211",
     )
     require(
-        len(payload["source_blobs"])==89
-        and len(payload["input_sha256"])==173
+        len(payload["source_blobs"])==93
+        and len(payload["input_sha256"])==177
         and len(payload["artifacts"])==5
         and {a["file"] for a in payload["artifacts"]}==OUTPUTS,
         "C211 coverage drift",
