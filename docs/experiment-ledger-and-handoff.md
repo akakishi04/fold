@@ -10,7 +10,7 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C209 ACCEPTED PASS. C210 ACTIVE / NOT YET JUDGED. C211 NOT REGISTERED.**
+**C209 ACCEPTED PASS. C210 ACTIVE / INVALID ATTEMPT RECOVERY. C211 NOT REGISTERED.**
 
 ## Accepted C209
 
@@ -140,8 +140,8 @@ Scope:
 - Gate E candidateFalse
 
 Authoring:
-- source pins83
-- protected inputs161
+- source pins84
+- protected inputs162
 - artifacts5
 - new tests24
 - regression modules95
@@ -149,21 +149,46 @@ Authoring:
 - manifest
   `09a7bbc84d37c93d6e559acffc8eaa0ff5c7f902271ebefff83b15363a10cb18`
 
+## Invalid C210 attempt
+
+Execution HEAD:
+`633ce9bed165d30b0adb671c1faf12d34a9ad0cc`
+
+Published log commit:
+`482d36ca1563fc7379fa48c346e255a526a48cec`
+
+Log SHA256:
+`158e54bde84b156ebd665285ea85f32224dc943174ed9cc46997fd71753434fd`
+
+The run completed1997/1997 regression tests and1584/1584 policy-episode measurements, but post-run
+dependency coverage audit found that deciding candidate inference called C189
+`combined_predict/necessity_predict` without C189 being present in the preregistered source/protected
+set.
+
+This is a source/protection failure, so the numeric result is not accepted scientific evidence.
+
+Recovery:
+- pin C189 blob
+  `b34b40d84ab6597cc1cd26e47f64d58254d3304f`;
+- source pins84;
+- protected inputs162;
+- scientific question/policies/checkpoints/fixtures/workload unchanged;
+- retry same C210 only.
+
 ## Post-authoring review
 
-**post_authoring_review = PASS**
+**post_authoring_review = PENDING**
 
-review HEAD:
-`dda03e5901f3b2356649f21559f3a54bca050148`
-
-Committed remote review verified accepted C209 identity and all7 C209 OWN blobs, frozen C207
-visible/scorer identities, scorer separation from all policy functions, shared resolver equality,
-full144-episode INTERNAL_ONLY and FIXED_ACQUISITION unit controls including all registered fault
-paths, all9 frozen candidate identities with no winner selection, semantic1584-row policy coverage
-and candidate meter matching, 24 C210 tests, semantic1998-loaded/1997-kept regression accounting,
-zero unbound executable c### aliases, exact runner argv[1..14]/postcheck argv16 wiring,
-dispatcher->launcher->runner PowerShell parser chain, 83 source pins /161 protected inputs /5
-artifacts, and C211 non-registration.
+Re-review must verify:
+- C189 direct inference helper is explicitly source-pinned at
+  `b34b40d84ab6597cc1cd26e47f64d58254d3304f`;
+- source/protected counts are84/162;
+- every other C210 scientific condition remains unchanged;
+- direct deciding-path repository dependencies are all source-pinned/protected;
+- full144 baseline controls,9 candidate identities,1584 measurement accounting remain unchanged;
+- semantic regression counts, Python alias bindings, PowerShell parser chain and runner CLI indexes
+  remain valid;
+- C211 remains unregistered.
 
 ## Stop condition
 
