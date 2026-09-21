@@ -204,7 +204,8 @@ def _fact(fid, status="UNOBSERVED", value=None, refs=()):
 
 
 def _base_view(case_id, nodes, facts, resources):
-    scope = "C207|" + case_id
+    unit_id = case_id.rsplit("-c", 1)[0]
+    scope = "C207|" + unit_id
     return v1.TaskView(
         scope + "|query",
         scope,
@@ -225,13 +226,14 @@ def _binary_hidden_case(family, unit, condition, *, relevance, status, channel):
         0
     )
     case_id = f"{family}-u{unit:02d}-c{condition}"
+    unit_id = f"{family}-u{unit:02d}"
     refs = ()
     if status == "STALE":
-        refs = (f"stale:{case_id}:B",)
+        refs = (f"stale:{unit_id}:B",)
     elif status == "CONFLICT":
-        refs = (f"conflict:{case_id}:B:0", f"conflict:{case_id}:B:1")
+        refs = (f"conflict:{unit_id}:B:0", f"conflict:{unit_id}:B:1")
     facts = (
-        _fact("A", "OBSERVED", control, (f"initial:{case_id}:A",)),
+        _fact("A", "OBSERVED", control, (f"initial:{unit_id}:A",)),
         _fact("B", status, None, refs),
     )
     view = _base_view(case_id, _simple_nodes(kind), facts, _resources(channel))
@@ -261,7 +263,7 @@ def make_case(family, unit, condition):
         view = _base_view(
             case_id,
             (v1.Node("FACT", 0),),
-            (_fact("A", "OBSERVED", bit, (f"initial:{case_id}:A",)),),
+            (_fact("A", "OBSERVED", bit, (f"initial:{family}-u{unit:02d}:A",)),),
             _resources(),
         )
         typed = v2.TaskView(view, _channels(1))
@@ -305,7 +307,7 @@ def make_case(family, unit, condition):
         control = 0 if kind == "OR" else 1
         source_value = unit % 2
         facts = (
-            _fact("A", "OBSERVED", control, (f"initial:{case_id}:A",)),
+            _fact("A", "OBSERVED", control, (f"initial:{family}-u{unit:02d}:A",)),
             _fact("B"),
         )
         view = _base_view(case_id, _simple_nodes(kind), facts, _resources("RETRIEVE"))
@@ -337,7 +339,7 @@ def make_case(family, unit, condition):
             permitted = fault != "PERMISSION_DENIED"
             acquisitions = 0 if fault == "BUDGET_EXHAUSTED" else 1
         facts = (
-            _fact("A", "OBSERVED", control, (f"initial:{case_id}:A",)),
+            _fact("A", "OBSERVED", control, (f"initial:{family}-u{unit:02d}:A",)),
             _fact("B"),
         )
         view = _base_view(
@@ -370,7 +372,7 @@ def make_case(family, unit, condition):
             (0, 0, 1, 1)
         )
         facts = tuple(
-            _fact(chr(65+i), "OBSERVED", bit, (f"initial:{case_id}:{chr(65+i)}",))
+            _fact(chr(65+i), "OBSERVED", bit, (f"initial:{family}-u{unit:02d}:{chr(65+i)}",))
             for i,bit in enumerate(bits)
         )
         view = _base_view(case_id, nodes, facts, _resources())
