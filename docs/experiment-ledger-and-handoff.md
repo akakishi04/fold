@@ -94,8 +94,8 @@ signatures disjoint from C207 development, freezes exact artifact hashes and reg
 C211 performs no holdout policy/model evaluation.
 
 Authoring:
-- source pins89
-- protected inputs173
+- source pins93
+- protected inputs177
 - artifacts5
 - tests28
 - regression modules96
