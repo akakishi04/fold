@@ -87,6 +87,21 @@ Initial recovery patch:
 
 ## Recovery review
 
-`post_authoring_recovery_review = PENDING`
+post_authoring_recovery_review = PASS
+
+review HEAD:
+`360b8a448ca94c0bffc33732b059790bfa1de2fd`
+
+Recovery review verified:
+- Git compare from published invalid log commit to recovery patch changes only `tools/invoke_c215.ps1`;
+- the only launcher change is spacing in the exact `$runnerPath = Join-Path ...` source contract;
+- runner,34 tests, H1/H2 source, C215 benchmark and preregistration blobs are unchanged from the invalid execution HEAD;
+- the test assertion and launcher now agree on the evaluated PowerShell fragment;
+- PowerShell parser preflight remains before execution;
+- focused regression count remains2149;
+- C215 remains the unique ACTIVE recovery experiment;
+- C216 remains unregistered.
+
+Scientific conditions remain frozen.
 
 Retry only after committed remote bytes are re-reviewed.
