@@ -18,9 +18,10 @@ Authoritative Python: 3.13.15 / PyTorch 2.10.0+cu130 / NumPy 2.3.5.
 - Gate E: **PASSED**
 - Gate F: **NOT PASSED**
 - **C215 ACCEPTED PASS**
-- **C216 NOT REGISTERED**
+- **C216 ACTIVE / NOT YET JUDGED**
+- **C217 NOT REGISTERED**
 
-There is no ACTIVE C experiment during the post-C215 maintenance checkpoint.
+C216 is the unique ACTIVE experiment.
 
 ## Gate E checkpoint
 
@@ -192,18 +193,70 @@ Detailed C-series history remains in:
 Pruned logs/scripts are recoverable with `git log --all -- <path>` and
 `git show <commit>:<path>`.
 
-## Next boundary
+## Active C216 — learned Reader pilot
 
-C216 is **not registered**.
+Experiment:
+`C216-v5f-learned-reader-pilot`
 
-The next V5-F experiment should introduce only one learned memory component at a time; do not mix
-learned Writer, Reader, Port Selector, Coverage classifier and cost optimization in one C number.
+Stage:
+`V5-F-LEARNED-READER-PILOT`
 
-Before registering C216, choose the single next scientific question and preregister its split,
-training budget, baseline and interpretation boundary.
+One question:
+given correct H1/H2 memory and an oracle-selected memory port, can a learned Reader alone decode the
+three-way semantic value on held-out alpha/beta pair compositions and remain invariant across
+HOT/COMMITTED placement?
+
+Changed variable:
+- learned `fold_lm/v05/memory_reader.py` only.
+
+Held constant:
+- Writer oracle;
+- Port Selector oracle;
+- Coverage classifier absent;
+- accepted C215 H1/H2 semantics;
+- fixed numeric capsule and relation mapping;
+- no language mapping.
+
+Data:
+- semantic classes [-1,0,+1];
+-9 alpha/beta pair combinations;
+- TRAIN6 / EVAL3 held-out pair compositions;
+- HOT and COMMITTED placements;
+-36 rows total,24 TRAIN,12 EVAL;
+- balanced classes;
+- data SHA `ab0c6da658576d12fc786ad3dfcef94f3acc063d8263dd175d67eec7af6a14eb`.
+
+Training:
+- seeds216001/216002/216003;
+- Reader1->8->3,43 parameters;
+- Adam lr0.02;
+-400 full-batch steps per seed;
+- total1200 steps /28800 examples /1215 Reader forwards.
+
+Fixed gate per seed:
+- TRAIN/EVAL/HOT/COMMITTED accuracy1.0;
+- placement prediction mismatches0;
+- zero-readout EVAL accuracy exactly1/3;
+- checkpoint roundtrip exact.
+
+Authoring:
+- source pins129;
+- protected inputs135;
+- artifacts5;
+- C216 tests36;
+- regression modules101;
+- loaded2186 / focused2185;
+- manifest `5332239247d95f6bcd98e328e12f8596aed765b4fa8780b71e1bfb5329fe521a`.
+
+## C216 post-authoring review
+
+**post_authoring_review = PENDING**
+
+Do not issue the execution command until committed remote review passes.
+
 
 ## Stop condition
 
-Maintenance checkpoint is complete.
+Judge C216 before any C217 registration.
 
-Do not treat C215 as Gate F completion. Gate F remains **NOT PASSED**.
+Gate E remains **PASSED**. Gate F remains **NOT PASSED**.
