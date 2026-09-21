@@ -179,6 +179,7 @@ summary全文をチャットへ再掲しない。gateを決める deciding metri
 - source-level call ordering と scientific changed-variable が preregistration と一致
 - `inspect.getsource()` / source文字列assertionを使うauthoring testは、**assertionが参照する正確な関数sourceを機械的に再照合**する。caller/calleeをまたぐ場合は、どの文字列がどちらの関数に存在すべきかを分けて確認し、別関数のsourceへ誤ってassertしていないことを確認する
 - **count contractはsemanticに検査**する。module数/test数/suite候補数/除外後件数など、authoringの途中で増減し得る数値を `inspect.getsource()` の文字列リテラルとしてassertしない。実際にloader/suiteを構築して `countTestCases()` やtest ID集合を数え、preregistration/runnerの期待値と照合する
+- **Python free-name / import binding audit**: `py_compile` は関数本体の未定義名を検出しない。新規/変更test・benchmarkで導入したmodule alias / helper名は、import文または既にimport済み親module namespace（例: `c206.c205`）へ実際にbindingされていることをremote bytes上で確認する。特にreview時にbare `c###.` 参照を列挙し、未import aliasを0件にする
 - placeholder、古いC番号、古いHEAD、古いrun directory、コピペ残骸がないこと
 
 reviewで1件でも修正した場合、その修正後のremote bytesをもう一度確認してから
