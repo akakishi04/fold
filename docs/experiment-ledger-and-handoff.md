@@ -10,7 +10,7 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C209 ACCEPTED PASS. C210 ACTIVE / INVALID ATTEMPT RECOVERY. C211 NOT REGISTERED.**
+**C209 ACCEPTED PASS. C210 ACCEPTED PASS. C211 NOT REGISTERED.**
 
 ## Accepted C209
 
@@ -49,7 +49,7 @@ Accepted claim: the visible-only candidate projection makes all fixed C207 devel
 for the frozen C181/C188 input contract while preserving Boolean semantics, original fact indices and
 trusted runtime/evidence state.
 
-## Active C210
+## Accepted C210
 
 Experiment:
 `C210-v5e-baseline-development-measurement`
@@ -149,6 +149,62 @@ Authoring:
 - manifest
   `09a7bbc84d37c93d6e559acffc8eaa0ff5c7f902271ebefff83b15363a10cb18`
 
+
+## Accepted C210 execution
+
+Scientific execution HEAD:
+`002543b8d1394c127b915b3bfe4591ce20c8939d`
+
+Published log commit:
+`a04e7cdc5b42939e2d65f395f12da450a896bf0f`
+
+Log SHA256:
+`f1365f6d364c5bf0729ef7240f69c2c566004eef554a35c08b8b32355039f0d3`
+
+Summary SHA256:
+`1b4242f15fdf3ca48374660d5c3339ff5c17dc9cd4f4833852f5e1bccb349366`
+
+Deciding result:
+- source/artifact precheck **PASS**;
+- focused regression **1997/1997**;
+- all **11** registered policies present;
+- all policies cover **144** development episodes;
+- total policy-episode evaluations **1584/1584**;
+- all **9** frozen C181/C188 candidate identities present;
+- INTERNAL_ONLY exact registered control totals matched;
+- FIXED_ACQUISITION exact registered control totals matched;
+- guarded unsupported assertions **0** for every policy;
+- authority violations **0** for every policy;
+- malformed-evidence publications **0** for every policy;
+- every candidate initial inference rows **144**;
+- every candidate successful-publication post rows **80** and total inference rows **224 = 144 + 80**;
+- measurement_complete **True**;
+- diagnostic_execution_valid **True**;
+- run_execution_valid **True**;
+- scientific_status **PASS**.
+
+Development observation:
+- all9 candidates produced the same registered aggregate behavior:
+  - correct128 / answered128 / unresolved16;
+  - acquisition attempts96;
+  - provider calls90;
+  - publications80;
+  - ASK_USER turns16;
+  - wrong answer0;
+  - wrong abstention0;
+  - unnecessary acquisition0;
+  - missed necessary acquisition0;
+  - invalid target0.
+- those aggregate task/runtime counts also match FIXED_ACQUISITION.
+- INTERNAL_ONLY remained at correct48 / answered48 / unresolved96 with no acquisition.
+
+Formal disposition:
+**C210 ACCEPTED PASS**.
+
+Interpretation is limited to the registered development set. C210 does not select a candidate, does not
+freeze numerical Gate E margins, does not create/evaluate an independent holdout, and does not pass
+Gate E.
+
 ## Invalid C210 attempt
 
 Execution HEAD:
@@ -199,10 +255,11 @@ Re-review verified:
 
 ## Stop condition
 
-Judge C210 before any C211 registration.
+C210 is closed as **ACCEPTED PASS**.
 
-- complete valid matched measurement -> ACCEPTED PASS;
-- complete measured candidate quality may be poor and still remains valid C210 evidence;
-- source/schema/hash/parent/regression/incomplete/protection failure -> INVALID / RETRY SAME C210.
+C211 remains **NOT REGISTERED**. Before any deciding holdout is generated or evaluated, the next
+separately preregistered step may use only the accepted C210 development results to freeze the Gate E
+evaluation contract, including any candidate-retention/selection rule and numerical
+improvement/noninferiority/coverage/cost margins.
 
-Gate E remains NOT PASSED.
+Gate E remains **NOT PASSED**.
