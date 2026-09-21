@@ -114,7 +114,7 @@ class C211Tests(unittest.TestCase):
         view=c211._view_from_visible(row)
         self.assertEqual(len(view.base.nodes),1)
         self.assertEqual(view.base.nodes[0].kind,"FACT")
-        self.assertEqual(int(view.base.nodes[0].negate),1)
+        self.assertIs(view.base.nodes[0].negate,True)
 
     def test_12_answer_critical_pair_is_visible_identical_and_semantically_split(self):
         u=self.units_by["H-answer_critical_hidden-u00"]
@@ -179,7 +179,8 @@ class C211Tests(unittest.TestCase):
             row=self.visible_by[f"H-sufficient_reasoning_hard-u{unit:02d}-c0"]
             view=c211._view_from_visible(row)
             self.assertEqual((len(view.base.facts),len(view.base.nodes)),(4,7))
-            self.assertTrue(any(bool(n.negate) for n in view.base.nodes if n.kind=="FACT"))
+            self.assertTrue(all(type(n.negate) is bool for n in view.base.nodes if n.kind=="FACT"))
+            self.assertTrue(any(n.negate for n in view.base.nodes if n.kind=="FACT"))
 
     def test_19_pair_and_payload_controls_pass(self):
         self.assertEqual(self.summary["equal_visible_units"],50)
