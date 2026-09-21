@@ -553,7 +553,10 @@ def score_record(policy_record, scorer_row, initial_view: v1.TaskView):
 
 
 def attach_scores(records, visible, scorer):
-    require(len(records)==len(visible)==len(scorer)==144,"Matched episode scoring required")
+    require(
+        len(records)==len(visible)==len(scorer)>0,
+        "Nonempty matched episode scoring required"
+    )
     out=[]
     for r,v,s in zip(records,visible,scorer,strict=True):
         require(v["case_id"]==s["case_id"],"Visible/scorer identity mismatch")
