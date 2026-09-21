@@ -615,9 +615,15 @@ def summarize_families(rows):
 
 
 def measurement_complete(policy_summary,model_summary,rows):
+    row_counts=Counter(r.get("policy_id") for r in rows)
+    model_by={m.get("policy_id"):m for m in model_summary}
+    candidate_ids=set(POLICY_IDS[2:])
     return (
         set(policy_summary)==set(POLICY_IDS)
+        and set(row_counts)==set(POLICY_IDS)
+        and all(row_counts[p]==144 for p in POLICY_IDS)
         and len(model_summary)==9
+        and set(model_by)==candidate_ids
         and len(rows)==1584
         and all(policy_summary[p]["episodes"]==144 for p in POLICY_IDS)
         and policy_summary[POLICY_INTERNAL]["correct"]==48
@@ -642,6 +648,12 @@ def measurement_complete(policy_summary,model_summary,rows):
         and all(policy_summary[p]["malformed_publication"]==0 for p in POLICY_IDS)
         and all(m["initial_rows"]==144 for m in model_summary)
         and all(m["inference_rows"]==144+m["post_rows"] for m in model_summary)
+        and all(
+            policy_summary[pid]["inference_rows"]==model_by[pid]["inference_rows"]
+            and policy_summary[pid]["inference_forward_calls"]==model_by[pid]["inference_forward_calls"]
+            and policy_summary[pid]["inference_cell_calls"]==model_by[pid]["inference_cell_calls"]
+            for pid in candidate_ids
+        )
     )
 
 
