@@ -44,8 +44,16 @@ PARENT_C209_EXECUTION = "a9e4bdae10b574eb5fd66f4a3dc027bab5a18194"
 PARENT_C209_SHA = "49476c781212f87a2782fdb6b042582dcd18941642b452855bb92690f90facc3"
 VISIBLE_SHA = "c7be54e9686212e06f072e754c75239e8f4261717986e3e933e40f35b4ee0543"
 SCORER_SHA = "0591682848a69ac020a0f4a7bb2939e6df79ffd116567fe3c994a5f8e3fa3912"
-C189_SOURCE_FILE = "fold_lm/v05_benchmarks/gate_e_c189_live_multimissing_target.py"
-C189_SOURCE_BLOB = "b34b40d84ab6597cc1cd26e47f64d58254d3304f"
+DIRECT_SOURCE_PINS = {
+    "fold_lm/v05_benchmarks/gate_e_c175_frozen_prediction_audit.py":
+        "efd1bb246442fb4f472e33e450c16b192acfa18a",
+    "fold_lm/v05_benchmarks/gate_e_c179_shared_graph.py":
+        "504c79b6a881c64dba2494ef6ad35bffd9099f5a",
+    "fold_lm/v05_benchmarks/gate_e_c182_frozen_fact_renaming.py":
+        "a5fb10af6238d425f82b093a0c3676d247b1f0e3",
+    "fold_lm/v05_benchmarks/gate_e_c189_live_multimissing_target.py":
+        "b34b40d84ab6597cc1cd26e47f64d58254d3304f",
+}
 MANIFEST_SHA = "09a7bbc84d37c93d6e559acffc8eaa0ff5c7f902271ebefff83b15363a10cb18"
 POLICY_INTERNAL = "INTERNAL_ONLY"
 POLICY_FIXED = "FIXED_ACQUISITION"
@@ -709,9 +717,10 @@ def precheck(
     require(scorer_path is not None,"C207 scorer artifact missing")
 
     pins=dict(pins)
-    current_c189=audit.git(root,"rev-parse","HEAD:"+C189_SOURCE_FILE).decode().strip()
-    require(current_c189==C189_SOURCE_BLOB,"C189 inference helper source changed")
-    pins[C189_SOURCE_FILE]=C189_SOURCE_BLOB
+    for rel,wanted in DIRECT_SOURCE_PINS.items():
+        current=audit.git(root,"rev-parse","HEAD:"+rel).decode().strip()
+        require(current==wanted,"Direct deciding-path source changed:"+rel)
+        pins[rel]=wanted
 
     allpins=dict(pins)
     for name in OWN:
@@ -719,7 +728,7 @@ def precheck(
     protected.update(audit.protect_tree_files(root,allpins))
     pins.update({name:allpins[name] for name in OWN})
 
-    require(len(pins)==84 and len(protected)==162,"C210 source/protection count drift")
+    require(len(pins)==87 and len(protected)==165,"C210 source/protection count drift")
     require(digest(manifest())==MANIFEST_SHA,"C210 manifest drift")
     return p209,visible_path,scorer_path,pins,protected
 
@@ -754,8 +763,8 @@ def validate_result(payload):
         "Wrong/incomplete C210",
     )
     require(
-        len(payload["source_blobs"])==84
-        and len(payload["input_sha256"])==162
+        len(payload["source_blobs"])==87
+        and len(payload["input_sha256"])==165
         and len(payload["artifacts"])==5
         and {a["file"] for a in payload["artifacts"]}==OUTPUTS,
         "C210 coverage drift",
