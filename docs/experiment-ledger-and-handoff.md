@@ -384,9 +384,16 @@ Recovery addendum:
 
 ## C215 recovery review
 
-**post_authoring_recovery_review = PENDING**
+**post_authoring_recovery_review = PASS**
 
-Do not issue retry until committed remote bytes are re-reviewed.
+review HEAD:
+`360b8a448ca94c0bffc33732b059790bfa1de2fd`
+
+Recovery review verified the published invalid attempt and committed repair. Git compare shows the
+repair patch changes only `tools/invoke_c215.ps1`, and only the exact runnerPath spacing required
+by C215 test34. Runner,34 tests, H1/H2 source, C215 benchmark and preregistration remain unchanged
+from the invalid execution HEAD. Parser ordering,2149 regression contract and C216 non-registration
+remain intact.
 
 
 ## Stop condition
