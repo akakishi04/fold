@@ -10,119 +10,65 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C207 ACCEPTED PASS. C208 ACTIVE / NOT YET JUDGED. C209 NOT REGISTERED.**
+**C208 ACCEPTED VALID NEGATIVE. C209 NOT REGISTERED.**
 
-## Accepted C207
+## Accepted C208
 
 Scientific execution HEAD:
-`96020d20bd73bf6e2e62d5bfb202b7b2605a2079`
+`60d7b38bd0d44662f58b55b32cb09c4d9472f8fe`
 
 Published log commit:
-`383033f391b65095011f3464f2c331c996706955`
+`6af53ba7a905f0f9f216dc175dfa1273222ad198`
 
 Log SHA256:
-`ab28e9961c6b1f07c6fdd1e7f3c72df021b89f4babb3182583e7a6f9caecefd0`
+`6a8e176dfb5af2607bd59c9481a454c7c3c207a4f96edfbf90f88facfdfbfba1`
 
 Summary SHA256:
-`a7e69871003ac1978e786809c822d75c0dc291cfbe14aa8709f8b12ec26e4477`
+`413e88c73c9f7af5403f8f4afa13d9b9245d3201788c41bb5713abc6d7125dc4`
 
-Frozen development artifacts:
-- visible `c7be54e9686212e06f072e754c75239e8f4261717986e3e933e40f35b4ee0543`
-- scorer `0591682848a69ac020a0f4a7bb2939e6df79ffd116567fe3c994a5f8e3fa3912`
-- units `cb41d550651cb2dbb79f379bb0b6adb696914ecace02dc58cb1371f4e5a8deae`
-
-C207 deciding result:
-- focused regression **1929/1929**
--144 episodes /72 dependence units /144 roundtrips
-- all9 families16 episodes each
-- exact registered fault/action/channel counts
-- answerable_with_budget128
-- all validation/leakage/pair/payload errors0
-- candidate_gate_passed True
+C208 deciding result:
+- focused regression **1949/1949**
+- episodes144 / classified144
 - run_execution_valid True
-- production runtime modified False
+- model forward calls0
+- scorer usedFalse
+- adapter usedFalse
+- header-compatible16
+- target-status-compatible112
+- necessity-compatible16
+- target-compatible16
+- combined-compatible16
+- incompatible128
+- only `sufficient_reasoning_hard` is16/16 compatible; every other family0/16
+- necessity rejection `This diagnostic accepts exactly seven nodes and four facts`:128
+- target rejection `All four fact slots required`:128
+- candidate_gate_passed False
 
-Accepted claim: a balanced leakage-free nine-family development-data boundary exists in the current
-structured-v1/v2 schemas. Candidate/baseline performance and independent holdout are not measured.
+Accepted claim: the frozen C181/C188 candidate interface is narrower than the fixed C207
+development schema. The dominant measured blocker is the legacy7-node/4-fact representation
+contract. C188 additionally rejects non-UNOBSERVED/OBSERVED statuses once shape is legal.
 
-## Active C208
+## Next boundary
 
-Experiment:
-`C208-v5e-candidate-input-compatibility-preflight`
+C209 is not yet registered.
 
-Stage:
-`V5-E-CANDIDATE-INPUT-COMPATIBILITY-PREFLIGHT`
+Next one-question intervention:
 
-One question:
-can the current frozen C181/C188 candidate inference interface consume all144 frozen C207 visible
-development packets as-is, without representation adaptation, scorer leakage or schema
-reinterpretation?
+> Can a deterministic visible-only model-input projection map every frozen C207 packet into the
+> legacy7-node/4-fact C181/C188 contract while preserving Boolean semantics for every completion,
+> preserving original fact indices, keeping synthetic padding facts unselectable for acquisition,
+> never using scorer data, and never mutating trusted runtime/evidence state?
 
-Frozen input:
-- C207 visible SHA
-  `c7be54e9686212e06f072e754c75239e8f4261717986e3e933e40f35b4ee0543`
+Registered projection concept:
+- preserve original fact order/indices;
+- normalize every non-OBSERVED original fact to UNOBSERVED only in the candidate projection;
+- remove references from those normalized projection facts;
+- append OBSERVED TRUE architectural constants until four facts exist;
+- append `AND TRUE` wrappers around the original root until seven nodes exist;
+- padding facts have no acquisition channel and remain OBSERVED;
+- original C207 v2 packet remains the trusted runtime/evidence state and is unchanged;
+- the projection is candidate-input-only.
 
-Pinned current candidate input-contract sources:
-- C178 blob `2ec87851f1f75533dd2225243d0c1baeda9c9a2a`
-- C188 blob `0819bc70377a949fe1c17a66be559336bbda96e1`
-
-C208 runs no model forward and does not load the C207 scorer artifact.
-
-Per case C208 records:
-- 7-node/4-fact header compatibility;
-- active fact-slot count;
-- active FACT-leaf count;
-- C188 status compatibility;
-- actual C178 validator acceptance/rejection;
-- actual C188 validator acceptance/rejection;
-- combined as-is compatibility.
-
-Scientific PASS requires all144 rows combined-compatible.
-
-Any complete valid result with incompatible rows is a scientific FAIL eligible for
-**ACCEPTED VALID NEGATIVE**; incompatibility is not execution invalidity.
-
-Scope:
-- model forward0
-- candidate measurementFalse
-- baseline measurementFalse
-- adapter implementationFalse
-- training0
-- fresh seeds0
-- network0
-- production runtime modifiedFalse
-- Gate E candidateFalse
-
-Authoring:
-- source pins70
-- protected inputs136
-- artifacts5
-- new tests20
-- regression modules93
-- focused regression1949
-- manifest
-  `52533ba9b2057f791b55cb6d1bafebf2cedfeae0400b5ecbf0f6a661ed77e7d6`
-
-## Post-authoring review
-
-**post_authoring_review = PASS**
-
-review HEAD:
-`1d115cc4e8ff9e2199388bf0108f3d11b1c72b7a`
-
-Committed remote review verified accepted C207 summary/visible identity and all6 C207 OWN blobs,
-exact C178/C188 source blobs, no scorer artifact load, no model forward or adapter path, expected
-validator ValueError classification without broad exception swallowing, scientific PASS separated
-from execution validity, 20 C208 tests, semantic1950-loaded/1949-kept regression accounting, zero
-unbound executable c### aliases in benchmark/tests, runner CLI indexes, dispatcher->launcher->runner
-PowerShell parser chain, 70 source pins /136 protected inputs /5 artifacts, and C209 non-registration.
-
-## Stop condition
-
-Judge C208 before any C209 registration.
-
-- valid complete all-compatible result -> ACCEPTED PASS;
-- valid complete incompatibility -> ACCEPTED VALID NEGATIVE;
-- source/schema/parent/regression/incomplete/protection failure -> INVALID / RETRY SAME C208.
+C209 should perform no learned forward. It is projection-feasibility/semantics only.
 
 Gate E remains NOT PASSED.
