@@ -294,8 +294,8 @@ C211 OWN:
 
 Expected:
 
-- source pins89;
-- protected inputs173;
+- source pins93;
+- protected inputs177;
 - artifacts5;
 - new tests28;
 - regression modules96;
