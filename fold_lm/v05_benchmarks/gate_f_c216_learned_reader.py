@@ -48,6 +48,9 @@ BATCH_SIZE = 24
 LR = 0.02
 ZERO_EXPECTED = 1.0 / 3.0
 
+HISTORICAL_REGRESSION_RUNNER = "tools/run_c167.ps1"
+HISTORICAL_REGRESSION_RUNNER_BLOB = "7c5d6e9838d4ce7bd2bfec0e43458eb749fd1789"
+
 OWN = (
     "fold_lm/v05/memory_reader.py",
     "fold_lm/v05_benchmarks/gate_f_c216_learned_reader.py",
