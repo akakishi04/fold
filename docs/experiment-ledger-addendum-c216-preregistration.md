@@ -201,4 +201,10 @@ Historical regression dependency:
 Reader architecture, pair split, dataset hash, seeds, optimizer, training budget, and PASS gate are
 unchanged.
 
-`post_authoring_recovery_review = PENDING`
+post_authoring_recovery_review = PASS
+
+recovery review HEAD:
+`a69385699fa616d209bb7a1352c8e94bbe241b08`
+
+The restored historical runner and updated130/136 validity accounting passed committed-remote
+re-review. The Reader scientific registration remains unchanged.
