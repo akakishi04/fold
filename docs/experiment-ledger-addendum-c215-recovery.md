@@ -1,0 +1,92 @@
+# C215 execution recovery
+
+## Formal disposition
+
+**C215 INVALID EXECUTION / RETRY SAME C215.**
+**C216 NOT REGISTERED.**
+Gate E remains **PASSED**. Gate F remains **NOT PASSED**.
+
+## Invalid attempt identity
+
+Scientific execution HEAD:
+`ea67be1d0916b209038d454cdb607b0479340f6e`
+
+Published log commit:
+`6138b515b0862c6cdb93b8622c0e5778cb5161d1`
+
+Log SHA256:
+`1f986d85aab2bc87ecf9071b0707b5a98bb9dc9782097b44b8086b4159a4bde2`
+
+## Failure phase
+
+Passed:
+- repository preflight;
+- Python syntax preflight;
+- accepted C214 source/artifact precheck;
+-2148 inherited/preceding focused regression tests;
+- C215 tests01 through33.
+
+Failed:
+- C215 authoring test34 only.
+
+Regression result:
+
+```text
+Ran 2149 tests
+FAILED (failures=1)
+```
+
+The scientific H1/H2 fixture did **not** run.
+
+`run_execution_valid = False`.
+
+## Root cause
+
+`tests_lm.test_v05_c215_h1_h2_chunk_commit.C215Tests.test_34_powershell_guards_and_parent_path`
+requires this launcher source contract:
+
+```powershell
+$runnerPath = Join-Path $Root "tools\run_c215.ps1"
+```
+
+The committed launcher was semantically equivalent but compressed as:
+
+```powershell
+$runnerPath=Join-Path $Root "tools\run_c215.ps1"
+```
+
+The exact source-level assertion therefore failed.
+
+This is an authoring/launcher formatting mismatch, not scientific evidence about H1/H2 behavior.
+
+## Minimal recovery
+
+Only `tools/invoke_c215.ps1` is changed:
+
+```text
+$runnerPath=Join-Path ...
+->
+$runnerPath = Join-Path ...
+```
+
+No changes to:
+- C215 manifest;
+- scientific question;
+- main fixture;
+- status sequence;
+- H1/H2 counts;
+- thresholds;
+- parent C214 identity;
+- source/protection counts;
+- test count;
+- regression expected count;
+- Gate F interpretation.
+
+Initial recovery patch:
+`0b3bed031a71313d9ea2ad670b563394638665d2`
+
+## Recovery review
+
+`post_authoring_recovery_review = PENDING`
+
+Retry only after committed remote bytes are re-reviewed.
