@@ -10,7 +10,7 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C209 ACCEPTED PASS. C210 NOT REGISTERED.**
+**C209 ACCEPTED PASS. C210 ACTIVE / NOT YET JUDGED. C211 NOT REGISTERED.**
 
 ## Accepted C209
 
@@ -35,11 +35,8 @@ C209 deciding result:
 - exhaustive semantic assignments736
 - semantic errors0
 - source unchanged144
-- source digest match144
 - mapping valid144
-- observed originals preserved144
-- normalized nonobserved safe144
-- dummy valid144 / dummy-missing errors0
+- dummy-missing errors0
 - C178 necessity-compatible144
 - C188 target-compatible144
 - combined-compatible144
@@ -48,34 +45,126 @@ C209 deciding result:
 - candidate_gate_passed True
 - run_execution_valid True
 
-Accepted claim: the visible-only candidate projection bridges all fixed C207 development packets to
-the frozen C181/C188 input contract while preserving Boolean semantics and trusted runtime/evidence
-state. C208 remains ACCEPTED VALID NEGATIVE for the as-is interface.
+Accepted claim: the visible-only candidate projection makes all fixed C207 development packets legal
+for the frozen C181/C188 input contract while preserving Boolean semantics, original fact indices and
+trusted runtime/evidence state.
 
-## Next boundary
+## Active C210
 
-C210 is not yet registered.
+Experiment:
+`C210-v5e-baseline-development-measurement`
 
-The next required Gate E prerequisite is baseline-development measurement before any numerical
-acceptance margin is frozen.
+Stage:
+`V5-E-BASELINE-DEVELOPMENT-MEASUREMENT`
 
-Next one-question intervention:
+One question:
+what raw matched development performance/cost measurements are produced by the9 projected frozen
+candidate model pairs, INTERNAL_ONLY and FIXED_ACQUISITION on the same frozen144 C207 episodes under
+the same runtime and answer boundary?
 
-> On the frozen C207 development manifest, what raw matched performance and cost measurements are
-> produced by the projected frozen candidate cohort, an internal-only baseline and the registered
-> canonical fixed-acquisition baseline under the same runtime/answer boundary?
+Frozen data:
+- visible `c7be54e9686212e06f072e754c75239e8f4261717986e3e933e40f35b4ee0543`
+- scorer `0591682848a69ac020a0f4a7bb2939e6df79ffd116567fe3c994a5f8e3fa3912`
 
-C210 must:
-- evaluate all9 frozen C181/C188 model pairs as development candidate identities;
-- evaluate internal-only and fixed-acquisition baselines on the same144 episodes;
-- use C209 projection only for candidate model input;
-- preserve original C207 structured-v2 TaskView for trusted runtime/acquisition;
-- use the production acquisition lifecycle for candidate/fixed policy;
-- use one disclosed shared bounded symbolic/production-derived resolver for all policies;
-- keep C207 scorer metadata evaluator/environment-only;
-- report per-policy/per-family raw measurements and costs;
-- set no performance acceptance margin;
-- select no winning candidate;
-- create no independent holdout.
+Policy identities:
+- INTERNAL_ONLY
+- FIXED_ACQUISITION
+- all9 C181/C188 base/head combinations
+
+Total registered policy-episode evaluations:
+
+```text
+1584
+```
+
+Shared answer boundary for all policies:
+- C171 completion_values;
+- C171 benchmark proof_fixture;
+- production structured_derived_result.verify.
+
+This symbolic shared boundary is disclosed and is not claimed as learned FOLD reasoning.
+
+Registered harness controls:
+
+```text
+INTERNAL_ONLY:
+correct48 / answered48 / unresolved96
+attempts0 / provider calls0 / publications0 / user turns0
+
+FIXED_ACQUISITION:
+correct128 / answered128 / unresolved16
+attempts96 / provider calls90 / publications80 / user turns16
+authority violations0 / malformed publications0
+```
+
+Candidate:
+- C209 projection for learned input only;
+- original C207 v2 TaskView remains trusted runtime;
+- frozen combined necessity/target initial inference;
+- at most one actual acquisition attempt;
+- after successful publication, one live frozen necessity reclassification;
+- emit only after learned SUFFICIENT plus shared resolver verification;
+- no retry after denied/failed acquisition.
+
+C210 measures raw per-policy/per-family:
+- resolution/correctness/coverage/abstention;
+- acquisition/provider/publication/user-turn counts;
+- unnecessary/missed acquisition;
+- authority/malformed evidence boundaries;
+- verifier and internal costs;
+- candidate learned stop/target diagnostics;
+- frozen inference workload.
+
+C210 performance is **not** a PASS criterion.
+
+Measurement-completeness gate only:
+-11 policy identities;
+-144 episodes per policy;
+-1584 episode records;
+-9 candidate model identities;
+- exact fixed/internal harness-control totals;
+- guarded unsupported assertions0;
+- authority violations0;
+- malformed publications0;
+- candidate initial inference rows144 each;
+- candidate total inference rows =144 + measured post rows.
+
+Scope:
+- numerical margin registrationFalse
+- candidate selectionFalse
+- independent holdout createdFalse
+- training0
+- fresh seeds0
+- network0
+- production runtime modifiedFalse
+- Gate E candidateFalse
+
+Authoring:
+- source pins83
+- protected inputs161
+- artifacts5
+- new tests24
+- regression modules95
+- focused regression1997
+- manifest
+  `09a7bbc84d37c93d6e559acffc8eaa0ff5c7f902271ebefff83b15363a10cb18`
+
+## Post-authoring review
+
+**post_authoring_review = PENDING**
+
+Do not issue C210 execution command until committed remote bytes are independently reviewed for
+C209/C207 identities, scorer separation, full-development baseline controls, production fault
+behavior, all9 model identities, shared answer boundary, no thresholds/winner/holdout, semantic
+regression counts, Python alias bindings, PowerShell parser chain, runner CLI indexes and all count
+contracts.
+
+## Stop condition
+
+Judge C210 before any C211 registration.
+
+- complete valid matched measurement -> ACCEPTED PASS;
+- complete measured candidate quality may be poor and still remains valid C210 evidence;
+- source/schema/hash/parent/regression/incomplete/protection failure -> INVALID / RETRY SAME C210.
 
 Gate E remains NOT PASSED.
