@@ -382,19 +382,41 @@ interpretation remain fixed.
 Recovery addendum:
 `docs/experiment-ledger-addendum-c215-recovery.md`.
 
-## C215 recovery review
+## C215 second invalid retry
 
-**post_authoring_recovery_review = PASS**
+Scientific execution HEAD:
+`2204d5dbf56b969daf3aef8d0df68ee9bc7a8eab`
 
-review HEAD:
-`360b8a448ca94c0bffc33732b059790bfa1de2fd`
+Published log commit:
+`31a3852541f554099fb60841d0052cd85f62b448`
 
-Recovery review verified the published invalid attempt and committed repair. Git compare shows the
-repair patch changes only `tools/invoke_c215.ps1`, and only the exact runnerPath spacing required
-by C215 test34. Runner,34 tests, H1/H2 source, C215 benchmark and preregistration remain unchanged
-from the invalid execution HEAD. Parser ordering,2149 regression contract and C216 non-registration
-remain intact.
+Log SHA256:
+`1dbd19cfbe5bf75615cbef3f50da33a996183471bad8201392891fae9edaf3f3`
 
+Failure phase:
+- repository/Python/source-artifact prechecks PASS;
+- C215 tests01-33 PASS;
+- C215 test34 ERROR;
+- H1/H2 scientific fixture did not run;
+- run_execution_valid False.
+
+Root cause:
+the same source-level guard test also requires exact launcher text
+`$failure = $null`; the retry launcher still used `$failure=$null`.
+
+Formal disposition:
+**C215 INVALID EXECUTION / RETRY SAME C215**.
+
+Second minimal repair:
+only `tools/invoke_c215.ps1` spacing changed at
+`0d60be885b71bfea14d58f066a3ff3922d0fee03`.
+
+## C215 second recovery review
+
+**post_authoring_recovery_review_2 = PENDING**
+
+Do not issue retry until the complete C215 test34 source contract is checked against the repaired
+launcher and the scientific blobs are confirmed unchanged.
 
 ## Stop condition
 
