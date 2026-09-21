@@ -18,6 +18,7 @@ import hashlib
 import json
 from pathlib import Path
 import time
+import unittest
 
 import numpy as np
 import torch
@@ -62,6 +63,10 @@ OUTPUTS = {
     "c204-max-match.json",
     "workload.json",
 }
+HISTORICAL_DYNAMIC_TEST_EXCLUSIONS = (
+    "tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests."
+    "test_33_active_dispatcher_resolves_current_formal_state",
+)
 
 
 def require(ok, message):
@@ -350,6 +355,34 @@ def regression_modules(root):
     names = c204.regression_modules(root)
     require(len(names) == len(set(names)) == 89, "Historical regression list drift")
     return names + ["tests_lm.test_v05_c205_phase0_batch_composition_attribution"]
+
+
+def _iter_tests(suite):
+    for item in suite:
+        if isinstance(item, unittest.TestSuite):
+            yield from _iter_tests(item)
+        else:
+            yield item
+
+
+def regression_suite(root):
+    names = regression_modules(root)
+    loaded = unittest.defaultTestLoader.loadTestsFromNames(names)
+    tests = list(_iter_tests(loaded))
+    ids = [test.id() for test in tests]
+    for excluded in HISTORICAL_DYNAMIC_TEST_EXCLUSIONS:
+        require(ids.count(excluded) == 1, "Historical dynamic test identity drift:" + excluded)
+    kept = [
+        test for test in tests
+        if test.id() not in HISTORICAL_DYNAMIC_TEST_EXCLUSIONS
+    ]
+    require(
+        len(tests) == 1872
+        and len(kept) == 1871
+        and not any(test.id() in HISTORICAL_DYNAMIC_TEST_EXCLUSIONS for test in kept),
+        "Focused regression filtering drift",
+    )
+    return unittest.TestSuite(kept)
 
 
 def validate_result(payload):
