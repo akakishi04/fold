@@ -271,8 +271,8 @@ C210 OWN:
 
 Expected:
 
-- source pins83;
-- protected inputs161;
+- source pins84;
+- protected inputs162;
 - output artifacts5;
 - new tests24;
 - focused regression **1997**;
@@ -304,19 +304,35 @@ Before execution, committed remote bytes must be independently reviewed for:
 
 Until review passes:
 
-`post_authoring_review = PASS`
+`post_authoring_review = PENDING`
 
-review HEAD:
-`dda03e5901f3b2356649f21559f3a54bca050148`
+The first C210 measurement attempt completed numerically but is **INVALID** because the deciding
+candidate path directly called `gate_e_c189_live_multimissing_target.combined_predict` and
+`necessity_predict` while the C189 source file was omitted from C210's preregistered
+`source_blobs` / protected-input union.
 
-Committed remote review verified accepted C209 identity and all7 C209 OWN blobs, frozen C207
-visible/scorer identities, scorer separation from all policy functions, shared resolver equality,
-full144-episode INTERNAL_ONLY and FIXED_ACQUISITION unit controls including all registered fault
-paths, all9 frozen candidate identities with no winner selection, semantic1584-row policy coverage
-and candidate meter matching, 24 C210 tests, semantic1998-loaded/1997-kept regression accounting,
-zero unbound executable c### aliases, exact runner argv[1..14]/postcheck argv16 wiring,
-dispatcher->launcher->runner PowerShell parser chain, 83 source pins /161 protected inputs /5
-artifacts, and C211 non-registration.
+Invalid attempt:
+- execution HEAD:
+  `633ce9bed165d30b0adb671c1faf12d34a9ad0cc`
+- published log commit:
+  `482d36ca1563fc7379fa48c346e255a526a48cec`
+- log SHA256:
+  `158e54bde84b156ebd665285ea85f32224dc943174ed9cc46997fd71753434fd`
+- numeric measurement complete:
+  **True**
+- formal disposition:
+  **INVALID EXECUTION / RETRY SAME C210**
+
+Recovery adds the exact committed C189 helper blob:
+
+```text
+fold_lm/v05_benchmarks/gate_e_c189_live_multimissing_target.py
+b34b40d84ab6597cc1cd26e47f64d58254d3304f
+```
+
+Scientific policy identities, frozen checkpoints, development fixtures, baseline controls, metric
+definitions and workload remain unchanged. Revised source/protection accounting is84/162. Revised
+committed bytes must be independently reviewed before retry.
 
 ## Execution / stop
 
