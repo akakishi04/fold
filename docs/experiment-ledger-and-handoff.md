@@ -146,15 +146,21 @@ Recovery:
 
 ## Post-authoring review
 
-**post_authoring_review = PENDING**
+**post_authoring_review = PASS**
 
-Re-review must verify:
-- exact excluded test ID occurs once in the inherited suite;
-- no wildcard/prefix filtering;
-- accepted C204 source/test blobs are unchanged;
-- C205 replacement test is immutable and suite size is1871;
-- C205 scientific question,1e-6 tolerance, workload and attribution gate are unchanged;
-- launcher/parser/count contracts and C206 non-registration remain valid.
+recovery review HEAD:
+`2bd2ec0424db21e8ed2bfa0c7be07f8148d69afa`
+
+Committed remote review verified:
+- accepted C204 test blob unchanged;
+- one exact historical mutable-state test ID excluded with exact-once guard and no wildcard;
+-1872 loaded candidates ->1871 executed regression tests;
+-26 C205 immutable tests including the replacement contract;
+- runner uses `regression_suite()`;
+- C205 scientific question,1e-6 tolerance, workload and attribution gate unchanged;
+- source pins44 / protected inputs92;
+- dispatcher -> C205 launcher -> C205 runner parser guards precede execution/logging;
+- C206 remains unregistered.
 
 ## Stop condition
 
