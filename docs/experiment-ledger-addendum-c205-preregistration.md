@@ -205,8 +205,8 @@ Expected:
 - source pins44;
 - protected inputs92;
 - output artifacts5;
-- new tests24;
-- focused regression **1870 =1846+24**;
+- new tests25;
+- focused regression **1871 =1846+25**;
 - regression modules **90**.
 
 Scientific manifest SHA256:
@@ -224,6 +224,7 @@ Before execution, committed remote bytes must be independently reviewed for:
 - unchanged1e-6 tolerance;
 - all source-string assertions against exact target functions;
 - PowerShell launcher syntax structure and active C205 formal-state resolution;
+- C205 launcher parses `run_c205.ps1` with `Parser.ParseFile` before logging/execution;
 - source/protected/module/test/artifact counts;
 - C206 non-registration.
 
@@ -240,7 +241,7 @@ Expected progress:
 - C205 repository preflight
 - Python syntax preflight
 - source/artifact precheck PASS
-- focused regression1870/1870
+- focused regression1871/1871
 -9 attribution progress records
 - RESULT
 - POSTCHECK
