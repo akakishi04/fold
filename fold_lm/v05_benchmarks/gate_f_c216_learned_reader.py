@@ -36,7 +36,7 @@ PARENT_C215_EXECUTION = "663f42ca21f977b6530e4df8709fc306c2ebd8c9"
 PARENT_C215_SHA = "96b3e5b9cf465b9dea33920de095fc5d7d8e4c0cba960d64597c95fc15eda237"
 PARENT_C215_VALIDATION_SHA = "1aa90b651d2f25a2ae72173e2e4e072236572e4057f40a35180a592980e90bd3"
 DATA_SHA = "ab0c6da658576d12fc786ad3dfcef94f3acc063d8263dd175d67eec7af6a14eb"
-MANIFEST_SHA = "69fad2c4b89454f8e03e544c63f3ff00824437fdbe4cb83bd1459e97f66e8a3a"
+MANIFEST_SHA = "5332239247d95f6bcd98e328e12f8596aed765b4fa8780b71e1bfb5329fe521a"
 
 VALUES = (-1, 0, 1)
 EVAL_PAIRS = ((0, 1), (1, 2), (2, 0))
@@ -138,7 +138,7 @@ def manifest():
         learned_writer=False,
         port_selector=False,
         coverage_classifier=False,
-        model_forward_calls_expected=1209,
+        model_forward_calls_expected=1215,
         training_steps_total=1200,
         training_examples_drawn=28800,
         network_calls=0,
