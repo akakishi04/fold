@@ -102,8 +102,8 @@ OWN7:
 - `docs/v5f-learned-reader-pilot-v0.1.md`
 
 Expected:
-- source pins129;
-- protected inputs135;
+- source pins130;
+- protected inputs136;
 - artifacts5;
 - C216 tests36;
 - regression modules101;
@@ -113,7 +113,7 @@ Expected:
 
 Manifest SHA256:
 
-`5332239247d95f6bcd98e328e12f8596aed765b4fa8780b71e1bfb5329fe521a`
+`91e8afd97d667b67f1164e87628f62b4bcf2347e2884537ec3e54c2baa6b385c`
 
 Direct repository dependencies must all be pinned:
 - memory_bank.py
@@ -139,7 +139,7 @@ Committed remote review verified:
 - dataset registration SHA, six/three pair split, balanced classes and HOT/COMMITTED pairing;
 - Reader input width1 with no query/status feature leakage;
 - fixed3-seed/400-step workload and1215 Reader-forward accounting;
-- manifest SHA `5332239247d95f6bcd98e328e12f8596aed765b4fa8780b71e1bfb5329fe521a`;
+- manifest SHA `91e8afd97d667b67f1164e87628f62b4bcf2347e2884537ec3e54c2baa6b385c`;
 -36 C216 tests,101 regression modules,2186 loaded /2185 focused semantic counts;
 - zero executable c### alias binding defects in benchmark/tests;
 - runner argv ordering: precheck argv[1], postcheck argv[1..3];
@@ -151,7 +151,7 @@ The dataset/content and manifest hashes were independently recomputed from the r
 
 Do not issue the C216 execution command before committed remote bytes are independently reviewed for:
 - parent C215 identity/artifact hashes;
--129/135 accounting;
+-130/136 accounting;
 - dataset hash and pair split;
 - Reader input isolation;
 - no query/status leakage;
@@ -163,3 +163,42 @@ Do not issue the C216 execution command before committed remote bytes are indepe
 - runner CLI indexes;
 - complete PowerShell source-string assertions;
 - C217 non-registration.
+
+
+## Invalid-attempt recovery amendment
+
+The first C216 execution was INVALID before the Reader pilot ran because the focused regression
+builder inherited from C178 reads `tools/run_c167.ps1` to reconstruct the historical module list.
+Post-C215 maintenance had pruned that file from the working tree.
+
+Recovery adds no scientific variable. It restores the exact pre-prune blob:
+
+```text
+tools/run_c167.ps1
+blob 7c5d6e9838d4ce7bd2bfec0e43458eb749fd1789
+```
+
+and registers it as a protected historical regression dependency.
+
+Updated accounting:
+
+```text
+source pins      130
+protected inputs 136
+C216 tests       36
+loaded tests     2186
+focused tests    2185
+```
+
+Updated manifest SHA256:
+
+`91e8afd97d667b67f1164e87628f62b4bcf2347e2884537ec3e54c2baa6b385c`
+
+Historical regression dependency:
+- `tools/run_c167.ps1`
+- exact blob `7c5d6e9838d4ce7bd2bfec0e43458eb749fd1789`
+
+Reader architecture, pair split, dataset hash, seeds, optimizer, training budget, and PASS gate are
+unchanged.
+
+`post_authoring_recovery_review = PENDING`
