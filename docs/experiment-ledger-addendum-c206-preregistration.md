@@ -254,12 +254,17 @@ Before execution, committed remote bytes must be independently reviewed for:
 
 Until review passes:
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-The first C206 attempt was INVALID in regression because test25 still source-string-asserted stale
-1900/1899 suite literals after two launcher-safety tests had raised the real counts to1902/1901.
-The scientific code and runner counts were already correct. test25 now constructs and counts the
-actual suites semantically. Revised committed bytes must be independently reviewed before retry.
+recovery review HEAD:
+`dfe8d38063a5f98e6bf6ebdac49c59376ee5914e`
+
+Committed remote review verified that test25 no longer inspects regression-suite source text or
+stale numeric literals. It now loads the actual91 modules, requires1902 candidate test IDs, requires
+the one historical dynamic exclusion exactly once, calls the real regression_suite(), and requires
+1901 kept IDs with the exclusion absent. The runner uses that suite. C206 manifest/scientific code,
+accepted C205/C171 identities, 56 source pins /110 protected inputs, verifier/opposite-control
+semantics, parser chain and C207 non-registration remain unchanged.
 
 ## Execution / stop
 
