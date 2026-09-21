@@ -254,17 +254,12 @@ Before execution, committed remote bytes must be independently reviewed for:
 
 Until review passes:
 
-`post_authoring_review = PASS`
+`post_authoring_review = PENDING`
 
-recovery review HEAD:
-`dfe8d38063a5f98e6bf6ebdac49c59376ee5914e`
-
-Committed remote review verified that test25 no longer inspects regression-suite source text or
-stale numeric literals. It now loads the actual91 modules, requires1902 candidate test IDs, requires
-the one historical dynamic exclusion exactly once, calls the real regression_suite(), and requires
-1901 kept IDs with the exclusion absent. The runner uses that suite. C206 manifest/scientific code,
-accepted C205/C171 identities, 56 source pins /110 protected inputs, verifier/opposite-control
-semantics, parser chain and C207 non-registration remain unchanged.
+The second C206 retry was INVALID in regression because semantic test25 referenced bare `c205`
+without importing it. The scientific code did not run. test25 now binds through the already-imported
+parent namespace `c206.c205` and also performs an AST-based module-alias binding audit. Revised
+remote bytes must be independently reviewed before retry.
 
 ## Execution / stop
 
