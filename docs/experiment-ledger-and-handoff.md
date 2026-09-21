@@ -140,8 +140,8 @@ Scope:
 - Gate E candidateFalse
 
 Authoring:
-- source pins84
-- protected inputs162
+- source pins87
+- protected inputs165
 - artifacts5
 - new tests24
 - regression modules95
@@ -168,10 +168,13 @@ set.
 This is a source/protection failure, so the numeric result is not accepted scientific evidence.
 
 Recovery:
-- pin C189 blob
-  `b34b40d84ab6597cc1cd26e47f64d58254d3304f`;
-- source pins84;
-- protected inputs162;
+- pin the complete deciding helper chain:
+  - C175 `efd1bb246442fb4f472e33e450c16b192acfa18a`;
+  - C179 `504c79b6a881c64dba2494ef6ad35bffd9099f5a`;
+  - C182 `a5fb10af6238d425f82b093a0c3676d247b1f0e3`;
+  - C189 `b34b40d84ab6597cc1cd26e47f64d58254d3304f`;
+- source pins87;
+- protected inputs165;
 - scientific question/policies/checkpoints/fixtures/workload unchanged;
 - retry same C210 only.
 
@@ -180,9 +183,8 @@ Recovery:
 **post_authoring_review = PENDING**
 
 Re-review must verify:
-- C189 direct inference helper is explicitly source-pinned at
-  `b34b40d84ab6597cc1cd26e47f64d58254d3304f`;
-- source/protected counts are84/162;
+- deciding-path C175/C179/C182/C189 helper blobs are explicitly source-pinned;
+- source/protected counts are87/165;
 - every other C210 scientific condition remains unchanged;
 - direct deciding-path repository dependencies are all source-pinned/protected;
 - full144 baseline controls,9 candidate identities,1584 measurement accounting remain unchanged;
