@@ -271,8 +271,8 @@ C210 OWN:
 
 Expected:
 
-- source pins84;
-- protected inputs162;
+- source pins87;
+- protected inputs165;
 - output artifacts5;
 - new tests24;
 - focused regression **1997**;
@@ -323,15 +323,24 @@ Invalid attempt:
 - formal disposition:
   **INVALID EXECUTION / RETRY SAME C210**
 
-Recovery adds the exact committed C189 helper blob:
+Recovery pins the complete deciding-path helper chain omitted from the inherited source union:
 
 ```text
-fold_lm/v05_benchmarks/gate_e_c189_live_multimissing_target.py
+C175 audit
+efd1bb246442fb4f472e33e450c16b192acfa18a
+
+C179 shared graph
+504c79b6a881c64dba2494ef6ad35bffd9099f5a
+
+C182 frozen restore
+a5fb10af6238d425f82b093a0c3676d247b1f0e3
+
+C189 live inference
 b34b40d84ab6597cc1cd26e47f64d58254d3304f
 ```
 
 Scientific policy identities, frozen checkpoints, development fixtures, baseline controls, metric
-definitions and workload remain unchanged. Revised source/protection accounting is84/162. Revised
+definitions and workload remain unchanged. Revised source/protection accounting is87/165. Revised
 committed bytes must be independently reviewed before retry.
 
 ## Execution / stop
