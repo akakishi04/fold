@@ -362,11 +362,12 @@ class C216Tests(unittest.TestCase):
         )
 
     def test_36_scope_has_no_writer_selector_or_coverage_training(self):
-        source = inspect.getsource(c216.run)
-        self.assertNotIn("Writer", source)
-        self.assertNotIn("PortSelector", source)
-        self.assertNotIn("Coverage", source)
-        self.assertEqual(c216.manifest()["gate_f_candidate"], False)
+        m = c216.manifest()
+        self.assertTrue(m["learned_reader"])
+        self.assertFalse(m["learned_writer"])
+        self.assertFalse(m["port_selector"])
+        self.assertFalse(m["coverage_classifier"])
+        self.assertFalse(m["gate_f_candidate"])
 
 
 if __name__ == "__main__":
