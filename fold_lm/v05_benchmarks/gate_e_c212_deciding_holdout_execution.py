@@ -337,6 +337,10 @@ def build_decision(policy_summary, family_summary, rows_by_policy, model_meter, 
 def measurement_complete(policy_summary, family_summary, episode_rows, model_meter):
     row_counts = Counter(r.get("policy_id") for r in episode_rows)
     pair_counts = Counter((r.get("policy_id"), r.get("case_id")) for r in episode_rows)
+    case_sets = {
+        pid:{r.get("case_id") for r in episode_rows if r.get("policy_id") == pid}
+        for pid in POLICY_IDS
+    }
     return (
         set(policy_summary) == set(POLICY_IDS)
         and set(family_summary) == set(POLICY_IDS)
@@ -345,6 +349,9 @@ def measurement_complete(policy_summary, family_summary, episode_rows, model_met
         and len(episode_rows) == 432
         and all(count == 1 for count in pair_counts.values())
         and len(pair_counts) == 432
+        and all(len(case_sets[p]) == 144 for p in POLICY_IDS)
+        and case_sets[c210.POLICY_INTERNAL] == case_sets[c210.POLICY_FIXED]
+            == case_sets[SELECTED_POLICY]
         and all(policy_summary[p]["episodes"] == 144 for p in POLICY_IDS)
         and all(set(family_summary[p]) == set(c211.FAMILIES) for p in POLICY_IDS)
         and all(
