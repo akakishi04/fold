@@ -319,6 +319,11 @@ class C212Tests(unittest.TestCase):
         self.assertIn("candidate_pair_policy",source)
         self.assertNotIn("optimizer",source.lower())
         self.assertNotIn("backward(",source)
+        candidate_source=inspect.getsource(c212.c210.candidate_pair_policy)
+        resolver_source=inspect.getsource(c212.c210.shared_resolve)
+        self.assertIn("_attempt(",candidate_source)
+        self.assertNotIn("v1.Fact(",candidate_source)
+        self.assertNotIn("v1.Fact(",resolver_source)
 
     def test_27_regression_suite_semantic_counts(self):
         root=Path(__file__).resolve().parents[1]
