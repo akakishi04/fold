@@ -241,11 +241,17 @@ Before execution, committed remote bytes must be independently reviewed for:
 
 Until review passes:
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-The first C205 execution was INVALID in regression because an accepted C204 operational test asserted
-the mutable current ACTIVE value. C205 now uses an exact-ID immutable regression suite and adds an
-immutable replacement test. The revised committed bytes must be independently reviewed before retry.
+recovery review HEAD:
+`2bd2ec0424db21e8ed2bfa0c7be07f8148d69afa`
+
+Committed remote review verified that the accepted C204 test blob is unchanged, the historical
+mutable-state exclusion is one canonical exact test ID with an exact-once guard and no wildcard
+matching, the loaded suite is1872 candidates ->1871 executed tests, C205 contributes26 immutable
+tests including the replacement contract, the runner uses `regression_suite()`, source/protected
+counts remain44/92, and the dispatcher -> C205 launcher -> C205 runner parser guards remain before
+scientific execution/logging.
 
 ## Execution / stop
 
