@@ -125,11 +125,15 @@ class C216Tests(unittest.TestCase):
             self.assertEqual(value["HOT"], value["COMMITTED"])
 
     def test_13_selected_feature_has_only_three_values(self):
-        values = sorted(set(float(v) for v in self.data["features"][:, 0]))
+        values = np.asarray(
+            sorted(set(float(v) for v in self.data["features"][:, 0])),
+            dtype="<f8",
+        )
         self.assertEqual(len(values), 3)
-        self.assertAlmostEqual(values[0], -0.75 / 4.25, places=15)
-        self.assertEqual(values[1], 0.0)
-        self.assertAlmostEqual(values[2], 0.75 / 4.25, places=15)
+        self.assertEqual(
+            values.view(np.uint64).tolist(),
+            [13818898080148657814, 0, 4595526043293882006],
+        )
 
     def test_14_reader_config_is_exact(self):
         config = reader.MemoryReaderConfig()
