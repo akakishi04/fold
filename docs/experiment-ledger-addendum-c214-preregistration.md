@@ -264,9 +264,22 @@ Before execution, committed remote bytes must be independently reviewed for:
 
 Until review passes:
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-Do not issue C214 execution command before post-authoring review PASS.
+review HEAD:
+`7453cf9b62b86a3970e2a549028d604e329ec525`
+
+Committed remote review verified accepted C213 summary/validation identity, exact existing response-
+capsule source identity, all seven C214 OWN files, manifest registration,115 source pins /217
+protected inputs,32 tests, semantic2116-loaded/2115-kept regression accounting, zero unbound
+executable c### aliases, exact18 parent-summary runner argv and postcheck argv[1..20] wiring,
+launcher parser-before-execution ordering and accepted C213 local summary path.
+
+The numeric fixture was independently recomputed: all seven safe snapshots remain SPD, capsule vs
+full-reference maximum absolute error is approximately 1.11e-16 (well below the registered 1e-10
+ceiling), and the registered unsafe control has a negative minimum eigenvalue while the safe
+relations do not. Hypothesis records are excluded before relation lookup, preserving C213
+authoritative-observation semantics. C215 remains unregistered.
 
 ## Execution / stop
 
