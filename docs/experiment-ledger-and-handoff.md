@@ -144,15 +144,22 @@ Recovery:
 
 ## Post-authoring review
 
-**post_authoring_review = PENDING**
+**post_authoring_review = PASS**
 
-Re-review must verify:
-- test25 contains no source-string numeric suite-count assertions;
-- test25 loads the actual modules and counts1902 candidate IDs /1901 kept IDs;
-- the one exact historical mutable test ID occurs exactly once and is excluded;
-- accepted C205/C171 identities remain unchanged;
-- C206 scientific/runtime/verifier conditions remain unchanged;
-- parser/count/source/protected contracts and C207 non-registration remain valid.
+recovery review HEAD:
+`dfe8d38063a5f98e6bf6ebdac49c59376ee5914e`
+
+Committed remote review verified:
+- test25 has no stale source-string count literals and does not inspect regression_suite source;
+- actual91 modules load1902 candidate IDs;
+- the exact historical dynamic test occurs once and is excluded;
+- the real regression_suite retains1901 tests;
+- runner uses that suite;
+- C206 manifest/scientific code and accepted C205/C171 identities are unchanged;
+- source pins56 / protected inputs110;
+- verifier/opposite-control and no-promotion boundaries unchanged;
+- dispatcher -> C206 launcher -> C206 runner parser chain intact;
+- C207 remains unregistered.
 
 ## Stop condition
 
