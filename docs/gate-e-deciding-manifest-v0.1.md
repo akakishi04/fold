@@ -31,7 +31,7 @@ C209 projection blob
 346f7edab02ef1bc24db2934a1f0c6488ab5567c
 
 accepted C210 candidate/runtime policy blob
-917b8e74dfc1ebe5593bda009b3ba898aa0e8abe
+309e1a54a00ef828cea29f705e69d9a56df899d9
 ```
 
 No ensemble or new aggregation is introduced after development measurement.
