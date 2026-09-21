@@ -325,10 +325,18 @@ Before execution, committed remote bytes must be independently reviewed for:
 
 Until review passes:
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-The previous review record is superseded because it validated the obsolete invalid-attempt C210
-parent identity. Corrected committed remote bytes must be independently re-reviewed before execution.
+review HEAD:
+`4a64648baa7b92ed14bbbce5fd1da4e9bee19daa`
+
+Corrected committed remote review verified the accepted C210 retry identity
+(`002543b8...` / summary `1b4242f...`), the corrected C210 candidate-policy blob
+`309e1a54...`, exact9-way development tie and checkpoint pins, independent holdout
+expression/unit/case separation, frozen 0/+1 margins and McNemar/Holm rules, zero-floor limitation,
+no holdout policy/model evaluation path, 28 C211 tests, semantic2026-loaded/2025-kept regression
+accounting, runner argv wiring, dispatcher/launcher parser chain, corrected 93 source pins /
+177 protected inputs, and C212 non-registration.
 
 ## Execution / stop
 
