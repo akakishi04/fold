@@ -10,7 +10,7 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E PASSED**.
-**C214 ACCEPTED PASS. C215 ACTIVE / INVALID ATTEMPT RECOVERY. C216 NOT REGISTERED.**
+**C215 ACCEPTED PASS. C216 NOT REGISTERED.**
 
 ## Accepted C210
 
@@ -382,55 +382,67 @@ interpretation remain fixed.
 Recovery addendum:
 `docs/experiment-ledger-addendum-c215-recovery.md`.
 
-## C215 second invalid retry
+## Accepted C215
 
 Scientific execution HEAD:
-`2204d5dbf56b969daf3aef8d0df68ee9bc7a8eab`
+`663f42ca21f977b6530e4df8709fc306c2ebd8c9`
 
 Published log commit:
-`31a3852541f554099fb60841d0052cd85f62b448`
+`36f5921677f274538d011c76ba34a77b8ed01ded`
 
 Log SHA256:
-`1dbd19cfbe5bf75615cbef3f50da33a996183471bad8201392891fae9edaf3f3`
+`e894c0d10553c7877c410c963f0c75eb810518247f50fd7aa63ca2f8620c2d8e`
 
-Failure phase:
-- repository/Python/source-artifact prechecks PASS;
-- C215 tests01-33 PASS;
-- C215 test34 ERROR;
-- H1/H2 scientific fixture did not run;
-- run_execution_valid False.
-
-Root cause:
-the same source-level guard test also requires exact launcher text
-`$failure = $null`; the retry launcher still used `$failure=$null`.
+Summary SHA256:
+`96b3e5b9cf465b9dea33920de095fc5d7d8e4c0cba960d64597c95fc15eda237`
 
 Formal disposition:
-**C215 INVALID EXECUTION / RETRY SAME C215**.
+**C215 ACCEPTED PASS**.
 
-Second minimal repair:
-only `tools/invoke_c215.ps1` spacing changed at
-`0d60be885b71bfea14d58f066a3ff3922d0fee03`.
+Execution validity:
+- focused regression **2149/2149**;
+- Python syntax preflight PASS;
+- source/artifact precheck PASS;
+- protected inputs preserved;
+- tracked tree clean;
+- run_execution_valid True.
 
-## C215 second recovery review
+Deciding metrics:
+- snapshots9;
+- status sequence SUPPORTED/HOT_REQUIRED/SUPPORTED/SUPPORTED/HOT_REQUIRED/SUPPORTED/SUPPORTED/SUPPORTED/SUPPORTED;
+- commit statuses COMMITTED/COMMITTED;
+- commit semantic clocks unchanged True;
+- commit readout deltas [0.0,0.0];
+- final storage epoch2;
+- final semantic clocks memory6/evidence4/time3;
+- final H2 factor beta only;
+- operation history entries0;
+- max absolute error `1.1102230246251565e-16` <= registered `1e-10`;
+- OUT_OF_SCOPE and NUMERIC_UNSAFE controls exact with state preservation;
+- learned Writer/Reader/Port Selector/Coverage classifier/model-forward calls0.
 
-**post_authoring_recovery_review_2 = PASS**
+Accepted claim:
+the deterministic H1/H2 chunk-commit boundary preserves supported readouts and semantic clocks while
+moving observed records into H2, and committed-factor REPLACE/RETRACT works from current protected-
+factor descriptors without replaying hidden operation history.
 
-review HEAD:
-`ca0da7cd1f35aef3e064eed9e8a9d225b51aa28f`
+Non-claim:
+C215 does not establish learned memory routing, natural-language memory writing/reading, compression
+advantage, end-to-end memory cost superiority, or Gate F.
 
-Second recovery review checked the complete C215 test34 launcher contract, not only the previously
-failing fragment. All required source strings and parser ordering now match. Git compare shows the
-second repair changes only `tools/invoke_c215.ps1`, and runner,34 tests,H1/H2 source,C215
-benchmark, preregistration and design-document blobs remain identical to second invalid execution
-HEAD `2204d5dbf56b969daf3aef8d0df68ee9bc7a8eab`. Scientific conditions remain frozen and C216
-remains unregistered.
+Historical invalid C215 attempts remain documented in:
+`docs/experiment-ledger-addendum-c215-recovery.md`.
+
+## Maintenance checkpoint after C215
+
+Repository/script/log cleanup is now allowed because C215 has a formal accepted result.
+C216 remains unregistered during maintenance.
+
 
 ## Stop condition
 
-Retry **C215 only** after recovery review PASS.
+C215 is closed as **ACCEPTED PASS**.
 
-Do not register C216.
-
-Repository/script/log cleanup remains deferred until C215 receives a formal accepted result.
+Perform the planned experiment-harness/log maintenance before registering C216.
 
 Gate E remains **PASSED**. Gate F remains **NOT PASSED**.
