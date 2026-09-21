@@ -9,8 +9,8 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 
 ## Formal state
 
-Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C211 ACCEPTED PASS. C212 ACTIVE / NOT YET JUDGED. C213 NOT REGISTERED.**
+Gate A/B PASSED; C/D PASSED in measured scope; **Gate E PASSED**.
+**C212 ACCEPTED PASS / GATE_E_PASSED. C213 NOT REGISTERED.**
 
 ## Accepted C210
 
@@ -200,75 +200,63 @@ Formal disposition:
 Accepted claim: the complete Gate E deciding registration is frozen without evaluating the deciding
 holdout. C211 does not itself establish Gate E performance or pass Gate E.
 
-## Active C212
+## Accepted C212
 
-Experiment:
-`C212-v5e-deciding-holdout-execution`
+Scientific execution HEAD:
+`4d1436c1ba12721b1c802fb5d76e359b3a62841f`
 
-Stage:
-`V5-E-DECIDING-HOLDOUT-EXECUTION`
+Published log commit:
+`3163014d0672ab8905a06c37ae6698e9ea9c80bc`
 
-One question:
-under the exact accepted C211 deciding manifest, does the frozen selected candidate satisfy every
-preregistered Gate E rule on the independent holdout relative to INTERNAL_ONLY and
-FIXED_ACQUISITION?
+Log SHA256:
+`146dee38ca4823ac0bf8aeabd9c4defec92d967b184adc7e5f441b5526943ca0`
 
-Frozen parent:
-- C211 execution `9cedc79a02441e9cddb0efc0c8bbc7714f9112db`;
-- C211 summary `97f5c1fde9128651ae842046e706219a50e0f34238b87d17d253e89d71279263`;
-- deciding manifest `f9356e87b210bc7d836d016a9ad7a4f841a9a651b3bb9faf9428b0415df9e6d6`;
-- decision rules `d143f2a6b4b96c672131daf22dea5c207d42375440c7d403ee95b9782fd75bcc`.
+Summary SHA256:
+`3685c37dd6e2c7fea92723548446b86f4ee8d068f7dd00afe3e2337f8bca8bce`
 
-Frozen holdout:
-- visible `1197f59ab6bf659929ecb7a9f42df27ea28e81586c4602f8e1eb96da17be126b`;
-- scorer `3975c10afc2e644f5279de4d46459d1aa250c6e7b381bb944b0b8cf6b585ff22`;
-- units `630d9c94b4aee67f55c3f9704ad6a508679e01450da73dd18a8935b4bac8dc34`.
+Formal outcome:
+**GATE_E_PASSED**.
 
-Policies:
-- INTERNAL_ONLY;
-- FIXED_ACQUISITION;
-- CANDIDATE-181001-188001.
+Execution validity:
+- focused regression **2055/2055**;
+- source/artifact precheck PASS;
+-432/432 matched policy-episode evaluations;
+- protected inputs preserved;
+- tracked tree clean;
+- run_execution_valid True.
 
-Workload:
--144 episodes per policy;
--432 policy-episode evaluations total;
-- one holdout execution;
-- no retraining / candidate change / threshold relaxation / family removal.
+Deciding metrics:
+- candidate correct128 / answered128 / wrong abstention0 / wrong answer0;
+- FIXED_ACQUISITION correct128 / answered128 / wrong abstention0;
+- INTERNAL_ONLY correct48 / answered48 / wrong abstention80;
+- candidate vs fixed: all overall and all per-family zero-margin noninferiority checks PASS;
+- candidate vs internal useful-correct margin **+80 episodes**;
+- candidate vs internal positive-acquisition-gain margin **+80 episodes**;
+- both one-sided exact paired McNemar p = `8.271806125530277e-25`;
+- Holm [0.025,0.05] both PASS;
+- hard-zero gate PASS;
+- compute ceiling PASS:144 initial +80 post =224 rows,2 forward calls,14 cell calls;
+- guarded unsupported assertions0 with `NOT_DEMONSTRATED_ZERO_FLOOR` comparative limitation preserved.
 
-Frozen decision gate:
-- zero-margin overall and per-family noninferiority versus FIXED_ACQUISITION;
-- +1 episode minimum for useful correct resolution and positive acquisition gain versus INTERNAL_ONLY;
-- one-sided exact paired McNemar with Holm alpha0.05 over exactly2 primary claims;
-- hard-zero runtime/safety rules;
-- compute ceiling;
-- unsupported-assertion zero-floor limitation.
+Accepted claim:
+within the preregistered independent144-episode Gate E holdout and shared symbolic answer boundary,
+the frozen selected candidate satisfies every frozen Gate E rule.
 
-Authoring:
-- source pins99;
-- protected inputs189;
-- artifacts5;
-- tests30;
-- regression modules97;
-- focused regression2055;
-- manifest `1e9c1fd0de152ccd070a267383e46fbe73ff5c55114fe984c85ecd7274347898`.
+Non-claim:
+this does not establish general natural-language intelligence, FOLD-R memory integration, variable-
+length I/O, Vision, or large-scale practical superiority.
 
-## Post-authoring review
+## Next boundary
 
-**post_authoring_review = PASS**
+Roadmap moves to **V5-F — FOLD-R / memory integration**.
 
-review HEAD:
-`13f1c1fd7d8fb21f459ebe645c3e73c1886932d4`
-
-Committed remote review verified accepted C211 parent/artifact identity, exact frozen rules and
-selected checkpoints, scorer separation, matched three-policy case coverage, McNemar/Holm
-semantics, hard-zero/compute/output-floor gates, valid-negative versus INVALID separation,
-30 tests, semantic2056-loaded/2055-kept regression accounting, zero unbound executable aliases,
-runner/launcher argv/parser wiring, 99 source pins /189 protected inputs, accepted C211 summary
-path, no post-holdout adaptation and C213 non-registration.
+C213 is not yet registered. The next experiment must isolate the memory semantic boundary before
+learned Writer/Reader/Port Selector or H1/H2 capsule compilation is introduced.
 
 
 ## Stop condition
 
-Judge C212 before any C213 registration.
+C212 is closed as **ACCEPTED PASS / GATE_E_PASSED**.
 
-Gate E remains **NOT PASSED** until a complete valid C212 result is formally judged.
+C213 remains **NOT REGISTERED** until its separate V5-F preregistration, authoring and post-authoring
+review are complete.
