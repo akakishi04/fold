@@ -10,7 +10,7 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C206 ACCEPTED PASS. C207 NOT REGISTERED.**
+**C206 ACCEPTED PASS. C207 ACTIVE / NOT YET JUDGED. C208 NOT REGISTERED.**
 
 ## Accepted C206
 
@@ -46,41 +46,113 @@ C206 deciding result:
 - run_execution_valid True
 - production runtime modified False
 
-Accepted claim: every registered mixed-channel terminal SUFFICIENT state can be emitted as a
-production VERIFIED_DERIVED Boolean result bound only to actually OBSERVED supporting references;
-the opposite conclusion is rejected; verification leaves TaskView/evidence/resources unchanged.
+Accepted claim: every registered mixed-channel terminal SUFFICIENT state emits through the
+production bounded derived-result verifier as VERIFIED_DERIVED with only actually OBSERVED support;
+the opposite conclusion is rejected; trusted observation/resource state remains unchanged.
 
-Nonclaim: C171 proof_fixture remains benchmark-only reference candidate generation. C206 does not
-establish learned proof generation, natural-language answer generation, independent holdout, or
-final Gate E completion.
+## Active C207
 
-## Next boundary
+Experiment:
+`C207-v5e-nine-family-development-manifest`
 
-C207 is not yet registered.
+Stage:
+`V5-E-NINE-FAMILY-DEVELOPMENT-MANIFEST`
 
-The Gate E final-evaluation contract still requires exact finite fixture/split identities and a
-separate baseline-development measurement before numerical margins and a deciding holdout can be
-frozen.
+One question:
+can all nine Gate E v0.1 families be represented in a fixed balanced development manifest using
+only existing structured-v1/v2 schemas and runtime metadata, with paired dependence units and all
+hidden completions / semantic conclusions / necessity/action labels / fault outcomes scorer-only?
 
-Next one-question intervention:
-
-> Can all nine Gate E v0.1 families be represented in a fixed balanced development manifest using
-> only existing structured-v1/v2 schemas and runtime metadata, with paired dependence units and all
-> hidden completions / necessity labels / expected actions kept scorer-only?
-
-C207 should freeze a development-data boundary only:
--9 registered families;
+Registered development split:
+-9 families;
 -8 dependence units per family;
 -2 conditions per unit;
--144 episodes total,16 per family;
--visible structured-v2 packet separate from scorer-only metadata;
--paired hidden-completion identity where required;
--explicit fault/source schedules;
--no candidate/baseline performance measurement;
--no numerical performance margins;
--no independent holdout claim.
+-16 episodes per family;
+-72 dependence units;
+-144 episodes;
+-144 structured-v2 roundtrips;
+-no independent holdout.
 
-After C207, a separate baseline-development measurement can be registered against that frozen
-development manifest.
+Visible artifact contains only case/unit/family/condition plus canonical structured-v2 packet.
+
+Scorer artifact contains only evaluator-side:
+- source value;
+- semantic conclusion;
+- answerable-with-budget;
+- necessary/unnecessary facts;
+- expected proposal/terminal;
+- fault schedule.
+
+Fixed counts:
+
+```text
+faults:
+NONE128
+MALFORMED_PAYLOAD8
+MISSING_DELIVERY2
+PERMISSION_DENIED3
+BUDGET_EXHAUSTED3
+
+expected proposals:
+ANSWER48
+RETRIEVE48
+OBSERVE32
+ASK_USER16
+
+eligible-channel episodes:
+RETRIEVE64
+OBSERVE32
+ASK_USER16
+
+answerable_with_budget128
+```
+
+Required errors all0:
+- duplicate case IDs
+- family count
+- unit
+- visible schema
+- scorer leakage
+- pair
+- scorer contract
+- hidden payload
+
+Scope:
+- candidate measurementFalse
+- baseline measurementFalse
+- numerical margin registrationFalse
+- training0
+- fresh seeds0
+- network0
+- production runtime modifiedFalse
+- Gate E candidateFalse
+
+Authoring:
+- source pins62
+- protected inputs122
+- artifacts5
+- new tests28
+- regression modules92
+- focused regression1929
+- manifest
+  `d9d3ea599b19f1c7fa91af9e1d0a96287391ae8d4ea88b91449cb5ad4ff61f72`
+
+Historical mutable-state regression exclusion remains one exact accepted C204 test ID.
+
+## Post-authoring review
+
+**post_authoring_review = PENDING**
+
+Do not issue C207 execution command until committed remote bytes are independently reviewed for
+family/count semantics, dependence-unit bindings, leakage separation, scorer-only fault/labels,
+semantic regression counts, Python alias bindings, PowerShell parser chain and all count contracts.
+
+## Stop condition
+
+Judge C207 before any C208 registration.
+
+- valid complete gate pass -> ACCEPTED PASS;
+- valid complete scientific miss -> ACCEPTED VALID NEGATIVE;
+- source/schema/hash/parent/regression/incomplete/protection failure -> INVALID / RETRY SAME C207.
 
 Gate E remains NOT PASSED.
