@@ -36,7 +36,7 @@ $runArgs=@{
  C181Summary=(Join-Path $Root "runs\c181-v5e-internal-semantics-23f8363819474cccb05b0d1ecc8941ad\summary.json")
  C188Summary=(Join-Path $Root "runs\c188-v5e-multimissing-target-selection-81830a0e8ba741519c9172bdf2f7a7bc\summary.json")
 }
-$failure=$null
+$failure = $null
 try { & { Write-Output "=== C215 repository preflight ===";Write-Output "branch = $branchNow";Write-Output "execution_head = $headNow";.\tools\run_c215.ps1 @runArgs } *>&1 | Tee-Object -FilePath $log } catch {$failure=$_} finally {
  try {.\tools\publish_experiment_log.ps1 -ExperimentId C215 -LogPath $log -ExecutionHead $ExpectedHead} catch {if($failure){throw "C215 execution failed and log publication also failed"};throw}
 }
