@@ -210,5 +210,18 @@ class C205Tests(unittest.TestCase):
         self.assertLess(source.index("[System.Management.Automation.Language.Parser]::ParseFile"),source.index("$failure = $null"))
 
 
+    def test_26_regression_suite_excludes_only_mutable_historical_active_state(self):
+        root=Path(__file__).resolve().parents[1]
+        suite=c205.regression_suite(root)
+        ids=[test.id() for test in c205._iter_tests(suite)]
+        self.assertEqual(len(ids),1871)
+        self.assertEqual(
+            c205.HISTORICAL_DYNAMIC_TEST_EXCLUSIONS,
+            ("tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests."
+             "test_33_active_dispatcher_resolves_current_formal_state",),
+        )
+        self.assertFalse(any(x in ids for x in c205.HISTORICAL_DYNAMIC_TEST_EXCLUSIONS))
+
+
 if __name__=="__main__":
     unittest.main(verbosity=2)
