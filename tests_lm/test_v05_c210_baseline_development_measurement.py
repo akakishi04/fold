@@ -10,11 +10,10 @@ from fold_lm.v05_benchmarks import gate_e_c210_baseline_development_measurement 
 def make_rows():
     visible=[]
     scorer=[]
-    c207=c210.c209.c208.c207
-    for family in c207.FAMILIES:
-        for unit in range(c207.UNITS_PER_FAMILY):
-            for condition in c207.CONDITIONS:
-                v,s=c207.make_case(family,unit,condition)
+    for family in c210.c209.c208.c207.FAMILIES:
+        for unit in range(c210.c209.c208.c207.UNITS_PER_FAMILY):
+            for condition in c210.c209.c208.c207.CONDITIONS:
+                v,s=c210.c209.c208.c207.make_case(family,unit,condition)
                 visible.append(v);scorer.append(s)
     return visible,scorer
 
