@@ -10,7 +10,7 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E NOT PASSED**.
-**C205 ACCEPTED PASS. C206 NOT REGISTERED.**
+**C205 ACCEPTED PASS. C206 ACTIVE / NOT YET JUDGED. C207 NOT REGISTERED.**
 
 ## Accepted C205
 
@@ -28,48 +28,111 @@ Summary SHA256:
 
 C205 deciding result:
 - focused regression **1871/1871**
--9/9 attribution blocks completed
-- canonical unique rows15912 / forward calls18 / cell calls126
-- canonical max necessity logit delta **0.0**
-- canonical max target logit delta **0.0**
-- expanded direct rows85824 / forward calls90 / cell calls630
-- expanded max necessity logit delta **5.0067901611328125e-06**
-- expanded max target logit delta **5.7220458984375e-06**
-- max C204 necessity-max match error **0.0**
-- max C204 target-max match error **0.0**
+-9/9 attribution blocks complete
+- canonical unique rows15912, forward18, cell126
+- canonical max necessity/target logit delta **0.0 / 0.0**
+- expanded direct rows85824, forward90, cell630
+- expanded max necessity/target logit delta
+  **5.0067901611328125e-06 / 5.7220458984375e-06**
+- max C204 block-max match error **0.0 / 0.0**
 - candidate_gate_passed True
 - run_execution_valid True
 - production runtime modified False
 
 Accepted claim: C204's gate-breaking numeric replay maxima are fully reproduced by phase0
-duplicate-expanded batching. Canonical unique structured-v2 phase0 inference reproduces C199 logits
-exactly. C204 remains ACCEPTED VALID NEGATIVE under its original1e-6 whole-run gate.
+duplicate-expanded batching; canonical unique structured-v2 inference reproduces C199 exactly.
+C204 remains ACCEPTED VALID NEGATIVE under its original whole-run1e-6 gate.
 
-## Next boundary
+## Active C206
 
-C206 is not yet registered.
+Experiment:
+`C206-v5e-terminal-derived-result-integration`
 
-Gate E contract still requires a derived-result output boundary with supporting references. A
-logical conclusion must not be represented as an observed fact.
+Stage:
+`V5-E-TERMINAL-DERIVED-RESULT-INTEGRATION`
 
-Next one-question intervention:
+One question:
+can every accepted mixed-channel terminal SUFFICIENT state emit a production
+`VERIFIED_DERIVED` Boolean conclusion bound to exactly its observed supporting references,
+without mutating observations/resources, while the opposite conclusion is rejected?
 
-> After reconstructing the accepted mixed-channel terminal SUFFICIENT states, can every terminal
-> Boolean conclusion be emitted through the production `structured_derived_result.verify` contract
-> as `VERIFIED_DERIVED`, bound to exactly the actually observed supporting references, while
-> verification leaves observations/resources unchanged and rejects the opposite conclusion?
+Behavior held:
+- accepted C199 ALLOWED decision trace;
+- C203 fixed fact->channel mapping;
+- C201 mapper;
+- C202/C173 acquisition lifecycle;
+- exact C203/C204 decision/acquisition/channel totals.
 
-C206 should:
-- hold the accepted C203/C204 behavioral trajectory fixed using the accepted C199 saved decision trace;
-- replay actual mixed-channel acquisition through C201/C202/C173;
-- use C171's benchmark-only proof fixture only as a reference candidate producer;
-- use production `structured_derived_result.verify` as the deciding checker;
-- compare the candidate conclusion to the independent C171 completion evaluator;
-- verify the opposite conclusion is rejected;
-- verify derived verification never changes fact status/value/reference/resource state;
-- add no training, new seed, language generation or final Gate E claim.
+Output separation:
+- C171 `proof_fixture` is benchmark-only reference candidate production;
+- C171 `completion_values` is evaluator-only semantic oracle;
+- production `structured_derived_result.verify` is the deciding verifier;
+- derived result must remain distinct from OBSERVED fact state.
 
-C206 must pass authoring quality gate, immutable historical regression handling, PowerShell parser
-preflight and post-authoring remote-byte review before execution.
+Registered totals:
+
+```text
+episodes              85824
+decisions            214948
+acquisitions         129124
+terminal SUFFICIENT   85824
+verified DERIVED      85824
+opposite rejected     85824
+verifier calls       171648
+
+RETRIEVE               88918
+OBSERVE                 21252
+ASK_USER                18954
+channel switches         32564
+```
+
+Required errors:
+- semantic unresolved0
+- world value0
+- verification0
+- opposite rejection0
+- support0
+- mutation0
+- derived schema0
+- acquisition/runtime/projection0
+
+Scope:
+- training0
+- fresh seeds0
+- learned forward0
+- network0
+- production runtime modifiedFalse
+- Gate E candidateFalse
+- not learned proof or language answer generation
+
+Authoring:
+- source pins56
+- protected inputs110
+- artifacts5
+- new tests28
+- regression modules91
+- focused regression1899
+- manifest
+  `4841fda580c84bc66fb66f2fb123d08ec0dd7feedf29ab2aecbf85954970ac51`
+
+Historical mutable-state regression exclusion remains the one exact accepted C204 test ID.
+Accepted C204 bytes remain unchanged.
+
+## Post-authoring review
+
+**post_authoring_review = PENDING**
+
+Do not issue C206 execution command until committed remote bytes are independently re-fetched and
+reviewed for C205/C171 identities, derived-vs-observed separation, verifier/reference semantics,
+mixed-channel replay, exact regression filtering, PowerShell parser chain and all count contracts.
+
+## Stop condition
+
+Judge C206 before any C207 registration.
+
+- valid complete gate pass -> ACCEPTED PASS;
+- valid complete scientific miss -> ACCEPTED VALID NEGATIVE;
+- source/schema/hash/C171-history/regression/incomplete/protection failure
+  -> INVALID / RETRY SAME C206.
 
 Gate E remains NOT PASSED.
