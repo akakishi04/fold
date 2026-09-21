@@ -1,5 +1,6 @@
 import inspect
 import unittest
+from pathlib import Path
 
 import numpy as np
 
@@ -252,6 +253,22 @@ class C206Tests(unittest.TestCase):
         records=[good_record() for _ in range(9)]
         totals=good_totals();totals["verifier_calls"]=171647
         self.assertFalse(c206.gate(records,totals))
+
+
+    def test_29_c206_launcher_parses_runner_before_logging(self):
+        root=Path(__file__).resolve().parents[1]
+        source=(root/"tools"/"invoke_c206.ps1").read_text(encoding="utf-8")
+        self.assertIn("[System.Management.Automation.Language.Parser]::ParseFile",source)
+        self.assertIn("RUNNER_PARSE_ERROR",source)
+        self.assertIn('$runnerPath = Join-Path $Root "tools\\run_c206.ps1"',source)
+        self.assertLess(source.index("[System.Management.Automation.Language.Parser]::ParseFile"),source.index("$failure = $null"))
+
+    def test_30_c206_launcher_formal_state_check_is_source_static(self):
+        root=Path(__file__).resolve().parents[1]
+        source=(root/"tools"/"invoke_c206.ps1").read_text(encoding="utf-8")
+        self.assertIn("$formalPattern = '(?ms)^## Formal state\\s+",source)
+        self.assertIn('$activeMatch.Groups["id"].Value -ne "206"',source)
+        self.assertNotIn("C206 ACTIVE / NOT YET JUDGED",source)
 
 
 if __name__=="__main__":
