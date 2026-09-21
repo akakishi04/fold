@@ -1,4 +1,6 @@
+import ast
 import inspect
+import re
 import unittest
 from pathlib import Path
 
@@ -244,6 +246,23 @@ class C206Tests(unittest.TestCase):
         self.assertFalse(
             any(x in kept_ids for x in c206.c205.HISTORICAL_DYNAMIC_TEST_EXCLUSIONS)
         )
+
+        module_source=Path(__file__).read_text(encoding="utf-8")
+        tree=ast.parse(module_source)
+        bound=set()
+        for node in tree.body:
+            if isinstance(node,ast.Import):
+                bound.update(alias.asname or alias.name.split(".")[0] for alias in node.names)
+            elif isinstance(node,ast.ImportFrom):
+                bound.update(alias.asname or alias.name for alias in node.names)
+        module_refs={
+            node.value.id
+            for node in ast.walk(tree)
+            if isinstance(node,ast.Attribute)
+            and isinstance(node.value,ast.Name)
+            and re.fullmatch(r"c\d{3}",node.value.id)
+        }
+        self.assertEqual(module_refs-bound,set())
 
     def test_26_scope_has_no_learning(self):
         m=c206.manifest()
