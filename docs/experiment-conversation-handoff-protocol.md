@@ -153,6 +153,7 @@ summary全文をチャットへ再掲しない。gateを決める deciding metri
 - child自身にloaderがある場合、run pathが実際にそのloaderを呼んでいることをsource-level testで固定する
 - **parent summary record contract audit**: 子実験が親summaryのdict fieldを読む場合、field名を推測しない。accepted summary/logから実際のkey setを取得し、専用adapterでrequired keys・型・意味的invariantを検証する。run pathからの直接 `ref_rec["..."]` 参照を最小化し、存在しない旧名/類似名をsource-level testで拒否する
 - synthetic unit testだけでなく、少なくとも1本は本番run pathのcall ordering / resource accounting / loader dispatchを検証する
+- **historical regression immutability**: accepted済みCのtestは、その後変化するcurrent ACTIVE C番号 / branch tip / latest log commit / mutable handoff本文を固定値assertしない。operational current-state checkはactive launcher preflight/post-authoring reviewへ置く。既にacceptedされたhistorical testがこの規則に違反している場合、child experimentはexact test IDをpreregisterして1件だけ除外し、その意図したinvariantをsynthetic fixtureまたはchild-side immutable testで置換する。accepted parent file自体は編集しない
 - preregistrationに書いた数字（cohort, blocks, expected reads, protected count, artifact count）とcode定数を相互照合する
 
 このquality gateは科学的regressionとは別物で、**実験ハーネスの作者側の品質確認**である。
