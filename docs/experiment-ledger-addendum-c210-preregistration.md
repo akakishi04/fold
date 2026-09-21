@@ -304,7 +304,12 @@ Before execution, committed remote bytes must be independently reviewed for:
 
 Until review passes:
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
+
+recovery review HEAD:
+`1c483c9999b800fe44c2fa580455b619516cc23e`
+
+Committed remote review verified the complete deciding-path dependency chain, exact C175/C179/C182/C189 blobs, source/protected accounting87/165, unchanged scientific manifest/policies/checkpoints/fixtures/workload, full baseline controls, semantic regression counts, Python alias bindings, runner CLI wiring, PowerShell parser chain and C211 non-registration.
 
 The first C210 measurement attempt completed numerically but is **INVALID** because the deciding
 candidate path directly called `gate_e_c189_live_multimissing_target.combined_predict` and
