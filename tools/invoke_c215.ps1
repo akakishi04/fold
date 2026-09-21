@@ -11,7 +11,7 @@ $handoff=Get-Content $handoffPath -Raw -Encoding UTF8;$formalMatch=[regex]::Matc
 if(-not $formalMatch.Success){Skip-Invocation "FORMAL_STATE_UNRESOLVED";return}
 $activeMatch=[regex]::Match($formalMatch.Groups["body"].Value,'C(?<id>\d{3}) ACTIVE / (?<state>NOT YET JUDGED|INVALID ATTEMPT RECOVERY)')
 if(-not $activeMatch.Success -or $activeMatch.Groups["id"].Value -ne "215"){Skip-Invocation "STALE_EXPERIMENT";return}
-$runnerPath=Join-Path $Root "tools\run_c215.ps1";$runnerTokens=$null;$runnerParseErrors=$null
+$runnerPath = Join-Path $Root "tools\run_c215.ps1";$runnerTokens=$null;$runnerParseErrors=$null
 [System.Management.Automation.Language.Parser]::ParseFile($runnerPath,[ref]$runnerTokens,[ref]$runnerParseErrors)|Out-Null
 if($runnerParseErrors.Count -gt 0){Skip-Invocation "RUNNER_PARSE_ERROR" (($runnerParseErrors|%{$_.Message}) -join " | ");return}
 $runArgs=@{
