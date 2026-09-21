@@ -71,6 +71,20 @@ if (-not $activeMatch.Success -or $activeMatch.Groups["id"].Value -ne "205") {
     return
 }
 
+$runnerPath = Join-Path $Root "tools\run_c205.ps1"
+$runnerTokens = $null
+$runnerParseErrors = $null
+[System.Management.Automation.Language.Parser]::ParseFile(
+    $runnerPath,
+    [ref]$runnerTokens,
+    [ref]$runnerParseErrors
+) | Out-Null
+if ($runnerParseErrors.Count -gt 0) {
+    $detail = ($runnerParseErrors | ForEach-Object { $_.Message }) -join " | "
+    Skip-Invocation -Reason "RUNNER_PARSE_ERROR" -Detail $detail
+    return
+}
+
 $runArgs = @{
     ExpectedHead = $ExpectedHead
     C204Summary = (Join-Path $Root "runs\c204-v5e-live-v2-mixed-channel-91f31086978f4d2fa54dfe8abcf78200\summary.json")
