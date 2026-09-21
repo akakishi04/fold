@@ -14,9 +14,9 @@ C211 performs no candidate/baseline policy execution and no learned model forwar
 
 C210:
 - execution HEAD:
-  `633ce9bed165d30b0adb671c1faf12d34a9ad0cc`
+  `002543b8d1394c127b915b3bfe4591ce20c8939d`
 - summary SHA256:
-  `785c2aa2bfa29e0861c082dee0557f21cac4c2a6647268e552965c2ecd15b7a2`
+  `1b4242f15fdf3ca48374660d5c3339ff5c17dc9cd4f4833852f5e1bccb349366`
 - status:
   **ACCEPTED PASS**
 - policy-episode evaluations1584
@@ -53,7 +53,7 @@ C209 projection blob
 346f7edab02ef1bc24db2934a1f0c6488ab5567c
 
 accepted C210 candidate/runtime policy blob
-917b8e74dfc1ebe5593bda009b3ba898aa0e8abe
+309e1a54a00ef828cea29f705e69d9a56df899d9
 ```
 
 No ensemble or new post-development candidate aggregation is allowed.
@@ -303,7 +303,7 @@ Expected:
 
 Scientific manifest SHA256:
 
-`81e13c77066aa61f6487d341488812c00ad057fba97a30c31c62e9e2bc6fb859`
+`8a24beda4da38c331b6c10ed4c46159073a78e1c426ccb580d9a861742e1db99`
 
 ## Post-authoring review requirement
 
@@ -325,17 +325,10 @@ Before execution, committed remote bytes must be independently reviewed for:
 
 Until review passes:
 
-`post_authoring_review = PASS`
+`post_authoring_review = PENDING`
 
-review HEAD:
-`95b5b973f922a4da0c58843582dabfea056f2df6`
-
-Committed remote review verified exact C210 parent identity, exact9-way candidate development tie,
-lexicographic candidate/checkpoint pins, independent holdout expression/unit/case separation,
-0/+1 episode numerical margins, McNemar/Holm rules, zero-floor limitation, no holdout policy/model
-evaluation path, 28 tests, semantic2026-loaded/2025-kept regression accounting, zero unbound c###
-aliases, runner argv[1..15]/postcheck argv17 wiring, parser chain, 89 source pins /173 protected
-inputs /5 artifacts, and C212 non-registration.
+The previous review record is superseded because it validated the obsolete invalid-attempt C210
+parent identity. Corrected committed remote bytes must be independently re-reviewed before execution.
 
 ## Execution / stop
 
