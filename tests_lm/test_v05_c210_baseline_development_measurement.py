@@ -161,11 +161,21 @@ class C210Tests(unittest.TestCase):
             policy_summary[pid]["guarded_unsupported_assertion"]=0
             policy_summary[pid]["authority_violation"]=0
             policy_summary[pid]["malformed_publication"]=0
-        models=[
-            dict(initial_rows=144,post_rows=0,inference_rows=144)
-            for _ in c210.CANDIDATE_PAIRS
+        models=[]
+        for pid in c210.POLICY_IDS[2:]:
+            policy_summary[pid]["inference_rows"]=144
+            policy_summary[pid]["inference_forward_calls"]=1
+            policy_summary[pid]["inference_cell_calls"]=7
+            models.append(dict(
+                policy_id=pid,initial_rows=144,post_rows=0,inference_rows=144,
+                inference_forward_calls=1,inference_cell_calls=7,
+            ))
+        rows=[
+            {"policy_id":pid}
+            for pid in c210.POLICY_IDS
+            for _ in range(144)
         ]
-        self.assertTrue(c210.measurement_complete(policy_summary,models,[{}]*1584))
+        self.assertTrue(c210.measurement_complete(policy_summary,models,rows))
 
     def test_19_measurement_complete_rejects_fixed_baseline_drift(self):
         policy_summary={pid:dict(self.internal_summary) for pid in c210.POLICY_IDS}
@@ -176,8 +186,21 @@ class C210Tests(unittest.TestCase):
             policy_summary[pid]["guarded_unsupported_assertion"]=0
             policy_summary[pid]["authority_violation"]=0
             policy_summary[pid]["malformed_publication"]=0
-        models=[dict(initial_rows=144,post_rows=0,inference_rows=144) for _ in c210.CANDIDATE_PAIRS]
-        self.assertFalse(c210.measurement_complete(policy_summary,models,[{}]*1584))
+        models=[]
+        for pid in c210.POLICY_IDS[2:]:
+            policy_summary[pid]["inference_rows"]=144
+            policy_summary[pid]["inference_forward_calls"]=1
+            policy_summary[pid]["inference_cell_calls"]=7
+            models.append(dict(
+                policy_id=pid,initial_rows=144,post_rows=0,inference_rows=144,
+                inference_forward_calls=1,inference_cell_calls=7,
+            ))
+        rows=[
+            {"policy_id":pid}
+            for pid in c210.POLICY_IDS
+            for _ in range(144)
+        ]
+        self.assertFalse(c210.measurement_complete(policy_summary,models,rows))
 
     def test_20_precheck_pins_c209_and_scorer_identity(self):
         source=inspect.getsource(c210.precheck)
