@@ -10,7 +10,7 @@ Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; **Gate E PASSED**.
-**C212 ACCEPTED PASS / GATE_E_PASSED. C213 ACTIVE / NOT YET JUDGED. C214 NOT REGISTERED.**
+**C213 ACCEPTED PASS. C214 NOT REGISTERED.**
 
 ## Accepted C210
 
@@ -246,67 +246,73 @@ Non-claim:
 this does not establish general natural-language intelligence, FOLD-R memory integration, variable-
 length I/O, Vision, or large-scale practical superiority.
 
-## Active C213
+## Accepted C213
 
-Experiment:
-`C213-v5f-memory-operation-contract`
+Scientific execution HEAD:
+`f59f615b5d409400c9fc5247270a37960ffac197`
 
-Stage:
-`V5-F-MEMORY-OPERATION-CONTRACT`
+Published log commit:
+`78751428cc8397c82488dfd4bf205aa9ac62bc97`
 
-One question:
-can a deterministic V5-F memory bridge preserve ASSERT/RETRACT/REPLACE/ASSUME/END_SCOPE/QUERY
-semantics across factor identity, scope, exact memory revision and provenance while exporting only
-observed records into authoritative V5 EvidenceState?
+Log SHA256:
+`18a09bfbe223d87f1e0f6b317d07fa72e324485c7af7aa2993f9d6e388850944`
 
-Changed variable:
-- new `fold_lm/v05/memory_bridge.py` semantic reference boundary only.
+Summary SHA256:
+`370ee39bcd32da4ce797ecfb21ce3b863013c788f6daaaf0fb9a10edac643b43`
 
-Held constant / absent:
-- learned Writer/Reader;
-- Port Selector;
-- FOLD-R numeric capsule;
-- H1/H2 compiler;
-- model inference;
-- training.
+Formal disposition:
+**C213 ACCEPTED PASS**.
 
-Registered fixture:
--6 successful mutations;
--8 reads;
+Execution validity:
+- focused regression **2083/2083**;
+- Python syntax preflight PASS;
+- source/artifact precheck PASS;
+- protected inputs preserved;
+- tracked tree clean;
+- run_execution_valid True.
+
+Deciding metrics:
+- successful memory mutations6;
+- reads8;
+- SUPPORTED3 / MISSING2 / RETRACTED1 / STALE_REVISION1 / OUT_OF_SCOPE1;
 - final memory revision6;
-- final evidence revision4 / evidence time3;
-- read statuses SUPPORTED3 / MISSING2 / RETRACTED1 / STALE_REVISION1 / OUT_OF_SCOPE1;
+- final evidence revision4;
+- final evidence time3;
+- final exported observations1;
 - exported hypotheses0;
-- stale mutation rejected;
-- observed scope END rejected;
-- ended-scope mutation rejected.
+- stale mutation rejected True;
+- observed-scope END rejected True;
+- ended-scope mutation rejected True;
+- learned Writer/Reader calls0;
+- FOLD-R capsule calls0;
+- model forward calls0.
 
-Authoring:
-- source pins107;
-- protected inputs203;
-- artifacts5;
-- tests28;
-- regression modules98;
-- focused regression2083;
-- manifest `daadfa2445e72512553e400373a0a479850bf8d5657713d068f0a164e488cc79`.
+Accepted claim:
+the deterministic V5-F memory operation/scope/revision/provenance boundary is internally coherent
+and can export authoritative observed evidence without promoting hypotheses.
 
-## Post-authoring review
+Non-claim:
+C213 does not establish FOLD-R numeric correction closure, H1/H2 memory compression, learned memory
+routing, natural-language memory extraction or Gate F.
 
-**post_authoring_review = PASS**
+## Next boundary
 
-review HEAD:
-`42b8ae80733e6c5547ba0f679c27aa0cec40dd7a`
+C214 is not yet registered.
 
-Committed remote review verified accepted C212/Gate E identity, the V5 state provenance contract,
-all C213 OWN blobs, exact memory operation/read-status semantics, observed versus hypothesis
-revision clocks, observed-only EvidenceState export, stale mutation and scope rejection controls,
-28 tests, semantic2084-loaded/2083-kept regression accounting, zero unbound executable aliases,
-runner/launcher argv/parser wiring, 107 source pins /203 protected inputs, accepted C212 summary
-path and C214 non-registration.
+Next one-question intervention:
+
+> When the accepted C213 memory edit semantics are projected into the existing FOLD-R response
+> capsule, do supported edit sequences produce the same registered readout as a full-memory
+> reference within numerical tolerance?
+
+C214 must keep Writer/Reader/Port Selector learning disabled and test only the numeric
+semantic-to-capsule bridge.
 
 
 ## Stop condition
 
-Judge C213 before any C214 registration.
+C213 is closed as **ACCEPTED PASS**.
+
+C214 remains **NOT REGISTERED** until preregistration, authoring and post-authoring review complete.
 
 Gate E remains **PASSED**. Gate F remains **NOT PASSED**.
