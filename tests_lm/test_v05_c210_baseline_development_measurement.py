@@ -208,11 +208,20 @@ class C210Tests(unittest.TestCase):
         self.assertIn('p207.get("scorer_sha256")==SCORER_SHA',source)
         self.assertIn('"development-scorer.json"',source)
         self.assertIn('p209.get("visible_sha256")==VISIBLE_SHA',source)
-        self.assertIn('current_c189==C189_SOURCE_BLOB',source)
-        self.assertIn('pins[C189_SOURCE_FILE]=C189_SOURCE_BLOB',source)
+        self.assertIn("for rel,wanted in DIRECT_SOURCE_PINS.items()",source)
+        self.assertIn('pins[rel]=wanted',source)
         self.assertEqual(
-            c210.C189_SOURCE_BLOB,
-            "b34b40d84ab6597cc1cd26e47f64d58254d3304f",
+            c210.DIRECT_SOURCE_PINS,
+            {
+                "fold_lm/v05_benchmarks/gate_e_c175_frozen_prediction_audit.py":
+                    "efd1bb246442fb4f472e33e450c16b192acfa18a",
+                "fold_lm/v05_benchmarks/gate_e_c179_shared_graph.py":
+                    "504c79b6a881c64dba2494ef6ad35bffd9099f5a",
+                "fold_lm/v05_benchmarks/gate_e_c182_frozen_fact_renaming.py":
+                    "a5fb10af6238d425f82b093a0c3676d247b1f0e3",
+                "fold_lm/v05_benchmarks/gate_e_c189_live_multimissing_target.py":
+                    "b34b40d84ab6597cc1cd26e47f64d58254d3304f",
+            },
         )
 
     def test_21_regression_suite_semantic_counts(self):
