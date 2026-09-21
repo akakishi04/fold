@@ -82,3 +82,41 @@ be validated by searching `inspect.getsource()` for numeric literals.
 
 C206 scientific question, workload, verifier contract, C171 lineage, mixed-channel replay and Gate
 remain unchanged.
+
+## Second invalid attempt — unbound parent-module alias
+
+Disposition remains **INVALID EXECUTION / RETRY SAME C206**.
+
+- execution HEAD: `ffaac098988476d2db483005d487bddd02102f32`
+- published log commit: `98fb270d0dc43bf4a7c2689e985748a5c86a3196`
+- log SHA256: `f9ee35e596e7e35d2340c977f0035955da188e1b404ae5a16e1d5de6dc98c77a`
+- focused regression: **1901 tests,1900 PASS /1 ERROR**
+- scientific diagnostic: **not started**
+- run_execution_valid: False
+
+The only error was again C206 test25. The semantic-count rewrite referenced `c205._iter_tests` and
+`c205.HISTORICAL_DYNAMIC_TEST_EXCLUSIONS`, but the test module imported only `c202` and `c206`.
+Python compilation succeeds with such an unbound function-body name, so the error appeared only when
+test25 executed:
+
+```text
+NameError: name 'c205' is not defined
+```
+
+### Recovery
+
+No new import is required. test25 now uses the parent module binding that C206 itself actually uses:
+
+```python
+c206.c205._iter_tests(...)
+c206.c205.HISTORICAL_DYNAMIC_TEST_EXCLUSIONS
+```
+
+A remote alias audit after the change shows executable bare module references are limited to the
+explicitly imported `c202` and `c206`; C171 names in test21 are string literals only.
+
+### Process correction
+
+Post-authoring review now includes a Python free-name/import-binding audit. New bare module aliases
+introduced inside test/benchmark function bodies must resolve through an import or an already-bound
+parent-module namespace. This specifically covers errors that `py_compile` cannot catch.
