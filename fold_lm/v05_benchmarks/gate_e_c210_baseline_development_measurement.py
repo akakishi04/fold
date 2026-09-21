@@ -494,9 +494,6 @@ def candidate_pair_policy(environments, base_model, selector, base_seed: int, he
     total_rows=int(meter0["rows"])+int(meter1["rows"])
     total_fw=int(meter0["forward_calls"])+int(meter1["forward_calls"])
     total_cell=int(meter0["cell_calls"])+int(meter1["cell_calls"])
-    for r in records:
-        r["inference_forward_calls"]=total_fw
-        r["inference_cell_calls"]=total_cell
     return records,dict(
         policy_id=f"CANDIDATE-{base_seed}-{head_seed}",
         base_seed=base_seed,head_seed=head_seed,
@@ -542,7 +539,7 @@ def score_record(policy_record, scorer_row, initial_view: v1.TaskView):
         correct=correct,
         wrong_answer=wrong_answer,
         answerable=int(answerable),
-        wrong_abstention=int(answerable and not correct),
+        wrong_abstention=int(answerable and not emitted),
         pre_resolved=int(pre_resolved),
         pre_correct=pre_correct,
         acquisition_gain=correct-pre_correct,
@@ -822,6 +819,8 @@ def run(
         pid=f"CANDIDATE-{b}-{h}"
         episode_rows.extend(scored)
         policy_summary[pid]=summarize_policy(scored)
+        policy_summary[pid]["inference_forward_calls"]=model_meter["inference_forward_calls"]
+        policy_summary[pid]["inference_cell_calls"]=model_meter["inference_cell_calls"]
         family_summary[pid]=summarize_families(scored)
         candidate_model_summary.append(model_meter)
         print(
