@@ -46,7 +46,7 @@ No query ID or memory status feature enters the Reader.
 -36 total rows /24 TRAIN /12 EVAL;
 - balanced TRAIN [8,8,8];
 - balanced EVAL [4,4,4];
-- data SHA `ab0c6da658576d12fc786ad3dfcef94f3acc063d8263dd175d67eec7af6a14eb`.
+- data SHA `9ded8a1b17cf721407e5d28c9dd6350159d0a17721f39bf9b57a911b78aa3f61`.
 
 Port selection is oracle and outside Reader.
 
@@ -113,7 +113,7 @@ Expected:
 
 Manifest SHA256:
 
-`91e8afd97d667b67f1164e87628f62b4bcf2347e2884537ec3e54c2baa6b385c`
+`77d42cd12ce26e592b7e4798ba844e6a8147af4f3f45fc870fb48790b36cbdd7`
 
 Direct repository dependencies must all be pinned:
 - memory_bank.py
@@ -139,7 +139,7 @@ Committed remote review verified:
 - dataset registration SHA, six/three pair split, balanced classes and HOT/COMMITTED pairing;
 - Reader input width1 with no query/status feature leakage;
 - fixed3-seed/400-step workload and1215 Reader-forward accounting;
-- manifest SHA `91e8afd97d667b67f1164e87628f62b4bcf2347e2884537ec3e54c2baa6b385c`;
+- manifest SHA `77d42cd12ce26e592b7e4798ba844e6a8147af4f3f45fc870fb48790b36cbdd7`;
 -36 C216 tests,101 regression modules,2186 loaded /2185 focused semantic counts;
 - zero executable c### alias binding defects in benchmark/tests;
 - runner argv ordering: precheck argv[1], postcheck argv[1..3];
@@ -192,7 +192,7 @@ focused tests    2185
 
 Updated manifest SHA256:
 
-`91e8afd97d667b67f1164e87628f62b4bcf2347e2884537ec3e54c2baa6b385c`
+`77d42cd12ce26e592b7e4798ba844e6a8147af4f3f45fc870fb48790b36cbdd7`
 
 Historical regression dependency:
 - `tools/run_c167.ps1`
@@ -208,3 +208,21 @@ recovery review HEAD:
 
 The restored historical runner and updated130/136 validity accounting passed committed-remote
 re-review. The Reader scientific registration remains unchanged.
+
+
+## Dataset byte-identity recovery amendment
+
+The second invalid retry exposed a one-ULP discrepancy between a manual algebraic pre-registration
+calculation and the actual accepted FOLD-R `torch.linalg.solve` numeric path. The Reader pilot did
+not run.
+
+The scientific dataset construction is unchanged; only its registered byte identity is corrected:
+
+```text
+DATA_SHA     9ded8a1b17cf721407e5d28c9dd6350159d0a17721f39bf9b57a911b78aa3f61
+MANIFEST_SHA 77d42cd12ce26e592b7e4798ba844e6a8147af4f3f45fc870fb48790b36cbdd7
+```
+
+Existing test13 now pins the exact float64 bit patterns emitted by the FOLD-R solve path.
+
+`post_authoring_recovery_review_2 = PENDING`
