@@ -111,28 +111,46 @@ Manifest SHA256:
 
 ## Post-authoring review
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-Author environment: Python3.13.5 /PyTorch2.10.0+cpu /NumPy2.3.5.
-32 targeted tests executed successfully,0 failures/errors,0.306 seconds. All34 methods enumerated;
-new Python sources and three embedded runner Python blocks compiled; manifest hash matched.
-The dispatcher copy used in testing matches the accepted Git blob
-`da7efd7cf6c1c9a748ed35953df1a26a6e4c30fe`.
+Review HEAD: `8ca75e5e47b9d12fdb812dca5d71b5693c9c924c`.
+Scope: committed-source audit plus targeted synthetic authoring validation, not formal science.
 
-Synthetic model/provider fixtures exercised the full1296-fresh/4536-stale/81-repeat/324-replay
-matrix, exact invocation counters, wrong-session and synchronous-publication controls, and the
-parent-field adapter. This is authoring validation, not science using accepted checkpoint bytes.
+Remote code/test/PowerShell files were fetched after all OWN files were committed. Their complete
+Git blob IDs match the executed authoring copies exactly:
 
-Not run in the authoring environment: the two parent-tree-dependent new tests, actual numeric C222
-trajectory, full2435 historical regression, Windows PowerShell AST parser and local-only parent
-artifact/checkpoint science. A repository clone was attempted but DNS resolution was unavailable.
-No mock or synthetic result is represented as any of those checks.
+| File | Reviewed blob |
+|---|---|
+| memory_request_lease.py | 67a2d87120a3aa155a11a9e54e60007b32dd6d4c |
+| C223 benchmark | ef6ad21dacaea0da41030c012c30094eace8c2e3 |
+| C223 tests | bae18eaad8dd7b8c3ccecb04e935444224fb7c7f |
+| run_c223.ps1 | bd48777f2af3a7108b4cdeaf611ba192ce068312 |
+| invoke_c223.ps1 | 8c809480445b9ecd69b5ce9ef6cb6d103be32610 |
 
-After all files are committed, retrieve the actual remote files, compare their blob IDs with tested
-copies and independently review generation/owner/factory binding, actual call ordering, parent
-artifact semantics,19 dependency coverage,178/220 accounting, manifest, suite arithmetic, exact
-runner arguments, PowerShell preflight and C224 non-registration. Record the review HEAD and limits.
-The authoritative runner executes all34 new tests before the2435 focused suite, then science.
+After remote comparison,32 targeted tests reran successfully,0 failures/errors,0.284 seconds
+(Python3.13.5 /PyTorch2.10.0+cpu /NumPy2.3.5). All34 methods enumerated. New Python and three embedded
+runner Python blocks compiled; manifest self-hash matched. The dispatcher copy used in testing
+matches accepted blob `da7efd7cf6c1c9a748ed35953df1a26a6e4c30fe`.
+
+Synthetic model/provider fixtures exercised the1296-fresh/4536-stale/81-repeat/324-replay matrix,
+exact invocation counters, wrong-session and synchronous-publication controls, parent-field adapter
+and negative scorer checks. This is not science using the user's accepted checkpoint bytes.
+
+Source review checked owner/generation before actual dispatch, factory binding to session-owned
+current state, representation-only publication semantics, absence of expected answers in the
+session, real old-provider invocation in bypass controls, caller/parent helper chains, parent row
+field meanings,19 deciding dependencies,178/220 protection accounting, suite arithmetic and
+runner argv[1]/postcheck argv[1..3]. Launcher branch/tree/HEAD/unique ACTIVE/parser checks precede
+logging/publish. Git compare changes only new acceptance/C223 files and unpinned handoff; no accepted
+source, historical test, log or dependency is edited/deleted. C224 remains unregistered.
+
+Not run here: the two parent-tree-dependent new tests, actual numeric C222 trajectory, full2435
+historical regression, Windows PowerShell AST parser and local-only parent artifact/checkpoint
+science. Clone was attempted but DNS resolution was unavailable. No synthetic result is represented
+as any of these checks. The authoritative runner executes all34 own tests first, then2435 focused
+tests, then science; any failure stops before the next phase and is logged.
+
+Review after the stated HEAD changes only review documentation; scientific conditions remain fixed.
 
 ## Interpretation and stop
 
