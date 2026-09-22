@@ -117,22 +117,39 @@ Manifest SHA256:
 
 ## Post-authoring review
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-Author-side28 targeted tests passed, including the measurement function exercised with a synthetic
-backend at all four registered history lengths, raw/index UTF-8 bookkeeping, exact export totals,
-provenance checks, deduplicated tensor-storage estimates and negative accounting controls.
-Python source and three embedded runner blocks compile;30 methods enumerate; manifest hash matches.
+Review HEAD: `a8e0eeb370d37d367defeca967a4bc33b418029d`.
+Scope: committed-source audit and targeted synthetic-backend execution, not formal science.
 
-Not yet executed here: test29 with the accepted numeric backend, test30/full historical2465 suite,
-Windows PowerShell AST parsing, local parent artifact precheck or the authoritative C224 run.
-A repository clone was attempted but DNS resolution failed. No mock-backend result is represented as
-accepted numeric-backend execution or scientific evidence. The real runner executes all30 own tests
-first, then2465 focused tests, then the audit. Existing numeric/production sources remain unchanged.
+After all OWN files were committed, remote files were retrieved. All four code/test/PowerShell blob
+IDs matched the executed authoring copies:
+- benchmark: `eda1608db14bad7283c0ad593e0c490caf1c4f15`;
+- tests: `48672deaf1ed734ef77e0f902cb0f96185958509`;
+- runner: `32b2546292f3379c34714da347baf488544e6967`;
+- launcher: `c60f2a54d8be82e62eba35063b93c3a2cdeeb7ab`.
 
-After committing all files, re-fetch remote code/test/runner/launcher, compare their blobs to the
-executed copies, review parent semantic/helper contracts and the source/protection union, and record
-the reviewed HEAD and explicit execution limits. Review PASS is required before an execution command.
+After that comparison,28 targeted tests reran successfully (0 failures/errors,0.079 seconds).
+The measurement function was exercised with a synthetic backend at all four history lengths.
+UTF-8 source indexes, export completeness/sums, provenance checks, symbolic-state comparison,
+raw replay counters, tensor-storage deduplication and negative accounting controls passed.
+All30 test methods enumerated; Python and three embedded runner blocks compiled; manifest hash
+matched; executable unbound c### aliases were0.
+
+Source review confirmed baseline replay uses fresh MemoryState and independent full_reference,
+not the candidate aggregate; candidate bank.read has no raw replay; current provenance resolves
+through the fully counted source index; all raw bytes are retained by both arms; complete export
+inventory is checked again from the ZIP entries; measurement values are printed to the console log.
+Parent schema/helper paths,184/232 source/protection counts,22 dependency membership, CLI indexes
+precheck[1]/postcheck[1..3], early own-test ordering and launcher guards were reviewed.
+Git compare from the published C223 log commit shows only new C224/acceptance files and unpinned
+handoff updates: no accepted source/test/log/dependency was changed or removed.
+
+Not executed here: test29 with the accepted numeric backend; test30/full historical2465 suite;
+Windows PowerShell AST parsing; local parent artifact precheck; authoritative C224 measurement.
+The clone attempt failed because DNS resolution was unavailable. No synthetic backend result is
+represented as any of these checks. The real runner executes all30 own tests first, then2465 focused
+tests, then the audit. Review updates after the stated HEAD affect review documentation only.
 
 ## Limits and stop
 
