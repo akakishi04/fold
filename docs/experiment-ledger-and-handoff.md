@@ -10,7 +10,7 @@ Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
 **C221 ACCEPTED PASS. C222 ACTIVE / NOT YET JUDGED. C223 NOT REGISTERED.**
 
-C222 is the unique ACTIVE experiment. Do not execute before post-authoring review PASS.
+C222 is the unique ACTIVE experiment. Source review passed; execution preflights remain mandatory.
 
 ## Accepted C221
 
@@ -86,13 +86,26 @@ Design: `docs/v5f-withdrawal-hypothesis-lifecycle-v0.1.md`.
 
 ## C222 post-authoring review
 
-**post_authoring_review = PENDING**
+**post_authoring_review = PASS**
 
-Author-side30 targeted synthetic/spy tests passed with the exact accepted dispatcher source.
-Parent-tree-dependent tests2, actual accepted numerical trajectory, full2401 regression, Windows
-AST parsing and local-only checkpoint execution remain unexecuted here. The authoritative runner
-executes all32 new tests before full regression and science. Do not represent the synthetic tests
-as a pass of pending parent-tree or checkpoint checks.
+Review HEAD: `3ef62466b555fc1df70abdc8fb92b825b7999f76`.
+Scope: committed-source audit plus targeted synthetic authoring validation, not formal science.
+
+All four new code/test/PowerShell blob IDs matched tested local copies. The accepted dispatcher
+copy also matched its actual parent blob. After comparison,30 targeted tests reran successfully
+(0 failures/errors,0.173 seconds);32 new methods enumerated; manifest self-hash matched; all three
+embedded runner Python blocks compiled. Synthetic1296-main/162-control traces and scorer controls
+passed. No accepted production source, historical test, log or dependency was edited/deleted.
+
+Source review checked parent request scope/factor/provenance preconditions, direct helper bindings,
+checkpoint restore paths,171/207 accounting,17 deciding dependencies, scoped symbolic audit,
+one-bank construction, fresh request binding, expected-label separation and launcher/CLI order.
+Review after this HEAD changes only review documentation, not scientific conditions.
+
+Not run here: the two parent-tree-dependent tests, actual accepted numerical trajectory, full2401
+historical regression, Windows AST parse and local-only checkpoint/artifact science. No synthetic
+test is represented as those checks. The authoritative runner executes all32 new tests first,
+then2401 focused tests, and only then science. Failures stop before the next stage and are logged.
 
 ## Historical evidence and maintenance
 
