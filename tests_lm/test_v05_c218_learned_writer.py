@@ -259,10 +259,12 @@ class C218Tests(unittest.TestCase):
             reader_training_steps=0,
             selector_training_steps=0,
             coverage_classifier_calls=0,
-            learned_writer_operation_attempts=54,
+            learned_writer_operation_slots=54,
+            actual_learned_writer_operation_attempts=54,
             oracle_writer_operations=60,
             control_writer_operations=12,
-            chunk_commits=96,
+            chunk_commit_slots=96,
+            successful_chunk_commits=96,
         )
         self.assertTrue(c218.gate(summary))
 
@@ -358,10 +360,12 @@ class C218Tests(unittest.TestCase):
             reader_training_steps=0,
             selector_training_steps=0,
             coverage_classifier_calls=0,
-            learned_writer_operation_attempts=54,
+            learned_writer_operation_slots=54,
+            actual_learned_writer_operation_attempts=54,
             oracle_writer_operations=60,
             control_writer_operations=12,
-            chunk_commits=96,
+            chunk_commit_slots=96,
+            successful_chunk_commits=96,
         )
         self.assertFalse(c218.gate(summary))
 
@@ -434,10 +438,10 @@ class C218Tests(unittest.TestCase):
         )
         self.assertEqual(
             (
-                m["learned_writer_operation_attempts"],
+                m["learned_writer_operation_slots"],
                 m["oracle_writer_operations"],
                 m["control_writer_operations"],
-                m["chunk_commits"],
+                m["chunk_commit_slots"],
             ),
             (54,60,12,96),
         )
