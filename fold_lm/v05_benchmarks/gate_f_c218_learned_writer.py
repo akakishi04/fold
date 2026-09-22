@@ -34,7 +34,7 @@ PARENT_C217_VALIDATION_SHA = "7e46f83fc7c6702e36ede2d05f016018cf8d219c51248ef7d3
 PARENT_SELECTOR_CHECKPOINT_SHA = "ab8892e6562a4801a30fea853fdbc712d69d9c5077e32c0b8fab6e555fead215"
 INHERITED_READER_CHECKPOINT_SHA = "bf96cf6cec13bfdb9c71e374b0e11dd104365add1c5947f2123f4e4ea9f051af"
 WRITER_DATA_SHA = "06f8df444119f0332168a956e7f32e9690b88fa9c39749d3ecc2283c70213714"
-MANIFEST_SHA = "29b488831dc74e7060387a56368a48ca53aff5592ea767e397dc64db2264e034"
+MANIFEST_SHA = "e855905bc1ff7c1b105608163a4483b7c5dbffb6d4ca5ce1a130ffb542493394"
 
 VALUES = (-1, 0, 1)
 RELATION_CLASSES = (
@@ -166,10 +166,10 @@ def manifest():
         frozen_selector_forward_calls_expected=3,
         frozen_reader_forward_calls_expected=72,
         model_forward_calls_expected=1287,
-        learned_writer_operation_attempts=54,
+        learned_writer_operation_slots=54,
         oracle_writer_operations=60,
         control_writer_operations=12,
-        chunk_commits=96,
+        chunk_commit_slots=96,
         reader_training_steps=0,
         selector_training_steps=0,
         coverage_classifier=False,
@@ -761,10 +761,12 @@ def gate(summary):
         and summary.get("reader_training_steps") == 0
         and summary.get("selector_training_steps") == 0
         and summary.get("coverage_classifier_calls") == 0
-        and summary.get("learned_writer_operation_attempts") == 54
+        and summary.get("learned_writer_operation_slots") == 54
+        and summary.get("actual_learned_writer_operation_attempts") == 54
         and summary.get("oracle_writer_operations") == 60
         and summary.get("control_writer_operations") == 12
-        and summary.get("chunk_commits") == 96
+        and summary.get("chunk_commit_slots") == 96
+        and summary.get("successful_chunk_commits") == 96
     )
 
 
@@ -877,10 +879,10 @@ def validate_result(payload):
         and payload["frozen_selector_forward_calls"] == 3
         and payload["frozen_reader_forward_calls"] == 72
         and payload["model_forward_calls"] == 1287
-        and payload["learned_writer_operation_attempts"] == 54
+        and payload["learned_writer_operation_slots"] == 54
         and payload["oracle_writer_operations"] == 60
         and payload["control_writer_operations"] == 12
-        and payload["chunk_commits"] == 96
+        and payload["chunk_commit_slots"] == 96
         and payload["reader_training_steps"] == 0
         and payload["selector_training_steps"] == 0
         and payload["network_calls"] == 0,
@@ -1071,7 +1073,12 @@ def run(*, c217_summary, output_dir, expected_head):
         reader_training_steps=0,
         selector_training_steps=0,
         coverage_classifier_calls=0,
-        **aggregate_counts,
+        learned_writer_operation_slots=54,
+        actual_learned_writer_operation_attempts=aggregate_counts["learned_writer_operation_attempts"],
+        oracle_writer_operations=aggregate_counts["oracle_writer_operations"],
+        control_writer_operations=aggregate_counts["control_writer_operations"],
+        chunk_commit_slots=96,
+        successful_chunk_commits=aggregate_counts["chunk_commits"],
     )
     save_json("validation-summary.json", summary)
 
@@ -1103,10 +1110,12 @@ def run(*, c217_summary, output_dir, expected_head):
         frozen_selector_forward_calls=len(SELECTOR_SEEDS),
         frozen_reader_forward_calls=frozen_reader_calls,
         model_forward_calls=learned_writer_calls + len(SELECTOR_SEEDS) + frozen_reader_calls,
-        learned_writer_operation_attempts=aggregate_counts["learned_writer_operation_attempts"],
+        learned_writer_operation_slots=54,
+        actual_learned_writer_operation_attempts=aggregate_counts["learned_writer_operation_attempts"],
         oracle_writer_operations=aggregate_counts["oracle_writer_operations"],
         control_writer_operations=aggregate_counts["control_writer_operations"],
-        chunk_commits=aggregate_counts["chunk_commits"],
+        chunk_commit_slots=96,
+        successful_chunk_commits=aggregate_counts["chunk_commits"],
         reader_training_steps=0,
         selector_training_steps=0,
         network_calls=0,
