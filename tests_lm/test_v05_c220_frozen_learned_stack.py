@@ -379,8 +379,9 @@ class C220Tests(unittest.TestCase):
     def test_37_scope_is_integration_only_and_not_gate_f(self):
         m = c220.manifest()
         self.assertTrue(m["learned_components_frozen"])
+        self.assertEqual(m["new_training_steps"], 0)
+        self.assertEqual(m["operation_kind"], "oracle ASSERT/REPLACE/END_SCOPE")
         self.assertFalse(m["gate_f_candidate"])
-        self.assertFalse(c220.validate_result.__doc__ if False else False)
 
     def test_38_run_has_no_optimizer_or_training_loop(self):
         source = inspect.getsource(c220.run)
