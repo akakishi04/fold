@@ -25,7 +25,7 @@ def _capsule_tensors(capsule):
 
 
 def _stamps(tensors):
-    return tuple((id(x), x._version) for x in tensors)
+    return tuple(((id(x), x.requires_grad), x._version) for x in tensors)
 
 
 @dataclass(frozen=True, eq=False)
