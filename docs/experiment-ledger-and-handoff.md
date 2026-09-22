@@ -8,111 +8,51 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
-**C222 ACCEPTED PASS. C223 ACTIVE / NOT YET JUDGED. C224 NOT REGISTERED.**
-C223 is the unique ACTIVE experiment. Source review passed; execution preflights remain mandatory.
+**C223 ACCEPTED PASS. C224 NOT REGISTERED.**
+No experiment is ACTIVE while C224 is authored.
 
-## Accepted C222
+## Accepted C223
 
-Scientific execution HEAD: `ae4286ac9b79cd34eb8bdfd1d72ae2e27c308889`.
-Published log commit: `ad285c5a318d7ac7b0067e07ffe06fb02edfb8e8`.
-Log SHA256: `a0c24da2aebbab381a9325457bc12f7c6fd2046c36f9fdc32a5fd6fc7391fb5c`.
-Summary SHA256: `18321ace4ade112fe227d4836867223a5ec609761c89015b704e9e14b629c62e`.
+Scientific execution HEAD: `cdcc1d4211a149003f44dbdbd18a7e5367c013ab`.
+Published log commit: `6e96f798b4c931247f58ab9982b617780d0ee9db`.
+Log SHA256: `aff5dbc06d2c85ae54b2181dd2605c09dab66388f758626ce8e3e056bdbe0601`.
+Summary SHA256: `1b08cf76a1c233ce849f2b7fe81dbb7fa44120e59a75b32e2f42c4ebccdad2ca`.
 Local summary:
-`runs/c222-v5f-withdrawal-lifecycle-60ba479f7d2b46ff957b5d2a21bf865c/summary.json`.
+`runs/c223-v5f-request-freshness-56cfd6d212764ccf98e7789aa964de52/summary.json`.
+Validation SHA: `b52c9d95bb89dca5061d2ccff4aab90276ea5dc4edba2d653b1d9fdc03d12db2`.
 
-2401/2401 regression OK; main1296/1296; controls162/162; alpha anchor648/648;
-suppression405/405; beta answers after withdrawal0; suppressed downstream calls0;
-lifecycle/provenance/export audits3/3; fingerprints unchanged; training0; forwards3405.
+2435/2435 focused regression OK. Fresh1296/1296 and parent parity1296/1296;
+stale rejection4536/4536 with no exposed result or downstream calls; current repeats81/81;
+unguarded replay controls324/324; fingerprints unchanged; training0; model forwards4134.
 Protected inputs preserved; run_execution_valid True.
-
-Full verdict: `docs/experiment-ledger-addendum-c222-c223.md`.
-Evidence is published console/metadata and recorded local artifact checks, not reviewer-side
-re-execution of local checkpoints. One synthetic trajectory per Writer is crossed with81
-checkpoint combinations;1296 decisions are not independent unseen tasks.
+Full verdict: `docs/experiment-ledger-addendum-c223-c224.md`.
+Evidence is published console/metadata plus recorded local checks, not a reviewer re-run of local
+checkpoint bytes. The checkpoint matrix is not a large independent unseen-task holdout.
 
 ## Accepted V5-F chain and limits
 
 C213 MemoryOp/provenance; C214 numeric closure; C215 H1/H2 commit;
 C216 Reader; C217 Selector; C218 factor+relation Writer; C219 Coverage;
-C220 offline composition; C221 causal live dispatch; C222 withdrawal/hypothesis isolation.
+C220 offline composition; C221 causal dispatch; C222 withdrawal/hypothesis isolation;
+C223 explicitly published-state request freshness.
 
-All learned components remain structured-input pilots. Natural language, learned operation kinds,
-broad unseen tasks, retained request/cache freshness, acquisition, bounded indexing and total
-memory-cost superiority are not established. Gate F remains NOT PASSED.
-C222 used fresh requests; it did not test reuse of old C221 provider closures.
+All learned components remain tiny structured-input pilots. Native operation-kind selection,
+natural language, broad generalization, acquisition, concurrent/cache freshness, bounded indexing
+and total-memory-cost superiority remain unestablished. Gate F is not passed.
 
-## Active C223 — retained request freshness
+## Next boundary
 
-Experiment `C223-v5f-retained-request-freshness`.
-Stage `V5-F-RETAINED-REQUEST-FRESHNESS`.
+C224 proposed question: compare the existing H1/H2 memory reference with full-history replay as
+revision history grows, explicitly retaining/counting raw evidence, source lookup index, provenance
+and numeric state. This is a cost-attribution measurement, not a new optimizer or Gate F decision.
 
-One question: do session-owned request leases reject old requests after publication before any
-model/provider call, while fresh requests preserve C222 results?
+Do not confuse measurement PASS with storage superiority. Retaining full raw evidence may make the
+candidate larger even when warm numeric queries avoid rereading it. State this tradeoff explicitly.
+Keep the live factor count small/fixed and report that this does not test many-factor read scaling.
 
-New deterministic module `fold_lm/v05/memory_request_lease.py`; no parent production source changed.
-RequestSession binds from current state and rejects other-session or old-generation leases.
-Every publication increments generation, including representation-only H1/H2 commit.
-No answer cache, training, acquisition, new semantic task or cost optimization.
+## Historical maintenance and stop
 
-Same C222 lifecycle and frozen checkpoints. Three sessions,7 publications/session.
-Fresh1296: require1296 success and parent Coverage/answer/action/trace/bank-read parity.
-Stale4536: all prior alpha/beta requests at all later publications; require STALE_REQUEST,
-no exposed result and zero Coverage/Selector/provider/bank/Reader calls.
-Same-generation repeats81: a current beta_committed lease must remain reusable.
-Unguarded old-request controls324: HOT->COMMIT, committed->REPLACE, replaced->RETRACT,
-retracted->END_SCOPE; reproduce old behavior and differ from current behavior intentionally.
-
-Successful calls:
-fresh Coverage1296 /Selector/provider/bank/Reader891;
-stale all0;
-repeat all81;
-unguarded replay Coverage324 /Selector/provider/bank/Reader243.
-Writer3; total model forwards4134; training0; unchanged fingerprints.
-
-Source pins178; protected inputs220; deciding dependencies19; OWN7; outputs5.
-New tests34; modules108; loaded2436 /focused2435; inherited exact exclusion1.
-Manifest: `ef0d7db9c3ef24da2076c8811076e53c6d46abeff19b363163a0c352f0d0872d`.
-Registration: `docs/experiment-ledger-addendum-c223-preregistration.md`.
-Design: `docs/v5f-retained-request-freshness-v0.1.md`.
-
-## C223 post-authoring review
-
-**post_authoring_review = PASS**
-
-Review HEAD: `8ca75e5e47b9d12fdb812dca5d71b5693c9c924c`.
-Scope: committed-source audit plus targeted synthetic authoring validation, not formal science.
-
-All five new code/test/PowerShell blob IDs match the executed local copies. The accepted dispatcher
-copy also matches its original blob. After remote comparison,32 targeted tests reran successfully
-(0 failures/errors,0.284 seconds);34 methods enumerated; manifest matched; new Python and three
-embedded runner blocks compiled. The synthetic1296-fresh/4536-stale/81-repeat/324-replay matrix
-matched registered counters and rejection controls.
-
-Source review checked owner/generation before dispatch, factory binding to current owned state,
-representation-only commit invalidation, expected-label separation, old-closure replay controls,
-parent adapter field semantics, helper chains,19 dependencies,178/220 protection accounting,
-module/test arithmetic, runner argv[1]/postcheck argv[1..3] and launcher preflight ordering.
-Git compare edits no accepted source/test/log/dependency; only new files and unpinned handoff.
-Review after this HEAD changes only review documentation, not scientific conditions.
-
-Not run here: the two parent-tree-dependent new tests, actual numeric C222 lifecycle, full2435
-historical regression, Windows AST parse and local-only artifact/checkpoint science. No synthetic
-result is represented as those checks. The authoritative runner executes all34 own tests first,
-then2435 focused tests, then science. Failures stop before the next phase and are logged.
-
-## Limits and historical maintenance
-
-Explicit publication of trusted immutable state is required. In-place tensor mutation, skipped
-publication, malicious bypass, concurrent/cross-process use, model-version changes and answer-cache
-invalidation are outside scope. This is correctness control, not a security sandbox.
-Old snapshots/requests are retained for the test only; no bounded-memory claim.
-
-Prior full state: `ad285c5a318d7ac7b0067e07ffe06fb02edfb8e8:docs/experiment-ledger-and-handoff.md`.
-Preserve accepted sources and `tools/run_c167.ps1`. No cleanup, history rewrite, new CI or
-Actions-storage work. Actions storage is handled separately.
-
-## Stop condition
-
-Judge C223 before any C224 registration. Complete gate miss: scientific FAIL.
-Source/artifact/schema/regression/incomplete-run defects: INVALID / RETRY SAME C223.
-Gate F remains NOT PASSED.
+Prior handoff: `6e96f798b4c931247f58ab9982b617780d0ee9db:docs/experiment-ledger-and-handoff.md`.
+Preserve accepted source pins and `tools/run_c167.ps1` historical regression infrastructure.
+No cleanup, history rewrite, new CI or Actions-storage changes.
+C224 stays NOT REGISTERED until its registration/review are complete. Gate F remains NOT PASSED.
