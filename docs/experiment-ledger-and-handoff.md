@@ -10,7 +10,7 @@ Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
 **C234 ACCEPTED VALID NEGATIVE. C235 ACTIVE / NOT YET JUDGED. C236 NOT REGISTERED.**
 C235 is the unique ACTIVE experiment. It is a frozen diagnostic, not a new capability gate.
-Post-authoring review is pending; do not execute until this handoff records review PASS.
+Post-authoring review is PASS; authoritative execution preflights remain mandatory.
 
 ## Accepted C234 — contextual binding not established
 
@@ -143,10 +143,29 @@ Registration:
 
 ## C235 post-authoring review
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-Do not execute yet. Review committed remote benchmark/test/PowerShell/doc bytes, validate source
-scope and available tests, then update this section and the preregistration to PASS.
+Review HEAD: `21fdd412a95d9c4f024dc92c20a4dc17d3d6f955`.
+Scope: committed remote source/static contract review, not formal diagnostic execution.
+
+Remote blobs at review HEAD:
+benchmark `12807b77a5f6bc36d185a931e54d651dcd557e39`;
+tests `2c880ae9b35a214d7a7e0425c5c674fad10027d3`;
+runner `f6debab11f8fb88c3519752626d6f4512ae3297d`;
+launcher `564359a1283a9bea333ce78611c085baa662d358`.
+
+Acceptance-to-review comparison changes only C235 OWN6 plus this handoff. Static audit confirms:
+no C235 fit/optimizer/torch.save path; frozen model fingerprints are checked; parent EVAL is replayed;
+36 forwards/10368 rows/0 training are fixed;24 test methods are present; runner registers
+2810 loaded/2809 focused tests and three precheck/regression/postcheck blocks; launcher resolves only
+ACTIVE C235 and requires clean tree/exact HEAD/parser success before execution/publication.
+Independent manifest reconstruction matched
+`2e8bb701b3a6d512479c7118ac0973784617e1243639ef00c3903caed1a0f6c3`.
+
+Reviewer-local execution was not possible because the isolated environment could not resolve
+github.com for a clone. Python py_compile,24 authoring tests,2809 focused tests, Windows PowerShell
+AST, local C234 artifact reads and the36-forward diagnostic remain authoritative runner preflights
+and are not represented as already passed. Any defect stops C235 before a valid diagnostic result.
 
 ## Numeric-memory track and stop
 
