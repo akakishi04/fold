@@ -114,29 +114,47 @@ Manifest SHA256:
 
 ## Post-authoring review
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-Author-side targeted execution before remote review:32 C221 tests passed in an isolated
-Python3.13.5 / PyTorch2.10.0+cpu environment. Synthetic spy-model fixtures exercised all648 main and
-324 intervention dispatches and obtained the registered trace/counter totals. This is authoring
-validation, not a scientific run using the user's accepted checkpoints.
+Review HEAD: `b5ee7fc81fc342152031859377260bb6f760486d`.
+Review scope: committed-source review and targeted synthetic authoring tests, not formal science.
 
-Not executed in that environment:
+Remote files were fetched after all OWN files were committed. Git blob hashes of the five code/test/
+PowerShell files matched the authoring copies exactly:
+
+| File | Reviewed blob |
+|---|---|
+| memory_dispatch.py | da7efd7cf6c1c9a748ed35953df1a26a6e4c30fe |
+| C221 benchmark | 0041f407622159b6ef26f232a2ed3183346c52b4 |
+| C221 tests | 5bdea9b2dde65096a65be220da4782ad516d3c76 |
+| run_c221.ps1 | 33eff61d19bd42978a56ed51aa09d88b0e7af230 |
+| invoke_c221.ps1 | 03e420c395d14c9e66fc65110df45a14f1cbe7d3 |
+
+On those identical copies,32 targeted tests were rerun:32 PASS,0 failures,0 errors in1.262 seconds
+(Python3.13.5 / PyTorch2.10.0+cpu). Python source and all three embedded runner-Python blocks compiled.
+The manifest hash was computed and matched. TestLoader enumerated34 new test methods.
+Synthetic spy-model evaluation exercised648 main and324 intervention dispatches, with exact
+registered traces/counters. A synthetic fixture of the actual parent artifact field schema passed
+the648-row scorer adapter. These fixtures are not accepted-checkpoint scientific evidence.
+
+Git comparison from published C220 log commit to the review HEAD changes only new C221/acceptance
+files and the unpinned handoff. No accepted scientific source, historical test, log or dependency
+was removed or edited. Parent artifact semantics, checkpoint-restoration call paths,16 dependency
+coverage,165/195 accounting, argv[1]/postcheck argv[1..3], early-test ordering and launcher guards
+were source-reviewed. C222 remains unregistered.
+
+Not executed in the reviewing environment:
 - `test_33_actual_historical_suite_counts`;
 - `test_34_plan_matches_accepted_parent`;
-- the full historical2369-test regression;
+- full2369-test historical regression;
 - Windows PowerShell AST parsing;
-- accepted-checkpoint C221 execution or local-only artifact precheck.
+- local-only accepted-checkpoint/artifact precheck or C221 science.
 
-The source-only reviewing container could not clone the repository. No stub or synthetic result is
-claimed as a full historical-regression PASS. The formal runner first executes all34 new tests on
-the authoritative checkout, then the2369 focused suite, and only then starts science. Any failure
-stops before science and preserves/publishes the log.
-
-Remote review must verify exact committed code identity against the tested authoring copies,
-manifest/schema/parent-loader agreement, unchanged accepted sources, C220 artifact field meanings,
-all direct dependencies, complete launcher guard/CLI wiring, and the absence of labels/answers in
-the dispatch interface. Record the review HEAD and explicit execution scope before giving a command.
+No synthetic or stub result is represented as a full historical-regression PASS. The authoritative
+runner executes all34 new tests first, then2369 focused tests, and starts science only after those
+gates pass. Dispatcher/launcher/runner AST checks remain on the Windows execution path. Failure
+stops before science and preserves/publishes the log. Review PASS is not a claim those pending
+execution checks have already run.
 
 ## Stop
 
