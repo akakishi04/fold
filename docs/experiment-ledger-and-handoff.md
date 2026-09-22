@@ -9,7 +9,7 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
 **C229 ACCEPTED PASS. C230 ACTIVE / NOT YET JUDGED. C231 NOT REGISTERED.**
-C230 is unique ACTIVE. Do not execute before post-authoring review PASS.
+C230 is unique ACTIVE. Source review passed; all execution preflights remain mandatory.
 
 ## Accepted C229 — diagnostic audit, not speed improvement
 
@@ -84,17 +84,29 @@ Design: docs/v5f-checked-reduced-preparation-v0.1.md.
 
 ## C230 post-authoring review
 
-**post_authoring_review = PENDING**
+**post_authoring_review = PASS**
 
-Initial38 targeted tests passed;40 methods enumerated. Exact fetched capsule.py reference and actual
-PyTorch kernels checked numerical parity at four dimensions, updated bias, signed safe/unsafe W,
-mutation rejection, trace restoration, cache bytes and synthetic adapter/archive/run wiring.
-A final committed-remote reread and rerun are still required.
+Review HEAD: `dd973c4415422b3a15b229ecb18443ca75cd7cc7`.
+Scope: committed-source review and targeted authoring execution, not formal science.
 
-Not executed here: test39 actual parent bank/export trajectory, test40/full2665 historical suite,
-Windows PowerShell AST, user-local artifact precheck or formal C230 measurement. Clone failed DNS
-resolution. Synthetic fixtures do not replace those checks. The authoritative runner executes40 own
-tests,2665 focused tests, then science, stopping and publishing logs on failure.
+All five re-fetched code/test/PowerShell blob IDs matched tested copies. After comparison38 targeted
+tests reran:0 failures/errors,0.971 seconds;40 methods enumerated; manifest matched; all three Python
+files and three embedded runner blocks compiled; unbound global references0; argv indices
+precheck[1]/postcheck[1..3]. Additional probe confirmed inference-flag mutation after preparation
+invalidates reuse. Exact fetched capsule.py and real PyTorch LU/full solves were used on synthetic
+matrices at all dimensions. Current-bias parity, signed/unsafe W, mutation rejection, cache bytes,
+trace restoration and synthetic adapter/archive/12-cell run/output/postchecks passed.
+
+Source review checked current bias and matrix-dependent safety, original BankRead construction,
+parent helper signatures and quality artifact inventory semantics,29 dependency coverage,221/305
+accounting, timing/trace separation, complete launcher guards and C231 non-registration. Git compare
+shows only new files plus the unpinned handoff; no accepted source/test/log/dependency edits/deletions.
+
+Not executed here: test39 actual parent bank/export trajectory, test40/full2665 historical regression,
+Windows PowerShell AST, user-local artifact precheck or formal measurements. Clone failed DNS.
+Targeted synthetic fixtures are not represented as those checks. The authoritative runner executes
+40 own tests,2665 focused tests, then science; failures stop and publish logs. Only review documents
+change after the review HEAD. No speedup has been claimed from author-side tests.
 
 ## Historical maintenance and stop
 
