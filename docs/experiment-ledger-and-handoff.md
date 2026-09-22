@@ -8,114 +8,99 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
-**C225 ACCEPTED PASS. C226 ACTIVE / NOT YET JUDGED. C227 NOT REGISTERED.**
-C226 is unique ACTIVE. Source review passed; all execution preflights remain mandatory.
+**C226 ACCEPTED PASS. C227 ACTIVE / NOT YET JUDGED. C228 NOT REGISTERED.**
+C227 is unique ACTIVE. Do not execute until post-authoring review passes.
 
-## Accepted C225 — audit PASS, unfavorable measured costs
+## Accepted C226 — dimension audit, limited query crossover
 
-Scientific execution HEAD: `6669add6de53247e60731a3f23e7bed9350deec3`.
-Published log commit: `88395cb0d44b0ca02fcb106967b97d966dcbe1b3`.
-Log SHA: `f1d1bf677a49cabbb3974fce6e7077c051018335736f1a620d95034b95d57005`.
-Summary SHA: `b54943514cebb06161851e6a79c9eb4e8fd6766429f6f2e0e2f34c79c52a78ad`.
+Scientific execution HEAD: `17284250b25bdb5160d5d3ffa95501a4f5070e03`.
+Published log commit: `2e4d4c01a9c37409cf4ebbc6c620c748b61e6156`.
+Log SHA: `783aac9892f63d9540480919f3a8b365789c29e5b3e4c0c83d5542078b9019bd`.
+Summary SHA: `ba4465c8c84e8fd54da1f7096a18056b7e53e6689a6ba3df5e1f9c559a7fac08`.
 Local summary:
-`runs/c225-v5f-stateful-baseline-4df0cd59e7c34942a3d33b0932863b0f/summary.json`.
-Validation SHA: `94e2028aaaff24f9cc03480abde49c2e41674d833141745e6bc34f9852620a29`.
-Measurements SHA: `50e82a0a655ab63ddf00da04edab1995c7b99064ae493ba5320a0d2f348362a2`.
+`runs/c226-v5f-dimension-scaling-b1186f4e625e45e0909c44ed8c585937/summary.json`.
+Validation SHA: `ec05f980af138ef10f243c2a75788d50f7322f47bd5b8309b7e896c398ccaad7`.
+Measurements SHA: `f312af884dc6ee11bf02bf8b1aa3022531b3d599307571172557abc242519f44`.
 
-Regression2497/2497 OK; all four full symbolic/provenance/numeric parity checks passed;
-accepted C224 candidate export inventories unchanged; run_execution_valid True; inputs preserved.
-Acceptance uses published evidence and the recorded local artifact checks, not a reviewer rerun of
-user-local artifacts. Full verdict: `docs/experiment-ledger-addendum-c225-c226.md`.
+Regression2529/2529 OK; full symbolic/provenance/numeric parity at four dimensions;
+n2 C225 export inventories unchanged; checked candidate solve size2 versus full2/16/64/256;
+run_execution_valid True; protected inputs and tracked tree preserved.
+Acceptance uses published evidence and recorded local artifact checks, not reviewer-side rerun of
+user-local artifacts. Full verdict: `docs/experiment-ledger-addendum-c226-c227.md`.
 
-| History events | H1/H2 bytes | Stateful symbolic bytes | H1/H2 query ms | Symbolic query ms |
+| Numerical variables | H1/H2 query ms | Stateful full solve ms | H1/H2 bytes | Symbolic bytes |
 |---|---:|---:|---:|---:|
-| 8 | 5743 | 5328 | 0.3271 | 0.2727 |
-| 32 | 11181 | 10764 | 0.2232 | 0.1201 |
-| 128 | 33100 | 32681 | 0.1720 | 0.0877 |
-| 512 | 121183 | 120764 | 0.1789 | 0.0865 |
+| 2 | 0.4370 | 0.2398 | 11181 | 10764 |
+| 16 | 0.4615 | 0.2410 | 12715 | 12298 |
+| 64 | 0.4817 | 0.3805 | 29419 | 29002 |
+| 256 | 0.4089 | 1.1633 | 280561 | 280144 |
 
-Storage deltas+415/+417/+419/+419 bytes; query median ratios1.1995/1.8585/1.9612/2.0682.
-No measured storage or query-time win. Both arms avoid raw replay completely. Thus C224's avoided
-replay was not uniquely due to capsules. Times are descriptive three-trial medians; export bytes
-are canonical noncompressed audit data, not native checkpoints or total process memory.
+At n256 the measured H1/H2 median is0.3515 times the repeated-full-solve median (about2.85x faster).
+It is slower at the other sizes. Storage+417 bytes at every size: no total-storage win. Maximum
+instrumented discrepancy2.78e-17 within1e-10. Both paths avoid raw replay.
 
-Only two live factors and a2x2 full numerical system were tested. Baseline keeps the same full
-bridge, including unused compiled capsule. Do not generalize to an independently minimized baseline.
+Three-trial descriptive timings, two live factors, sparse coupled input on dense kernels and shared
+complete bridge only. The baseline refactorizes on every unchanged-state query. Factor reuse and
+answer caching were not compared. Do not claim general speed or memory superiority or Gate F.
 
 ## Accepted V5-F chain and limits
 
 C213 semantics; C214 numeric closure; C215 H1/H2 commit; C216 Reader; C217 Selector;
 C218 structured Writer; C219 Coverage; C220 offline composition; C221 causal dispatch;
-C222 withdrawal/hypothesis isolation; C223 explicitly published-state request freshness;
-C224 raw-retaining replay-cost audit; C225 stronger stateful comparator audit.
+C222 withdrawal/hypothesis isolation; C223 explicit-publication request freshness;
+C224 raw-retaining replay-cost audit; C225 stronger stateful comparator; C226 dimension audit.
 
-No broad natural language/generalization, learned operation kind, acquisition, concurrent/cache
-freshness, many-factor bounded indexing or total memory-cost superiority is established.
+C225 showed no storage/query-time advantage at n2 versus ordinary state retention.
+C226 adds only a scoped large-n crossover against repeated dense full solves.
+No broad language/generalization, native operation selection, acquisition, concurrency/answer-cache
+freshness, bounded many-factor indexing or total memory-cost superiority is established.
 Gate F remains NOT PASSED.
 
-## Active C226 — fixed-port numerical dimension scaling
+## Active C227 — checked factor reuse attribution
 
-Experiment `C226-v5f-fixed-port-dimension-scaling`.
-Stage `V5-F-FIXED-PORT-DIMENSION-SCALING`.
+Experiment `C227-v5f-checked-factor-reuse-attribution`.
+Stage `V5-F-CHECKED-FACTOR-REUSE-ATTRIBUTION`.
 
-One question: with update/readout rank2 fixed, what happens to the existing checked H1/H2 versus
-stateful dense full-solve comparison as the coupled numerical system grows2/16/64/256 variables?
-These dimensions are numerical-memory variables, not neural parameters/layers or live-factor count.
+One question: on the same frozen C226 states, does H1/H2 retain a measured advantage when a full-system
+comparator reuses a checked Cholesky factor instead of repeating the factorization every query?
 
-Keep two live factors, history32, original raw hash, six relation contributions and state semantics.
-At n2 both exported arm inventories must match C225 history32 exactly. Higher dimensions add
-connected hidden coordinates using the registered strictly diagonally dominant SPD matrix family.
-No disconnected padding, learned inference/training, production optimization or removed safety check.
+Keep dimensions2/16/64/256, history32, two live factors, rank/readout2 and the exact matrix/raw family.
+Original H1/H2 and symbolic exports must match accepted C226 bytes at every dimension.
+Add only a benchmark-local full-factor/rhs cache; no accepted production code, safety check or weight
+is altered. Cache checks exact state/bridge binding and tensor identity/version stamps; full SPD
+check occurs at preparation. This is a frozen-state comparator, not general cache invalidation.
 
-Reuse C225 measurement and C224 helpers. Both retain full raw/index/bridge; count the complete
-numeric base and compiled response, not just small port payloads. Shared baseline bridge contains
-unused compiled capsule. Sparse coupled input uses existing dense solver, not a specialized solver.
-One warmup+three descriptive timing trials per arm/dimension, CPU threads2, float64 tolerance1e-10.
-Construction/index/export cost recorded; high-n construction includes the small template setup.
+Three arms: unchanged H1/H2, original stateful full_reference, cached Cholesky/cholesky_solve.
+All retain complete raw/index/bridge; cached arm counts additional factor/rhs and metadata.
+Extra retained cache tensor bytes48/2176/33280/526336. Shared baseline bridge still contains unused
+compiled capsule. Same final answers could also be memoized; no optimal-baseline claim.
 
-Extra untimed actual linear-algebra trace per arm/dimension:
-- H1/H2: cholesky2, cholesky_ex2, solve2;
-- symbolic: cholesky n, solve n.
-Wrappers restore underlying functions and preserve checks. Full state/provenance/response parity,
-query state non-mutation, zero warm raw replay, exact inventories and archive bytes required.
-Audit PASS is not storage/speed superiority; unfavorable costs remain unfavorable. No Gate F decision.
+One warmup+three measured queries per arm/dimension, cyclic order, CPU threads2, float64 tolerance1e-10.
+Record construction, cache preparation, index/export costs and reachable data separately.
+Instrument untimed preparation/query calls: cached query uses cholesky_solve n without refactorization;
+original arms retain their C226 checked call paths. Archive/member bytes and state/provenance/response
+parity required. Audit PASS does not require measured speed/storage superiority.
+No training, production optimization, many-factor query, answer-cache implementation or Gate F decision.
 
-Source pins196; protected inputs256; dependencies24; OWN6; artifacts5.
-New tests32; modules111; loaded2530 /focused2529 with inherited exact exclusion1.
-Manifest: `77a17f1330f62a1278922d40cb7313c610a7caa29c653b618b5f1e43f872a093`.
-Registration: `docs/experiment-ledger-addendum-c226-preregistration.md`.
-Design: `docs/v5f-fixed-port-dimension-scaling-v0.1.md`.
+Source pins202; protected inputs268; dependencies25; OWN6; artifacts5.
+New tests32; modules112; loaded2562 /focused2561 with the inherited exact exclusion1.
+Manifest: `4ea370a98b04bff4364f2ec8dccbc5fff658c1d4529a13ee6c3fc1d0c0cfa23d`.
+Registration: `docs/experiment-ledger-addendum-c227-preregistration.md`.
+Design: `docs/v5f-checked-factor-reuse-v0.1.md`.
 
-## C226 post-authoring review
+## C227 post-authoring review
 
-**post_authoring_review = PASS**
+**post_authoring_review = PENDING**
 
-Review HEAD: `af962bad1b00835ecfd193e2de565f2b9131842a`.
-Scope: committed-source audit and targeted authoring tests, not formal science.
-
-All four re-fetched remote code/test/PowerShell blobs match the tested local copies. After the
-comparison,30 targeted tests reran (0 failures/errors,1.053 seconds);32 methods enumerated;
-manifest/tensor identities matched; Python and all three embedded runner Python blocks compiled;
-unbound c### aliases0.
-
-This includes actual accepted capsule.py compiler/response with safety checks at all four numerical
-dimensions and real solve traces. That fetched source matches blob
-`7f1090fe95b2e3eab3967d00c6730165e34fadfb`. Other bank/parent-row fixtures are explicitly synthetic.
-Source review checked parent loaders and field meanings, unchanged n2 factory/two-arm exports,
-complete raw/index/full-bridge accounting, checked solve ordering,24 dependencies,196/256 arithmetic,
-CLI argv[1]/postcheck[1..3], own-test-before-regression ordering and launcher guards. Git compare
-shows no accepted source/test/log/dependency edit or deletion. C227 remains unregistered.
-
-Not executed locally: full parent bank/measurement test31, full historical test32/2529 suite,
-Windows PowerShell AST parsing, user-local artifact precheck or formal dimension measurements.
-Neither synthetic fixtures nor the isolated real-kernel test is represented as those checks.
-Authoritative runner executes all32 own tests, then2529 focused tests, then the audit; failure stops
-before the next phase and logs are published. Review PASS does not waive those execution gates.
-After the review HEAD only review documentation changes; scientific conditions remain fixed.
+Author-side30 targeted tests passed;32 enumerate. Real PyTorch factor reuse/full-solve parity on
+synthetic bridge fixtures at all four dimensions, stamp rejection, actual trace restoration,
+archive checks and synthetic run ordering passed. Manifest and three embedded Python blocks compiled.
+Not run here: actual parent backend/export test31, historical test32/full2561 suite, Windows AST parse,
+local user-artifact precheck or formal C227 measurement. Remote committed-source review remains required.
 
 ## Historical maintenance and stop
 
-Prior handoff: `88395cb0d44b0ca02fcb106967b97d966dcbe1b3:docs/experiment-ledger-and-handoff.md`.
+Prior handoff: `2e4d4c01a9c37409cf4ebbc6c620c748b61e6156:docs/experiment-ledger-and-handoff.md`.
 Preserve all accepted source pins and `tools/run_c167.ps1` historical regression infrastructure.
 No cleanup, history rewrite, new CI, unrelated architecture or Actions-storage work.
-Judge C226 before C227. Gate F remains NOT PASSED.
+Judge C227 before C228. Gate F remains NOT PASSED.
