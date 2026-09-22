@@ -104,23 +104,43 @@ Manifest SHA: `0c3c3cedd0a15fa8b392cbe38ba5285113a948b78ef3511bf106cbc75d7b2d38`
 
 ## Post-authoring review
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-Initial targeted author-side run:30/30 tests PASS in1.006s, Python3.13.5 / PyTorch2.10.0+cpu.
-These use synthetic parent interfaces with real GRU/optimizer layers. They verify exact data/group
-splits, balanced positional baselines, prefix separation, paired controls, masked inputs, identical
-sampling, prediction scoring, checkpoint serialization and a synthetic full-run valid-negative
-path. The full-run test simulates training and is not a model-quality result.
+Review HEAD: `6247f1282600bc3a3b4444f0e51e42c157c8b855`.
+Scope: committed-source review and targeted synthetic authoring execution, not formal science.
 
-Pending here: test31 actual parent/model TRAIN-only smoke; test32/full2785 historical suite;
-Windows PowerShell AST; user-local accepted artifacts; formal six-model2400-step training.
-Container network cannot resolve raw.githubusercontent.com; source reads through GitHub succeed.
-Do not report those pending tests as passed or tune this pilot from author-side held-out results.
+All four remote code/test/PowerShell files were re-fetched after all OWN files and activation were
+committed. Their Git blobs exactly matched the tested authoring copies:
 
-After committing all files, re-fetch code/tests/runner/launcher, compare exact Git blobs to tested
-copies, rerun authoring tests and recheck manifest, actual parent semantics/helper paths, all32 test
-methods, free names, ten dependencies,250/358 protection and complete ACTIVE/HEAD/parser/CLI guards.
-Record review HEAD and explicit execution limitations before issuing the standard launcher command.
+| File | Reviewed blob |
+|---|---|
+| C234 benchmark | 2bca7e66249c879b39e11964319c27aaeb8ee66e |
+| C234 tests | f7b4e5abb0a213c24788a5163c2f94f6712ac123 |
+| run_c234.ps1 | fd99c6bac4d9cf0bbe4f7453507ee3461736e08e |
+| invoke_c234.ps1 | c3ea871665da00d2758d382c4e7243e57e72c16a |
+
+After exact comparison,30 targeted tests reran:30 PASS,0 failures/errors in1.0841s on Python3.13.5 /
+PyTorch2.10.0+cpu / NumPy2.3.5.32 methods were enumerated. Both Python files and three embedded
+runner Python blocks compiled; unresolved global names0; manifest/data hashes matched. Actual
+runner argv indices were precheck[1] and postcheck[1,2,3]. All branch/tree/HEAD/ACTIVE/parser guards
+precede logging/publication.
+
+Tests used synthetic parent interfaces with real GRU/optimizer layers. They checked generated
+binding groups, balance/positional references, target/prefix separation, fact/query pairs, masks,
+identical sampling, exact-byte scoring, negative-result handling, checkpoints and full-run output/
+postcheck ordering. Full-run fit was simulated, not six trained model results or held-out tuning.
+
+Source review verified C233's accepted-negative schema and exact identities, C233.new_baseline and
+C231 factory paths, unchanged accepted constructors,250/358 protection and ten dependencies.
+Git compare from the C233 log commit changes only new C234/acceptance files and the unpinned handoff.
+No accepted source/test/log/dependency was edited or deleted. Fixed task, data, seed, gate and workload
+were not changed after activation. Only review documentation changes after this review HEAD.
+
+Not executed here: test31 actual parent/model TRAIN-only smoke; test32/full2785 historical suite;
+Windows PowerShell AST; local accepted artifacts; formal six-model2400-step training. Container
+network cannot resolve raw.githubusercontent.com and pwsh is absent; connector source reads work.
+Do not represent these pending checks as PASS. The authoritative runner executes32 own tests,
+2785 focused tests and only then science; any execution defect stops and publishes console evidence.
 
 ## Stop
 
