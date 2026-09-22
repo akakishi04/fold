@@ -97,23 +97,41 @@ Manifest SHA:
 
 ## Post-authoring review
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-Initial authoring execution passed38 targeted tests with40 methods enumerated. Tests used the exact
-fetched capsule.py blob7f1090fe95b2e3eab3967d00c6730165e34fadfb and actual PyTorch2.10.0+cpu
-numerical kernels on synthetic matrices at all four dimensions. They exercised current-bias reuse,
-full-solve parity, signed safe W, unsafe/mutated inputs, cache bytes, kernel traces, adapter errors,
-archive integrity, warmup ordering and a synthetic12-cell run including output/postchecks.
+Review HEAD: `dd973c4415422b3a15b229ecb18443ca75cd7cc7`.
+Scope: committed-source review and targeted authoring execution, not formal science.
 
-Not executed in the reviewing container: test39 actual parent backend/export anchor, test40/full2665
-historical regression, Windows PowerShell AST parse, user-local artifacts or formal measurements.
-Clone failed github.com DNS resolution. Do not represent synthetic fixtures as those missing checks.
+Re-fetched all five code/test/PowerShell files. Complete Git blob identities matched the tested
+copies:
+- prepared_capsule.py: f0e8d5338ea974a52ee77d3354fc6abd4993dfa0
+- C230 benchmark: fe5d0dfb1e4d145b5d589a13ccb55effde28efab
+- C230 tests: ecd824a60c9b8b3c1363328d75c909e13a0bda0c
+- run_c230.ps1: 314f15cba80da0178bbb6e6593b18124c7e1e873
+- invoke_c230.ps1: b1885a07c28ba6036d2f5e1bf9c75e9685b1b432
 
-Re-fetch committed source/test/runner/launcher after all files are authored, match their full Git
-blob identities to tested copies, rerun targeted tests and independently review matrix safety,
-current-bias semantics, exact parent helper/field contracts, all29 dependency pins,221/305 accounting,
-runner argv indices, all launcher guards and C231 non-registration. Record review HEAD and execution
-limitations before giving a command. Runner executes40 own tests,2665 focused tests, then science.
+After comparison,38 targeted tests reran:0 failures/errors,0.971 seconds.40 methods enumerated.
+Manifest matched, all three Python sources and three embedded runner Python blocks compiled,
+runner argv indices precheck[1]/postcheck[1..3], unbound global references0. Additional reviewer
+probe confirmed changing a capsule tensor's requires_grad flag after preparation invalidates reuse.
+
+Numerical tests use exact fetched capsule.py blob7f1090fe95b2e3eab3967d00c6730165e34fadfb and actual
+PyTorch2.10.0+cpu LU/full solves on synthetic matrices at all four dimensions. Updated bias, signed
+safe/unsafe W, mutation rejection, cache bytes and kernel traces passed. Synthetic parent adapters,
+archive integrity, warmup order and12-cell run/output/postcheck fixtures passed; these fixtures are
+not the accepted complete memory backend.
+
+Source review checked real parent helper signatures and quality artifact field meanings, current
+bias and explicit matrix-invalidation semantics, unchanged reference/result construction, timing
+versus trace boundaries,29 dependency coverage,221/305 arithmetic, all launcher guards and C231
+non-registration. Git compare from the C229 publication commit shows only new acceptance/C230 files
+and the unpinned handoff. No accepted source, test, log or dependency was edited or deleted.
+
+Not executed here: test39 actual parent bank/export trajectory, test40/full2665 historical regression,
+Windows PowerShell AST parse, user-local artifact precheck or formal C230 measurements. Clone failed
+DNS resolution. Review PASS does not waive those checks or claim a speedup. The authoritative runner
+executes40 own tests,2665 focused tests, then science, and stops/publishes logs on failure.
+Only review documentation changes after the review HEAD; scientific conditions remain fixed.
 
 ## Stop
 
