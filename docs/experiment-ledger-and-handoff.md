@@ -8,8 +8,8 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
-**C223 ACCEPTED PASS. C224 NOT REGISTERED.**
-No experiment is ACTIVE while C224 is authored.
+**C223 ACCEPTED PASS. C224 ACTIVE / NOT YET JUDGED. C225 NOT REGISTERED.**
+C224 is unique ACTIVE. Do not execute until post-authoring review passes.
 
 ## Accepted C223
 
@@ -21,13 +21,13 @@ Local summary:
 `runs/c223-v5f-request-freshness-56cfd6d212764ccf98e7789aa964de52/summary.json`.
 Validation SHA: `b52c9d95bb89dca5061d2ccff4aab90276ea5dc4edba2d653b1d9fdc03d12db2`.
 
-2435/2435 focused regression OK. Fresh1296/1296 and parent parity1296/1296;
-stale rejection4536/4536 with no exposed result or downstream calls; current repeats81/81;
+2435/2435 regression OK; fresh1296/1296 and exact parent parity1296/1296;
+stale rejection4536/4536, no exposed result or downstream calls; current repeats81/81;
 unguarded replay controls324/324; fingerprints unchanged; training0; model forwards4134.
 Protected inputs preserved; run_execution_valid True.
 Full verdict: `docs/experiment-ledger-addendum-c223-c224.md`.
-Evidence is published console/metadata plus recorded local checks, not a reviewer re-run of local
-checkpoint bytes. The checkpoint matrix is not a large independent unseen-task holdout.
+Evidence is published console/metadata plus local recorded artifact checks, not reviewer-side
+re-execution of user checkpoint bytes. The matrix is not thousands of independent unseen tasks.
 
 ## Accepted V5-F chain and limits
 
@@ -36,23 +36,56 @@ C216 Reader; C217 Selector; C218 factor+relation Writer; C219 Coverage;
 C220 offline composition; C221 causal dispatch; C222 withdrawal/hypothesis isolation;
 C223 explicitly published-state request freshness.
 
-All learned components remain tiny structured-input pilots. Native operation-kind selection,
-natural language, broad generalization, acquisition, concurrent/cache freshness, bounded indexing
-and total-memory-cost superiority remain unestablished. Gate F is not passed.
+Tiny structured-input pilots only. Natural language, native operation selection, broad generalization,
+acquisition, concurrent/cache freshness, bounded indexing and total-cost superiority remain open.
+Gate F is not passed.
 
-## Next boundary
+## Active C224 — raw-retaining history cost audit
 
-C224 proposed question: compare the existing H1/H2 memory reference with full-history replay as
-revision history grows, explicitly retaining/counting raw evidence, source lookup index, provenance
-and numeric state. This is a cost-attribution measurement, not a new optimizer or Gate F decision.
+Experiment `C224-v5f-raw-retaining-history-cost-audit`.
+Stage `V5-F-RAW-RETAINING-HISTORY-COST-AUDIT`.
 
-Do not confuse measurement PASS with storage superiority. Retaining full raw evidence may make the
-candidate larger even when warm numeric queries avoid rereading it. State this tradeoff explicitly.
-Keep the live factor count small/fixed and report that this does not test many-factor read scaling.
+One question: as revision history grows with two live factors, what are the actual retained
+memory-backend bytes and warm raw-reread costs of the existing H1/H2 reference versus full-history
+replay when raw evidence, source index, provenance and complete numeric state are counted?
+
+No production source change, model inference/training, compression optimization or cleanup.
+History sizes8/32/128/512, fixed alpha anchor and cyclic beta REPLACE. Both arms keep identical full
+raw UTF-8 evidence. Candidate retains current bank/state and a fully costed benchmark source-index
+sidecar. Baseline keeps raw history plus the same bridge, replaying into a fresh state every query.
+
+One warmup+three measured queries per size/arm. Require complete final symbolic/provenance parity,
+SUPPORTED numeric max-abs error<=1e-10, unchanged query state, exact raw/index/export inventories,
+candidate warm raw-rereads0 and baseline full N-event/raw-byte reread every measured query.
+
+Report uncompressed canonical export totals and component file bytes, a separately labeled reachable
+Python/CPU tensor data-memory estimate, construction/index costs and descriptive query timing.
+Native checkpoint format, allocator/process peaks and neural-model RAM are not measured. Do not
+present canonical export or reachable-data estimates as total application memory.
+
+**Audit PASS is not storage superiority.** Candidate storage may be larger because it retains raw
+history plus extra state/index. Report storage deltas and avoided reread work separately.
+This is not many-live-factor scaling or Gate F completion.
+
+Source pins184; protected inputs232; dependencies22; OWN6; outputs5.
+New tests30; modules109; loaded2466 /focused2465 with inherited exact exclusion1.
+Manifest: `0097887642e62a0c2e332d6b68a6dbcb769e829a1970387c3e0aa4ad28343103`.
+Registration: `docs/experiment-ledger-addendum-c224-preregistration.md`.
+Design: `docs/v5f-history-cost-audit-v0.1.md`.
+
+## C224 post-authoring review
+
+**post_authoring_review = PENDING**
+
+28 targeted tests passed against a synthetic measurement backend;30 methods enumerated, manifest
+matched, new Python and all three embedded runner-Python blocks compiled. The actual accepted
+numeric backend, full historical regression, Windows AST and local parent artifacts have not been
+executed in the reviewing environment. The real runner checks all30 own tests before2465 regression
+and before the audit. Remote committed-source comparison/review still required.
 
 ## Historical maintenance and stop
 
-Prior handoff: `6e96f798b4c931247f58ab9982b617780d0ee9db:docs/experiment-ledger-and-handoff.md`.
-Preserve accepted source pins and `tools/run_c167.ps1` historical regression infrastructure.
-No cleanup, history rewrite, new CI or Actions-storage changes.
-C224 stays NOT REGISTERED until its registration/review are complete. Gate F remains NOT PASSED.
+Prior state: `6e96f798b4c931247f58ab9982b617780d0ee9db:docs/experiment-ledger-and-handoff.md`.
+Preserve accepted sources and `tools/run_c167.ps1` historical regression infrastructure.
+No history rewrite, cleanup, new CI or Actions-storage work.
+Judge C224 before C225. Gate F remains NOT PASSED.
