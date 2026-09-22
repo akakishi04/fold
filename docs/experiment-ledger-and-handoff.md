@@ -9,7 +9,7 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
 **C222 ACCEPTED PASS. C223 ACTIVE / NOT YET JUDGED. C224 NOT REGISTERED.**
-C223 is the unique ACTIVE experiment. Do not execute until committed-source review passes.
+C223 is the unique ACTIVE experiment. Source review passed; execution preflights remain mandatory.
 
 ## Accepted C222
 
@@ -77,15 +77,28 @@ Design: `docs/v5f-retained-request-freshness-v0.1.md`.
 
 ## C223 post-authoring review
 
-**post_authoring_review = PENDING**
+**post_authoring_review = PASS**
 
-Author-side32 targeted tests passed using the exact accepted dispatcher plus synthetic models/states.
-All34 new methods enumerated; new Python/three embedded runner blocks compiled; manifest hash matched.
-The full1296-fresh/4536-stale/81-repeat/324-replay synthetic matrix matched all registered counters.
-The two parent-tree-dependent tests, full2435 regression, Windows AST parse, actual numeric lifecycle
-and local-only checkpoint/artifact science were not executed here. No mocks stand in for those gates.
-The runner executes all34 own tests first, then2435 focused tests, then science.
-Remote code/blob/parent-loader/dependency/CLI review remains required before a command is issued.
+Review HEAD: `8ca75e5e47b9d12fdb812dca5d71b5693c9c924c`.
+Scope: committed-source audit plus targeted synthetic authoring validation, not formal science.
+
+All five new code/test/PowerShell blob IDs match the executed local copies. The accepted dispatcher
+copy also matches its original blob. After remote comparison,32 targeted tests reran successfully
+(0 failures/errors,0.284 seconds);34 methods enumerated; manifest matched; new Python and three
+embedded runner blocks compiled. The synthetic1296-fresh/4536-stale/81-repeat/324-replay matrix
+matched registered counters and rejection controls.
+
+Source review checked owner/generation before dispatch, factory binding to current owned state,
+representation-only commit invalidation, expected-label separation, old-closure replay controls,
+parent adapter field semantics, helper chains,19 dependencies,178/220 protection accounting,
+module/test arithmetic, runner argv[1]/postcheck argv[1..3] and launcher preflight ordering.
+Git compare edits no accepted source/test/log/dependency; only new files and unpinned handoff.
+Review after this HEAD changes only review documentation, not scientific conditions.
+
+Not run here: the two parent-tree-dependent new tests, actual numeric C222 lifecycle, full2435
+historical regression, Windows AST parse and local-only artifact/checkpoint science. No synthetic
+result is represented as those checks. The authoritative runner executes all34 own tests first,
+then2435 focused tests, then science. Failures stop before the next phase and are logged.
 
 ## Limits and historical maintenance
 
