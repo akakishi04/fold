@@ -9,7 +9,7 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
 **C231 ACCEPTED PASS. C232 ACTIVE / NOT YET JUDGED. C233 NOT REGISTERED.**
-C232 is unique ACTIVE. Do not execute until post-authoring review passes.
+C232 is unique ACTIVE. Source review passed; all execution preflights remain mandatory.
 
 ## Accepted C231 — evaluation instrument only
 
@@ -77,14 +77,27 @@ Design: docs/v5b-grouped-bilingual-learning-v0.1.md.
 
 ## C232 post-authoring review
 
-**post_authoring_review = PENDING**
+**post_authoring_review = PASS**
 
-Initial30 targeted tests passed with synthetic models and actual PyTorch optimizer/scoring/output
-operations. The synthetic full-run test deliberately simulates training; not a formal V5-B result.
-Dataset/hash/grouping and valid-negative serialization checks passed. No EVAL-driven tuning.
-Pending here: test31 actual TRAIN-only two-step V5-B smoke, test32/full2721 historical suite,
-Windows PowerShell AST and user-local accepted-artifact checks/formal training. Remote source review
-and targeted rerun must finish before a command is issued.
+Review HEAD: `2c8a97bb56a3eb79aebea556c04bbdf49d374af1`.
+Scope: committed-source audit and targeted synthetic authoring validation, not formal science.
+
+Four re-fetched code/test/PowerShell blobs matched tested copies. After comparison30 tests reran:
+30 PASS,0 failures/errors,0.062s on Python3.13.5 / PyTorch2.10.0+cpu / NumPy2.3.5.32 methods enumerated;
+both Python sources and three embedded runner blocks compiled; unresolved globals0; data/manifest
+hashes matched. Dataset/grouping/TRAIN-only unigram and fit inputs, byte-weighted scoring, two-step
+synthetic optimizer updates, fixed workload and valid-negative output paths were checked. Full-run
+adapter testing simulated fit and is not a formal V5-B training result. No held-out quality tuning.
+
+Source review checked parent artifact/model-factory/prefix semantics,238/334 dependency protection,
+CLI precheck[1]/postcheck[1..3], exact source-string assertions, early tests and complete launcher
+parser/ACTIVE/HEAD/publication guards. Git compare shows only new files plus the unpinned handoff;
+no accepted scientific sources/tests/logs/dependencies were changed. C233 remains unregistered.
+
+Not run here: test31 actual TRAIN-only two-step V5-B smoke, test32/full2721 historical suite,
+Windows PowerShell AST, user-local parent artifacts or formal1200-step training. Synthetic fixtures
+are not represented as these checks. Runner requires32 own tests and2721 focused tests before
+science; failures stop and publish evidence. Only review documentation changes after the review HEAD.
 
 ## Historical maintenance and stop
 
