@@ -99,22 +99,40 @@ Manifest SHA256:
 
 ## Post-authoring review
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-Before remote review,30 targeted tests executed and passed using an explicitly synthetic memory and
-cost-helper fixture. They exercise the new measurement function, all four original raw hashes,
-state/provenance/inventory checks, no-replay inputs, matched raw/index costs, parent adapter negative
-controls, ZIP member/byte verification and acceptance of an unfavorable descriptive cost outcome.
-32 new methods enumerate; manifest self-hash and three embedded Python runner blocks compile.
+Review HEAD: `6593e37f06a816d3154c8dd54b25fa12b869926d`.
+Scope: committed-source review plus targeted synthetic authoring execution, not formal science.
 
-Not run in the source-review environment: test31 against the actual accepted numeric backend,
-test32/full2497 historical regression, Windows PowerShell AST parsing, local parent-artifact precheck
-or C225 science. Repository clone was attempted and failed DNS resolution. Synthetic helper results
-are not represented as real parent-backend or user-artifact execution.
+All four committed code/test/PowerShell files were re-fetched. Git blob hashes matched the executed
+local authoring copies exactly:
+- benchmark: `02c0c82ba00207c5b9a3ffd27f80bbfbfa79f4de`;
+- tests: `2ab366f351d421a2f4baa9777b5151351eeec6de`;
+- runner: `fc1ffdcd62e0d526bd84ffc279dca2b838937f5e`;
+- launcher: `1f874faeecb4e33104deda5f8542e16c65508583`.
 
-Re-fetch committed remote source/test/runner/launcher, match their blobs against executed authoring
-copies and reread the parent/helper semantics and scientific controls before marking review PASS.
-The authoritative runner executes all32 new tests first, then2497 historical tests, then comparison.
+After comparison,30 targeted tests reran:30 PASS,0 failures/errors,0.057 seconds on Python3.13.5,
+PyTorch2.10.0+cpu and NumPy2.3.5.32 test methods enumerate. Manifest self-hash and all four original
+raw hashes matched; new Python and three embedded runner blocks compiled; unbound c### aliases0.
+
+The tests use explicit synthetic memory/cost helpers. They exercise all four sizes, ordinary state
+retention, direct full-reference call dispatch, matched raw/index bytes, source/provenance/accounting,
+archive-member byte readback, adapter failures and unfavorable-cost acceptance. They are not a
+substitute for running the accepted numeric backend.
+
+Remote source review checked actual parent measurements field meanings and generation semantics,
+the candidate's unchanged export construction, baseline no-replay query inputs, shared bridge
+accounting caveat, all23 deciding dependencies,190/244 protection arithmetic, run-path parent adapter
+and archive checks, exact CLI argv[1]/postcheck[1..3], full launcher/early-test ordering and C226
+non-registration. Git comparison from the C224 published log to this review HEAD shows only new
+C225/acceptance files and the unpinned handoff; no accepted source/test/log/dependency edits/removals.
+
+Not run here: test31 against the actual accepted numeric backend, test32/full2497 historical
+regression, Windows PowerShell AST parsing, local parent-artifact precheck or C225 science.
+Repository clone was attempted and failed DNS resolution. No synthetic helper result is represented
+as accepted-backend or user-artifact execution. The authoritative runner executes all32 new tests,
+then2497 historical tests, then comparison; failed preflights stop before the next phase.
+After the review HEAD only review documentation changes; scientific conditions remain fixed.
 
 ## Stop
 
