@@ -8,116 +8,98 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
-**C227 ACCEPTED PASS. C228 ACTIVE / NOT YET JUDGED. C229 NOT REGISTERED.**
-C228 is unique ACTIVE. Source review passed; all execution preflights remain mandatory.
+**C228 ACCEPTED PASS. C229 ACTIVE / NOT YET JUDGED. C230 NOT REGISTERED.**
+C229 is unique ACTIVE. Do not execute before post-authoring review PASS.
 
-## Accepted C227 — audit PASS, no query-speed advantage
+## Accepted C228 — audit PASS, update/query speed loss
 
-Scientific execution HEAD: `1ada3a45be61e524cf09ff9fa7c6d56efcbf29ee`.
-Published log commit: `5adea153611ebe4b6788526ab71fad5b6a0027a9`.
-Log SHA: `2fdc52f6f483830d85db0b0e1908d8d157067daab94142d8c0779c5248a2a24b`.
-Summary SHA: `4e2a5282f5923b80272afd6476bf2a5ff62a672825cee6d442b0bac4325f9b75`.
-Local summary:
-`runs/c227-v5f-factor-reuse-8abdfa3dfbd141db94ce9afd0e4c171a/summary.json`.
-Validation SHA: `bbb5ffefd2a0aad3c5e332ba1f50e2a87e15463267129bf657512a044c198d05`.
-Measurements SHA: `68234a510756ac5d80a5a1ee770a393ad8dce656a8c395ce8ca73be80b3eac16`.
+Scientific execution HEAD: `0b78d33987d0e123efff58675693c4f19b81953e`.
+Published log commit: `68cba193bb1affe648f522f41ce6444f8c39e168`.
+Log SHA: `9ca6822e5c36b02d2129398aa1bec7b130b2fb00d82a83371a2f27b30d51fd91`.
+Summary SHA: `44ddf79b6ae1aadb5fb28e37e8528e40c1384b13a152283badbb9eb1be20e9a6`.
+Local summary: `runs/c228-v5f-update-query-76eea62720cf4857a7122cd48c400f1a/summary.json`.
+Validation SHA: `29779710b3826659244ea89f3c57f8dffdc0b824fe0247a205150b63ce8f617b`.
+Measurements SHA: `36bf474db858daf9ccb6a01f5b13d4980edf1dda904c5d9c7bfa124501eb1aab`.
 
-2561/2561 regression OK; all numerical/state/provenance parity checks passed;
-original C226 export inventories unchanged; cached query refactorizations0 at all dimensions;
-factor_reuse_audit_gate True; protected inputs/clean tree preserved; run_execution_valid True.
+2593/2593 regression OK in82.134s. All12 cells present; all_quality_parity True;
+initial_parent_parity True; update_query_audit_gate True; protected inputs preserved;
+tracked tree clean; run_execution_valid True. Publication changed only console log/receipt.
 Acceptance uses published evidence and recorded local artifact checks, not reviewer reruns of
-user-local artifacts. Full verdict: docs/experiment-ledger-addendum-c227-c228.md.
+user-local artifacts. Full verdict: docs/experiment-ledger-addendum-c228-c229.md.
 
-| Numerical variables | H1/H2 query ms | Factor reuse query ms | H1/H2 / reuse |
+Ratios below are H1/H2 median update+query time divided by checked-factor/rhs-refresh time:
+
+| Numerical dimension | 1 query/update | 4 queries/update | 16 queries/update |
 |---|---:|---:|---:|
-| 2 | 0.3373 | 0.0514 | 6.5623 |
-| 16 | 0.4504 | 0.0999 | 4.5085 |
-| 64 | 0.4641 | 0.0921 | 5.0391 |
-| 256 | 0.5179 | 0.2249 | 2.3028 |
+| 2 | 2.9389 | 4.0935 | 5.3713 |
+| 16 | 2.8493 | 3.4496 | 4.5254 |
+| 64 | 2.7944 | 4.1732 | 4.5535 |
+| 256 | 1.5900 | 1.9038 | 2.1844 |
 
-The stronger frozen-state comparator is faster at every measured size. C226's large-n crossover
-against repeated dense factorization did not survive factor reuse. No current query-speed advantage
-is established. H1/H2 uses fewer exported bytes than this particular cached comparator at n256:
-280561 vs552365; however it remains larger than the uncached stateful comparator. Cache factor/rhs
-retention is48/2176/33280/526336 additional numerical bytes. Time/retention trade-off, not a general win.
+Current H1/H2 is slower in every measured cell, about1.59x to5.37x. Including bias-only updates did
+not establish speed superiority. Correctness/measurement PASS is not an efficiency PASS.
+Three descriptive timing trials, two live factors, matrix-invariant bias changes only; not a general
+architecture impossibility result. No matrix-changing, many-factor, natural-language or peak-memory
+conclusion. Gate F remains NOT PASSED.
 
-Three descriptive timing trials, two live factors, fixed queries and shared full bridge only.
-Answer caching, specialized sparse solvers and minimized baselines are not compared.
+## Accepted chain and remaining boundaries
 
-## Accepted chain and limits
-
-C213 semantics; C214 numerical closure; C215 H1/H2 commit; C216 Reader; C217 Selector;
+C213 semantics; C214 numeric closure; C215 H1/H2 commit; C216 Reader; C217 Selector;
 C218 structured Writer; C219 Coverage; C220 offline composition; C221 causal dispatch;
 C222 withdrawal/hypothesis isolation; C223 explicit-publication request freshness;
-C224 replay-cost audit; C225 stateful comparator; C226 numerical dimensions; C227 factor reuse.
+C224 replay cost; C225 stateful comparator; C226 dimensions; C227 checked factor reuse;
+C228 matrix-invariant update/query cost.
 
-No general language/reasoning performance, native operation selection, acquisition, concurrent
-freshness, bounded many-factor indexing or overall time/storage superiority has been established.
-Gate F remains NOT PASSED. Do not equate an audit PASS with a favorable efficiency result.
+C227 removed C226's large-n query advantage with factor reuse. C228 preserves that unfavorable
+result with bias updates. Diagnose implementation cost before proposing an optimization or another
+favorable workload. Numerical shrinkage alone is not proof of end-to-end speed or storage benefit.
 
-## Active C228 — bias-update/query amortization
+## Active C229 — function-level cost attribution
 
-Experiment C228-v5f-bias-update-query-amortization.
-Stage V5-F-BIAS-UPDATE-QUERY-AMORTIZATION.
+Experiment C229-v5f-update-query-function-profile.
+Stage V5-F-UPDATE-QUERY-FUNCTION-PROFILE.
 
-One question: how do update-plus-query costs compare when12 observed beta replacements are
-interleaved with1/4/16 queries on the same initial C227 states?
+One question: which actual functions account for the current candidate update/query work on the
+unchanged C228 workload? No production optimization, new data, safety relaxation or training.
 
-Keep dimensions2/16/64/256, original32-event prefix, two live factors, rank/readout2 and matrix family.
-Append events33..44 of the same C224 generator. These change bias, not aggregate W. The comparator
-must be allowed to retain its checked full factor while refreshing rhs/state binding after explicit
-W-equality and tensor-stamp validation. Do not weaken it by forcing unnecessary refactorization.
-No accepted production code, safety check, learned checkpoint or historical test changes.
+Keep the same12 dimension/burst cells,32-event prefix,12 replacements, two live factors and2-port
+interface. Rebuild each cell once with profiling off and once on. Four separate cProfile accumulators:
+candidate_update, candidate_query, cached_update, cached_query. Initial construction, correctness
+oracle, snapshots and exports are outside profile regions. Both paths use accepted implementations.
 
-Twelve cells. One warm trajectory plus three measured trajectories per cell. Validate every query
-against untimed current full_reference, plus complete state/provenance parity after every update.
-Original candidate/symbolic initial exports must match C227 bytes for all dimensions. Separately
-trace checked preparation, replay all12 rhs refreshes with zero refactorizations, and final queries.
+Record complete function identities, total/primitive calls, self and cumulative times; retain top10
+self-time functions per phase for console review. Verify candidate apply12/read12*q and cached
+refresh12/query12*q,12 entries per phase, no external profiler overwritten and hook restoration.
+Require all current answers/state/provenance within1e-10 and exact final export inventory parity
+with accepted C228 in both modes.
 
-Record common bank/index setup, per-arm initial construction, update and query phases, and export.
-Stream totals are update+query; cold-inclusive totals add registered common/per-arm setup phases,
-not whole-application elapsed time. Original raw/index/full bridge and all factor/rhs/W-guard cache
-bytes are counted. Reachable-state estimates exclude audit-only snapshots; no process peak claim.
-Three-trial timings remain descriptive. Audit PASS does not require faster/smaller H1/H2.
-No training, matrix-changing workloads, answer caching, acquisition or Gate F decision.
+Profiler times are perturbed diagnostics, not a new speed benchmark or exact removable overhead.
+Do not sum nested cumulative times or subtract an unmeasured constant profiling cost. There is no
+required dominant function or improvement percentage. Audit PASS remains separate from efficiency.
 
-Source pins208; protected inputs280; deciding dependencies26; OWN6; artifacts5.
-New tests32; modules113; loaded2594 /focused2593 with inherited exact exclusion1.
-Full44-event ledger SHA: `493140c7cbc874c90066da8defe3785a0b667f6c2e2edbdbcc2b55bd5e595f11`.
-Manifest: `bd9e450beebb183dd953928a1e5894bcbd76f33aa25de3bcca27ef05277b1096`.
-Registration: docs/experiment-ledger-addendum-c228-preregistration.md.
-Design: docs/v5f-bias-update-query-amortization-v0.1.md.
+Source pins214; protected inputs292; dependencies27; OWN6; artifacts5.
+New tests32; modules114; loaded2626 /focused2625 with inherited exact exclusion1.
+Manifest: `3f9ce8c054db73843455447d6dc74426be570e50857cc220a3927f8777bd3723`.
+Registration: docs/experiment-ledger-addendum-c229-preregistration.md.
+Design: docs/v5f-update-query-function-profile-v0.1.md.
 
-## C228 post-authoring review
+## C229 post-authoring review
 
-**post_authoring_review = PASS**
+**post_authoring_review = PENDING**
 
-Review HEAD: `80715f33b47e8e2bb95d5832124245bd2f1b9cfe`.
-Scope: committed-source review and targeted authoring execution, not formal science.
+Before remote review30 targeted tests passed,32 methods enumerated and manifest matched. Actual
+cProfile/torch callbacks, count collection, hook/error restoration, self/cumulative separation,
+parent adapter, negative gates and synthetic12-cell run/output/postcheck order were exercised.
 
-All four re-fetched remote code/test/PowerShell blob IDs matched the executed local copies. After
-comparison,30 targeted tests reran:0 failures/errors,0.123 seconds.32 methods enumerated; manifest
-and ledger hashes matched; both Python files and three embedded runner Python blocks compiled;
-argv indices precheck[1]/postcheck[1..3]; no unbound executable c### alias.
-
-Actual torch rhs-refresh/factor solve versus full solve was checked at all dimensions on synthetic
-parent-interface fixtures. Factor identity, mutation/capability/matrix-change/nonfinite rejection,
-raw/index hashes, cache accounting and synthetic12-cell run adapter/export/postchecks passed.
-Source review verified actual parent helper/signature/field meanings, matrix-invariant reuse,
-timing/trace separation, initial export parity, shared cold-setup accounting,26 dependencies,
-208/280 arithmetic, launcher guards and C229 non-registration. Git compare shows only new files
-and the unpinned handoff, without accepted source/test/log/dependency edits or deletions.
-
-Not executed here: test31 actual parent trajectory/export anchor, test32/full2593 historical suite,
-Windows PowerShell AST parse, user-local artifact precheck or formal C228 measurements. Clone failed
-DNS resolution. Synthetic fixtures are not represented as those checks. The authoritative runner
-executes32 own tests,2593 focused tests, then science; failure stops before the next phase and logs
-are published. Review PASS does not waive execution checks. Only review documentation changes after
-the review HEAD; scientific conditions remain fixed.
+Not executed here: test31 actual accepted-backend trajectory/export/profile counts, test32/full2625
+historical regression, Windows PowerShell AST parsing, local parent-artifact precheck or formal
+C229 profiling. Clone failed DNS resolution. Do not claim synthetic fixtures cover those checks.
+The authoritative runner executes32 own tests, then2625 focused tests, then the experiment.
+Committed-remote review is still required before an execution command.
 
 ## Historical maintenance and stop
 
-Prior handoff: 5adea153611ebe4b6788526ab71fad5b6a0027a9:docs/experiment-ledger-and-handoff.md.
+Prior handoff: 68cba193bb1affe648f522f41ce6444f8c39e168:docs/experiment-ledger-and-handoff.md.
 Preserve all accepted source pins and tools/run_c167.ps1 historical regression infrastructure.
-No cleanup, history rewrite, new CI, Actions-storage work or unrelated architecture changes.
-Judge C228 before C229. Gate F remains NOT PASSED.
+No cleanup, history rewrite, new CI, Actions-storage work or unrelated architecture change.
+Judge C229 before C230. Gate F remains NOT PASSED.
