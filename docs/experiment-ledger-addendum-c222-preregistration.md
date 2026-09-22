@@ -122,23 +122,45 @@ Manifest SHA256:
 
 ## Post-authoring review
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-Author-side Python3.13.5 /PyTorch2.10.0+cpu validation executed30 targeted tests successfully.
-It used the exact accepted memory_dispatch source plus synthetic model/provider/audit fixtures.
-It exercised the1296-main/162-control matrix, score rejection controls and actual dispatcher traces.
-The manifest hash and all three embedded runner Python blocks were compiled/checked. An initial
-forward-total arithmetic error was caught and corrected before this registration; final total3405.
+Review HEAD: `3ef62466b555fc1df70abdc8fb92b825b7999f76`.
+Scope: committed-source review and targeted synthetic authoring tests, not formal C222 science.
 
-Not executed in the authoring environment: the two parent-tree-dependent tests, accepted numerical
-memory trajectory, full2401 historical regression, Windows PowerShell AST parser, local-only parent
-artifact checks and actual frozen-checkpoint C222 science. They remain mandatory on the user's
-checkout. No synthetic/stub evidence is called a pass of those checks.
+Remote benchmark/test/runner/launcher content was fetched after all files were committed. Its Git
+blob IDs match the tested author copies exactly:
 
-After all files are committed, fetch remote code/test/runner/launcher bytes, compare them with the
-executed author copies, audit parent loader/field meanings, direct pins, scoped provenance,
-no mid-trajectory reinitialization, expected-label separation, counts, CLI arguments and launcher
-preflight. Record a reviewed HEAD and scope before issuing a command.
+| File | Git blob |
+|---|---|
+| C222 benchmark | e8956469df17dc922c7ef26e57a83f999766e21d |
+| C222 tests | 5936e58d1f7dfdcedde98fe1da7ddf0981b75407 |
+| run_c222.ps1 | 7dfb5257eabb5f0dd0151f378b86b930cf31ad71 |
+| invoke_c222.ps1 | e5326abf1e163f4d6159f9a498662c065be03158 |
+
+The local memory_dispatch copy used in synthetic tests also matches accepted blob
+`da7efd7cf6c1c9a748ed35953df1a26a6e4c30fe`.
+
+After remote identity comparison,30 targeted tests were rerun:30 PASS,0 failures/errors,
+0.173 seconds in Python3.13.5 /PyTorch2.10.0+cpu /NumPy2.3.5. Synthetic model/provider/audit fixtures
+exercised1296 main and162 forced-allow decisions and exact call accounting. The manifest self-hash
+matched,32 new methods were enumerated, Python files and all three embedded runner Python blocks
+compiled. These are not numerical-parent or accepted-checkpoint scientific results.
+
+Git comparison from the published C221 log commit shows only the new C222/acceptance files and
+unpinned handoff changes: no accepted production source, historical test, dependency or log was
+edited/deleted. Source review checked the actual parent request builder's scope/factor/observed
+preconditions, symbolic RETRACT/ASSUME/END_SCOPE semantics, one-bank trajectory construction, fresh
+request binding, expected-label separation, C221 summary fields, checkpoint restoration call chain,
+171/207 accounting,17 deciding dependencies, full launcher guards and CLI argument order.
+
+An initial author-side forward-total arithmetic error was caught before registration and corrected
+to3405. No scientific condition changed during committed-source review.
+
+Not executed here: `test_31_actual_accepted_memory_timeline`,
+`test_32_actual_historical_suite_counts`, actual accepted numerical trajectory, full2401 historical
+regression, Windows PowerShell AST parsing, local-only accepted artifact precheck and frozen-model
+C222 science. They remain mandatory on the user's checkout. No synthetic/stub evidence is called
+a pass of those checks. The runner executes all32 own tests before full regression and science.
 
 ## Interpretation and stop
 
