@@ -8,105 +8,100 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
-**C224 ACCEPTED PASS. C225 ACTIVE / NOT YET JUDGED. C226 NOT REGISTERED.**
-C225 is unique ACTIVE. Source review passed; all execution preflights remain mandatory.
+**C225 ACCEPTED PASS. C226 ACTIVE / NOT YET JUDGED. C227 NOT REGISTERED.**
+C226 is unique ACTIVE. Do not execute until post-authoring review passes.
 
-## Accepted C224 — measurement audit, not storage superiority
+## Accepted C225 — audit PASS, unfavorable measured costs
 
-Scientific execution HEAD: `41ca548ed065b3e6dedd50dbc42ebb1b8df5f512`.
-Published log commit: `134d96995e77df0bcdd25fc046ad2b205a5c3644`.
-Log SHA256: `85c1aaabd0a9d7248cf0a563fd8741a27e2dca6bc7c8a4992b37e94aefcda15d`.
-Summary SHA256: `d47f17ed6a467e5203f3bf5e39e5d023cfa469320f4636ca05d13d0673b09f88`.
+Scientific execution HEAD: `6669add6de53247e60731a3f23e7bed9350deec3`.
+Published log commit: `88395cb0d44b0ca02fcb106967b97d966dcbe1b3`.
+Log SHA: `f1d1bf677a49cabbb3974fce6e7077c051018335736f1a620d95034b95d57005`.
+Summary SHA: `b54943514cebb06161851e6a79c9eb4e8fd6766429f6f2e0e2f34c79c52a78ad`.
 Local summary:
-`runs/c224-v5f-history-cost-audit-7d510ad2c98647bfbabeabe91de81381/summary.json`.
-Validation SHA: `5be4146f3139b761837bcbe0cad25db02c46035351e3d76b1a75a1ebd00211f2`.
-Measurements SHA: `2e09353e3899f45bb2ee3598a61e72e1602858ae446a43de306abd07acbb832a`.
+`runs/c225-v5f-stateful-baseline-4df0cd59e7c34942a3d33b0932863b0f/summary.json`.
+Validation SHA: `94e2028aaaff24f9cc03480abde49c2e41674d833141745e6bc34f9852620a29`.
+Measurements SHA: `50e82a0a655ab63ddf00da04edab1995c7b99064ae493ba5320a0d2f348362a2`.
 
-Regression2465/2465 OK; all four quality-parity checks passed; run_execution_valid True;
-protected inputs and tracked tree preserved. Audit accepted from published evidence plus recorded
-local artifact checks, not reviewer-side re-execution of the user's files.
+Regression2497/2497 OK; all four full symbolic/provenance/numeric parity checks passed;
+accepted C224 candidate export inventories unchanged; run_execution_valid True; inputs preserved.
+Acceptance uses published evidence and the recorded local artifact checks, not a reviewer rerun of
+user-local artifacts. Full verdict: `docs/experiment-ledger-addendum-c225-c226.md`.
 
-| History events | Candidate export bytes | Replay export bytes | Candidate query median ms | Replay query median ms |
+| History events | H1/H2 bytes | Stateful symbolic bytes | H1/H2 query ms | Symbolic query ms |
 |---|---:|---:|---:|---:|
-| 8 | 5743 | 4285 | 0.3086 | 0.3069 |
-| 32 | 11181 | 9044 | 0.5951 | 1.2293 |
-| 128 | 33100 | 28113 | 0.5490 | 3.1948 |
-| 512 | 121183 | 104657 | 0.6936 | 8.6449 |
+| 8 | 5743 | 5328 | 0.3271 | 0.2727 |
+| 32 | 11181 | 10764 | 0.2232 | 0.1201 |
+| 128 | 33100 | 32681 | 0.1720 | 0.0877 |
+| 512 | 121183 | 120764 | 0.1789 | 0.0865 |
 
-Storage deltas+1458/+2137/+4987/+16526 bytes: no measured storage superiority.
-Candidate warm raw rereads0; replay1579/6338/25407/101951 bytes per query.
-Timing is descriptive (three measured trials), canonical exports are not native checkpoint sizes,
-and reachable-data estimates are not process RAM/VRAM peaks. Two live factors only.
+Storage deltas+415/+417/+419/+419 bytes; query median ratios1.1995/1.8585/1.9612/2.0682.
+No measured storage or query-time win. Both arms avoid raw replay completely. Thus C224's avoided
+replay was not uniquely due to capsules. Times are descriptive three-trial medians; export bytes
+are canonical noncompressed audit data, not native checkpoints or total process memory.
 
-Full verdict and caveats: `docs/experiment-ledger-addendum-c224-c225.md`.
-Avoided replay is not yet a capsule-specific benefit: a plain current state can avoid replay too.
+Only two live factors and a2x2 full numerical system were tested. Baseline keeps the same full
+bridge, including unused compiled capsule. Do not generalize to an independently minimized baseline.
 
 ## Accepted V5-F chain and limits
 
 C213 semantics; C214 numeric closure; C215 H1/H2 commit; C216 Reader; C217 Selector;
-C218 structured Writer; C219 Coverage; C220 offline composition; C221 live dispatch;
-C222 withdrawal/hypothesis isolation; C223 explicit-publication request freshness;
-C224 raw-retaining history-cost audit.
+C218 structured Writer; C219 Coverage; C220 offline composition; C221 causal dispatch;
+C222 withdrawal/hypothesis isolation; C223 explicitly published-state request freshness;
+C224 raw-retaining replay-cost audit; C225 stronger stateful comparator audit.
 
-No broad natural-language/generalization, learned operation kind, acquisition, concurrent/cache
-freshness, bounded many-factor indexing or total memory-cost superiority is established.
+No broad natural language/generalization, learned operation kind, acquisition, concurrent/cache
+freshness, many-factor bounded indexing or total memory-cost superiority is established.
 Gate F remains NOT PASSED.
 
-## Active C225 — stateful baseline attribution
+## Active C226 — fixed-port numerical dimension scaling
 
-Experiment `C225-v5f-stateful-baseline-attribution`.
-Stage `V5-F-STATEFUL-BASELINE-ATTRIBUTION`.
+Experiment `C226-v5f-fixed-port-dimension-scaling`.
+Stage `V5-F-FIXED-PORT-DIMENSION-SCALING`.
 
-One question: what does the current H1/H2 representation add beyond ordinary incrementally retained
-MemoryState when raw history, source index and numeric bridge are held equal?
+One question: with update/readout rank2 fixed, what happens to the existing checked H1/H2 versus
+stateful dense full-solve comparison as the coupled numerical system grows2/16/64/256 variables?
+These dimensions are numerical-memory variables, not neural parameters/layers or live-factor count.
 
-Keep the C224 H1/H2 candidate unchanged. New baseline updates plain MemoryState once per event,
-retains it and uses full_reference(state) per query without raw replay. Both retain identical raw and
-index bytes and the same complete bridge. Common bridge overhead includes its unused compiled
-capsule on the symbolic arm; do not claim an independently minimized baseline.
+Keep two live factors, history32, original raw hash, six relation contributions and state semantics.
+At n2 both exported arm inventories must match C225 history32 exactly. Higher dimensions add
+connected hidden coordinates using the registered strictly diagonally dominant SPD matrix family.
+No disconnected padding, learned inference/training, production optimization or removed safety check.
 
-History sizes8/32/128/512; two live factors; same raw hashes; float64 tolerance1e-10;
-one warmup+three measured queries per arm/size; alternating query order. Record construction,
-index/export costs and descriptive timings separately. No production change, optimization,
-new semantic task, inference/training or data deletion.
+Reuse C225 measurement and C224 helpers. Both retain full raw/index/bridge; count the complete
+numeric base and compiled response, not just small port payloads. Shared baseline bridge contains
+unused compiled capsule. Sparse coupled input uses existing dense solver, not a specialized solver.
+One warmup+three descriptive timing trials per arm/dimension, CPU threads2, float64 tolerance1e-10.
+Construction/index/export cost recorded; high-n construction includes the small template setup.
 
-Require full symbolic/provenance and numeric parity, unchanged states, exact archive/export
-accounting and zero warm raw rereads for both arms. H1/H2 candidate export inventories must match
-accepted C224 bytes. Cost superiority is measured separately and is not an audit PASS requirement.
+Extra untimed actual linear-algebra trace per arm/dimension:
+- H1/H2: cholesky2, cholesky_ex2, solve2;
+- symbolic: cholesky n, solve n.
+Wrappers restore underlying functions and preserve checks. Full state/provenance/response parity,
+query state non-mutation, zero warm raw replay, exact inventories and archive bytes required.
+Audit PASS is not storage/speed superiority; unfavorable costs remain unfavorable. No Gate F decision.
 
-Source pins190; protected inputs244; direct dependencies23; OWN6; artifacts5.
-New tests32; modules110; loaded2498 /focused2497 with the same exact historical exclusion1.
-Manifest: `0520afee3c0b25ca1da8f28be3534115d72b1abbe4252628312fd2d321b24e66`.
-Registration: `docs/experiment-ledger-addendum-c225-preregistration.md`.
-Design: `docs/v5f-stateful-baseline-attribution-v0.1.md`.
+Source pins196; protected inputs256; dependencies24; OWN6; artifacts5.
+New tests32; modules111; loaded2530 /focused2529 with inherited exact exclusion1.
+Manifest: `77a17f1330f62a1278922d40cb7313c610a7caa29c653b618b5f1e43f872a093`.
+Registration: `docs/experiment-ledger-addendum-c226-preregistration.md`.
+Design: `docs/v5f-fixed-port-dimension-scaling-v0.1.md`.
 
-## C225 post-authoring review
+## C226 post-authoring review
 
-**post_authoring_review = PASS**
+**post_authoring_review = PENDING**
 
-Review HEAD: `6593e37f06a816d3154c8dd54b25fa12b869926d`.
-Scope: committed-source audit and synthetic authoring validation, not formal science.
-
-All four remote code/test/PowerShell blobs match the executed local copies. After comparison,
-30 targeted tests reran successfully (0 failures/errors,0.057 seconds).32 methods enumerate,
-manifest and all four original ledger hashes match, three embedded Python blocks compile,
-and unbound c### aliases are0.
-
-Source review checked parent measurement schema/meaning, retained symbolic build and no-replay query,
-complete matched raw/index/shared-bridge accounting, candidate byte identity against C224,
-archive readback,23 dependencies,190/244 protection arithmetic, runner argv[1]/postcheck[1..3],
-launcher guards and C226 non-registration. Git compare shows only new files and this unpinned
-handoff, with no accepted source/test/log/dependency edit or deletion. After the review HEAD only
-review documentation changes; scientific conditions remain fixed.
-
-Not run here: actual accepted numeric-backend test31, full historical test32/2497 suite, Windows
-PowerShell AST parse, local parent-artifact precheck or C225 science. Synthetic helper tests are
-not represented as those checks. The authoritative runner executes all32 own tests, then2497
-focused tests, then comparison. Failure stops before the next phase and the console log is published.
+Before remote review,30 targeted tests passed, including the actual accepted capsule.py compiler/
+response at all four dimensions and trace shapes. That fetched source matches its original blob
+`7f1090fe95b2e3eab3967d00c6730165e34fadfb`. Other adapter/accounting fixtures are synthetic.
+32 methods enumerated; manifest and three embedded Python runner blocks compiled/checked.
+Not executed locally: full parent measurement test31, full historical test32/2529 suite, Windows
+PowerShell AST parsing, user-local artifacts/precheck or C226 formal measurements.
+Remote committed-source review is still required. Authoritative runner executes32 own tests first,
+then2529 focused tests, then dimension measurements. Failure stops before the next phase.
 
 ## Historical maintenance and stop
 
-Previous full state: `134d96995e77df0bcdd25fc046ad2b205a5c3644:docs/experiment-ledger-and-handoff.md`.
-Preserve all accepted sources and `tools/run_c167.ps1` historical regression infrastructure.
-No cleanup, history rewrite, new CI, unrelated architecture changes or Actions-storage work.
-Judge C225 before C226. Gate F remains NOT PASSED.
+Prior handoff: `88395cb0d44b0ca02fcb106967b97d966dcbe1b3:docs/experiment-ledger-and-handoff.md`.
+Preserve all accepted source pins and `tools/run_c167.ps1` historical regression infrastructure.
+No cleanup, history rewrite, new CI, unrelated architecture or Actions-storage work.
+Judge C226 before C227. Gate F remains NOT PASSED.
