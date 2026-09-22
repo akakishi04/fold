@@ -9,7 +9,7 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
 **C226 ACCEPTED PASS. C227 ACTIVE / NOT YET JUDGED. C228 NOT REGISTERED.**
-C227 is unique ACTIVE. Do not execute until post-authoring review passes.
+C227 is unique ACTIVE. Source review passed; all execution preflights remain mandatory.
 
 ## Accepted C226 — dimension audit, limited query crossover
 
@@ -90,13 +90,30 @@ Design: `docs/v5f-checked-factor-reuse-v0.1.md`.
 
 ## C227 post-authoring review
 
-**post_authoring_review = PENDING**
+**post_authoring_review = PASS**
 
-Author-side30 targeted tests passed;32 enumerate. Real PyTorch factor reuse/full-solve parity on
-synthetic bridge fixtures at all four dimensions, stamp rejection, actual trace restoration,
-archive checks and synthetic run ordering passed. Manifest and three embedded Python blocks compiled.
-Not run here: actual parent backend/export test31, historical test32/full2561 suite, Windows AST parse,
-local user-artifact precheck or formal C227 measurement. Remote committed-source review remains required.
+Review HEAD: `70586952bbaa23d1d5d7cf9efe521dc3b9ea8557`.
+Scope: committed-source review and targeted authoring tests, not formal science.
+
+All four re-fetched remote code/test/PowerShell blobs match the executed local copies. After the
+comparison,30 targeted tests reran (0 failures/errors,2.491 seconds);32 methods enumerated;
+manifest matched; both Python files and all three embedded runner Python blocks compiled;
+unbound executable c### aliases0; CLI indices precheck[1]/postcheck[1..3].
+
+Real torch Cholesky/cholesky_solve versus solve was checked at all four dimensions on synthetic
+bridge fixtures, including nonfinite/non-SPD/capability rejection, exact snapshot bindings and
+mutation stamps. Trace restoration, archives and synthetic run loader/export/postcheck order passed.
+Source review checked actual parent helper/signature/field meanings, original two-arm byte parity,
+checked factor preparation, complete retention/cache accounting, untimed trace isolation,25 deciding
+dependencies,202/268 arithmetic, launcher guards and C228 non-registration. Git compare shows only
+new files and the unpinned handoff; no accepted source/test/log/dependency edit or deletion.
+
+Not executed locally: actual parent backend/export test31, historical test32/full2561 suite, Windows
+PowerShell AST parse, local user-artifact precheck or formal C227 measurement. Clone failed DNS
+resolution. Synthetic bridges/run fixtures are not represented as full-backend or historical tests.
+Authoritative runner executes all32 own tests, then2561 focused tests, then measurement; a failure
+stops before the next phase and logs are published. Review PASS does not waive those gates.
+After the review HEAD only review documentation changes; scientific conditions remain fixed.
 
 ## Historical maintenance and stop
 
