@@ -21,7 +21,7 @@ Authoritative Python: 3.13.15 / PyTorch 2.10.0+cu130 / NumPy 2.3.5.
 - **C216 ACCEPTED PASS**
 - **C217 ACCEPTED PASS**
 - **C218 ACCEPTED PASS**
-- **C219 ACTIVE / NOT YET JUDGED**
+- **C219 ACCEPTED PASS**
 - **C220 NOT REGISTERED**
 
 C216 is the unique ACTIVE experiment.
@@ -364,99 +364,77 @@ Non-claim:
 C218 does not establish learned operation-kind selection, RETRACT/ASSUME writing, learned Coverage
 classification, natural-language extraction, joint training, memory-cost advantage or Gate F.
 
-## Active C219 — learned Coverage classifier pilot
+## Accepted C219 — learned Coverage classifier pilot
 
-Experiment:
-`C219-v5f-learned-coverage-classifier-pilot`
+Scientific execution HEAD:
+`5a613ed07c34d1735d20c5849464116cc00d333c`
 
-Stage:
-`V5-F-LEARNED-COVERAGE-CLASSIFIER-PILOT`
+Published log commit:
+`76f8f793c984a12e1879944f9b117d92241df505`
 
-One question:
-can a learned Coverage classifier distinguish SUPPORTED / HOT_REQUIRED / MISSING / OUT_OF_SCOPE
-from a bounded target-specific memory summary on held-out nuisance input?
+Log SHA256:
+`64dda2bb49d1eec1a6fa3df9c402086bf9bdd2f108102c16223d6970f6584533`
 
-Changed variable:
-- learned `fold_lm/v05/memory_coverage.py` only.
+Summary SHA256:
+`dbf54bd3cdc5b2fbd82a68a62bcdbaad806b8946b817776d94527a5bdcbaee14`
 
-Coverage taxonomy:
-- SUPPORTED;
-- HOT_REQUIRED;
-- MISSING;
-- OUT_OF_SCOPE.
+Formal disposition:
+**C219 ACCEPTED PASS**.
 
-`NUMERIC_UNSAFE` remains deterministic numeric-safety state and is excluded from the learned
-coverage taxonomy.
+Execution validity:
+- focused regression **2297/2297**;
+- Python syntax preflight PASS;
+- source/artifact precheck PASS;
+- protected inputs preserved;
+- tracked tree clean;
+- run_execution_valid True.
 
-Data:
-- feature width7;
--2 query roles;
--4 coverage classes;
-- TRAIN nuisance [-1,-1],[-1,+1],[+1,-1];
-- EVAL nuisance [+1,+1];
--32 rows /24 TRAIN /8 EVAL;
-- balanced classes [6,6,6,6] TRAIN / [2,2,2,2] EVAL;
-- data SHA `3e9c74b7675439c3118f6a87bc7594455360512e906d69c1c739cae9edc34d65`.
+Deciding metrics:
+- trained Coverage models3;
+- parameters/model148;
+- training steps1200 / examples28800;
+- learned Coverage forwards1215;
+- all Coverage/Selector/Reader checkpoint roundtrips True;
+- every Coverage seed:
+  - TRAIN accuracy1.0;
+  - EVAL accuracy1.0;
+  - state-blind EVAL0.25;
+  - tier-blind readable0.0;
+  - scope-blind MISSING/OOS0.5;
+  - readable gate accuracy1.0;
+  - non-readable suppression accuracy1.0;
+  - MISSING/OOS confusions0;
+- frozen readable semantic reference accuracy1.0 across all3x3 Selector/Reader combinations;
+- NUMERIC_UNSAFE classified rows0;
+- Writer/Selector/Reader training steps0.
 
-Controls:
-- state-blind EVAL0.25;
-- tier-blind readable0.0;
-- scope-blind MISSING/OOS0.5.
+Accepted claim:
+on the registered bounded structured state summary, an isolated learned Coverage classifier can
+distinguish SUPPORTED / HOT_REQUIRED / MISSING / OUT_OF_SCOPE, including explicit MISSING versus
+OUT_OF_SCOPE separation, while frozen learned Selector/Reader components preserve readable
+semantics.
 
-Frozen reference:
-- all3 accepted C217 selectors frozen;
-- all3 accepted C216 Readers frozen;
-- four readable EVAL states through all3x3 combinations;
-- semantic reference accuracy1.0;
-- selector forwards3;
-- Reader forwards9.
+Non-claim:
+C219 does not establish numeric-safety classification, natural-language coverage reasoning,
+information-acquisition integration, joint training, memory-cost advantage or Gate F.
 
-Training:
-- classifier7->12->4,148 parameters;
-- seeds219001/219002/219003;
-- Adam lr0.02;
--400 full-batch steps/seed;
--1200 steps /28800 examples;
--1215 learned Coverage forwards;
--1227 total model forwards.
+## Next boundary
 
-Fixed gate:
-- TRAIN/EVAL accuracy1.0;
-- blind controls exact;
-- readable gate accuracy1.0;
-- non-readable suppression accuracy1.0;
-- MISSING/OOS confusions0;
-- checkpoint roundtrip exact;
-- readable frozen semantic reference1.0;
-- NUMERIC_UNSAFE classified rows0.
+C220 is not yet registered.
 
-Authoring:
-- source pins151;
-- protected inputs169;
-- artifacts5;
-- C219 tests38;
-- regression modules104;
-- loaded2298 / focused2297;
-- manifest `466ee5cd488a08ef9b8dacc6bf9f544ba4ca83ff2ab80dc2af421a6be9db43aa`.
+Next one-question intervention:
+can the four independently accepted learned memory components — Writer, Coverage classifier,
+Port Selector and Reader — compose end-to-end with all checkpoints frozen, without retraining,
+across ASSERT/HOT/COMMIT/REPLACE plus MISSING/OUT_OF_SCOPE query states?
 
-## C219 post-authoring review
-
-**post_authoring_review = PASS**
-
-review HEAD:
-`bb52254ff6a1f7bf3b6195451a830cd498f533d4`
-
-Committed-remote review verified accepted C218 parent evidence,144 parent source pins /156
-inherited protected inputs, unique inherited Selector/Reader checkpoint resolution,151/169
-C219 accounting,11 direct dependencies, independently recomputed dataset/manifest hashes,
-exact four-class taxonomy with NUMERIC_UNSAFE excluded, MISSING/OOS scope semantics,
-state/tier/scope blind controls, readable frozen reference,38 tests /104 modules /
-2298-loaded/2297-focused regression contract, exact runner argv, complete PowerShell source
-contract and C220 non-registration.
+C220 introduces no new learned component. Operation kind remains oracle. It is an integration test
+of the learned memory stack.
 
 
 ## Stop condition
 
-Judge C219 before any C220 registration.
+C219 is closed as **ACCEPTED PASS**.
+
+Prepare and review C220 before execution.
 
 Gate E remains **PASSED**. Gate F remains **NOT PASSED**.
