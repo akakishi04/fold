@@ -8,113 +8,153 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
-**C233 ACCEPTED VALID NEGATIVE. C234 ACTIVE / NOT YET JUDGED. C235 NOT REGISTERED.**
-C234 is unique ACTIVE. Source review passed; all execution preflights remain mandatory.
+**C234 ACCEPTED VALID NEGATIVE. C235 ACTIVE / NOT YET JUDGED. C236 NOT REGISTERED.**
+C235 is the unique ACTIVE experiment. It is a frozen diagnostic, not a new capability gate.
+Post-authoring review is pending; do not execute until this handoff records review PASS.
 
-## Accepted C233 — no consistent core advantage
+## Accepted C234 — contextual binding not established
 
-Scientific execution HEAD: `fedf6c3e5c163d449d1ad793a87d4fa6952deb1d`.
-Published log commit: `519d71abe912639869130cb4dff3f196e166b92f`.
-Log SHA: `63e5b22242720deac9b33999cf38b2331ad4069604b866c0801ab6cec0a9a651`.
-Summary SHA: `5e9895008ebf02c72c3b5c00a8668f1c8078feef94dd2fc1eff192d41e8709bf`.
-Local summary: `runs/c233-v5b-core-ablation-f73f95f4afa44668a64b953f1bbad723/summary.json`.
-Validation SHA: `c839db0ed26f0369dcedb6227ae5278ca60904d8636da0d00e49da02d75998e4`.
-Comparisons SHA: `7ad45aac3d70cc2a5d8054b4dfcaae36ad169f2434981904e8b657eb053b872c`.
-Checkpoint SHA: `0bbe764c832d2fb33b3f51e3838c7178ab7121cf6c2f72a25bda43b2cb0722a3`.
+Experiment: C234-v5b-contextual-binding-pilot.
+Stage: V5-B-CONTEXTUAL-BINDING-PILOT.
 
-2753/2753 regression OK in53.150s. Three GRU-only models completed400 steps each,1200 total and38400
-sampled byte presentations. Parent/full and baseline replay checks, protected inputs, artifact
-checks and clean tree passed. run_execution_valid True; baseline_qualified True; all_replays True.
-Only log/receipt published. Verdict is from published evidence and recorded local postchecks.
+Scientific execution HEAD:
+`c225c2d82636085e2d639878738e1b9a7aa37b42`.
 
-| Seed | Full EN BPB | GRU-only EN | Full JA BPB | GRU-only JA |
+Published log commit:
+`930fa77881d60558b3199b980f139ddef8bcb6ee`.
+
+Log SHA:
+`414e2de1fafa2fe86fb84bdc18a9477100086133df938a10b0244ad446e38de8`.
+
+Summary SHA:
+`a38b583d986cdf313bcf135307bb290160fea791848d9bf4c16b5453fd79f523`.
+
+Local summary:
+`runs/c234-v5b-context-binding-fb381b067fc54cb3a46dbf3897ece200/summary.json`.
+
+C234 execution validity is accepted:
+-32 own tests PASS in2.037s;
+-2785 focused tests PASS in50.439s;
+-six models x400 steps =2400 training steps;
+-76800 answer presentations;
+-all checkpoint/prediction replays PASS;
+-all weights changed;
+-protected inputs preserved;
+-clean tracked tree and preserved execution HEAD;
+-`run_execution_valid = True`.
+
+Scientific result is a valid negative:
+`status = FAIL`, `full_binding_gate = False`, `gru_binding_gate = False`.
+
+Exact EVAL correct answers:
+
+| Seed | Full EN | Full JA | GRU-only EN | GRU-only JA |
 |---:|---:|---:|---:|---:|
-| 232001 | 0.541317 | 0.491041 | 0.524732 | 0.435336 |
-| 232002 | 0.426583 | 0.502808 | 0.551532 | 0.521941 |
-| 232003 | 0.479750 | 0.499719 | 0.448819 | 0.469008 |
+|234001|24/96|25/96|31/96|37/96|
+|234002|24/96|24/96|39/96|36/96|
+|234003|19/96|19/96|30/96|33/96|
 
-Full wins3, GRU-only wins3, ties0. Registered full-win gate required6/6; serialized scientific_status
-FAIL/core_ablation_gate False is an accepted valid negative, not an execution error. Do not rerun
-or soften the gate. Record: docs/experiment-ledger-addendum-c233-c234.md, acceptance commit
-`3d3f6ad6f9903085ca083fbfc77bf0d4d77a93d7`.
+Registered exact-accuracy threshold was90% in every seed/language cell.
+Full query-pair both-correct: EN0/48 in all seeds; JA2/48 only for234001, otherwise0/48.
+GRU-only query-pair both-correct:0/48 in every seed/language cell.
+The other registered pair and masking criteria also failed.
 
-The smaller ordinary recurrent backbone is competitive on this fixed template task. C232's learning
-cannot be attributed uniquely to the core. This is not a statistical equivalence result or proof
-that the core is useless on all tasks. Three seeds, four reused held-out pairs, one training recipe
-and unequal capacity13488/10160 limit the claim. C232's bounded learning result remains accepted.
+Do not rerun C234, choose favorable seeds, extend steps or relax the gate.
+The result does not prove architecture-wide impossibility, statistical equivalence, or general
+language failure. It establishes only that contextual object/value binding was not demonstrated by
+either fixed architecture under the registered C234 task and budget.
 
-## Active C234 — contextual binding, not another template-loss rescue
+Acceptance:
+`docs/experiment-ledger-addendum-c234-c235.md`.
+Acceptance commit:
+`8a58594d7fb4523ab2f5ef172d16cf7cafb7f4d1`.
 
-Experiment C234-v5b-contextual-binding-pilot.
-Stage V5-B-CONTEXTUAL-BINDING-PILOT.
+Accepted artifacts:
+- binding-plan.json `0c3c3cedd0a15fa8b392cbe38ba5285113a948b78ef3511bf106cbc75d7b2d38`
+- dataset.json `72e2f07dc12e9f7e538e2bdd08e3a738d423cd536d1e509301363e467ef26c85`
+- measurements.json `23f822d0a05faac176efc767b5702a21763946b295a76c503f01abc965c776c3`
+- trained-models.pt `711dd636597d5ec575136bd780ac303eb21ed6198d411f977bb20c67fd20bd26`
+- validation-summary.json `655dc04bd3509246c432eb8817699b5685ca300df612515d55358d78e634b629`
 
-One question: can the unchanged full model select the queried object's observed value and change
-its answer correctly when the facts or queried object change? Retain GRU-only as a comparator.
-No architecture change, learned-memory integration, larger model, external data or C233 gate change.
+C233 remains ACCEPTED VALID NEGATIVE and C232 remains the bounded template-byte learning result.
+Neither is rewritten by C234.
 
-Examples: box=0;book=3;box= ->0; same facts query book ->3; swap values query box ->3.
-English object names box/book/ball/umbrella; Japanese 箱/本/玉/傘; values0/1/2/3.
-Only the separate requested answer byte is trained/scored; unconstrained256-way byte output.
+## Active C235 — frozen C234 TRAIN/EVAL binding diagnostic
 
-576 rows from72 binding groups x2 languages x2 fact orders x2 queried objects. Hold out complete
-co-occurring value pairs {0,3}/{1,2}. TRAIN384 rows/48 groups; EVAL192 rows/24 groups. Every individual
-object/value pairing appears in TRAIN; all rendering/query variants of a binding stay together.
-Per-language EVAL96, balanced digits. First/last-fact baseline50%; constant25%.
+Experiment: C235-v5b-frozen-binding-diagnostic.
+Stage: V5-B-FROZEN-BINDING-DIAGNOSTIC.
 
-Paired normal-input tests require both answers correct when swapping assigned values or queried
-object.48 pairs per language of each type, sharing the same96 rows. Also mask observed values or
-queried object separately and measure accuracy drops. Masks are out-of-distribution controls,
-not independently sufficient evidence of understanding.
+One question:
+with all six accepted C234 step400 checkpoints frozen, is failure already present on the complete
+TRAIN set, or is there a descriptive gap between TRAIN and the held-out value-pair EVAL split?
 
-Fresh seeds234001/234002/234003. Copy common INITIAL weights before either family trains.
-Full13488 /GRU-only10160; CPU float64, threads2; AdamW lr0.005, clip1.0, batch32,400 steps/model,
-identical TRAIN sampler seed+1000. Six models/2400 steps/76800 answer presentations. No tuning,
-early stop, seed replacement or learned-weight continuation from C232/C233.
+Changed:
+only evaluation coverage. Score complete TRAIN384 and EVAL192.
 
-Primary full-model gate, every seed/language: exact answer accuracy>=90%, fact-pair>=80%,
-query-pair>=80%, evidence-mask drop>=35 percentage points, query-mask drop>=35 percentage points.
-Report identical GRU gate independently; no full-versus-GRU superiority requirement/claim.
-Check fingerprints, all normal/masked logits replay <=1e-9, exact predicted-byte replay.
+Held constant:
+-C234 dataset/split/prompts/targets;
+-all six final checkpoints and serialized identity order;
+-full/GRU architectures and parameters;
+-normal/evidence-blind/query-blind views;
+-unconstrained byte scoring;
+-CPU float64, threads2, deterministic algorithms;
+-no new training or checkpoint selection.
 
-Parent244 sources/346 inputs ->250 sources/358 inputs. OWN6, direct dependencies10, artifacts5.
-New tests32; modules119; loaded2786/focused2785 with inherited exact exclusion1.
-Data SHA: `72e2f07dc12e9f7e538e2bdd08e3a738d423cd536d1e509301363e467ef26c85`.
-Manifest SHA: `0c3c3cedd0a15fa8b392cbe38ba5285113a948b78ef3511bf106cbc75d7b2d38`.
-Registration: docs/experiment-ledger-addendum-c234-preregistration.md.
-Design: docs/v5b-contextual-binding-v0.1.md.
+For each split reuse C234 accuracy/NLL/pair/mask metrics. Also report supplied-value selection,
+probability mass on supplied values, first/last-fact agreement, query-pair unchanged-answer rate and
+query-pair both-correct count.
 
-## C234 post-authoring review
+Diagnostic localization per seed/family/language uses the inherited90% exact-accuracy reference:
+-`TRAIN_ACCURACY_BELOW_90`;
+-`TRAIN_AT_LEAST_90_EVAL_BELOW_90`;
+-`BOTH_ACCURACIES_AT_LEAST_90`.
 
-**post_authoring_review = PASS**
+These labels are descriptive only and cannot retroactively change C234.
 
-Review HEAD: `6247f1282600bc3a3b4444f0e51e42c157c8b855`.
-Scope: committed-source review plus targeted synthetic authoring execution, not formal science.
+Fixed workload:
+-six models;
+-two splits;
+-three views;
+-36 model forward calls;
+-10368 rows presented across forwards;
+-0 new training steps;
+-0 optimizer steps;
+-0 checkpoint writes;
+-0 network calls.
 
-All four remote code/test/PowerShell files were re-fetched and their Git blobs matched tested
-copies exactly. After comparison30 targeted tests reran:30 PASS,0 failures/errors,1.0841s on
-Python3.13.5 / PyTorch2.10.0+cpu / NumPy2.3.5.32 methods enumerated; Python sources and three embedded
-runner blocks compiled; unresolved globals0; data/manifest hashes matched. CLI argv precheck[1],
-postcheck[1,2,3]; all branch/tree/HEAD/ACTIVE/parser guards precede logging/publication.
+C235 PASS means diagnostic integrity only:
+accepted EVAL predictions/metrics replay, fingerprints unchanged, fixed workload complete and all12
+diagnostic cells present. Accuracy outcome does not control C235 PASS. Any artifact/schema/replay/
+nonfinite/model-mutation/source-protection fault is INVALID / RETRY SAME C235.
 
-Tests used synthetic parent interfaces with real GRU/optimizer layers; full-run fit was simulated.
-Grouping, balance, paired controls, masks, TRAIN-only sampling, exact-byte scoring, checkpoint
-replay and valid-negative output/postchecks were exercised without held-out quality tuning.
-Source review checked accepted-negative parent semantics, helper/model factories,250/358 protection
-and ten dependencies. Git comparison changes only new acceptance/C234 files and this unpinned
-handoff; accepted sources/tests/logs are untouched. Only review documents change after review HEAD.
+Protection:
+256 source pins /370 protected inputs.
+OWN6. Direct dependencies11.
+New tests24; modules120; loaded2810/focused2809 with the inherited exact exclusion1.
+Artifacts5: diagnostic-plan.json, diagnostics.json, predictions.json, model-fingerprints.json,
+validation-summary.json.
+Manifest SHA:
+`2e8bb701b3a6d512479c7118ac0973784617e1243639ef00c3903caed1a0f6c3`.
 
-Not run here: test31 actual parent/model TRAIN-only smoke, test32/full2785 historical suite,
-Windows PowerShell AST, user-local accepted artifacts or formal2400-step training. Container DNS
-cannot resolve raw.githubusercontent.com and pwsh is absent; connector source reads succeed.
-Pending checks are not represented as already passed. The authoritative runner requires32 own
-tests and2785 focused tests before science; defects stop execution and publish console evidence.
+Design:
+`docs/v5b-frozen-binding-diagnostic-v0.1.md`.
+Registration:
+`docs/experiment-ledger-addendum-c235-preregistration.md`.
+
+## C235 post-authoring review
+
+`post_authoring_review = PENDING`
+
+Do not execute yet. Review committed remote benchmark/test/PowerShell/doc bytes, validate source
+scope and available tests, then update this section and the preregistration to PASS.
 
 ## Numeric-memory track and stop
 
-C230 prepared route remains optional; local numeric-memory tuning stays paused. Gate F is open,
-not waived. Preserve all accepted sources/tests and tools/run_c167.ps1. No cleanup/history rewrite,
-new CI, paid API, external corpus or Actions-storage changes.
+C230 prepared route remains optional; numeric-memory tuning stays paused.
+Gate F is open, not waived.
 
-Prior handoff:519d71abe912639869130cb4dff3f196e166b92f:docs/experiment-ledger-and-handoff.md.
-Judge C234 before C235 registration. A complete finite ability miss is a valid negative; source,
-artifact, schema, nonfinite or replay failure is INVALID / RETRY SAME C234. Gate F NOT PASSED.
+Preserve all accepted sources/tests/logs and `tools/run_c167.ps1`.
+No cleanup/history rewrite, larger model, paid API, external corpus, architecture change or new
+training is part of C235.
+
+Judge C235 before C236 registration.
