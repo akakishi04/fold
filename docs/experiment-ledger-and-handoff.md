@@ -14,7 +14,7 @@ Gate A/B PASSED; Gate C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PA
 
 **C220 ACCEPTED PASS. C221 ACTIVE / NOT YET JUDGED. C222 NOT REGISTERED.**
 
-C221 is the unique ACTIVE experiment. Do not execute until post-authoring review passes.
+C221 is the unique ACTIVE experiment. Source review passed; all execution preflights remain mandatory.
 
 ## Accepted C220
 
@@ -81,12 +81,25 @@ Design: `docs/v5f-live-coverage-dispatch-v0.1.md`.
 
 ## C221 post-authoring review
 
-**post_authoring_review = PENDING**
+**post_authoring_review = PASS**
 
-Author-side targeted tests32/32 passed using synthetic spy models; the two parent-tree-dependent
-C221 tests, full historical regression, Windows AST parse and accepted-checkpoint science were not
-run in the reviewing container. The runner executes all34 new tests first, then2369 focused tests,
-and starts science only after those gates pass. Remote source review remains required.
+Review HEAD: `b5ee7fc81fc342152031859377260bb6f760486d`.
+Scope: committed-source audit and targeted synthetic authoring validation, not formal execution.
+
+Remote Git blob identities of all five code/test/PowerShell files matched the tested authoring
+copies. After that comparison,32 targeted tests reran successfully (0 failures/errors,1.262 seconds),
+all three embedded Python runner blocks compiled, and the manifest self-hash matched. Synthetic
+648-main/324-intervention dispatch and parent-field adapter fixtures passed. No accepted source,
+historical test or dependency was altered or removed; Git compare showed only new files and this
+unpinned handoff. Loader paths, parent field meanings,16 dependencies,165/195 accounting, CLI
+ordering, complete launcher guards and C222 non-registration were source-reviewed.
+
+Not run here: the two parent-tree-dependent C221 tests, full2369 historical regression, Windows
+PowerShell AST parse and local-only accepted-checkpoint execution/precheck. No synthetic test result
+is represented as those checks. The authoritative runner executes all34 new tests first, then2369
+focused tests, and only then science. Parser/precheck failures stop execution and are logged.
+
+The review after this HEAD changes only review documentation; scientific conditions remain fixed.
 
 ## Historical evidence and maintenance
 
