@@ -112,24 +112,45 @@ Manifest SHA:
 
 ## Post-authoring review
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-Before remote review,30 targeted authoring tests passed (32 methods enumerated), including actual
-PyTorch rhs-refresh calculations on synthetic parent-interface fixtures at all four dimensions,
-unchanged factor identity, old-state/mutated-base/matrix-change/nonfinite rejection, full-ledger
-hashes, cache/export accounting and a synthetic run traversing all12 cells and output/postchecks.
+Review HEAD: `80715f33b47e8e2bb95d5832124245bd2f1b9cfe`.
+Scope: committed-source identity/review and targeted authoring execution, not formal science.
 
-The synthetic parent fixtures are not the accepted backend. Not executed locally: test31 actual
-parent trajectory/export anchor, test32/full2593 historical suite, Windows PowerShell AST parsing,
-user-local artifact precheck or formal C228 measurements. Clone failed because github.com DNS did
-not resolve in the container. Do not claim those execution checks passed.
+All four code/test/PowerShell files were re-fetched after authoring. Complete remote Git blob IDs
+matched the actually executed local copies:
+- benchmark: `dffc4778412bcec7e0adff63b78027f93b00a584`;
+- tests: `0a9bf9c10bccb77c89e9358b68cb1bb1bfec2737`;
+- runner: `2e5ddbece39b08fe92404777c0642136a1b58d78`;
+- launcher: `3bf14d5436b16b6a31b2c99c4fa3a7896953428e`.
 
-Re-fetch all committed code/test/PowerShell files after authoring, match their complete Git blob
-identities against tested copies, rerun targeted tests, and independently review source ordering,
-parent helper/signature/field meanings, matrix-invariant reuse, measured-phase boundaries, direct
-pins/counts, CLI argv indices, complete launcher guards and C229 non-registration. Review PASS must
-record its HEAD and limitations. The authoritative runner executes32 own tests,2593 focused tests,
-and only then the experiment; failure stops before the next phase and publishes the console log.
+After comparison,30 targeted tests reran:30 PASS,0 failures,0 errors in0.123 seconds,
+Python3.13.5 / PyTorch2.10.0+cpu, threads2.32 methods enumerated. Both Python files and three embedded
+runner Python blocks compiled. Manifest/ledger hashes matched; argv indices are precheck[1] and
+postcheck[1..3]; no unbound executable c### module alias was introduced.
+
+Real torch rhs-refresh/factor solve versus full solve was exercised at all four dimensions on
+synthetic parent-interface fixtures, including unchanged factor identity, old-state rejection,
+base/guard mutation rejection, unsupported or matrix-changing updates, and nonfinite rhs rejection.
+Synthetic file/row/run fixtures checked ledger identities, cache accounting, repeat/warmup handling,
+all12-cell traversal, parent-adapter invocation, archive bytes and output/postcheck ordering.
+
+Independent source review checked actual parent C224/C225/C226/C227 helper signatures and field
+meanings, bias-only factor reuse, full current-reference quality comparisons, timing/trace separation,
+initial two-arm export parity, shared cold-setup accounting,26 dependencies and208/280 arithmetic,
+complete branch/tree/HEAD/ACTIVE/parser guards, and C229 non-registration. Git compare from the
+published C227 commit shows only new files plus the unpinned handoff, with no accepted source,
+historical test, log or dependency modified/deleted. C227 execution-to-publication comparison
+contains only the dedicated latest.log/latest.json additions.
+
+Not executed in the reviewing environment: test31 actual parent trajectory/export anchor,
+test32/full2593 historical suite, Windows PowerShell AST parsing, user-local artifact precheck or
+formal C228 measurements. Clone failed because github.com DNS did not resolve. Synthetic fixtures
+are not represented as accepted-backend or historical-regression execution.
+
+The authoritative runner executes32 own tests, then2593 focused tests, then science. Failed checks
+stop before the next phase and the console log is published. Review PASS does not waive these gates.
+Only review documentation changes after the review HEAD; scientific conditions remain fixed.
 
 ## Stop and interpretation limits
 
