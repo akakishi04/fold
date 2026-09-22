@@ -8,100 +8,104 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
-**C231 ACCEPTED PASS. C232 ACTIVE / NOT YET JUDGED. C233 NOT REGISTERED.**
-C232 is unique ACTIVE. Source review passed; all execution preflights remain mandatory.
+**C232 ACCEPTED PASS. C233 NOT REGISTERED. C234 NOT REGISTERED.**
 
-## Accepted C231 — evaluation instrument only
+There is no ACTIVE experiment. C233 authoring is incomplete following a blocked connector write.
+Do not execute the draft benchmark or reuse the previous C232 command as a new experiment.
 
-Execution HEAD: `06a1b674d58f16816a3f47ec36dc3843e7e1dc37`.
-Published log commit: `429cb50b326e2013503058c9cebd3468654e73ba`.
-Log SHA256: `d3573869fa797567ff2542941f1286a11e9d15b27b0966ed63c9a11d43b13fea`.
-Summary SHA256: `53f9c163beeeab1617eb8946e902cb29c2bbc4a94fb869d3325381160107b522`.
-Validation SHA256: `316435e0a31e0559a73368171df186336852990f16e4aa55b322e776ba281938`.
-Local summary: `runs/c231-v5b-byte-eval-9e4c4cd1513a4b3c97e598252f6300c5/summary.json`.
+## Accepted C232 — bounded bilingual learning
 
-Own24 tests OK in1.443s;2689/2689 focused tests OK in56.379s.232 source pins/322 protected inputs.
-All input/artifact/replay/postchecks passed; tracked tree clean; run_execution_valid True.
-Three untrained13488-parameter V5-B instruments,378 forwards,246 scored byte positions.
-Maximum batch/singleton drift1.3322676295501878e-15; scoring drift1.7763568394002505e-15.
-Suffix and checkpoint reload drift0; all12 short generation replays exact; no weight changes/training.
-Verdict uses published evidence and local postchecks, not reviewer access to local-only artifacts.
-Full record: docs/experiment-ledger-addendum-c231-c232.md.
+Scientific execution HEAD: `5fced21f02448e5b1047ef661186ce9b5c6bdb02`.
+Published log commit: `3f67a03bdd5e5bc07e9324d8a7ea830ea798b7b7`.
+Log SHA256: `0c328cdc40d62bfee0523e685981e35327846f3124f7fee876839649eedaecf1`.
+Summary SHA256: `df75e3956a6bfaa37aaebdb12f3d189a10010576f0d9fa8709e5e399e1da75d2`.
+Local summary:
+`runs/c232-v5b-bilingual-learning-67b366b0db07449185a18bd0bbe7b996/summary.json`.
+Validation SHA: `d7084ad67ee1072aa1c985c5d62ae958ce7771994db18bd29530442486e04ded`.
+Measurements SHA: `ca14020688c9993edde9d176d596c7ffc1704ddbf78ab55520abbc48f5351c04`.
+Checkpoint SHA: `c26e7bb71a9e9a882561165ef91e94b9c2ff257a0d39aa8166654c995e042a7b`.
 
-C231 established prefix-only evaluation mechanics, not language skill. Four authored texts and
-random-model scores do not establish understanding, useful generation or whole-model performance.
-The model is the fixed-slot, teacher-routed uncompressed V5-B reference, not the legacy model or
-an integrated final v0.5 system. Prefix-boundary EOS is an explicit adapter convention.
+Own32 tests OK in1.390s;2721/2721 focused tests OK in60.495s. Source/artifact prechecks and final
+postchecks passed; protected inputs preserved; tracked tree clean; run_execution_valid True.
+Publication changed only the log and receipt. Verdict uses published evidence and recorded local
+postchecks, not reviewer access to user-local checkpoints.
 
-## Numeric-memory track decision remains fixed
+All three13488-parameter models completed400 steps each,1200 total and38400 TRAIN byte presentations.
+Every seed lowered TRAIN BPB and beat its own initialization and the TRAIN-only unigram on EVAL,
+separately in English and Japanese.
 
-C230 improved original H1/H2 update+query time by about32%-55%, but lost to full-factor reuse in11/12
-cells. Its only stream-time win disappeared when setup was included. Keep prepared_capsule as an
-opt-in CPU-float64 fixed-W candidate; do not change default/reference or pursue more favorable
-numeric workloads here. Gate F remains open, not waived. The accepted semantic/safety pilots and
-all scientific source pins remain intact. Details: docs/experiment-ledger-addendum-c230-c231.md.
+| Seed | Initial EN | Final EN | Initial JA | Final JA |
+|---:|---:|---:|---:|---:|
+| 232001 | 8.139344152 | 0.541316849 | 8.656696136 | 0.524732128 |
+| 232002 | 8.127756147 | 0.426583413 | 8.573135698 | 0.551531750 |
+| 232003 | 8.243823111 | 0.479749709 | 7.797179309 | 0.448818815 |
 
-## Active C232 — grouped bilingual learning pilot
+Unigram EVAL BPB: EN4.579441272 /JA4.642439365. All checkpoint fingerprints round-tripped,
+EVAL reload error0, all48 short generation replays exact. Weights actually changed.
+Full acceptance record: docs/experiment-ledger-addendum-c232-c233.md.
 
-Experiment C232-v5b-grouped-bilingual-learning-pilot.
-Stage V5-B-GROUPED-BILINGUAL-LEARNING-PILOT.
+### Meaning and limits
 
-One question: does a fixed400-step budget improve held-out noun/color-combination byte prediction
-versus the same model's initialization and TRAIN-only unigram references in both English/Japanese?
+This is actual byte-pattern learning on64 authored template sentences, not general language or
+reasoning competence. TRAIN48 sentences/12 pairs; EVAL16 sentences/four pairs; vocabulary/templates
+seen in TRAIN. Low teacher-forced BPB can reflect spelling/format learning. Generation was a
+four-byte replay check, not a semantic task. The GRU front-end is itself learned; beating a unigram
+does not establish a contribution unique to the FOLD core.
 
-Use unchanged C231.new_model:13488 parameters, width16,48 slots,2 modules/2 internal steps,
-fixed TASK_NEXT=0, CPU float64. Fresh seeds232001/232002/232003; no C231 checkpoint continuation.
-No memory/compression/controller integration, new architecture, general benchmark or V5-G promotion.
+C231's evaluator audit remains accepted. The model is the fixed-slot, fixed-route uncompressed V5-B
+reference, not a complete v0.5 system or the integrated learned-memory stack.
 
-64 authored sentences =2 languages x4 nouns x4 colors x2 templates.
-EVAL iff (noun_id+color_id)%4==0, with the pair grouped across all languages/templates.
-TRAIN48 sentences/12 pairs/948 bytes; EVAL16 sentences/4 pairs/316 bytes.
-All vocabulary/templates occur in TRAIN. Next-byte targets stay outside the model input.
+## Proposed C233 — incomplete authoring, not execution permission
 
-AdamW lr0.005, betas0.9/0.999, eps1e-8, weight_decay0, clip norm1.0, batch32.
-400 steps per seed;1200 total;38400 sampled TRAIN byte presentations. No early stopping or EVAL-based
-checkpoint/seed/budget selection. fit() receives only TRAIN tokens/targets; unigram counts TRAIN only.
+Question: with the same initial embedding/GRU/norm/decoder, TRAIN rows, sampled minibatches and
+400-step budget, does the full C232 model outperform a newly trained version with the iterative
+fixed-routing core removed?
 
-Fixed gate, every seed: aggregate TRAIN BPB decreases; final English EVAL BPB below initial and
-unigram; same for Japanese; changed weights; exact checkpoint fingerprints, logit replay <=1e-9,
-and all16 four-byte generation replays exact. These are limited byte-pattern results, not proof of
-semantic composition or useful language competence. Unigram is not a matched neural baseline.
-Complete finite gate misses are valid negatives and must not trigger threshold/budget relaxation.
+The intended baseline is GRU-only:10160 parameters versus13488 total in the full model. This is a
+backbone-matched capacity-reducing ablation, not a parameter/compute-matched architecture contest.
+Copy initial common weights, not trained weights. Restore accepted C232 full checkpoints only for
+replay/comparison. Reuse seeds232001/232002/232003 deliberately for matched initializations and
+sample order. No new full-model training or EVAL-based tuning. The already observed C232 split is
+a diagnostic reuse, not independent confirmation.
 
-Parent232 sources/322 inputs -> C232238 sources/334 inputs; OWN6; artifacts5.
-New tests32; modules117; loaded2722/focused2721 with inherited exact exclusion1.
-Data SHA: `1a1b09c80c3877c662ee43bf91fb00b7a762d20a7b6b3f455f5ee208c7a79200`.
-Manifest SHA: `09f2a463981d49680ca66940698baf363731adda9fda8718c5b59fdc281b80c4`.
-Registration: docs/experiment-ledger-addendum-c232-preregistration.md.
-Design: docs/v5b-grouped-bilingual-learning-v0.1.md.
+Draft intended gate: qualify baseline learning against its own initialization/unigram, then require
+full-model BPB strictly lower in all six seed/language cells. A competitive smaller ablation weakens
+necessity on this task; a full-model win does not separate added capacity from iterative structure.
+An unqualified baseline is inconclusive for superiority, not evidence favoring the full model.
 
-## C232 post-authoring review
+### Authoring stop and exact repository state
 
-**post_authoring_review = PASS**
+Acceptance document committed at `b0823af9f073c891ca6fa556c3bd93da0c2510cb`.
+Draft benchmark added at `2f6ef6d38b85710742a8256b0123e36ff5c975c9`:
+`fold_lm/v05_benchmarks/model_c233_core_ablation.py`.
 
-Review HEAD: `2c8a97bb56a3eb79aebea556c04bbdf49d374af1`.
-Scope: committed-source audit and targeted synthetic authoring validation, not formal science.
+The attempt to create `tests_lm/test_v05_c233_core_ablation.py` was blocked by the tool safety check.
+No successful test-file write was returned and branch HEAD did not advance. Do not treat the tests,
+runner, launcher or C233 preregistration as committed. No alternative write route was attempted.
+C233 has not been activated and has not passed committed-remote post-authoring review.
 
-Four re-fetched code/test/PowerShell blobs matched tested copies. After comparison30 tests reran:
-30 PASS,0 failures/errors,0.062s on Python3.13.5 / PyTorch2.10.0+cpu / NumPy2.3.5.32 methods enumerated;
-both Python sources and three embedded runner blocks compiled; unresolved globals0; data/manifest
-hashes matched. Dataset/grouping/TRAIN-only unigram and fit inputs, byte-weighted scoring, two-step
-synthetic optimizer updates, fixed workload and valid-negative output paths were checked. Full-run
-adapter testing simulated fit and is not a formal V5-B training result. No held-out quality tuning.
+Local authoring copies of benchmark/tests/runner/launcher were prepared.30 targeted tests passed
+using real GRU/optimizer layers in a synthetic source container; the full-run adapter simulated
+training and preserved a valid negative. These are not the real parent test, full historical
+regression, accepted-checkpoint comparison or a completed remote review. They do not authorize a run.
 
-Source review checked parent artifact/model-factory/prefix semantics,238/334 dependency protection,
-CLI precheck[1]/postcheck[1..3], exact source-string assertions, early tests and complete launcher
-parser/ACTIVE/HEAD/publication guards. Git compare shows only new files plus the unpinned handoff;
-no accepted scientific sources/tests/logs/dependencies were changed. C233 remains unregistered.
+Before any future C233 registration, resolve the blocked authoring step through the permitted tool
+workflow, complete all OWN files and review the committed remote sources. Recheck source/protection
+counts, manifest, parent artifact semantics, sampler/initialization matching, runner/launcher guards
+and actual test counts. Never infer execution readiness from the draft benchmark alone.
 
-Not run here: test31 actual TRAIN-only two-step V5-B smoke, test32/full2721 historical suite,
-Windows PowerShell AST, user-local parent artifacts or formal1200-step training. Synthetic fixtures
-are not represented as these checks. Runner requires32 own tests and2721 focused tests before
-science; failures stop and publish evidence. Only review documentation changes after the review HEAD.
+## Numeric-memory track and historical maintenance
 
-## Historical maintenance and stop
+C230 improved original H1/H2 time but lost to the strong full-factor comparator in11/12 cells; its
+only stream-time advantage disappeared after setup. Keep the prepared route optional and pause
+numeric-memory tuning. Gate F is open, not waived. No larger model budget, external data, paid API,
+new CI, cleanup, history rewrite or Actions-storage change is authorized by this work.
 
-Prior handoff:429cb50b326e2013503058c9cebd3468654e73ba:docs/experiment-ledger-and-handoff.md.
-Preserve all accepted sources/tests and tools/run_c167.ps1. No cleanup/history rewrite/new CI or
-Actions-storage work. Run32 own tests,2721 focused tests, then fixed-budget C232. Judge it before
-C233 registration. No large-model budget or public-data download is authorized by this pilot.
+Earlier detailed handoff:
+`3f67a03bdd5e5bc07e9324d8a7ea830ea798b7b7:docs/experiment-ledger-and-handoff.md`.
+Preserve all accepted sources/tests and tools/run_c167.ps1.
+
+## Stop condition
+
+C232 is closed as ACCEPTED PASS. C233 remains NOT REGISTERED; no run command is authorized.
+Do not register C234. Gate F remains NOT PASSED.
