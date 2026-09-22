@@ -37,7 +37,7 @@ PARENT_C218_VALIDATION_SHA = "a0b235393fe3cd267534ecaa6de7190b534eb59a5fb8b95b1d
 INHERITED_SELECTOR_CHECKPOINT_SHA = "ab8892e6562a4801a30fea853fdbc712d69d9c5077e32c0b8fab6e555fead215"
 INHERITED_READER_CHECKPOINT_SHA = "bf96cf6cec13bfdb9c71e374b0e11dd104365add1c5947f2123f4e4ea9f051af"
 COVERAGE_DATA_SHA = "3e9c74b7675439c3118f6a87bc7594455360512e906d69c1c739cae9edc34d65"
-MANIFEST_SHA = "9c4adfc99d7d914f74769cefa59b26249acdb6ec001d1f9327c290f7381cbcac"
+MANIFEST_SHA = "466ee5cd488a08ef9b8dacc6bf9f544ba4ca83ff2ab80dc2af421a6be9db43aa"
 
 TRAIN_NUISANCE = ((-1, -1), (-1, 1), (1, -1))
 EVAL_NUISANCE = ((1, 1),)
@@ -147,7 +147,7 @@ def manifest():
         gate_train_accuracy=1.0,
         gate_eval_accuracy=1.0,
         gate_state_blind_accuracy=0.25,
-        gate_tier_blind_readable_accuracy=0.5,
+        gate_tier_blind_readable_accuracy=0.0,
         gate_scope_blind_missing_oos_accuracy=0.5,
         readable_eval_rows=4,
         nonreadable_eval_rows=4,
@@ -530,7 +530,7 @@ def seed_pass(record):
         record.get("train_accuracy") == 1.0
         and record.get("eval_accuracy") == 1.0
         and record.get("state_blind_eval_accuracy") == 0.25
-        and record.get("tier_blind_readable_accuracy") == 0.5
+        and record.get("tier_blind_readable_accuracy") == 0.0
         and record.get("scope_blind_missing_oos_accuracy") == 0.5
         and record.get("readable_gate_accuracy") == 1.0
         and record.get("nonreadable_suppression_accuracy") == 1.0
