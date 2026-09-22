@@ -9,7 +9,7 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
 **C224 ACCEPTED PASS. C225 ACTIVE / NOT YET JUDGED. C226 NOT REGISTERED.**
-C225 is unique ACTIVE. Post-authoring review is pending; do not execute yet.
+C225 is unique ACTIVE. Source review passed; all execution preflights remain mandatory.
 
 ## Accepted C224 — measurement audit, not storage superiority
 
@@ -82,12 +82,27 @@ Design: `docs/v5f-stateful-baseline-attribution-v0.1.md`.
 
 ## C225 post-authoring review
 
-**post_authoring_review = PENDING**
+**post_authoring_review = PASS**
 
-Author-side30 targeted tests passed on synthetic fixtures;32 methods enumerate. Actual parent
-numeric-backend test, full2497 historical regression, Windows AST parsing and local artifact/C225
-science have not run here. Re-fetch committed files and compare tested copies before review PASS.
-The authoritative runner executes all32 new tests, then2497 focused tests, then the comparison.
+Review HEAD: `6593e37f06a816d3154c8dd54b25fa12b869926d`.
+Scope: committed-source audit and synthetic authoring validation, not formal science.
+
+All four remote code/test/PowerShell blobs match the executed local copies. After comparison,
+30 targeted tests reran successfully (0 failures/errors,0.057 seconds).32 methods enumerate,
+manifest and all four original ledger hashes match, three embedded Python blocks compile,
+and unbound c### aliases are0.
+
+Source review checked parent measurement schema/meaning, retained symbolic build and no-replay query,
+complete matched raw/index/shared-bridge accounting, candidate byte identity against C224,
+archive readback,23 dependencies,190/244 protection arithmetic, runner argv[1]/postcheck[1..3],
+launcher guards and C226 non-registration. Git compare shows only new files and this unpinned
+handoff, with no accepted source/test/log/dependency edit or deletion. After the review HEAD only
+review documentation changes; scientific conditions remain fixed.
+
+Not run here: actual accepted numeric-backend test31, full historical test32/2497 suite, Windows
+PowerShell AST parse, local parent-artifact precheck or C225 science. Synthetic helper tests are
+not represented as those checks. The authoritative runner executes all32 own tests, then2497
+focused tests, then comparison. Failure stops before the next phase and the console log is published.
 
 ## Historical maintenance and stop
 
