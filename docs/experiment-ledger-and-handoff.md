@@ -19,7 +19,8 @@ Authoritative Python: 3.13.15 / PyTorch 2.10.0+cu130 / NumPy 2.3.5.
 - Gate F: **NOT PASSED**
 - **C215 ACCEPTED PASS**
 - **C216 ACCEPTED PASS**
-- **C217 NOT REGISTERED**
+- **C217 ACTIVE / NOT YET JUDGED**
+- **C218 NOT REGISTERED**
 
 C216 is the unique ACTIVE experiment.
 
@@ -251,23 +252,85 @@ value extrapolation, natural-language memory behavior, memory-cost advantage or 
 Historical invalid/recovery attempts remain documented in:
 `docs/experiment-ledger-addendum-c216-recovery.md`.
 
-## Next boundary
+## Active C217 — learned Port Selector pilot
 
-C217 is not yet registered.
+Experiment:
+`C217-v5f-learned-port-selector-pilot`
 
-Next one-question intervention:
-can a learned Port Selector choose the correct alpha/beta memory port from a query descriptor on
-held-out query-nuisance combinations, while the accepted C216 Readers remain frozen and downstream
-semantic answers match oracle routing?
+Stage:
+`V5-F-LEARNED-PORT-SELECTOR-PILOT`
 
-C217 must keep Writer oracle, Reader frozen, Coverage classifier absent and C216 memory semantics
-fixed.
+One question:
+given correct H1/H2 memory and the frozen accepted C216 Readers, can a learned Port Selector route a
+held-out query descriptor to the correct alpha/beta memory port and preserve downstream semantic
+answers?
+
+Changed variable:
+- learned `fold_lm/v05/memory_port_selector.py` only.
+
+Held constant:
+- all three accepted C216 Readers frozen;
+- Writer oracle/deterministic;
+- Coverage classifier absent;
+- accepted C215 H1/H2 memory semantics;
+- fixed response capsule;
+- no language mapping.
+
+Query registration:
+- descriptor width4;
+- alpha `[1,0,n1,n2]`;
+- beta `[0,1,n1,n2]`;
+- TRAIN nuisance `[-1,-1],[-1,+1],[+1,-1]`;
+- EVAL nuisance `[+1,+1]`;
+-8 rows /6 TRAIN /2 EVAL;
+- query data SHA `a9ec25d8079e27177567dd4ca85c7aee18f511eb8e8db6b774a61af82e91ac3d`.
+
+Downstream fixture:
+- six unequal alpha/beta semantic pairs;
+- HOT and COMMITTED placements;
+- both alpha and beta queries;
+-24 rows per selector seed;
+- all three C216 Reader checkpoints frozen;
+- correct routing target accuracy1.0;
+- forced wrong-port target accuracy0.0.
+
+Training:
+- selector4->8->2,58 parameters;
+- seeds217001/217002/217003;
+- Adam lr0.02;
+-400 full-batch steps/seed;
+-1200 steps /7200 examples;
+-1209 selector forwards;
+-18 frozen Reader forwards;
+-1227 total model forwards.
+
+Fixed gate:
+- TRAIN port accuracy1.0;
+- EVAL port accuracy1.0;
+- query-blind EVAL accuracy0.5;
+- selector checkpoint roundtrip exact;
+- downstream overall/HOT/COMMITTED accuracy1.0 for every frozen Reader;
+- forced wrong-port downstream accuracy0.0;
+- placement mismatches0.
+
+Authoring:
+- source pins137;
+- protected inputs143;
+- artifacts5;
+- C217 tests36;
+- regression modules102;
+- loaded2222 / focused2221;
+- manifest `70af02a697ae8fc97f3d379bdab18dd49bf2261a319f7091819323de5c2b8ab4`.
+
+## C217 post-authoring review
+
+**post_authoring_review = PENDING**
+
+Do not issue the C217 execution command until committed remote review passes.
 
 
 ## Stop condition
 
-C216 is closed as **ACCEPTED PASS**.
-
-Prepare and review C217 before execution.
+Judge C217 before any C218 registration.
 
 Gate E remains **PASSED**. Gate F remains **NOT PASSED**.
