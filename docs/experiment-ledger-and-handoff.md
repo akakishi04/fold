@@ -8,107 +8,87 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
-**C230 ACCEPTED PASS. C231 ACTIVE / NOT YET JUDGED. C232 NOT REGISTERED.**
-C231 is unique ACTIVE. Source review passed; all execution preflights remain mandatory.
+**C231 ACCEPTED PASS. C232 ACTIVE / NOT YET JUDGED. C233 NOT REGISTERED.**
+C232 is unique ACTIVE. Do not execute until post-authoring review passes.
 
-## Accepted C230 — real improvement, limited adoption
+## Accepted C231 — evaluation instrument only
 
-Scientific execution HEAD: `58ec6d1497e4729d394307f5c1316d9e69f2ee8e`.
-Published log commit: `ad8a657842491a74d8aa5e3101893aaa98a335ca`.
-Log SHA: `de95033043db1b65fd929e7d2cf684e0192b8eda3ae49e74f53d97cf6394e580`.
-Summary SHA: `3eeb739eaf37c8b0d1ef4f94d5eec46281ea8721c1cea67fb51234f8bd7fca7c`.
-Local summary:
-`runs/c230-v5f-prepared-capsule-42695282c3e6402f9fe7616ba3641099/summary.json`.
-Validation SHA: `8f0ebfb7c769f1bc9eebceff02d51c55e1a94dd52ee0ec67b73650f2dda683a9`.
-Measurements SHA: `d72afb4423933d673983f6ea850e8064c6b84072ae061bbca935c2f2d5705afc`.
+Execution HEAD: `06a1b674d58f16816a3f47ec36dc3843e7e1dc37`.
+Published log commit: `429cb50b326e2013503058c9cebd3468654e73ba`.
+Log SHA256: `d3573869fa797567ff2542941f1286a11e9d15b27b0966ed63c9a11d43b13fea`.
+Summary SHA256: `53f9c163beeeab1617eb8946e902cb29c2bbc4a94fb869d3325381160107b522`.
+Validation SHA256: `316435e0a31e0559a73368171df186336852990f16e4aa55b322e776ba281938`.
+Local summary: `runs/c231-v5b-byte-eval-9e4c4cd1513a4b3c97e598252f6300c5/summary.json`.
 
-Own40 tests OK in1.350s;2665/2665 focused tests OK in52.628s. All12 quality/export/reuse checks,
-artifact checks and execution validity passed; preserved inputs and clean tree. Publication added
-only console log/receipt. Acceptance is from published evidence and recorded local postchecks.
-Full verdict: docs/experiment-ledger-addendum-c230-c231.md.
+Own24 tests OK in1.443s;2689/2689 focused tests OK in56.379s.232 source pins/322 protected inputs.
+All input/artifact/replay/postchecks passed; tracked tree clean; run_execution_valid True.
+Three untrained13488-parameter V5-B instruments,378 forwards,246 scored byte positions.
+Maximum batch/singleton drift1.3322676295501878e-15; scoring drift1.7763568394002505e-15.
+Suffix and checkpoint reload drift0; all12 short generation replays exact; no weight changes/training.
+Verdict uses published evidence and local postchecks, not reviewer access to local-only artifacts.
+Full record: docs/experiment-ledger-addendum-c231-c232.md.
 
-Prepared/original H1H2 update+query ratios range0.4464-0.6764: about32.4%-55.4% less time on this
-fixture. Against full-factor reuse, prepared loses11/12 cells. Only n256/q16 is faster:
-19.6411ms versus21.9916ms, about10.7% less stream time. Including setup gives29.6598ms versus
-28.3935ms, so that advantage disappears. Three descriptive timing trials, not statistical evidence.
+C231 established prefix-only evaluation mechanics, not language skill. Four authored texts and
+random-model scores do not establish understanding, useful generation or whole-model performance.
+The model is the fixed-slot, teacher-routed uncompressed V5-B reference, not the legacy model or
+an integrated final v0.5 system. Prefix-boundary EOS is an explicit adapter convention.
 
-n256/q16 audit storage: prepared283799B, original283277B, full-cache555253B. Prepared adds72 numeric
-bytes plus metadata (522B serialized cache). Raw/index/full bridge are retained. These are audit
-exports/reachable objects, not whole application size or peak RAM/VRAM.
+## Numeric-memory track decision remains fixed
 
-### Adoption and track decision
+C230 improved original H1/H2 update+query time by about32%-55%, but lost to full-factor reuse in11/12
+cells. Its only stream-time win disappeared when setup was included. Keep prepared_capsule as an
+opt-in CPU-float64 fixed-W candidate; do not change default/reference or pursue more favorable
+numeric workloads here. Gate F remains open, not waived. The accepted semantic/safety pilots and
+all scientific source pins remain intact. Details: docs/experiment-ledger-addendum-c230-c231.md.
 
-Keep prepared_capsule as an opt-in CPU-float64 fixed-W inference candidate. Do not replace the
-default/reference implementation or generalize one favorable cell into a universal threshold.
-Pause local numeric-memory optimization here and return to language/reasoning evaluation.
-Gate F remains NOT PASSED; no requirements are waived and no Gate G promotion is implied.
+## Active C232 — grouped bilingual learning pilot
 
-## Accepted chain and limits
+Experiment C232-v5b-grouped-bilingual-learning-pilot.
+Stage V5-B-GROUPED-BILINGUAL-LEARNING-PILOT.
 
-C213 semantics; C214 closure; C215 H1/H2 commit; C216 Reader; C217 Selector; C218 structured Writer;
-C219 Coverage; C220 offline composition; C221 causal dispatch; C222 withdrawal/hypothesis isolation;
-C223 explicit request freshness; C224-C228 cost comparisons; C229 profiling; C230 optional checked
-reduced preparation. These remain small reference/pilot scopes, not general language ability,
-concurrency-safe caches, bounded many-factor indexing or whole-system efficiency proof.
+One question: does a fixed400-step budget improve held-out noun/color-combination byte prediction
+versus the same model's initialization and TRAIN-only unigram references in both English/Japanese?
 
-## Active C231 — V5-B language evaluation contract
+Use unchanged C231.new_model:13488 parameters, width16,48 slots,2 modules/2 internal steps,
+fixed TASK_NEXT=0, CPU float64. Fresh seeds232001/232002/232003; no C231 checkpoint continuation.
+No memory/compression/controller integration, new architecture, general benchmark or V5-G promotion.
 
-Experiment C231-v5b-byte-evaluation-contract.
-Stage V5-B-MODEL-EVALUATION-CONTRACT-AUDIT.
+64 authored sentences =2 languages x4 nouns x4 colors x2 templates.
+EVAL iff (noun_id+color_id)%4==0, with the pair grouped across all languages/templates.
+TRAIN48 sentences/12 pairs/948 bytes; EVAL16 sentences/4 pairs/316 bytes.
+All vocabulary/templates occur in TRAIN. Next-byte targets stay outside the model input.
 
-One question: can the existing uncompressed V5-B byte model be evaluated through prefix-only
-likelihood and greedy generation without target leakage and with reproducible outputs/checkpoints?
-This is a measurement-interface audit, not a new architecture or language-quality benchmark.
+AdamW lr0.005, betas0.9/0.999, eps1e-8, weight_decay0, clip norm1.0, batch32.
+400 steps per seed;1200 total;38400 sampled TRAIN byte presentations. No early stopping or EVAL-based
+checkpoint/seed/budget selection. fit() receives only TRAIN tokens/targets; unigram counts TRAIN only.
 
-Use actual ShortByteLanguageModel from fold_lm/v05/language_task.py, not the separate legacy
-FoldLanguageModel or an alleged completed v0.5 stack. It has a causal GRU front-end, fixed routing,
-fixed48 slots, width16,2 modules and2 internal steps. New untrained instruments only; no training.
-The learned H1/H2 stack and prepared numerical route are not connected by this experiment.
+Fixed gate, every seed: aggregate TRAIN BPB decreases; final English EVAL BPB below initial and
+unigram; same for Japanese; changed weights; exact checkpoint fingerprints, logit replay <=1e-9,
+and all16 four-byte generation replays exact. These are limited byte-pattern results, not proof of
+semantic composition or useful language competence. Unigram is not a matched neural baseline.
+Complete finite gate misses are valid negatives and must not trigger threshold/budget relaxation.
 
-Four authored EN/JA texts (16/22/16/28 UTF-8 bytes), three seeds231001/231002/231003. Model sees only
-BOS+observed prefix+prefix-boundary EOS+PAD; target byte stays scorer-only. No special-token targets.
-Measure per-byte likelihood, independently verify scoring, compare batch/singleton logits, mutate
-unseen suffixes, generate4 own-feedback bytes, serialize/reload and replay. Errors <=1e-9.
-Actual126 forwards/seed,378 total;246 scored positions over82 unique fixture bytes; training0.
-Random-model scores explicitly marked meaningful_language_score False, with no loss-quality gate.
+Parent232 sources/322 inputs -> C232238 sources/334 inputs; OWN6; artifacts5.
+New tests32; modules117; loaded2722/focused2721 with inherited exact exclusion1.
+Data SHA: `1a1b09c80c3877c662ee43bf91fb00b7a762d20a7b6b3f455f5ee208c7a79200`.
+Manifest SHA: `09f2a463981d49680ca66940698baf363731adda9fda8718c5b59fdc281b80c4`.
+Registration: docs/experiment-ledger-addendum-c232-preregistration.md.
+Design: docs/v5b-grouped-bilingual-learning-v0.1.md.
 
-Preserve C230221 sources/305 protected inputs. Add exact union with OWN6 and five explicitly pinned
-language/import source files; reject overlap conflicts, print resolved counts. For union size S,
-protected count is305+6+(S-221). All parent/helper and actual LM dependencies are protected.
-New tests24; modules116; loaded2690 /focused2689 with inherited exact exclusion1. Output artifacts5.
+## C232 post-authoring review
 
-Manifest: `745c97d3aab18c129494357cc91eb48a6e713294e437b17700be22da8bd3bf83`.
-Fixture: `5dcdbd8223c0e40df8d9e3fb5c98e50873a0a014ce9a3c2e003fe74d3911ce23`.
-Registration: docs/experiment-ledger-addendum-c231-preregistration.md.
-Design: docs/v5b-byte-evaluation-contract-v0.1.md.
+**post_authoring_review = PENDING**
 
-## C231 post-authoring review
-
-**post_authoring_review = PASS**
-
-Review HEAD: `88fc379477e521b9014675441b69c2f75ba29049`.
-Scope: committed-source audit and targeted synthetic authoring execution, not formal science.
-
-All four remote code/test/PowerShell Git blobs matched tested local copies. After comparison22 tests
-reran successfully,0 failures/errors,1.933s on Python3.13.5 / PyTorch2.10.0+cpu;24 methods enumerated.
-Both Python sources and three embedded runner blocks compiled; unbound global names0; manifest and
-fixture hashes matched; CLI precheck[1]/postcheck[1..3]. Synthetic prefix-dependent models exercised
-scoring, leakage controls, feedback generation and378-forward checkpoint/output/postcheck replay.
-
-Source review checked actual V5-B config/forward/import contracts, teacher-route/prefix-boundary EOS
-semantics, target separation, exact source union/dependency protection, parent artifact validation,
-full launcher guard ordering and C232 non-registration. Git compare shows only new files plus this
-unpinned handoff; accepted sources/tests/logs/dependencies were not edited or deleted.
-
-Not executed here: test23 real V5-B model, test24/full2689 historical suite, Windows PowerShell AST,
-user-local parent artifact checks or formal C231. Synthetic models/source-derived probes are not
-represented as those missing tests. Runner executes24 own tests,2689 focused tests and only then
-the audit; any failure stops and publishes evidence. Only review docs change after the review HEAD.
+Initial30 targeted tests passed with synthetic models and actual PyTorch optimizer/scoring/output
+operations. The synthetic full-run test deliberately simulates training; not a formal V5-B result.
+Dataset/hash/grouping and valid-negative serialization checks passed. No EVAL-driven tuning.
+Pending here: test31 actual TRAIN-only two-step V5-B smoke, test32/full2721 historical suite,
+Windows PowerShell AST and user-local accepted-artifact checks/formal training. Remote source review
+and targeted rerun must finish before a command is issued.
 
 ## Historical maintenance and stop
 
-Prior handoff: ad8a657842491a74d8aa5e3101893aaa98a335ca:docs/experiment-ledger-and-handoff.md.
-Preserve every accepted source/test and tools/run_c167.ps1. No cleanup/history rewrite/new CI or
-Actions-storage work. Run24 own tests,2689 focused tests, then C231. Judge C231 before C232.
-Do not silently adopt a larger training budget or interpret this instrument audit as useful language
-performance. Gate F remains NOT PASSED.
+Prior handoff:429cb50b326e2013503058c9cebd3468654e73ba:docs/experiment-ledger-and-handoff.md.
+Preserve all accepted sources/tests and tools/run_c167.ps1. No cleanup/history rewrite/new CI or
+Actions-storage work. Run32 own tests,2721 focused tests, then fixed-budget C232. Judge it before
+C233 registration. No large-model budget or public-data download is authorized by this pilot.
