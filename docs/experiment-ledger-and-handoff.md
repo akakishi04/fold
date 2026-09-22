@@ -8,104 +8,96 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
-**C232 ACCEPTED PASS. C233 NOT REGISTERED. C234 NOT REGISTERED.**
-
-There is no ACTIVE experiment. C233 authoring is incomplete following a blocked connector write.
-Do not execute the draft benchmark or reuse the previous C232 command as a new experiment.
+**C232 ACCEPTED PASS. C233 ACTIVE / NOT YET JUDGED. C234 NOT REGISTERED.**
+C233 is unique ACTIVE. Authoring is complete; do not execute before post-authoring review PASS.
 
 ## Accepted C232 — bounded bilingual learning
 
 Scientific execution HEAD: `5fced21f02448e5b1047ef661186ce9b5c6bdb02`.
 Published log commit: `3f67a03bdd5e5bc07e9324d8a7ea830ea798b7b7`.
-Log SHA256: `0c328cdc40d62bfee0523e685981e35327846f3124f7fee876839649eedaecf1`.
-Summary SHA256: `df75e3956a6bfaa37aaebdb12f3d189a10010576f0d9fa8709e5e399e1da75d2`.
+Log SHA: `0c328cdc40d62bfee0523e685981e35327846f3124f7fee876839649eedaecf1`.
+Summary SHA: `df75e3956a6bfaa37aaebdb12f3d189a10010576f0d9fa8709e5e399e1da75d2`.
 Local summary:
 `runs/c232-v5b-bilingual-learning-67b366b0db07449185a18bd0bbe7b996/summary.json`.
 Validation SHA: `d7084ad67ee1072aa1c985c5d62ae958ce7771994db18bd29530442486e04ded`.
 Measurements SHA: `ca14020688c9993edde9d176d596c7ffc1704ddbf78ab55520abbc48f5351c04`.
 Checkpoint SHA: `c26e7bb71a9e9a882561165ef91e94b9c2ff257a0d39aa8166654c995e042a7b`.
 
-Own32 tests OK in1.390s;2721/2721 focused tests OK in60.495s. Source/artifact prechecks and final
-postchecks passed; protected inputs preserved; tracked tree clean; run_execution_valid True.
-Publication changed only the log and receipt. Verdict uses published evidence and recorded local
-postchecks, not reviewer access to user-local checkpoints.
+Own32 tests OK in1.390s;2721/2721 focused tests OK in60.495s. Source/artifact/postchecks passed;
+protected inputs preserved; tracked tree clean; run_execution_valid True. Only log/receipt published.
+All three models completed400 steps each,1200 total and38400 TRAIN byte presentations.
 
-All three13488-parameter models completed400 steps each,1200 total and38400 TRAIN byte presentations.
-Every seed lowered TRAIN BPB and beat its own initialization and the TRAIN-only unigram on EVAL,
-separately in English and Japanese.
+| Seed | Final EN EVAL BPB | Final JA EVAL BPB |
+|---:|---:|---:|
+| 232001 | 0.541316849 | 0.524732128 |
+| 232002 | 0.426583413 | 0.551531750 |
+| 232003 | 0.479749709 | 0.448818815 |
 
-| Seed | Initial EN | Final EN | Initial JA | Final JA |
-|---:|---:|---:|---:|---:|
-| 232001 | 8.139344152 | 0.541316849 | 8.656696136 | 0.524732128 |
-| 232002 | 8.127756147 | 0.426583413 | 8.573135698 | 0.551531750 |
-| 232003 | 8.243823111 | 0.479749709 | 7.797179309 | 0.448818815 |
+All beat their own initialization and unigram EN4.579441272/JA4.642439365; TRAIN loss decreased.
+Checkpoint fingerprints and48 short generation replays matched; reload error0. Verdict relies on
+published evidence/local postchecks, not reviewer access to local-only checkpoints.
+Acceptance record: docs/experiment-ledger-addendum-c232-c233.md (commit b0823af9f073c891ca6fa556c3bd93da0c2510cb).
 
-Unigram EVAL BPB: EN4.579441272 /JA4.642439365. All checkpoint fingerprints round-tripped,
-EVAL reload error0, all48 short generation replays exact. Weights actually changed.
-Full acceptance record: docs/experiment-ledger-addendum-c232-c233.md.
+This is learning on64 authored template sentences, not general language/reasoning. Four held-out
+pairs and familiar vocabulary/grammar do not establish semantic composition. The learned GRU itself
+may explain much of the improvement. C231 evaluator audit remains accepted. No complete v0.5,
+learned-memory integration or Gate F completion is claimed.
 
-### Meaning and limits
+## Active C233 — backbone-matched core ablation
 
-This is actual byte-pattern learning on64 authored template sentences, not general language or
-reasoning competence. TRAIN48 sentences/12 pairs; EVAL16 sentences/four pairs; vocabulary/templates
-seen in TRAIN. Low teacher-forced BPB can reflect spelling/format learning. Generation was a
-four-byte replay check, not a semantic task. The GRU front-end is itself learned; beating a unigram
-does not establish a contribution unique to the FOLD core.
+Experiment C233-v5b-backbone-matched-core-ablation.
+Stage V5-B-BACKBONE-MATCHED-CORE-ABLATION.
 
-C231's evaluator audit remains accepted. The model is the fixed-slot, fixed-route uncompressed V5-B
-reference, not a complete v0.5 system or the integrated learned-memory stack.
+Question: under the same common initialization, TRAIN minibatches and400-step budget, does the
+full C232 model beat a freshly trained GRU-only version with the iterative core removed?
 
-## Proposed C233 — incomplete authoring, not execution permission
+Copy initial embedding/GRU/norm/decoder weights, not trained weights. Verify original full-model
+initialization and restore accepted trained full checkpoints only for replay/comparison. Baseline
+10160 parameters versus full13488; this is not a parameter- or compute-matched architecture contest.
 
-Question: with the same initial embedding/GRU/norm/decoder, TRAIN rows, sampled minibatches and
-400-step budget, does the full C232 model outperform a newly trained version with the iterative
-fixed-routing core removed?
+Keep C232's64 sentences,48 TRAIN/948 bytes,16 EVAL/316 bytes and pair grouping. Reuse seeds
+232001/232002/232003 and sample generator seed+1000 deliberately for pairing. CPU float64, threads2,
+AdamW lr0.005, betas0.9/0.999, eps1e-8, weight_decay0, gradient clip1.0; batch32,400 steps per seed.
+Only baseline trains:1200 new steps/38400 presentations, full retraining0. No EVAL tuning or early stop.
 
-The intended baseline is GRU-only:10160 parameters versus13488 total in the full model. This is a
-backbone-matched capacity-reducing ablation, not a parameter/compute-matched architecture contest.
-Copy initial common weights, not trained weights. Restore accepted C232 full checkpoints only for
-replay/comparison. Reuse seeds232001/232002/232003 deliberately for matched initializations and
-sample order. No new full-model training or EVAL-based tuning. The already observed C232 split is
-a diagnostic reuse, not independent confirmation.
+Qualify each baseline against its initialization/unigram first. Then full-core advantage requires
+strictly lower full-model EVAL BPB in all six seed/language cells. Report both win counts and ties.
+Unqualified baseline means INCONCLUSIVE, not evidence favoring full. Qualified gate misses are
+valid negatives. Failed source/artifact/checkpoint replay is INVALID / RETRY SAME C233.
+Same observed split is diagnostic reuse, not fresh confirmation. Capacity and recurrence effects
+are not separated by a full-model win. No general language, speed or Gate F claim.
 
-Draft intended gate: qualify baseline learning against its own initialization/unigram, then require
-full-model BPB strictly lower in all six seed/language cells. A competitive smaller ablation weakens
-necessity on this task; a full-model win does not separate added capacity from iterative structure.
-An unqualified baseline is inconclusive for superiority, not evidence favoring the full model.
+Parent238 sources/334 inputs + OWN6 and parent summary/artifacts ->244 sources/346 inputs.
+Nine direct deciding dependencies. New tests32; modules118; loaded2754/focused2753; artifacts5.
+Keep the inherited exact C204 mutable-state test exclusion only.
+Manifest: `01459cd555cc15193b1289767cd824d159999faff130d537d16c5895f3f83d39`.
+Registration: docs/experiment-ledger-addendum-c233-preregistration.md.
+Design: docs/v5b-backbone-matched-core-ablation-v0.1.md.
 
-### Authoring stop and exact repository state
+## C233 post-authoring review
 
-Acceptance document committed at `b0823af9f073c891ca6fa556c3bd93da0c2510cb`.
-Draft benchmark added at `2f6ef6d38b85710742a8256b0123e36ff5c975c9`:
-`fold_lm/v05_benchmarks/model_c233_core_ablation.py`.
+**post_authoring_review = PENDING**
 
-The attempt to create `tests_lm/test_v05_c233_core_ablation.py` was blocked by the tool safety check.
-No successful test-file write was returned and branch HEAD did not advance. Do not treat the tests,
-runner, launcher or C233 preregistration as committed. No alternative write route was attempted.
-C233 has not been activated and has not passed committed-remote post-authoring review.
+The previous blocked test-file write was an authoring interruption. The standard create_file
+operation subsequently succeeded (f1db06114d8b2e6beb6ff47a6807e3eb4b72584a). Runner/launcher/design/
+preregistration are now present. No alternative write path was used. C232 rerun is unnecessary.
+The original draft benchmark and scientific manifest remain unchanged.
 
-Local authoring copies of benchmark/tests/runner/launcher were prepared.30 targeted tests passed
-using real GRU/optimizer layers in a synthetic source container; the full-run adapter simulated
-training and preserved a valid negative. These are not the real parent test, full historical
-regression, accepted-checkpoint comparison or a completed remote review. They do not authorize a run.
-
-Before any future C233 registration, resolve the blocked authoring step through the permitted tool
-workflow, complete all OWN files and review the committed remote sources. Recheck source/protection
-counts, manifest, parent artifact semantics, sampler/initialization matching, runner/launcher guards
-and actual test counts. Never infer execution readiness from the draft benchmark alone.
+Initial30 targeted tests passed in1.010s using real GRU/optimizer layers in synthetic parent
+fixtures. Full-run adapter testing simulates training/evaluation and preserves a valid negative.
+Pending locally: actual parent test31, historical test32/full2753 suite, Windows PowerShell AST,
+accepted artifacts and formal baseline training. No claim these checks passed here.
+Re-fetch committed code/test/runner/launcher, match tested blobs, rerun authoring tests and complete
+source/loader/sampler/guard/protection review before issuing a command.
 
 ## Numeric-memory track and historical maintenance
 
-C230 improved original H1/H2 time but lost to the strong full-factor comparator in11/12 cells; its
-only stream-time advantage disappeared after setup. Keep the prepared route optional and pause
-numeric-memory tuning. Gate F is open, not waived. No larger model budget, external data, paid API,
-new CI, cleanup, history rewrite or Actions-storage change is authorized by this work.
-
-Earlier detailed handoff:
-`3f67a03bdd5e5bc07e9324d8a7ea830ea798b7b7:docs/experiment-ledger-and-handoff.md`.
-Preserve all accepted sources/tests and tools/run_c167.ps1.
+C230 prepared route stays optional and numeric-memory tuning paused. Gate F is open, not waived.
+No larger model, external data, paid API, new CI, cleanup, history rewrite or Actions-storage work.
+Preserve all accepted sources/tests and tools/run_c167.ps1. Previous interruption record remains at
+342c1afcae1f7447315843a2949c769a3f0b3c84:docs/experiment-ledger-and-handoff.md.
 
 ## Stop condition
 
-C232 is closed as ACCEPTED PASS. C233 remains NOT REGISTERED; no run command is authorized.
-Do not register C234. Gate F remains NOT PASSED.
+After review PASS:32 own tests ->2753 focused tests ->C233 baseline training/comparison.
+Judge C233 before C234 registration. Gate F remains NOT PASSED.
