@@ -9,7 +9,7 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
 **C228 ACCEPTED PASS. C229 ACTIVE / NOT YET JUDGED. C230 NOT REGISTERED.**
-C229 is unique ACTIVE. Do not execute before post-authoring review PASS.
+C229 is unique ACTIVE. Source review passed; all execution preflights remain mandatory.
 
 ## Accepted C228 — audit PASS, update/query speed loss
 
@@ -85,17 +85,29 @@ Design: docs/v5f-update-query-function-profile-v0.1.md.
 
 ## C229 post-authoring review
 
-**post_authoring_review = PENDING**
+**post_authoring_review = PASS**
 
-Before remote review30 targeted tests passed,32 methods enumerated and manifest matched. Actual
-cProfile/torch callbacks, count collection, hook/error restoration, self/cumulative separation,
-parent adapter, negative gates and synthetic12-cell run/output/postcheck order were exercised.
+Review HEAD: `0224a865538394a39277ad71c77776f4e162f2c5`.
+Scope: committed-source review and targeted authoring execution, not formal science.
 
-Not executed here: test31 actual accepted-backend trajectory/export/profile counts, test32/full2625
-historical regression, Windows PowerShell AST parsing, local parent-artifact precheck or formal
-C229 profiling. Clone failed DNS resolution. Do not claim synthetic fixtures cover those checks.
-The authoritative runner executes32 own tests, then2625 focused tests, then the experiment.
-Committed-remote review is still required before an execution command.
+All four re-fetched code/test/PowerShell Git blobs matched the tested local copies. After that
+comparison30 targeted tests reran:0 failures/errors,0.721s;32 methods enumerated; manifest matched;
+both Python files and three embedded runner Python blocks compiled; unbound global references0;
+CLI indices precheck[1]/postcheck[1..3]. Actual cProfile/torch callback counts, exception/hook
+restoration, external-profiler protection, self/cumulative separation, parent adapter and synthetic
+12-cell run/output/postchecks were exercised. Synthetic fixtures are not the accepted full backend.
+
+Source review checked actual parent signatures/fields, profile boundaries, qualified-name count
+identities, exact final-export parity paths,27 deciding dependencies,214/292 accounting, complete
+launcher guards and C230 non-registration. Git compare shows only new files and the unpinned
+handoff; no accepted source, historical test, log or dependency was edited/deleted.
+Existing dispatcher parses the selected launcher and the launcher parses its runner before science.
+
+Not executed here: test31 actual parent trajectory/export/profile counts, test32/full2625 historical
+regression, Windows PowerShell AST parsing, local parent-artifact precheck or formal C229 profiling.
+Clone failed DNS resolution. Review PASS does not claim those execution checks passed. The runner
+executes32 own tests,2625 focused tests and only then profiling; failure stops before the next phase
+and publishes the console log. After the review HEAD only review documentation changes.
 
 ## Historical maintenance and stop
 
