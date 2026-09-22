@@ -9,7 +9,7 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
 **C230 ACCEPTED PASS. C231 ACTIVE / NOT YET JUDGED. C232 NOT REGISTERED.**
-C231 is unique ACTIVE. Do not execute until post-authoring review passes.
+C231 is unique ACTIVE. Source review passed; all execution preflights remain mandatory.
 
 ## Accepted C230 — real improvement, limited adoption
 
@@ -84,13 +84,26 @@ Design: docs/v5b-byte-evaluation-contract-v0.1.md.
 
 ## C231 post-authoring review
 
-**post_authoring_review = PENDING**
+**post_authoring_review = PASS**
 
-Initial22 targeted authoring tests passed using synthetic prefix-dependent models and actual
-PyTorch scoring/serialization. Not yet executed here: the real V5-B model test, full historical
-suite, Windows PowerShell AST, local accepted artifacts or formal instrument run. Do not represent
-synthetic tests as those missing checks. Remote committed-source comparison and post-authoring
-rerun/review remain mandatory before giving a command.
+Review HEAD: `88fc379477e521b9014675441b69c2f75ba29049`.
+Scope: committed-source audit and targeted synthetic authoring execution, not formal science.
+
+All four remote code/test/PowerShell Git blobs matched tested local copies. After comparison22 tests
+reran successfully,0 failures/errors,1.933s on Python3.13.5 / PyTorch2.10.0+cpu;24 methods enumerated.
+Both Python sources and three embedded runner blocks compiled; unbound global names0; manifest and
+fixture hashes matched; CLI precheck[1]/postcheck[1..3]. Synthetic prefix-dependent models exercised
+scoring, leakage controls, feedback generation and378-forward checkpoint/output/postcheck replay.
+
+Source review checked actual V5-B config/forward/import contracts, teacher-route/prefix-boundary EOS
+semantics, target separation, exact source union/dependency protection, parent artifact validation,
+full launcher guard ordering and C232 non-registration. Git compare shows only new files plus this
+unpinned handoff; accepted sources/tests/logs/dependencies were not edited or deleted.
+
+Not executed here: test23 real V5-B model, test24/full2689 historical suite, Windows PowerShell AST,
+user-local parent artifact checks or formal C231. Synthetic models/source-derived probes are not
+represented as those missing tests. Runner executes24 own tests,2689 focused tests and only then
+the audit; any failure stops and publishes evidence. Only review docs change after the review HEAD.
 
 ## Historical maintenance and stop
 
