@@ -22,7 +22,8 @@ Authoritative Python: 3.13.15 / PyTorch 2.10.0+cu130 / NumPy 2.3.5.
 - **C217 ACCEPTED PASS**
 - **C218 ACCEPTED PASS**
 - **C219 ACCEPTED PASS**
-- **C220 NOT REGISTERED**
+- **C220 ACTIVE / NOT YET JUDGED**
+- **C221 NOT REGISTERED**
 
 C216 is the unique ACTIVE experiment.
 
@@ -418,23 +419,84 @@ Non-claim:
 C219 does not establish numeric-safety classification, natural-language coverage reasoning,
 information-acquisition integration, joint training, memory-cost advantage or Gate F.
 
-## Next boundary
+## Active C220 — frozen learned stack integration
 
-C220 is not yet registered.
+Experiment:
+`C220-v5f-frozen-learned-stack-integration`
 
-Next one-question intervention:
-can the four independently accepted learned memory components — Writer, Coverage classifier,
-Port Selector and Reader — compose end-to-end with all checkpoints frozen, without retraining,
-across ASSERT/HOT/COMMIT/REPLACE plus MISSING/OUT_OF_SCOPE query states?
+Stage:
+`V5-F-FROZEN-LEARNED-STACK-INTEGRATION`
 
-C220 introduces no new learned component. Operation kind remains oracle. It is an integration test
-of the learned memory stack.
+One question:
+can the independently accepted learned Writer, Coverage classifier, Port Selector and Reader compose
+end-to-end with all checkpoints frozen and no retraining across ASSERT/HOT/COMMIT/REPLACE plus
+MISSING/OUT_OF_SCOPE states?
+
+Changed condition:
+- deterministic `fold_lm/v05/memory_stack.py` integration gate only;
+- no learned model changes;
+- no training.
+
+Frozen checkpoints:
+- Writer3;
+- Coverage3;
+- Selector3;
+- Reader3;
+-81 Cartesian combinations.
+
+Episode plan:
+- MISSING alpha;
+- OUT_OF_SCOPE beta;
+- HOT alpha;
+- SUPPORTED alpha;
+- HOT beta;
+- SUPPORTED beta;
+- REPLACE alpha;
+- REPLACE beta.
+
+Episode SHA:
+`99f84e9d05327c8c483b45928676009f6be198e5d568a285d2e893e1279e144f`.
+
+Decision accounting:
+-8 episodes;
+-6 readable /2 non-readable;
+-81 checkpoint combinations;
+-648 total decisions;
+-486 readable;
+-162 non-readable.
+
+Fixed gate:
+- all checkpoint-family roundtrips true;
+- Writer target accuracy1.0;
+- Selector route accuracy1.0;
+- Coverage teacher accuracy1.0;
+- integration accuracy1.0;
+- expected Coverage accuracy1.0;
+- readable answer accuracy1.0;
+- non-readable suppression accuracy1.0;
+- MISSING/OOS confusions0;
+- HOT/COMMITTED mismatches0;
+- operation failures0;
+- new training steps0.
+
+Authoring:
+- source pins158;
+- protected inputs182;
+- artifacts5;
+- C220 tests38;
+- regression modules105;
+- loaded2336 / focused2335;
+- manifest `12b5995967abba8c89f2a07c01e6e29afbd96b02db4a0561872a70201deeab52`.
+
+## C220 post-authoring review
+
+**post_authoring_review = PENDING**
+
+Do not issue C220 execution command until committed remote review passes.
 
 
 ## Stop condition
 
-C219 is closed as **ACCEPTED PASS**.
-
-Prepare and review C220 before execution.
+Judge C220 before any C221 registration.
 
 Gate E remains **PASSED**. Gate F remains **NOT PASSED**.
