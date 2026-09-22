@@ -8,110 +8,94 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
-**C229 ACCEPTED PASS. C230 ACTIVE / NOT YET JUDGED. C231 NOT REGISTERED.**
-C230 is unique ACTIVE. Source review passed; all execution preflights remain mandatory.
+**C230 ACCEPTED PASS. C231 ACTIVE / NOT YET JUDGED. C232 NOT REGISTERED.**
+C231 is unique ACTIVE. Do not execute until post-authoring review passes.
 
-## Accepted C229 — diagnostic audit, not speed improvement
+## Accepted C230 — real improvement, limited adoption
 
-Scientific execution HEAD: `339697addb6a2b8c88bad5890456fcf7b41ce398`.
-Published log commit: `4fdf39f7c8b506fa1d1d010ca68bd86d35cc92b3`.
-Log SHA: `31a1f14892cc0d94bf350100e5239fda44bee798b5a53ace2ef4d55085514db6`.
-Summary SHA: `b71769d8c22ef72436b5952406632deafd100c44ed72da8f4c71c93133a0fe37`.
+Scientific execution HEAD: `58ec6d1497e4729d394307f5c1316d9e69f2ee8e`.
+Published log commit: `ad8a657842491a74d8aa5e3101893aaa98a335ca`.
+Log SHA: `de95033043db1b65fd929e7d2cf684e0192b8eda3ae49e74f53d97cf6394e580`.
+Summary SHA: `3eeb739eaf37c8b0d1ef4f94d5eec46281ea8721c1cea67fb51234f8bd7fca7c`.
 Local summary:
-`runs/c229-v5f-cost-profile-02c07c2130ab49acbf1558009be3b3b3/summary.json`.
-Measurements SHA: `c96d4154a0aef79fb50b5a34e8c7f5fad10262ebb9a79e02614d0b2a36e74786`.
-Quality SHA: `a816a2829a9923afed5398ac65c616934aeff47dfef156676329d83435553904`.
-Validation SHA: `08d0113b747fe902d99dedc3204775d22ae9e59cb4dc2f0fa80532ff6cb79551`.
+`runs/c230-v5f-prepared-capsule-42695282c3e6402f9fe7616ba3641099/summary.json`.
+Validation SHA: `8f0ebfb7c769f1bc9eebceff02d51c55e1a94dd52ee0ec67b73650f2dda683a9`.
+Measurements SHA: `d72afb4423933d673983f6ea850e8064c6b84072ae061bbca935c2f2d5705afc`.
 
-2625/2625 regression OK in65.339s. All12 cells passed quality, exact parent exports, function-call
-counts and profiler restoration. function_profile_gate True; preserved inputs, clean tree and
-run_execution_valid True. Verdict uses published evidence and recorded local postchecks, not a
-reviewer rerun of user-local artifacts. Full verdict: docs/experiment-ledger-addendum-c229-c230.md.
+Own40 tests OK in1.350s;2665/2665 focused tests OK in52.628s. All12 quality/export/reuse checks,
+artifact checks and execution validity passed; preserved inputs and clean tree. Publication added
+only console log/receipt. Acceptance is from published evidence and recorded local postchecks.
+Full verdict: docs/experiment-ledger-addendum-c230-c231.md.
 
-Representative n256/q16 query profile:192 queries;52,237,500ns total function self time.
-ResponseCapsule.response cumulative40,931,400ns =78.36%, including nested operations; its own self
-is20.57%. Cholesky192, cholesky_ex192 and solve192 calls. _read_parts cumulative3,853,300ns=7.38%.
-Do not add overlapping cumulative/self percentages or present profiler costs as removable time.
+Prepared/original H1H2 update+query ratios range0.4464-0.6764: about32.4%-55.4% less time on this
+fixture. Against full-factor reuse, prepared loses11/12 cells. Only n256/q16 is faster:
+19.6411ms versus21.9916ms, about10.7% less stream time. Including setup gives29.6598ms versus
+28.3935ms, so that advantage disappears. Three descriptive timing trials, not statistical evidence.
 
-This points first to repeated W-dependent response preparation/checks, not a conclusion that Python
-objects or clones alone dominate. H2 already retains W/b: query _read_parts does not re-sum all H2
-records in this all-committed workload. Update rebuilding remains separate work.
+n256/q16 audit storage: prepared283799B, original283277B, full-cache555253B. Prepared adds72 numeric
+bytes plus metadata (522B serialized cache). Raw/index/full bridge are retained. These are audit
+exports/reachable objects, not whole application size or peak RAM/VRAM.
 
-C227/C228 unprofiled results still show H1/H2 slower than the checked full-factor/rhs comparator
-(C2281.59x-5.37x across12 cells). C229 diagnosed work; it did not reverse those results or pass Gate F.
+### Adoption and track decision
+
+Keep prepared_capsule as an opt-in CPU-float64 fixed-W inference candidate. Do not replace the
+default/reference implementation or generalize one favorable cell into a universal threshold.
+Pause local numeric-memory optimization here and return to language/reasoning evaluation.
+Gate F remains NOT PASSED; no requirements are waived and no Gate G promotion is implied.
 
 ## Accepted chain and limits
 
 C213 semantics; C214 closure; C215 H1/H2 commit; C216 Reader; C217 Selector; C218 structured Writer;
 C219 Coverage; C220 offline composition; C221 causal dispatch; C222 withdrawal/hypothesis isolation;
-C223 explicit request freshness; C224 replay cost; C225 stateful baseline; C226 dimensions;
-C227 checked full-factor reuse; C228 bias-update/query cost; C229 scoped function profile.
+C223 explicit request freshness; C224-C228 cost comparisons; C229 profiling; C230 optional checked
+reduced preparation. These remain small reference/pilot scopes, not general language ability,
+concurrency-safe caches, bounded many-factor indexing or whole-system efficiency proof.
 
-These are small reference/pilot scopes, not general language/reasoning, concurrent cache correctness,
-bounded many-factor indexing or whole-system efficiency evidence. Gate F remains NOT PASSED.
+## Active C231 — V5-B language evaluation contract
 
-## Active C230 — checked reduced preparation reuse
+Experiment C231-v5b-byte-evaluation-contract.
+Stage V5-B-MODEL-EVALUATION-CONTRACT-AUDIT.
 
-Experiment C230-v5f-checked-reduced-preparation-reuse.
-Stage V5-F-CHECKED-REDUCED-PREPARATION-REUSE.
+One question: can the existing uncompressed V5-B byte model be evaluated through prefix-only
+likelihood and greedy generation without target leakage and with reproducible outputs/checkpoints?
+This is a measurement-interface audit, not a new architecture or language-quality benchmark.
 
-One question: can checked reuse of W-dependent reduced preparation improve the same bias-update/query
-workload without changing answers, state semantics, guards or the strong comparator?
+Use actual ShortByteLanguageModel from fold_lm/v05/language_task.py, not the separate legacy
+FoldLanguageModel or an alleged completed v0.5 stack. It has a causal GRU front-end, fixed routing,
+fixed48 slots, width16,2 modules and2 internal steps. New untrained instruments only; no training.
+The learned H1/H2 stack and prepared numerical route are not connected by this experiment.
 
-Add optional prepared_capsule.py; leave accepted reference/runtime paths unchanged. It checks SPD at
-preparation, factors I+W K with pivoted LU, and retains only W/LU/pivots plus binding/version guards.
-Every query checks capsule/base/registry/cache identity/version/inference flags, exact W equality,
-current bias finiteness and result finiteness. Current bias is always recomputed; no answer cache.
-Changed W requires explicit new preparation. No silent fallback or safety disable. CPU float64,
-unbatched inference only; no autograd/concurrency/unsafe external alias-write contract.
+Four authored EN/JA texts (16/22/16/28 UTF-8 bytes), three seeds231001/231002/231003. Model sees only
+BOS+observed prefix+prefix-boundary EOS+PAD; target byte stays scorer-only. No special-token targets.
+Measure per-byte likelihood, independently verify scoring, compare batch/singleton logits, mutate
+unseen suffixes, generate4 own-feedback bytes, serialize/reload and replay. Errors <=1e-9.
+Actual126 forwards/seed,378 total;246 scored positions over82 unique fixture bytes; training0.
+Random-model scores explicitly marked meaningful_language_score False, with no loss-quality gate.
 
-Same dimensions2/16/64/256, bursts1/4/16,32-event prefix+12 replacements, two live factors/rank2.
-Compare original H1/H2, prepared H1/H2 and unchanged full-factor/rhs reuse with cyclic arm order,
-one warm trajectory and three measured trajectories per cell. No profiler in timings.
+Preserve C230221 sources/305 protected inputs. Add exact union with OWN6 and five explicitly pinned
+language/import source files; reject overlap conflicts, print resolved counts. For union size S,
+protected count is305+6+(S-221). All parent/helper and actual LM dependencies are protected.
+New tests24; modules116; loaded2690 /focused2689 with inherited exact exclusion1. Output artifacts5.
 
-Require every current query/state/provenance match; original two final exports equal C229 quality
-artifact inventories; prepared base exports equal original plus counted cache; repeated exports
-identical; checked preparation and final query traces exact. Extra reduced numerical cache72B plus
-metadata, not whole memory size. Count original evidence/index/full bridge, setup/update/query/export
-and reachable-state estimates. Cold-inclusive sums are registered phases, not application wall time.
-Audit PASS does not require faster/smaller results. Gate F remains NOT PASSED.
+Manifest: `745c97d3aab18c129494357cc91eb48a6e713294e437b17700be22da8bd3bf83`.
+Fixture: `5dcdbd8223c0e40df8d9e3fb5c98e50873a0a014ce9a3c2e003fe74d3911ce23`.
+Registration: docs/experiment-ledger-addendum-c231-preregistration.md.
+Design: docs/v5b-byte-evaluation-contract-v0.1.md.
 
-Source pins221; protected inputs305; deciding dependencies29; OWN7; artifacts5.
-New tests40; modules115; loaded2666 /focused2665 with inherited exact exclusion1.
-Manifest: `c93b9845cd10c4cab316b01da41f3e03f443f75b078c8912fc27c6c23c299b95`.
-Registration: docs/experiment-ledger-addendum-c230-preregistration.md.
-Design: docs/v5f-checked-reduced-preparation-v0.1.md.
+## C231 post-authoring review
 
-## C230 post-authoring review
+**post_authoring_review = PENDING**
 
-**post_authoring_review = PASS**
-
-Review HEAD: `dd973c4415422b3a15b229ecb18443ca75cd7cc7`.
-Scope: committed-source review and targeted authoring execution, not formal science.
-
-All five re-fetched code/test/PowerShell blob IDs matched tested copies. After comparison38 targeted
-tests reran:0 failures/errors,0.971 seconds;40 methods enumerated; manifest matched; all three Python
-files and three embedded runner blocks compiled; unbound global references0; argv indices
-precheck[1]/postcheck[1..3]. Additional probe confirmed inference-flag mutation after preparation
-invalidates reuse. Exact fetched capsule.py and real PyTorch LU/full solves were used on synthetic
-matrices at all dimensions. Current-bias parity, signed/unsafe W, mutation rejection, cache bytes,
-trace restoration and synthetic adapter/archive/12-cell run/output/postchecks passed.
-
-Source review checked current bias and matrix-dependent safety, original BankRead construction,
-parent helper signatures and quality artifact inventory semantics,29 dependency coverage,221/305
-accounting, timing/trace separation, complete launcher guards and C231 non-registration. Git compare
-shows only new files plus the unpinned handoff; no accepted source/test/log/dependency edits/deletions.
-
-Not executed here: test39 actual parent bank/export trajectory, test40/full2665 historical regression,
-Windows PowerShell AST, user-local artifact precheck or formal measurements. Clone failed DNS.
-Targeted synthetic fixtures are not represented as those checks. The authoritative runner executes
-40 own tests,2665 focused tests, then science; failures stop and publish logs. Only review documents
-change after the review HEAD. No speedup has been claimed from author-side tests.
+Initial22 targeted authoring tests passed using synthetic prefix-dependent models and actual
+PyTorch scoring/serialization. Not yet executed here: the real V5-B model test, full historical
+suite, Windows PowerShell AST, local accepted artifacts or formal instrument run. Do not represent
+synthetic tests as those missing checks. Remote committed-source comparison and post-authoring
+rerun/review remain mandatory before giving a command.
 
 ## Historical maintenance and stop
 
-Prior handoff: 4fdf39f7c8b506fa1d1d010ca68bd86d35cc92b3:docs/experiment-ledger-and-handoff.md.
-Preserve all accepted source pins and tools/run_c167.ps1. No cleanup/history rewrite/new CI/
-Actions-storage work. Judge C230 before C231. After this bounded intervention decide adoption scope
-or stop this local optimization track; do not indefinitely seek favorable workloads instead of
-returning to whole-model language/reasoning evaluation.
+Prior handoff: ad8a657842491a74d8aa5e3101893aaa98a335ca:docs/experiment-ledger-and-handoff.md.
+Preserve every accepted source/test and tools/run_c167.ps1. No cleanup/history rewrite/new CI or
+Actions-storage work. Run24 own tests,2689 focused tests, then C231. Judge C231 before C232.
+Do not silently adopt a larger training budget or interpret this instrument audit as useful language
+performance. Gate F remains NOT PASSED.
