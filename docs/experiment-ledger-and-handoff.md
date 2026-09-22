@@ -9,7 +9,7 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
 **C223 ACCEPTED PASS. C224 ACTIVE / NOT YET JUDGED. C225 NOT REGISTERED.**
-C224 is unique ACTIVE. Do not execute until post-authoring review passes.
+C224 is unique ACTIVE. Source review passed; all execution preflights remain mandatory.
 
 ## Accepted C223
 
@@ -75,13 +75,27 @@ Design: `docs/v5f-history-cost-audit-v0.1.md`.
 
 ## C224 post-authoring review
 
-**post_authoring_review = PENDING**
+**post_authoring_review = PASS**
 
-28 targeted tests passed against a synthetic measurement backend;30 methods enumerated, manifest
-matched, new Python and all three embedded runner-Python blocks compiled. The actual accepted
-numeric backend, full historical regression, Windows AST and local parent artifacts have not been
-executed in the reviewing environment. The real runner checks all30 own tests before2465 regression
-and before the audit. Remote committed-source comparison/review still required.
+Review HEAD: `a8e0eeb370d37d367defeca967a4bc33b418029d`.
+Scope: committed-source audit plus targeted synthetic-backend authoring validation, not science.
+
+All four code/test/PowerShell remote blob IDs match the tested copies. After comparison,28 targeted
+tests reran (0 failures/errors,0.079 seconds);30 methods enumerated; manifest self-hash matched;
+Python and three embedded runner blocks compiled; unbound executable c### aliases0.
+Synthetic measurements covered all four history lengths and raw/index/provenance/file-inventory/
+replay-count controls. Higher candidate storage is explicitly permitted by measurement PASS.
+
+Source review checked actual symbolic replay/full-reference contracts, candidate no-raw query path,
+complete bank/state export, source byte-range index, archive readback, parent helper/field meanings,
+22 dependency membership,184/232 accounting, CLI argv[1]/postcheck[1..3], early own-test ordering
+and launcher guards. Git compare shows no accepted source/test/log/dependency change or deletion.
+After the review HEAD only review documentation changes; scientific conditions remain fixed.
+
+Not executed here: the accepted numeric-backend new test, full historical2465 regression test,
+Windows PowerShell AST parse and local parent-artifact/C224 science. No mock-backend results are
+represented as those checks. The real runner executes all30 own tests, then2465 focused tests,
+then the cost audit. Failure stops before the next phase and the console log is published.
 
 ## Historical maintenance and stop
 
