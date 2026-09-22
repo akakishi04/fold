@@ -9,7 +9,7 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
 **C225 ACCEPTED PASS. C226 ACTIVE / NOT YET JUDGED. C227 NOT REGISTERED.**
-C226 is unique ACTIVE. Do not execute until post-authoring review passes.
+C226 is unique ACTIVE. Source review passed; all execution preflights remain mandatory.
 
 ## Accepted C225 — audit PASS, unfavorable measured costs
 
@@ -88,16 +88,30 @@ Design: `docs/v5f-fixed-port-dimension-scaling-v0.1.md`.
 
 ## C226 post-authoring review
 
-**post_authoring_review = PENDING**
+**post_authoring_review = PASS**
 
-Before remote review,30 targeted tests passed, including the actual accepted capsule.py compiler/
-response at all four dimensions and trace shapes. That fetched source matches its original blob
-`7f1090fe95b2e3eab3967d00c6730165e34fadfb`. Other adapter/accounting fixtures are synthetic.
-32 methods enumerated; manifest and three embedded Python runner blocks compiled/checked.
-Not executed locally: full parent measurement test31, full historical test32/2529 suite, Windows
-PowerShell AST parsing, user-local artifacts/precheck or C226 formal measurements.
-Remote committed-source review is still required. Authoritative runner executes32 own tests first,
-then2529 focused tests, then dimension measurements. Failure stops before the next phase.
+Review HEAD: `af962bad1b00835ecfd193e2de565f2b9131842a`.
+Scope: committed-source audit and targeted authoring tests, not formal science.
+
+All four re-fetched remote code/test/PowerShell blobs match the tested local copies. After the
+comparison,30 targeted tests reran (0 failures/errors,1.053 seconds);32 methods enumerated;
+manifest/tensor identities matched; Python and all three embedded runner Python blocks compiled;
+unbound c### aliases0.
+
+This includes actual accepted capsule.py compiler/response with safety checks at all four numerical
+dimensions and real solve traces. That fetched source matches blob
+`7f1090fe95b2e3eab3967d00c6730165e34fadfb`. Other bank/parent-row fixtures are explicitly synthetic.
+Source review checked parent loaders and field meanings, unchanged n2 factory/two-arm exports,
+complete raw/index/full-bridge accounting, checked solve ordering,24 dependencies,196/256 arithmetic,
+CLI argv[1]/postcheck[1..3], own-test-before-regression ordering and launcher guards. Git compare
+shows no accepted source/test/log/dependency edit or deletion. C227 remains unregistered.
+
+Not executed locally: full parent bank/measurement test31, full historical test32/2529 suite,
+Windows PowerShell AST parsing, user-local artifact precheck or formal dimension measurements.
+Neither synthetic fixtures nor the isolated real-kernel test is represented as those checks.
+Authoritative runner executes all32 own tests, then2529 focused tests, then the audit; failure stops
+before the next phase and logs are published. Review PASS does not waive those execution gates.
+After the review HEAD only review documentation changes; scientific conditions remain fixed.
 
 ## Historical maintenance and stop
 
