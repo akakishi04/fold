@@ -108,26 +108,44 @@ Manifest SHA:
 
 ## Post-authoring review
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-Before remote review,30 targeted tests passed locally. They include coupled-matrix construction,
-connectivity/SPD/rank checks, actual torch trace/restore behavior and actual accepted capsule compiler
-and response evaluation at all four dimensions. The fetched capsule.py matches Git blob
-`7f1090fe95b2e3eab3967d00c6730165e34fadfb`; it is not a synthetic numerical implementation.
-Other adapter/accounting tests use explicitly synthetic bank or row fixtures.
+Review HEAD: `af962bad1b00835ecfd193e2de565f2b9131842a`.
+Scope: committed-source review and targeted authoring tests, not the formal experiment.
 
-Local Python3.13.5 / PyTorch2.10.0+cpu; threads2.32 methods enumerated; manifest hash matched;
-Python sources and all three embedded runner Python blocks compiled.
+Re-fetched all four committed code/test/PowerShell files and verified complete Git blob identity
+against the local copies used for testing:
+
+| File | Reviewed blob |
+|---|---|
+| C226 benchmark | 82b3c44cc8ae6c36321860453410badc3e139024 |
+| C226 tests | 33f8139fb02503bd273e0c3b8f20495fe336f4db |
+| run_c226.ps1 | 0e86e6460a11abc6764265a1b7b89e92adaaae38 |
+| invoke_c226.ps1 | c8a4a1fd88d4be0700b5a86a7b7c3abb8b0e5875 |
+
+After that comparison,30 targeted tests reran with0 failures/errors in1.053 seconds.
+Local Python3.13.5 / PyTorch2.10.0+cpu, threads2.32 methods enumerated; manifest/tensor identities
+matched; Python sources and all three embedded runner Python blocks compiled; unbound c### aliases0.
+
+Tests include coupled-matrix connectivity/SPD/rank, actual trace/restoration behavior, and the actual
+accepted capsule compiler/response at all four dimensions. The fetched capsule.py exactly matches
+Git blob `7f1090fe95b2e3eab3967d00c6730165e34fadfb`; this kernel is not a synthetic implementation.
+Other adapter/accounting tests use explicitly synthetic bank/parent-row fixtures.
+
+Source review checked C225/C224 loader and artifact field meanings, the unchanged original n=2
+factory and both-arm export anchor, complete raw/index/full-bridge cost accounting, actual checked
+solve call order,24 dependencies,196/256 protection arithmetic, argv[1]/postcheck[1..3], early own-test
+ordering and launcher guards. Git compare from the published C225 log shows only new files and the
+unpinned handoff: no accepted source/test/log/dependency changed or deleted. C227 remains unregistered.
 
 Not run locally: full parent bank/cost-helper integration test31, full historical test32/2529 suite,
-Windows PowerShell AST parsing, local user-artifact precheck or formal C226 measurements. Repository
-clone failed DNS resolution; targeted fetched source is not a full checkout. Neither synthetic fixtures
-nor the isolated real capsule check is represented as full backend or historical regression execution.
+Windows PowerShell AST parsing, user-local artifact precheck or formal C226 measurements. Clone was
+attempted and failed DNS resolution; the fetched-source sandbox is not a full repository checkout.
+Neither synthetic fixtures nor the isolated real-kernel test is represented as those pending checks.
+The authoritative runner executes all32 own tests, then2529 focused tests, then the dimension audit.
+Failures stop before the next phase and are logged. Review PASS does not replace runtime preflights.
 
-Re-fetch committed code/test/runner/launcher and check their blobs against tested copies; audit parent
-schema/loader meanings, complete dependency coverage, trace ordering, original n=2 export contract,
-CLI indexes and guards before marking review PASS. Authoritative runner executes all32 own tests,
-then2529 focused tests, then the dimension audit. Failures stop before the next phase and are logged.
+After the review HEAD only review documentation changes; no scientific conditions were altered.
 
 ## Stop
 
