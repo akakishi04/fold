@@ -1,0 +1,49 @@
+=== C235 repository preflight ===
+execution_head = d55e58f280bbd32776a6cd56ddc7507e6c827e1a
+python_syntax_preflight = PASS
+expected_focused_tests = 2809 (2810 loaded -1 registered historical exclusion)
+Gate_F = NOT_PASSED; diagnostic_only = True; new_training_steps = 0
+expected_model_forward_calls = 36; expected_evaluated_rows = 10368
+source_and_artifact_precheck = PASS; source_pins = 256; protected_inputs = 370
+=== C235 own authoring tests first: 24 ===
+test_01_manifest_hash_and_scope (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_01_manifest_hash_and_scope) ... ok
+test_02_fixed_identity_order_and_views (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_02_fixed_identity_order_and_views) ... ok
+test_03_parent_dataset_split_is_reused (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_03_parent_dataset_split_is_reused) ... ok
+test_04_classify_train_failure (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_04_classify_train_failure) ... ok
+test_05_classify_generalization_gap (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_05_classify_generalization_gap) ... ok
+test_06_classify_both_high (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_06_classify_both_high) ... ok
+test_07_classify_rejects_invalid_rate (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_07_classify_rejects_invalid_rate) ... ok
+test_08_analyze_perfect_answers (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_08_analyze_perfect_answers) ... ok
+test_09_analyze_constant_answer_exposes_query_invariance (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_09_analyze_constant_answer_exposes_query_invariance) ... ok
+test_10_analyze_non_supplied_byte (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_10_analyze_non_supplied_byte) ... ok
+test_11_analyze_rejects_prediction_logit_disagreement (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_11_analyze_rejects_prediction_logit_disagreement) ... ok
+test_12_parent_record_contract_accepts_complete_rows (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_12_parent_record_contract_accepts_complete_rows) ... ok
+test_13_parent_record_contract_rejects_bad_replay (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_13_parent_record_contract_rejects_bad_replay) ... ok
+test_14_eval_replay_exact_match (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_14_eval_replay_exact_match) ... ok
+test_15_eval_replay_rejects_prediction_change (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_15_eval_replay_rejects_prediction_change) ... ok
+test_16_eval_replay_rejects_metric_change (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_16_eval_replay_rejects_metric_change) ... ok
+test_17_checkpoint_bundle_schema_and_order (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_17_checkpoint_bundle_schema_and_order) ... ok
+test_18_integrity_gate_is_independent_of_bad_diagnosis (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_18_integrity_gate_is_independent_of_bad_diagnosis) ... ok
+test_19_integrity_gate_rejects_mutation_or_missing_work (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_19_integrity_gate_rejects_mutation_or_missing_work) ... ok
+test_20_result_contract_is_diagnostic_pass_only (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_20_result_contract_is_diagnostic_pass_only) ... ok
+test_21_parent_negative_contract_is_fixed (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_21_parent_negative_contract_is_fixed) ... ok
+test_22_run_is_frozen_no_training_or_checkpoint_write (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_22_run_is_frozen_no_training_or_checkpoint_write) ... FAIL
+test_23_runner_launcher_and_workload_contract (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_23_runner_launcher_and_workload_contract) ... ok
+test_24_actual_historical_suite_counts (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_24_actual_historical_suite_counts) ... ok
+
+======================================================================
+FAIL: test_22_run_is_frozen_no_training_or_checkpoint_write (tests_lm.test_v05_c235_frozen_binding_diagnostic.C235Tests.test_22_run_is_frozen_no_training_or_checkpoint_write)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "M:\asobiba\fold\tests_lm\test_v05_c235_frozen_binding_diagnostic.py", line 169, in test_22_run_is_frozen_no_training_or_checkpoint_write
+    self.assertNotIn(".fit(",source);self.assertNotIn("optimizer",source)
+                                     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'optimizer' unexpectedly found in 'def run(*, c234_summary, output_dir, expected_head):\n    pmod=parent_module(); factory=pmod.factory_module(); a=pmod.parent_module().parent_module().audit_module()\n    root=Path(__file__).resolve().parents[2]\n    def guard():\n        require(a.git(root,"rev-parse","HEAD").decode().strip()==expected_head,"HEAD mismatch")\n        require(a.git(root,"branch","--show-current").decode().strip()=="feat/sft-target-loss","branch")\n        require(not a.git(root,"status","--porcelain","--untracked-files=no").strip(),"dirty tree")\n    guard(); torch.set_num_threads(2); torch.use_deterministic_algorithms(True)\n    parent,pins,protected=precheck(c234_summary,root); directory=Path(c234_summary).resolve().parent\n    saved=validate_parent_records(a.read_json(directory/"measurements.json"))\n    require(pmod.summarize(saved)==parent["validation_summary"],"parent summary/records mismatch")\n    states=load_bundle(directory/"trained-models.pt")\n    train,ev=pmod.validate_dataset(a.read_json(directory/"dataset.json"))\n    parts={"TRAIN":train,"EVAL":ev}\n    views={key:[pmod.tensors(rows,mode) for mode in VIEWS] for key,rows in parts.items()}\n    reports=[]; prediction_records=[]; fingerprints=[]\n    for saved_row,state in zip(saved,states,strict=True):\n        seed,family=saved_row["seed"],saved_row["family"]\n        model=factory.new_model(seed)\n        if family=="gru_only": model=pmod.parent_module().new_baseline(model)\n        model.load_state_dict(state,strict=True); model.eval(); model.requires_grad_(False)\n        before=factory.fingerprint(model)\n        require(before==saved_row["final_sha256"],"saved model fingerprint mismatch")\n        calls=[0,0]\n        def hook(module,args,output): calls[0]+=1; calls[1]+=len(args[0])\n        handle=model.register_forward_hook(hook); scores={}; extra={}; preds={}\n        try:\n            for key,rows in parts.items():\n                scores[key],logits=pmod.evaluate(model,rows,views[key])\n                validate_metrics(scores[key],len(rows)//2)\n                preds[key]={mode:value.argmax(-1).tolist() for mode,value in zip(VIEWS,logits,strict=True)}\n                extra[key]=analyze(rows,preds[key]["normal"],logits[0])\n        finally: handle.remove()\n        error=replay_error(scores["EVAL"],preds["EVAL"],saved_row)\n        after=factory.fingerprint(model); require(before==after,"evaluation changed weights")\n        diagnosis={lang:classify(scores["TRAIN"][lang]["accuracy"],scores["EVAL"][lang]["accuracy"]) for lang in ("en","ja")}\n        reports.append(dict(seed=seed,family=family,metrics=scores,behavior=extra,diagnosis=diagnosis,\n            parent_replay_error=error,before_sha256=before,after_sha256=after,\n            forward_calls=calls[0],evaluated_rows=calls[1]))\n        prediction_records.append(dict(seed=seed,family=family,predictions=preds))\n        fingerprints.append(dict(seed=seed,family=family,before=before,after=after))\n        print(f"[C235] seed={seed} family={family} diagnosis={diagnosis}",flush=True)\n    summary=summarize(reports); require(gate(summary),"diagnostic integrity gate")\n    out=Path(output_dir); out.mkdir(parents=True,exist_ok=False)\n    for name,value in (("diagnostic-plan.json",manifest()),("diagnostics.json",reports),\n        ("predictions.json",prediction_records),("model-fingerprints.json",fingerprints),("validation-summary.json",summary)):\n        (out/name).write_bytes(blob(value))\n    artifacts=[dict(file=name,sha256=a.sha(out/name),serialized_bytes=(out/name).stat().st_size) for name in sorted(OUTPUTS)]\n    guard(); precheck(c234_summary,root)\n    for path,sha in protected.items(): require(a.sha(path)==sha,"modified input:"+path)\n    result=dict(experiment_id=EXPERIMENT_ID,stage=STAGE,commit_sha=expected_head,status="PASS",\n        diagnostic_execution_valid=True,source_blobs=pins,input_sha256=protected,artifacts=artifacts,\n        validation_summary=summary,gate_f_candidate=False,network_calls=0,\n        limitations=["frozen diagnostic, not successful binding or a rescue of C234",\n            "TRAIN scoring is not held-out generalization; no causal proof of optimizer/architecture cause",\n            "reused small synthetic contexts, unequal model capacity, no speed or general-language claim"])\n    validate_result(result); (out/"summary.json").write_bytes(blob(result))\n    print("=== C235 RESULT ===",flush=True); print(blob(result).decode(),flush=True)\n    return result\n'
+
+----------------------------------------------------------------------
+Ran 24 tests in 0.335s
+
+FAILED (failures=1)
+=== C235 POSTCHECK ===
+protected_inputs = preserved; tracked_tree = clean; execution_HEAD = preserved
+run_execution_valid = False
