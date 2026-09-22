@@ -18,7 +18,7 @@ Authoritative Python: 3.13.15 / PyTorch 2.10.0+cu130 / NumPy 2.3.5.
 - Gate E: **PASSED**
 - Gate F: **NOT PASSED**
 - **C215 ACCEPTED PASS**
-- **C216 ACTIVE / INVALID ATTEMPT RECOVERY**
+- **C216 ACCEPTED PASS**
 - **C217 NOT REGISTERED**
 
 C216 is the unique ACTIVE experiment.
@@ -196,160 +196,78 @@ Detailed C-series history remains in:
 Pruned logs/scripts are recoverable with `git log --all -- <path>` and
 `git show <commit>:<path>`.
 
-## Active C216 — learned Reader pilot
-
-Experiment:
-`C216-v5f-learned-reader-pilot`
-
-Stage:
-`V5-F-LEARNED-READER-PILOT`
-
-One question:
-given correct H1/H2 memory and an oracle-selected memory port, can a learned Reader alone decode the
-three-way semantic value on held-out alpha/beta pair compositions and remain invariant across
-HOT/COMMITTED placement?
-
-Changed variable:
-- learned `fold_lm/v05/memory_reader.py` only.
-
-Held constant:
-- Writer oracle;
-- Port Selector oracle;
-- Coverage classifier absent;
-- accepted C215 H1/H2 semantics;
-- fixed numeric capsule and relation mapping;
-- no language mapping.
-
-Data:
-- semantic classes [-1,0,+1];
--9 alpha/beta pair combinations;
-- TRAIN6 / EVAL3 held-out pair compositions;
-- HOT and COMMITTED placements;
--36 rows total,24 TRAIN,12 EVAL;
-- balanced classes;
-- data SHA `9ded8a1b17cf721407e5d28c9dd6350159d0a17721f39bf9b57a911b78aa3f61`.
-
-Training:
-- seeds216001/216002/216003;
-- Reader1->8->3,43 parameters;
-- Adam lr0.02;
--400 full-batch steps per seed;
-- total1200 steps /28800 examples /1215 Reader forwards.
-
-Fixed gate per seed:
-- TRAIN/EVAL/HOT/COMMITTED accuracy1.0;
-- placement prediction mismatches0;
-- zero-readout EVAL accuracy exactly1/3;
-- checkpoint roundtrip exact.
-
-Authoring:
-- source pins130;
-- protected inputs136;
-- artifacts5;
-- C216 tests36;
-- regression modules101;
-- loaded2186 / focused2185;
-- historical regression dependency `tools/run_c167.ps1` blob `7c5d6e9838d4ce7bd2bfec0e43458eb749fd1789`;
-- manifest `77d42cd12ce26e592b7e4798ba844e6a8147af4f3f45fc870fb48790b36cbdd7`.
-
-## Invalid C216 attempt
+## Accepted C216 — learned Reader pilot
 
 Scientific execution HEAD:
-`8b550a92ab8db94d4a5c8ad7da7dadac1609ad6b`
+`99d4254c09f38a433374fb2a073403d6e0ec764a`
 
 Published log commit:
-`c8f24d453455f97389c2e0935339e379d2a98e47`
+`02d9719fac61d1b1aed8ac8a68fe7218b9cb40f7`
 
 Log SHA256:
-`7efe5c61f4d8b727124e6030d6a93752bc215a96ef236ba055dda7807ab7ff62`
+`8102412ae39499947408c35d16c8dc2febe1dca68113f549d983e29e3ad36341`
 
-Failure phase:
-- repository preflight PASS;
-- Python syntax preflight PASS;
-- accepted C215 source/artifact precheck PASS;
-- focused regression failed while constructing the inherited module list;
-- learned Reader pilot did not run;
-- run_execution_valid False.
-
-Root cause:
-post-C215 maintenance pruned `tools/run_c167.ps1`, but historical C176-C178
-`regression_modules()` reconstruct the immutable 51-module regression seed list from that file.
+Summary SHA256:
+`7542625a054725d3a70dfa1c19f706fe8fce26af379e24b92aa1ae478483acc9`
 
 Formal disposition:
-**C216 INVALID EXECUTION / RETRY SAME C216**.
+**C216 ACCEPTED PASS**.
 
-Minimal recovery:
-- restore exact historical blob
-  `tools/run_c167.ps1 = 7c5d6e9838d4ce7bd2bfec0e43458eb749fd1789`;
-- register that file as a protected C216 historical-regression dependency;
-- update validity accounting to130 source pins /136 protected inputs;
-- keep Reader architecture, data split/hash, seeds, training workload, PASS gate and interpretation
-  unchanged.
+Execution validity:
+- focused regression **2185/2185**;
+- Python syntax preflight PASS;
+- source/artifact precheck PASS;
+- protected inputs preserved;
+- tracked tree clean;
+- run_execution_valid True.
 
-Recovery detail:
+Deciding metrics:
+- trained Reader models3;
+- parameters per model43;
+- total training steps1200;
+- training examples28800;
+- learned Reader forward calls1215;
+- all checkpoint roundtrips True;
+- seeds216001/216002/216003 each:
+  - TRAIN accuracy1.0;
+  - EVAL accuracy1.0;
+  - HOT EVAL accuracy1.0;
+  - COMMITTED EVAL accuracy1.0;
+  - placement prediction mismatches0;
+  - zero-readout EVAL accuracy1/3 exactly;
+- oracle selector calls36;
+- oracle Writer operations18;
+- learned Writer/Port Selector/Coverage classifier calls0.
+
+Accepted claim:
+on the registered small synthetic three-value task, an isolated learned Reader can decode an
+oracle-selected FOLD-R scalar memory readout on held-out alpha/beta pair compositions and produces
+identical semantic predictions before and after H1->H2 commit.
+
+Non-claim:
+C216 does not establish learned port routing, learned writing, learned coverage, unseen semantic
+value extrapolation, natural-language memory behavior, memory-cost advantage or Gate F.
+
+Historical invalid/recovery attempts remain documented in:
 `docs/experiment-ledger-addendum-c216-recovery.md`.
 
-## C216 recovery review
+## Next boundary
 
-**post_authoring_recovery_review = PASS**
+C217 is not yet registered.
 
-recovery review HEAD:
-`a69385699fa616d209bb7a1352c8e94bbe241b08`
+Next one-question intervention:
+can a learned Port Selector choose the correct alpha/beta memory port from a query descriptor on
+held-out query-nuisance combinations, while the accepted C216 Readers remain frozen and downstream
+semantic answers match oracle routing?
 
-Committed-remote recovery review verified the exact restored `run_c167.ps1` blob and its51 unique
-historical regression modules, updated130/136 source/protection accounting, independently recomputed
-C216 manifest/data hashes, unchanged Reader/runner/launcher scientific path, complete PowerShell
-guard contract, and C217 non-registration.
-
-
-## C216 second invalid retry
-
-Scientific execution HEAD:
-`c7179ddeaed2e092d3f1f6090e9bd09a1ff9c75e`
-
-Published log commit:
-`cfdb0a89a7bf7d14ae1bf7b541f7722dd8adecb1`
-
-Log SHA256:
-`fb028f5c206e42603cab2dc14fcd2276b8c3f98e4416378bf8b65901256f097f`
-
-Failure phase:
-- prechecks PASS;
-- inherited regression reached2149 passed;
-- C216 setUpClass failed on dataset content SHA before36 C216 tests and before Reader training;
-- run_execution_valid False.
-
-Root cause:
-the registered hash used an algebraically equivalent direct Python division while the real dataset
-uses the accepted FOLD-R `torch.linalg.solve` path. The nonzero selected scalar differs by one
-float64 ULP. Semantic dataset membership and all labels are unchanged.
-
-Formal disposition:
-**C216 INVALID EXECUTION / RETRY SAME C216**.
-
-Correct identities:
-- DATA SHA `9ded8a1b17cf721407e5d28c9dd6350159d0a17721f39bf9b57a911b78aa3f61`
-- manifest SHA `77d42cd12ce26e592b7e4798ba844e6a8147af4f3f45fc870fb48790b36cbdd7`
-
-Scientific split, model, seeds, workload and gates remain frozen.
-
-## C216 second recovery review
-
-**post_authoring_recovery_review_2 = PASS**
-
-recovery review HEAD:
-`926979cdc19fab3b44c12869ed1b551b0b56f55a`
-
-Committed-remote review verified the corrected actual FOLD-R solve-path dataset SHA, exact
-float64 feature bits, corrected manifest SHA, unchanged Reader/runner/launcher scientific
-path,130/136 protection accounting, restored historical regression runner,2185 regression
-contract, complete PowerShell guard contract and C217 non-registration.
+C217 must keep Writer oracle, Reader frozen, Coverage classifier absent and C216 memory semantics
+fixed.
 
 
 ## Stop condition
 
-Retry **C216 only** after recovery review PASS.
+C216 is closed as **ACCEPTED PASS**.
 
-Do not register C217.
+Prepare and review C217 before execution.
 
 Gate E remains **PASSED**. Gate F remains **NOT PASSED**.
