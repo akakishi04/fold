@@ -9,7 +9,7 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
 **C227 ACCEPTED PASS. C228 ACTIVE / NOT YET JUDGED. C229 NOT REGISTERED.**
-C228 is unique ACTIVE. Do not execute until committed-source review passes.
+C228 is unique ACTIVE. Source review passed; all execution preflights remain mandatory.
 
 ## Accepted C227 — audit PASS, no query-speed advantage
 
@@ -90,17 +90,30 @@ Design: docs/v5f-bias-update-query-amortization-v0.1.md.
 
 ## C228 post-authoring review
 
-**post_authoring_review = PENDING**
+**post_authoring_review = PASS**
 
-Author-side30 targeted tests passed;32 methods enumerated. Real torch rhs-refresh/factor-reuse
-calculations used synthetic parent-interface fixtures, not the accepted full backend. Synthetic
-run traversed all12 measurement cells, artifact export and postchecks. Ledger/manifest hashes and
-all three embedded runner Python blocks were checked.
+Review HEAD: `80715f33b47e8e2bb95d5832124245bd2f1b9cfe`.
+Scope: committed-source review and targeted authoring execution, not formal science.
 
-Not run here: test31 actual parent trajectory/export anchor, test32/full2593 historical suite,
+All four re-fetched remote code/test/PowerShell blob IDs matched the executed local copies. After
+comparison,30 targeted tests reran:0 failures/errors,0.123 seconds.32 methods enumerated; manifest
+and ledger hashes matched; both Python files and three embedded runner Python blocks compiled;
+argv indices precheck[1]/postcheck[1..3]; no unbound executable c### alias.
+
+Actual torch rhs-refresh/factor solve versus full solve was checked at all dimensions on synthetic
+parent-interface fixtures. Factor identity, mutation/capability/matrix-change/nonfinite rejection,
+raw/index hashes, cache accounting and synthetic12-cell run adapter/export/postchecks passed.
+Source review verified actual parent helper/signature/field meanings, matrix-invariant reuse,
+timing/trace separation, initial export parity, shared cold-setup accounting,26 dependencies,
+208/280 arithmetic, launcher guards and C229 non-registration. Git compare shows only new files
+and the unpinned handoff, without accepted source/test/log/dependency edits or deletions.
+
+Not executed here: test31 actual parent trajectory/export anchor, test32/full2593 historical suite,
 Windows PowerShell AST parse, user-local artifact precheck or formal C228 measurements. Clone failed
-DNS resolution. Remote committed files must be re-fetched and verified before review PASS.
-Authoritative runner executes32 own tests,2593 focused tests, then science; failures stop/log.
+DNS resolution. Synthetic fixtures are not represented as those checks. The authoritative runner
+executes32 own tests,2593 focused tests, then science; failure stops before the next phase and logs
+are published. Review PASS does not waive execution checks. Only review documentation changes after
+the review HEAD; scientific conditions remain fixed.
 
 ## Historical maintenance and stop
 
