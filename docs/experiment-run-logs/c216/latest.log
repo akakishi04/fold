@@ -1,14 +1,14 @@
 === C216 repository preflight ===
 branch = feat/sft-target-loss
-execution_head = c7179ddeaed2e092d3f1f6090e9bd09a1ff9c75e
+execution_head = 99d4254c09f38a433374fb2a073403d6e0ec764a
 === C216 authoring syntax preflight ===
 python_syntax_preflight = PASS
 === FOLD C216 V5-F learned Reader pilot ===
-repository = akakishi04/fold; branch = feat/sft-target-loss; commit = c7179ddeaed2e092d3f1f6090e9bd09a1ff9c75e
+repository = akakishi04/fold; branch = feat/sft-target-loss; commit = 99d4254c09f38a433374fb2a073403d6e0ec764a
 changed condition = learned Reader only over oracle-selected scalar memory port
 expected_focused_tests = 2185 (2186 loaded -1 exact mutable historical test); Gate_F = NOT_PASSED
 source_and_artifact_precheck = PASS; accepted C215 maintenance checkpoint fixed
-output_dir = M:\asobiba\fold\runs\c216-v5f-learned-reader-45e1ceccd9a1494fbf7c73ada4482765
+output_dir = M:\asobiba\fold\runs\c216-v5f-learned-reader-5fb7ef1e99ec4ee189a3047cc60953d0
 === focused regression ===
 test_boolean_canonicalizer_maps_only_selected_signed_channels (tests_lm.test_v05_controller.V05ControllerTests.test_boolean_canonicalizer_maps_only_selected_signed_channels) ... ok
 test_boolean_canonicalizer_rejects_ambiguous_threshold_value (tests_lm.test_v05_controller.V05ControllerTests.test_boolean_canonicalizer_rejects_ambiguous_threshold_value) ... ok
@@ -2163,26 +2163,644 @@ test_31_precheck_pins_c214_parent_validation (tests_lm.test_v05_c215_h1_h2_chunk
 test_32_regression_suite_semantic_counts (tests_lm.test_v05_c215_h1_h2_chunk_commit.C215Tests.test_32_regression_suite_semantic_counts) ... ok
 test_33_python_alias_bindings_are_complete (tests_lm.test_v05_c215_h1_h2_chunk_commit.C215Tests.test_33_python_alias_bindings_are_complete) ... ok
 test_34_powershell_guards_and_parent_path (tests_lm.test_v05_c215_h1_h2_chunk_commit.C215Tests.test_34_powershell_guards_and_parent_path) ... ok
-setUpClass (tests_lm.test_v05_c216_learned_reader.C216Tests) ... ERROR
+test_01_manifest_hash (tests_lm.test_v05_c216_learned_reader.C216Tests.test_01_manifest_hash) ... ok
+test_02_parent_c215_identity_is_exact (tests_lm.test_v05_c216_learned_reader.C216Tests.test_02_parent_c215_identity_is_exact) ... ok
+test_03_data_hash_is_fixed (tests_lm.test_v05_c216_learned_reader.C216Tests.test_03_data_hash_is_fixed) ... ok
+test_04_dataset_profile_is_exact (tests_lm.test_v05_c216_learned_reader.C216Tests.test_04_dataset_profile_is_exact) ... ok
+test_05_eval_pairs_are_exactly_preregistered (tests_lm.test_v05_c216_learned_reader.C216Tests.test_05_eval_pairs_are_exactly_preregistered) ... ok
+test_06_train_and_eval_pair_sets_are_disjoint (tests_lm.test_v05_c216_learned_reader.C216Tests.test_06_train_and_eval_pair_sets_are_disjoint) ... ok
+test_07_each_semantic_value_occurs_in_both_splits (tests_lm.test_v05_c216_learned_reader.C216Tests.test_07_each_semantic_value_occurs_in_both_splits) ... ok
+test_08_train_targets_are_balanced (tests_lm.test_v05_c216_learned_reader.C216Tests.test_08_train_targets_are_balanced) ... ok
+test_09_eval_targets_are_balanced (tests_lm.test_v05_c216_learned_reader.C216Tests.test_09_eval_targets_are_balanced) ... ok
+test_10_each_pair_has_hot_and_committed_rows (tests_lm.test_v05_c216_learned_reader.C216Tests.test_10_each_pair_has_hot_and_committed_rows) ... ok
+test_11_each_pair_has_both_queries (tests_lm.test_v05_c216_learned_reader.C216Tests.test_11_each_pair_has_both_queries) ... ok
+test_12_hot_and_committed_selected_features_are_identical (tests_lm.test_v05_c216_learned_reader.C216Tests.test_12_hot_and_committed_selected_features_are_identical) ... ok
+test_13_selected_feature_has_only_three_values (tests_lm.test_v05_c216_learned_reader.C216Tests.test_13_selected_feature_has_only_three_values) ... ok
+test_14_reader_config_is_exact (tests_lm.test_v05_c216_learned_reader.C216Tests.test_14_reader_config_is_exact) ... ok
+test_15_reader_parameter_count_is_43 (tests_lm.test_v05_c216_learned_reader.C216Tests.test_15_reader_parameter_count_is_43) ... ok
+test_16_reader_rejects_wrong_shape (tests_lm.test_v05_c216_learned_reader.C216Tests.test_16_reader_rejects_wrong_shape) ... ok
+test_17_reader_rejects_nonfloat (tests_lm.test_v05_c216_learned_reader.C216Tests.test_17_reader_rejects_nonfloat) ... ok
+test_18_reader_rejects_nonfinite (tests_lm.test_v05_c216_learned_reader.C216Tests.test_18_reader_rejects_nonfinite) ... ok
+test_19_reader_forward_shape_is_three_class (tests_lm.test_v05_c216_learned_reader.C216Tests.test_19_reader_forward_shape_is_three_class) ... ok
+test_20_model_input_has_no_query_feature (tests_lm.test_v05_c216_learned_reader.C216Tests.test_20_model_input_has_no_query_feature) ... ok
+test_21_model_input_has_no_status_feature (tests_lm.test_v05_c216_learned_reader.C216Tests.test_21_model_input_has_no_status_feature) ... ok
+test_22_oracle_selector_is_outside_reader (tests_lm.test_v05_c216_learned_reader.C216Tests.test_22_oracle_selector_is_outside_reader) ... ok
+test_23_writer_and_selector_are_not_learned (tests_lm.test_v05_c216_learned_reader.C216Tests.test_23_writer_and_selector_are_not_learned) ... ok
+test_24_training_registration_is_exact (tests_lm.test_v05_c216_learned_reader.C216Tests.test_24_training_registration_is_exact) ... ok
+test_25_gate_requires_all_three_seed_records (tests_lm.test_v05_c216_learned_reader.C216Tests.test_25_gate_requires_all_three_seed_records) ... ok
+test_26_gate_rejects_one_eval_error (tests_lm.test_v05_c216_learned_reader.C216Tests.test_26_gate_rejects_one_eval_error) ... ok
+test_27_gate_rejects_readout_blind_success (tests_lm.test_v05_c216_learned_reader.C216Tests.test_27_gate_rejects_readout_blind_success) ... ok
+test_28_gate_rejects_placement_flip (tests_lm.test_v05_c216_learned_reader.C216Tests.test_28_gate_rejects_placement_flip) ... ok
+test_29_zero_readout_expected_accuracy_is_one_third (tests_lm.test_v05_c216_learned_reader.C216Tests.test_29_zero_readout_expected_accuracy_is_one_third) ... ok
+test_30_precheck_uses_c215_as_checkpoint_root (tests_lm.test_v05_c216_learned_reader.C216Tests.test_30_precheck_uses_c215_as_checkpoint_root) ... ok
+test_31_direct_repo_dependencies_are_registered (tests_lm.test_v05_c216_learned_reader.C216Tests.test_31_direct_repo_dependencies_are_registered) ... ok
+test_32_regression_suite_semantic_counts (tests_lm.test_v05_c216_learned_reader.C216Tests.test_32_regression_suite_semantic_counts) ... ok
+test_33_python_alias_bindings_are_complete (tests_lm.test_v05_c216_learned_reader.C216Tests.test_33_python_alias_bindings_are_complete) ... ok
+test_34_manifest_workload_forward_count_is_consistent (tests_lm.test_v05_c216_learned_reader.C216Tests.test_34_manifest_workload_forward_count_is_consistent) ... ok
+test_35_powershell_guards_and_parent_path (tests_lm.test_v05_c216_learned_reader.C216Tests.test_35_powershell_guards_and_parent_path) ... ok
+test_36_scope_has_no_writer_selector_or_coverage_training (tests_lm.test_v05_c216_learned_reader.C216Tests.test_36_scope_has_no_writer_selector_or_coverage_training) ... ok
 
-======================================================================
-ERROR: setUpClass (tests_lm.test_v05_c216_learned_reader.C216Tests)
 ----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "M:\asobiba\fold\tests_lm\test_v05_c216_learned_reader.py", line 18, in setUpClass
-    cls.data = c216.dataset()
-               ~~~~~~~~~~~~^^
-  File "M:\asobiba\fold\fold_lm\v05_benchmarks\gate_f_c216_learned_reader.py", line 299, in dataset
-    require(content_sha == DATA_SHA, "C216 dataset content drift")
-    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "M:\asobiba\fold\fold_lm\v05_benchmarks\gate_f_c216_learned_reader.py", line 83, in require
-    raise ValueError(message)
-ValueError: C216 dataset content drift
+Ran 2185 tests in 43.961s
 
-----------------------------------------------------------------------
-Ran 2149 tests in 45.086s
+OK
+[C216] learned Reader seed=216001 eval=1.000 zero=0.333 seed=216002 eval=1.000 zero=0.333 seed=216003 eval=1.000 zero=0.333
+=== C216 RESULT ===
+{
+  "C215_summary_sha256": "96b3e5b9cf465b9dea33920de095fc5d7d8e4c0cba960d64597c95fc15eda237",
+  "artifacts": [
+    {
+      "file": "reader-plan.json",
+      "serialized_bytes": 14552,
+      "sha256": "7e2237f94ea1441225cc6470f02e08f39a41dedca0610d6de0feede0fc2fd8f8"
+    },
+    {
+      "file": "reader-dataset.npz",
+      "serialized_bytes": 1287,
+      "sha256": "d6ab5de8ec3c23d7e48bc45f7efdd9c3e5c0b11b7d640efccef116ec9036a193"
+    },
+    {
+      "file": "reader-checkpoints.pt",
+      "serialized_bytes": 5061,
+      "sha256": "bf96cf6cec13bfdb9c71e374b0e11dd104365add1c5947f2123f4e4ea9f051af"
+    },
+    {
+      "file": "evaluation.json",
+      "serialized_bytes": 5073,
+      "sha256": "cb6e069bab88197df2cd0bfec2a92952685aa96c5efdb50fc660fa4efd14979d"
+    },
+    {
+      "file": "validation-summary.json",
+      "serialized_bytes": 4171,
+      "sha256": "dddd27d04917f810a68dc83aa98cddabf1cd78cd67357c52b913e2ff3fe239be"
+    }
+  ],
+  "chunk_commits": 18,
+  "commit_sha": "99d4254c09f38a433374fb2a073403d6e0ec764a",
+  "coverage_classifier": false,
+  "diagnostic_execution_valid": true,
+  "experiment_id": "C216-v5f-learned-reader-pilot",
+  "fit_records": [
+    {
+      "examples_drawn": 9600,
+      "final_loss": 0.0028551879804581404,
+      "final_sha256": "6f1219b4277e3d4af6494ecf2280f2442887df05d5d133f2e2566b29bf804336",
+      "fit_wall_clock_seconds": 0.41374639999412466,
+      "initial_loss": 1.1148171424865723,
+      "initial_sha256": "0bdfed44076ec215b1b47a0df2f38102f3c518c98a9d82f4ff342a68ee2bbf00",
+      "seed": 216001,
+      "steps": 400,
+      "training_forward_calls": 400
+    },
+    {
+      "examples_drawn": 9600,
+      "final_loss": 0.0023204993922263384,
+      "final_sha256": "1b7b2f96ad3e33d4ac0422cd7ca72b7f6e53707acf52aa17a44f188b7c2ed199",
+      "fit_wall_clock_seconds": 0.36379540000052657,
+      "initial_loss": 1.073943018913269,
+      "initial_sha256": "585892b1704042c09f7819193e1808311f82acc8fd1a64db5a170e3f472d07a2",
+      "seed": 216002,
+      "steps": 400,
+      "training_forward_calls": 400
+    },
+    {
+      "examples_drawn": 9600,
+      "final_loss": 0.003396005602553487,
+      "final_sha256": "3d26451e54a8e4327f2dcc9128e73c7e3fc60605c3e2d894876bd65057d2dd7f",
+      "fit_wall_clock_seconds": 0.3649659999937285,
+      "initial_loss": 1.1430668830871582,
+      "initial_sha256": "8a062c210b32364ed7d8e6ff9598dd0cc32b5167ed6af7d3b66ea2535ad35a44",
+      "seed": 216003,
+      "steps": 400,
+      "training_forward_calls": 400
+    }
+  ],
+  "gate_f_candidate": false,
+  "input_sha256": {
+    "M:\\asobiba\\fold\\docs\\baseline-development-measurement-v0.1.md": "500bf2601413f1ad78324d6c4f2c99348c3001fb841343687227e03f53f6e5b1",
+    "M:\\asobiba\\fold\\docs\\candidate-input-compatibility-preflight-v0.1.md": "4493e92167957b3734107f42f2f3d6449790651465244189200bfe270da4e58d",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c171-preregistration.md": "4df6b22c1f1312082789c14145e4dcdb67038cfabe8c575e134192efc22ca1a5",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c200-preregistration.md": "d295affb4dfd33667741d460e72c263b2a8c1ee3aeedaa204bc04e04b03d9d67",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c201-preregistration.md": "8499f6bcba6e896cc1339ae748c8a25d4b705f0e897686c9269031aa886da390",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c202-preregistration.md": "52cd25f6ecd8c8dbb5c2e2824596f463b904699fc7e40ce0a37d5e72673701b3",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c203-preregistration.md": "ffa6d277d1472221dc59d8499d0007523d75804bd838bfff37325bb5f7838efc",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c204-preregistration.md": "e182737b738cc30c072df812c46e5a439f59e637fc40a99c3414df867f80b90b",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c205-preregistration.md": "52c4b19282befcaffa0e68b718f487adc4ba7430ac514b59e3e89f892f13da85",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c206-preregistration.md": "0fc08ea4a6f39810bcd92c054549fce2e3b7f9cfb30881d348836c0199d250d1",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c207-preregistration.md": "4f811b8a69592fd133e534beedc043913f1220deef67dc78849d698d572ed56b",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c208-preregistration.md": "109c48fdbe3adbaee9254a954f158489b14c4043feb7187fb42065e0093c7301",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c209-preregistration.md": "c58543b985423e8b211b98e667934c618d085f66143bbdf66cd6e5824bcba5e6",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c210-preregistration.md": "52d9547a6c0b23c462ce7faceda8d16afaf81113c54d07bd69de6eee92153d9f",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c211-preregistration.md": "303887eb0eb9ba53e64d64b0c5ba9bb0daaeea182ba24de48cb857978149104a",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c212-preregistration.md": "bce59d21eadae1ea841db9dfedcb7d18808e7f821367bfe7b6536f2e66cf30bd",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c213-preregistration.md": "ad1d3c2909b0a948248e2bda4bac5619d5a40deaf1e595318e54e276a6f80896",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c214-preregistration.md": "ed97e382a5f15c23eca27fb73b10072473e35a87aa28aa9f1e7261cb9e7c192b",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c215-preregistration.md": "314672217c9aca6b7cd0a12c89d812036e50a5ad92b6bcd08c8482c5d5151837",
+    "M:\\asobiba\\fold\\docs\\experiment-ledger-addendum-c216-preregistration.md": "8d0232bb21ffd55d7a76a04a9bfb5f7120cbe7b43a81baedc0d88269b0f106d5",
+    "M:\\asobiba\\fold\\docs\\gate-e-deciding-holdout-execution-v0.1.md": "758df8ce4d93b76f1a9a3e0f596493516b861a1c441883314029b3ce68ecf9c2",
+    "M:\\asobiba\\fold\\docs\\gate-e-deciding-manifest-v0.1.md": "0dbd530e4757478b3f5e9bf0a414d7af55a4a0c8eba74db29b77705685da1dfe",
+    "M:\\asobiba\\fold\\docs\\live-v2-mixed-channel-loop-v0.1.md": "4064060702ed0a522681d11218af4261c934fb21cb4a7739f895eeafb42b7df4",
+    "M:\\asobiba\\fold\\docs\\mixed-channel-multistep-replay-v0.1.md": "daddf3c52fe03306aa72e5bf7939e753ef0f6c4da467b1f978104c5e7ae6ec1e",
+    "M:\\asobiba\\fold\\docs\\nine-family-development-manifest-v0.1.md": "a4fa7fa5bff3f4d4e777af839d2c77bfd45f50855cec3f3372ca64edb19ff863",
+    "M:\\asobiba\\fold\\docs\\phase0-batch-composition-attribution-v0.1.md": "ce4e3218312b6d34e03f606eef4fd9298414e32b49db5ab04ed0a42ec2ad53bc",
+    "M:\\asobiba\\fold\\docs\\structured-action-channel-v0.1.md": "f4879a843964bcbe98d427985d470ec29377303b15095128b629bafd33664655",
+    "M:\\asobiba\\fold\\docs\\structured-derived-result-v0.1.md": "690add974ca2713cefacb99a85cba52f49cebf1fd3f85604c02b952e411ced1f",
+    "M:\\asobiba\\fold\\docs\\structured-task-interface-v0.2.md": "a46ac637d44e3d00b87d9e67ee693836b48545f2f28c660795dec9eac4857710",
+    "M:\\asobiba\\fold\\docs\\terminal-derived-result-integration-v0.1.md": "cd3c39c194857a10f2366c3bc33f9e1ce9afbcad2473f65526bfb1e91374e895",
+    "M:\\asobiba\\fold\\docs\\three-channel-acquisition-dispatch-v0.1.md": "3594910686e00f66a0ce5a45f6520dc53e7abd10e88ca892886b2eefe442c4c4",
+    "M:\\asobiba\\fold\\docs\\v5f-h1-h2-chunk-commit-v0.1.md": "85dc5adca911a30f6c3a5d00b089ced0b6b4abaddd6bd56a8660eb42831a463f",
+    "M:\\asobiba\\fold\\docs\\v5f-learned-reader-pilot-v0.1.md": "9775ee0d217a5baa909204a6a7defa14654b90c3168459e7a12578595f4e7c25",
+    "M:\\asobiba\\fold\\docs\\v5f-memory-capsule-closure-v0.1.md": "1f7d4ef6062f9bac547e5f850be9ce7b476147546f2f03fff82ae68764f105aa",
+    "M:\\asobiba\\fold\\docs\\v5f-memory-operation-contract-v0.1.md": "c35289599f32732e62bc42fba7c34f4a6c74d41f4b102ab54fdc249765547509",
+    "M:\\asobiba\\fold\\docs\\visible-only-candidate-projection-v0.1.md": "b801d7cc3e14d846f8fb390f7f2249dd22230d662363d9a9c1d7b90dee69c453",
+    "M:\\asobiba\\fold\\fold_lm\\capsule.py": "de66714750d170cd562b67f6d3bce9ae4b991dc0a8abf38c848ef530babab659",
+    "M:\\asobiba\\fold\\fold_lm\\v05\\candidate_input_projection.py": "38eb4ba8c0baafaac4aa26b8748b16d0d6feb7102a75da44cb616fac167a1e08",
+    "M:\\asobiba\\fold\\fold_lm\\v05\\memory_bank.py": "0ea075252755dfad0017145d9ccac2b799b260c2e861e0194b263495a8d4cca9",
+    "M:\\asobiba\\fold\\fold_lm\\v05\\memory_bridge.py": "6107213d1c7a68db7663e06fa4e4bae2c5dbf688f310324dfd0c210fb77937f3",
+    "M:\\asobiba\\fold\\fold_lm\\v05\\memory_capsule_bridge.py": "f66c14c26876ef58e58f9c90736d8259f2503da52c51d96faef3d68683eb8749",
+    "M:\\asobiba\\fold\\fold_lm\\v05\\memory_reader.py": "e5c08987e65f473a25dd134b20f8f701fb328630f4013543a79a8e3a1e6a8b56",
+    "M:\\asobiba\\fold\\fold_lm\\v05\\state.py": "c2468836b0730f436913a9f0aa2bf36cddab7cbb4c0c365bd98cd4679f5fd2f6",
+    "M:\\asobiba\\fold\\fold_lm\\v05\\structured_acquisition_lifecycle.py": "9b3a2ab6a5d2043636fa72f28d9f1ee6f8272b0afd697f143b8ade1a662d17b3",
+    "M:\\asobiba\\fold\\fold_lm\\v05\\structured_action_channel.py": "58eab69bc48a2016595fee27b31e23046176bf815d6e67cf32befe9b5f0104c0",
+    "M:\\asobiba\\fold\\fold_lm\\v05\\structured_action_runtime.py": "cf311de725e02825782d5619ca6ee027460ccba3c19ce5c6db16daeb03abe57b",
+    "M:\\asobiba\\fold\\fold_lm\\v05\\structured_derived_result.py": "713003258a72110531717cf5c7d25e4238e0fc5839ee6190fd1a208d8d6e8764",
+    "M:\\asobiba\\fold\\fold_lm\\v05\\structured_task_input.py": "855429f224a3eebe692d7421bc119cddb38ad273a4e54160d6062a34b3b0f3c4",
+    "M:\\asobiba\\fold\\fold_lm\\v05\\structured_task_input_v2.py": "816f1103e41f207bff50a0af4c5a8b049c06a3a43bd2786d3afc2bd8738f112e",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c171_derived_result.py": "5af4eb891167fafb69382da7897473f3a033a097cc9bceb7e24599dee99c5368",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c175_frozen_prediction_audit.py": "9ceb8674f1325acb7dc62feeef7d83e5cc63ace539c0b478831bb13a7b16d674",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c178_visible_leaf_binding.py": "01537813734942589c979a7819752dcd2913d4a2851add2a5aae82b436841852",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c179_shared_graph.py": "6e8b2d637ce4bf706b3f38cb741ded8e19def833a68ee1401d5a1c9416f863d0",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c182_frozen_fact_renaming.py": "e02a9acbcb39d93a6cfb0d5b17dbf61ecb0437cbc1fdac667a31f54e18b86626",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c185_single_missing_acquisition.py": "460b0a1c4590e9b639e022eaa8bb5220fa5158c5167bb64e7f81e14837314224",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c188_multimissing_target_selection.py": "98bafc5fd08c1434a77d9a4d584bf31f6db9931cf593cf457949bc9230064ee2",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c189_live_multimissing_target.py": "75881ca03596fe16629e259f8621050b5ff13df81d999be49fb63d366411c799",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c190_iterative_multimissing_acquisition.py": "32ac71c17dd540a0a506f7f5cad15c771a02ba173f3593ca085568074d8380ff",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c200_acquisition_channel_input.py": "3a45ebe45826eae879a850d97869abfcb70602ad54d0d6fb1b1a1260f585ad80",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c201_selected_fact_channel_route.py": "394d23f4c26d8e1285474f9538a98a82f60c4f235b9089dd4e32d1e9def2d6b2",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c202_three_channel_acquisition_dispatch.py": "97282a562fa0128b8d8ef7266d715f384a9dcdb1b7c25a169c95e2b1a254e082",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c203_mixed_channel_multistep_replay.py": "13a4b5a0f102739606f86f466712556ecf616843056cbe1a96bae70ac50ca74c",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c204_live_v2_mixed_channel_loop.py": "71a1af20caf624f86225ee32899276bc53e1eefa2403c806f48a5d68d6d1e4c4",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c205_phase0_batch_composition_attribution.py": "3d30b5d9e96d489b4ba6f754be609eb7ea8650e668452f9387406b34119615af",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c206_terminal_derived_result_integration.py": "6bcd59c3489eac9d4fe08d4ab2683230769d11ba5cad3ad7332e640287c95940",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c207_nine_family_development_manifest.py": "68bb05c995cd303b7ae06f236d17671fcb2b1cba375e44552b1d30efcdbd568a",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c208_candidate_input_compatibility_preflight.py": "cfcea8477fd4f98f7fad076606bcf6fd992e02e168dc9ad6f97535b464acab4a",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c209_visible_only_candidate_projection.py": "dad94e9f8acb6a0d0e48f11b7be441ae075a06e48f8f0a2148b7c364d83d60be",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c210_baseline_development_measurement.py": "5e4a491ab2ef0df07d669f12a03e77c5307c56d2a194675b869414d60eaedb73",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c211_deciding_manifest_freeze.py": "b144727bc84846e4a22f7a6362ff6305bd5b669f9abeac90a1c5f622532c6f28",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_e_c212_deciding_holdout_execution.py": "04beadd6d114b477e2a97ea9c1f7303547d14a57bb5730f9934925b7b36e4611",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_f_c213_memory_operation_contract.py": "f8d8d868356e9e41f444d1a709cc77c6c371f73ab944ad2ad63bbdd517bd7d32",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_f_c214_memory_capsule_closure.py": "e897397a286ac6e2ccf350c24ee954fd01ca587c37cd6d414f7a0a60c54c36f2",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_f_c215_h1_h2_chunk_commit.py": "48f81f99ac5496abc87d760d8dfbadab899040b6f16612e4d85e3b34b7283200",
+    "M:\\asobiba\\fold\\fold_lm\\v05_benchmarks\\gate_f_c216_learned_reader.py": "51075ac1b66fdfc0ce1cef6ef336f544e3c12e5294c32be8fed98ae06c64b730",
+    "M:\\asobiba\\fold\\runs\\c215-v5f-h1-h2-chunk-commit-06e5fce5f05f46d0be1f86b8ec119877\\bank-plan.json": "a2700255c76200ac29f6d476cfae9eb932b2bb069649291f37557e88c6ac0b6c",
+    "M:\\asobiba\\fold\\runs\\c215-v5f-h1-h2-chunk-commit-06e5fce5f05f46d0be1f86b8ec119877\\commit-controls.json": "e3864d5b25539a1c4a474285440ccee0c00a5424b8a8b5079d98c65e1e63e0fb",
+    "M:\\asobiba\\fold\\runs\\c215-v5f-h1-h2-chunk-commit-06e5fce5f05f46d0be1f86b8ec119877\\snapshot-comparisons.json": "e17a89c436513917eec25396d7d1a3c56b545d0b840274a3f29b198d3e50b06d",
+    "M:\\asobiba\\fold\\runs\\c215-v5f-h1-h2-chunk-commit-06e5fce5f05f46d0be1f86b8ec119877\\state-trace.json": "2d7864820eecac7a9dd421cf662a126c93e36f083fec831ba309a9a61dc664e9",
+    "M:\\asobiba\\fold\\runs\\c215-v5f-h1-h2-chunk-commit-06e5fce5f05f46d0be1f86b8ec119877\\summary.json": "96b3e5b9cf465b9dea33920de095fc5d7d8e4c0cba960d64597c95fc15eda237",
+    "M:\\asobiba\\fold\\runs\\c215-v5f-h1-h2-chunk-commit-06e5fce5f05f46d0be1f86b8ec119877\\validation-summary.json": "1aa90b651d2f25a2ae72173e2e4e072236572e4057f40a35180a592980e90bd3",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c171_derived_result.py": "f6eab105f04b584d3daaecff8a252ea7e82156590261d728a51a06bffbee4523",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c200_acquisition_channel_input.py": "796f4e835181e4c1526806548b9e3b5e8da3ceed0e4963a79ba100218421dcdc",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c201_selected_fact_channel_route.py": "63fb0901bca6b5538afc4369cdf3a12a7fc53d5305758c289314ecfe1155b3a3",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c202_three_channel_acquisition_dispatch.py": "575291e64925d7e7ac948fd7722bc6395bd1234b6b3f8cc496d5a1c61d2de590",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c203_mixed_channel_multistep_replay.py": "4b0e30a0f1c87dc5d8646ab511447511b2f0c197db281db10f2d0d210faec36f",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c204_live_v2_mixed_channel_loop.py": "4733d41786aee978cef3982ebc9d12e0b7ee6b7076b92dec8c73857f94e89c81",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c205_phase0_batch_composition_attribution.py": "db05a98bf7232d61fc49b28d4fef0f70c674c571c725353019c73d324955fd72",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c206_terminal_derived_result_integration.py": "765aefd0d7e644a56c9aaea7dc1b67a5272bc3658a7ccaedcefbb2b66d5be9c8",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c207_nine_family_development_manifest.py": "58b295f0d6147d546e638a7972df4b825055a6c436bf5ac9ed1ef217ae53cf2d",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c208_candidate_input_compatibility_preflight.py": "6ae7f023b160b01d5b09ac0669741d184cf82a3ec623681c2fa55986989a3857",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c209_visible_only_candidate_projection.py": "d43526a3653c4a2ba83208611d6d04560d0097691e8695d1ccc53f898ffba0cb",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c210_baseline_development_measurement.py": "9e15d128c56ad0d1145a9ec39ef01035389f5968995652a55cbd2a690d430672",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c211_deciding_manifest_freeze.py": "ee1d775030338b348240c03b134d76504c66d578314556dc9dedd8aaf146e3df",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c212_deciding_holdout_execution.py": "1aae5e29d334a3f80c681537dc9aedb336a2b15c2e21baf7957cf819afe0cbd7",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c213_memory_operation_contract.py": "a3410537f58f300a7eddf5add22d329b10d2236c6e2d826fe9a20272c4387074",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c214_memory_capsule_closure.py": "ffdccd24952b58844d657259c3819537849aa893febc777ee430e2675d4ad579",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c215_h1_h2_chunk_commit.py": "4f9fc50db93eb843be8997298e544d1418b61e2eed460f422671d4bd070018b8",
+    "M:\\asobiba\\fold\\tests_lm\\test_v05_c216_learned_reader.py": "7333757dd049ca1d2e741b4a9a94afc7765c0f5fec47a78c978c53ca400cadd0",
+    "M:\\asobiba\\fold\\tools\\invoke_active.ps1": "57a0f1ffa3a9370b5261ec5bf1e9eb3d778dc84f19f35c51e21174f61735a95b",
+    "M:\\asobiba\\fold\\tools\\invoke_c200.ps1": "a0675df56086766dc979fd75a4d08dc5af1b6e33ea0dd8e0d97a9384f7bd2ec5",
+    "M:\\asobiba\\fold\\tools\\invoke_c201.ps1": "4259002937ebc81b778e28a95e65f9275219b0d47b656d925e4130ffffbeaa3c",
+    "M:\\asobiba\\fold\\tools\\invoke_c202.ps1": "c317ec0aab4ea773ecc037d1559d6a8989ceef49698259c8b46fe0b7dff85434",
+    "M:\\asobiba\\fold\\tools\\invoke_c203.ps1": "5d3f1a8fbd478a638774818d2c22841c804455bcd19e4840de77b5937d4841b0",
+    "M:\\asobiba\\fold\\tools\\invoke_c204.ps1": "2afd0a6aa121776fa300db26bf25f9a787354b85d863703a5ebfa366cb019648",
+    "M:\\asobiba\\fold\\tools\\invoke_c205.ps1": "af8436413c6d451e85056d2e562b021c5378bc0a7e732bb3b3df61cc573dfbd4",
+    "M:\\asobiba\\fold\\tools\\invoke_c206.ps1": "dedc573002a047b55e7d14fb9cf89eae09e83013e368a8c9ec32e1f13b1b3e95",
+    "M:\\asobiba\\fold\\tools\\invoke_c207.ps1": "84112f611a4aa9d4f359c0118c46132e4b28a95b3eb2fd679fdaaaa7f6af8b23",
+    "M:\\asobiba\\fold\\tools\\invoke_c208.ps1": "5c880255ee2a75e47fe20342bda7d932ed4167308bf8e4bf324986e92e0cdf03",
+    "M:\\asobiba\\fold\\tools\\invoke_c209.ps1": "c6a1f9ab85a5c0f42186f2bdf8c8012103edac5eccd6a6658b2eaafd79e9b03f",
+    "M:\\asobiba\\fold\\tools\\invoke_c210.ps1": "1e30d76a568c7fa4075bc3fb0e14c79469cb38621383f1a973cf7907f14c57d4",
+    "M:\\asobiba\\fold\\tools\\invoke_c211.ps1": "c68e2ddeda1a626d46c0f5834b6ce72918a39462cb586fef1f1221c86593d6a0",
+    "M:\\asobiba\\fold\\tools\\invoke_c212.ps1": "2c9cc86be1b2221cd71bacb28ed35a5c298941efa02e277a5a83576de25f0420",
+    "M:\\asobiba\\fold\\tools\\invoke_c213.ps1": "4d2e76ee530426d7eb476413cd26d27459027ef48a6ec6c96cebe2a1e29810cf",
+    "M:\\asobiba\\fold\\tools\\invoke_c214.ps1": "bc160d785c3b724c81d305fb8e42c19de348bc0231ebc2ce85b7e09c1f505d1a",
+    "M:\\asobiba\\fold\\tools\\invoke_c215.ps1": "f27f4ab064c2e08c6301a49d177abd0f7237dca0293e14fb7f93cedb4770f5e4",
+    "M:\\asobiba\\fold\\tools\\invoke_c216.ps1": "a596800a69b7a04bea5b4f051d36f1325379cce224a82afe67b61158d73657a7",
+    "M:\\asobiba\\fold\\tools\\run_c167.ps1": "8417740597cdf8bf4c89e658c918712f1699c8d8f6b6e35cd38fa49d0dccda41",
+    "M:\\asobiba\\fold\\tools\\run_c171.ps1": "797d7a750c2eacfe5bdc968301eb5d0bc027f94eef34ce85993c864cdcc64703",
+    "M:\\asobiba\\fold\\tools\\run_c200.ps1": "f43ab489bc9bcdea32a8af941646e104e83abc8f576fb1da89f25df585d4aba2",
+    "M:\\asobiba\\fold\\tools\\run_c201.ps1": "ad58b4d90b4eb0807c0bfbe25c45da7bbb75e62ff16fa3fd99c1c0c261a9bb57",
+    "M:\\asobiba\\fold\\tools\\run_c202.ps1": "d318c1e87f930e9e9c06eabb9be0a5d252a17c8e1073dac24897c5112e114781",
+    "M:\\asobiba\\fold\\tools\\run_c203.ps1": "a927866d5b92757912a4d90560d3793da24aad04d2da9e70e5b3417c3b76a3e7",
+    "M:\\asobiba\\fold\\tools\\run_c204.ps1": "05e47bb3b6c6d3acaca55e2ea251953e44485b7c0f9a5c344dd9f4d59b4cf42d",
+    "M:\\asobiba\\fold\\tools\\run_c205.ps1": "c963d9eb0b3d03eaa4d9175f561e313e846afcc43cafd396bbe94e65fa79bcd0",
+    "M:\\asobiba\\fold\\tools\\run_c206.ps1": "03901efa4a03b3018d352447919dd4e1fcf9baa6fd9d9077b8fdb690e9432930",
+    "M:\\asobiba\\fold\\tools\\run_c207.ps1": "7c73add3270615af33d3ab062175b460e4689926f118f75442da845e272fa314",
+    "M:\\asobiba\\fold\\tools\\run_c208.ps1": "2471b0eb259c84e6e897bd7bd3dd7636d1f7c77610450af9a02690e4205e1d22",
+    "M:\\asobiba\\fold\\tools\\run_c209.ps1": "e4c35229655ac2f7f5cb29b88e426ddd3f1f88fdfc484c9e514d99a2f7ca4e68",
+    "M:\\asobiba\\fold\\tools\\run_c210.ps1": "7994480ba9a2d9657512d280781c4d129de3498288ff10f06796af96b7503f98",
+    "M:\\asobiba\\fold\\tools\\run_c211.ps1": "f3c4c4b224efb1a0ea068fc834305f73ca95046f1a7c9c339c2b2d0c03f028c7",
+    "M:\\asobiba\\fold\\tools\\run_c212.ps1": "e04c6152cda2a0236d66ea148fe872ecbc156617fc45d20621cb02f8a2d15817",
+    "M:\\asobiba\\fold\\tools\\run_c213.ps1": "3ea50213c5182186b646f85831d7f6ea0a90674f27c39749f45e0babfab76a96",
+    "M:\\asobiba\\fold\\tools\\run_c214.ps1": "ea89d5314e8a6266cad6c1baaa66304e47bd95003792615bd7ec72deb6a114a6",
+    "M:\\asobiba\\fold\\tools\\run_c215.ps1": "1d985611cd02fbc8d0306f5d5a90481bdf647451e65fa6174599fa4d5ecee3cc",
+    "M:\\asobiba\\fold\\tools\\run_c216.ps1": "20221d1854844250cc146fb337feb4f0a0ab8a63ce13a5e6599d7c334fc7aa08"
+  },
+  "learned_reader": true,
+  "learned_writer": false,
+  "limitations": [
+    "tiny synthetic three-value semantic decoder pilot",
+    "Port Selector is oracle and query IDs never enter the learned Reader",
+    "Writer and memory construction are oracle/deterministic",
+    "held-out split tests pair composition, not unseen semantic values",
+    "no natural language, memory-cost advantage, or Gate F claim"
+  ],
+  "model_forward_calls": 1215,
+  "network_calls": 0,
+  "oracle_selector_calls": 36,
+  "oracle_writer_operations": 18,
+  "parameters_per_model": 43,
+  "port_selector": false,
+  "production_runtime_modified": true,
+  "source_blobs": {
+    "docs/baseline-development-measurement-v0.1.md": "734a57a9f05c2668b2c28e5a162e408c600684eb",
+    "docs/candidate-input-compatibility-preflight-v0.1.md": "971c4f6a9900c4e21bd08718430a899e71e9b402",
+    "docs/experiment-ledger-addendum-c171-preregistration.md": "e5045736c2fae0910cbc6398ce7b8217345afa7e",
+    "docs/experiment-ledger-addendum-c200-preregistration.md": "652d73d3df2cef46a2fadfd3573861aeba3e155c",
+    "docs/experiment-ledger-addendum-c201-preregistration.md": "52e2174f4a31aa25c32d2a8459506b17ad340f04",
+    "docs/experiment-ledger-addendum-c202-preregistration.md": "a6cff437627d961f5713709a9bd2f5df103a4392",
+    "docs/experiment-ledger-addendum-c203-preregistration.md": "c02f53692572e6fa24e22822cd1142a2faa8f53f",
+    "docs/experiment-ledger-addendum-c204-preregistration.md": "f54601f53f044387329c90c2b0d7f9a58a6d8b85",
+    "docs/experiment-ledger-addendum-c205-preregistration.md": "55d264925b4f1acb3fafb570fcce65d9f1bd23e3",
+    "docs/experiment-ledger-addendum-c206-preregistration.md": "44e911987ad8209fd616200eb8bae850c90ae313",
+    "docs/experiment-ledger-addendum-c207-preregistration.md": "eb32f48518fa4a2c469c66ed61172c1ef8a8f936",
+    "docs/experiment-ledger-addendum-c208-preregistration.md": "bcb6c0b0a7a521e0ce9ff1aa2f62fdd9e8ed237c",
+    "docs/experiment-ledger-addendum-c209-preregistration.md": "190ae2d180879a7ecdd5b3e1c0c74261b5d31cf4",
+    "docs/experiment-ledger-addendum-c210-preregistration.md": "6d1547b8f0e8e66377bed6a17e3a2b5fd8a78a6d",
+    "docs/experiment-ledger-addendum-c211-preregistration.md": "858f691f8303f478ffc6bfb81ac4a0982792ecce",
+    "docs/experiment-ledger-addendum-c212-preregistration.md": "f8ffd285a3e4749bafc4664808f1072d94064066",
+    "docs/experiment-ledger-addendum-c213-preregistration.md": "23f24e86172e51ed4991d0a21be5616b4295d08e",
+    "docs/experiment-ledger-addendum-c214-preregistration.md": "8609c5d41fe3b5405e626624dca3a5b7759dfcea",
+    "docs/experiment-ledger-addendum-c215-preregistration.md": "acac447b84444464ec6106aece6b084831f95d3f",
+    "docs/experiment-ledger-addendum-c216-preregistration.md": "ec31072c60e5dcd4c8a526deaf2ac3b909f852d1",
+    "docs/gate-e-deciding-holdout-execution-v0.1.md": "3b65297e384280fb66d809d8dd99122d17f7a94c",
+    "docs/gate-e-deciding-manifest-v0.1.md": "cc44462f77ef6f45f12ae4205d0f8b9416d7d473",
+    "docs/live-v2-mixed-channel-loop-v0.1.md": "7cf06e3cba985fd2cc9dc35b180bd14f89dd4c8e",
+    "docs/mixed-channel-multistep-replay-v0.1.md": "02c82462b9aa5cc2548a077fe6ab54ec50b58e2a",
+    "docs/nine-family-development-manifest-v0.1.md": "8b71cae0c8834dcce3cd14f0ee3154136dca3ee7",
+    "docs/phase0-batch-composition-attribution-v0.1.md": "e9379b7d63c27fddb3a6a1bb1b9e52c5928ed99f",
+    "docs/structured-action-channel-v0.1.md": "05f1966ca828202b797e95ba995b268e8df8cdf5",
+    "docs/structured-derived-result-v0.1.md": "a1e8bb4860c715ef949a16ddbaafc19cb7c22fb0",
+    "docs/structured-task-interface-v0.2.md": "5b3e9562c1cb87d4d4952f8541ea29f4592d5c63",
+    "docs/terminal-derived-result-integration-v0.1.md": "6ce49a2b79c6875c8ae67244dd7af692dab465e1",
+    "docs/three-channel-acquisition-dispatch-v0.1.md": "6942ce066ddad44121f5b3409ddae2371b84f163",
+    "docs/v5f-h1-h2-chunk-commit-v0.1.md": "13f42a0547731b54815b0184c8c3bb4de9a4c5b7",
+    "docs/v5f-learned-reader-pilot-v0.1.md": "00638e9102162c9b1b5325e16679c55afe411060",
+    "docs/v5f-memory-capsule-closure-v0.1.md": "de824d8edb831490100ea92db3d6911e605633b3",
+    "docs/v5f-memory-operation-contract-v0.1.md": "74310ca404dceb65d680d82af6be8e71b41e67b4",
+    "docs/visible-only-candidate-projection-v0.1.md": "ebf11e69e5a5c1d4dbbac96a7f3419f0ffd5058b",
+    "fold_lm/capsule.py": "7f1090fe95b2e3eab3967d00c6730165e34fadfb",
+    "fold_lm/v05/candidate_input_projection.py": "346f7edab02ef1bc24db2934a1f0c6488ab5567c",
+    "fold_lm/v05/memory_bank.py": "47ff011b8b8a9d29e080395e5b36ced08f150ab0",
+    "fold_lm/v05/memory_bridge.py": "c6a18378a451569f2f9597566204b251fbbd1083",
+    "fold_lm/v05/memory_capsule_bridge.py": "a22cd514573b473ef4f756eb3d2bed12f21f49c9",
+    "fold_lm/v05/memory_reader.py": "bca6b50ae47bc98f823a0dcc0e1a4928d1ead796",
+    "fold_lm/v05/state.py": "aa3f4938f6b5d403d8ee05c4220f686695cef3f0",
+    "fold_lm/v05/structured_acquisition_lifecycle.py": "e7fa5cbddbb650ab43b3b69683082a6edc0ac4da",
+    "fold_lm/v05/structured_action_channel.py": "18f85a768456940783ffbfa1c2cb574519d998ab",
+    "fold_lm/v05/structured_action_runtime.py": "672a79ea1c6e6467b1a5f1a474c843ce23fd1b04",
+    "fold_lm/v05/structured_derived_result.py": "56709025b02cff2dba6d7c907051a553ca5908ec",
+    "fold_lm/v05/structured_task_input.py": "b874b6abf17fb938a5cc873ff2090c6493f00010",
+    "fold_lm/v05/structured_task_input_v2.py": "504f888e57e43ef3165cadc36b0ae723c068f112",
+    "fold_lm/v05_benchmarks/gate_e_c171_derived_result.py": "ff84a03ac6ce96579e84acb2fd2f867c5be33e3e",
+    "fold_lm/v05_benchmarks/gate_e_c175_frozen_prediction_audit.py": "efd1bb246442fb4f472e33e450c16b192acfa18a",
+    "fold_lm/v05_benchmarks/gate_e_c178_visible_leaf_binding.py": "2ec87851f1f75533dd2225243d0c1baeda9c9a2a",
+    "fold_lm/v05_benchmarks/gate_e_c179_shared_graph.py": "504c79b6a881c64dba2494ef6ad35bffd9099f5a",
+    "fold_lm/v05_benchmarks/gate_e_c182_frozen_fact_renaming.py": "a5fb10af6238d425f82b093a0c3676d247b1f0e3",
+    "fold_lm/v05_benchmarks/gate_e_c185_single_missing_acquisition.py": "15f7cfec66d8bf9f27cbd25e169893f62ceaa7dc",
+    "fold_lm/v05_benchmarks/gate_e_c188_multimissing_target_selection.py": "0819bc70377a949fe1c17a66be559336bbda96e1",
+    "fold_lm/v05_benchmarks/gate_e_c189_live_multimissing_target.py": "b34b40d84ab6597cc1cd26e47f64d58254d3304f",
+    "fold_lm/v05_benchmarks/gate_e_c190_iterative_multimissing_acquisition.py": "aab7c2fee08327d5c4f3ff4e3e76eb592f3fdfef",
+    "fold_lm/v05_benchmarks/gate_e_c200_acquisition_channel_input.py": "bf43ead7a7a80bb70f1e10be4f1d2af67c68f3dd",
+    "fold_lm/v05_benchmarks/gate_e_c201_selected_fact_channel_route.py": "6b7029433e8dde0db0b43ff0f844d25f7405cb46",
+    "fold_lm/v05_benchmarks/gate_e_c202_three_channel_acquisition_dispatch.py": "4a64e5ddc788165ccb4980710e6fff4678e0ae21",
+    "fold_lm/v05_benchmarks/gate_e_c203_mixed_channel_multistep_replay.py": "5cb7560d5a70370f3d133e9a43d31d8cda88e6c6",
+    "fold_lm/v05_benchmarks/gate_e_c204_live_v2_mixed_channel_loop.py": "929ee89f93db385202ea477e12abf63c3d387c30",
+    "fold_lm/v05_benchmarks/gate_e_c205_phase0_batch_composition_attribution.py": "56642fdd3ded16570a31cc79e78bce9f2151d06c",
+    "fold_lm/v05_benchmarks/gate_e_c206_terminal_derived_result_integration.py": "ac52859a087c9d9e98a3e7e6116da288a7f2e398",
+    "fold_lm/v05_benchmarks/gate_e_c207_nine_family_development_manifest.py": "d824f1203f6098147a993a8fffb36b29f7654cc9",
+    "fold_lm/v05_benchmarks/gate_e_c208_candidate_input_compatibility_preflight.py": "4aa2f11687f76e8e7ed6228441412e4f4f161cd6",
+    "fold_lm/v05_benchmarks/gate_e_c209_visible_only_candidate_projection.py": "d207f97046b7e36cdc27f1fbf99d7bb8c14091f0",
+    "fold_lm/v05_benchmarks/gate_e_c210_baseline_development_measurement.py": "309e1a54a00ef828cea29f705e69d9a56df899d9",
+    "fold_lm/v05_benchmarks/gate_e_c211_deciding_manifest_freeze.py": "9ca2ac3f9bf1fb697a25a4a052de473f43184e73",
+    "fold_lm/v05_benchmarks/gate_e_c212_deciding_holdout_execution.py": "b9afd4fa6794ad7d3ddf7a7f7861d461b7c185c5",
+    "fold_lm/v05_benchmarks/gate_f_c213_memory_operation_contract.py": "42c7aad0bcd00f525350a67cf7a8cd478bf69c1a",
+    "fold_lm/v05_benchmarks/gate_f_c214_memory_capsule_closure.py": "43dc49bc1ccbb8212d8201c9d3780871dda5f50d",
+    "fold_lm/v05_benchmarks/gate_f_c215_h1_h2_chunk_commit.py": "5aa485f8ac38f67327232ad69d793d36439f0113",
+    "fold_lm/v05_benchmarks/gate_f_c216_learned_reader.py": "fdc2cb06e1da5a5b7509097a9556c62c5465d45c",
+    "tests_lm/test_v05_c171_derived_result.py": "1ef6305f53ac3c40871405f8ea9485e3e0c87cff",
+    "tests_lm/test_v05_c200_acquisition_channel_input.py": "c139ad665d4d65fc87612d67ecd825d6f0e6b016",
+    "tests_lm/test_v05_c201_selected_fact_channel_route.py": "ebe33c63503dfb4c7a3fed5b6bd4e85f2acc7286",
+    "tests_lm/test_v05_c202_three_channel_acquisition_dispatch.py": "2c3a3aec26b7f958eda7f6c72176ba54069faaae",
+    "tests_lm/test_v05_c203_mixed_channel_multistep_replay.py": "177356c68da3fc8d88bc40397762ca9bf5e5b4dd",
+    "tests_lm/test_v05_c204_live_v2_mixed_channel_loop.py": "e6af66893ea54034787ab4cb07c2d80837e3dc13",
+    "tests_lm/test_v05_c205_phase0_batch_composition_attribution.py": "9301bf68d7433535d5521cca8fadf6643b7ca6d8",
+    "tests_lm/test_v05_c206_terminal_derived_result_integration.py": "a851e1e76f7b192e988795658bcee3bcb8021e4d",
+    "tests_lm/test_v05_c207_nine_family_development_manifest.py": "ef9106b69ac61cd02319670aac03db350df98337",
+    "tests_lm/test_v05_c208_candidate_input_compatibility_preflight.py": "6a8989bebe34f28d5e03b5d86adaa195fabad4db",
+    "tests_lm/test_v05_c209_visible_only_candidate_projection.py": "8b250ffd4219af1eaac39ca2a6e0c3940300b70d",
+    "tests_lm/test_v05_c210_baseline_development_measurement.py": "5b88db44bb17d256aeebbbb72b877bc5d572662b",
+    "tests_lm/test_v05_c211_deciding_manifest_freeze.py": "93208cc667790ae50a40d70747158f49fb51187c",
+    "tests_lm/test_v05_c212_deciding_holdout_execution.py": "1272cefa0b4953564a240bcb329cddcb3b7e0f57",
+    "tests_lm/test_v05_c213_memory_operation_contract.py": "6a254ec5f323f59440176b04ff1fdc3b618835f3",
+    "tests_lm/test_v05_c214_memory_capsule_closure.py": "a6da89f9b8402e08b6a38ffef2414548541c8858",
+    "tests_lm/test_v05_c215_h1_h2_chunk_commit.py": "d8ae3dea9fa53f8702bed62021c87e60375959ee",
+    "tests_lm/test_v05_c216_learned_reader.py": "9776cea5594fb7d45d43369db6e35548e03d9628",
+    "tools/invoke_active.ps1": "86b5606a5b212b12f416abedac0923da634f88e3",
+    "tools/invoke_c200.ps1": "b7c229f30f5c7ff05c8adfa41ac634029735c923",
+    "tools/invoke_c201.ps1": "2da127d54cf30f6b77696f6b8f8aa2568f6b72c1",
+    "tools/invoke_c202.ps1": "9dffb325582c3dfadeaa95cc2c81f5e4f87aceba",
+    "tools/invoke_c203.ps1": "0d92dbb3e6a0a6b5375a82c06ab2de6e8a30c7e1",
+    "tools/invoke_c204.ps1": "b3ffeb04ebee921c3f2f7379df7dfb8abd032f1b",
+    "tools/invoke_c205.ps1": "00f5f49a0f18f8bf70e4c7db6f862c1d89bff305",
+    "tools/invoke_c206.ps1": "7db56a4f223f634a7aa49b6ac8e555f4b4d7e5c7",
+    "tools/invoke_c207.ps1": "8c76c824318365de167771fe74db12a42b37bd05",
+    "tools/invoke_c208.ps1": "393bd13a8a89f485212c02f4381c00d7ded5ef86",
+    "tools/invoke_c209.ps1": "83b06fab9e3e7118cca02e696dd66612fde79040",
+    "tools/invoke_c210.ps1": "2a9cbd9abe74b52ea11e570a3b0a181fe1659fe4",
+    "tools/invoke_c211.ps1": "37e258a232bbe7fe77f89113fa9317696eb9d84e",
+    "tools/invoke_c212.ps1": "16568563f05cf9d5ac05b59792627185190999d4",
+    "tools/invoke_c213.ps1": "cbcc150db7d19a3c5975adfa6b666e6b13979d00",
+    "tools/invoke_c214.ps1": "5d5a4f5531869ac5386ef8e0ce0bdcbb935c3375",
+    "tools/invoke_c215.ps1": "e8f78c6b1abc0d6ec54077cf48a3f52867e8d600",
+    "tools/invoke_c216.ps1": "d5e74b241baf6ce7f371267f565160e34f13469e",
+    "tools/run_c167.ps1": "7c5d6e9838d4ce7bd2bfec0e43458eb749fd1789",
+    "tools/run_c171.ps1": "d7b32c5969347f7d41c1a15d515ae82c0ee255fe",
+    "tools/run_c200.ps1": "c592d9d685a7fdb8bf2560b0658e97e3614f7803",
+    "tools/run_c201.ps1": "f4ffa2dfe60f9388f96d8d7e3d8a747703d59d31",
+    "tools/run_c202.ps1": "e70b83d683c41ef6c4cf7b997997af93a70f1e92",
+    "tools/run_c203.ps1": "a3083e05f4e8d191c4ecb0d2132aa3ded07455e9",
+    "tools/run_c204.ps1": "57a191f79ddd62c972cf7cf146b76af8c1810171",
+    "tools/run_c205.ps1": "3567646ebb65c99709fce5973995ae01261ea4e4",
+    "tools/run_c206.ps1": "19994f0117bf10c37a8a72910446129edef332a1",
+    "tools/run_c207.ps1": "1fd67819f6d43cc2bcae993acdce6c300989270c",
+    "tools/run_c208.ps1": "3e2a1c01b8d6a12d48d72dd7f8acfbfbe16a25aa",
+    "tools/run_c209.ps1": "d7bfad68c05b9b4f7c30145fedf9d73cd1483eef",
+    "tools/run_c210.ps1": "ca68ab45c64056d44307ed07363cefbf6f20cedf",
+    "tools/run_c211.ps1": "0faddc0532a1b5f963af0e1955372051a0624fc6",
+    "tools/run_c212.ps1": "d670b2a29dc63b35560d1426de707e75b55ceef4",
+    "tools/run_c213.ps1": "9e553a637ebc89895999548ff229c9f023ee2f95",
+    "tools/run_c214.ps1": "38da9e2467ed2f91d28a7473f0ba9b465c5087f2",
+    "tools/run_c215.ps1": "3d0ba9b38925ef6b047efd1964e8b24641c0df22",
+    "tools/run_c216.ps1": "b7863f77fc228d7ee3bb592f8a454ba2246cf3c7"
+  },
+  "stage": "V5-F-LEARNED-READER-PILOT",
+  "status": "PASS",
+  "trained_models": 3,
+  "training_examples_drawn": 28800,
+  "training_steps_total": 1200,
+  "validation_summary": {
+    "all_checkpoint_roundtrips": true,
+    "chunk_commits": 18,
+    "coverage_classifier_calls": 0,
+    "data_sha256": "9ded8a1b17cf721407e5d28c9dd6350159d0a17721f39bf9b57a911b78aa3f61",
+    "eval_rows": 12,
+    "learned_reader_calls": 1215,
+    "learned_writer_calls": 0,
+    "oracle_selector_calls": 36,
+    "oracle_writer_operations": 18,
+    "port_selector_learned_calls": 0,
+    "reader_query_features": 0,
+    "reader_status_features": 0,
+    "seed_records": [
+      {
+        "checkpoint_roundtrip": true,
+        "eval_accuracy": 1.0,
+        "eval_committed_accuracy": 1.0,
+        "eval_hot_accuracy": 1.0,
+        "eval_predictions": [
+          0,
+          1,
+          0,
+          1,
+          1,
+          2,
+          1,
+          2,
+          2,
+          0,
+          2,
+          0
+        ],
+        "final_loss": 0.0028551879804581404,
+        "final_sha256": "6f1219b4277e3d4af6494ecf2280f2442887df05d5d133f2e2566b29bf804336",
+        "initial_loss": 1.1148171424865723,
+        "initial_sha256": "0bdfed44076ec215b1b47a0df2f38102f3c518c98a9d82f4ff342a68ee2bbf00",
+        "placement_prediction_mismatches": 0,
+        "scoring_forward_calls": 5,
+        "seed": 216001,
+        "train_accuracy": 1.0,
+        "train_predictions": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          2,
+          1,
+          0,
+          1,
+          0,
+          1,
+          1,
+          1,
+          1,
+          2,
+          1,
+          2,
+          1,
+          2,
+          2,
+          2,
+          2
+        ],
+        "zero_predictions": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "zero_readout_eval_accuracy": 0.3333333333333333
+      },
+      {
+        "checkpoint_roundtrip": true,
+        "eval_accuracy": 1.0,
+        "eval_committed_accuracy": 1.0,
+        "eval_hot_accuracy": 1.0,
+        "eval_predictions": [
+          0,
+          1,
+          0,
+          1,
+          1,
+          2,
+          1,
+          2,
+          2,
+          0,
+          2,
+          0
+        ],
+        "final_loss": 0.0023204993922263384,
+        "final_sha256": "1b7b2f96ad3e33d4ac0422cd7ca72b7f6e53707acf52aa17a44f188b7c2ed199",
+        "initial_loss": 1.073943018913269,
+        "initial_sha256": "585892b1704042c09f7819193e1808311f82acc8fd1a64db5a170e3f472d07a2",
+        "placement_prediction_mismatches": 0,
+        "scoring_forward_calls": 5,
+        "seed": 216002,
+        "train_accuracy": 1.0,
+        "train_predictions": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          2,
+          1,
+          0,
+          1,
+          0,
+          1,
+          1,
+          1,
+          1,
+          2,
+          1,
+          2,
+          1,
+          2,
+          2,
+          2,
+          2
+        ],
+        "zero_predictions": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "zero_readout_eval_accuracy": 0.3333333333333333
+      },
+      {
+        "checkpoint_roundtrip": true,
+        "eval_accuracy": 1.0,
+        "eval_committed_accuracy": 1.0,
+        "eval_hot_accuracy": 1.0,
+        "eval_predictions": [
+          0,
+          1,
+          0,
+          1,
+          1,
+          2,
+          1,
+          2,
+          2,
+          0,
+          2,
+          0
+        ],
+        "final_loss": 0.003396005602553487,
+        "final_sha256": "3d26451e54a8e4327f2dcc9128e73c7e3fc60605c3e2d894876bd65057d2dd7f",
+        "initial_loss": 1.1430668830871582,
+        "initial_sha256": "8a062c210b32364ed7d8e6ff9598dd0cc32b5167ed6af7d3b66ea2535ad35a44",
+        "placement_prediction_mismatches": 0,
+        "scoring_forward_calls": 5,
+        "seed": 216003,
+        "train_accuracy": 1.0,
+        "train_predictions": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          2,
+          1,
+          0,
+          1,
+          0,
+          1,
+          1,
+          1,
+          1,
+          2,
+          1,
+          2,
+          1,
+          2,
+          2,
+          2,
+          2
+        ],
+        "zero_predictions": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "zero_readout_eval_accuracy": 0.3333333333333333
+      }
+    ],
+    "train_rows": 24
+  }
+}
 
-FAILED (errors=1)
+summary = M:\asobiba\fold\runs\c216-v5f-learned-reader-5fb7ef1e99ec4ee189a3047cc60953d0\summary.json
+summary_sha256 = 7542625a054725d3a70dfa1c19f706fe8fce26af379e24b92aa1ae478483acc9
+scientific_status = PASS
+seed_eval = [(216001, 1.0), (216002, 1.0), (216003, 1.0)]
+seed_zero = [(216001, 0.3333333333333333), (216002, 0.3333333333333333), (216003, 0.3333333333333333)]
+placement_mismatches = [0, 0, 0]
+learned_reader_calls = 1215
+reader_gate = True
 === C216 POSTCHECK ===
 protected_inputs = preserved; tracked_tree = clean; execution_HEAD = preserved
-run_execution_valid = False
+run_execution_valid = True
