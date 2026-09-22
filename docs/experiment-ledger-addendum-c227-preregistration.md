@@ -91,25 +91,43 @@ Manifest SHA:
 
 ## Post-authoring review
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-Author-side30 targeted tests passed before remote review (1.368 seconds),32 methods enumerated,
-manifest matched and all three embedded Python runner blocks compiled. Tests include real PyTorch
-Cholesky/cholesky_solve versus solve on synthetic bridge fixtures at all four dimensions, stale
-binding/tensor-mutation rejection, trace restoration, exact archive contracts, and a synthetic run
-exercising parent-adapter/measurement/export/postcheck ordering.
+Review HEAD: `70586952bbaa23d1d5d7cf9efe521dc3b9ea8557`.
+Scope: committed-source audit and targeted authoring validation, not formal science.
 
-Those fixtures are not the complete accepted memory backend. Not executed locally: test31 with the
-actual parent bank/exports, test32/full2561 historical suite, Windows PowerShell AST parse, local
-parent-artifact precheck or formal C227 measurements. Repository clone failed DNS resolution.
+All four code/test/PowerShell files were re-fetched from that committed HEAD. Their Git blobs matched
+the executed local copies exactly:
+- benchmark: `98fcbbc84590e07d4c544440fe859c7450c83b2a`;
+- tests: `b3796ffe5c98f6293dd1251ca2ddfdacc1d0172e`;
+- runner: `96c726decbe99e2ee9490c53096f0c089efe6c9a`;
+- launcher: `f9b1a670012ae4a2ceb576072ae3f3f20ef1a1e3`.
 
-Before review PASS, re-fetch committed code/test/runner/launcher and verify exact Git blobs against
-the tested copies, rerun targeted tests, check direct dependency/protection coverage, parent field
-semantics, original export parity paths, CLI indexes and all launcher guards. Review PASS must state
-its scope and must not misrepresent synthetic testing as complete historical execution.
+After the comparison,30 targeted tests reran successfully (0 failures/errors,2.491 seconds) on
+Python3.13.5 / PyTorch2.10.0+cpu, threads2.32 methods enumerate. Manifest hash matched; both Python
+files and all three embedded Python blocks compiled. CLI indices are precheck[1], postcheck[1..3].
+Unbound executable c### aliases0.
+
+Actual torch Cholesky/cholesky_solve versus solve was exercised at all four dimensions on synthetic
+bridge fixtures, including capability/nonfinite/non-SPD rejection, exact snapshot binding and tensor
+mutation checks. Trace wrappers restored on normal/exception exits. Archive validation and a synthetic
+run verified adapter/measurement/export/postcheck order. These are not the complete accepted backend.
+
+Source review checked parent matrix/measurement meanings, helper factory/argument order, actual
+current-state aggregation and checked factor preparation, original two-arm inventory comparisons,
+complete raw/index/shared-bridge plus cache retention, query traces outside timing,25 dependency
+coverage,202/268 accounting, early-own-test ordering, standard guard/parser/publisher paths and C228
+non-registration. Git compare shows only new C227/acceptance files and the unpinned handoff; no
+accepted source, historical test, log or dependency was modified or deleted.
+
+Not executed locally: actual parent bank/export test31, historical test32/full2561 suite, Windows
+PowerShell AST parse, local user-artifact precheck or formal C227 measurements. Clone failed DNS
+resolution. No synthetic result is represented as those execution checks.
 
 The authoritative runner executes all32 own tests, then2561 focused tests, then measurement.
 Failure stops before the next phase; the console log is published through the standard mechanism.
+Review PASS does not waive the mandatory execution gates. After the review HEAD only review
+metadata changes; scientific conditions remain fixed.
 
 ## Interpretation boundary and stop
 
