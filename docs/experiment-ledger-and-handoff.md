@@ -20,7 +20,8 @@ Authoritative Python: 3.13.15 / PyTorch 2.10.0+cu130 / NumPy 2.3.5.
 - **C215 ACCEPTED PASS**
 - **C216 ACCEPTED PASS**
 - **C217 ACCEPTED PASS**
-- **C218 NOT REGISTERED**
+- **C218 ACTIVE / NOT YET JUDGED**
+- **C219 NOT REGISTERED**
 
 C216 is the unique ACTIVE experiment.
 
@@ -306,23 +307,97 @@ Non-claim:
 C217 does not establish learned writing, learned coverage, natural-language query understanding,
 many-port scaling, memory-cost advantage or Gate F.
 
-## Next boundary
+## Active C218 — learned semantic Writer pilot
 
-C218 is not yet registered.
+Experiment:
+`C218-v5f-learned-semantic-writer-pilot`
 
-Next one-question intervention:
-can a learned semantic Writer map a structured observation descriptor to the correct factor+relation
-write on held-out nuisance combinations, such that oracle operation kind plus accepted C215 memory
-semantics and frozen C217 selector/C216 readers preserve correct ASSERT and REPLACE outcomes?
+Stage:
+`V5-F-LEARNED-SEMANTIC-WRITER-PILOT`
 
-C218 should keep operation kind oracle, freeze Reader and Port Selector, keep Coverage classifier
-absent, and learn only the Writer's factor+relation choice.
+One question:
+given a structured observation descriptor, can a learned Writer choose the correct factor+relation
+on held-out nuisance input and preserve ASSERT/REPLACE downstream semantics through frozen accepted
+C217 Selectors and C216 Readers?
+
+Changed variable:
+- learned `fold_lm/v05/memory_writer.py` only.
+
+Held constant:
+- operation kind oracle ASSERT/REPLACE;
+- all three accepted C217 Port Selectors frozen;
+- all three accepted C216 Readers frozen;
+- accepted C215 H1/H2 memory semantics;
+- Coverage classifier absent;
+- no language mapping.
+
+Writer data:
+- descriptor width5;
+- factors alpha/beta;
+- semantic values -1/0/+1;
+- six relation classes;
+- TRAIN nuisance [-1,-1],[-1,+1],[+1,-1];
+- EVAL nuisance [+1,+1];
+-24 rows /18 TRAIN /6 EVAL;
+- data SHA `06f8df444119f0332168a956e7f32e9690b88fa9c39749d3ecc2283c70213714`.
+
+Controls:
+- factor-blind EVAL accuracy0.5;
+- semantic-blind EVAL accuracy1/3;
+- forced wrong-semantic downstream accuracy0.0;
+- forced wrong-factor downstream accuracy0.0.
+
+Training:
+- Writer5->12->6,150 parameters;
+- seeds218001/218002/218003;
+- Adam lr0.02;
+-400 full-batch steps/seed;
+-1200 steps /21600 examples;
+-1212 Writer forwards;
+-3 frozen Selector forwards;
+-72 frozen Reader forwards;
+-1287 total model forwards.
+
+Operation schedule:
+- learned Writer op slots54;
+- oracle initialization writes60;
+- control writes12;
+- chunk-commit slots96.
+
+Successful writes/commits are scientific metrics, not execution-validity workload requirements.
+
+Fixed gate:
+- TRAIN/EVAL relation accuracy1.0;
+- factor-blind0.5;
+- semantic-blind1/3;
+- Writer checkpoint roundtrip exact;
+- write rejections0;
+- ASSERT overall/HOT/COMMITTED accuracy1.0;
+- ASSERT placement mismatches0;
+- REPLACE accuracy1.0;
+- wrong-semantic0.0;
+- wrong-factor0.0;
+- actual learned Writer attempts54;
+- successful chunk commits96.
+
+Authoring:
+- source pins144;
+- protected inputs156;
+- artifacts5;
+- C218 tests38;
+- regression modules103;
+- loaded2260 / focused2259;
+- manifest `e855905bc1ff7c1b105608163a4483b7c5dbffb6d4ca5ce1a130ffb542493394`.
+
+## C218 post-authoring review
+
+**post_authoring_review = PENDING**
+
+Do not issue C218 execution command until committed remote review passes.
 
 
 ## Stop condition
 
-C217 is closed as **ACCEPTED PASS**.
-
-Prepare and review C218 before execution.
+Judge C218 before any C219 registration.
 
 Gate E remains **PASSED**. Gate F remains **NOT PASSED**.
