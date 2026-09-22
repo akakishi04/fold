@@ -100,23 +100,42 @@ Manifest SHA256: `09f2a463981d49680ca66940698baf363731adda9fda8718c5b59fdc281b80
 
 ## Post-authoring review
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-Initial author-side targeted30/30 tests passed using real PyTorch optimizer/scoring/serialization
-with synthetic models. The full-run adapter test intentionally simulates training and verifies a
-valid negative is preserved; it is not a400-step V5-B scientific result. The optimizer tests actually
-perform two synthetic training steps. Dataset/grouping/byte counts and manifest hashes were computed.
-No model quality tuning on EVAL was performed.
+Review HEAD: `2c8a97bb56a3eb79aebea556c04bbdf49d374af1`.
+Scope: committed-source audit and targeted synthetic authoring validation, not formal science.
 
-Pending here: test31 actual V5-B TRAIN-only two-step smoke, test32/full2721 historical suite,
-Windows PowerShell AST parsing, user-local accepted-artifact checks and formal1200-step C232 run.
-The container could not resolve raw.githubusercontent.com; connector reads work. Do not claim
-synthetic tests replace the actual parent/runtime checks.
+All four committed code/test/PowerShell files were re-fetched after authoring and their Git blob
+identities matched the tested local copies exactly:
 
-Before issuing a command, re-fetch all committed code/test/runner/launcher bytes, compare to tested
-copies and rerun targeted tests. Audit parent schema and loader wiring, source pins, fixed split,
-no EVAL tensors in fit(), unigram TRAIN-only counts, full-run valid-negative path, CLI indexes,
-exact source-string assertions and parser/ACTIVE/HEAD guards. Record the review HEAD and limits.
+| File | Blob |
+|---|---|
+| C232 benchmark | 644f7cd3b1d89454f33be1431616a655f8d215db |
+| C232 tests | cb72903208ed62c485654491ec9a051e4fe3a244 |
+| run_c232.ps1 | 8dc24a77e78236cd79325a1417fd1f8baefd3767 |
+| invoke_c232.ps1 | b315131db009489ff762dbda244f6a4c09813b21 |
+
+After comparison30 tests reran:30 PASS,0 failures/errors in0.062s, Python3.13.5 /
+PyTorch2.10.0+cpu / NumPy2.3.5.32 methods enumerated. Both Python sources and all three embedded
+runner Python blocks compiled; unresolved global names0 (including legitimate interpreter-injected
+module globals in the analysis). Data/manifest hashes recomputed exactly. Dataset48/16 split,
+948/316 byte counts, pair-group isolation, TRAIN-only unigram, byte-weighted scoring and no EVAL
+arguments to fit() were checked. Actual optimizer tests performed two synthetic steps; the full-run
+adapter deliberately simulated training and verified a valid negative, outputs and postchecks.
+Neither fixture is claimed as400-step learning or actual V5-B evidence. No EVAL-driven tuning.
+
+Source review checked parent artifact identities/semantics, model factory and prefix adapter reuse,
+238/334 protection accounting, direct dependency coverage, CLI precheck[1]/postcheck[1..3], exact
+source-string assertions, early own-test ordering and complete parser/ACTIVE/HEAD/publication guards.
+Git comparison from the C231 log commit shows only new files and the unpinned handoff. No accepted
+source, test, log or dependency was edited/deleted. C233 remains unregistered.
+
+Not executed here: test31 actual V5-B TRAIN-only two-step smoke, test32/full2721 historical suite,
+Windows PowerShell AST parsing, user-local accepted-artifact checks or formal1200-step C232 run.
+The container could not resolve raw.githubusercontent.com; connector reads worked. Synthetic tests
+are not substitutes for those checks. The authoritative runner executes all32 new tests, then2721
+focused tests, then fixed-budget science; failure stops and publishes evidence. Review PASS does
+not claim the pending checks ran. After the review HEAD only review documentation changes.
 
 ## Stop
 
