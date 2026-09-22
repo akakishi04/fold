@@ -8,110 +8,101 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
-**C232 ACCEPTED PASS. C233 ACTIVE / NOT YET JUDGED. C234 NOT REGISTERED.**
-C233 is unique ACTIVE. Committed-source review passed; all execution preflights remain mandatory.
+**C233 ACCEPTED VALID NEGATIVE. C234 ACTIVE / NOT YET JUDGED. C235 NOT REGISTERED.**
+C234 is unique ACTIVE. Do not execute until committed-source post-authoring review passes.
 
-## Accepted C232 — bounded bilingual learning
+## Accepted C233 — no consistent core advantage
 
-Scientific execution HEAD: `5fced21f02448e5b1047ef661186ce9b5c6bdb02`.
-Published log commit: `3f67a03bdd5e5bc07e9324d8a7ea830ea798b7b7`.
-Log SHA: `0c328cdc40d62bfee0523e685981e35327846f3124f7fee876839649eedaecf1`.
-Summary SHA: `df75e3956a6bfaa37aaebdb12f3d189a10010576f0d9fa8709e5e399e1da75d2`.
-Local summary:
-`runs/c232-v5b-bilingual-learning-67b366b0db07449185a18bd0bbe7b996/summary.json`.
-Validation SHA: `d7084ad67ee1072aa1c985c5d62ae958ce7771994db18bd29530442486e04ded`.
-Measurements SHA: `ca14020688c9993edde9d176d596c7ffc1704ddbf78ab55520abbc48f5351c04`.
-Checkpoint SHA: `c26e7bb71a9e9a882561165ef91e94b9c2ff257a0d39aa8166654c995e042a7b`.
+Scientific execution HEAD: `fedf6c3e5c163d449d1ad793a87d4fa6952deb1d`.
+Published log commit: `519d71abe912639869130cb4dff3f196e166b92f`.
+Log SHA: `63e5b22242720deac9b33999cf38b2331ad4069604b866c0801ab6cec0a9a651`.
+Summary SHA: `5e9895008ebf02c72c3b5c00a8668f1c8078feef94dd2fc1eff192d41e8709bf`.
+Local summary: `runs/c233-v5b-core-ablation-f73f95f4afa44668a64b953f1bbad723/summary.json`.
+Validation SHA: `c839db0ed26f0369dcedb6227ae5278ca60904d8636da0d00e49da02d75998e4`.
+Comparisons SHA: `7ad45aac3d70cc2a5d8054b4dfcaae36ad169f2434981904e8b657eb053b872c`.
+Checkpoint SHA: `0bbe764c832d2fb33b3f51e3838c7178ab7121cf6c2f72a25bda43b2cb0722a3`.
 
-Own32 tests OK in1.390s;2721/2721 focused tests OK in60.495s. Source/artifact/postchecks passed;
-protected inputs preserved; tracked tree clean; run_execution_valid True. Only log/receipt published.
-All three models completed400 steps each,1200 total and38400 TRAIN byte presentations.
+2753/2753 regression OK in53.150s. Three GRU-only models completed400 steps each,1200 total and38400
+sampled byte presentations. Parent/full and baseline replay checks, protected inputs, artifact
+checks and clean tree passed. run_execution_valid True; baseline_qualified True; all_replays True.
+Only log/receipt published. Verdict is from published evidence and recorded local postchecks.
 
-| Seed | Final EN EVAL BPB | Final JA EVAL BPB |
-|---:|---:|---:|
-| 232001 | 0.541316849 | 0.524732128 |
-| 232002 | 0.426583413 | 0.551531750 |
-| 232003 | 0.479749709 | 0.448818815 |
+| Seed | Full EN BPB | GRU-only EN | Full JA BPB | GRU-only JA |
+|---:|---:|---:|---:|---:|
+| 232001 | 0.541317 | 0.491041 | 0.524732 | 0.435336 |
+| 232002 | 0.426583 | 0.502808 | 0.551532 | 0.521941 |
+| 232003 | 0.479750 | 0.499719 | 0.448819 | 0.469008 |
 
-All beat their own initialization and unigram EN4.579441272/JA4.642439365; TRAIN loss decreased.
-Checkpoint fingerprints and48 short generation replays matched; reload error0. Verdict relies on
-published evidence/local postchecks, not reviewer access to local-only checkpoints.
-Acceptance record: docs/experiment-ledger-addendum-c232-c233.md (commit b0823af9f073c891ca6fa556c3bd93da0c2510cb).
+Full wins3, GRU-only wins3, ties0. Registered full-win gate required6/6; serialized scientific_status
+FAIL/core_ablation_gate False is an accepted valid negative, not an execution error. Do not rerun
+or soften the gate. Record: docs/experiment-ledger-addendum-c233-c234.md, acceptance commit
+`3d3f6ad6f9903085ca083fbfc77bf0d4d77a93d7`.
 
-This is learning on64 authored template sentences, not general language/reasoning. Four held-out
-pairs and familiar vocabulary/grammar do not establish semantic composition. The learned GRU itself
-may explain much of the improvement. C231 evaluator audit remains accepted. No complete v0.5,
-learned-memory integration or Gate F completion is claimed.
+The smaller ordinary recurrent backbone is competitive on this fixed template task. C232's learning
+cannot be attributed uniquely to the core. This is not a statistical equivalence result or proof
+that the core is useless on all tasks. Three seeds, four reused held-out pairs, one training recipe
+and unequal capacity13488/10160 limit the claim. C232's bounded learning result remains accepted.
 
-## Active C233 — backbone-matched core ablation
+## Active C234 — contextual binding, not another template-loss rescue
 
-Experiment C233-v5b-backbone-matched-core-ablation.
-Stage V5-B-BACKBONE-MATCHED-CORE-ABLATION.
+Experiment C234-v5b-contextual-binding-pilot.
+Stage V5-B-CONTEXTUAL-BINDING-PILOT.
 
-Question: under the same common initialization, TRAIN minibatches and400-step budget, does the
-full C232 model beat a freshly trained GRU-only version with the iterative core removed?
+One question: can the unchanged full model select the queried object's observed value and change
+its answer correctly when the facts or queried object change? Retain GRU-only as a comparator.
+No architecture change, learned-memory integration, larger model, external data or C233 gate change.
 
-Copy initial embedding/GRU/norm/decoder weights, not trained weights. Verify original full-model
-initialization and restore accepted trained full checkpoints only for replay/comparison. Baseline
-10160 parameters versus full13488; this is not a parameter- or compute-matched architecture contest.
+Examples: box=0;book=3;box= ->0; same facts query book ->3; swap values query box ->3.
+English object names box/book/ball/umbrella; Japanese 箱/本/玉/傘; values0/1/2/3.
+Only the separate requested answer byte is trained/scored; unconstrained256-way byte output.
 
-Keep C232's64 sentences,48 TRAIN/948 bytes,16 EVAL/316 bytes and pair grouping. Reuse seeds
-232001/232002/232003 and sample generator seed+1000 deliberately for pairing. CPU float64, threads2,
-AdamW lr0.005, betas0.9/0.999, eps1e-8, weight_decay0, gradient clip1.0; batch32,400 steps per seed.
-Only baseline trains:1200 new steps/38400 presentations, full retraining0. No EVAL tuning or early stop.
+576 rows from72 binding groups x2 languages x2 fact orders x2 queried objects. Hold out complete
+co-occurring value pairs {0,3}/{1,2}. TRAIN384 rows/48 groups; EVAL192 rows/24 groups. Every individual
+object/value pairing appears in TRAIN; all rendering/query variants of a binding stay together.
+Per-language EVAL96, balanced digits. First/last-fact baseline50%; constant25%.
 
-Qualify each baseline against its initialization/unigram first. Then full-core advantage requires
-strictly lower full-model EVAL BPB in all six seed/language cells. Report both win counts and ties.
-Unqualified baseline means INCONCLUSIVE, not evidence favoring full. Qualified gate misses are
-valid negatives. Failed source/artifact/checkpoint replay is INVALID / RETRY SAME C233.
-Same observed split is diagnostic reuse, not fresh confirmation. Capacity and recurrence effects
-are not separated by a full-model win. No general language, speed or Gate F claim.
+Paired normal-input tests require both answers correct when swapping assigned values or queried
+object.48 pairs per language of each type, sharing the same96 rows. Also mask observed values or
+queried object separately and measure accuracy drops. Masks are out-of-distribution controls,
+not independently sufficient evidence of understanding.
 
-Parent238 sources/334 inputs + OWN6 and parent summary/artifacts ->244 sources/346 inputs.
-Nine direct deciding dependencies. New tests32; modules118; loaded2754/focused2753; artifacts5.
-Keep the inherited exact C204 mutable-state test exclusion only.
-Manifest: `01459cd555cc15193b1289767cd824d159999faff130d537d16c5895f3f83d39`.
-Registration: docs/experiment-ledger-addendum-c233-preregistration.md.
-Design: docs/v5b-backbone-matched-core-ablation-v0.1.md.
+Fresh seeds234001/234002/234003. Copy common INITIAL weights before either family trains.
+Full13488 /GRU-only10160; CPU float64, threads2; AdamW lr0.005, clip1.0, batch32,400 steps/model,
+identical TRAIN sampler seed+1000. Six models/2400 steps/76800 answer presentations. No tuning,
+early stop, seed replacement or learned-weight continuation from C232/C233.
 
-## C233 post-authoring review
+Primary full-model gate, every seed/language: exact answer accuracy>=90%, fact-pair>=80%,
+query-pair>=80%, evidence-mask drop>=35 percentage points, query-mask drop>=35 percentage points.
+Report identical GRU gate independently; no full-versus-GRU superiority requirement/claim.
+Check fingerprints, all normal/masked logits replay <=1e-9, exact predicted-byte replay.
 
-**post_authoring_review = PASS**
+Parent244 sources/346 inputs ->250 sources/358 inputs. OWN6, direct dependencies10, artifacts5.
+New tests32; modules119; loaded2786/focused2785 with inherited exact exclusion1.
+Data SHA: `72e2f07dc12e9f7e538e2bdd08e3a738d423cd536d1e509301363e467ef26c85`.
+Manifest SHA: `0c3c3cedd0a15fa8b392cbe38ba5285113a948b78ef3511bf106cbc75d7b2d38`.
+Registration: docs/experiment-ledger-addendum-c234-preregistration.md.
+Design: docs/v5b-contextual-binding-v0.1.md.
 
-Review HEAD: `500793e23026eee709c53c57612c0764e5659b61`.
-Scope: committed-source review and targeted authoring execution, not scientific execution.
+## C234 post-authoring review
 
-The previous blocked test-file write was an authoring interruption. The standard create_file
-operation subsequently succeeded (f1db06114d8b2e6beb6ff47a6807e3eb4b72584a). All six OWN files are
-now present. No alternative write path was used. C232 rerun is unnecessary; draft benchmark and
-scientific manifest remain unchanged.
+**post_authoring_review = PENDING**
 
-Remote code/test/runner/launcher were re-fetched after authoring and all four Git blobs matched
-local copies. Then30 targeted tests reran:30 PASS,0 failures/errors,0.8823s on Python3.13.5 /
-PyTorch2.10.0+cpu.32 methods enumerated; Python sources and three embedded runner blocks compiled;
-undefined globals0; manifest matched; CLI precheck[1]/postcheck[1..3]. Tests use real GRU/optimizer
-layers in synthetic fixtures. Full-run adapter testing simulates training/evaluation and preserves
-a valid negative. It is not a400-step model-quality result or accepted checkpoint replay.
+Initial30/30 targeted authoring tests passed in1.006s with real GRU/optimizer layers in synthetic
+parent fixtures. Dataset/grouping/balance, paired controls, prefix separation, identical sampling,
+exact-byte scoring and full-run serialization/postchecks were exercised. Full-run training was
+simulated; these are not six-model scientific results. No held-out quality tuning was performed.
 
-Source review checked parent schemas/field meanings, initial-copy-before-trained-load order,
-TRAIN-only sampler, metric deltas,244/346 accounting, nine deciding dependencies and complete
-branch/tree/ExpectedHead/ACTIVE/parser/publication guards. Git compare shows only new C233/
-acceptance files and this unpinned handoff changed; accepted sources/tests/logs were untouched.
-Only review documentation changes after the review HEAD. C234 remains unregistered.
+Not run here: test31 real parent TRAIN-only smoke, test32/full2785 historical suite, Windows
+PowerShell AST, user-local parent artifacts or formal2400-step training. Re-fetch all committed
+sources and perform the independent review before issuing a command. Do not claim pending checks
+have already passed. The runner gates science behind32 own tests and2785 focused tests.
 
-Not run here: actual parent test31, historical test32/full2753 suite, Windows PowerShell AST,
-accepted local artifacts or formal baseline training. The runner executes32 new tests, then2753
-focused tests and only then science. Failure stops and publishes evidence. No pending test is
-represented as already passed by this source-review status.
+## Numeric-memory track and stop
 
-## Numeric-memory track and historical maintenance
+C230 prepared route remains optional; local numeric-memory tuning stays paused. Gate F is open,
+not waived. Preserve all accepted sources/tests and tools/run_c167.ps1. No cleanup/history rewrite,
+new CI, paid API, external corpus or Actions-storage changes.
 
-C230 prepared route stays optional and numeric-memory tuning paused. Gate F is open, not waived.
-No larger model, external data, paid API, new CI, cleanup, history rewrite or Actions-storage work.
-Preserve all accepted sources/tests and tools/run_c167.ps1. Previous interruption record remains at
-342c1afcae1f7447315843a2949c769a3f0b3c84:docs/experiment-ledger-and-handoff.md.
-
-## Stop condition
-
-32 own tests ->2753 focused tests ->C233 baseline training/comparison.
-Judge C233 before C234 registration. Gate F remains NOT PASSED.
+Prior handoff:519d71abe912639869130cb4dff3f196e166b92f:docs/experiment-ledger-and-handoff.md.
+Judge C234 before C235 registration. A complete finite ability miss is a valid negative; source,
+artifact, schema, nonfinite or replay failure is INVALID / RETRY SAME C234. Gate F NOT PASSED.
