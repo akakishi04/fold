@@ -71,6 +71,8 @@ for item in p["artifacts"]:
     path = a.safe_child(out, item["file"])
     assert a.sha(path) == item["sha256"] and path.stat().st_size == item["serialized_bytes"]
 s = p["validation_summary"]
+print("=== C224 MEASUREMENTS ===")
+print(b.blob(a.read_json(out / "measurements.json")).decode())
 print("summary =", out / "summary.json")
 print("summary_sha256 =", a.sha(out / "summary.json"))
 print("scientific_status =", p["status"])
