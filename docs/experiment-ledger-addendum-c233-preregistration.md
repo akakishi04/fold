@@ -97,23 +97,44 @@ renewed request, the standard GitHub create_file operation succeeded for that pa
 write route was used. This is resumed authoring, not same-C scientific execution recovery.
 Acceptance of C232 remains unchanged and no new experiment number is consumed.
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
 
-Initial targeted authoring run:30/30 tests passed in1.010s on Python3.13.5 / PyTorch2.10.0+cpu.
-Tests use synthetic parent fixtures with real embedding/GRU/norm/decoder layers and real short
-optimizer steps. Full-run adapter testing simulates training/evaluation and preserves a valid
-negative; it is not accepted-checkpoint science or a400-step baseline-quality result.
+Review HEAD: `500793e23026eee709c53c57612c0764e5659b61`.
+Scope: committed-source identity/review and targeted synthetic authoring execution, not formal science.
 
-Pending in this environment: actual parent TRAIN-only smoke test31; historical suite test32 and
-all2753 regression tests; Windows PowerShell AST; local-only accepted checkpoint/artifact replay;
-formal1200-step baseline run. Container DNS cannot resolve raw.githubusercontent.com, and pwsh is
-not installed. Connector source reads succeed. Do not claim these pending checks are already PASS.
+After all OWN files existed, remote benchmark, tests, runner and launcher were re-fetched. Their
+Git blob identities matched the local test copies exactly:
 
-After all OWN files are committed, re-fetch remote code/test/runner/launcher and compare Git blobs
-with tested copies. Rerun targeted tests and compile embedded Python. Review fixed manifest/data,
-parent generation/loader semantics, copy-before-trained-load ordering, sampler identity, complete
-launcher guard ordering, source dependency coverage and all counts. Record review HEAD and scope.
-Only then issue the standard invoke_active.ps1 command.
+| File | Reviewed blob |
+|---|---|
+| C233 benchmark | 6c8fce83822de367b8e5493d33a0b96fec2c63b2 |
+| C233 tests | 845dd7bc0be4c5898c45af38861a9e213b8037d9 |
+| run_c233.ps1 | 39203be26a07e2b7262e8ee081bc75723e4ddc33 |
+| invoke_c233.ps1 | 5dd7ad311ef43cd50800531031046dd3bf251c14 |
+
+After that comparison,30 targeted tests reran:30 PASS,0 failures/errors in0.8823s on Python3.13.5 /
+PyTorch2.10.0+cpu.32 test methods were enumerated. Both Python files and all three embedded runner
+Python blocks compiled; undefined global references0; manifest hash matched. Precheck argv[1] and
+postcheck argv[1..3] matched calls. Actual PowerShell parsing is still a Windows execution preflight.
+
+Tests exercised real GRU layers, independent initial-weight copies, EOS readout, two-step optimizer
+updates, exact sampler order, checkpoint/metric schema checks, qualified/unqualified comparisons,
+valid-negative output and copy-before-full-checkpoint-load ordering. Full-run adapter tests simulate
+training/evaluation; they are not a400-step model-quality run or an accepted-parent checkpoint replay.
+
+Source review verified the actual C232 artifact field meanings and loader wiring, initial/full
+fingerprint roles, TRAIN-only fit inputs, per-language score deltas,244/346 accounting, nine direct
+dependencies and complete branch/tree/ExpectedHead/ACTIVE/parser/publication guard ordering.
+Git comparison from the published C232 log shows only new acceptance/C233 files and the unpinned
+handoff changed. Accepted scientific sources/tests/logs are unchanged. The original draft benchmark
+and scientific manifest are byte-identical; no scientific condition was adjusted during recovery.
+C234 remains unregistered. Only review documentation changes after the review HEAD.
+
+Not executed here: actual parent TRAIN-only smoke test31; historical suite test32/full2753 tests;
+Windows PowerShell AST; local-only accepted artifact replay; formal1200-step baseline training.
+Synthetic fixtures are not claimed as these checks. The authoritative runner requires32 own tests
+and2753 focused tests before science. Failures stop and publish evidence. Review PASS does not
+mean the unexecuted checks or the C233 scientific gate have already passed.
 
 ## Stop
 
