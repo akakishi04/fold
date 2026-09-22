@@ -21,7 +21,8 @@ Authoritative Python: 3.13.15 / PyTorch 2.10.0+cu130 / NumPy 2.3.5.
 - **C216 ACCEPTED PASS**
 - **C217 ACCEPTED PASS**
 - **C218 ACCEPTED PASS**
-- **C219 NOT REGISTERED**
+- **C219 ACTIVE / NOT YET JUDGED**
+- **C220 NOT REGISTERED**
 
 C216 is the unique ACTIVE experiment.
 
@@ -363,24 +364,90 @@ Non-claim:
 C218 does not establish learned operation-kind selection, RETRACT/ASSUME writing, learned Coverage
 classification, natural-language extraction, joint training, memory-cost advantage or Gate F.
 
-## Next boundary
+## Active C219 — learned Coverage classifier pilot
 
-C219 is not yet registered.
+Experiment:
+`C219-v5f-learned-coverage-classifier-pilot`
 
-Next one-question intervention:
+Stage:
+`V5-F-LEARNED-COVERAGE-CLASSIFIER-PILOT`
+
+One question:
 can a learned Coverage classifier distinguish SUPPORTED / HOT_REQUIRED / MISSING / OUT_OF_SCOPE
-from a bounded target-specific memory summary on held-out nuisance combinations, while keeping
-Writer/Port Selector/Reader learning frozen or oracle and excluding NUMERIC_UNSAFE from the
-coverage taxonomy?
+from a bounded target-specific memory summary on held-out nuisance input?
 
-C219 should test OUT_OF_SCOPE versus MISSING explicitly. Numeric safety remains a separate
-deterministic boundary.
+Changed variable:
+- learned `fold_lm/v05/memory_coverage.py` only.
+
+Coverage taxonomy:
+- SUPPORTED;
+- HOT_REQUIRED;
+- MISSING;
+- OUT_OF_SCOPE.
+
+`NUMERIC_UNSAFE` remains deterministic numeric-safety state and is excluded from the learned
+coverage taxonomy.
+
+Data:
+- feature width7;
+-2 query roles;
+-4 coverage classes;
+- TRAIN nuisance [-1,-1],[-1,+1],[+1,-1];
+- EVAL nuisance [+1,+1];
+-32 rows /24 TRAIN /8 EVAL;
+- balanced classes [6,6,6,6] TRAIN / [2,2,2,2] EVAL;
+- data SHA `3e9c74b7675439c3118f6a87bc7594455360512e906d69c1c739cae9edc34d65`.
+
+Controls:
+- state-blind EVAL0.25;
+- tier-blind readable0.0;
+- scope-blind MISSING/OOS0.5.
+
+Frozen reference:
+- all3 accepted C217 selectors frozen;
+- all3 accepted C216 Readers frozen;
+- four readable EVAL states through all3x3 combinations;
+- semantic reference accuracy1.0;
+- selector forwards3;
+- Reader forwards9.
+
+Training:
+- classifier7->12->4,148 parameters;
+- seeds219001/219002/219003;
+- Adam lr0.02;
+-400 full-batch steps/seed;
+-1200 steps /28800 examples;
+-1215 learned Coverage forwards;
+-1227 total model forwards.
+
+Fixed gate:
+- TRAIN/EVAL accuracy1.0;
+- blind controls exact;
+- readable gate accuracy1.0;
+- non-readable suppression accuracy1.0;
+- MISSING/OOS confusions0;
+- checkpoint roundtrip exact;
+- readable frozen semantic reference1.0;
+- NUMERIC_UNSAFE classified rows0.
+
+Authoring:
+- source pins151;
+- protected inputs169;
+- artifacts5;
+- C219 tests38;
+- regression modules104;
+- loaded2298 / focused2297;
+- manifest `466ee5cd488a08ef9b8dacc6bf9f544ba4ca83ff2ab80dc2af421a6be9db43aa`.
+
+## C219 post-authoring review
+
+**post_authoring_review = PENDING**
+
+Do not issue C219 execution command until committed remote review passes.
 
 
 ## Stop condition
 
-C218 is closed as **ACCEPTED PASS**.
-
-Prepare and review C219 before execution.
+Judge C219 before any C220 registration.
 
 Gate E remains **PASSED**. Gate F remains **NOT PASSED**.
