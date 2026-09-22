@@ -324,9 +324,16 @@ Authoring:
 
 ## C217 post-authoring review
 
-**post_authoring_review = PENDING**
+**post_authoring_review = PASS**
 
-Do not issue the C217 execution command until committed remote review passes.
+review HEAD:
+`dd045bd38883b490910147ee429c9641601a0e43`
+
+Committed-remote review verified the accepted C216 checkpoint and frozen Reader artifacts,
+all130 parent source blobs,137/143 C217 protection accounting, nine direct dependencies,
+independently recomputed query/manifest hashes, selector input isolation, unequal-pair wrong-port
+control,36 tests /102 modules /2222-loaded/2221-focused regression accounting, exact runner argv,
+the complete PowerShell source contract and C218 non-registration.
 
 
 ## Stop condition
