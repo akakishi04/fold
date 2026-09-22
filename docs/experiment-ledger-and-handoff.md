@@ -19,7 +19,7 @@ Authoritative Python: 3.13.15 / PyTorch 2.10.0+cu130 / NumPy 2.3.5.
 - Gate F: **NOT PASSED**
 - **C215 ACCEPTED PASS**
 - **C216 ACCEPTED PASS**
-- **C217 ACTIVE / NOT YET JUDGED**
+- **C217 ACCEPTED PASS**
 - **C218 NOT REGISTERED**
 
 C216 is the unique ACTIVE experiment.
@@ -252,92 +252,77 @@ value extrapolation, natural-language memory behavior, memory-cost advantage or 
 Historical invalid/recovery attempts remain documented in:
 `docs/experiment-ledger-addendum-c216-recovery.md`.
 
-## Active C217 — learned Port Selector pilot
+## Accepted C217 — learned Port Selector pilot
 
-Experiment:
-`C217-v5f-learned-port-selector-pilot`
+Scientific execution HEAD:
+`a6aac1273951b6e321573445e9f759f35fffb726`
 
-Stage:
-`V5-F-LEARNED-PORT-SELECTOR-PILOT`
+Published log commit:
+`ab94e753a5996b7e081d9103427c874ad0600dcb`
 
-One question:
-given correct H1/H2 memory and the frozen accepted C216 Readers, can a learned Port Selector route a
-held-out query descriptor to the correct alpha/beta memory port and preserve downstream semantic
-answers?
+Log SHA256:
+`7f79e076c94aee742aa2a477c0c849104de60f9b849c249d208a55a56a7a2c20`
 
-Changed variable:
-- learned `fold_lm/v05/memory_port_selector.py` only.
+Summary SHA256:
+`cb27e93c9a6dc9d03875938c55c37f146c12278dec4c9ebb5a20da150fd847ab`
 
-Held constant:
-- all three accepted C216 Readers frozen;
-- Writer oracle/deterministic;
-- Coverage classifier absent;
-- accepted C215 H1/H2 memory semantics;
-- fixed response capsule;
-- no language mapping.
+Formal disposition:
+**C217 ACCEPTED PASS**.
 
-Query registration:
-- descriptor width4;
-- alpha `[1,0,n1,n2]`;
-- beta `[0,1,n1,n2]`;
-- TRAIN nuisance `[-1,-1],[-1,+1],[+1,-1]`;
-- EVAL nuisance `[+1,+1]`;
--8 rows /6 TRAIN /2 EVAL;
-- query data SHA `a9ec25d8079e27177567dd4ca85c7aee18f511eb8e8db6b774a61af82e91ac3d`.
+Execution validity:
+- focused regression **2221/2221**;
+- Python syntax preflight PASS;
+- source/artifact precheck PASS;
+- protected inputs preserved;
+- tracked tree clean;
+- run_execution_valid True.
 
-Downstream fixture:
-- six unequal alpha/beta semantic pairs;
-- HOT and COMMITTED placements;
-- both alpha and beta queries;
--24 rows per selector seed;
-- all three C216 Reader checkpoints frozen;
-- correct routing target accuracy1.0;
-- forced wrong-port target accuracy0.0.
+Deciding metrics:
+- trained Port Selector models3;
+- parameters per selector58;
+- total training steps1200;
+- training examples7200;
+- learned selector calls1209;
+- frozen Reader forward calls18;
+- all selector checkpoint roundtrips True;
+- all Reader checkpoint roundtrips True;
+- each selector seed:
+  - TRAIN port accuracy1.0;
+  - EVAL port accuracy1.0;
+  - query-blind EVAL accuracy0.5;
+- every selector seed x frozen C216 Reader:
+  - downstream overall/HOT/COMMITTED accuracy1.0;
+  - forced wrong-port downstream accuracy0.0;
+  - placement mismatches0;
+- Reader training steps0;
+- learned Writer/Coverage classifier calls0.
 
-Training:
-- selector4->8->2,58 parameters;
-- seeds217001/217002/217003;
-- Adam lr0.02;
--400 full-batch steps/seed;
--1200 steps /7200 examples;
--1209 selector forwards;
--18 frozen Reader forwards;
--1227 total model forwards.
+Accepted claim:
+on the registered tiny two-port synthetic task, an isolated learned Port Selector can map a held-out
+query descriptor to the correct alpha/beta memory port, and frozen accepted C216 Readers preserve
+the correct semantic answer across HOT/COMMITTED placement.
 
-Fixed gate:
-- TRAIN port accuracy1.0;
-- EVAL port accuracy1.0;
-- query-blind EVAL accuracy0.5;
-- selector checkpoint roundtrip exact;
-- downstream overall/HOT/COMMITTED accuracy1.0 for every frozen Reader;
-- forced wrong-port downstream accuracy0.0;
-- placement mismatches0.
+Non-claim:
+C217 does not establish learned writing, learned coverage, natural-language query understanding,
+many-port scaling, memory-cost advantage or Gate F.
 
-Authoring:
-- source pins137;
-- protected inputs143;
-- artifacts5;
-- C217 tests36;
-- regression modules102;
-- loaded2222 / focused2221;
-- manifest `70af02a697ae8fc97f3d379bdab18dd49bf2261a319f7091819323de5c2b8ab4`.
+## Next boundary
 
-## C217 post-authoring review
+C218 is not yet registered.
 
-**post_authoring_review = PASS**
+Next one-question intervention:
+can a learned semantic Writer map a structured observation descriptor to the correct factor+relation
+write on held-out nuisance combinations, such that oracle operation kind plus accepted C215 memory
+semantics and frozen C217 selector/C216 readers preserve correct ASSERT and REPLACE outcomes?
 
-review HEAD:
-`dd045bd38883b490910147ee429c9641601a0e43`
-
-Committed-remote review verified the accepted C216 checkpoint and frozen Reader artifacts,
-all130 parent source blobs,137/143 C217 protection accounting, nine direct dependencies,
-independently recomputed query/manifest hashes, selector input isolation, unequal-pair wrong-port
-control,36 tests /102 modules /2222-loaded/2221-focused regression accounting, exact runner argv,
-the complete PowerShell source contract and C218 non-registration.
+C218 should keep operation kind oracle, freeze Reader and Port Selector, keep Coverage classifier
+absent, and learn only the Writer's factor+relation choice.
 
 
 ## Stop condition
 
-Judge C217 before any C218 registration.
+C217 is closed as **ACCEPTED PASS**.
+
+Prepare and review C218 before execution.
 
 Gate E remains **PASSED**. Gate F remains **NOT PASSED**.
