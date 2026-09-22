@@ -134,7 +134,31 @@ the selector production module.
 
 ## Post-authoring review
 
-`post_authoring_review = PENDING`
+`post_authoring_review = PASS`
+
+review HEAD:
+`dd045bd38883b490910147ee429c9641601a0e43`
+
+Committed remote review verified:
+- accepted C216 execution/summary/validation/Reader-checkpoint identity;
+- all130 C216 source blobs are present at their registered Git blob IDs;
+- C217 OWN7 extends the source union to137 and parent summary+5 artifacts yield143 protected inputs;
+- all nine deciding-path repository dependencies are parent/OWN pinned;
+- query dataset hash independently recomputes to
+  `a9ec25d8079e27177567dd4ca85c7aee18f511eb8e8db6b774a61af82e91ac3d`;
+- manifest independently recomputes to
+  `70af02a697ae8fc97f3d379bdab18dd49bf2261a319f7091819323de5c2b8ab4`;
+- TRAIN/EVAL nuisance split and balanced alpha/beta targets are exact;
+- selector production input is query features only; memory values are consumed only after port choice;
+- all three C216 Reader fingerprints are frozen and Reader training steps remain0;
+- downstream uses only unequal semantic pairs and explicit forced-wrong-port control;
+-36 C217 tests,102 regression modules,2222 loaded /2221 focused counts are exact;
+- executable c### alias binding defects are0;
+- runner argv ordering is precheck argv[1], postcheck argv[1..3];
+- complete test35 PowerShell source contract is satisfied;
+- C218 remains unregistered.
+
+No scientific threshold, split, seed, model architecture or workload was changed during review.
 
 Do not issue C217 execution until committed remote bytes are independently reviewed for:
 - accepted C216 summary/artifacts/Reader checkpoint identity;
