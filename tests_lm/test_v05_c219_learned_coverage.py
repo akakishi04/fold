@@ -192,7 +192,7 @@ class C219Tests(unittest.TestCase):
                 seed=s,checkpoint_roundtrip=True,
                 train_accuracy=1.0,eval_accuracy=1.0,
                 state_blind_eval_accuracy=0.25,
-                tier_blind_readable_accuracy=0.5,
+                tier_blind_readable_accuracy=0.0,
                 scope_blind_missing_oos_accuracy=0.5,
                 readable_gate_accuracy=1.0,
                 nonreadable_suppression_accuracy=1.0,
@@ -220,7 +220,7 @@ class C219Tests(unittest.TestCase):
     def test_28_gate_rejects_missing_oos_confusion(self):
         row=dict(
             checkpoint_roundtrip=True,train_accuracy=1.0,eval_accuracy=1.0,
-            state_blind_eval_accuracy=0.25,tier_blind_readable_accuracy=0.5,
+            state_blind_eval_accuracy=0.25,tier_blind_readable_accuracy=0.0,
             scope_blind_missing_oos_accuracy=0.5,readable_gate_accuracy=1.0,
             nonreadable_suppression_accuracy=1.0,missing_oos_confusions=1,
         )
@@ -229,7 +229,7 @@ class C219Tests(unittest.TestCase):
     def test_29_gate_rejects_state_blind_success(self):
         row=dict(
             checkpoint_roundtrip=True,train_accuracy=1.0,eval_accuracy=1.0,
-            state_blind_eval_accuracy=1.0,tier_blind_readable_accuracy=0.5,
+            state_blind_eval_accuracy=1.0,tier_blind_readable_accuracy=0.0,
             scope_blind_missing_oos_accuracy=0.5,readable_gate_accuracy=1.0,
             nonreadable_suppression_accuracy=1.0,missing_oos_confusions=0,
         )
@@ -238,7 +238,7 @@ class C219Tests(unittest.TestCase):
     def test_30_gate_rejects_scope_blind_missing_oos_success(self):
         row=dict(
             checkpoint_roundtrip=True,train_accuracy=1.0,eval_accuracy=1.0,
-            state_blind_eval_accuracy=0.25,tier_blind_readable_accuracy=0.5,
+            state_blind_eval_accuracy=0.25,tier_blind_readable_accuracy=0.0,
             scope_blind_missing_oos_accuracy=1.0,readable_gate_accuracy=1.0,
             nonreadable_suppression_accuracy=1.0,missing_oos_confusions=0,
         )
