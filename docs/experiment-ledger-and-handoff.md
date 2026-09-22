@@ -9,7 +9,7 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
 **C232 ACCEPTED PASS. C233 ACTIVE / NOT YET JUDGED. C234 NOT REGISTERED.**
-C233 is unique ACTIVE. Authoring is complete; do not execute before post-authoring review PASS.
+C233 is unique ACTIVE. Committed-source review passed; all execution preflights remain mandatory.
 
 ## Accepted C232 — bounded bilingual learning
 
@@ -76,19 +76,33 @@ Design: docs/v5b-backbone-matched-core-ablation-v0.1.md.
 
 ## C233 post-authoring review
 
-**post_authoring_review = PENDING**
+**post_authoring_review = PASS**
+
+Review HEAD: `500793e23026eee709c53c57612c0764e5659b61`.
+Scope: committed-source review and targeted authoring execution, not scientific execution.
 
 The previous blocked test-file write was an authoring interruption. The standard create_file
-operation subsequently succeeded (f1db06114d8b2e6beb6ff47a6807e3eb4b72584a). Runner/launcher/design/
-preregistration are now present. No alternative write path was used. C232 rerun is unnecessary.
-The original draft benchmark and scientific manifest remain unchanged.
+operation subsequently succeeded (f1db06114d8b2e6beb6ff47a6807e3eb4b72584a). All six OWN files are
+now present. No alternative write path was used. C232 rerun is unnecessary; draft benchmark and
+scientific manifest remain unchanged.
 
-Initial30 targeted tests passed in1.010s using real GRU/optimizer layers in synthetic parent
-fixtures. Full-run adapter testing simulates training/evaluation and preserves a valid negative.
-Pending locally: actual parent test31, historical test32/full2753 suite, Windows PowerShell AST,
-accepted artifacts and formal baseline training. No claim these checks passed here.
-Re-fetch committed code/test/runner/launcher, match tested blobs, rerun authoring tests and complete
-source/loader/sampler/guard/protection review before issuing a command.
+Remote code/test/runner/launcher were re-fetched after authoring and all four Git blobs matched
+local copies. Then30 targeted tests reran:30 PASS,0 failures/errors,0.8823s on Python3.13.5 /
+PyTorch2.10.0+cpu.32 methods enumerated; Python sources and three embedded runner blocks compiled;
+undefined globals0; manifest matched; CLI precheck[1]/postcheck[1..3]. Tests use real GRU/optimizer
+layers in synthetic fixtures. Full-run adapter testing simulates training/evaluation and preserves
+a valid negative. It is not a400-step model-quality result or accepted checkpoint replay.
+
+Source review checked parent schemas/field meanings, initial-copy-before-trained-load order,
+TRAIN-only sampler, metric deltas,244/346 accounting, nine deciding dependencies and complete
+branch/tree/ExpectedHead/ACTIVE/parser/publication guards. Git compare shows only new C233/
+acceptance files and this unpinned handoff changed; accepted sources/tests/logs were untouched.
+Only review documentation changes after the review HEAD. C234 remains unregistered.
+
+Not run here: actual parent test31, historical test32/full2753 suite, Windows PowerShell AST,
+accepted local artifacts or formal baseline training. The runner executes32 new tests, then2753
+focused tests and only then science. Failure stops and publishes evidence. No pending test is
+represented as already passed by this source-review status.
 
 ## Numeric-memory track and historical maintenance
 
@@ -99,5 +113,5 @@ Preserve all accepted sources/tests and tools/run_c167.ps1. Previous interruptio
 
 ## Stop condition
 
-After review PASS:32 own tests ->2753 focused tests ->C233 baseline training/comparison.
+32 own tests ->2753 focused tests ->C233 baseline training/comparison.
 Judge C233 before C234 registration. Gate F remains NOT PASSED.
