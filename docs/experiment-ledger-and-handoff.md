@@ -8,98 +8,90 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
-**C223 ACCEPTED PASS. C224 ACTIVE / NOT YET JUDGED. C225 NOT REGISTERED.**
-C224 is unique ACTIVE. Source review passed; all execution preflights remain mandatory.
+**C224 ACCEPTED PASS. C225 ACTIVE / NOT YET JUDGED. C226 NOT REGISTERED.**
+C225 is unique ACTIVE. Post-authoring review is pending; do not execute yet.
 
-## Accepted C223
+## Accepted C224 — measurement audit, not storage superiority
 
-Scientific execution HEAD: `cdcc1d4211a149003f44dbdbd18a7e5367c013ab`.
-Published log commit: `6e96f798b4c931247f58ab9982b617780d0ee9db`.
-Log SHA256: `aff5dbc06d2c85ae54b2181dd2605c09dab66388f758626ce8e3e056bdbe0601`.
-Summary SHA256: `1b08cf76a1c233ce849f2b7fe81dbb7fa44120e59a75b32e2f42c4ebccdad2ca`.
+Scientific execution HEAD: `41ca548ed065b3e6dedd50dbc42ebb1b8df5f512`.
+Published log commit: `134d96995e77df0bcdd25fc046ad2b205a5c3644`.
+Log SHA256: `85c1aaabd0a9d7248cf0a563fd8741a27e2dca6bc7c8a4992b37e94aefcda15d`.
+Summary SHA256: `d47f17ed6a467e5203f3bf5e39e5d023cfa469320f4636ca05d13d0673b09f88`.
 Local summary:
-`runs/c223-v5f-request-freshness-56cfd6d212764ccf98e7789aa964de52/summary.json`.
-Validation SHA: `b52c9d95bb89dca5061d2ccff4aab90276ea5dc4edba2d653b1d9fdc03d12db2`.
+`runs/c224-v5f-history-cost-audit-7d510ad2c98647bfbabeabe91de81381/summary.json`.
+Validation SHA: `5be4146f3139b761837bcbe0cad25db02c46035351e3d76b1a75a1ebd00211f2`.
+Measurements SHA: `2e09353e3899f45bb2ee3598a61e72e1602858ae446a43de306abd07acbb832a`.
 
-2435/2435 regression OK; fresh1296/1296 and exact parent parity1296/1296;
-stale rejection4536/4536, no exposed result or downstream calls; current repeats81/81;
-unguarded replay controls324/324; fingerprints unchanged; training0; model forwards4134.
-Protected inputs preserved; run_execution_valid True.
-Full verdict: `docs/experiment-ledger-addendum-c223-c224.md`.
-Evidence is published console/metadata plus local recorded artifact checks, not reviewer-side
-re-execution of user checkpoint bytes. The matrix is not thousands of independent unseen tasks.
+Regression2465/2465 OK; all four quality-parity checks passed; run_execution_valid True;
+protected inputs and tracked tree preserved. Audit accepted from published evidence plus recorded
+local artifact checks, not reviewer-side re-execution of the user's files.
+
+| History events | Candidate export bytes | Replay export bytes | Candidate query median ms | Replay query median ms |
+|---|---:|---:|---:|---:|
+| 8 | 5743 | 4285 | 0.3086 | 0.3069 |
+| 32 | 11181 | 9044 | 0.5951 | 1.2293 |
+| 128 | 33100 | 28113 | 0.5490 | 3.1948 |
+| 512 | 121183 | 104657 | 0.6936 | 8.6449 |
+
+Storage deltas+1458/+2137/+4987/+16526 bytes: no measured storage superiority.
+Candidate warm raw rereads0; replay1579/6338/25407/101951 bytes per query.
+Timing is descriptive (three measured trials), canonical exports are not native checkpoint sizes,
+and reachable-data estimates are not process RAM/VRAM peaks. Two live factors only.
+
+Full verdict and caveats: `docs/experiment-ledger-addendum-c224-c225.md`.
+Avoided replay is not yet a capsule-specific benefit: a plain current state can avoid replay too.
 
 ## Accepted V5-F chain and limits
 
-C213 MemoryOp/provenance; C214 numeric closure; C215 H1/H2 commit;
-C216 Reader; C217 Selector; C218 factor+relation Writer; C219 Coverage;
-C220 offline composition; C221 causal dispatch; C222 withdrawal/hypothesis isolation;
-C223 explicitly published-state request freshness.
+C213 semantics; C214 numeric closure; C215 H1/H2 commit; C216 Reader; C217 Selector;
+C218 structured Writer; C219 Coverage; C220 offline composition; C221 live dispatch;
+C222 withdrawal/hypothesis isolation; C223 explicit-publication request freshness;
+C224 raw-retaining history-cost audit.
 
-Tiny structured-input pilots only. Natural language, native operation selection, broad generalization,
-acquisition, concurrent/cache freshness, bounded indexing and total-cost superiority remain open.
-Gate F is not passed.
+No broad natural-language/generalization, learned operation kind, acquisition, concurrent/cache
+freshness, bounded many-factor indexing or total memory-cost superiority is established.
+Gate F remains NOT PASSED.
 
-## Active C224 — raw-retaining history cost audit
+## Active C225 — stateful baseline attribution
 
-Experiment `C224-v5f-raw-retaining-history-cost-audit`.
-Stage `V5-F-RAW-RETAINING-HISTORY-COST-AUDIT`.
+Experiment `C225-v5f-stateful-baseline-attribution`.
+Stage `V5-F-STATEFUL-BASELINE-ATTRIBUTION`.
 
-One question: as revision history grows with two live factors, what are the actual retained
-memory-backend bytes and warm raw-reread costs of the existing H1/H2 reference versus full-history
-replay when raw evidence, source index, provenance and complete numeric state are counted?
+One question: what does the current H1/H2 representation add beyond ordinary incrementally retained
+MemoryState when raw history, source index and numeric bridge are held equal?
 
-No production source change, model inference/training, compression optimization or cleanup.
-History sizes8/32/128/512, fixed alpha anchor and cyclic beta REPLACE. Both arms keep identical full
-raw UTF-8 evidence. Candidate retains current bank/state and a fully costed benchmark source-index
-sidecar. Baseline keeps raw history plus the same bridge, replaying into a fresh state every query.
+Keep the C224 H1/H2 candidate unchanged. New baseline updates plain MemoryState once per event,
+retains it and uses full_reference(state) per query without raw replay. Both retain identical raw and
+index bytes and the same complete bridge. Common bridge overhead includes its unused compiled
+capsule on the symbolic arm; do not claim an independently minimized baseline.
 
-One warmup+three measured queries per size/arm. Require complete final symbolic/provenance parity,
-SUPPORTED numeric max-abs error<=1e-10, unchanged query state, exact raw/index/export inventories,
-candidate warm raw-rereads0 and baseline full N-event/raw-byte reread every measured query.
+History sizes8/32/128/512; two live factors; same raw hashes; float64 tolerance1e-10;
+one warmup+three measured queries per arm/size; alternating query order. Record construction,
+index/export costs and descriptive timings separately. No production change, optimization,
+new semantic task, inference/training or data deletion.
 
-Report uncompressed canonical export totals and component file bytes, a separately labeled reachable
-Python/CPU tensor data-memory estimate, construction/index costs and descriptive query timing.
-Native checkpoint format, allocator/process peaks and neural-model RAM are not measured. Do not
-present canonical export or reachable-data estimates as total application memory.
+Require full symbolic/provenance and numeric parity, unchanged states, exact archive/export
+accounting and zero warm raw rereads for both arms. H1/H2 candidate export inventories must match
+accepted C224 bytes. Cost superiority is measured separately and is not an audit PASS requirement.
 
-**Audit PASS is not storage superiority.** Candidate storage may be larger because it retains raw
-history plus extra state/index. Report storage deltas and avoided reread work separately.
-This is not many-live-factor scaling or Gate F completion.
+Source pins190; protected inputs244; direct dependencies23; OWN6; artifacts5.
+New tests32; modules110; loaded2498 /focused2497 with the same exact historical exclusion1.
+Manifest: `0520afee3c0b25ca1da8f28be3534115d72b1abbe4252628312fd2d321b24e66`.
+Registration: `docs/experiment-ledger-addendum-c225-preregistration.md`.
+Design: `docs/v5f-stateful-baseline-attribution-v0.1.md`.
 
-Source pins184; protected inputs232; dependencies22; OWN6; outputs5.
-New tests30; modules109; loaded2466 /focused2465 with inherited exact exclusion1.
-Manifest: `0097887642e62a0c2e332d6b68a6dbcb769e829a1970387c3e0aa4ad28343103`.
-Registration: `docs/experiment-ledger-addendum-c224-preregistration.md`.
-Design: `docs/v5f-history-cost-audit-v0.1.md`.
+## C225 post-authoring review
 
-## C224 post-authoring review
+**post_authoring_review = PENDING**
 
-**post_authoring_review = PASS**
-
-Review HEAD: `a8e0eeb370d37d367defeca967a4bc33b418029d`.
-Scope: committed-source audit plus targeted synthetic-backend authoring validation, not science.
-
-All four code/test/PowerShell remote blob IDs match the tested copies. After comparison,28 targeted
-tests reran (0 failures/errors,0.079 seconds);30 methods enumerated; manifest self-hash matched;
-Python and three embedded runner blocks compiled; unbound executable c### aliases0.
-Synthetic measurements covered all four history lengths and raw/index/provenance/file-inventory/
-replay-count controls. Higher candidate storage is explicitly permitted by measurement PASS.
-
-Source review checked actual symbolic replay/full-reference contracts, candidate no-raw query path,
-complete bank/state export, source byte-range index, archive readback, parent helper/field meanings,
-22 dependency membership,184/232 accounting, CLI argv[1]/postcheck[1..3], early own-test ordering
-and launcher guards. Git compare shows no accepted source/test/log/dependency change or deletion.
-After the review HEAD only review documentation changes; scientific conditions remain fixed.
-
-Not executed here: the accepted numeric-backend new test, full historical2465 regression test,
-Windows PowerShell AST parse and local parent-artifact/C224 science. No mock-backend results are
-represented as those checks. The real runner executes all30 own tests, then2465 focused tests,
-then the cost audit. Failure stops before the next phase and the console log is published.
+Author-side30 targeted tests passed on synthetic fixtures;32 methods enumerate. Actual parent
+numeric-backend test, full2497 historical regression, Windows AST parsing and local artifact/C225
+science have not run here. Re-fetch committed files and compare tested copies before review PASS.
+The authoritative runner executes all32 new tests, then2497 focused tests, then the comparison.
 
 ## Historical maintenance and stop
 
-Prior state: `6e96f798b4c931247f58ab9982b617780d0ee9db:docs/experiment-ledger-and-handoff.md`.
-Preserve accepted sources and `tools/run_c167.ps1` historical regression infrastructure.
-No history rewrite, cleanup, new CI or Actions-storage work.
-Judge C224 before C225. Gate F remains NOT PASSED.
+Previous full state: `134d96995e77df0bcdd25fc046ad2b205a5c3644:docs/experiment-ledger-and-handoff.md`.
+Preserve all accepted sources and `tools/run_c167.ps1` historical regression infrastructure.
+No cleanup, history rewrite, new CI, unrelated architecture changes or Actions-storage work.
+Judge C225 before C226. Gate F remains NOT PASSED.
