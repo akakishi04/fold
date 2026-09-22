@@ -20,7 +20,7 @@ Authoritative Python: 3.13.15 / PyTorch 2.10.0+cu130 / NumPy 2.3.5.
 - **C215 ACCEPTED PASS**
 - **C216 ACCEPTED PASS**
 - **C217 ACCEPTED PASS**
-- **C218 ACTIVE / NOT YET JUDGED**
+- **C218 ACCEPTED PASS**
 - **C219 NOT REGISTERED**
 
 C216 is the unique ACTIVE experiment.
@@ -307,105 +307,80 @@ Non-claim:
 C217 does not establish learned writing, learned coverage, natural-language query understanding,
 many-port scaling, memory-cost advantage or Gate F.
 
-## Active C218 — learned semantic Writer pilot
+## Accepted C218 — learned semantic Writer pilot
 
-Experiment:
-`C218-v5f-learned-semantic-writer-pilot`
+Scientific execution HEAD:
+`ce5ae96f5fe3a08213ee41bffa17ba97c10bb368`
 
-Stage:
-`V5-F-LEARNED-SEMANTIC-WRITER-PILOT`
+Published log commit:
+`2cdd28b494cc174694404561c7ee7daab72e1d76`
 
-One question:
-given a structured observation descriptor, can a learned Writer choose the correct factor+relation
-on held-out nuisance input and preserve ASSERT/REPLACE downstream semantics through frozen accepted
-C217 Selectors and C216 Readers?
+Log SHA256:
+`d26dc7c375bb8d8662fa8a6e8426bbc5174bdf918373e490548d84f81c1bea6d`
 
-Changed variable:
-- learned `fold_lm/v05/memory_writer.py` only.
+Summary SHA256:
+`50ec397534901bb865731b615232c555cfcf0222571f42b09098eae77f49f021`
 
-Held constant:
-- operation kind oracle ASSERT/REPLACE;
-- all three accepted C217 Port Selectors frozen;
-- all three accepted C216 Readers frozen;
-- accepted C215 H1/H2 memory semantics;
-- Coverage classifier absent;
-- no language mapping.
+Formal disposition:
+**C218 ACCEPTED PASS**.
 
-Writer data:
-- descriptor width5;
-- factors alpha/beta;
-- semantic values -1/0/+1;
-- six relation classes;
-- TRAIN nuisance [-1,-1],[-1,+1],[+1,-1];
-- EVAL nuisance [+1,+1];
--24 rows /18 TRAIN /6 EVAL;
-- data SHA `06f8df444119f0332168a956e7f32e9690b88fa9c39749d3ecc2283c70213714`.
+Execution validity:
+- focused regression **2259/2259**;
+- Python syntax preflight PASS;
+- source/artifact precheck PASS;
+- protected inputs preserved;
+- tracked tree clean;
+- run_execution_valid True.
 
-Controls:
-- factor-blind EVAL accuracy0.5;
-- semantic-blind EVAL accuracy1/3;
-- forced wrong-semantic downstream accuracy0.0;
-- forced wrong-factor downstream accuracy0.0.
+Deciding metrics:
+- trained Writer models3;
+- parameters per Writer150;
+- training steps1200 / examples21600;
+- learned Writer forwards1212;
+- frozen Selector forwards3;
+- frozen Reader forwards72;
+- all Writer/Selector/Reader checkpoint roundtrips True;
+- every Writer seed:
+  - TRAIN relation accuracy1.0;
+  - EVAL relation accuracy1.0;
+  - factor-blind EVAL accuracy0.5;
+  - semantic-blind EVAL accuracy1/3;
+  - ASSERT overall/HOT/COMMITTED downstream accuracy1.0;
+  - REPLACE downstream accuracy1.0;
+  - write rejections0;
+- wrong-semantic downstream accuracy0.0;
+- wrong-factor downstream accuracy0.0;
+- actual learned Writer attempts54/54;
+- successful chunk commits96/96;
+- Reader/Selector training steps0.
 
-Training:
-- Writer5->12->6,150 parameters;
-- seeds218001/218002/218003;
-- Adam lr0.02;
--400 full-batch steps/seed;
--1200 steps /21600 examples;
--1212 Writer forwards;
--3 frozen Selector forwards;
--72 frozen Reader forwards;
--1287 total model forwards.
+Accepted claim:
+on the registered structured synthetic task, an isolated learned Writer can select factor+relation
+for held-out nuisance observations and drive oracle-kind ASSERT/REPLACE through accepted H1/H2
+memory while frozen learned Port Selector/Reader components preserve the correct semantic answer.
 
-Operation schedule:
-- learned Writer op slots54;
-- oracle initialization writes60;
-- control writes12;
-- chunk-commit slots96.
+Non-claim:
+C218 does not establish learned operation-kind selection, RETRACT/ASSUME writing, learned Coverage
+classification, natural-language extraction, joint training, memory-cost advantage or Gate F.
 
-Successful writes/commits are scientific metrics, not execution-validity workload requirements.
+## Next boundary
 
-Fixed gate:
-- TRAIN/EVAL relation accuracy1.0;
-- factor-blind0.5;
-- semantic-blind1/3;
-- Writer checkpoint roundtrip exact;
-- write rejections0;
-- ASSERT overall/HOT/COMMITTED accuracy1.0;
-- ASSERT placement mismatches0;
-- REPLACE accuracy1.0;
-- wrong-semantic0.0;
-- wrong-factor0.0;
-- actual learned Writer attempts54;
-- successful chunk commits96.
+C219 is not yet registered.
 
-Authoring:
-- source pins144;
-- protected inputs156;
-- artifacts5;
-- C218 tests38;
-- regression modules103;
-- loaded2260 / focused2259;
-- manifest `e855905bc1ff7c1b105608163a4483b7c5dbffb6d4ca5ce1a130ffb542493394`.
+Next one-question intervention:
+can a learned Coverage classifier distinguish SUPPORTED / HOT_REQUIRED / MISSING / OUT_OF_SCOPE
+from a bounded target-specific memory summary on held-out nuisance combinations, while keeping
+Writer/Port Selector/Reader learning frozen or oracle and excluding NUMERIC_UNSAFE from the
+coverage taxonomy?
 
-## C218 post-authoring review
-
-**post_authoring_review = PASS**
-
-review HEAD:
-`1e88d4d2ac960f53b2e2166aaeadd56fa7152111`
-
-Committed-remote review verified accepted C217 parent evidence, unique inherited C216 Reader
-checkpoint resolution,137 parent source pins /143 inherited protected inputs,144/156 C218
-accounting,11 deciding dependencies, independently recomputed Writer data/manifest hashes,
-operation-kind isolation, ASSERT/REPLACE and negative-control semantics, scientific-FAIL versus
-execution-INVALID accounting,38 tests /103 modules /2260-loaded/2259-focused regression
-contract, exact runner argv, complete PowerShell source contract and C219 non-registration.
+C219 should test OUT_OF_SCOPE versus MISSING explicitly. Numeric safety remains a separate
+deterministic boundary.
 
 
 ## Stop condition
 
-Judge C218 before any C219 registration.
+C218 is closed as **ACCEPTED PASS**.
+
+Prepare and review C219 before execution.
 
 Gate E remains **PASSED**. Gate F remains **NOT PASSED**.
