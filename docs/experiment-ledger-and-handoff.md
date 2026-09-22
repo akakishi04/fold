@@ -9,7 +9,7 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
 **C233 ACCEPTED VALID NEGATIVE. C234 ACTIVE / NOT YET JUDGED. C235 NOT REGISTERED.**
-C234 is unique ACTIVE. Do not execute until committed-source post-authoring review passes.
+C234 is unique ACTIVE. Source review passed; all execution preflights remain mandatory.
 
 ## Accepted C233 — no consistent core advantage
 
@@ -85,17 +85,29 @@ Design: docs/v5b-contextual-binding-v0.1.md.
 
 ## C234 post-authoring review
 
-**post_authoring_review = PENDING**
+**post_authoring_review = PASS**
 
-Initial30/30 targeted authoring tests passed in1.006s with real GRU/optimizer layers in synthetic
-parent fixtures. Dataset/grouping/balance, paired controls, prefix separation, identical sampling,
-exact-byte scoring and full-run serialization/postchecks were exercised. Full-run training was
-simulated; these are not six-model scientific results. No held-out quality tuning was performed.
+Review HEAD: `6247f1282600bc3a3b4444f0e51e42c157c8b855`.
+Scope: committed-source review plus targeted synthetic authoring execution, not formal science.
 
-Not run here: test31 real parent TRAIN-only smoke, test32/full2785 historical suite, Windows
-PowerShell AST, user-local parent artifacts or formal2400-step training. Re-fetch all committed
-sources and perform the independent review before issuing a command. Do not claim pending checks
-have already passed. The runner gates science behind32 own tests and2785 focused tests.
+All four remote code/test/PowerShell files were re-fetched and their Git blobs matched tested
+copies exactly. After comparison30 targeted tests reran:30 PASS,0 failures/errors,1.0841s on
+Python3.13.5 / PyTorch2.10.0+cpu / NumPy2.3.5.32 methods enumerated; Python sources and three embedded
+runner blocks compiled; unresolved globals0; data/manifest hashes matched. CLI argv precheck[1],
+postcheck[1,2,3]; all branch/tree/HEAD/ACTIVE/parser guards precede logging/publication.
+
+Tests used synthetic parent interfaces with real GRU/optimizer layers; full-run fit was simulated.
+Grouping, balance, paired controls, masks, TRAIN-only sampling, exact-byte scoring, checkpoint
+replay and valid-negative output/postchecks were exercised without held-out quality tuning.
+Source review checked accepted-negative parent semantics, helper/model factories,250/358 protection
+and ten dependencies. Git comparison changes only new acceptance/C234 files and this unpinned
+handoff; accepted sources/tests/logs are untouched. Only review documents change after review HEAD.
+
+Not run here: test31 actual parent/model TRAIN-only smoke, test32/full2785 historical suite,
+Windows PowerShell AST, user-local accepted artifacts or formal2400-step training. Container DNS
+cannot resolve raw.githubusercontent.com and pwsh is absent; connector source reads succeed.
+Pending checks are not represented as already passed. The authoritative runner requires32 own
+tests and2785 focused tests before science; defects stop execution and publish console evidence.
 
 ## Numeric-memory track and stop
 
