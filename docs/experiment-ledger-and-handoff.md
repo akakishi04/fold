@@ -12,96 +12,95 @@ Authoritative runtime: Python 3.13.15 / PyTorch 2.10.0+cu130 / NumPy 2.3.5.
 
 Gate A/B PASSED; Gate C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
-**C220 ACCEPTED PASS. C221 NOT REGISTERED.**
+**C220 ACCEPTED PASS. C221 ACTIVE / NOT YET JUDGED. C222 NOT REGISTERED.**
 
-No C experiment is ACTIVE while C221 is being authored.
+C221 is the unique ACTIVE experiment. Do not execute until post-authoring review passes.
 
 ## Accepted C220
 
-Experiment: `C220-v5f-frozen-learned-stack-integration`  
-Stage: `V5-F-FROZEN-LEARNED-STACK-INTEGRATION`.
-
-Scientific execution HEAD: `6bc455fa377ec9d3c70d6d1f0922c00680fd5a04`  
-Published log commit: `e194716393249373a7d1f6ab552860e851ea84d0`  
-Log SHA256: `dd9e8753ac48b74e369c2c87efdb0987da81c1b9379bab674af86252c8b7eed2`  
+Scientific execution HEAD: `6bc455fa377ec9d3c70d6d1f0922c00680fd5a04`.
+Published log commit: `e194716393249373a7d1f6ab552860e851ea84d0`.
+Log SHA256: `dd9e8753ac48b74e369c2c87efdb0987da81c1b9379bab674af86252c8b7eed2`.
 Summary SHA256: `45821b372bf0108e667274e2facd73b1f0a84f515a7d036e73874d9238fff5f7`.
 
-Accepted local summary:
+Local summary:
 `runs/c220-v5f-frozen-learned-stack-5bc9d133c96348de81a24d19b3ef6f93/summary.json`.
 
-Execution validity: 2335/2335 regression OK; prechecks/postchecks PASS;
-protected inputs preserved; tracked tree clean; `run_execution_valid = True`.
+2335/2335 regression OK; prechecks/postchecks PASS; preserved inputs; clean tracked tree;
+run_execution_valid True.81 checkpoint combinations,648 decisions (486 readable /162 non-readable),
+all registered accuracy metrics1.0; confusion/mismatch/operation-failure counts0; training0.
 
-Deciding results: 81 checkpoint combinations, 648 decision rows (486 readable /162 non-readable),
-integration/expected-coverage/readable-answer/non-readable-suppression accuracy1.0;
-MISSING/OOS confusions0, placement mismatches0, operation failures0, training0.
-All four checkpoint-family roundtrips passed. Total model forwards42.
-
-Complete verdict, identities, artifact hashes and interpretation:
-`docs/experiment-ledger-addendum-c220-c221.md`.
-
-### Interpretation boundary
-
-C220 passed its registered **offline composition** check. These are eight synthetic episode shapes
-crossed with81 checkpoint combinations, not648 independent unseen tasks.
-
-The executed source precomputes readable Reader outputs and combines them with Coverage in the
-scorer. It does not yet prove that learned Coverage controls actual downstream calls.
-C221 must test this causal dispatch boundary before adding task breadth.
-
-No learned operation-kind selection, natural-language inputs, acquisition integration,
-RETRACT/ASSUME integration, memory-cost superiority or Gate F completion is established.
+Complete verdict and caveat: `docs/experiment-ledger-addendum-c220-c221.md`.
+C220 is an accepted offline composition check: Reader answers are computed before Coverage is
+combined in the scorer. It did not prove causal suppression of actual downstream invocations.
+The648 rows are eight reused synthetic episode shapes crossed with81 checkpoint combinations.
 
 ## Accepted V5-F chain
 
-| Experiment | Accepted measured scope |
-|---|---|
-| C213 | Deterministic MemoryOp / factor / scope / revision / provenance contract |
-| C214 | Fixed-port numeric response agrees with full solve on registered edits |
-| C215 | H1/H2 representation-only commit, post-commit REPLACE/RETRACT reference |
-| C216 | Isolated three-value Reader with oracle port selection |
-| C217 | Two-port Selector with frozen C216 Readers |
-| C218 | Structured factor+relation Writer with oracle ASSERT/REPLACE kind |
-| C219 | Four-class structured Coverage pilot, numeric safety excluded |
-| C220 | Frozen four-component offline composition |
+C213 deterministic MemoryOp/provenance; C214 fixed-port numeric closure; C215 H1/H2 commit;
+C216 Reader; C217 Selector; C218 factor+relation Writer; C219 Coverage; C220 offline composition.
+All are accepted only within their registered small reference/pilot scope.
 
-The frozen learned components exist and passed these narrow pilots. They are not general
-natural-language memory components and have not demonstrated large-scale memory-cost advantages.
+Natural-language interfaces, native operation selection, broad unseen-task performance,
+RETRACT/ASSUME learned-stack integration, acquisition and total-memory-cost superiority are not
+established. Gate F remains NOT PASSED.
 
-## Gate E checkpoint
+## Active C221 — live Coverage dispatch
 
-C212 is ACCEPTED PASS / GATE_E_PASSED.
-Scientific HEAD: `4d1436c1ba12721b1c802fb5d76e359b3a62841f`.
-Summary SHA256: `3685c37dd6e2c7fea92723548446b86f4ee8d068f7dd00afe3e2337f8bca8bce`.
-Independent144-episode holdout /432 policy-episode evaluations; candidate128 correct,
-noninferiority to FIXED_ACQUISITION and registered superiority to INTERNAL_ONLY passed.
-Full decisive log: `docs/experiment-run-logs/c212/latest.log`.
+Experiment: `C221-v5f-live-coverage-dispatch`.
+Stage: `V5-F-LIVE-COVERAGE-DISPATCH`.
+
+One question: with the same frozen checkpoints and episode shapes, does learned Coverage actually
+control Selector/provider/Reader invocation while preserving C220 outcomes?
+
+Changed condition: Coverage-first runtime dispatch, with an explicit independent provider
+precondition check. Expected labels and precomputed answers are not dispatcher inputs.
+No retraining, new semantic tasks, acquisition, RETRACT/ASSUME or cost optimization.
+
+Main:81 combinations x8 episodes =648 live decisions; require648 successes and parent parities,
+486 readable successes,162 distinct correct suppressions and zero downstream calls on suppression.
+
+Controls:4 forced-Coverage interventions per combination =324 decisions. Force suppression on two
+readable states; force allow on MISSING/OOS and require provider preconditions to block bank/Reader.
+Require exact actual traces and unchanged model fingerprints.
+
+Successful main calls: Coverage648 /Selector486 /provider486 /bank486 /Reader486.
+Successful control calls: Coverage324 /Selector162 /provider162 /bank0 /Reader0.
+Writer forwards3. Total model forwards2109 at PASS; new training steps0.
+Counts are invocation evidence, not a speed benchmark. Model-dependent count misses are scientific
+FAIL in complete runs, not automatic INVALID.
+
+Source pins165; protected inputs195; direct dependencies16; OWN7; output artifacts5.
+C221 tests34; regression modules106; loaded2370 /focused2369 with the inherited exact exclusion1.
+
+Manifest SHA256:
+`fb387b9c026ee852f4efbabab0c71cde93e03fea443f440f7b508b8fe3c3f4d8`.
+
+Registration: `docs/experiment-ledger-addendum-c221-preregistration.md`.
+Design: `docs/v5f-live-coverage-dispatch-v0.1.md`.
+
+## C221 post-authoring review
+
+**post_authoring_review = PENDING**
+
+Author-side targeted tests32/32 passed using synthetic spy models; the two parent-tree-dependent
+C221 tests, full historical regression, Windows AST parse and accepted-checkpoint science were not
+run in the reviewing container. The runner executes all34 new tests first, then2369 focused tests,
+and starts science only after those gates pass. Remote source review remains required.
 
 ## Historical evidence and maintenance
 
-Earlier detailed handoff is recoverable at
+Earlier detailed handoff remains at
 `e194716393249373a7d1f6ab552860e851ea84d0:docs/experiment-ledger-and-handoff.md`.
-This compact handoff does not replace any historical preregistration or accepted source pin.
+Gate E decisive C212 log remains `docs/experiment-run-logs/c212/latest.log`.
+Do not edit/move/delete accepted source pins. In particular preserve `tools/run_c167.ps1`, the
+historical regression seed runner, blob `7c5d6e9838d4ce7bd2bfec0e43458eb749fd1789`.
 
-Keep all current accepted source/protection dependencies unchanged. In particular,
-`tools/run_c167.ps1` is historical regression-construction infrastructure and must not be deleted.
-Its exact blob is `7c5d6e9838d4ce7bd2bfec0e43458eb749fd1789`.
-
-Policies: `tools/README-experiment-harness.md`, `docs/experiment-run-logs/README.md`.
-No cleanup, source moves, history rewrite, CI addition or Actions-storage work is authorized by the
-next experiment. Actions storage is being handled separately by the user.
-
-## Next boundary
-
-C221 proposed question: can Coverage-first live dispatch preserve the same frozen-stack decisions
-while actually preventing downstream calls on suppression, with no expected labels supplied to the
-dispatcher? Include separate causal intervention controls and call traces.
-
-Hold checkpoints, episode shapes, operation-kind oracle and Gate F interpretation fixed.
-Do not add retraining, new semantic tasks, RETRACT/ASSUME, acquisition or cost optimization here.
+No cleanup, history rewrite, CI addition or Actions-storage change is part of C221.
+Actions storage is being handled separately by the user.
 
 ## Stop condition
 
-C220 is closed as ACCEPTED PASS.
-C221 remains NOT REGISTERED until its authoring and post-authoring review are complete.
-Gate F remains NOT PASSED.
+Judge C221 before any C222 registration.
+Source/artifact/schema/regression defects: INVALID / RETRY SAME C221.
+Complete gate-missing run: scientific FAIL. Gate F remains NOT PASSED.
