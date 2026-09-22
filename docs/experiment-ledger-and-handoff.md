@@ -1,123 +1,110 @@
 # FOLD Experiment Ledger and Handoff
 
-Follow `AGENTS.md` and `docs/experiment-conversation-handoff-protocol.md` (response format v2).
-Repository `akakishi04/fold`; branch `feat/sft-target-loss`; local `M:\asobiba\fold`.
+Follow AGENTS.md and docs/experiment-conversation-handoff-protocol.md (response format v2).
+Repository akakishi04/fold; branch feat/sft-target-loss; local M:\asobiba\fold.
 Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
-**C226 ACCEPTED PASS. C227 ACTIVE / NOT YET JUDGED. C228 NOT REGISTERED.**
-C227 is unique ACTIVE. Source review passed; all execution preflights remain mandatory.
+**C227 ACCEPTED PASS. C228 ACTIVE / NOT YET JUDGED. C229 NOT REGISTERED.**
+C228 is unique ACTIVE. Do not execute until committed-source review passes.
 
-## Accepted C226 — dimension audit, limited query crossover
+## Accepted C227 — audit PASS, no query-speed advantage
 
-Scientific execution HEAD: `17284250b25bdb5160d5d3ffa95501a4f5070e03`.
-Published log commit: `2e4d4c01a9c37409cf4ebbc6c620c748b61e6156`.
-Log SHA: `783aac9892f63d9540480919f3a8b365789c29e5b3e4c0c83d5542078b9019bd`.
-Summary SHA: `ba4465c8c84e8fd54da1f7096a18056b7e53e6689a6ba3df5e1f9c559a7fac08`.
+Scientific execution HEAD: `1ada3a45be61e524cf09ff9fa7c6d56efcbf29ee`.
+Published log commit: `5adea153611ebe4b6788526ab71fad5b6a0027a9`.
+Log SHA: `2fdc52f6f483830d85db0b0e1908d8d157067daab94142d8c0779c5248a2a24b`.
+Summary SHA: `4e2a5282f5923b80272afd6476bf2a5ff62a672825cee6d442b0bac4325f9b75`.
 Local summary:
-`runs/c226-v5f-dimension-scaling-b1186f4e625e45e0909c44ed8c585937/summary.json`.
-Validation SHA: `ec05f980af138ef10f243c2a75788d50f7322f47bd5b8309b7e896c398ccaad7`.
-Measurements SHA: `f312af884dc6ee11bf02bf8b1aa3022531b3d599307571172557abc242519f44`.
+`runs/c227-v5f-factor-reuse-8abdfa3dfbd141db94ce9afd0e4c171a/summary.json`.
+Validation SHA: `bbb5ffefd2a0aad3c5e332ba1f50e2a87e15463267129bf657512a044c198d05`.
+Measurements SHA: `68234a510756ac5d80a5a1ee770a393ad8dce656a8c395ce8ca73be80b3eac16`.
 
-Regression2529/2529 OK; full symbolic/provenance/numeric parity at four dimensions;
-n2 C225 export inventories unchanged; checked candidate solve size2 versus full2/16/64/256;
-run_execution_valid True; protected inputs and tracked tree preserved.
-Acceptance uses published evidence and recorded local artifact checks, not reviewer-side rerun of
-user-local artifacts. Full verdict: `docs/experiment-ledger-addendum-c226-c227.md`.
+2561/2561 regression OK; all numerical/state/provenance parity checks passed;
+original C226 export inventories unchanged; cached query refactorizations0 at all dimensions;
+factor_reuse_audit_gate True; protected inputs/clean tree preserved; run_execution_valid True.
+Acceptance uses published evidence and recorded local artifact checks, not reviewer reruns of
+user-local artifacts. Full verdict: docs/experiment-ledger-addendum-c227-c228.md.
 
-| Numerical variables | H1/H2 query ms | Stateful full solve ms | H1/H2 bytes | Symbolic bytes |
-|---|---:|---:|---:|---:|
-| 2 | 0.4370 | 0.2398 | 11181 | 10764 |
-| 16 | 0.4615 | 0.2410 | 12715 | 12298 |
-| 64 | 0.4817 | 0.3805 | 29419 | 29002 |
-| 256 | 0.4089 | 1.1633 | 280561 | 280144 |
+| Numerical variables | H1/H2 query ms | Factor reuse query ms | H1/H2 / reuse |
+|---|---:|---:|---:|
+| 2 | 0.3373 | 0.0514 | 6.5623 |
+| 16 | 0.4504 | 0.0999 | 4.5085 |
+| 64 | 0.4641 | 0.0921 | 5.0391 |
+| 256 | 0.5179 | 0.2249 | 2.3028 |
 
-At n256 the measured H1/H2 median is0.3515 times the repeated-full-solve median (about2.85x faster).
-It is slower at the other sizes. Storage+417 bytes at every size: no total-storage win. Maximum
-instrumented discrepancy2.78e-17 within1e-10. Both paths avoid raw replay.
+The stronger frozen-state comparator is faster at every measured size. C226's large-n crossover
+against repeated dense factorization did not survive factor reuse. No current query-speed advantage
+is established. H1/H2 uses fewer exported bytes than this particular cached comparator at n256:
+280561 vs552365; however it remains larger than the uncached stateful comparator. Cache factor/rhs
+retention is48/2176/33280/526336 additional numerical bytes. Time/retention trade-off, not a general win.
 
-Three-trial descriptive timings, two live factors, sparse coupled input on dense kernels and shared
-complete bridge only. The baseline refactorizes on every unchanged-state query. Factor reuse and
-answer caching were not compared. Do not claim general speed or memory superiority or Gate F.
+Three descriptive timing trials, two live factors, fixed queries and shared full bridge only.
+Answer caching, specialized sparse solvers and minimized baselines are not compared.
 
-## Accepted V5-F chain and limits
+## Accepted chain and limits
 
-C213 semantics; C214 numeric closure; C215 H1/H2 commit; C216 Reader; C217 Selector;
+C213 semantics; C214 numerical closure; C215 H1/H2 commit; C216 Reader; C217 Selector;
 C218 structured Writer; C219 Coverage; C220 offline composition; C221 causal dispatch;
 C222 withdrawal/hypothesis isolation; C223 explicit-publication request freshness;
-C224 raw-retaining replay-cost audit; C225 stronger stateful comparator; C226 dimension audit.
+C224 replay-cost audit; C225 stateful comparator; C226 numerical dimensions; C227 factor reuse.
 
-C225 showed no storage/query-time advantage at n2 versus ordinary state retention.
-C226 adds only a scoped large-n crossover against repeated dense full solves.
-No broad language/generalization, native operation selection, acquisition, concurrency/answer-cache
-freshness, bounded many-factor indexing or total memory-cost superiority is established.
-Gate F remains NOT PASSED.
+No general language/reasoning performance, native operation selection, acquisition, concurrent
+freshness, bounded many-factor indexing or overall time/storage superiority has been established.
+Gate F remains NOT PASSED. Do not equate an audit PASS with a favorable efficiency result.
 
-## Active C227 — checked factor reuse attribution
+## Active C228 — bias-update/query amortization
 
-Experiment `C227-v5f-checked-factor-reuse-attribution`.
-Stage `V5-F-CHECKED-FACTOR-REUSE-ATTRIBUTION`.
+Experiment C228-v5f-bias-update-query-amortization.
+Stage V5-F-BIAS-UPDATE-QUERY-AMORTIZATION.
 
-One question: on the same frozen C226 states, does H1/H2 retain a measured advantage when a full-system
-comparator reuses a checked Cholesky factor instead of repeating the factorization every query?
+One question: how do update-plus-query costs compare when12 observed beta replacements are
+interleaved with1/4/16 queries on the same initial C227 states?
 
-Keep dimensions2/16/64/256, history32, two live factors, rank/readout2 and the exact matrix/raw family.
-Original H1/H2 and symbolic exports must match accepted C226 bytes at every dimension.
-Add only a benchmark-local full-factor/rhs cache; no accepted production code, safety check or weight
-is altered. Cache checks exact state/bridge binding and tensor identity/version stamps; full SPD
-check occurs at preparation. This is a frozen-state comparator, not general cache invalidation.
+Keep dimensions2/16/64/256, original32-event prefix, two live factors, rank/readout2 and matrix family.
+Append events33..44 of the same C224 generator. These change bias, not aggregate W. The comparator
+must be allowed to retain its checked full factor while refreshing rhs/state binding after explicit
+W-equality and tensor-stamp validation. Do not weaken it by forcing unnecessary refactorization.
+No accepted production code, safety check, learned checkpoint or historical test changes.
 
-Three arms: unchanged H1/H2, original stateful full_reference, cached Cholesky/cholesky_solve.
-All retain complete raw/index/bridge; cached arm counts additional factor/rhs and metadata.
-Extra retained cache tensor bytes48/2176/33280/526336. Shared baseline bridge still contains unused
-compiled capsule. Same final answers could also be memoized; no optimal-baseline claim.
+Twelve cells. One warm trajectory plus three measured trajectories per cell. Validate every query
+against untimed current full_reference, plus complete state/provenance parity after every update.
+Original candidate/symbolic initial exports must match C227 bytes for all dimensions. Separately
+trace checked preparation, replay all12 rhs refreshes with zero refactorizations, and final queries.
 
-One warmup+three measured queries per arm/dimension, cyclic order, CPU threads2, float64 tolerance1e-10.
-Record construction, cache preparation, index/export costs and reachable data separately.
-Instrument untimed preparation/query calls: cached query uses cholesky_solve n without refactorization;
-original arms retain their C226 checked call paths. Archive/member bytes and state/provenance/response
-parity required. Audit PASS does not require measured speed/storage superiority.
-No training, production optimization, many-factor query, answer-cache implementation or Gate F decision.
+Record common bank/index setup, per-arm initial construction, update and query phases, and export.
+Stream totals are update+query; cold-inclusive totals add registered common/per-arm setup phases,
+not whole-application elapsed time. Original raw/index/full bridge and all factor/rhs/W-guard cache
+bytes are counted. Reachable-state estimates exclude audit-only snapshots; no process peak claim.
+Three-trial timings remain descriptive. Audit PASS does not require faster/smaller H1/H2.
+No training, matrix-changing workloads, answer caching, acquisition or Gate F decision.
 
-Source pins202; protected inputs268; dependencies25; OWN6; artifacts5.
-New tests32; modules112; loaded2562 /focused2561 with the inherited exact exclusion1.
-Manifest: `4ea370a98b04bff4364f2ec8dccbc5fff658c1d4529a13ee6c3fc1d0c0cfa23d`.
-Registration: `docs/experiment-ledger-addendum-c227-preregistration.md`.
-Design: `docs/v5f-checked-factor-reuse-v0.1.md`.
+Source pins208; protected inputs280; deciding dependencies26; OWN6; artifacts5.
+New tests32; modules113; loaded2594 /focused2593 with inherited exact exclusion1.
+Full44-event ledger SHA: `493140c7cbc874c90066da8defe3785a0b667f6c2e2edbdbcc2b55bd5e595f11`.
+Manifest: `bd9e450beebb183dd953928a1e5894bcbd76f33aa25de3bcca27ef05277b1096`.
+Registration: docs/experiment-ledger-addendum-c228-preregistration.md.
+Design: docs/v5f-bias-update-query-amortization-v0.1.md.
 
-## C227 post-authoring review
+## C228 post-authoring review
 
-**post_authoring_review = PASS**
+**post_authoring_review = PENDING**
 
-Review HEAD: `70586952bbaa23d1d5d7cf9efe521dc3b9ea8557`.
-Scope: committed-source review and targeted authoring tests, not formal science.
+Author-side30 targeted tests passed;32 methods enumerated. Real torch rhs-refresh/factor-reuse
+calculations used synthetic parent-interface fixtures, not the accepted full backend. Synthetic
+run traversed all12 measurement cells, artifact export and postchecks. Ledger/manifest hashes and
+all three embedded runner Python blocks were checked.
 
-All four re-fetched remote code/test/PowerShell blobs match the executed local copies. After the
-comparison,30 targeted tests reran (0 failures/errors,2.491 seconds);32 methods enumerated;
-manifest matched; both Python files and all three embedded runner Python blocks compiled;
-unbound executable c### aliases0; CLI indices precheck[1]/postcheck[1..3].
-
-Real torch Cholesky/cholesky_solve versus solve was checked at all four dimensions on synthetic
-bridge fixtures, including nonfinite/non-SPD/capability rejection, exact snapshot bindings and
-mutation stamps. Trace restoration, archives and synthetic run loader/export/postcheck order passed.
-Source review checked actual parent helper/signature/field meanings, original two-arm byte parity,
-checked factor preparation, complete retention/cache accounting, untimed trace isolation,25 deciding
-dependencies,202/268 arithmetic, launcher guards and C228 non-registration. Git compare shows only
-new files and the unpinned handoff; no accepted source/test/log/dependency edit or deletion.
-
-Not executed locally: actual parent backend/export test31, historical test32/full2561 suite, Windows
-PowerShell AST parse, local user-artifact precheck or formal C227 measurement. Clone failed DNS
-resolution. Synthetic bridges/run fixtures are not represented as full-backend or historical tests.
-Authoritative runner executes all32 own tests, then2561 focused tests, then measurement; a failure
-stops before the next phase and logs are published. Review PASS does not waive those gates.
-After the review HEAD only review documentation changes; scientific conditions remain fixed.
+Not run here: test31 actual parent trajectory/export anchor, test32/full2593 historical suite,
+Windows PowerShell AST parse, user-local artifact precheck or formal C228 measurements. Clone failed
+DNS resolution. Remote committed files must be re-fetched and verified before review PASS.
+Authoritative runner executes32 own tests,2593 focused tests, then science; failures stop/log.
 
 ## Historical maintenance and stop
 
-Prior handoff: `2e4d4c01a9c37409cf4ebbc6c620c748b61e6156:docs/experiment-ledger-and-handoff.md`.
-Preserve all accepted source pins and `tools/run_c167.ps1` historical regression infrastructure.
-No cleanup, history rewrite, new CI, unrelated architecture or Actions-storage work.
-Judge C227 before C228. Gate F remains NOT PASSED.
+Prior handoff: 5adea153611ebe4b6788526ab71fad5b6a0027a9:docs/experiment-ledger-and-handoff.md.
+Preserve all accepted source pins and tools/run_c167.ps1 historical regression infrastructure.
+No cleanup, history rewrite, new CI, Actions-storage work or unrelated architecture changes.
+Judge C228 before C229. Gate F remains NOT PASSED.
