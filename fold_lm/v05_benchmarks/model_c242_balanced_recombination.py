@@ -252,7 +252,7 @@ def validate_result(p):
     require((len(p["source_blobs"]),len(p["input_sha256"]))==(298,454) and set(OWN)<=set(p["source_blobs"]),"protection")
     require(len(p["artifacts"])==5 and {x["file"] for x in p["artifacts"]}==OUTPUTS,"artifacts")
     s=p["validation_summary"]
-    require((s["models"],s["train_steps"],s["answer_presentations"],s["model_forward_calls"],s["row_presentations"]])==(6,2400,76800,2490,80832),"workload")
+    require((s["models"],s["train_steps"],s["answer_presentations"],s["model_forward_calls"],s["row_presentations"])==(6,2400,76800,2490,80832),"workload")
     require(s["all_replays"] is True and s["all_weights_changed"] is True and sum(s["cell_outcomes"].values())==12,"integrity")
     require(type(s["full_recombination_gate"]) is bool and type(s["gru_recombination_gate"]) is bool
         and p["status"]==("PASS" if s["full_recombination_gate"] else "FAIL"),"scientific status")
