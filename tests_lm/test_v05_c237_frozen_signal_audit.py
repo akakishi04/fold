@@ -267,7 +267,7 @@ class C237Tests(unittest.TestCase):
                 if str(path).startswith("synthetic-input-"):return "0"*64
                 return hashlib.sha256(Path(path).read_bytes()).hexdigest()
             @staticmethod
-            def read_json(path):return json.loads(Path(path).read_text())
+            def read_json(path):return json.loads(Path(path).read_text(encoding="utf-8"))
             @staticmethod
             def safe_child(root,name):
                 path=(Path(root)/name).resolve()
