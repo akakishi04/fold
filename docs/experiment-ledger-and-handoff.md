@@ -8,149 +8,173 @@ Authoritative runtime:Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
-**C242 ACCEPTED VALID NEGATIVE. C243 ACTIVE / NOT YET JUDGED. C244 NOT REGISTERED.**
-C243 is the unique ACTIVE experiment:offline saved-answer error analysis,not a capability run.
-Post-authoring review PASS;authoritative runtime prechecks and full regression remain mandatory.
+**C243 ACCEPTED PASS (diagnostic integrity only). C244 ACTIVE / NOT YET JUDGED. C245 NOT REGISTERED.**
+C244 is the unique ACTIVE experiment:V5-B two-partner recombination learning,not a Gate F run.
+Post-authoring review PASS. Authoritative runtime prechecks/full regression/scientific run pending.
+C242 remains ACCEPTED VALID NEGATIVE. No accepted capability boundary is expanded by C243.
 
-## Latest accepted evidence — C242
+## Latest accepted evidence — C243
 
-Scientific execution HEAD:372c2c37429acece3f06a9b4521313da4b3d5f8e.
-Published log commit:998b34447fc1ac5c4a0f2c42b0a4eb1958b87eb0.
-Publisher log SHA256:490be44e71cbaab6169f4965ce7983c0276a543523921ef1c162b7574dcacd9e.
-Log bytes:564532. Summary SHA256:d10aad6f47eb2cabc35d8b6519b22c05ab634922cbc81a9bea6147ea7794cfcb.
-Local summary:runs/c242-v5b-balanced-recombination-530e801ba23f496aa8e0a588e0d52982/summary.json.
+Scientific execution HEAD:1ff8bcfd4905b54c9f685eee26e197eb62394ab2.
+Published log commit:8dbf3c9a2ed661b8b826243ee996aa1057b19eba.
+Publisher log SHA256:53b5dbb8867f5f02dfd79225a0dd2e9fbf7541ef2ba98df5b6ab2e7d43784ace.
+Log bytes:573039.
+Summary SHA256:adf53e7f0306ab9d3fa209f24fb4fa1dbdc3d717037a4e7931579e670acdd2ce.
+Local summary:runs/c243-v5b-saved-recombination-audit-9a4a52f99ee2402dbbc3cb303935217a/summary.json.
 
-24 own tests PASS in6.420s;2977 focused tests PASS in93.412s.
-298 source pins/454 inputs protected. Six models x400=2400 training steps/76800 answer presentations.
-2490 model forwards/80832 rows. All checkpoint/prediction replays and weight-update checks PASS.
-Persisted split/initial-identity replay PASS;tracked tree clean;execution HEAD preserved;
-run_execution_valid=True. Both family recombination gates False;scientific status FAIL.
-cell_outcomes RECOMBINATION_MISS:12,not TRAIN_CRITERIA_MISS.
+24 own tests PASS in0.276s;3001 focused tests PASS in90.778s.
+304 source pins/466 protected inputs.1728 saved answers,576 normal rows,5760 rule comparisons,
+864 pair records,24 diagnostic cells. Scientific forwards/training/checkpoint loads/writes0.
+All discrete replays and persisted audit recomputations passed;protected inputs/clean tracked
+tree/execution HEAD preserved;run_execution_valid=True. NLL was not reconstructed from argmax.
 
-All12 TRAIN cells:16/16 answers,8/8 fact/query/order pairs,evidence drop0.75,query drop0.50.
-HOLDOUT exact answers (32 per language):
--seed234001:Full EN7 JA9;GRU-only EN11 JA12.
--seed234002:Full EN13 JA12;GRU-only EN13 JA12.
--seed234003:Full EN12 JA12;GRU-only EN8 JA10.
-HOLDOUT accuracy21.875%-40.625%,below90% in every cell. Full query pairs0/16 throughout;
-GRU-only1/16 for both languages of234001,0/16 otherwise. TRAIN NLL0.001047-0.003695;
-HOLDOUT3.947179-6.914980 at logged precision.
+TRAIN:192/192 normal answers correct;partner_of_other also matches192/192 by dataset identity.
+HOLDOUT (each family192 answers):
 
-This establishes training-distribution fitting with mask sensitivity but not generalization to
-new value-pair combinations. It does not establish a unique binding algorithm or core superiority.
-TRAIN co-occurrence remains deterministic:0 pairs with1,2 with3. Inferring the queried value from
-the TRAIN partner of the OTHER entity's value also solves TRAIN and can pass masking checks.
-This is a remaining ambiguity,not a claim that the actual models follow that rule.
+| Category | Full | GRU-only | Total |
+|---|---:|---:|---:|
+| correct |65|66|131|
+| other_supplied |9|29|38|
+| absent_partner_of_other |99|67|166|
+| absent_partner_of_queried |19|30|49|
+| other_byte |0|0|0|
 
-Acceptance/artifacts:docs/experiment-ledger-addendum-c242-c243.md.
-Acceptance/base commit:17d5cd5d82c584faaee0b02d52a22776c9ef47a3.
-The log publication is one commit after execution and changes only c242/latest.log/latest.json.
-Acceptance uses immutable log ranges and recorded local postcheck,not a checkpoint rerun or
-independent full-log byte rehash. Do not rerun/rescue C242 or modify its registered thresholds.
+215/384 answers were absent from the prompt.166/384 match the TRAIN partner of the nonqueried
+value. This is not a universal rule:the families and individual cells differ. Four named digit
+categories exhaust0..3 on this HOLDOUT. Do not infer an internal algorithm or causal module from
+category membership;do not treat pooled predictions as independent training experiments.
+No new capability,independent replication,NLL replay,core superiority or Gate F claim.
+
+Acceptance/artifacts:docs/experiment-ledger-addendum-c243-c244.md.
+Acceptance/base commit:432ecaa53da0f45806793865d88334fbbb90569f.
+The published log commit is one after execution and changes only c243/latest.log/latest.json.
+Acceptance used retrieved immutable log ranges and recorded local postchecks,not a reviewer
+checkpoint rerun or independent full-log byte rehash. C242 remains a valid negative.
 
 ## Preserved earlier evidence
 
-C241:valid negative;normal TRAIN100% but evidence drop0 and HOLDOUT0%,full TRAIN criteria missed.
-C240:diagnostic PASS;C239 saved errors largely matched fixed query-to-position behavior.
-C239:valid order-transfer negative. C238:PASS for16 seen-TRAIN prompts only.
-C237 diagnostic PASS;C236 valid negative under random replacement sampling;C235 diagnostic PASS;
-C234/C233 valid negatives;C232 bounded template-byte learning only. All evidence is preserved.
+C242:all12 TRAIN cells pass,all12 held-pair cells RECOMBINATION_MISS;one-partner TRAIN ambiguity remains.
+C241:normal TRAIN100% but evidence drop0 and swapped HOLDOUT0%;full TRAIN criteria miss.
+C240:diagnostic PASS;C239 errors largely matched fixed query-to-position behavior.
+C239 valid order-transfer negative;C238 seen16-prompt fit PASS;C237 diagnostic PASS;
+C236 random-batch valid negative;C235 diagnostic PASS;C234/C233 valid negatives.
+All accepted sources/tests/logs and their earlier recovery records remain unchanged.
 
-## Active C243 — saved recombination error audit
+## Active C244 — two-partner recombination
 
-Experiment:C243-v5b-saved-recombination-error-audit.
-Stage:V5-B-SAVED-RECOMBINATION-ERROR-AUDIT.
-One question:do saved HOLDOUT errors select the wrong supplied value,an absent value consistent
-with fixed TRAIN partner associations,or another byte?
+Experiment:C244-v5b-two-partner-recombination.
+Stage:V5-B-TWO-PARTNER-RECOMBINATION.
+One question:can fresh models transfer to still-held pairs when every TRAIN value has two
+partners,at the same400 updates,batch32 and total training presentations?
 
-Change only offline measurement. Keep all six C242 final models,TRAIN32/HOLDOUT64,raw saved
-predictions,three views,targets,source provenance and verdict fixed. No training,inference,
-checkpoint deserialization,answer correction or new evidence samples.
+Use C242's exact saved TRAIN32/HOLDOUT64 pool. TRAIN64 is old block32 followed by added block32.
+Old pairs:(0,1),(1,0),(2,3),(3,2).
+Added pairs:(0,2),(2,0),(1,3),(3,1).
+Remaining HOLDOUT32:(0,3),(3,0),(1,2),(2,1).
+Preserve original within-block row order,prompt/target/provenance,both orders,queries,languages.
+Prompt/ID/assignment-group sets are disjoint. No unseen vocabulary or pristine external-test claim.
 
-Use actual C242.validate_result and summarize for parent integrity. Read final[split][language]
-and predictions[split][view] after step400,as confirmed from the parent writer/replay source.
-Independently recompute all discrete metrics with exact fact/query/order grouping and mask-drop
-semantics. Require agreement<=1e-9. NLL remains finite/hash-protected only;nll_recomputed=False.
-The checkpoint artifact is hashed,not loaded as a model. All output bytes0..255 remain valid candidates.
+Before training require joint language/query/order/target balance in each32-row block. On the
+TRAIN union,lookup from language/query/order/nonqueried value has at most50% accuracy,not C242100%.
+Query-only ceiling25%;masked evidence25%,masked query50%. These are finite-data ambiguity ceilings,
+not model accuracy. Each isolated block still has a unique partner relation;do not omit that caveat.
+No block/step identifier is input.
 
-Derive and verify the fixed TRAIN co-occurrence map0->1,1->0,2->3,3->2. Ten registered rules:
-entity,other_entity,partner_of_other,query_fixed_position,first,last,constant_0..constant_3.
-Classify normal predictions in precedence order:correct,other_supplied,absent_partner_of_other,
-absent_partner_of_queried,other_byte. Retain all per-row rule matches and fact/query/order pairs.
+Fixed fresh models:Full13488/GRU-only10160,width16/48 slots,seeds234001/234002/234003,C242 initial
+fingerprints,common-weight baseline copy before either fit,same byte renderer,256-way output.
+AdamW lr0.005,betas(0.9,0.999),eps1e-8,weight_decay0,clip1,batch32,400 updates,CPU float64,
+threads2,deterministic algorithms. No trained parent checkpoint reuse.
 
-Interpretation boundary:entity=partner_of_other on TRAIN. On HOLDOUT the four digit categories
-exhaust0..3,so membership in a named category cannot prove a mechanism. Rule agreement is behavioral,
-not causal,and reused answers are not independent replication. Do not promote Gate F or change C242.
+Alternate blocks:human update1 old,update2 added,through400 added.200 updates/block and200
+presentations/TRAIN row. Every actual training input batch is checked against its scheduled block.
+Fit executable AST differs from C242 only in the progress tag and step-dependent ids expression.
+Coverage,repetitions,schedule change jointly;last-block effects/interference remain possible.
+Only TRAIN is evaluated initially;HOLDOUT after400 updates and replay,never for training or selection.
 
-Primary record counts:1728 saved answers,576 normal rows,5760 rule comparisons,864 pair records,
-24 diagnostic cells. Scientific model forwards/training/checkpoint loads/writes/network calls0.
-Repeated verification reads and historical regression fixture costs are separate.
-C243 PASS means diagnostic integrity only;no minimum agreement with any rule. Faults are INVALID /
-RETRY SAME C243. Low or mixed agreement is not an execution failure.
+Reuse C242 dynamic-size evaluator/validator/gate and actual C234 renderer/fact/query metrics.
+Both splits have complete fact/query/order pairs. Full primary requires every seed/language to
+pass BOTH splits:accuracy>=0.90,all three paired criteria>=0.80,both mask drops>=0.35.
+TRAIN32 rows/language,16 pairs/kind:29/32 answers and13/16 pairs minimum.
+HOLDOUT16 rows/language,8 pairs/kind:15/16 answers and7/8 pairs minimum.
+GRU-only gate independent. Report TRAIN_CRITERIA_MISS,RECOMBINATION_MISS,BOTH_PASS.
+A valid miss is ACCEPTED VALID NEGATIVE;integrity failure is INVALID / RETRY SAME C244.
+Even PASS is this bounded transfer only,not general language,all shortcuts removed,core superiority
+or unique causal attribution. Gate F remains NOT PASSED.
 
-Protection:304 source pins/466 inputs;direct dependency union19;OWN6.
-Own tests24;modules128;loaded3002/focused3001. Only inherited exact historical exclusion:
+C242 comparator:recompute its saved discrete metrics on exactly the remaining HOLDOUT32 by row ID,
+not its full HOLDOUT64 and never the promoted rows. Store c242_same_holdout_discrete and report
+accuracy deltas. Comparator is reused evidence,not a fresh run;no parent NLL reconstruction.
+
+Workload:6x400=2400 updates/76800 training presentations.90 scoring forwards/4608 scoring rows;
+2490 total model forwards/81408 rows. Before reload409/13280 per model;after415/13568.
+One six-state bundle,schema fold-c244-two-partner-v1;zero parent inference/scientific network calls.
+Protection:310 source pins/478 inputs;direct dependency union20;OWN6.
+Own tests24;modules129;loaded3026/focused3025;only inherited exact exclusion:
 `tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state`.
-Five ignored outputs:audit-plan.json,row-errors.json,pair-audit.json,diagnostics.json,
-validation-summary.json. Postcheck reconstructs every output exactly from original parent files.
-Manifest SHA256:02f2420c59bfa7a232686ea42cf2ed47ee6c17ebe2714e81a2fbc169a8e70379.
-Design:docs/v5b-saved-recombination-audit-v0.1.md.
-Registration:docs/experiment-ledger-addendum-c243-preregistration.md.
-Preregistration/review HEAD:bfe77748f5c55aae2662f180ecea146000b6e449.
-Use tools/invoke_active.ps1 with the final activation/handoff HEAD,not the review or C242 HEAD.
+Five ignored outputs:two-partner-plan.json,split-dataset.json,trained-models.pt,measurements.json,
+validation-summary.json. New counters retain train_steps,answer_presentations,model_forward_calls,
+row_presentations. Postcheck verifies partition,initial/comparator replay,child discrete metrics,
+normalized plan,hashes/sizes and summary. No protected historical file is changed.
 
-## C243 post-authoring review
+C243 parent summary:adf53e7f0306ab9d3fa209f24fb4fa1dbdc3d717037a4e7931579e670acdd2ce.
+C242 source summary:d10aad6f47eb2cabc35d8b6519b22c05ab634922cbc81a9bea6147ea7794cfcb.
+C244 split:e6b19547f95d319ead4be43086f5de76f16b4b6ab6cd9bec2ed4da5f8df80346.
+C244 manifest:e89a41c15ef3d702c7009a9b4fc22f4e28809dea3892c5d63cf02120a1e10b0b.
+Design:docs/v5b-two-partner-recombination-v0.1.md.
+Registration:docs/experiment-ledger-addendum-c244-preregistration.md.
+Preregistration/review HEAD:71fbdada9de594170bf95fd429a75454f840f55f.
+Use tools/invoke_active.ps1 with the final activation HEAD,not the review/C243 execution HEAD.
+
+## C244 post-authoring review
 
 `post_authoring_review = PASS`
-Review HEAD:bfe77748f5c55aae2662f180ecea146000b6e449.
-Scope:committed-byte authoring and synthetic-data execution,not formal C243 analysis.
+Review HEAD:71fbdada9de594170bf95fd429a75454f840f55f.
+Scope:committed-byte authoring review and synthetic-path execution,not a formal C244 result.
 
-All six OWN files were fetched again after authoring completion. Reviewed Git blobs:
--benchmark:77a810274ed8572959ed7198030f2af963b90413
--tests:4a310a1f0d79ef3dd426bf701a2bc4ed21e6548d
--runner:db8055e3f80f08f0250e67951c24505b8b2d3634
--launcher:903feb3ba9a18058cf05e4f1cdea2394df5164dc
--design:04ac0da08aae96a3fa68f1b6cb5c193e64f233d9
--preregistration:52277b0f348f0bb4fdbe6f351ff8d6db59527a01.
-Four code/script Git blob hashes were mechanically matched to full locally tested bytes after
-remote readback. Comparison from acceptance/base to review HEAD contains exactly six additions;
-no accepted source,test,log or shared launcher was modified.
+All six OWN files were re-fetched after authoring. Reviewed blobs:
+-benchmark:a59230da23b07838582360b8e180f471c7fa7f58
+-tests:be7331a63a494cf1a031001668fc4a7b8975315a
+-runner:ef2513d207d6ff2867ffef231c6db7fd97c1d6b6
+-launcher:2c1407899d7958136710cd56c753f900089a7048
+-design:5bd70fac5fd302157d3ba53d8340e4bf926bd708
+-preregistration:b293b657e8cb598d61fb588c36aa39a284754bdd.
+The four complete code/script local files were mechanically hashed using Git blob framing and
+matched the returned immutable remote blob IDs. Comparison from acceptance/base to review HEAD
+contains exactly six additions and no parent source/test/log/shared-launcher changes.
 
-Actually executed:
--Python compile/import and UTF-8/NUL checks on complete new source/test files;
--symbol-table free-global/import audit:zero unresolved names in either Python module;
--all24 own tests PASS in0.228s before publication and0.237s after readback;
--actual own unittest count and unique IDs;synthetic constructed3002-test suite filtering to3001;
--immutable split/manifest hashes,partner-rule degeneracy and disjoint HOLDOUT category controls;
--all ten synthetic rule patterns,unrestricted-byte/schema/nonfinite/replay rejection;
--actual loader on synthetic parent-shaped files with substituted parent summarizer;
--actual run and persisted postcheck with substituted protection/parent adapters,including
- wrong-HEAD and artifact-tamper rejection;all five derived outputs exactly replayed;
--independent relational pair matching agreed on200 synthetic three-view prediction arrays;
--three embedded runner Python blocks compile;precheck argv1/postcheck argv1,2,3 verified;
--source AST confirms actual loader/analyze dispatch and no executable model/training operations.
+Actually executed on those matched files:
+-UTF-8/NUL checks,Python compile/import,three embedded Python block compiles;
+-symbol-table free-global/import audit:zero unresolved names in the two complete new Python files;
+-all24 own tests PASS before publication in5.714s and after readback in4.640s;
+-actual own unittest loader count/unique IDs and a constructed3026-case filter to3025;
+-source split/new split/manifest hashes,block coverage,joint balance and ambiguity-ceiling checks;
+-400-step schedule enumeration verifies each of64 indices appears200 times;
+-fit AST/constant comparison against the exact retrieved C242.fit excerpt;
+-actual training input capture,holdout-after-fit barrier,initial mismatch rejection;
+-train/replay hook counts409+6 and13280+288 rows,block counts[200,200],bad replay rejection;
+-actual new six-model run/save/reload/postcheck with synthetic models and substituted parent/
+ protection adapters,including wrong-HEAD/tampered-artifact rejection;
+-identical-HOLDOUT comparator ignores deliberately corrupted predictions on promoted rows;
+-actual loader dispatch,common-copy-before-fit,save-before-load/replay and CLI argv1/2 then1/2/3/4.
 
-Parent C242 writer,checkpoint replay,summarizer and validator were read at the immutable log HEAD.
-Final predictions are trained outputs,not initial metrics;the parent stores32/64 predictions per
-view and includes fact/query/order scores. The current child uses the correct field names and
-grouping semantics. Lazy parent/context helpers are included in the19-module protected union.
-Launcher inspection confirms branch/tree/ExpectedHead/ACTIVE guards before logging/publication,
-runner ParseFile before execution,and the exact C242 local summary directory.
+Reviewer environment:Python3.13.5/PyTorch2.10.0+cpu/NumPy2.3.5. Isolated workspace contains full
+new files,synthetic Binding/Fitting/Factory/Parent adapters,and a reviewer-only import scaffold
+with the retrieved immutable C242.fit excerpt. This is NOT a complete repository checkout.
+A git ls-remote attempt failed to resolve github.com. Connector tools supplied repository reads/
+writes. The real parent C242/C243 call/schema semantics were source-reviewed;the existing evaluator
+was not executed on actual FOLD models by the reviewer. No scientific C244 predictions were produced.
 
-Reviewer environment:Python3.13.5,isolated namespace workspace,not a full repository checkout.
-A git ls-remote attempt failed because github.com DNS resolution was unavailable. Connector reads
-supplied committed source. Full3001 historical regression,Windows PowerShell AST,accepted local
-parent prechecks and C243 analysis of actual C242 predictions were NOT executed here. None is
-represented as PASS. The authoritative Windows runner must perform these remaining checks.
-The200-array parity check is reviewer-only synthetic validation,not200 additional scientific samples.
+NOT executed here:full3025-test historical suite,Windows PowerShell AST,accepted user-local parent
+artifact prechecks,or the actual six-model FOLD/GRU C244 run. These are not represented as PASS.
+The ordered authoritative Windows launcher/runner must perform all those checks. Counts derive
+from accepted3002 loaded plus24 new tests;the actual loader enforces3026/3025 and unique IDs.
 
-Only this unpinned activation/handoff record changes after review HEAD. Re-read it and verify
-branch HEAD before issuing ExpectedHead. Do not advance the branch while the formal run is active.
+Only this unpinned handoff activation/review changes after review HEAD. Re-read it and confirm final
+branch HEAD before issuing ExpectedHead. Do not advance the branch during the user's formal run.
 
 ## Stop and scope
 
-Gate F NOT PASSED;numeric-memory tuning paused. Preserve accepted sources/tests/logs and tools/run_c167.ps1.
-No larger model,paid API,external corpus,history rewrite,cleanup or production runtime change.
-24 own tests ->3001 focused tests ->C243 saved-error audit ->postcheck ->remote log publication.
-Stop same C243 on integrity faults;repair transport-only failure without repeating completed analysis.
-Judge C243 before registering C244.
+Gate F NOT PASSED;numeric-memory tuning paused. Preserve accepted evidence and tools/run_c167.ps1.
+No larger model,extra training presentations,paid API,external corpus,cleanup,history rewrite or
+production runtime change.24 own tests ->3025 focused tests ->C244 ->postcheck ->remote log publication.
+Stop same C244 on integrity faults;repair transport-only failure without retraining. Judge C244 before C245.
