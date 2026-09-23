@@ -8,9 +8,32 @@ Authoritative runtime: Python3.13.15 / PyTorch2.10.0+cu130 / NumPy2.3.5.
 
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
-**C234 ACCEPTED VALID NEGATIVE. C235 ACTIVE / NOT YET JUDGED. C236 NOT REGISTERED.**
+**C234 ACCEPTED VALID NEGATIVE. C235 ACTIVE / INVALID ATTEMPT RECOVERY. C236 NOT REGISTERED.**
 C235 is the unique ACTIVE experiment. It is a frozen diagnostic, not a new capability gate.
-Post-authoring review is PASS; authoritative execution preflights remain mandatory.
+The first attempt is INVALID; retry the same C235 after the reviewed test-only repair.
+Current recovery post-authoring review is PASS; authoritative execution preflights remain mandatory.
+
+## Current C235 execution recovery
+
+Attempted execution HEAD: `d55e58f280bbd32776a6cd56ddc7507e6c827e1a`.
+Published invalid-log commit: `1615b5ce54afed8bde44ac9d326cace6c6e674d0`.
+Log SHA256: `37834dbd3572d43a94ccd2372f6bc070cd8ffae3745f69975e38fe82c25fafd5`.
+
+Syntax and source/artifact prechecks passed. Own tests: 23 PASS / 1 FAIL out of24.
+Test22 falsely rejected the word optimizer inside a result-limitation string in b.run.
+The focused regression and scientific diagnostic were not started; run_execution_valid=False.
+This is authoring failure, not evidence about binding ability. C234's verdict is unchanged.
+
+Repair commit: `a972c32c4b3de5e58ad3d9d3c0f7734256bafce7`.
+Only C235 test22 and its ast import changed. Executable AST is inspected instead of raw forbidden
+substrings; a harmless-text fixture and11 prohibited-operation subtests guard the repair.
+No test is removed. All24 test IDs, 2809 focused count, scientific code, model/data/seed/threshold,
+manifest, workload, runner, launcher and accepted parent evidence remain unchanged.
+
+Current recovery record, invalid evidence and review limitations:
+`docs/experiment-ledger-addendum-c235-execution-recovery.md`.
+This recovery record supersedes the initial readiness review; the original preregistration
+continues to define the unchanged scientific conditions.
 
 ## Accepted C234 — contextual binding not established
 
@@ -141,31 +164,35 @@ Design:
 Registration:
 `docs/experiment-ledger-addendum-c235-preregistration.md`.
 
-## C235 post-authoring review
+## C235 recovery post-authoring review
 
 `post_authoring_review = PASS`
 
-Review HEAD: `21fdd412a95d9c4f024dc92c20a4dc17d3d6f955`.
-Scope: committed remote source/static contract review, not formal diagnostic execution.
+Review HEAD: `a972c32c4b3de5e58ad3d9d3c0f7734256bafce7`.
+Scope: same-C test repair, remote source readback and targeted local verification; not formal C235.
+The initial review at21fdd412 missed the source-string false positive and is superseded here.
 
-Remote blobs at review HEAD:
-benchmark `12807b77a5f6bc36d185a931e54d651dcd557e39`;
-tests `2c880ae9b35a214d7a7e0425c5c674fad10027d3`;
-runner `f6debab11f8fb88c3519752626d6f4512ae3297d`;
-launcher `564359a1283a9bea333ce78611c085baa662d358`.
+Reviewed repaired test blob: `570711dbce5080fed307ac2c67d027d685a8a3d8`.
+Unchanged benchmark blob: `12807b77a5f6bc36d185a931e54d651dcd557e39`.
+Unchanged runner: `f6debab11f8fb88c3519752626d6f4512ae3297d`.
+Unchanged launcher: `564359a1283a9bea333ce78611c085baa662d358`.
 
-Acceptance-to-review comparison changes only C235 OWN6 plus this handoff. Static audit confirms:
-no C235 fit/optimizer/torch.save path; frozen model fingerprints are checked; parent EVAL is replayed;
-36 forwards/10368 rows/0 training are fixed;24 test methods are present; runner registers
-2810 loaded/2809 focused tests and three precheck/regression/postcheck blocks; launcher resolves only
-ACTIVE C235 and requires clean tree/exact HEAD/parser success before execution/publication.
-Independent manifest reconstruction matched
-`2e8bb701b3a6d512479c7118ac0973784617e1243639ef00c3903caed1a0f6c3`.
+The committed test was re-fetched, and its Git blob identity matched locally tested bytes.
+The original failing test was reproduced before repair; the repaired exact test passed against
+actual unchanged b.run source, including harmless-text and11 forbidden-operation controls.
+Full benchmark/test Python compile passed.17 fixture-independent test methods passed by direct
+TestCase.run invocation; the parent dataset setUpClass was not run. The own loader still constructs
+24 tests, and other test-method ASTs are unchanged. The ast import binding and unchanged manifest
+hash were verified. No scientific, guard, test-count or protected-input condition is relaxed.
 
-Reviewer-local execution was not possible because the isolated environment could not resolve
-github.com for a clone. Python py_compile,24 authoring tests,2809 focused tests, Windows PowerShell
-AST, local C234 artifact reads and the36-forward diagnostic remain authoritative runner preflights
-and are not represented as already passed. Any defect stops C235 before a valid diagnostic result.
+Reviewer environment: Python3.13.5 / PyTorch2.10.0+cpu / NumPy2.3.5.
+The full24-test suite with parent fixtures,2809 focused tests, Windows PowerShell AST, accepted
+local artifacts and36-forward diagnostic were NOT executed here. The container cannot clone the
+full repo because github.com does not resolve. These checks remain mandatory in the unchanged
+Windows launcher/runner and must not be reported as already passed.
+
+Only recovery documentation changes after review HEAD. The final recovery documents are re-read
+before returning the retry ExpectedHead. Do not reuse the old d55e58f2 execution HEAD.
 
 ## Numeric-memory track and stop
 
