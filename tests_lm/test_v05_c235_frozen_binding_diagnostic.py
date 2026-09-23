@@ -1,3 +1,4 @@
+import ast
 import hashlib
 import inspect
 import itertools
@@ -165,11 +166,49 @@ class C235Tests(unittest.TestCase):
         self.assertIn('PARENT_ARTIFACTS',source)
 
     def test_22_run_is_frozen_no_training_or_checkpoint_write(self):
+        def forbidden_operations(text):
+            # Inspect executable syntax, not documentation/string contents.
+            found=[]
+            for node in ast.walk(ast.parse(text)):
+                name=(node.id if isinstance(node,ast.Name) else
+                      node.attr if isinstance(node,ast.Attribute) else "")
+                if "optimizer" in name.lower() or name=="optim":
+                    found.append("optimizer reference")
+                if isinstance(node,ast.Call):
+                    target=node.func
+                    called=(target.id if isinstance(target,ast.Name) else
+                            target.attr if isinstance(target,ast.Attribute) else "")
+                    if called in {"fit","backward","step","zero_grad"}:
+                        found.append("training call: "+called)
+                if (isinstance(node,ast.Attribute) and node.attr=="save"
+                        and isinstance(node.value,ast.Name) and node.value.id=="torch"):
+                    found.append("torch.save reference")
+            return found
+
         source=inspect.getsource(b.run)
-        self.assertNotIn(".fit(",source);self.assertNotIn("optimizer",source)
-        self.assertNotIn("torch.save",source)
+        self.assertEqual(forbidden_operations(source),[])
         self.assertIn("requires_grad_(False)",source)
         self.assertIn('replay_error(scores["EVAL"]',source)
+
+        # Regression for the observed false positive; these are never executed.
+        harmless=(
+            'def probe():\n'
+            '    """No optimizer, .fit( or torch.save operation is permitted."""\n'
+            '    # optimizer.step(), model.fit(data), torch.save(state, path)\n'
+            '    note = "no causal proof of optimizer/architecture cause"\n'
+            '    model.eval()\n'
+            '    model.requires_grad_(False)\n'
+        )
+        self.assertEqual(forbidden_operations(harmless),[])
+        for operation in (
+            "model.fit(data)", "fit(data)", "loss.backward()",
+            "optimizer.step()", "engine.optimizer.step()",
+            "optimizer = object()", "torch.optim.SGD(params)",
+            "torch.save(state, path)", "save_alias = torch.save",
+            "model.zero_grad()", "opt.step()",
+        ):
+            with self.subTest(forbidden_operation=operation):
+                self.assertTrue(forbidden_operations("def probe():\n    "+operation+"\n"))
 
     def test_23_runner_launcher_and_workload_contract(self):
         root=Path(__file__).resolve().parents[1]
