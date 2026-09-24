@@ -1,0 +1,49 @@
+=== C255 repository preflight ===
+execution_head = 70ca4c4c71f7e304d0a78313e642f5fdb57d4da2
+python_syntax_preflight = PASS
+expected_focused_tests = 3289 (3290 loaded -1 inherited exact exclusion)
+Gate_F = NOT_PASSED; training = 0; full_model_forwards = 0; head_forwards = 120; head_rows = 5760
+source_and_artifact_precheck = PASS; source_pins = 376; protected_inputs = 611
+C254_archive_replay = PASS; fixed_query_reversed_assignment_donors = PASS
+=== C255 own authoring tests first: 24 ===
+test_01_manifest_and_exact_partition (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_01_manifest_and_exact_partition) ... ok
+test_02_donor_involution_and_no_self (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_02_donor_involution_and_no_self) ... ok
+test_03_query_order_language_fixed_values_reverse (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_03_query_order_language_fixed_values_reverse) ... ok
+test_04_targets_do_not_select_donor (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_04_targets_do_not_select_donor) ... ok
+test_05_missing_duplicate_and_wrong_pair_rejected (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_05_missing_duplicate_and_wrong_pair_rejected) ... ok
+test_06_all_forward_equations (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_06_all_forward_equations) ... ok
+test_07_coherent_control_matches_donor_not_recipient (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_07_coherent_control_matches_donor_not_recipient) ... FAIL
+test_08_evidence_blind_negative_control (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_08_evidence_blind_negative_control) ... ok
+test_09_self_mismatch_stops_before_swaps (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_09_self_mismatch_stops_before_swaps) ... ok
+test_10_restore_exactly (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_10_restore_exactly) ... ok
+test_11_no_full_core_reader_calls (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_11_no_full_core_reader_calls) ... ok
+test_12_nested_core_call_blocked (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_12_nested_core_call_blocked) ... ok
+test_13_frozen_state_and_identity (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_13_frozen_state_and_identity) ... ok
+test_14_source_activation_and_weight_preservation (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_14_source_activation_and_weight_preservation) ... ok
+test_15_mutation_and_cleanup (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_15_mutation_and_cleanup) ... ok
+test_16_all_five_counts_comparators_and_transitions (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_16_all_five_counts_comparators_and_transitions) ... ok
+test_17_bad_record_counts_and_order (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_17_bad_record_counts_and_order) ... ok
+test_18_persisted_coherent_and_restore_corruption (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_18_persisted_coherent_and_restore_corruption) ... ok
+test_19_nonfinite_and_claim_guard (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_19_nonfinite_and_claim_guard) ... ok
+test_20_actual_loader_parent_archive_and_signatures (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_20_actual_loader_parent_archive_and_signatures) ... ok
+test_21_actual_five_model_run_archive_postcheck (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_21_actual_five_model_run_archive_postcheck) ... ok
+test_22_actual_own_ids_and_constructed_historical_filter (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_22_actual_own_ids_and_constructed_historical_filter) ... ok
+test_23_runner_cli_and_no_training (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_23_runner_cli_and_no_training) ... ok
+test_24_compare_parent_self_and_exclude_coherent_accuracy (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_24_compare_parent_self_and_exclude_coherent_accuracy) ... ok
+
+======================================================================
+FAIL: test_07_coherent_control_matches_donor_not_recipient (tests_lm.test_v05_c255_value_residual_swap.C255Tests.test_07_coherent_control_matches_donor_not_recipient)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "M:\asobiba\fold\tests_lm\test_v05_c255_value_residual_swap.py", line 178, in test_07_coherent_control_matches_donor_not_recipient
+    for v in b.VIEWS: self.assertTrue(torch.equal(r["outputs"]["coherent_swap"][s][v], e["outputs"]["intact"][s][v][d]))
+                      ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 24 tests in 2.055s
+
+FAILED (failures=1)
+=== C255 POSTCHECK ===
+tracked_tree = clean; execution_HEAD = preserved
+run_execution_valid = False
