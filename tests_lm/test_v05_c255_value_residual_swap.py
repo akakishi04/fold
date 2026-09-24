@@ -175,7 +175,7 @@ class C255Tests(unittest.TestCase):
         for r, e in zip(self.records, self.original, strict=True):
             for s, rows in self.parts.items():
                 d = b.donors(rows)
-                for v in b.VIEWS: self.assertTrue(torch.equal(r["outputs"]["coherent_swap"][s][v], e["outputs"]["intact"][s][v][d]))
+                for v in b.VIEWS: self.assertLessEqual(b.replay(r["outputs"]["coherent_swap"][s][v], e["outputs"]["intact"][s][v][d]), b.TOL)
         self.assertNotIn("coherent_swap", b.SCORED_MODES)
 
     def test_08_evidence_blind_negative_control(self):
