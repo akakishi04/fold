@@ -294,7 +294,8 @@ def validate_result(p):
     require((len(p["source_blobs"]),len(p["input_sha256"]))==(334,526) and set(OWN)<=set(p["source_blobs"]),"protection")
     require(len(p["artifacts"])==5 and {x["file"] for x in p["artifacts"]}==OUTPUTS,"artifacts")
     s=p["validation_summary"]
-    require((s["models"],s["train_steps"],s["answer_presentations"],s["model_forward_calls"],s["row_presentations"]])==(12,4800,153600,4980,162816),"workload")
+    counts=tuple(s[k] for k in ("models","train_steps","answer_presentations","model_forward_calls","row_presentations"))
+    require(counts==(12,4800,153600,4980,162816),"workload")
     require(all(s[k] is True for k in ("all_replays","all_initial_replays","all_weights_changed"))
         and len(s["comparisons"])==12 and all(sum(s["cell_outcomes"][a].values())==12 for a in ARMS),"integrity")
     require(set(s["gates"])==set(ARMS) and all(set(s["gates"][a])==set(FAMILIES) and all(type(v) is bool for v in s["gates"][a].values()) for a in ARMS),"gate schema")
