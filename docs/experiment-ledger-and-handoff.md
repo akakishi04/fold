@@ -8,191 +8,174 @@ Authoritative runtime:Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
-**C252 ACCEPTED VALID NEGATIVE. C253 ACTIVE / NOT YET JUDGED. C254 NOT REGISTERED.**
-C253 is the unique ACTIVE experiment:V5-B frozen post-core residual diagnostic.
-Post-authoring review PASS;authoritative Windows/full-regression/accepted-checkpoint run pending.
-No production adoption. C251/C250/C248 verdicts remain unchanged;C249 remains diagnostic PASS.
+**C253 ACCEPTED PASS (diagnostic integrity only). C254 ACTIVE / NOT YET JUDGED. C255 NOT REGISTERED.**
+C254 is the unique ACTIVE experiment:V5-B paired residual-swap diagnostic,using saved activations
+and a frozen output head only. Post-authoring review PASS;authoritative Windows/full-regression/
+accepted-artifact execution pending. No production adoption or new capability claim.
+C252/C251/C250/C248 remain accepted valid negatives;C249 remains diagnostic PASS.
 
-## Latest accepted evidence — C252
+## Latest accepted evidence — C253
 
-Scientific execution HEAD:2e3102b6f1d7061afcfd0bcf996ad660fcf36a36.
-Published log commit:f0882790ca5deae784513c946e5d6e60481d02f2.
-Publisher log SHA256:30416c085e0f1b1cd19b6aa3df73c435a7490414c02b0546dd15c7662e4f11c2.
-Log bytes:626938.
-Summary SHA256:18c176213aa0c047ddf9fe53f188e933e341f5e8556571c0a8999e7a36164f9e.
-Local summary:runs/c252-v5b-precore-query-ea8199d8ca794acba051ca5f65a391b3/summary.json.
+Scientific execution HEAD:13523ebefc482f3b230101d9a89938bda79c69e5.
+Published log commit:aca5849d45c9f6c6323db84dc9896a4092144fa0.
+Publisher log SHA256:a7690d0e6db2108b4f3e6329e12fbb9a14d8049ba0fbf5ceefc661c02d118880.
+Log bytes:655028.
+Summary SHA256:2d65feaed637c71728cd8ed1cc60f54306a7fb733b43c6b695e86f0313f27e47.
+Local summary:runs/c253-v5b-frozen-residual-97fc39ef6e8b42cba8c2d1933ddfcbf6/summary.json.
 
-24 own tests PASS in24.330s;3217 focused tests PASS in181.128s.
-358 source pins/575 protected inputs. Five models x400 updates=2000 updates/64000 training
-presentations;2075 full-model forwards/67840 total row presentations. All initial/checkpoint/
-prediction replays,weight updates,protected inputs,tracked tree and execution HEAD checks passed.
-Persisted query-alignment/comparator/discrete replay PASS;run_execution_valid=True.
-Scientific status FAIL;candidate_gate=False. Publication follows execution by one commit and
-changes only c252/latest.log/latest.json. Acceptance is based on immutable published log ranges,
-metadata and recorded local postchecks,not an independent full-log rehash or actual-model rerun.
+24 own tests PASS in3.166s;3241 focused tests PASS in119.771s.
+364 source pins/587 protected inputs. Five frozen models;120 full-model forwards/5760 rows;
+training0,new checkpoint writes0,parent bundle loads1,strict state loads5.
+Parent prediction/metric/NLL replay PASS;pre/post/read components unchanged;restored output replay
+PASS;weights/inputs preserved. Persisted output/component replay PASS;tracked tree clean;execution
+HEAD preserved;run_execution_valid=True. Diagnostic status PASS,not capability improvement.
 
-All10 TRAIN language cells:32/32 normal answers,16/16 fact/query/order pairs,both mask criteria PASS.
-HOLDOUT normal correct counts per language (denominator16):
+HOLDOUT correct counts per language (/16),English/Japanese:
 
-| Seed | C252 EN | C252 JA | C251 EN | C251 JA | C252 whole seed |
-|---:|---:|---:|---:|---:|---|
-|250001|16|16|16|16|PASS|
-|250002|9|9|10|9|MISS|
-|250003|16|16|10|10|PASS|
-|250004|15|16|6|5|PASS|
-|250005|16|16|16|16|PASS|
+| Seed | Intact | Pre-core EOS+read | Reader only |
+|---:|---:|---:|---:|
+|250001|16,16|15,14|16,16|
+|250002|9,9|4,3|4,4|
+|250003|16,16|11,12|10,12|
+|250004|15,16|10,10|12,12|
+|250005|16,16|14,14|16,15|
 
-Whole-seed both-language passes4/5 versus C2512/5. Outcomes BOTH_PASS8,RECOMBINATION_MISS2.
-The candidate retains both previously passing C251 seeds and adds250003/250004. Seed250004 EN
-is not perfect:15/16 answers and7/8 of each pair type,within unchanged registered thresholds.
-Seed250002 has9/16 answers in both languages,fact pairs3/8,query pairs1/8,order pairs4/8,
-evidence drop0.3125 and query drop0.1875. It fails several criteria,not just rounding at a threshold.
-Descriptive pooled HOLDOUT145/160 versus114/160. Ten language comparisons:4 improve,5 tie,1 worse.
-The cells share five reused initialization blocks and a repeatedly inspected task;no population
-reliability,independent-replication or statistical-significance claim follows.
+Descriptive pooled HOLDOUT145/160 intact,107/160 pre_residual,117/160 reader_only.
+TRAIN320/320 intact,225/320 pre_residual,255/320 reader_only.
+Pre substitution lowers all10 HOLDOUT language accuracies. Reader-only lowers7 and leaves3 unchanged
+(250001 EN/JA,250005 EN);neither intervention improves a language cell. Failed seed250002 is not
+rescued. All20 intervention/HOLDOUT NLL deltas are positive. Preserved argmax does not mean identical
+scores:250001 reader-only HOLDOUT NLL is about0.015 versus about0.0016 intact.
 
-Using a pre-core query with already-pre-core memory is a promising matched change,but all-seed
-reliability remains unproven. Shared source stage is not proof of identical learned query/key spaces
-or a uniquely diagnosed alignment mechanism. Computation and gradient flow changed together.
-Both query and reader memory now originate before the core;the core still contributes via its
-post-core EOS residual. Current scores alone do not establish the necessity of that residual.
+The trained post-core residual supports accuracy in several learned solutions,but is not uniformly
+necessary for correct answers:250001 preserves every original TRAIN/HOLDOUT answer without it.
+The result does not justify removing/replacing the residual as a repair. Frozen substitutions can
+alter activation direction/scale and co-adaptation at LayerNorm;they do not establish a unique
+semantic mechanism,training-time necessity or superiority over a separately trained core-free model.
+All C253 modes still executed the core,so no runtime-speed benefit was measured.
 
-Acceptance/artifact details:docs/experiment-ledger-addendum-c252-c253.md.
-Acceptance/base commit:c647917f2ff052f0c7fe403d1355c16ba6b5da65.
-Do not rerun C252,replace seed250002,relax its gate or declare production adoption.
+Acceptance/artifacts:docs/experiment-ledger-addendum-c253-c254.md.
+Acceptance/base commit:bd1b88a27ab4aaa5712d06bc178158e6f410a7ff.
+Publication follows execution by one commit and changes only c253/latest.log/latest.json.
+Acceptance uses retrieved immutable log ranges,metadata and recorded user-local postchecks;
+no reviewer rerun of actual checkpoints or independent complete-log rehash was performed.
+Do not rerun C253 or reinterpret it as a capability PASS. C252's4/5 result and negative remain intact.
 
 ## Preserved earlier boundaries
 
-C251 pre-core-memory/post-core-query:2/5 joint seed passes,different pass identities from C250.
-C250 fresh-seed study:Full reader2/5,GRU reader4/5,both EOS controls0/5. C248 original readers
-showed bounded transfer in8/12 language conditions. C249 frozen ablation established dependency
-on the trained reader path,not that an ablated model could never learn from scratch.
-C247 normal-budget control,C246 mixed erasure,C244/C242 recombination,C241 evidence-use,C239
-order-transfer negatives remain unchanged. C245/C243/C240/C237/C235 remain diagnostics;
-C238 seen-prompt fitting only. C232 bounded byte learning and C233 competitive GRU-only baseline
-are not broad language or FOLD-core-superiority results. Preserve all earlier recovery records.
+C252 pre-core query and memory/post-core residual:4/5 whole-seed joint passes,not5/5.
+C251 pre-core memory/post-core query:2/5;C250 Full post-core reader2/5,GRU reader4/5,EOS controls0/5.
+C249 established frozen reader-path dependence,not training-time necessity. C248 showed bounded
+transfer but did not meet all-seed criteria. C247/C246/C244/C242/C241/C239 remain accepted negatives;
+C245/C243/C240/C237/C235 remain diagnostics;C238 is seen-prompt fitting only. C232 bounded byte
+learning and C233 competitive GRU-only baseline are not broad language/core-superiority evidence.
+Preserve all accepted sources,results and recovery records.
 
-## Active C253 — frozen post-core residual diagnostic
+## Active C254 — paired residual swaps
 
-Experiment:C253-v5b-frozen-postcore-residual.
-Stage:V5-B-FROZEN-POSTCORE-RESIDUAL.
-One question:how much of the accepted C252 models' answer performance depends on their post-core
-EOS residual base,with the trained pre-core query/memory/read vector unchanged?
+Experiment:C254-v5b-paired-residual-swap.
+Stage:V5-B-PAIRED-RESIDUAL-SWAP.
+One question:does the frozen post-core residual contribute information specific to the recipient's
+queried entity beyond a contribution also usable from a paired prompt?
 
-All five accepted C252 Full models are frozen,including failed seed250002. No training or parameter
-change. Original TRAIN64/HOLDOUT32 and normal/evidence_blind/query_blind views remain byte-identical.
-Fixed modes:intact -> pre_residual -> reader_only -> restored.
-At the original readout normalization:
--intact uses post-core EOS + reader output;
--pre_residual uses pre-core local EOS + the same reader output;
--reader_only uses the same reader output without an EOS residual base;
--restored uses the original post-core EOS + reader output again.
+Use C253 intact saved post/read activations and the exact C252 final normalization/decoder weights.
+Modes:self,order_swap,query_swap,restored. The recipient reader output remains fixed.
+-order_swap:donor has identical facts/query but opposite fact order;
+-query_swap:donor has identical facts/order but the opposite query;
+-self/restored:original residual.
+All donors stay within seed/split/language/view. Fixed metadata-defined permutations are involutions,
+preserve the exact residual multiset,and have no fixed points in altered modes. No correctness/
+loss-based selection. Target values validate pair semantics but do not choose donors or enter the head.
 
-Both original core routes still execute in every mode. This is an output-path intervention on
-jointly trained weights,not a newly trained core-free model or a speed comparison.
-Pre-core EOS itself summarizes the whole prefix. Removing/swapping post changes activation scale
-and distribution,so a decline does not uniquely identify a reasoning mechanism. Unchanged accuracy
-would not prove that the core was irrelevant during learning or on other tasks.
+Keep all five seeds250001..250005,including failed250002;original TRAIN64/HOLDOUT32 and three views.
+Compute decoder(LayerNorm(saved_post[donor]+saved_read[recipient])) with the accepted normalization
+shape/epsilon/parameters and decoder. Load the full accepted model strictly for identity checks,
+freeze all weights,and call ONLY its LayerNorm and decoder. Guards forbid full-model/backbone/
+encoder/core/reader forwards. No learning,parameter change,new input form or answer correction.
 
-Use actual C252.AlignedPrecoreReadout,load accepted final states strictly,verify final_sha256 and
-14256 parameters,then eval/requires_grad=False. C252.load_bundle validates the five ordered states.
-Read C252's own split/measurements,not C252.load_inputs (which reads C251). Validate actual C252
-summary and summarize(refs,C242). final/predictions/final_sha256 are the learned endpoint;initial
-fields and c251_comparator are not used as current model outputs.
+Loader semantics:C253 outputs.pt stores activations/logits,not parameter states. C254's adapter reads
+its C253 parent archive,while actual C253.load_inputs(c252_summary) retrieves C252 reference records.
+C253.analyze must reproduce all parent JSONs and summary. C252.load_bundle and C253.frozen_model
+supply the exact accepted final states. Do not pass C253 summary to the C253 loader that reads C252.
+C252 summary/artifacts are already inherited protected inputs and are not double-counted.
 
-Scoped outer hooks capture original post before the parent wrapper adds read. At LayerNorm output,
-verify original input equals post+read. Intact/restored leave the original output alone;the two
-changed modes compute functional layer_norm on the new combination with identical norm parameters
-and epsilon. Core route counts,query-input provenance,normalization ordering and one-time hook counts
-are enforced. pre/post/read component tensors must be exactly unchanged across modes for each input.
-All hooks are removed after success or exception. No parent source or method is patched.
+Self must match saved intact logits<=1e-9 and exact argmax before swaps. Restored must match self.
+Query-blind query pairs have identical inputs and saved residuals:their query-swapped logits must
+match self as a structural negative control. Weights are fingerprinted after every head evaluation.
+Use C253.metrics for all original scores. Persist logits;postcheck reconstructs metrics/contrasts
+without further head/model calls. Report80 diagnostic cells and40 contrast cells including flips,
+wrong-to-correct/correct-to-wrong,donor-target matches,accuracy/NLL deltas.
 
-Intact runs first and must reproduce all parent prediction arrays and final metrics including NLL
-before either intervention. Weight fingerprint is checked after every forward. Restored logits
-must match intact within1e-9 and argmax outputs exactly. Original inputs and256-byte output classes
-remain unchanged. Raw logits and component vectors are persisted for offline recomputation.
+Scientific workload:120 HEAD evaluations/5760 HEAD rows,not full-model forwards.
+Full-model/encoder/core/reader forwards0;training0;new learned checkpoints0.
+One C252 checkpoint bundle load and5 strict state loads. Per model24 norm calls,24 decoder calls,
+1152 rows. Precheck/postcheck archive re-reads,hashing and metric work are real costs but not new trials.
+Historical regression fixture computation is separate from this head-only scientific workload.
 
-PASS means diagnostic integrity ONLY,independent of score improvement/decline. Invalid source,
-artifact,schema,nonfinite,test,replay or workload checks stop same C253. No C252/Gate F revision.
-Report every mode/seed/split/language accuracy,NLL,pair metrics and masks,plus altered-minus-intact
-accuracy/NLL,flips,wrong-to-correct/correct-to-wrong counts,logit differences and component norms.
+PASS is diagnostic integrity only,no required accuracy direction or donor-target score. Permutation
+preserves residual marginal statistics but changes joint combinations with reader outputs. Query-
+specific sensitivity would be bounded intervention evidence,not proof of semantic understanding,
+training-time core necessity or unique causes. Low sensitivity does not prove the core irrelevant.
+No C252/C253 verdict revision,external-validation claim,production adoption or Gate F promotion.
 
-Workload:5x4x2x3=120 full-model forwards/5760 row presentations;24/1152 per model.
-Extra normalization recomputations60. Diagnostic cells80;contrast cells40. Parent bundle load1,
-strict state loads5,new training0,new learned checkpoint writes0,scientific network calls0.
-Archive/JSON/hash work and historical test fixtures are separate costs,not zero-cost inference.
-Five ignored outputs:residual-plan.json,outputs.pt,diagnostics.json,contrasts.json,validation-summary.json.
-outputs.pt schema fold-c253-frozen-outputs-v1 contains logits/activations,not learned parameter states.
-Postcheck reconstructs all metrics/contrasts/component and restored checks without model inference.
-
-Protection:364 source pins/587 inputs;explicit deciding dependency union29;OWN6.
-Own tests24;modules138;loaded3242/focused3241. Only inherited exact exclusion:
+Protection:370 source pins/599 inputs;direct dependency union30;OWN6.
+Own tests24;modules139;loaded3266/focused3265;only inherited exact historical exclusion:
 `tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state`.
-No new exclusions or changes to accepted sources/tests/logs/shared launchers.
-Manifest SHA256:c48689b9cebedc757261ded1912dbb597884f19ac007d971bcd7bfbfbfd8307d.
-Design:docs/v5b-frozen-residual-path-v0.1.md.
-Preregistration:docs/experiment-ledger-addendum-c253-preregistration.md.
-Preregistration/review HEAD:f498f0322e0ab1e447a3173e0e903c7781f09ab8.
-Use tools/invoke_active.ps1 with the final activation HEAD,not the C252 or preregistration HEAD.
+Outputs:swap-plan.json,head-outputs.pt,diagnostics.json,contrasts.json,validation-summary.json.
+Archive schema fold-c254-head-outputs-v1 stores head logits/identities/counters,not trained parameters.
+Manifest SHA256:cfbf05fc55fe6c87a0b738bfab7f4c676bb75ed503883cb399898f7936641276.
+Design:docs/v5b-paired-residual-swap-v0.1.md.
+Preregistration:docs/experiment-ledger-addendum-c254-preregistration.md.
+Preregistration/review HEAD:5a6f421272dff912fb49930b2119bb8b336f38e8.
+Use tools/invoke_active.ps1 with final activation HEAD,not the review or C253 execution HEAD.
 
-## C253 post-authoring review
+## C254 post-authoring review
 
 `post_authoring_review = PASS`
-Review HEAD:f498f0322e0ab1e447a3173e0e903c7781f09ab8.
-All six OWN files re-fetched at that immutable HEAD. Complete local Git-blob hashes mechanically
-match the fetched file identities:
--benchmark:048a6661c5e01506984164f7dcb8a8e06b9fb300
--tests:73da0b2d647d80fa67439cf437173f44a70daddb
--runner:874573417a419195fa36f771b839426da9669462
--launcher:edc4cee567cbce88be446a013aa5ca4fc25afcc2
--preregistration:4f3aeb9b46ad0d8c1bcfce5e4eb821dc72f1b48a
--design:6d14a2aac77acaf778a64143c81a04a3225b3965.
-Acceptance-base to review comparison is exactly six additions. No accepted file was edited.
+Review HEAD:5a6f421272dff912fb49930b2119bb8b336f38e8.
+All6 OWN files re-fetched after authoring. Reviewed blobs:
+-benchmark:e7084c7d6974d275d54d0ab58d9a4677b6851d6d
+-tests:c1870ab6274b42c7ac8d8d6fbeda710390861c8d
+-runner:a82e332819c20b34481ef1e98780ff8699dc36e4
+-launcher:ebf3981cd0cd803b712c22118a9bbf2059f5e438
+-design:59ffcaf328f99cab64a548d59d4b6feb1b72c46b
+-preregistration:3db67cec8fa16f53fe2d5d2f3903853c37c666d2.
+Complete local Git-blob hashes were mechanically checked against the four fetched code/script IDs.
+Acceptance-base-to-review comparison contains exactly6 additions,no accepted file edits.
 
-Actually executed on the complete matching new benchmark/test/script files:
--UTF-8/NUL checks,Python compile/import,and recursive symbol-table audit:zero unresolved globals;
--exact24 own tests PASS before publication in2.697s and after remote readback/hash check in2.649s;
--actual own suite count/unique IDs;constructed3242-case exclusion filter yielding3241;
--manifest self-hash and independently reconstructed exact partition hash;
--intact/original equality,manual altered equations,pre/post/read invariance,restored equality,
- full route/hook counts,freeze/mode/task/EOS/norm guards and two-layer hook cleanup;
--mutation rejection,parent-prediction mismatch stopping after six intact forwards,strict state loads;
--all-five diagnose/analyze path on synthetic models,corrupt counts/modes/components/restored logits;
--actual child run/archive/postcheck with synthetic parent-compatible models and substituted
- context/protection/input adapters,including wrong-HEAD and tampered-artifact rejection;
--postcheck forbids new model calls;capability-claim guard and parser/CLI/parent-path checks;
--three embedded Python blocks compile;precheck argv1 and postcheck argv1/2/3 verified.
+Actually executed on the matching complete new files:
+-Python compile/import and UTF-8/NUL checks;recursive symbol-table audit:0 unresolved globals;
+-exact24 own tests PASS before publication in1.156s and after readback/hash matching in1.007s;
+-manifest self-hash and exact reconstructed partition hash;
+-self/donor mappings,involutions,scope,fact/query invariants,independence from target-based selection;
+-head equation,self/raw-logit restoration,query-blind identity control,source-vector nonmutation;
+-forbidden full/core/reader calls,frozen-state/identity checks,head mutation rejection,hook cleanup;
+-all-five head-only scoring/analysis with simulated saved activations and independent exhaustive-pair
+ metric oracle;counts,contrasts,claim/schema/replay-corruption guards;
+-actual loader with substituted parent archive/analyze adapters;actual run/archive/postcheck with
+ synthetic frozen heads,substituted parent factories/protection,wrong-HEAD/artifact rejection;
+-postcheck rejection of any repeated scoring;actual24 unique own test IDs and a constructed3266-case
+ historical exclusion filter yielding3265 (not execution of the historical suite);
+-three embedded Python blocks compile;CLI precheck argv1/2 and postcheck argv1/2/3/4 verified;
+-exact parent paths,ACTIVE C254 guard,parser-before-publication sequence and30-entry direct union.
 
-The first local own-test pass exposed a test fixture replacing LayerNorm with Identity left in
-training mode,so the earlier frozen-eval guard correctly triggered before the intended norm guard.
-The fixture was corrected to Identity().eval() BEFORE publishing any OWN file. No scientific
-condition,accepted source or runtime guard was weakened.
+Parent C253 analyze/load_inputs/frozen_model/context and C252 final-state/LayerNorm/decoder path
+were source-reviewed against retrieved repository content. New tests are self-contained;they use
+simulated saved vectors and output heads,not actual accepted FOLD states. Parent adapters in the
+loader/run tests are explicitly substituted. No complete parent import graph or accepted data run
+is claimed by those tests.
+Reviewer runtime:Python3.13.5/PyTorch2.10.0+cpu/NumPy2.3.5. A full repository access attempt failed
+because github.com DNS did not resolve. PowerShell is absent. NOT executed here:full3265 historical
+suite,Windows ParseFile,accepted user-local parent precheck,or C254 on actual C253 activations/C252
+weights. These remain mandatory in the authoritative runner and are not reported PASS.
 
-Additional review-only checks actually executed:
--the retrieved C252 AlignedPrecoreReadout class body was transcribed into an isolated namespace
- with a synthetic backbone/head. Its original nested hook sequence worked with all24 C253 forward
- variants for one untrained nonexperiment seed;components/restored outputs/hooks checked. This was
- not the production FOLD backbone or an accepted learned-checkpoint evaluation;
--200 randomized output sets over both exact split sizes matched independent exhaustive-pair
- enumeration for all discrete metrics. C243 pair/discrete source was also read and compared.
-Actual language_task LayerNorm/decoder order and C252 context/writer/normalization injection were
-source-reviewed to establish hook ordering and final-state semantics.
-
-Reviewer runtime verified:Python3.13.5/PyTorch2.10.0+cpu/NumPy2.3.5. Complete new own tests are
-self-contained and use synthetic parent-compatible models;no fake full repository import graph
-was needed to execute that exact new test module. The loader unit test substitutes parent summary
-functions,while the scientific path calls the actual protected parent functions.
-A full GitHub checkout was attempted but github.com DNS resolution failed. PowerShell is absent.
-NOT executed here:the full3241 historical suite,Windows ParseFile,the accepted user-local artifact
-precheck,or the actual five C252 trained-model diagnostic. None is reported PASS;they remain mandatory
-in the authoritative launcher. The constructed suite filter is not historical-suite execution.
-
-Only this unpinned handoff changes after review HEAD. Re-read final handoff and verify branch HEAD
-before giving ExpectedHead. Do not advance the branch during the user's formal run.
+Only this unpinned handoff changes after review HEAD. Re-read it and confirm final branch HEAD
+before returning ExpectedHead. Do not advance the branch during the user's formal run.
 
 ## Stop and scope
 
-Gate F NOT PASSED;numeric-memory and erasure-mixture tuning paused. Preserve all accepted evidence
-and tools/run_c167.ps1. No paid API,external corpus,model expansion,inference repair,production adoption,
-cleanup or history rewrite.24 own tests ->3241 regression ->C253 diagnostic ->postcheck ->log publication.
-Integrity faults stop same C253. Repair log-only transport without repeating inference. Judge C253 before C254.
+Gate F NOT PASSED;numeric-memory/erasure-mixture tuning paused. Preserve all accepted evidence
+and tools/run_c167.ps1. No paid API,external corpus,model expansion,production adoption,cleanup or
+history rewrite.24 own tests ->3265 regression ->C254 head-only diagnostic ->postcheck ->publication.
+Integrity faults stop same C254. Log-only transport failures are repaired without repeated scoring.
+Judge C254 before registering C255.
