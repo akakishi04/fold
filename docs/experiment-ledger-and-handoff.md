@@ -8,162 +8,177 @@ Authoritative runtime:Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
-**C248 ACCEPTED VALID NEGATIVE. C249 ACTIVE / NOT YET JUDGED. C250 NOT REGISTERED.**
-C249 is the unique ACTIVE experiment:a frozen read-path diagnostic,not a training or capability run.
-Post-authoring review PASS;authoritative Windows prechecks/full regression/scientific run pending.
-No production architecture adoption. Preserve the successful C248 individual cells without
-relaxing its preregistered all-seed gate. C247/C246/C244 remain valid negatives.
+**C249 ACCEPTED PASS (diagnostic integrity only). C250 ACTIVE / NOT YET JUDGED. C251 NOT REGISTERED.**
+C250 is the unique ACTIVE experiment:unchanged readout recipe across five new paired initializations.
+Post-authoring review PASS;authoritative Windows prechecks/full regression/scientific training pending.
+C248 remains ACCEPTED VALID NEGATIVE,including its failed seed234002. No production adoption.
 
-## Latest accepted evidence — C248
+## Latest accepted evidence — C249
 
-Scientific execution HEAD:23bcc949638ea3e927ec0bb3d846b9f42b552a56.
-Published log commit:5a3e7e7ae371b5f5f384d1283d68dd434201e6ec.
-Publisher log SHA256:7a1984dd55d93253ea3498503873c0cb41fa3667dfa4f467b7ca0994e3dea99c.
-Log bytes:609500.
-Summary SHA256:99778defedd9854815f94989567687c64930e3b505449a847dd030be5a47dab6.
-Local summary:runs/c248-v5b-residual-token-read-f3cd1bdfb2cf4a068ed091ea75bf8b22/summary.json.
+Scientific execution HEAD:9d28b7420e69efe57555b7db2ccbb0eec6f3d302.
+Published log commit:cac4102c0798800f3925c02cb1b38b20cd7ef8a4.
+Publisher log SHA256:607db37473a7f8ed17b0692d798df582e3433f79f03be5514f2c5cb0928c5ca0.
+Log bytes:618591.
+Summary SHA256:3b95e6ca6b7ba645e13367a483f55fd75a9e112f3f928b2e1cdaf69913be0500.
+Local summary:runs/c249-v5b-frozen-read-ablation-9da92553f325421d8acd94d8cccc3b98/summary.json.
 
-24 own tests PASS in26.019s;3121 focused tests PASS in135.539s.
-334 source pins/526 protected inputs. Twelve models x400 updates=4800 training steps,
-153600 training presentations,4980 model forwards,162816 total rows. All initial metric replays,
-head/whole-model weight updates,checkpoint/prediction replays and paired/discrete postchecks PASS.
-Protected inputs,tracked tree and execution HEAD preserved;run_execution_valid=True.
-Scientific status FAIL;all four arm/family collection gates False;production_adoption=False.
+24 own tests PASS in6.295s;3145 focused tests PASS in142.198s.
+340 source pins/538 inputs preserved;12 frozen models,180 forwards/8640 row presentations;
+5184 retained logit rows/72 contrast cells;zero new training/checkpoint writes.
+All original prediction/metric replays,restoration replays,unchanged weights and persisted-logit/
+contrast recomputation PASS. Tracked tree/execution HEAD preserved;run_execution_valid=True.
+Publication is one commit after scientific execution,changing only c249/latest.log/latest.json.
+Acceptance uses retrieved immutable log ranges and recorded local postchecks,not an independent
+complete-log byte rehash or reviewer execution of actual accepted learned checkpoints.
 
-HOLDOUT correct counts,each language /16:
+Normal HOLDOUT correct counts,pooled three seeds/two languages per family,each /96:
 
-| Seed | Full reader EN/JA | Full EOS control EN/JA | GRU reader EN/JA | GRU EOS control EN/JA |
-|---:|---:|---:|---:|---:|
-|234001|16,16|9,9|16,16|6,7|
-|234002|5,4|4,4|12,12|8,7|
-|234003|16,16|7,8|16,16|6,7|
+| Family/arm | Intact | Residual off | Uniform read |
+|---|---:|---:|---:|
+|Full/token_read|73|22|24|
+|GRU-only/token_read|88|25|27|
+|Full/eos_adapter|41|38|not applicable|
+|GRU-only/eos_adapter|41|41|not applicable|
 
-Reader all12 TRAIN cells:32/32 and all criteria pass. Reader8 BOTH_PASS cells (seeds234001 and
-234003,all families/languages) have HOLDOUT16/16,all paired scores1.0 and both mask drops>=0.35.
-Four reader cells are RECOMBINATION_MISS. All12 EOS-control TRAIN cells pass;all12 HOLDOUT miss.
-The EOS-control GRU234003 English TRAIN is31/32;other11 TRAIN cells32/32.
-Reader improves over matched control in11 cells,ties1,worsens0. Descriptive pooled scores:
-Full reader73/96 versus41/96;GRU reader88/96 versus41/96;combined161/192 versus82/192.
-These correlated cells come from only3 paired seeds,not12 independent learning replicates.
+Readers together:161/192 intact,47/192 residual-off,51/192 uniform. All8 previously perfect
+reader cells fall from16/16 to3/16 or4/16 off,and to2/16 or4/16 uniform. Unsuccessful seed234002
+is retained:Full intact5/16,4/16;off3/16,4/16;uniform4/16,4/16. GRU intact12/16,12/16;
+off5/16,5/16;uniform6/16,7/16. Original predictions/logits return after intervention removal.
 
-This supports the reader as a promising bounded candidate,not uniform reliability or a proven
-binding mechanism. Equal parameter count is not equal compute/optimization geometry. Backbone and
-head seeds are linked;the seed234002 failure cause is not isolated. No FOLD-core superiority claim.
-Acceptance/artifacts:docs/experiment-ledger-addendum-c248-c249.md.
-Acceptance/base commit:812d8a0452962c569303bade157aa802de20ea65.
-Publication changes only c248/latest.log/latest.json,one commit after execution. Evidence uses
-retrieved immutable log ranges and recorded local postchecks,not a full-log rehash or reviewer
-rerun of actual accepted checkpoints. Do not rerun/rescue C248 or replace its failing seed.
+These frozen networks depend on the added residual and learned nonuniform weighting under the
+specified interventions. This is not a separately trained no-branch/uniform model,proof of a
+unique semantic mechanism,or a reliability estimate. Co-adaptation/internal distribution shifts
+remain interpretation limits. Some EOS controls also lose TRAIN accuracy;equal pooled accuracy
+can hide answer flips and offsetting gains/losses. No efficiency or core-superiority claim.
+Acceptance/artifacts:docs/experiment-ledger-addendum-c249-c250.md.
+Acceptance/base commit:4410c888f658621e7bbd5a8f655add32aa51dfa3.
 
 ## Preserved earlier boundaries
 
-C247:200-normal-update control has4/12 TRAIN passes,8 misses;Full234002 alone passes versus C246.
-C246:erasure mixture fails;10 TRAIN criteria misses and2 recombination misses.
-C245:frozen masking diagnostic only,with copying/overlap confounds.
-C244:400-normal-update TRAIN criteria all pass,HOLDOUT all miss.
-C243/C240/C237/C235 remain diagnostics;C242 recombination negative;C241 evidence-use criteria miss
-with normal TRAIN100%;C239 order-transfer negative;C238 seen16-prompt fit PASS;C236 random-batch negative.
-All earlier evidence and recovery records remain immutable.
+C248:8/12 reader seed/family/language cells pass original TRAIN/HOLDOUT criteria;4 miss.
+The matched EOS control has0/12 HOLDOUT passes. Only three paired initializations were tested.
+Reader11 better/1 tied/0 worse versus EOS on normal HOLDOUT;all-seed primary gate still FAIL.
+C247 normal-budget control,C246 erasure mixture,C244/C242 recombination,C241 evidence-use and
+C239 order-transfer negatives remain unchanged. C245/C243/C240/C237/C235 remain diagnostics;
+C238 remains seen16-prompt fitting only. All accepted evidence/recovery records are preserved.
 
-## Active C249 — frozen read-path ablation
+## Active C250 — five new paired initializations
 
-Experiment:C249-v5b-frozen-read-path-ablation.
-Stage:V5-B-FROZEN-READ-PATH-ABLATION.
-One question:does original-input performance of frozen C248 models depend on the residual branch
-and,for readers,on learned nonuniform token weighting?
+Experiment:C250-v5b-fresh-seed-readout-replication.
+Stage:V5-B-FRESH-SEED-READOUT-REPLICATION.
+One question:does the unchanged C248 reader-versus-EOS recipe reproduce its bounded result on
+five prospectively fixed new initialization blocks250001,250002,250003,250004,250005?
+Every seed includes Full/GRU-only and token_read/eos_adapter,20 new models total. Never replace,
+drop or rerun a seed after a valid performance result. Old seed234002 is not rescued or erased.
 
-Use ALL12 accepted final states,including unsuccessful readers and EOS controls. Instantiate
-actual C248.ReadoutPilot,strictly load through the parent bundle contract and freeze all weights.
-Final wrapper fingerprints must match final_sha256,not initial_sha256 or backbone_initial_sha256.
-C249's own loader reads C248 records;it never calls C248.load_inputs with a wrong-parent schema.
-Parent summary replay uses C248.summarize(refs,C242);parent bundle schema fold-c248-residual-read-v1.
+Reuse actual unchanged C248.ReadoutPilot,ResidualHead,train_one,fit,balanced_indices and C244.replay_one.
+Head seed offset remains+248000. Backbone/head seeds change together,so their effects are not
+separately identified. Extra768 parameters in both arms:Full14256,GRU-only10928,width16/48 slots,
+zero head output projection,all nonPAD positions eligible,byte input/unrestricted256-class output.
+Keep C248 TRAIN64/HOLDOUT32 row bytes/order/provenance and original three scoring views.
+400 updates/model,batch32,normal old32/added32 alternating200 cycles,AdamW lr0.005,betas(0.9,0.999),
+eps1e-8,weight_decay0,clip1,CPU float64,threads2,deterministic algorithms. No new loss,erasure,
+architecture change,early stop or best-checkpoint selection. Console adapter only relabels progress.
 
-Hold fixed TRAIN64/HOLDOUT32,row bytes/order/targets/provenance,C234 renderer,CPU float64,threads2,
-deterministic algorithms,all backbone/head/norm/decoder weights and256-way output.
-Per model:original three views/both splits -> residual_off normal/both splits -> reader-only
-uniform_read normal/both splits -> restore original three views/both splits.
--residual_off,both arms:head returns pooled h,removing its added residual contribution.
--uniform_read,reader only:head returns h+Wo*mean(nonPAD H),retaining learned H and Wo. Same eligible
- BOS/EOS/question positions;PAD excluded. No parser,gold location or masked input aid is added.
-Scoped head hooks replace returned representations without editing parameters. Original head
-computation still runs;uniform adds an output projection. No efficiency/FLOP advantage is claimed.
+Construct Full and its common-weight GRU-only copy before either arm trains. For each new seed/
+family,measure one fresh backbone reference on TRAIN's three views only. Record initial fingerprint
+and initial_train metrics;do not require historical old-seed values. Each arm deepcopies this same
+source backbone. C248.train_one checks exact backbone initial identity and zero-residual initial
+metrics before fitting. Shared source must remain unchanged between arms. Ten references are kept.
+No parent trained checkpoint is loaded. Reference measurements do not evaluate HOLDOUT.
+Final HOLDOUT is scored only after400 updates and reload,not used to change training.
 
-Intact predictions exactly reproduce C248 arrays;all original metrics including NLL agree<=1e-9.
-Ablations have normal-only metrics;do not invent masked-view drops for them. Report normal accuracy,
-NLL,fact/query/order pairs,accuracy drop,NLL change,answer flips,lost/gained correctness,raw-logit drift.
-Restore original outputs afterward:argmax exact,raw-logit error<=1e-9. Require unchanged weights,
-no gradients,no token mutation and no leftover hooks after successful completion.
+PRIMARY:all five new Full/token_read models pass BOTH languages and BOTH TRAIN/HOLDOUT under
+original criteria:accuracy>=0.90;fact/query/order pair>=0.80;both mask drops>=0.35.
+TRAIN32 rows/language,16 pairs:minima29/32 and13/16. HOLDOUT16 rows,8 pairs:minima15/16 and7/8.
+Report all family/arm gates independently,all cell outcomes,20 model-level seed_results,whole-seed
+both-language pass counts out of5 per family/arm,and20 paired language comparisons. Languages/
+family/arm cells are correlated;there are five new paired seed blocks,not20 independent seeds.
+A valid miss is ACCEPTED VALID NEGATIVE. A primary PASS concerns only this fixed batch/task,
+not universal reliability,external-test performance,core superiority,production adoption or Gate F.
+The task/HOLDOUT is reused from adaptive research,not a pristine external benchmark. C248 unchanged.
 
-C249 PASS is diagnostic integrity only,independent of ablation effects. It does not revise C248,
-prove general language or identify a unique semantic/learning mechanism. A co-trained branch
-ablation is not a separately trained backbone-only model;uniform intervention is not a model
-trained with uniform attention. Internal distribution shifts/co-adaptation remain interpretation limits.
-No favorable-seed selection or claim that this diagnostic establishes reliability across new seeds.
+Workload:20x400=8000 updates/256000 training presentations. Each trained model415 forwards/13568 rows,
+including original initial/final/reloaded scoring.20 models=8300/271360. Ten bare-reference
+backbones add30 forwards/1920 TRAIN rows. GRAND TOTAL8330 forwards/273280 rows;330 evaluation
+forwards;one new20-state bundle. Reference overhead is not omitted. No accepted-parent model inference.
 
-Workload:6 readers x16 forwards/768 rows plus6 controls x14/672 =180 model forwards/8640 rows.
-12 accepted states loaded,zero new training/optimizer steps/checkpoint writes/network calls.
-Store5184 logit rows for intact+intervened passes;3456 restored rows are checked online,not duplicated.
-72 normal contrast cells. Postcheck reconstructs all retained metrics/contrasts from saved logits
-without additional model forwards. Historical regression/fixture/file-processing work is separate.
+C250 context:C249 parent,C248 reader,C244 base,C242 fitting,C234 binding,C231 factory,audit helper.
+C250.load_inputs accepts C248 summary and correctly calls C249.load_inputs,which reads C248's
+own records. It never calls C248.load_inputs,which expects C247. Old records only verify accepted
+inputs;new initial references are generated independently. No parent globals/functions are patched.
+Child summarizer and bundle handle20 identities;do not feed them to a12-model parent summarizer.
+C244 replay contract6 forwards/288 rows remains valid for each individually trained model.
 
-Protection:340 source pins/538 inputs;direct dependency union25;OWN6.
-Own tests24;modules134;loaded3146/focused3145,only inherited exact exclusion:
+Protection:346 source pins/550 inputs;direct dependency union26;OWN6.
+Own tests24;modules135;loaded3170/focused3169;only inherited exact exclusion:
 `tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state`.
-Five ignored outputs:ablation-plan.json,logits.json,diagnostics.json,contrasts.json,validation-summary.json.
-Manifest:9fd82672124ff0227174d7a9df894c67ca9f1958a36fad6cbc575e1179dfa414.
-Design:docs/v5b-frozen-read-ablation-v0.1.md.
-Registration:docs/experiment-ledger-addendum-c249-preregistration.md.
-Preregistration/review HEAD:eb818cfeb3fcf99eb46649d92140c815960e8c67.
-Use tools/invoke_active.ps1 with the final activation HEAD,not the pre-activation review HEAD.
+Six ignored outputs:replication-plan.json,split-dataset.json,initial-references.json,trained-models.pt,
+measurements.json,validation-summary.json. Bundle schema fold-c250-fresh-seeds-v1,20 ordered states.
+Postcheck verifies source/input/artifact hashes,plan/partition,new initial references,child summary,
+all original gate counts and discrete metrics from saved predictions without more model forwards.
 
-## C249 post-authoring review
+C248 source summary:runs/c248-v5b-residual-token-read-f3cd1bdfb2cf4a068ed091ea75bf8b22/summary.json.
+Its SHA256:99778defedd9854815f94989567687c64930e3b505449a847dd030be5a47dab6.
+Partition SHA256:e6b19547f95d319ead4be43086f5de76f16b4b6ab6cd9bec2ed4da5f8df80346.
+Manifest:4f2bffab4fff98193a2756fe65d0403d955711f23b18e548698f45d7f93c9cee.
+Design:docs/v5b-fresh-seed-replication-v0.1.md.
+Registration:docs/experiment-ledger-addendum-c250-preregistration.md.
+Preregistration/review HEAD:802927a7755d53e1f1523e317869646beb32aa7e.
+Use tools/invoke_active.ps1 with final activation HEAD,not this pre-activation review HEAD.
+
+## C250 post-authoring review
 
 `post_authoring_review = PASS`
-Review HEAD:eb818cfeb3fcf99eb46649d92140c815960e8c67.
-All6 OWN files were re-fetched after completion at this immutable HEAD. Reviewed Git blobs:
--benchmark:d10e728d70e5af9fbcfbddeea8144f608fcd56c3
--tests:6a86160d1fb3261a3519773d18c2b8649cfadb16
--runner:72a411b46a2a9fe74535d3d51dc652c2301584f0
--launcher:79e5efdf8bb15de221208cb1acea54d35a6e2a50
--design:3212ad4c994a96f5cb28c367724fdcb37bdb23ae
--preregistration:ff744165b9f817ad82d158e06f51c200694da64d.
-All4 complete local code/script files were Git-blob hashed and matched the fetched IDs. Comparison
-from acceptance base to review HEAD has exactly6 new files,no accepted edits.
+Review HEAD:802927a7755d53e1f1523e317869646beb32aa7e.
+All six OWN files re-fetched after authoring. Full local UTF-8 file Git-blob hashes mechanically
+match every remote reviewed identity,including both documents:
+-benchmark:50d9fa788d6b697e1cfd171ee4f32213e2229853
+-tests:e64630a8b680bb460183cd38b8ff90ac7a5a7e8a
+-runner:26bdec80d3222abfc6c506d57a5fc7aa0208816b
+-launcher:e76a3476913c9ab4f04b764161e5052ddeb914ee
+-design:3005a3010f592c5f7ee045adc097274b57ecc256
+-preregistration:9986ecb87245c66a61d41713de82541c584350fa.
+Acceptance-base to review comparison changes exactly six additions,no accepted code/test/log edits.
 
-Actually executed:Python compile/import and UTF-8/NUL checks;free-global/import symbol audit with
-0 unresolved names in both new Python files;24 own tests PASS before publication in3.237s and
-again after full remote-byte identity checks in3.375s. Actual own loader count24/unique IDs and a
-constructed3146-case filter yielding3145 were tested;the latter is NOT historical regression.
-Manifest and independent exact partition fixture hashes match. Tests cover off/uniform equations,
-PAD exclusion,EOS-control restriction,hook removal on intervention error,restoration,frozen state,
-finite/schema rejection,normal/paired/mask metric semantics and logit-versus-answer distinctions.
-An independent counterpart-enumeration implementation agrees on20 random HOLDOUT logit cases.
+Actually executed:complete new Python compile/import,UTF-8/NUL checks and recursive symbol-table
+free-global/import audit with0 unresolved references in both new Python files.24 own tests PASS
+before publication in8.391s and again after remote readback/hash checks in7.983s.
+Manifest/independently reconstructed partition hashes pass. Tests count actual24 unique tests and
+exercise a constructed3170-case exclusion filter yielding3169;that is not historical regression.
+Tests cover fresh-reference3/192 accounting,no HOLDOUT reference,mutation/hook cleanup,old-seed
+rejection,paired backbone equality,one-seed miss retained,full/GRU/control gate independence,
+seed-level versus language-level counts and required mask criteria at100% normal accuracy.
 
-Tests also exercised actual C249 audit_model and all12-model run/postcheck using synthetic
-backbones with real torch.nn.GRU and a synthetic Core interface double,transcribed C248
-ResidualHead/ReadoutPilot class excerpts,and substituted parent loader/protection/summary adapters.
-Strict state-load/identity rejection,real per-model16/14-call counters,restore replay,stored5184-row/
-72-cell recomputation,wrong-HEAD/tamper rejection and no-training AST checks passed. The3 embedded
-Python blocks compile;precheck argv1 and postcheck argv1/2/3 match actual invocations. Exact parent
-path,branch/tree/HEAD/ACTIVE preflight and parser-before-publication ordering were reviewed.
+The actual inherited C248 training helper/fit and C244 replay helper were exercised using
+transcribed parent excerpts and synthetic networks. The new20-model run performed400 updates per
+toy model plus10 fresh references,checkpoint save/reload and persisted postcheck,including
+wrong-HEAD/reference-artifact tamper rejection. The head uses the actual transcribed ResidualHead;
+zero-output initialization,768 parameters,RNG preservation and original seed offset were tested.
+Synthetic ToyWrapper is a linear-backbone protocol double,not the actual GRU/FOLD or production
+ReadoutPilot. Full-path authoring test substitutes only its model wrapper,metrics/protection/input
+adapters within scoped patches. Scientific code does not call test helpers or patch parent code.
 
-Reviewer runtime:Python3.13.5/PyTorch2.10.0+cpu/NumPy2.3.5. This was an isolated namespace workspace
-with complete new files and review-only C248 class excerpts,NOT a complete checkout or execution
-of accepted trained models. GitHub DNS resolution failed in the container;connector reads supplied
-repository content. PowerShell was unavailable. The original parent source/schema/signatures and
-writer timing were inspected,but not every transitive module was imported in the reviewer workspace.
-NOT executed here:full3145 historical regression,Windows PowerShell AST,accepted user-local parent
-artifact precheck or the12 actual C248 checkpoints. None is reported PASS. All remain mandatory
-in the authoritative runner. Historical arithmetic3122+24=3146,minus the same1 exclusion=3145 is
-enforced by the real suite loader. No additional historical exclusions or accepted source changes.
+Three embedded Python blocks compile;precheck argv1/2 and postcheck argv1/2/3/4 match calls. Launcher
+branch/tree/HEAD/ACTIVE guards,ParseFile-before-publication and exact C249/C248 paths were reviewed.
+Source AST confirms loader/common-backbone-copy/reference before training and save/load/replay
+order. C248/C244 writer,training,replay and context signatures were read from immutable sources;
+no historical initial fields are reused for different seeds. All26 direct dependencies are pinned.
 
-Only this unpinned authoritative handoff changes after review HEAD. Re-read it and verify final
-branch HEAD before returning ExpectedHead. Do not advance the branch during the user's formal run.
+Reviewer environment:Python3.13.5/PyTorch2.10.0+cpu/NumPy2.3.5,in an isolated workspace with complete
+new files and review-only C248/C244 excerpts. GitHub DNS resolution failed;connector supplied repo
+content. No complete clone or full checkout was obtained. Both pwsh/powershell executables absent.
+NOT executed here:full3169 historical regression,Windows PowerShell AST,user-local accepted-parent
+artifact precheck,actual production GRU/FOLD training on the five new seeds. None is reported PASS.
+Those remain mandatory in the authoritative runner. New-seed scientific results remain unknown.
+
+Only this unpinned handoff changes after review HEAD. Re-read final handoff and verify branch HEAD
+before issuing ExpectedHead. Do not advance the branch during the user's formal run.
 
 ## Stop and scope
 
-Gate F NOT PASSED;numeric-memory and erasure-mixture tuning paused. Preserve accepted sources,
-tests,logs and tools/run_c167.ps1. No training,production architecture adoption,external data,paid API,
-cleanup/history rewrite or shared runtime modification.24 own tests ->3145 regression ->C249 ->postcheck ->log push.
-Integrity faults stop same C249;transport-only failures are repaired without repeating completed
-model work. Judge C249 before registering C250.
+Gate F NOT PASSED;numeric-memory/erasure-mixture tuning paused. Preserve accepted sources/tests/logs
+and tools/run_c167.ps1. No paid API,external corpus,model expansion,production adoption,cleanup or
+history rewrite.24 own tests ->3169 regression ->C250 replication ->postcheck ->log publication.
+Integrity faults stop same C250;valid misses do not trigger retries. Repair log-only transport
+without retraining. Judge C250 before registering C251.
