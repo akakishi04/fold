@@ -8,11 +8,12 @@ Authoritative runtime:Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
-**C254 ACCEPTED PASS (diagnostic integrity only). C255 ACTIVE / NOT YET JUDGED. C256 NOT REGISTERED.**
-C255 is the unique ACTIVE experiment:V5-B fixed-query value-assignment residual swap.
-Post-authoring review PASS;authoritative Windows/full-regression/accepted-artifact execution pending.
+**C254 ACCEPTED PASS (diagnostic integrity only). C255 ACTIVE / INVALID ATTEMPT RECOVERY. C256 NOT REGISTERED.**
+C255 remains the unique ACTIVE experiment:V5-B fixed-query value-assignment residual swap.
+The first C255 attempt stopped in own tests before regression/science and is INVALID;minimal test-only
+recovery has been reviewed. Authoritative Windows own tests/full regression/diagnostic retry pending.
 No production adoption or new model-capability claim. C252 remains ACCEPTED VALID NEGATIVE.
-C253 remains diagnostic PASS;all earlier verdicts and recovery records are unchanged.
+C253/C254 remain diagnostic PASS;all earlier verdicts are unchanged.
 
 ## Latest accepted evidence — C254
 
@@ -132,48 +133,52 @@ Registration:docs/experiment-ledger-addendum-c255-preregistration.md.
 Preregistration/review HEAD:f7d5dc354f942a1ea7a43b264fc8629fe37ca9be.
 Use tools/invoke_active.ps1 with the final activation HEAD,not this earlier review HEAD.
 
-## C255 post-authoring review
+## C255 execution recovery and post-repair review
 
-`post_authoring_review = PASS`
-Review HEAD:f7d5dc354f942a1ea7a43b264fc8629fe37ca9be.
-All six OWN files re-fetched at this immutable HEAD. Reviewed Git blobs:
--benchmark:5589f0534a54e3d93770350a47b91a69aefa9f2b
--tests:a850ddd49a1a9df1027440bdedd7429092e1d017
--runner:75a5fce34bad7b2cd415c2d61015cc1ae3ec275c
--launcher:c305394352448edf79d897e77fd5695b6e609ca1
--design:0453407ae1de6c96ac654d59613a8125c3885ddb
--preregistration:453f40a7ab798daf39d2a097e9878fab555cda1b.
-Complete local code/script Git blob hashes mechanically matched all four remote identities.
-Acceptance-base-to-review diff contains exactly six added OWN files and no accepted file edits.
+First attempt execution HEAD:70ca4c4c71f7e304d0a78313e642f5fdb57d4da2.
+Invalid log publication commit:372ef97671bdec0dc7db07e8dea456e60c7f2f02.
+Invalid log SHA256:d9db7508f1ad693884c4854121453375782d0f358855eda3f3164dbc22ddb285.
+Preflight/source/archive checks passed. Exact own tests ran24 with one failure:
+`test_07_coherent_control_matches_donor_not_recipient`.
+Regression and C255 scientific diagnostic did NOT run;run_execution_valid=False.
+This is INVALID / RETRY SAME C255,not scientific evidence. C256 remains NOT REGISTERED.
 
-Actually executed on the complete matching new code/script files:
--UTF-8/NUL checks,Python compile/import,and recursive symbol-table audit:zero unresolved globals;
--exact24 own tests PASS before publication in1.748s and after readback/hash verification in1.507s;
--actual own test count/unique IDs and constructed3290-case filter yielding3289 (not a historical run);
--manifest self-hash and exact independently reconstructed partition hash;
--donor fixed query/order/language,reverse assignment,scope/involution/target-selection separation;
--independent literal renderer check:all evidence-blind donor pairs have identical input strings;
--all four head equations,self/coherent-donor/restored replay,negative control and corrupted controls;
--frozen-state/identity guards,no full/core/reader calls,nested-call rejection,hook cleanup;
--source-vector/weight preservation,mutation rejection,count/schema/nonfinite/claim guards;
--all-five score/analyze paths on synthetic heads/vectors using exhaustive-pair metric oracle;
--real child loader with explicitly substituted parent adapters and parent archive tamper rejection;
--real child run/archive/postcheck with synthetic state restoration/protection/input adapters,
- wrong-HEAD/artifact rejection,and postcheck assertion forbidding repeated head scoring;
--CLI blocks compile:precheck argv1/2/3,postcheck argv1/2/3/4/5;parent paths and parse-before-publish order.
+Root cause:the scientific source and preregistration require coherent donor replay within raw-logit
+max error<=1e-9 plus exact argmax. The benchmark's `replay()` enforced that contract and already
+accepted the same synthetic coherent outputs during setUpClass/score_one. Test07 alone used
+`torch.equal()`,an unregistered bitwise-equality requirement. On the authoritative
+Python3.13.15/PyTorch2.10.0+cu130 CPU path,the recomputed permuted head batch differed at floating
+bit level while remaining inside the registered replay contract. The test therefore failed before
+science even though the scientific replay guard did not.
 
-Actual C254 loader/source protection/signatures and the unchanged active dispatcher were re-read.
-C253 metrics/frozen_model and C252 state semantics match the supplied parent source. The tests do
-not execute those real accepted checkpoints or the full parent import graph:their synthetic adapters
-are explicit. No synthetic output supports C254's scientific interpretation or a future C255 result.
-Reviewer runtime:Python3.13.5/PyTorch2.10.0+cpu/NumPy2.3.5. github.com DNS resolution failed in the
-container,so no complete checkout was obtained. PowerShell is absent. NOT executed:full3289 historical
-suite,Windows ParseFile,user-local accepted-parent precheck,or C255 on actual saved activations/weights.
-These are mandatory in the authoritative launcher and are not reported PASS. No source changes
-were required after publishing the six OWN files or their readback review.
+Minimal recovery changes only that test assertion:
+`torch.equal(coherent,donor_logits)` -> `b.replay(coherent,donor_logits) <= b.TOL`.
+Donor mapping,model/head source,tolerance1e-9,argmax requirement,seeds,data,metrics,counts,gates and
+all accepted parents are unchanged. This is alignment of the authoring test to the already-registered
+scientific contract,not threshold rescue.
 
-Only this unpinned handoff changes after the review HEAD. Re-read it and confirm branch HEAD before
-issuing ExpectedHead. Do not advance the branch during the user's formal run.
+Repair source commit:f10a493f5ea6a92f06bd3a0860444b69c64de5a1.
+Recovery record commit:6346f81d8138a3bbe6c12e27fb9437aa98a7e570.
+Updated test blob:ac7cd0a8d3176ea87af0dd5eb8cc2b0f1104b9b5.
+Recovery doc:docs/experiment-ledger-addendum-c255-execution-recovery.md.
+
+`post_repair_review = PASS`
+Review HEAD:6346f81d8138a3bbe6c12e27fb9437aa98a7e570.
+Remote bytes were re-fetched after repair. Compare invalid-log tip->review HEAD contains exactly the
+one-line test replacement plus the recovery addendum;scientific benchmark,runner,launcher,design
+and preregistration are byte-identical. The repaired assertion was re-read against the actual
+benchmark `replay()`:shape/finite checks,raw-logit max error<=1e-9 and exact argmax remain required.
+The preregistration independently specifies the same <=1e-9 coherent replay. No scientific
+condition was changed. Test count remains24,focused regression remains3289,and all source/protected/
+dependency/workload counts remain unchanged.
+
+A complete authoritative rerun is still required. The reviewer does not represent the repaired
+24-test module,3289 historical suite,Windows ParseFile,user-local accepted artifacts or actual C255
+head diagnostic as rerun PASS. The launcher will execute all of those from the final recovery HEAD
+and stop before science on any remaining failure.
+
+Only this handoff changes after recovery review. Use its final activation/recovery HEAD for retry.
+Do not advance the branch during the user's C255 retry.
 
 ## Stop and scope
 
