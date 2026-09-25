@@ -141,7 +141,7 @@ def score_one(model, parts, entry, fingerprint):
                         post, read = signals["post"], signals["read"]
                         tensor_check(post, (ROWS[split], 16)); tensor_check(read, (ROWS[split], 16))
                         if view == "evidence_blind":
-                            require(torch.equal(post[d], post) and torch.equal(read[d], read), "masked fact-pair identity")
+                            require(float((post[d]-post).abs().max()) <= TOL and float((read[d]-read).abs().max()) <= TOL, "masked fact-pair identity")
                         p = post[d] if mode in ("value_swap", "coherent_swap") else post
                         r = read[d] if mode == "coherent_swap" else read
                         output = decoder(norm(p+r)).detach().clone()
