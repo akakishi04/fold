@@ -1,0 +1,16 @@
+=== C256 repository preflight ===
+execution_head = 1029158a60d40df24f599fb719411dbde2ffec06
+python_syntax_preflight = PASS
+expected_focused_tests = 3313 (3314 loaded -1 inherited exact exclusion)
+Gate_F = NOT_PASSED; models = 10; training_steps = 8000; model_forwards = 8120; rows = 401280
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+    b.precheck(Path(sys.argv[1]),Path.cwd())
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\fold_lm\v05_benchmarks\model_c256_three_entity_task_shift.py", line 300, in precheck
+    require((len(pins),len(protected))==(382,623) and digest(manifest())==MANIFEST_SHA,"counts/manifest")
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\fold_lm\v05_benchmarks\model_c256_three_entity_task_shift.py", line 45, in require
+    if not ok: raise ValueError(message)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: counts/manifest
