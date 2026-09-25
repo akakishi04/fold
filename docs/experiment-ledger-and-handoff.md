@@ -8,8 +8,11 @@ Authoritative runtime:Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
-**C255 ACCEPTED PASS (diagnostic integrity only). C256 ACTIVE / NOT YET JUDGED. C257 NOT REGISTERED.**
+**C255 ACCEPTED PASS (diagnostic integrity only). C256 ACTIVE / INVALID ATTEMPT RECOVERY. C257 NOT REGISTERED.**
 C256 is the unique ACTIVE experiment:V5-B fresh three-entity bilingual task-shift training.
+The first attempt stopped in parent/task precheck before own tests, regression or training.
+Its manifest fingerprint was registered incorrectly. That error and a separately reproduced
+formatting-sensitive launcher test are repaired; post-repair review PASS within the scope below.
 No production adoption or Gate F promotion. C252 remains ACCEPTED VALID NEGATIVE.
 C253/C254/C255 remain diagnostic PASS;all earlier verdicts/recovery records are preserved.
 
@@ -146,61 +149,80 @@ Own tests24;modules141;loaded3314/focused3313;only inherited exact exclusion:
 tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state.
 Artifacts:task-plan.json,dataset.json,trained-models.pt,measurements.json,validation-summary.json.
 Bundle schema fold-c256-three-entity-v1.
-Manifest SHA256:31b433a189aee26a02d11d1571300b216f21ceb205d3696f90fe95d02bb20a7c.
+Manifest SHA256:43948ceb676d536301d4e3a63a7ee1407f8bec44034db59f8b4f6e4872ae53b1.
 Design:docs/v5b-three-entity-task-shift-v0.1.md.
 Registration:docs/experiment-ledger-addendum-c256-preregistration.md.
-Preregistration/review HEAD:380e2d9c1939d52e3f619e9160c1e44a1bdca2cb.
-Use tools/invoke_active.ps1 with the final activation HEAD,not the review HEAD.
+Original registration HEAD:380e2d9c1939d52e3f619e9160c1e44a1bdca2cb.
+Current recovery review HEAD:4afbfbe60417d228b6268b2652d536f3b67206f6.
+Use tools/invoke_active.ps1 with the final recovery HEAD,not the original activation or review HEAD.
 
-## C256 post-authoring review
+## C256 execution recovery and post-repair review
 
-post_authoring_review = PASS
-Review HEAD:380e2d9c1939d52e3f619e9160c1e44a1bdca2cb.
-All six OWN files were re-fetched after authoring. Reviewed Git blobs:
--benchmark:1f91f80d2ea74406fe236fd99fb1c60e2e5a2ae0
--tests:efc9fe2d805eed7b28454ab4ad77a38e31d594d9
--runner:46bbd0365002aecc1248f74887c7b3f0d205d744
--launcher:f6e3069c3d9526c3bc012dadf6d1e5f609b7fdae
--design:11e6cfbd3c4c4f8dfe08fe48975f0c98da3b2887
--preregistration:5dcb2583634fa2b1af78fa9566d7ad44f3633834.
-Acceptance-base-to-review comparison contains exactly these six additions and no accepted-file edit.
+Failed execution HEAD:1029158a60d40df24f599fb719411dbde2ffec06.
+Invalid log commit:2dc541041c772d5b9a449bd247862ad906a9b5c8.
+Invalid log SHA256:5e774f0043a8f4661bbda08fe1ccaa8f728b1e10315947677d7ee6a40f62dce8.
+The1008-byte log ends at ValueError: counts/manifest during parent/task precheck.
+Python syntax passed;own tests/regression/training did not run. The precheck lies before the
+runner's experiment try/finally,so this log has no POSTCHECK/run_execution_valid line.
+Do not invent such a line or a C256 scientific score.
 
-Remote-byte review verified:
--24 unique own test definitions;
--no placeholder/stale C257 activation;
--manifest/task hashes and all fixed workload/protection/test-count constants;
--three embedded runner Python blocks;
--C255 authoritative parent run path;
--ACTIVE-C256 launcher guard and parser-before-publication ordering;
--logit retention for checkpoint replay;
--no unbound bare historical c### module alias (c252 occurrences are bound local/attribute names);
--direct dependency count32 and inherited source/protection arithmetic.
+The immutable failed-run benchmark's actual manifest digest is43948ceb...ae53b1,not the recorded
+31b433a1...bb20a7c. Complete source bytes were matched to original blob
+1f91f80d2ea74406fe236fd99fb1c60e2e5a2ae0 before computing this. The previous review statement that
+manifest SHA matched the constant was incorrect;it is superseded by this executed review.
+The log's combined check did not print the actual counts. The hash condition is independently
+false;the unchanged382/623 count requirements remain mandatory and are now logged separately.
 
-Independent reviewer calculations verified:
--exact task SHA256 and144/144 row counts;
--12/12 disjoint assignment split;
--every position/value marginal3/12 on both sides;
--max rendered prompt length22 bytes;
--all three-step sampler epochs cover all144 TRAIN rows exactly once;
--800 steps produce38400 training presentations/model;
--manifest SHA256 matches the registered constant.
+The original24 test methods were also actually exercised in the limited review environment:
+22 PASS,one manifest-hash failure and one launcher-order error. Test24 required the literal
+'$failure = $null',while the valid launcher used '$failure=$null'. This further authoring defect
+was repaired before another user retry.
 
-During authoring review two issues were fixed BEFORE activation:
-1)checkpoint replay initially retained token tensors instead of logits;fixed to retain final logits;
-2)one-step gradient smoke initially expected query/hidden gradients despite zero output-projection
- initialization;fixed to require the output projection plus backbone-core gradient that is actually
- reachable on the first backward.
-A later replay audit also made final metric comparison explicitly TOL-based.
+Minimal changes:
+-correct the fixed manifest fingerprint,not the manifest payload or hash-validation policy;
+-add validate_registration to print actual counts/hash and reject count/hash mismatches separately;
+-expand existing test01 with wrong-count/wrong-hash rejection cases;
+-make test24 whitespace-independent while retaining parser-before-execution ordering;
+-correct the C256 preregistration fingerprint and document the invalid attempt.
 
-The reviewer environment cannot clone github.com because DNS resolution fails and has no PowerShell.
-Therefore NOT executed here:exact committed own24 inside the complete repository import graph,
-full3313 historical regression,Windows ParseFile,user-local C255 artifact precheck,or actual
-10-model C256 training. None is reported PASS. The authoritative runner performs Python syntax
-preflight,own24,3313 regression and parent/task checks before any scientific training and stops
-without accepting science on any failure.
+Manifest JSON and dataset JSON remain byte-identical. AST comparison confirms all existing
+benchmark functions except precheck are unchanged;only validate_registration is added.
+No model,seed,data,sampler,optimizer,steps,metric,threshold,tolerance,workload or accepted file changes.
+Own24/focused3313 counts and the sole historical exclusion are unchanged. Runner/launcher unchanged.
 
-Only this handoff changes after review HEAD. Re-read final branch HEAD before issuing ExpectedHead.
-Do not advance the branch during the user's formal C256 run.
+Source repair commit:1a03d784c97d8190cd9c527b3aa498ea3b4027a1.
+Test repair commit:d05ed16a733c693e8cb14783d40c47f48af55bae.
+Preregistration correction/review HEAD:4afbfbe60417d228b6268b2652d536f3b67206f6.
+Recovery record:docs/experiment-ledger-addendum-c256-execution-recovery.md.
+
+post_repair_review = PASS
+Review scope:complete C256 source/test/script byte checks and executed limited-dependency own tests;
+NOT a complete historical checkout or authoritative Windows result.
+
+Re-fetched source/test identities match the locally executed complete files:
+-benchmark:56968388f643d8929f8911d93dfc4301941bd924;
+-tests:a3e1c67d7f0d625cbc30f4e27936268adaef426e;
+-unchanged runner:46bbd0365002aecc1248f74887c7b3f0d205d744;
+-unchanged launcher:f6e3069c3d9526c3bc012dadf6d1e5f609b7fdae.
+
+Executed after repair:compile/import,zero unresolved globals,manifest and dataset regeneration,
+negative registration cases,unchanged scientific-function ASTs,and all24 own test methods.
+24/24 PASS in0.836s before publication and0.787s after remote readback/blob matching.
+The run includes initialization,capacity,gradients,state-preserving evaluation,checkpoint-logit
+replay,metrics/gates,and the three embedded Python blocks/CLI argument checks.
+
+Important scope:review-only b.context was replaced with namespaces using retrieved C231 factory,
+language_task,modules,C248 and C252 computational source excerpts. These include the actual
+GRU/core/reader computations,not a toy linear replacement. The committed test file retains the
+real b.context;the full historical import graph and user-local parent artifact checks were not
+executed in the review. The constructed3314-ID test validates filtering only,not3313 historical tests.
+Reviewer:Python3.13.5/PyTorch2.10.0+cpu/NumPy2.3.5. GitHub DNS failed in the container;PowerShell absent.
+Still pending and required on the user's environment:Windows ParseFile,complete parent/source
+precheck,exact own tests through real repository imports,full3313 regression,and formal10-model
+training. None of those pending checks is reported as authoritative PASS.
+
+Only recovery/handoff documentation follows the review. Re-read the final branch HEAD before
+returning ExpectedHead. Do not advance this branch during the user's formal C256 retry.
 
 ## Stop and scope
 
