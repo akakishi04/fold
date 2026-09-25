@@ -135,7 +135,7 @@ tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispa
 
 Artifacts5:task-plan.json,dataset.json,trained-models.pt,measurements.json,validation-summary.json.
 Bundle schema fold-c256-three-entity-v1.
-Manifest SHA256:31b433a189aee26a02d11d1571300b216f21ceb205d3696f90fe95d02bb20a7c.
+Manifest SHA256:43948ceb676d536301d4e3a63a7ee1407f8bec44034db59f8b4f6e4872ae53b1.
 
 ## Interpretation boundary
 
@@ -150,3 +150,13 @@ protection,counts,CLI indices and PowerShell parser ordering. Do not issue a lau
 post-authoring review PASS is recorded in the handoff.
 
 Judge C256 before C257.
+
+## Same-C256 registration repair
+
+The first attempt stopped at the precheck, before own tests, regression or training.
+The previously printed manifest SHA256
+31b433a189aee26a02d11d1571300b216f21ceb205d3696f90fe95d02bb20a7c
+was incorrect. Computing the unchanged manifest() with the unchanged blob()/digest() functions
+from the immutable failed-run source produces the corrected fingerprint above. No manifest field,
+model,task,seed,sampler,optimizer,workload,metric,threshold or replay tolerance is changed.
+See docs/experiment-ledger-addendum-c256-execution-recovery.md for the invalid attempt and review.
