@@ -165,15 +165,15 @@ def make_model(backbone,arm,seed,c252,reader):
     return c252.AlignedPrecoreReadout(backbone,seed) if arm=="aligned_precore_read" else reader.ReadoutPilot(backbone,"full","eos_adapter",seed)
 
 def evaluate(model,parts,factory):
-    before=fingerprint(model);model.eval();out={};pred={}
+    before=fingerprint(model);model.eval();out={};pred={};raw={}
     with torch.no_grad():
         for split in SPLITS:
             logits={}
             for view in VIEWS:
                 x,_=tensors(parts[split],view,factory);logits[view]=model(x,torch.zeros(len(x),dtype=torch.int64))
-            out[split],pred[split]=metrics(parts[split],logits)
+            out[split],pred[split]=metrics(parts[split],logits);raw[split]=logits
     require(fingerprint(model)==before,"evaluation mutation")
-    return out,pred,{s:{v:tensors(parts[s],v,factory)[0] for v in VIEWS} for s in SPLITS}
+    return out,pred,raw
 
 def fingerprint(module):
     h=hashlib.sha256()
