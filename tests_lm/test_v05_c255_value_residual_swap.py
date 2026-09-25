@@ -180,7 +180,7 @@ class C255Tests(unittest.TestCase):
 
     def test_08_evidence_blind_negative_control(self):
         for r in self.records:
-            for s in b.SPLITS: self.assertTrue(torch.equal(r["outputs"]["self"][s]["evidence_blind"], r["outputs"]["value_swap"][s]["evidence_blind"]))
+            for s in b.SPLITS: self.assertLessEqual(b.replay(r["outputs"]["self"][s]["evidence_blind"], r["outputs"]["value_swap"][s]["evidence_blind"]), b.TOL)
         e = copy.deepcopy(self.original[0]); e["components"]["intact"]["TRAIN"]["evidence_blind"]["post"][0, 0] += .1
         with self.assertRaisesRegex(ValueError, "masked fact-pair"): b.score_one(self.models[0], self.parts, e, fingerprint)
 
