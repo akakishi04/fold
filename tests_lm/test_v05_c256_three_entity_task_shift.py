@@ -110,14 +110,14 @@ class Case(unittest.TestCase):
         model=b.make_model(self.factory.new_model(b.SEEDS[0]),b.ARMS[0],b.SEEDS[0],self.c252,self.reader)
         ids=b.batch_indices(b.SEEDS[0],0);x,y=b.tensors(self.parts["TRAIN"],"normal",self.factory)
         torch.nn.functional.cross_entropy(model(x[ids],torch.zeros(48,dtype=torch.int64)),y[ids]).backward()
-        self.assertGreater(float(model.read.query.weight.grad.abs().sum()),0)
+        self.assertGreater(float(model.read.output.weight.grad.abs().sum()),0)
         self.assertTrue(any(p.grad is not None and float(p.grad.abs().sum())>0 for p in model.backbone.core.parameters()))
 
     def test_13_control_gradient_reaches_adapter_and_core(self):
         model=b.make_model(self.factory.new_model(b.SEEDS[0]),b.ARMS[1],b.SEEDS[0],self.c252,self.reader)
         ids=b.batch_indices(b.SEEDS[0],0);x,y=b.tensors(self.parts["TRAIN"],"normal",self.factory)
         torch.nn.functional.cross_entropy(model(x[ids],torch.zeros(48,dtype=torch.int64)),y[ids]).backward()
-        self.assertGreater(float(model.read.hidden.weight.grad.abs().sum()),0)
+        self.assertGreater(float(model.read.output.weight.grad.abs().sum()),0)
         self.assertTrue(any(p.grad is not None and float(p.grad.abs().sum())>0 for p in model.backbone.core.parameters()))
 
     def test_14_perfect_metric_contract_and_gate(self):
