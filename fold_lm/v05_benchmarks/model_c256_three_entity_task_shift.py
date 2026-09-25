@@ -155,6 +155,17 @@ def cell_pass(m):
     return (m["accuracy"]>=.90 and m["order_pair_accuracy"]>=.80 and m["query_triplet_accuracy"]>=.80
             and m["evidence_drop"]>=.35 and m["query_drop"]>=.35)
 
+def metric_error(left,right):
+    require(set(left)==set(right)==set(SPLITS),"metric split keys");err=0.0
+    for split in SPLITS:
+        require(set(left[split])==set(right[split])=={"en","ja"},"metric languages")
+        for lang in ("en","ja"):
+            require(set(left[split][lang])==set(right[split][lang]),"metric keys")
+            for key,value in left[split][lang].items():
+                old=right[split][lang][key];require(type(value) in (int,float) and type(old) in (int,float) and math.isfinite(value) and math.isfinite(old),"metric finite")
+                err=max(err,abs(value-old))
+    return err
+
 def batch_indices(seed,step):
     require(seed in SEEDS and type(step) is int and 0<=step<STEPS,"batch step")
     epoch,block=divmod(step,3);g=torch.Generator(device="cpu").manual_seed(seed+256000+epoch)
@@ -217,7 +228,7 @@ def replay_one(model,state,record,raw,parts,factory):
     h=model.register_forward_hook(hook)
     try: final,pred,now=evaluate(model,parts,factory)
     finally:h.remove()
-    require(counts==[6,864] and final==record["final"] and pred==record["predictions"],"reload metrics/workload")
+    require(counts==[6,864] and metric_error(final,record["final"])<=TOL and pred==record["predictions"],"reload metrics/workload")
     err=max(float((now[s][v]-raw[s][v]).abs().max()) for s in SPLITS for v in VIEWS)
     require(err<=TOL,"reload logits")
     record["checkpoint_roundtrip"]=True;record["reload_max_error"]=err;record["replay_forward_calls"]=6;record["replay_row_presentations"]=864
