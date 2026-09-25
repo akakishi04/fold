@@ -2,228 +2,216 @@
 
 Follow AGENTS.md and docs/experiment-conversation-handoff-protocol.md (response format v2).
 Repository akakishi04/fold; branch feat/sft-target-loss; local M:\asobiba\fold.
-Authoritative runtime: Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
+Authoritative runtime:Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
-**C256 ACCEPTED PASS (bounded three-entity task-shift capability). C257 ACTIVE / NOT YET JUDGED. C258 NOT REGISTERED.**
-C257 is the unique ACTIVE experiment: V5-B frozen unseen fact-order transfer.
-C256 is a capability PASS within its preregistered authored task, not merely diagnostic integrity.
-No production adoption, general-language claim, core-superiority claim or Gate F promotion.
-C252 remains ACCEPTED VALID NEGATIVE. C253/C254/C255 remain diagnostic PASS.
-All earlier accepted verdicts and invalid-attempt recovery records are preserved.
+**C257 ACCEPTED VALID NEGATIVE. C258 ACTIVE / NOT YET JUDGED. C259 NOT REGISTERED.**
+C258 is the unique ACTIVE experiment:V5-B exploratory saved middle-slot attribution.
+C256 remains ACCEPTED PASS within its original three-entity value-assignment scope.
+C257 completed validly but only2/5 candidate seeds passed its all-five-seed unseen-order gate.
+C258 is diagnostic integrity only; no new capability, causal mechanism, production or Gate F claim.
+All earlier accepted verdicts and invalid-attempt recovery records remain preserved.
 
-## Latest accepted evidence — C256
+## Latest accepted evidence — C257
 
-Scientific execution HEAD: db9f3cb90d9268066c34fc91300193058301f06c.
-Published log commit: 5695706c6306156fa079ce092581270ca781af71.
-Publisher log SHA256: 4f21d18bec9eb3ae937c42be9d8af3091d67a241a53a85820afd3e6694110ce6.
-Log bytes: 654496.
-Summary SHA256: 56c9c4e46800aadfb3c1a125522a66c6c2014721eceac0ab29ccd08c005bd184.
-Local summary: runs/c256-v5b-three-entity-3f95a0d190e4424f91634cb8813d7987/summary.json.
-Acceptance record: docs/experiment-ledger-addendum-c256-c257.md.
-Acceptance/base commit: ee4c282687c71bed407ecb687659edd7103c740d.
+Scientific execution HEAD:016785f35605a3eef5f94d42f0b86cb2fc4d9dfe.
+Published log commit:4a322950685b80d7748aa525608555149c2c2ffd.
+Publisher log SHA256:6932e3f178cfadb3434a34368a3ba674489b96b6dc509b2a69da18f6a36a66a5.
+Log bytes:680841.
+Summary SHA256:596df75ccc89c5a12c964c2e6be1fc689e5773f4c0a857f90fdcedd4df9b8816.
+Local summary:runs/c257-v5b-unseen-order-705d486739b44a56bbed34fae66ace89/summary.json.
+Acceptance record:docs/experiment-ledger-addendum-c257-c258.md.
+Acceptance/base commit:ff34341a10e12b00091649e29c05b088e29a09db.
 
-24 own tests PASS in0.832s; 3313 focused tests PASS in207.503s.
-382 source pins/623 protected inputs verified. Ten fresh models each completed800 updates:
-8000 training updates,384000 training presentations,8120 model forwards,401280 total row presentations.
-Changed total/head weights, strict checkpoint state loading, saved prediction identity, metric and
-raw-logit replay passed. Persisted metric/artifact checks and protected-input checks passed.
-Tracked tree clean; scientific execution HEAD preserved; run_execution_valid=True.
-scientific_status=PASS; candidate_gate=True; all_replays=True; all_weights_changed=True.
+Own24 PASS in4.897s;focused3337 PASS in224.138s.
+388 source pins/635 protected inputs verified. Ten frozen C256 final models completed180 model
+forwards/34560 row presentations. Training0;accepted checkpoint bundle loads1;strict state loads10;
+new learned checkpoint writes0. Original metric/prediction replay, anchor restoration, saved
+logit/metric recomputation and weight/protected-input preservation passed.
+Tracked tree clean;scientific HEAD preserved;run_execution_valid=True.
+scientific_status=FAIL;candidate_gate=False;all_replays=True;all_weights_preserved=True.
 
-This acceptance is based on immutable published log ranges, publication metadata and the recorded
-local postchecks. The reviewer did not independently rerun the accepted learned checkpoints or
-rehash the entire654496-byte log. Do not confuse publisher-reported hashes with a new byte rehash.
+Acceptance uses immutable published log ranges, publication metadata and recorded local postchecks.
+The reviewer did not independently run the learned models or rehash the entire680841-byte log.
+The log publisher reports its SHA256; do not present that as an independent complete-byte rehash.
 
-Deciding HOLDOUT correct counts per language, denominator72:
+Candidate metrics on novel orders of the original HOLDOUT assignment partition:
 
-| Seed | aligned EN | aligned JA | EOS control EN | EOS control JA |
-|---:|---:|---:|---:|---:|
-|256001|72|72|29|25|
-|256002|72|72|29|28|
-|256003|72|72|26|24|
-|256004|72|72|21|24|
-|256005|70|72|20|22|
+| Seed | New EN /144 | New JA /144 | Six-order EN /36 | Six-order JA /36 | Whole-seed result |
+|---:|---:|---:|---:|---:|---|
+|256001|144|144|36|36|PASS|
+|256002|117|120|23|23|NEW_ORDER_MISS|
+|256003|82|100|2|13|NEW_ORDER_MISS|
+|256004|143|144|35|36|PASS|
+|256005|102|91|19|12|NEW_ORDER_MISS|
 
-Candidate TRAIN720/720; HOLDOUT718/720 (99.7222%). Control HOLDOUT248/720 (34.4444%).
-Whole-seed joint passes: aligned_precore_read5/5; eos_adapter0/5.
-Candidate BOTH_PASS language cells10. Control TASK_SHIFT_MISS9; TRAIN_CRITERIA_MISS1.
-The control seed256001 JA TRAIN query-triplet score is19/24, below0.80 despite66/72 normal accuracy.
-Do not describe every control TRAIN cell as passing or perfectly fitted.
+Candidate pooled novel-order HOLDOUT1187/1440=82.4306%;joint seed passes2/5,not5/5.
+This pooled accuracy does not replace the preregistered per-order/per-language/per-split gate.
+Seed256002 EN bac answers33/36 but query triplets9/12, below0.80.
+The three failing seeds also miss some novel-order TRAIN-assignment cells.
+EOS outcomes are ORIGINAL_CRITERIA_MISS5, inherited from their C256 performance; do not present
+that as five newly independent failures attributable only to C257's input-order change.
+No threshold, seed, comparator, data or replay tolerance was changed to rescue the result.
 
-Candidate seed256005 EN HOLDOUT:70/72 answers,34/36 order pairs,22/24 query triplets,
-evidence_drop0.722222...,query_drop0.638888...; all original thresholds are satisfied.
-Other candidate HOLDOUT cells:72/72 answers,36/36 order pairs,24/24 query triplets.
-The registered gate was not relaxed. Every candidate seed passes both languages and both splits.
+Accepted C257 artifacts:
+-eval-outputs.pt:6911df9af7a10790cee9b18ff15a6b3479ca7e20046d5f6a16f95d69d068b92a;70832057 bytes.
+-measurements.json:c37f98bbc13526f408b9b00adac16e90e23dc764d59ef4af1ef5e990b235eb22;61378 bytes.
+-order-dataset.json:9ee8868f46838884874f44ea1d0f03fc481672aea8f9044eb764a81220514052;92184 bytes.
+-order-plan.json:18fdc13e9c276826473467243017f30b1fa6dcf673a9a490e14318792f8a8e36;2248 bytes.
+-validation-summary.json:1d0d66a7550d47e34d01b5242c8ad0ef527ed7c36df66a440e31005609975d99;1268 bytes.
 
-Accepted artifacts:
--dataset.json:ca6eb1943b24cc73cbc5f4dd4af7008c2be11ed8e2c53e79a768593a67e3342b (34296 bytes)
--measurements.json:f7d11d7592769e54824d3d7dccc4e481029dc5157b6c35c333831408d7b032c8 (45697 bytes)
--task-plan.json:43948ceb676d536301d4e3a63a7ee1407f8bec44034db59f8b4f6e4872ae53b1 (2691 bytes)
--trained-models.pt:72d9ada52e48395290200c1c6918d7eef091aebd44a3d2a6176dc1dd442dae3a (1236574 bytes)
--validation-summary.json:a25fe29ed2deb33ceab64c0f7d7e450e6a143ea5c0bc428eea20b9d45dff8bc2 (2313 bytes)
-
-Interpretation: the aligned reader learned withheld three-way assignments on five new initializations
-under this fixed authored task and budget. The equal-parameter EOS control did not reproduce it.
-This is not a compute-matched comparison, ordinary English/Japanese proficiency, a general benchmark,
-proof of core superiority, or a guarantee over initialization populations. Relative to C252, names,
-assignment split, sampling, batch and budget also changed; do not infer that three entities are
-inherently easier or that general initialization robustness is solved.
-
-Only abc and cba fact orders were used. The middle entity b/乙 never changed its middle position.
-Value-assignment transfer does not establish transfer to the other four permutations.
+Interpretation:value-assignment transfer on the original two orders does not guarantee all-order
+transfer. Two accepted trained states do transfer, while three do not meet this fixed gate.
+No unique internal cause or universal architectural impossibility follows. This authored,
+repeatedly inspected, correlated task family is not a general-language/external benchmark.
 
 ## Preserved earlier evidence and recovery
 
-C256's earlier precheck attempt remains INVALID, not scientific evidence:
-failed execution1029158a60d40df24f599fb719411dbde2ffec06;
-invalid log commit2dc541041c772d5b9a449bd247862ad906a9b5c8;
-invalid log SHA2565e774f0043a8f4661bbda08fe1ccaa8f728b1e10315947677d7ee6a40f62dce8.
-It stopped before own tests/regression/training on the incorrectly recorded manifest fingerprint.
-The fingerprint and a separate whitespace-sensitive launcher test were repaired without changing
-scientific conditions. Full history: docs/experiment-ledger-addendum-c256-execution-recovery.md.
-The successful execution above supersedes the stale ACTIVE recovery state, not the invalid record.
+C256 ACCEPTED PASS:aligned candidate5/5,TRAIN720/720,HOLDOUT718/720;EOS0/5,HOLDOUT248/720.
+Execution:db9f3cb90d9268066c34fc91300193058301f06c;log:5695706c6306156fa079ce092581270ca781af71.
+Summary SHA256:56c9c4e46800aadfb3c1a125522a66c6c2014721eceac0ab29ccd08c005bd184.
+Summary:runs/c256-v5b-three-entity-3f95a0d190e4424f91634cb8813d7987/summary.json.
+Acceptance:docs/experiment-ledger-addendum-c256-c257.md;base:ee4c282687c71bed407ecb687659edd7103c740d.
+C256's first precheck attempt remains INVALID in docs/experiment-ledger-addendum-c256-execution-recovery.md.
+Failed execution1029158a60d40df24f599fb719411dbde2ffec06;invalid log2dc541041c772d5b9a449bd247862ad906a9b5c8.
+Its manifest fingerprint and a whitespace-sensitive test were repaired without changing science.
 
-C255 ACCEPTED PASS (diagnostic only): self HOLDOUT145/160 versus value residual swap140/160.
-Scientific HEAD6b577da1edc7339dbfd68b3127870074de218e48; log48856dd7dabb84f1f8a71158d03a5ee9db2fd255.
-Acceptance: docs/experiment-ledger-addendum-c255-c256.md.
-Its two earlier invalid attempts remain in docs/experiment-ledger-addendum-c255-execution-recovery.md.
-C254 query/order swaps:145/160 self,141/160 order,96/160 query; diagnostic only.
-C253 residual removal:145/160 self,107/160 pre-residual,117/160 reader-only; diagnostic only.
-C252 aligned reader4/5 whole-seed passes, not5/5: ACCEPTED VALID NEGATIVE.
-C2512/5; C250 Full reader2/5,GRU reader4/5,EOS controls0/5.
-C249 frozen reader dependency diagnostic. C248 bounded transfer but failed its all-seed gate.
-C247/C246/C244/C242/C241/C239 remain accepted negatives; C245/C243/C240/C237/C235 diagnostics;
-C238 seen-prompt fit only. C232 bounded byte learning and C233 competitive GRU-only result are not
-general language or core-superiority claims. Do not overwrite accepted source/tests/logs.
+C257's pre-activation test17 correction1487f6033e151f767b3ed3ebd29aabbe9648c94b was an authoring
+repair,not an invalid scientific run. Prior review record is preserved in this handoff at
+016785f35605a3eef5f94d42f0b86cb2fc4d9dfe. No formal C257 integrity failure occurred in this run.
 
-## Active C257 — frozen unseen fact-order transfer
+C255 diagnostic PASS:self HOLDOUT145/160,value residual swap140/160.
+Execution6b577da1edc7339dbfd68b3127870074de218e48;log48856dd7dabb84f1f8a71158d03a5ee9db2fd255.
+Acceptance:docs/experiment-ledger-addendum-c255-c256.md;earlier invalid attempts remain in its
+execution-recovery addendum. C254 diagnostic:self145/160,order141/160,query96/160.
+C253 diagnostic:self145/160,pre-residual107/160,reader-only117/160.
+C252 ACCEPTED VALID NEGATIVE:aligned reader4/5,not5/5. C2512/5;C250 Full reader2/5,GRU reader4/5.
+C249 frozen diagnostic. C248 bounded transfer but failed its all-seed gate.
+C247/C246/C244/C242/C241/C239 remain accepted negatives;C245/C243/C240/C237/C235 diagnostics;
+C238 seen-prompt fit only. C232 bounded byte learning and C233 competitive GRU-only result do
+not establish ordinary language, general reasoning or FOLD-core superiority.
+Preserve all accepted source/tests/logs and tools/run_c167.ps1.
 
-Experiment:C257-v5b-unseen-fact-order-transfer.
-Stage:V5-B-UNSEEN-FACT-ORDER-TRANSFER.
-One question: without further training, do all five accepted aligned-reader models retain their
-bounded capability when the same facts appear in the four permutations never used by C256?
+## Active C258 — saved middle-slot attribution
 
-Freeze all ten accepted C256 final800-update models: seeds256001..256005, paired aligned_precore_read
-and eos_adapter,14256 parameters each. Use actual C256.make_model/load_bundle, C252/C248 classes and
-C231 factory. Strict-load final states, verify fingerprints, then eval/requires_grad=False.
-No C252 checkpoints or C255 activations initialize the evaluation.
+Experiment:C258-v5b-saved-middle-slot-audit.
+Stage:V5-B-SAVED-MIDDLE-SLOT-AUDIT.
+Question:do saved novel-order errors concentrate on query b/乙 and choose the middle-position
+distractor? This diagnostic was designed after seeing C257 aggregate outcomes, but before
+query-level attribution. It is exploratory,not independent confirmation or a causal intervention.
 
-Changed: visible fact permutation only.
-Held fixed: final weights, entities, assignments, original assignment splits, languages, queried
-entity, target, delimiters,48-slot byte encoding and query-at-end placement.
-Known orders:(0,1,2),(2,1,0). Novel:(0,2,1),(1,0,2),(1,2,0),(2,0,1), i.e.acb,bac,bca,cab.
-Do not sort inputs back to a known order. No target/oracle/entity index is passed outside visible bytes.
-Original rows144/split; novel288/split. TRAIN/HOLDOUT still name the original assignment partitions;
-neither is used for optimization in C257. Preserve both arms and all seeds.
-New dataset SHA256:9ee8868f46838884874f44ea1d0f03fc481672aea8f9044eb764a81220514052.
+Changed:only offline answer grouping/attribution.
+Held constant:all ten saved C257 final-model evaluations,all five seeds,both arms,both languages,
+both original assignment partitions,known/novel permutations,queries,targets and all input bytes.
+No training,new model evaluation,model construction,learned state loading or output correction.
+All successful and unsuccessful seeds and controls are retained.
 
-Per-model sequence:
--original C256.evaluate:6 forwards/864 rows, exact saved predictions and all metrics within1e-9;
--only after that replay barrier, novel orders:6 forwards/1728 rows;
--original restoration:6 forwards/864 rows, anchor/restored raw logits within1e-9 and exact argmax;
--complete weight fingerprint preserved,18 forwards/3456 rows per model.
-C256 did not save endpoint raw logits. Initial replay uses its saved metrics/predictions; restoration
-compares the new original anchor logits captured in this C257 run. Do not claim nonexistent replay.
+Known orders012/210;novel021/102/120/201. b/乙 was always middle in C256 and is never middle in
+the new orders. The task's three distinct assigned digits let the scorer attribute a wrong answer
+to the middle distractor,other displayed distractor,absent0..3 value,or an unrelated byte.
+Correct middle-position answers are NOT classified as shortcut errors.
 
-Fixed primary gate: all five candidate seeds, both languages and both original assignment splits:
--original C256 criteria remain satisfied;
--EACH new permutation:accuracy>=0.90,query_triplet>=0.80,evidence_drop>=0.35,query_drop>=0.35;
--all-six-order consistency>=0.80, requiring every presentation in a group to be correct.
-Per new order/language/split:36 rows/12 query triplets; minima33/36 answers and10/12 triplets.
-All-six-order score:36 groups/language/split; minimum29/36 completely correct groups.
-No pooling away a weak permutation. EOS performance is reported separately and cannot rescue or
-fail the candidate gate. An already-failed original EOS gate is not a new independent control failure.
-Outcomes:ORIGINAL_CRITERIA_MISS,NEW_ORDER_MISS,SIX_ORDER_MISS,PASS.
-Valid criterion miss:ACCEPTED VALID NEGATIVE. Integrity failure:INVALID / RETRY SAME C257.
+Normal answers8640=known2880+novel5760. Masked/restored views are replayed for parent validation,
+not counted again as independent answers. Order/query cells720,each12 assignments.
+Pooled query cells120,each24 known+48 novel answers. Signature cells40,one perseed/arm/split/language.
+Report known-both-correct to novel-wrong transitions matched on assignment/language/query.
+For b report known/novel accuracy,error-rate difference versus pooled a/c,middle and other
+incorrect displayed-entity counts,absent-value/other-byte counts,and middle-error shares with
+both all-error and in-assignment-error denominators. Zero denominator is JSON null.
+Do not cherry-pick cells or turn a descriptive contrast into causal proof.
 
-Workload:ten models,180 full-model forwards/34560 row presentations; training0;
-accepted checkpoint bundle loads1; strict state loads10; new learned checkpoint writes0.
-CPU float64,threads2,deterministic algorithms; finite outputs mandatory.
-Artifacts5 plus summary.json:order-plan.json,order-dataset.json,eval-outputs.pt,measurements.json,
-validation-summary.json. Evaluation archive schema fold-c257-order-eval-v1 contains original/novel/
-restored logits, not newly learned weights. Persisted recomputation uses no additional model forwards.
+The loader requires the actual C257 status FAIL/candidate2/control0 and verifies parent artifact
+hashes/sizes. It calls actual C257.load_inputs for C256 data/records,then loads only C257's saved
+evaluation archive,schema fold-c257-order-eval-v1. Actual C257.analyze replays all original,
+novel and restored views and must reproduce accepted measurements/summary and plan.
+No nonexistent saved C256 raw logits are assumed. The original saved C257 anchor is used.
+The scorer uses normal-view argmax bytes; no target or entity index is passed to any model.
 
-Protection:388 source pins/635 inputs; direct deciding dependency union33; OWN6.
-Own24; modules142; loaded3338/focused3337. Only inherited exact exclusion:
+Workload:model forwards0,training0,learned bundles/state loads0,new learned checkpoints0.
+Module._call_impl is blocked during saved replay/analysis. One evaluation-archive load per pass;
+formal diagnostic and persisted postcheck total two passes. Source/artifact hashing,all-view
+metric recomputation,serialization and historical test work are separate cost,not new samples.
+
+Fixed gate:diagnostic integrity only. Parent replay,complete attribution/counts,source preservation,
+no-model-call guard and exact persisted re-attribution must pass. Any direction or absence of
+middle-slot bias is reportable. capability_pass_claim=False;causal_mechanism_claim=False;
+production_adoption=False;gate_f_candidate=False. A diagnostic PASS does not reverse C257.
+
+Protection394 source pins/647 inputs;direct dependency union34;OWN6.
+Own20;modules143;loaded3358/focused3357. Sole inherited exact exclusion:
 tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state.
-Manifest SHA256:18fdc13e9c276826473467243017f30b1fa6dcf673a9a490e14318792f8a8e36.
-Registration:docs/experiment-ledger-addendum-c257-preregistration.md.
-Design:docs/v5b-unseen-fact-order-v0.1.md.
-C256 acceptance and C257 preregistration are separate commits. All six C257 files already existed at
-1ca89cbdf309976f36311265b617a9c86a59c489 before this activation review; do not duplicate registration.
+Manifest SHA256:a4f2cad192bd56dd73d867caf8453084cdd85e8e0f10f9d2496bfaa4a6c08aef.
+Registration:docs/experiment-ledger-addendum-c258-preregistration.md.
+Design:docs/v5b-saved-middle-slot-audit-v0.1.md.
 
-## C257 post-authoring review
+Five ignored output artifacts plus summary.json:audit-plan.json,row-attribution.json,
+query-position-cells.json,signature-summary.json,validation-summary.json.
+Only console text and publication metadata are mirrored to Git.
+
+## C258 post-authoring review
 
 post_authoring_review = PASS
-review_target_HEAD = 1487f6033e151f767b3ed3ebd29aabbe9648c94b
-Review scope is committed-byte C257 authoring validation, NOT a formal scientific C257 execution.
+review_target_HEAD = 740ddb19ad948a9ca8816204b5dbd6abc924676f
+Scope:committed-byte authoring review,not formal C258 execution or learned-output evidence.
 
-All six OWN files were read from the committed repository. After the test correction, source/script/
-document identities were re-fetched at the review HEAD. Complete local code/test/script copies were
-matched against the remotely returned Git blob identities before rerunning the exact own tests:
--benchmark:12f9e114e5c6d0a47eacdf06f8ff1933686d1b1b;
--tests:d5ce8fb9bc08ab2fafcc9a3d8587133b5ae30e4e;
--runner:37bb99aba999d63e17321f444bf8e9d8330cafef;
--launcher:997577b31fa9d45b89b37fb168ad3aa55b954716;
--preregistration:621ad0877eff2d29389f7b6f60677aa755bf039a;
--design:7a24c42afb285a71eda337bb93199893518e5b24.
+All six committed OWN files were re-fetched and read. Complete locally tested file bytes were
+independently Git-blob hashed and matched to returned remote identities:
+-benchmark:aae238ee0fbb4afe8c7f93dbf3448eee9397ae51.
+-tests:5c4ca2a555b87db6f6a2e29b453b9e60340c19e9.
+-runner:1f2caf97fbae93bc100ba372fc2d4b824ed87935.
+-launcher:624635fec3ef1506a717fd55394fb5e63fd6eafb.
+-preregistration:4c22446d53818e662b60f4bdf155d0807b63796b.
+-design:4aae7068227bac73e3d1b4d32c42633ef280ed96.
 
-The initial exact24-test review reproduced23 PASS/1 FAIL in2.656s: test17 incorrectly expected a
-ValueError when re-verifying an unchanged valid artifact with the correct HEAD. The test now passes
-wrong-head and requires the saved-HEAD rejection. Its separate artifact-corruption rejection remains.
-Repair commit1487f6033e151f767b3ed3ebd29aabbe9648c94b changes only this C257 authoring test.
-No scientific source, data, manifest, seed, weight, gate, workload, runner or launcher changed.
-No user C257 scientific attempt has been executed; this was a pre-activation authoring defect,
-not an INVALID scientific result and not grounds to register a new C number.
+Executed before publication:20/20 own tests PASS in0.699s.
+After complete remote readback and six blob matches:20/20 PASS in0.696s.
+Python compile/import,UTF-8/NUL checks,recursive global-binding audit (zero unresolved names),
+manifest/original/novel dataset hashes,semantic own-test identity count and inherited-count
+arithmetic passed. Three embedded Python blocks compile;CLI indices are precheck1..2,regression
+none,postcheck1..4. Launcher parser and operational guards precede execution/log publication.
+Exact run/loader/attribution call ordering,wrong-HEAD rejection,artifact corruption,zero denominators,
+no-model-call enforcement,all query/position counts,and persisted recomputation were exercised.
+No authoring correction was needed after the first complete own-test run.
 
-Executed after correction:24/24 own tests PASS in2.571s. After remote identity readback and fresh
-blob matching:24/24 PASS again in2.392s. Python compile/import, UTF-8/NUL checks, recursive global-name
-binding audit (zero unresolved names), manifest hash, original/novel dataset hashes and semantic
-24-test identity count passed. The exact suite also compiles all three embedded Python blocks,
-checks CLI indices, call ordering, replay barriers, frozen-state/resource accounting, persisted-logit
-recomputation, malformed records, per-order gates and six-order group construction.
+Tests use synthetic saved logits and explicit parent/audit adapters. Test17 executes actual C258
+run and persisted postcheck with those adapters;tests14/15 exercise its actual archive loader and
+parent-interface dispatch. They do NOT execute the full historical import graph or validate the
+user-local learned artifact bytes. Test18's constructed3358 IDs check filtering only,not3357 tests.
+Actual C257 writer/loader/analyze interfaces and output semantics were inspected from protected
+source;complete parent-source/artifact precheck remains required on the user's machine.
 
-These own tests explicitly use synthetic lookup models and substituted parent/factory/audit adapters.
-They exercise the actual C257 run/probe/analyze/persisted-postcheck code, but are NOT learned-model
-capability evidence, execution of the full parent import graph, real parent-artifact precheck, or
-execution of3337 historical tests. Test21's constructed3338-ID fixture tests filtering only.
-The parent writer/loader schema and final-state semantics were checked against actual C256 source;
-the source coverage and runner counts were reviewed, but full inherited precheck remains required.
+Reviewer:Python3.13.5/PyTorch2.10.0+cpu/NumPy2.3.5. GitHub DNS failed in the container;no complete
+historical checkout or user-local learned outputs were available. PowerShell is absent,so Windows
+System.Management.Automation.Language.Parser.ParseFile was NOT executed here. The standard
+command parses dispatcher;dispatcher parses selected launcher;launcher parses runner before use.
+The final code comparison contains only the C257 published logs,C257 acceptance,and six new C258
+files;no accepted source/test was modified. Only this activation handoff follows the review.
 
-Reviewer environment:Python3.13.5/PyTorch2.10.0+cpu/NumPy2.3.5. No complete historical checkout or
-user-local learned artifacts were available; GitHub DNS failed in the container and PowerShell
-was absent. Windows System.Management.Automation.Language.Parser.ParseFile was NOT run here.
-The standard command parses dispatcher; dispatcher parses selected launcher; launcher parses runner
-before execution/logging. These checks remain mandatory in the user's environment.
-
-Pending authoritative checks:Windows parser chain, actual388/635 parent/source protection precheck,
-exact own24 in the user's environment, full3337 regression, ten real frozen checkpoint evaluations,
-persisted postcheck and log publication. None is claimed complete by this authoring review.
-Only this handoff activation follows the review. Use the final activation branch HEAD as ExpectedHead,
-not the review target or C256 execution/log HEAD. Re-read final branch HEAD before issuing the command.
+Pending authoritative checks:Windows parser chain,real394/647 source/artifact precheck,own20 in
+user runtime,complete3357 regression,saved real-output attribution,persisted postcheck and log
+publication. None is claimed complete by authoring review. Use the FINAL activation branch HEAD,
+not review_target_HEAD or either parent's scientific/log HEAD. Read final branch HEAD before
+issuing ExpectedHead.
 
 ## Execution and stop
 
-Use tools/invoke_active.ps1 with the registered final activation HEAD. The Formal state section has
-exactly one ACTIVE token resolving to C257. The launcher fixes the accepted parent summary path:
-runs/c256-v5b-three-entity-3f95a0d190e4424f91634cb8813d7987/summary.json.
+Use tools/invoke_active.ps1. Formal state contains exactly one ACTIVE token resolving to C258.
+The launcher fixes the accepted C257 and C256 summary paths above.
+Order:dispatcher/launcher/runner ParseFile -> Python compile+parent precheck -> own20 ->
+focused3357 -> saved-output replay/attribution -> persisted postcheck -> log publication.
 
-Order:dispatcher/launcher/runner ParseFile -> Python compile + parent/order precheck -> own24 ->
-focused3337 -> ten-model frozen order evaluation -> persisted postcheck -> log publication.
-Operational wrong branch/dirty tracked tree/stale HEAD/stale ACTIVE skips happen before logging and
-publish no experiment log. They are not scientific INVALID results.
+Wrong branch,dirty tracked tree,stale ExpectedHead or stale ACTIVE are operational SKIPPED
+before experiment logging;they publish no scientific execution log and are not scientific INVALID.
+Source/artifact/schema/nonfinite/identity/count/replay/test faults stop and retry C258 only after
+minimal repair. No result-driven data,seed,threshold or hypothesis-selection changes.
+A log-only publication fault is repaired without redoing completed diagnostic work.
+The user normally sends only 'finished';fetch docs/experiment-run-logs/c258/latest.json/latest.log.
+Do not move this branch with unrelated documentation while the formal run/log push is active.
 
-A source/artifact/schema/identity/nonfinite/replay/test/count fault stops evaluation and retries C257
-only after a minimal repair. Do not change seeds, thresholds, data or weights to obtain PASS.
-A complete valid FAIL is accepted negative; it does not revoke C256's value-assignment PASS.
-A log-only publication failure is repaired without rerunning completed science.
-The user normally only sends 'finished'; fetch docs/experiment-run-logs/c257/latest.json and latest.log.
-Do not move this branch with unrelated changes while the formal run/log publication is in progress.
-
-Gate F remains NOT PASSED. Preserve all accepted source/tests/logs and tools/run_c167.ps1.
-No paid API, external corpus, model expansion, production adoption, cleanup/history rewrite or CI work.
-Judge C257 before C258.
+Gate F NOT PASSED. No paid API,external corpus,model expansion,production adoption,cleanup,
+history rewrite or CI changes. This saved diagnostic ends after one full decomposition;any
+order-coverage training intervention needs a separate controlled preregistration after judgment.
+Judge C258 before C259.
