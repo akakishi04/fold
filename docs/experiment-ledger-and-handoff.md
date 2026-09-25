@@ -10,8 +10,9 @@ Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
 **C254 ACCEPTED PASS (diagnostic integrity only). C255 ACTIVE / INVALID ATTEMPT RECOVERY. C256 NOT REGISTERED.**
 C255 remains the unique ACTIVE experiment:V5-B fixed-query value-assignment residual swap.
-The first C255 attempt stopped in own tests before regression/science and is INVALID;minimal test-only
-recovery has been reviewed. Authoritative Windows own tests/full regression/diagnostic retry pending.
+Two C255 attempts are INVALID:the first stopped in own tests;the second passed own24+3289 regression
+but stopped at the first actual diagnostic model on an over-strict evidence-blind activation check.
+The same-C numeric-replay repair has been reviewed;authoritative retry is pending.
 No production adoption or new model-capability claim. C252 remains ACCEPTED VALID NEGATIVE.
 C253/C254 remain diagnostic PASS;all earlier verdicts are unchanged.
 
@@ -135,50 +136,60 @@ Use tools/invoke_active.ps1 with the final activation HEAD,not this earlier revi
 
 ## C255 execution recovery and post-repair review
 
-First attempt execution HEAD:70ca4c4c71f7e304d0a78313e642f5fdb57d4da2.
-Invalid log publication commit:372ef97671bdec0dc7db07e8dea456e60c7f2f02.
-Invalid log SHA256:d9db7508f1ad693884c4854121453375782d0f358855eda3f3164dbc22ddb285.
-Preflight/source/archive checks passed. Exact own tests ran24 with one failure:
-`test_07_coherent_control_matches_donor_not_recipient`.
-Regression and C255 scientific diagnostic did NOT run;run_execution_valid=False.
-This is INVALID / RETRY SAME C255,not scientific evidence. C256 remains NOT REGISTERED.
+### Invalid attempt1 — authoring test bitwise replay
 
-Root cause:the scientific source and preregistration require coherent donor replay within raw-logit
-max error<=1e-9 plus exact argmax. The benchmark's `replay()` enforced that contract and already
-accepted the same synthetic coherent outputs during setUpClass/score_one. Test07 alone used
-`torch.equal()`,an unregistered bitwise-equality requirement. On the authoritative
-Python3.13.15/PyTorch2.10.0+cu130 CPU path,the recomputed permuted head batch differed at floating
-bit level while remaining inside the registered replay contract. The test therefore failed before
-science even though the scientific replay guard did not.
+Execution HEAD:70ca4c4c71f7e304d0a78313e642f5fdb57d4da2.
+Log commit:372ef97671bdec0dc7db07e8dea456e60c7f2f02.
+Log SHA256:d9db7508f1ad693884c4854121453375782d0f358855eda3f3164dbc22ddb285.
+Preflight/archive passed;own tests23/24 PASS. Test07 required bitwise `torch.equal` for coherent
+recomputed donor logits even though the registered science contract is raw-logit max error<=1e-9
+plus exact argmax. Regression/science did not run;run_execution_valid=False.
+Minimal repair changed only test07 to the existing `b.replay(...)` contract.
+Repair commit:f10a493f5ea6a92f06bd3a0860444b69c64de5a1.
 
-Minimal recovery changes only that test assertion:
-`torch.equal(coherent,donor_logits)` -> `b.replay(coherent,donor_logits) <= b.TOL`.
-Donor mapping,model/head source,tolerance1e-9,argmax requirement,seeds,data,metrics,counts,gates and
-all accepted parents are unchanged. This is alignment of the authoring test to the already-registered
-scientific contract,not threshold rescue.
+### Invalid attempt2 — evidence-blind activation bitwise identity
 
-Repair source commit:f10a493f5ea6a92f06bd3a0860444b69c64de5a1.
-Recovery record commit:6346f81d8138a3bbe6c12e27fb9437aa98a7e570.
-Updated test blob:ac7cd0a8d3176ea87af0dd5eb8cc2b0f1104b9b5.
+Execution HEAD:275754bf58adbac6fdef92a34b6d2c309be0548b.
+Log commit:b7496ffd46c12d469e9478eed05d3c81b9c780dc.
+Log SHA256:933ccbc8613f06f94f9cc6184e052f5ed290b22b81b04ca48e76323fe3e25f34.
+This attempt passed preflight/source/archive,all24 own tests and all3289 focused regression tests.
+The actual C255 diagnostic then began and stopped on model1 at:
+`ValueError: masked fact-pair identity`.
+No complete scientific result exists;run_execution_valid=False.
+
+The failing guard required bitwise equality between the saved post/read activations of paired
+evidence-blind rows. Those paired rendered prompts are semantically identical by construction:
+language,object order and query are fixed and both fact values are erased. However the accepted
+numerical replay policy for C255 is TOL=1e-9,not cross-row bitwise activation identity.
+This guard therefore rejected before the registered output-level negative control could be judged.
+
+Second minimal repair changes only:
+- benchmark evidence-blind post/read comparison:bitwise equality -> max-abs<=the unchanged TOL=1e-9;
+- authoring evidence-blind output assertion:bitwise equality -> existing `b.replay` <=TOL.
+The evidence-blind value-swap output still requires raw-logit replay<=1e-9 and exact argmax.
+Donor mapping,all five seeds,data,model/head formula,metrics,workload,capability gate and TOL are
+unchanged. No accuracy/scientific threshold was relaxed and no accepted parent source was edited.
+
+Scientific benchmark repair commit:ff8dbe38a6cafa778d09e8f8237d2f5d7f984d18.
+Test alignment commit:7fdc5790a0b53c5b8aa5b171c85ed70e3f29dd88.
+Recovery record commit:f18e3bfcd6c82801cdb1dac2ad1e66d8782fcc7b.
 Recovery doc:docs/experiment-ledger-addendum-c255-execution-recovery.md.
 
 `post_repair_review = PASS`
-Review HEAD:6346f81d8138a3bbe6c12e27fb9437aa98a7e570.
-Remote bytes were re-fetched after repair. Compare invalid-log tip->review HEAD contains exactly the
-one-line test replacement plus the recovery addendum;scientific benchmark,runner,launcher,design
-and preregistration are byte-identical. The repaired assertion was re-read against the actual
-benchmark `replay()`:shape/finite checks,raw-logit max error<=1e-9 and exact argmax remain required.
-The preregistration independently specifies the same <=1e-9 coherent replay. No scientific
-condition was changed. Test count remains24,focused regression remains3289,and all source/protected/
-dependency/workload counts remain unchanged.
+Review HEAD:f18e3bfcd6c82801cdb1dac2ad1e66d8782fcc7b.
+Remote source/test/recovery bytes were re-fetched after repair. Invalid-log-tip to review comparison
+contains exactly the benchmark one-line activation guard change,the test one-line negative-control
+change,and recovery documentation. Runner,launcher,donor construction,metrics,manifest,TOL,
+preregistration and design are unchanged. The benchmark still checks finite CPU float64 tensors,
+fixed donors,frozen weights,head-only counters,self/coherent/restored replay and evidence-blind
+output replay through the <=1e-9/exact-argmax helper. Test07 remains on that same replay helper.
 
-A complete authoritative rerun is still required. The reviewer does not represent the repaired
-24-test module,3289 historical suite,Windows ParseFile,user-local accepted artifacts or actual C255
-head diagnostic as rerun PASS. The launcher will execute all of those from the final recovery HEAD
-and stop before science on any remaining failure.
+No new scientific evidence was generated during review. The exact repaired own24,3289 historical
+suite,Windows ParseFile,user-local accepted artifacts and actual C255 diagnostic remain mandatory
+in the authoritative retry. The runner stops before accepting science on any remaining fault.
 
-Only this handoff changes after recovery review. Use its final activation/recovery HEAD for retry.
-Do not advance the branch during the user's C255 retry.
+Only this handoff changes after the recovery review. Use its final recovery HEAD for retry and do
+not advance the branch during that run.
 
 ## Stop and scope
 
