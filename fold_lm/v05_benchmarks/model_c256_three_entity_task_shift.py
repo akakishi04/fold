@@ -39,7 +39,7 @@ OWN=("fold_lm/v05_benchmarks/model_c256_three_entity_task_shift.py",
      "docs/experiment-ledger-addendum-c256-preregistration.md","docs/v5b-three-entity-task-shift-v0.1.md")
 OUTPUTS={"task-plan.json","dataset.json","trained-models.pt","measurements.json","validation-summary.json"}
 EXCLUDED="tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state"
-MANIFEST_SHA="31b433a189aee26a02d11d1571300b216f21ceb205d3696f90fe95d02bb20a7c"
+MANIFEST_SHA="43948ceb676d536301d4e3a63a7ee1407f8bec44034db59f8b4f6e4872ae53b1"
 
 def require(ok,message):
     if not ok: raise ValueError(message)
@@ -271,6 +271,14 @@ def validate_result(p):
     require(p["status"]==("PASS" if s["candidate_gate"] else "FAIL") and s["all_replays"] and s["all_weights_changed"],"status/integrity")
     require(p["production_adoption"] is False and p["gate_f_candidate"] is False and p["network_calls"]==0,"scope")
 
+def validate_registration(source_count,input_count):
+    actual_hash=digest(manifest())
+    print(f"registration_check = source_pins:{source_count}; protected_inputs:{input_count}; manifest_sha256:{actual_hash}",flush=True)
+    require((source_count,input_count)==(382,623),
+        f"source/input counts: expected=(382, 623) actual=({source_count}, {input_count})")
+    require(actual_hash==MANIFEST_SHA,
+        f"manifest hash: expected={MANIFEST_SHA} actual={actual_hash}")
+
 def precheck(c255_summary,root):
     parent,_,_,factory,a=context();path=Path(c255_summary).resolve();root=Path(root)
     require(a.sha(path)==PARENT_SHA,"parent summary");p=a.read_json(path);parent.validate_result(p)
@@ -297,7 +305,7 @@ def precheck(c255_summary,root):
     deps=set(factory.LM_SOURCES)|{"fold_lm/v05_benchmarks/"+n for n in helpers}|{OWN[0]}
     require(len(deps)==32 and deps<=set(pins),"dependencies")
     protected.update(a.protect_tree_files(root,pins))
-    require((len(pins),len(protected))==(382,623) and digest(manifest())==MANIFEST_SHA,"counts/manifest")
+    validate_registration(len(pins),len(protected))
     validate_dataset(dataset());require(set(SEEDS).isdisjoint({250001,250002,250003,250004,250005}),"fresh seeds")
     return pins,protected
 
