@@ -44,6 +44,14 @@ class Case(unittest.TestCase):
     def test_01_manifest_and_dataset_hash(self):
         self.assertEqual(b.digest(b.manifest()),b.MANIFEST_SHA)
         self.assertEqual(b.digest(self.parts),b.TASK_SHA)
+        with patch("sys.stdout",new=io.StringIO()):
+            b.validate_registration(382,623)
+            for counts in ((381,623),(382,622)):
+                with self.assertRaisesRegex(ValueError,"source/input counts"):
+                    b.validate_registration(*counts)
+            with patch.object(b,"MANIFEST_SHA","0"*64):
+                with self.assertRaisesRegex(ValueError,"manifest hash"):
+                    b.validate_registration(382,623)
 
     def test_02_partition_shape_and_unique_ids(self):
         self.assertEqual({k:len(v) for k,v in self.parts.items()},b.ROWS)
@@ -198,7 +206,9 @@ class Case(unittest.TestCase):
             return {n.slice.value for n in ast.walk(ast.parse(x)) if isinstance(n,ast.Subscript) and isinstance(n.slice,ast.Constant)
                 and isinstance(n.value,ast.Attribute) and isinstance(n.value.value,ast.Name) and n.value.value.id=="sys" and n.value.attr=="argv"}
         self.assertEqual(argv(blocks[0]),{1});self.assertEqual(argv(blocks[2]),{1,2,3})
-        self.assertLess(launcher.index("::ParseFile"),launcher.index("$failure = $null"))
+        failure=re.search(r"(?m)^\s*\$failure\s*=\s*\$null\s*$",launcher)
+        self.assertIsNotNone(failure)
+        self.assertLess(launcher.index("::ParseFile"),failure.start())
         self.assertIn("c255-v5b-value-residual-8203653a07964d9bb549c272a8b9b943",launcher)
 
 if __name__=="__main__":unittest.main(verbosity=2)
