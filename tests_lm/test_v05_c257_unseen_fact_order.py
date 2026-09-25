@@ -285,7 +285,8 @@ class C257Tests(unittest.TestCase):
             with patch.object(b,"probe_one",side_effect=AssertionError("postcheck must not score")):
                 self.assertEqual(b.verify_artifacts(out,root/"summary.json","synthetic-head")[0],result)
             self.assertEqual(result["validation_summary"]["seed_pass_counts"],{b.ARMS[0]:5,b.ARMS[1]:0})
-            with self.assertRaises(ValueError):b.verify_artifacts(out,root/"summary.json","synthetic-head")
+            with self.assertRaisesRegex(ValueError,"saved HEAD"):
+                b.verify_artifacts(out,root/"summary.json","wrong-head")
             (out/"measurements.json").write_text("[]",encoding="utf-8")
             with self.assertRaises(ValueError):b.verify_artifacts(out,root/"summary.json","synthetic-head")
 
