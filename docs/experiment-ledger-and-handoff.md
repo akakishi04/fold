@@ -1,235 +1,229 @@
 # FOLD Experiment Ledger and Handoff
 
 Follow AGENTS.md and docs/experiment-conversation-handoff-protocol.md (response format v2).
-Repository akakishi04/fold;branch feat/sft-target-loss;local M:\asobiba\fold.
-Authoritative runtime:Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
+Repository akakishi04/fold; branch feat/sft-target-loss; local M:\asobiba\fold.
+Authoritative runtime: Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 
-**C255 ACCEPTED PASS (diagnostic integrity only). C256 ACTIVE / INVALID ATTEMPT RECOVERY. C257 NOT REGISTERED.**
-C256 is the unique ACTIVE experiment:V5-B fresh three-entity bilingual task-shift training.
-The first attempt stopped in parent/task precheck before own tests, regression or training.
-Its manifest fingerprint was registered incorrectly. That error and a separately reproduced
-formatting-sensitive launcher test are repaired; post-repair review PASS within the scope below.
-No production adoption or Gate F promotion. C252 remains ACCEPTED VALID NEGATIVE.
-C253/C254/C255 remain diagnostic PASS;all earlier verdicts/recovery records are preserved.
+**C256 ACCEPTED PASS (bounded three-entity task-shift capability). C257 ACTIVE / NOT YET JUDGED. C258 NOT REGISTERED.**
+C257 is the unique ACTIVE experiment: V5-B frozen unseen fact-order transfer.
+C256 is a capability PASS within its preregistered authored task, not merely diagnostic integrity.
+No production adoption, general-language claim, core-superiority claim or Gate F promotion.
+C252 remains ACCEPTED VALID NEGATIVE. C253/C254/C255 remain diagnostic PASS.
+All earlier accepted verdicts and invalid-attempt recovery records are preserved.
 
-## Latest accepted evidence — C255
+## Latest accepted evidence — C256
 
-Scientific execution HEAD:6b577da1edc7339dbfd68b3127870074de218e48.
-Published log commit:48856dd7dabb84f1f8a71158d03a5ee9db2fd255.
-Publisher log SHA256:a733f750125ccacfc5ce54867bce122c91561bd105e9d1eac1adaf04ab13bc2d.
-Log bytes:651389.
-Summary SHA256:6c4e9a569a7c622259b501f209781b357d183dfbaf5750a6d6c939f5e59e3150.
-Local summary:runs/c255-v5b-value-residual-8203653a07964d9bb549c272a8b9b943/summary.json.
+Scientific execution HEAD: db9f3cb90d9268066c34fc91300193058301f06c.
+Published log commit: 5695706c6306156fa079ce092581270ca781af71.
+Publisher log SHA256: 4f21d18bec9eb3ae937c42be9d8af3091d67a241a53a85820afd3e6694110ce6.
+Log bytes: 654496.
+Summary SHA256: 56c9c4e46800aadfb3c1a125522a66c6c2014721eceac0ab29ccd08c005bd184.
+Local summary: runs/c256-v5b-three-entity-3f95a0d190e4424f91634cb8813d7987/summary.json.
+Acceptance record: docs/experiment-ledger-addendum-c256-c257.md.
+Acceptance/base commit: ee4c282687c71bed407ecb687659edd7103c740d.
 
-24 own tests PASS in1.534s;3289 focused tests PASS in122.954s.
-376 source pins/611 protected inputs. Five frozen learned models;120 head evaluations/5760 head rows.
-Full-model/encoder/core/reader forwards0;training0;checkpoint bundle loads1;strict state loads5;
-new learned checkpoint writes0. Self/C254-self/coherent-donor/restored/evidence-blind controls
-replayed;weights and protected inputs preserved;persisted recomputation PASS.
-Tracked tree clean;execution HEAD preserved;run_execution_valid=True.
-Diagnostic status PASS;capability_pass_claim=False;causal_mechanism_claim=False.
+24 own tests PASS in0.832s; 3313 focused tests PASS in207.503s.
+382 source pins/623 protected inputs verified. Ten fresh models each completed800 updates:
+8000 training updates,384000 training presentations,8120 model forwards,401280 total row presentations.
+Changed total/head weights, strict checkpoint state loading, saved prediction identity, metric and
+raw-logit replay passed. Persisted metric/artifact checks and protected-input checks passed.
+Tracked tree clean; scientific execution HEAD preserved; run_execution_valid=True.
+scientific_status=PASS; candidate_gate=True; all_replays=True; all_weights_changed=True.
 
-HOLDOUT self correct145/160. Fixed-query reversed-value residual swap correct140/160.
-Transitions:7 correct-to-wrong,2 wrong-to-correct,9 total answer flips,9 donor-target matches.
-Per seed HOLDOUT EN/JA (/16):
--250001:self16,16 -> value16,16.
--250002:self9,9 -> value7,7.
--250003:self16,16 -> value16,16.
--250004:self15,16 -> value15,15.
--250005:self16,16 -> value16,16.
-TRAIN self320/320 -> value309/320.
+This acceptance is based on immutable published log ranges, publication metadata and the recorded
+local postchecks. The reviewer did not independently rerun the accepted learned checkpoints or
+rehash the entire654496-byte log. Do not confuse publisher-reported hashes with a new byte rehash.
 
-Accepted C254 comparisons on the same frozen states:
--order_swap HOLDOUT141/160;
--query_swap HOLDOUT96/160.
-Thus query-identity substitution was much more disruptive than value-assignment substitution while
-the recipient reader stayed fixed. Query- and value-swap donors can share the same target in this
-two-entity fixture,so the difference is inconsistent with a simple target-value-only explanation.
-It still does not uniquely identify an entity/query code,binding algorithm or training-time core role.
+Deciding HOLDOUT correct counts per language, denominator72:
 
-C255 is the endpoint of this two-entity frozen-intervention chain. These correlated interventions
-use one repeatedly inspected authored fixture and recombine jointly trained features before
-LayerNorm. They are not independent samples or a general capability benchmark.
+| Seed | aligned EN | aligned JA | EOS control EN | EOS control JA |
+|---:|---:|---:|---:|---:|
+|256001|72|72|29|25|
+|256002|72|72|29|28|
+|256003|72|72|26|24|
+|256004|72|72|21|24|
+|256005|70|72|20|22|
+
+Candidate TRAIN720/720; HOLDOUT718/720 (99.7222%). Control HOLDOUT248/720 (34.4444%).
+Whole-seed joint passes: aligned_precore_read5/5; eos_adapter0/5.
+Candidate BOTH_PASS language cells10. Control TASK_SHIFT_MISS9; TRAIN_CRITERIA_MISS1.
+The control seed256001 JA TRAIN query-triplet score is19/24, below0.80 despite66/72 normal accuracy.
+Do not describe every control TRAIN cell as passing or perfectly fitted.
+
+Candidate seed256005 EN HOLDOUT:70/72 answers,34/36 order pairs,22/24 query triplets,
+evidence_drop0.722222...,query_drop0.638888...; all original thresholds are satisfied.
+Other candidate HOLDOUT cells:72/72 answers,36/36 order pairs,24/24 query triplets.
+The registered gate was not relaxed. Every candidate seed passes both languages and both splits.
 
 Accepted artifacts:
--contrasts.json:ecc69baf18f5824ad3c94be836ba55b2f05ace64f5b38d42825dbce37c48f228
--diagnostics.json:111b4c2d98087f0d7e90cddda83ba53892eb74961cb4b0a564392eb36ccc51a4
--head-outputs.pt:77a4e8a54e610a40cd7be3965e863d48e4f5058efebbc49637aa40d043cf1241
--validation-summary.json:69394982329cd77f7ae0d9739f7fe97e898444e331b697fa507287120be99b63
--value-plan.json:e5a6589105d534218c9056768c2af3e60da136a2dfb9f9fa8393bba9198a548a.
-Acceptance:docs/experiment-ledger-addendum-c255-c256.md.
-Acceptance/base commit:0455a2aed54c54fd1dbc6008cf6f7b80f0521aae.
+-dataset.json:ca6eb1943b24cc73cbc5f4dd4af7008c2be11ed8e2c53e79a768593a67e3342b (34296 bytes)
+-measurements.json:f7d11d7592769e54824d3d7dccc4e481029dc5157b6c35c333831408d7b032c8 (45697 bytes)
+-task-plan.json:43948ceb676d536301d4e3a63a7ee1407f8bec44034db59f8b4f6e4872ae53b1 (2691 bytes)
+-trained-models.pt:72d9ada52e48395290200c1c6918d7eef091aebd44a3d2a6176dc1dd442dae3a (1236574 bytes)
+-validation-summary.json:a25fe29ed2deb33ceab64c0f7d7e450e6a143ea5c0bc428eea20b9d45dff8bc2 (2313 bytes)
 
-The two earlier C255 attempts remain INVALID and are preserved in
-docs/experiment-ledger-addendum-c255-execution-recovery.md:
-1)70ca4c4c... stopped in own test07 before regression/science;
-2)275754bf... passed own24+3289 but stopped at model1 on an over-strict bitwise masked-activation guard.
-Neither contributes scientific evidence. Their repairs only aligned numerical replay checks to the
-already registered TOL=1e-9/exact-argmax contract.
+Interpretation: the aligned reader learned withheld three-way assignments on five new initializations
+under this fixed authored task and budget. The equal-parameter EOS control did not reproduce it.
+This is not a compute-matched comparison, ordinary English/Japanese proficiency, a general benchmark,
+proof of core superiority, or a guarantee over initialization populations. Relative to C252, names,
+assignment split, sampling, batch and budget also changed; do not infer that three entities are
+inherently easier or that general initialization robustness is solved.
 
-## Preserved earlier boundaries
+Only abc and cba fact orders were used. The middle entity b/乙 never changed its middle position.
+Value-assignment transfer does not establish transfer to the other four permutations.
 
-C254 query/order swaps:145/160 self,141/160 order,96/160 query HOLDOUT;diagnostic only.
-C253 residual removal:145/160 self,107/160 pre-residual,117/160 reader-only HOLDOUT;diagnostic only.
-C252 aligned pre-core query/memory + post-core residual:4/5 whole-seed joint passes,not5/5;
-ACCEPTED VALID NEGATIVE.
-C251 pre-core memory/post-core query:2/5. C250 Full post-core reader2/5,GRU reader4/5,EOS controls0/5.
-C249 frozen reader dependency diagnostic. C248 bounded reader transfer but failed its all-seed gate.
-C247/C246/C244/C242/C241/C239 remain accepted negatives;C245/C243/C240/C237/C235 remain diagnostics;
+## Preserved earlier evidence and recovery
+
+C256's earlier precheck attempt remains INVALID, not scientific evidence:
+failed execution1029158a60d40df24f599fb719411dbde2ffec06;
+invalid log commit2dc541041c772d5b9a449bd247862ad906a9b5c8;
+invalid log SHA2565e774f0043a8f4661bbda08fe1ccaa8f728b1e10315947677d7ee6a40f62dce8.
+It stopped before own tests/regression/training on the incorrectly recorded manifest fingerprint.
+The fingerprint and a separate whitespace-sensitive launcher test were repaired without changing
+scientific conditions. Full history: docs/experiment-ledger-addendum-c256-execution-recovery.md.
+The successful execution above supersedes the stale ACTIVE recovery state, not the invalid record.
+
+C255 ACCEPTED PASS (diagnostic only): self HOLDOUT145/160 versus value residual swap140/160.
+Scientific HEAD6b577da1edc7339dbfd68b3127870074de218e48; log48856dd7dabb84f1f8a71158d03a5ee9db2fd255.
+Acceptance: docs/experiment-ledger-addendum-c255-c256.md.
+Its two earlier invalid attempts remain in docs/experiment-ledger-addendum-c255-execution-recovery.md.
+C254 query/order swaps:145/160 self,141/160 order,96/160 query; diagnostic only.
+C253 residual removal:145/160 self,107/160 pre-residual,117/160 reader-only; diagnostic only.
+C252 aligned reader4/5 whole-seed passes, not5/5: ACCEPTED VALID NEGATIVE.
+C2512/5; C250 Full reader2/5,GRU reader4/5,EOS controls0/5.
+C249 frozen reader dependency diagnostic. C248 bounded transfer but failed its all-seed gate.
+C247/C246/C244/C242/C241/C239 remain accepted negatives; C245/C243/C240/C237/C235 diagnostics;
 C238 seen-prompt fit only. C232 bounded byte learning and C233 competitive GRU-only result are not
-general language/core-superiority claims. Preserve all accepted evidence and recovery records.
+general language or core-superiority claims. Do not overwrite accepted source/tests/logs.
 
-## Active C256 — fresh three-entity task shift
+## Active C257 — frozen unseen fact-order transfer
 
-Experiment:C256-v5b-three-entity-task-shift.
-Stage:V5-B-THREE-ENTITY-TASK-SHIFT.
-One question:does the C252 aligned pre-core reader reproduce bounded binding/recombination behavior
-on a fresh three-entity bilingual assignment task with new seeds,relative to an equal-parameter
-EOS-only Full adapter?
+Experiment:C257-v5b-unseen-fact-order-transfer.
+Stage:V5-B-UNSEEN-FACT-ORDER-TRANSFER.
+One question: without further training, do all five accepted aligned-reader models retain their
+bounded capability when the same facts appear in the four permutations never used by C256?
 
-This is new training,not a frozen diagnostic and not a retry of failed C252 seed250002.
-No C252/C255 learned checkpoint or saved activation initializes C256.
+Freeze all ten accepted C256 final800-update models: seeds256001..256005, paired aligned_precore_read
+and eos_adapter,14256 parameters each. Use actual C256.make_model/load_bundle, C252/C248 classes and
+C231 factory. Strict-load final states, verify fingerprints, then eval/requires_grad=False.
+No C252 checkpoints or C255 activations initialize the evaluation.
 
-Task:
--entities EN:a,b,c;JA:甲,乙,丙;
--values0..3;three distinct values per assignment;
--all24 ordered assignments split into fixed balanced12 TRAIN/12 HOLDOUT assignments;
--each entity-position/value marginal is exactly3/12 on each side;
--exact assignments never cross the split;
--2 languages x2 fact orders x3 queries for every assignment;
--TRAIN144 rows,HOLDOUT144 rows;
--normal/evidence_blind/query_blind views;
--target is the digit assigned to the queried entity.
-Task SHA256:ca6eb1943b24cc73cbc5f4dd4af7008c2be11ed8e2c53e79a768593a67e3342b.
-All prompts fit the existing48-slot BOS+bytes+EOS+PAD byte contract.
+Changed: visible fact permutation only.
+Held fixed: final weights, entities, assignments, original assignment splits, languages, queried
+entity, target, delimiters,48-slot byte encoding and query-at-end placement.
+Known orders:(0,1,2),(2,1,0). Novel:(0,2,1),(1,0,2),(1,2,0),(2,0,1), i.e.acb,bac,bca,cab.
+Do not sort inputs back to a known order. No target/oracle/entity index is passed outside visible bytes.
+Original rows144/split; novel288/split. TRAIN/HOLDOUT still name the original assignment partitions;
+neither is used for optimization in C257. Preserve both arms and all seeds.
+New dataset SHA256:9ee8868f46838884874f44ea1d0f03fc481672aea8f9044eb764a81220514052.
 
-Fresh seeds256001..256005.
-For each seed instantiate one fresh protected Full V5-B backbone and deep-copy the exact state into:
-1)aligned_precore_read=actual C252.AlignedPrecoreReadout
-   (pre-core EOS query,pre-core K/V,reader residual added to actual post-core EOS);
-2)eos_adapter=actual C248 Full equal-parameter EOS-only16->24->16 residual adapter.
-Both add768 parameters;both total14256. Same backbone/data/batches/optimizer/budget per seed.
-Parameter count is matched;FLOPs and architecture are not.
+Per-model sequence:
+-original C256.evaluate:6 forwards/864 rows, exact saved predictions and all metrics within1e-9;
+-only after that replay barrier, novel orders:6 forwards/1728 rows;
+-original restoration:6 forwards/864 rows, anchor/restored raw logits within1e-9 and exact argmax;
+-complete weight fingerprint preserved,18 forwards/3456 rows per model.
+C256 did not save endpoint raw logits. Initial replay uses its saved metrics/predictions; restoration
+compares the new original anchor logits captured in this C257 run. Do not claim nonexistent replay.
 
-Training:
-800 updates/model,batch48;10 models=8000 updates/384000 presentations.
-AdamW lr0.005,betas0.9/0.999,eps1e-8,weight_decay0;clip1.
-CPU float64,threads2,deterministic algorithms.
-Every3 steps use one seed+epoch randperm of all144 TRAIN rows and its three disjoint48-row blocks.
-Both arms use identical block indices. No HOLDOUT optimization,early stop,seed replacement,
-checkpoint selection,extra steps or result-driven threshold change.
+Fixed primary gate: all five candidate seeds, both languages and both original assignment splits:
+-original C256 criteria remain satisfied;
+-EACH new permutation:accuracy>=0.90,query_triplet>=0.80,evidence_drop>=0.35,query_drop>=0.35;
+-all-six-order consistency>=0.80, requiring every presentation in a group to be correct.
+Per new order/language/split:36 rows/12 query triplets; minima33/36 answers and10/12 triplets.
+All-six-order score:36 groups/language/split; minimum29/36 completely correct groups.
+No pooling away a weak permutation. EOS performance is reported separately and cannot rescue or
+fail the candidate gate. An already-failed original EOS gate is not a new independent control failure.
+Outcomes:ORIGINAL_CRITERIA_MISS,NEW_ORDER_MISS,SIX_ORDER_MISS,PASS.
+Valid criterion miss:ACCEPTED VALID NEGATIVE. Integrity failure:INVALID / RETRY SAME C257.
 
-Per language/split metrics:
--normal accuracy;
--answer NLL;
--order_pair_accuracy over36 same-assignment/query order pairs;
--query_triplet_accuracy over24 same-assignment/order three-query groups;
--evidence/query-blind accuracies and drops.
+Workload:ten models,180 full-model forwards/34560 row presentations; training0;
+accepted checkpoint bundle loads1; strict state loads10; new learned checkpoint writes0.
+CPU float64,threads2,deterministic algorithms; finite outputs mandatory.
+Artifacts5 plus summary.json:order-plan.json,order-dataset.json,eval-outputs.pt,measurements.json,
+validation-summary.json. Evaluation archive schema fold-c257-order-eval-v1 contains original/novel/
+restored logits, not newly learned weights. Persisted recomputation uses no additional model forwards.
 
-Fixed cell criteria:
-accuracy>=0.90;order_pair>=0.80;query_triplet>=0.80;
-evidence_drop>=0.35;query_drop>=0.35.
-
-PRIMARY PASS iff all five aligned_precore_read seeds pass BOTH languages on BOTH TRAIN/HOLDOUT.
-EOS adapter is reported independently and cannot rescue/fail the primary status.
-A complete valid miss is ACCEPTED VALID NEGATIVE.
-
-Scientific workload:
-per model800 training forwards/38400 rows +6 final/864 +6 strict replay/864.
-Total8120 full-model forwards/401280 rows;120 final/replay evaluation forwards.
-One10-state bundle;checkpoint writes1. Require common initial backbone,changed full/head weights,
-strict state load,prediction replay,metric and raw-logit replay<=1e-9. Network calls0.
-
-Protection:382 source pins/623 protected inputs;explicit deciding dependency union32;OWN6.
-Own tests24;modules141;loaded3314/focused3313;only inherited exact exclusion:
+Protection:388 source pins/635 inputs; direct deciding dependency union33; OWN6.
+Own24; modules142; loaded3338/focused3337. Only inherited exact exclusion:
 tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state.
-Artifacts:task-plan.json,dataset.json,trained-models.pt,measurements.json,validation-summary.json.
-Bundle schema fold-c256-three-entity-v1.
-Manifest SHA256:43948ceb676d536301d4e3a63a7ee1407f8bec44034db59f8b4f6e4872ae53b1.
-Design:docs/v5b-three-entity-task-shift-v0.1.md.
-Registration:docs/experiment-ledger-addendum-c256-preregistration.md.
-Original registration HEAD:380e2d9c1939d52e3f619e9160c1e44a1bdca2cb.
-Current recovery review HEAD:4afbfbe60417d228b6268b2652d536f3b67206f6.
-Use tools/invoke_active.ps1 with the final recovery HEAD,not the original activation or review HEAD.
+Manifest SHA256:18fdc13e9c276826473467243017f30b1fa6dcf673a9a490e14318792f8a8e36.
+Registration:docs/experiment-ledger-addendum-c257-preregistration.md.
+Design:docs/v5b-unseen-fact-order-v0.1.md.
+C256 acceptance and C257 preregistration are separate commits. All six C257 files already existed at
+1ca89cbdf309976f36311265b617a9c86a59c489 before this activation review; do not duplicate registration.
 
-## C256 execution recovery and post-repair review
+## C257 post-authoring review
 
-Failed execution HEAD:1029158a60d40df24f599fb719411dbde2ffec06.
-Invalid log commit:2dc541041c772d5b9a449bd247862ad906a9b5c8.
-Invalid log SHA256:5e774f0043a8f4661bbda08fe1ccaa8f728b1e10315947677d7ee6a40f62dce8.
-The1008-byte log ends at ValueError: counts/manifest during parent/task precheck.
-Python syntax passed;own tests/regression/training did not run. The precheck lies before the
-runner's experiment try/finally,so this log has no POSTCHECK/run_execution_valid line.
-Do not invent such a line or a C256 scientific score.
+post_authoring_review = PASS
+review_target_HEAD = 1487f6033e151f767b3ed3ebd29aabbe9648c94b
+Review scope is committed-byte C257 authoring validation, NOT a formal scientific C257 execution.
 
-The immutable failed-run benchmark's actual manifest digest is43948ceb...ae53b1,not the recorded
-31b433a1...bb20a7c. Complete source bytes were matched to original blob
-1f91f80d2ea74406fe236fd99fb1c60e2e5a2ae0 before computing this. The previous review statement that
-manifest SHA matched the constant was incorrect;it is superseded by this executed review.
-The log's combined check did not print the actual counts. The hash condition is independently
-false;the unchanged382/623 count requirements remain mandatory and are now logged separately.
+All six OWN files were read from the committed repository. After the test correction, source/script/
+document identities were re-fetched at the review HEAD. Complete local code/test/script copies were
+matched against the remotely returned Git blob identities before rerunning the exact own tests:
+-benchmark:12f9e114e5c6d0a47eacdf06f8ff1933686d1b1b;
+-tests:d5ce8fb9bc08ab2fafcc9a3d8587133b5ae30e4e;
+-runner:37bb99aba999d63e17321f444bf8e9d8330cafef;
+-launcher:997577b31fa9d45b89b37fb168ad3aa55b954716;
+-preregistration:621ad0877eff2d29389f7b6f60677aa755bf039a;
+-design:7a24c42afb285a71eda337bb93199893518e5b24.
 
-The original24 test methods were also actually exercised in the limited review environment:
-22 PASS,one manifest-hash failure and one launcher-order error. Test24 required the literal
-'$failure = $null',while the valid launcher used '$failure=$null'. This further authoring defect
-was repaired before another user retry.
+The initial exact24-test review reproduced23 PASS/1 FAIL in2.656s: test17 incorrectly expected a
+ValueError when re-verifying an unchanged valid artifact with the correct HEAD. The test now passes
+wrong-head and requires the saved-HEAD rejection. Its separate artifact-corruption rejection remains.
+Repair commit1487f6033e151f767b3ed3ebd29aabbe9648c94b changes only this C257 authoring test.
+No scientific source, data, manifest, seed, weight, gate, workload, runner or launcher changed.
+No user C257 scientific attempt has been executed; this was a pre-activation authoring defect,
+not an INVALID scientific result and not grounds to register a new C number.
 
-Minimal changes:
--correct the fixed manifest fingerprint,not the manifest payload or hash-validation policy;
--add validate_registration to print actual counts/hash and reject count/hash mismatches separately;
--expand existing test01 with wrong-count/wrong-hash rejection cases;
--make test24 whitespace-independent while retaining parser-before-execution ordering;
--correct the C256 preregistration fingerprint and document the invalid attempt.
+Executed after correction:24/24 own tests PASS in2.571s. After remote identity readback and fresh
+blob matching:24/24 PASS again in2.392s. Python compile/import, UTF-8/NUL checks, recursive global-name
+binding audit (zero unresolved names), manifest hash, original/novel dataset hashes and semantic
+24-test identity count passed. The exact suite also compiles all three embedded Python blocks,
+checks CLI indices, call ordering, replay barriers, frozen-state/resource accounting, persisted-logit
+recomputation, malformed records, per-order gates and six-order group construction.
 
-Manifest JSON and dataset JSON remain byte-identical. AST comparison confirms all existing
-benchmark functions except precheck are unchanged;only validate_registration is added.
-No model,seed,data,sampler,optimizer,steps,metric,threshold,tolerance,workload or accepted file changes.
-Own24/focused3313 counts and the sole historical exclusion are unchanged. Runner/launcher unchanged.
+These own tests explicitly use synthetic lookup models and substituted parent/factory/audit adapters.
+They exercise the actual C257 run/probe/analyze/persisted-postcheck code, but are NOT learned-model
+capability evidence, execution of the full parent import graph, real parent-artifact precheck, or
+execution of3337 historical tests. Test21's constructed3338-ID fixture tests filtering only.
+The parent writer/loader schema and final-state semantics were checked against actual C256 source;
+the source coverage and runner counts were reviewed, but full inherited precheck remains required.
 
-Source repair commit:1a03d784c97d8190cd9c527b3aa498ea3b4027a1.
-Test repair commit:d05ed16a733c693e8cb14783d40c47f48af55bae.
-Preregistration correction/review HEAD:4afbfbe60417d228b6268b2652d536f3b67206f6.
-Recovery record:docs/experiment-ledger-addendum-c256-execution-recovery.md.
+Reviewer environment:Python3.13.5/PyTorch2.10.0+cpu/NumPy2.3.5. No complete historical checkout or
+user-local learned artifacts were available; GitHub DNS failed in the container and PowerShell
+was absent. Windows System.Management.Automation.Language.Parser.ParseFile was NOT run here.
+The standard command parses dispatcher; dispatcher parses selected launcher; launcher parses runner
+before execution/logging. These checks remain mandatory in the user's environment.
 
-post_repair_review = PASS
-Review scope:complete C256 source/test/script byte checks and executed limited-dependency own tests;
-NOT a complete historical checkout or authoritative Windows result.
+Pending authoritative checks:Windows parser chain, actual388/635 parent/source protection precheck,
+exact own24 in the user's environment, full3337 regression, ten real frozen checkpoint evaluations,
+persisted postcheck and log publication. None is claimed complete by this authoring review.
+Only this handoff activation follows the review. Use the final activation branch HEAD as ExpectedHead,
+not the review target or C256 execution/log HEAD. Re-read final branch HEAD before issuing the command.
 
-Re-fetched source/test identities match the locally executed complete files:
--benchmark:56968388f643d8929f8911d93dfc4301941bd924;
--tests:a3e1c67d7f0d625cbc30f4e27936268adaef426e;
--unchanged runner:46bbd0365002aecc1248f74887c7b3f0d205d744;
--unchanged launcher:f6e3069c3d9526c3bc012dadf6d1e5f609b7fdae.
+## Execution and stop
 
-Executed after repair:compile/import,zero unresolved globals,manifest and dataset regeneration,
-negative registration cases,unchanged scientific-function ASTs,and all24 own test methods.
-24/24 PASS in0.836s before publication and0.787s after remote readback/blob matching.
-The run includes initialization,capacity,gradients,state-preserving evaluation,checkpoint-logit
-replay,metrics/gates,and the three embedded Python blocks/CLI argument checks.
+Use tools/invoke_active.ps1 with the registered final activation HEAD. The Formal state section has
+exactly one ACTIVE token resolving to C257. The launcher fixes the accepted parent summary path:
+runs/c256-v5b-three-entity-3f95a0d190e4424f91634cb8813d7987/summary.json.
 
-Important scope:review-only b.context was replaced with namespaces using retrieved C231 factory,
-language_task,modules,C248 and C252 computational source excerpts. These include the actual
-GRU/core/reader computations,not a toy linear replacement. The committed test file retains the
-real b.context;the full historical import graph and user-local parent artifact checks were not
-executed in the review. The constructed3314-ID test validates filtering only,not3313 historical tests.
-Reviewer:Python3.13.5/PyTorch2.10.0+cpu/NumPy2.3.5. GitHub DNS failed in the container;PowerShell absent.
-Still pending and required on the user's environment:Windows ParseFile,complete parent/source
-precheck,exact own tests through real repository imports,full3313 regression,and formal10-model
-training. None of those pending checks is reported as authoritative PASS.
+Order:dispatcher/launcher/runner ParseFile -> Python compile + parent/order precheck -> own24 ->
+focused3337 -> ten-model frozen order evaluation -> persisted postcheck -> log publication.
+Operational wrong branch/dirty tracked tree/stale HEAD/stale ACTIVE skips happen before logging and
+publish no experiment log. They are not scientific INVALID results.
 
-Only recovery/handoff documentation follows the review. Re-read the final branch HEAD before
-returning ExpectedHead. Do not advance this branch during the user's formal C256 retry.
+A source/artifact/schema/identity/nonfinite/replay/test/count fault stops evaluation and retries C257
+only after a minimal repair. Do not change seeds, thresholds, data or weights to obtain PASS.
+A complete valid FAIL is accepted negative; it does not revoke C256's value-assignment PASS.
+A log-only publication failure is repaired without rerunning completed science.
+The user normally only sends 'finished'; fetch docs/experiment-run-logs/c257/latest.json and latest.log.
+Do not move this branch with unrelated changes while the formal run/log publication is in progress.
 
-## Stop and scope
-
-Gate F NOT PASSED. Preserve accepted source/tests/logs and tools/run_c167.ps1.
-No paid API,external corpus,model expansion,production adoption,cleanup/history rewrite or CI addition.
-C256 order:dispatcher/launcher ParseFile ->Python syntax+parent/task precheck ->own24 ->3313 regression
-->10-model fixed-budget training ->checkpoint replay ->postcheck ->log publication.
-Integrity faults retry same C256;valid scientific FAIL is accepted negative and does not trigger
-seed/budget/threshold rescue. Transport-only log failure is repaired without retraining.
-Judge C256 before C257.
+Gate F remains NOT PASSED. Preserve all accepted source/tests/logs and tools/run_c167.ps1.
+No paid API, external corpus, model expansion, production adoption, cleanup/history rewrite or CI work.
+Judge C257 before C258.
