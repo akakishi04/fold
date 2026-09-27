@@ -11,6 +11,11 @@ function Skip-Invocation {
     Write-Output "experiment_executed = False"
     Write-Output "execution_log_publish_attempted = False"
 }
+if ($PSVersionTable.PSEdition -ne "Core" -or $PSVersionTable.PSVersion -lt [version]"7.3") {
+    Skip-Invocation "POWERSHELL_7_3_REQUIRED"
+    return
+}
+$PSNativeCommandArgumentPassing = "Standard"
 $branchNow = git branch --show-current
 if ($LASTEXITCODE -ne 0 -or $branchNow -ne "feat/sft-target-loss") { Skip-Invocation "WRONG_BRANCH"; return }
 $dirty = @(git status --porcelain --untracked-files=no)

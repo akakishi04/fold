@@ -322,7 +322,22 @@ class C268Tests(unittest.TestCase):
 
     def test_24_dispatcher_source_contract_retains_safety(self):
         # Source-contract test only; not a substitute for Windows execution/ParseFile.
-        source = (Path(__file__).resolve().parents[1]/"tools/invoke_active.ps1").read_text(encoding="utf-8")
+        root = Path(__file__).resolve().parents[1]
+        legacy = (root/"tools/invoke_active.ps1").read_text(encoding="utf-8").encode()
+        self.assertEqual(hashlib.sha1(b"blob "+str(len(legacy)).encode()+b"\0"+legacy).hexdigest(),
+                         "86b5606a5b212b12f416abedac0923da634f88e3")
+        self.assertEqual(hashlib.sha256(legacy.replace(b"\n",b"\r\n")).hexdigest(),
+                         "57a0f1ffa3a9370b5261ec5bf1e9eb3d778dc84f19f35c51e21174f61735a95b")
+        source = (root/"tools/invoke_active_v2.ps1").read_text(encoding="utf-8")
+        self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),
+                         "68faee42a7870d407e38cfb95c75f0f4fc51dbd41cfa972af423825eaa85ab10")
+        self.assertLess(source.index("POWERSHELL_7_3_REQUIRED"),source.index("$actualBranch ="))
+        self.assertIn('$PSNativeCommandArgumentPassing = "Standard"',source)
+        self.assertIn('LEGACY_DISPATCHER_BLOB_MISMATCH',source)
+        self.assertIn('LEGACY_DISPATCHER_BYTES_MISMATCH',source)
+        launcher = (root/"tools/invoke_c268.ps1").read_text(encoding="utf-8")
+        self.assertLess(launcher.index('POWERSHELL_7_3_REQUIRED'),launcher.index('$failure = $null'))
+        self.assertIn('$PSNativeCommandArgumentPassing = "Standard"',launcher)
         call = source.index("& $launcher -ExpectedHead")
         for text in ("WRONG_BRANCH","DIRTY_TRACKED_TREE","ACTIVE_EXPERIMENT_UNRESOLVED","STALE_EXPECTED_HEAD","[System.Management.Automation.Language.Parser]::ParseFile"):
             self.assertLess(source.index(text),call)
