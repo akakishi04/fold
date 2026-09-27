@@ -9,13 +9,26 @@ For this recovery use the versioned entry described below,not the historical gen
 
 Gate A/B PASSED;C/D PASSED in measured scope;Gate E PASSED;Gate F NOT PASSED.
 
-**C267 ACCEPTED VALID NEGATIVE. C268 ACTIVE / INVALID ATTEMPT RECOVERY. C269 NOT REGISTERED.**
-C268 has no valid scientific result yet. Its published attempt stopped during parent-input checking,
-before own tests,focused regression or model training. Recover SAME C268 only.
-C267 remains accepted negative;C266 diagnostic PASS;C265 negative;C263/C264 bounded PASS.
-Preserve every earlier accepted verdict,source,artifact and recovery record. No new scientific C.
+**C268 ACCEPTED VALID NEGATIVE. C269 NOT REGISTERED.**
+Recovered C268 execution aa45ea5df68dcba70c99a009c46b7bf8468304a1 is the authoritative
+scientific result. Candidate ce_pair_margin passed3/5, not the fixed5/5 gate; ce_only also passed3/5.
+The earlier C268 attempt at8c464589b7f9e339b1a8d195b2d73d35c1279e39 remains INVALID history.
+C267 remains ACCEPTED VALID NEGATIVE;C266 diagnostic PASS;C265 negative;C263/C264 bounded PASS.
+No Gate F promotion, production adoption or post-hoc loss retuning.
 
-## Current invalid attempt and root cause
+## Latest accepted science — C268
+
+Acceptance:docs/experiment-ledger-addendum-c268-c269.md.
+Execution:aa45ea5df68dcba70c99a009c46b7bf8468304a1.
+Published log:1c93db5f8d48e47074ef20e2ce72ba506fe3c660.
+Summary:runs/c268-v5b-query-loss-9f62513c65d34a7aa7b1452c9540a5a6/summary.json.
+Summary SHA256:9e9ea4dd0d20b0ae0b8d315549a1cf1aa13c79853b3dd129c0f01e395a2bf67c.
+run_execution_valid=True;scientific_status=FAIL;candidate_gate=False.
+Seed pass counts:ce_only3/5;ce_pair_margin3/5. Pooled HOLDOUT correct1100/1440 versus1115/1440;
+same-answer collapse114/720 versus107/720. These pooled changes do not override the seed gate.
+C269 is not yet registered; next question is query representation,not another margin retune.
+
+## Historical invalid attempt and recovery
 
 Scientific execution HEAD:8c464589b7f9e339b1a8d195b2d73d35c1279e39.
 Invalid log publication:ddcb69e11a812cc3d59ebcf66c223cfd5c347249.
