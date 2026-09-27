@@ -1,0 +1,23 @@
+=== C268 repository preflight ===
+execution_head = 8c464589b7f9e339b1a8d195b2d73d35c1279e39
+expected_focused_tests = 3597 (3598 loaded -1 inherited exact exclusion)
+Gate_F = NOT_PASSED; models = 10; training_steps = 8000; model_forwards = 8540; rows = 435840
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+    b.precheck(Path(sys.argv[1]),Path.cwd())
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\fold_lm\v05_benchmarks\model_c268_paired_query_loss.py", line 216, in precheck
+    _,*_,factory,audit = context(); root = Path(root); path = Path(path).resolve(); payload = load_parent(path)
+                                                                                              ~~~~~~~~~~~^^^^^^
+  File "M:\asobiba\fold\fold_lm\v05_benchmarks\model_c268_paired_query_loss.py", line 207, in load_parent
+    payload,metrics = parent.verify_artifacts(path.parent,PARENT_EXECUTION)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\fold_lm\v05_benchmarks\model_c267_name_coverage_training.py", line 401, in verify_artifacts
+    for name,wanted in p["input_sha256"].items(): require(audit.sha(name) == wanted, "postcheck input")
+                                                  ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\fold_lm\v05_benchmarks\model_c267_name_coverage_training.py", line 50, in require
+    raise ValueError(message)
+ValueError: postcheck input
+=== C268 POSTCHECK ===
+tracked_tree = clean; execution_HEAD = preserved
+run_execution_valid = False
