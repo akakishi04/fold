@@ -8,228 +8,240 @@ Authoritative runtime:Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 
 Gate A/B PASSED;C/D PASSED in measured scope;Gate E PASSED;Gate F NOT PASSED.
 
-**C266 ACCEPTED PASS (diagnostic integrity only). C267 ACTIVE / NOT YET JUDGED. C268 NOT REGISTERED.**
-C267 is the unique ACTIVE experiment:V5-B paired name-coverage training.
-C265 remains ACCEPTED VALID NEGATIVE. C264/C263 bounded PASS and all earlier verdicts/recoveries remain.
-No architecture,optimizer default or production change. C266 did not improve model capability.
-Its one saved-output decomposition is complete;C267 is a new paired training-distribution experiment.
+**C267 ACCEPTED VALID NEGATIVE. C268 ACTIVE / NOT YET JUDGED. C269 NOT REGISTERED.**
+C268 is the unique ACTIVE experiment:paired-query discrimination-loss comparison.
+C267 was already executed and published;do not rerun it. mixed_names passed1/5,not5/5.
+C266 remains diagnostic PASS,C265 negative,C264/C263 bounded PASS. All earlier verdicts/recoveries
+remain unchanged. No default architecture/optimizer change or production adoption.
 
-## Latest accepted evidence — C266
+## Latest accepted evidence — C267
 
-Scientific execution HEAD:b377042dcdb903a308da131feb135b0f5362d9de.
-Published log commit:a18f2e82e9edb9e96d5b25937041be089288e6ec.
-Publisher log SHA256:a50a971d382a66e0f4af10f7376bc48027c91f99620cd53280c44d5df3ae20e2.
-Log bytes:787239;lines3828.
-Summary SHA256:5d9c79306aae5fb2fd39a82fae645a1447029cae3aedfb2bf92e953bb2435247.
-Summary:runs/c266-v5b-query-pairs-b652a5a2d2ea4dac9b913b64df6d78e0/summary.json.
-Acceptance:docs/experiment-ledger-addendum-c266-c267.md.
-Acceptance/base commit:38272da75661b1f2f028719b41aa4406ee6dd26b.
-This corrects a cells.json hash transcription in the immediately preceding acceptance draft;
-no scientific result or accepted source was changed by that documentation correction.
+Scientific execution HEAD:3418e545bc261cf1bb920f2ae8f819deec69150c.
+Published log commit:92b57170c6b2c3c3dc451f9d6de402114cbd6f12.
+Log blob:798096cf2d24363ccf8f109ae2d6f89843b4cf8d.
+Publisher log SHA256:f8ee03f3e30132601b1a6f055388a3411b93638280ff1680a6c1075aa20c852c.
+Log bytes1072898;4910 lines. Metadata blob006ddc934d7d910fd332603768ce1c33d316f664.
+Summary:runs/c267-v5b-name-coverage-f8a591aae4aa4b7aa373aba2e520181c/summary.json.
+Summary SHA256:f5f550d362428feaee12d7eee96db4cc324cea311b9b4e91ec50e4f150ec6ef8.
+Acceptance:docs/experiment-ledger-addendum-c267-c268.md.
+Acceptance/base commit:9465a4bddf1182e1da3044764dec765ae5a7cacc.
 
-Own24 PASS in7.338s;focused3549 PASS in379.386s.442 source pins/748 protected inputs verified.
-17280 normal answers were attributed to8640 query pairs,720 detailed cells,120 profile summaries
-and80 matched contrasts. Integer partitions and parent correct/query-pair scores reconciled.
-Model forwards0;state loads0;learned-bundle loads0;training0;new learned checkpoints0.
-Six saved-evaluation archive reads per analysis pass;analysis and saved postcheck are two passes.
-Protected inputs and persisted reattribution passed;tracked tree clean;execution HEAD preserved;
-run_execution_valid=True;scientific_status=PASS. capability_pass_claim=False;causal_parser_claim=False.
+Own24 PASS;focused3573 PASS. Source pins448/protected inputs761 verified. Ten models completed800
+updates each:8000 updates,384000 training rows,8540 wrapper forwards,435840 row presentations,
+34160 core calls. One final bundle write/load;ten strict state loads. all_pairs_matched=True;
+all_replays=True. persisted_name_coverage_scores_and_pairs=PASS;protected inputs preserved;
+tracked tree clean;scientific HEAD preserved;run_execution_valid=True. scientific_status=FAIL.
 
-Acceptance uses immutable published log ranges,metadata and recorded user-local postchecks.
-No independent user-local artifact rerun or complete-log rehash was performed. The SHA above is
-publisher-reported,not a new independent reviewer measurement. Publication immediately follows
-execution and adds only docs/experiment-run-logs/c266/latest.log/latest.json.
+Acceptance uses previously retrieved full blob contents and parsed published metrics/postcheck,
+plus immutable publication metadata. No independent learned-state rerun or reviewer complete-log
+rehash is claimed. The contents API returned empty content for this >1 MB log;that is a retrieval
+limitation,not evidence that the experiment failed or the log is absent. Never rerun on that basis.
 
-Each profile contains2880 query pairs,aggregated across all20 states and both languages:
+HOLDOUT aggregate across5 seeds and2 symbolic languages,480 answers/240 query pairs per arm/profile:
 
-|Profile|Both correct|Same displayed value|Same outside value|Swapped|Other unequal|
-|---|---:|---:|---:|---:|---:|
-|doubled|2835|19|0|0|26|
-|shared_prefix|2509|298|5|0|68|
-|shared_suffix|664|2142|7|39|28|
+|Profile|Control correct /480|Mixed correct /480|Control collapsed /240|Mixed collapsed /240|
+|---|---:|---:|---:|---:|
+|doubled|284|260|33|57|
+|shared_prefix|248|254|88|66|
+|shared_suffix|212|257|163|76|
 
-Collapse includes the same displayed value OR the same outside answer. Rates:19/2880 for doubled,
-303/2880 for shared_prefix,2149/2880(74.6181%) for shared_suffix. Among2216 suffix pairs that are not
-both correct,2149(96.9765%) collapse. These are pair counts,not percentages of individual errors or
-independent training runs. Shared-suffix displayed collapse selects logical entity0 in1595 pairs
-and entity1 in547. Logical first entity is not necessarily the first displayed fact.
+Total744/1440 versus771/1440 correct;collapse284/720 versus199/720. These descriptions do not replace
+individual cell gates. Whole-model passes:doubled_only0/5,mixed_names1/5 (267005 only).
+Shared-suffix collapse decreases,but correctness remains257/480;doubled correctness worsens by24.
+This is not uniform improvement. mixed_names267002 passes TRAIN criteria but fails HOLDOUT;
+267001/267003 have TRAIN misses and267004 misses every TRAIN answer cell. Do not attribute every
+failure solely to insufficient fit or solely to generalization. Control collision-profile TRAIN
+scores are not fit-to-seen-profile scores,as doubled_only did not optimize those naming profiles.
 
-The observed main failure is same-answer collapse,not exchanging two values. It does not prove a
-last-character-only internal parser or complete absence of query information. Equal argmax need
-not imply equal logits. Example:263001 lower_forward shared_suffix EN has44 collapsed pairs and
-zero exactly-equal-logit pairs among72 total pairs. Complete per-state/language/position tables
-remain in the accepted artifacts. No C265 verdict or score is revised.
+Accepted parent artifacts:
+coverage-plan.json:4f83a11bd6b2c31d7f1bd23b617772d1eab413e5099d5aafe3c4a34eb453f2d7;2631 bytes.
+dataset.json:1e03cf4d6a72700de0d3973459737ffba7dbc843655ebb7439cdedb99805c2f1;36024 bytes.
+trained-models.pt:a300bae3930b23c78bb4cd5285f581b21a243b6529eb770d24669ad25b92bd58;1238007 bytes.
+evaluations.pt:e01decea02b8109fbed19cc01d03091867edac02fbaed00f2a7a78e40b4782f3;53143103 bytes.
+measurements.json:d1c9404f3893d3b110fdbf58e15a4f241847fce8304d58a24ac35d1604acfb23;262390 bytes.
+validation-summary.json:b8ab346a36cb2167e4d6cd0cbd3f19fefdc161b35a120fe40c33e00d4a8ec3f1;6831 bytes.
 
-Accepted artifact SHA256:
--audit-plan.json:85be4d973b9f8ce8a59e1ffa9028faceb1de3fcc8d8b3035264c2af72ed88b3e;2269 bytes.
--pair-attribution.json:038dd3a9aecc86aadcd2f99a8269103a579a3aa7787ac0bc8983e37dba082e90;3463178 bytes.
--cells.json:2c593908456838ff582c51632106f1a21af5082d081b1647fa6a6d6efbf85357;365733 bytes.
--profile-summary.json:6a33a496099a60aeb2d7715338d7c2f5caecb9cec51c0f3cff92f696f3d581d4;58160 bytes.
--matched-contrasts.json:a685b34f814b16295dae958d87dd0b23b405b8d4065e512af8262dc66d7d7bf2;18024 bytes.
--validation-summary.json:17f9a7895fc2d208d1bdb2a463c3455a78aa7aeb53698ab91952c4d7d963f12f;788 bytes.
+## Duplicate-launch correction and operational boundary
 
-## Preserved earlier evidence and recovery
+The user correctly reported C267 completion. The assistant mistakenly repeated the old C266 response
+and C267 command instead of reading the newly published result. That duplicate command safely
+SKIPPED because its3418e545 execution HEAD differed from the92b57170 log-publication HEAD.
+There was no second scientific attempt and no need to rerun C267. This was an assistant workflow
+error,not user error or a failed C267 experiment.
 
-C265 ACCEPTED VALID NEGATIVE:whole-model0/20;doubled16/20,shared_prefix6/20,shared_suffix0/20.
-Acceptance:docs/experiment-ledger-addendum-c265-c266.md. These are gate counts,not zero answer accuracy.
-C264 bounded two-fact PASS:all20 states;not all predictions perfect. C263 bounded PASS:all four
-rate/order arms5/5 and final HOLDOUT8640/8640;standard-rate ceiling prevents an LR-benefit claim.
-C262 chronology comparison remains negative overall and retains its evidence of a chronology effect.
-C261 repeated-value and C260 core ablation remain negatives;C259 naming-order coverage remains negative.
-C258 diagnostic PASS,C257 unseen-order negative,C256 bounded PASS and all older scopes remain.
-C256 precheck INVALID and C255 invalid attempts remain in their execution-recovery addenda.
-Historical identities,metric tables and reviews are retained in acceptance/recovery addenda and
-in the prior handoff at b377042dcdb903a308da131feb135b0f5362d9de. Do not delete or rewrite history,
-accepted sources/tests/logs/checkpoints,or tools/run_c167.ps1.
+Operational commit fece51c05c2b38ffa2e96ea601fc4b8a127305b8 changed only tools/invoke_active.ps1.
+Dispatcher blob:ea2e3d59cc72f0fa799f61d632f864c366099a89.
+If HEAD differs but the currently active experiment's published metadata matches ExpectedHead,
+it reports RESULT_ALREADY_PUBLISHED and returns without execution/publication. That means a result
+is available,not that the attempt was valid or PASS. All other mismatches retain STALE_EXPECTED_HEAD.
+Do not silently change ExpectedHead to current HEAD,remove safety checks,or call every mismatch a
+log-only change:the notice is based on metadata,not a proof of every intervening commit's contents.
 
-## Active C267 — paired name-coverage training
+On each 'finished' message,read the current branch and the active experiment's latest metadata/log
+before responding. Judge a completed result rather than replaying an older answer. Re-read the final
+activation HEAD before giving any new command. Do not move the branch during a user run/publication.
+The earlier dispatcher patch had static readback checks only,not Windows execution/full regression.
+C268 adds a static regression contract for its result-notice and safety paths. No additional shared
+dispatcher edit is part of C268. All actual inherited pin/input checks remain mandatory and unwaived.
 
-Experiment:C267-v5b-paired-name-coverage-training. Stage:V5-B-PAIRED-NAME-COVERAGE-TRAINING.
-Question:with matched architecture,initial weights,base questions and800 updates,does teaching
-compound-name collisions reduce collapse and support held-out value-pair answers,relative to
-equal-length doubled-name-only teaching? This tests a training policy,not an assumed internal cause.
+## Preserved earlier evidence
 
-Fresh seeds267001..267005. One actual C252 Full AlignedPrecoreReadout per seed is created through
-C256.make_model/C231 factory,then deep-copied into doubled_only and mixed_names. Both14256 parameters.
-No accepted learned weights,optimizer state or selected failed model is continued. Common initial
-full-state fingerprints match;full/backbone/reader changes and nonmutation during evaluation checked.
+C266 diagnostic PASS only:saved shared-suffix collapse2149/2880 pairs;C265 remains negative.
+C265 whole-profile counts:doubled16/20,prefix6/20,suffix0/20;not zero answer accuracy.
+C264 bounded frozen two-fact PASS for all20 states,not perfect predictions. C263 bounded capability
+PASS for all20 states,with both learning rates at the final accuracy ceiling;no lower-rate benefit.
+C262 chronology sensitivity remains valid evidence from a different cohort. C261 and C260 remain
+valid negatives (with_core4/5,without_core3/5);C259 six-order4/5 versus two-order2/5 remains negative.
+C258 diagnostic PASS,C257 unseen-order2/5 negative,C256 bounded5/5 PASS remain. All earlier diagnostic
+scopes,failed gates and invalid attempts remain in acceptance/recovery addenda. Complete prior
+handoff preserved at3418e545bc261cf1bb920f2ae8f819deec69150c. Do not edit accepted experimental sources,
+tests,logs,checkpoints,recovery records or tools/run_c167.ps1. No cleanup/history rewrite/CI change.
 
-Both use two facts,known character pools,distinct values0..3,all source subsets,both languages,
-both fact orders,both queries and the existing48-slot byte contract. Profiles exactly follow C265:
-doubled uu/vv;shared_prefix uu/uv;shared_suffix uu/vu. Rename consistently in facts and query.
-Only visible bytes and zero task IDs reach the model. Offline targets and indices do not enter it.
-Normal profile lengths match:13 ASCII or25 Japanese bytes. No canonicalization back to old names.
-Control always trains doubled;candidate cycles the three profiles. All other settings and the
-same base assignment/language/subset/order/query/target at each update match across the pair.
-Rendered-string exposures differ by design;logical-question exposures and update counts match.
+## Active C268 — one question and fixed comparison
 
-## C267 new split,schedule and gate
+Experiment:C268-v5b-paired-query-discrimination-loss.
+Stage:V5-B-PAIRED-QUERY-DISCRIMINATION-LOSS.
+Question:with mixed-name coverage,paired batches,initial weights and800 updates held equal,does an
+auxiliary query-discrimination loss improve held-out value binding relative to CE alone?
 
-New two-fact split,NOT inherited C264 projections. Hold out(0,2),(1,3),(2,0),(3,1) in every naming
-profile/subset/language/order. The other8 ordered distinct value pairs are TRAIN. Both positions'
-digit marginals are balanced:each value twice among TRAIN assignments,once among HOLDOUT.
-TRAIN192 logical rows;HOLDOUT96. No held row is optimized. The split is deliberately structured:
-held values differ by2 modulo4,training values by1 or3. It is small and not a random benchmark.
-Prior inspection of the symbolic family remains a limitation despite fresh initialization.
-Dataset SHA256:1e03cf4d6a72700de0d3973459737ffba7dbc843655ebb7439cdedb99805c2f1.
+Fresh seeds268001..268005;arms ce_only and ce_pair_margin. One actual C252 Full aligned-reader
+initialization through C256.make_model/C231 factory per seed is deep-copied to both arms.
+Both14256 parameters. No accepted checkpoint or optimizer state initializes training.
+Model.forward gets only visible token IDs and zero task IDs. Targets and pair identities are used
+for supervised loss only. Both arms get the exact same paired minibatches and all3 name profiles.
 
-TRAIN token tables3x192x48 and192 targets. Step s uses epoch=s//4,block=s%4,randperm192 seeded
-seed+267000+epoch,and the same48-row slice in both arms. Candidate profile=epoch%3;control profile0.
-800 steps=200 complete epochs. Every base row appears200 times. Candidate epochs67/67/66 and
-updates268/268/264;control800/0/0. Recorded schedules/exposures are reconstructed in the postcheck.
-Reset fit RNG seed+268000 per arm. AdamW lr.005,betas.9/.999,eps1e-8,weight_decay0,clip1,batch48.
-CPU float64,threads2,deterministic algorithms. No extra updates,seed selection or checkpoint selection.
+For a same-facts pair with distinct targets t0,t1 and logits z0,z1:
+    d = (z0[t0]-z0[t1]) - (z1[t0]-z1[t1])
+    P = mean(relu(2.0-d)) across24 pairs
+    ce_only: mean cross-entropy on48 rows
+    ce_pair_margin: same CE +0.1*P
+Margin2.0 and coefficient0.1 are fixed pre-result engineering choices,not optimized constants.
+Control computes penalty for reporting but backpropagates exact CE. No additional neural forward is
+needed;the objective uses the48 existing logits. Extra arithmetic/gradient work is not zero cost.
+A zero margin penalty does not ensure correct answers;both queries can still choose the same value.
+Retain CE and all correctness gates. The new gradient and its clipping behavior are part of the loss
+intervention,not separately isolated causes. No loss/seed/budget tuning after results.
 
-Final evaluation covers both splits and all profiles,including profiles not trained by control.
-Per model72 answer cells and36 two-order cells. Require accuracy>=.90,complete-query-pair>=.80,
-evidence/query mask drops>=.35,and two-order consistency>=.80. TRAIN cells16 answers/8 pairs imply
-15/16 and7/8;HOLDOUT cells8 answers/4 pairs imply8/8 and4/4. Thus HOLDOUT cell accuracy must be100%.
-Two-order minima:TRAIN13/16,HOLDOUT7/8. No pooling away a weak profile,subset,order or language.
-Primary PASS iff all five mixed_names states satisfy all criteria. Control gates are separate.
-This is a new treatment gate,not a change to the C265 frozen gate or an old result rescue.
+Data remain exactly C267's192 TRAIN/96 HOLDOUT logical rows,hash:
+1e03cf4d6a72700de0d3973459737ffba7dbc843655ebb7439cdedb99805c2f1.
+HOLDOUT value pairs(0,2),(1,3),(2,0),(3,1) in every subset/language/order/profile;other8 pairs TRAIN.
+All3 profiles uu/vv,uu/uv,uu/vu are TRAIN-seen in BOTH arms. Preserve actual C267 renderer and48 slots.
+This small modular split is not an independent general benchmark. No held pair is optimized.
 
-Report30 paired HOLDOUT contrasts(5 seeds x3 profiles x2 languages),each48 answers/24 query pairs.
-Show correct-answer and same-answer-collapse differences,mixed minus control. Collapse includes
-identical outside answers. A reduction in collapse alone is not capability;both models can be wrong.
-Primary PASS alone is not treatment advantage either;both arms may pass. No significance claim.
-Treatment names are training-seen:success means held-VALUE-pair performance under covered names,
-NOT unseen-name transfer,arbitrary identifier understanding or proof of an internal parser.
+Group TRAIN by(language,entities,values,permutation),96 groups each containing both queries sorted
+by entity index. Shuffle96 groups with seed+268000+epoch. Four batches of24 adjacent pairs give48
+rows/update.800 steps=200 complete epochs;every TRAIN row appears200 times. Profile=epoch%3 gives
+updates268/268/264. Reconstruct batch digest,exposures and profile counts from saved records.
+Paired grouping differs from C267 but is shared by both new arms;only the objective changes within
+C268. Do not infer a benefit of paired batching itself or historical causal diagnosis from this.
+Fit RNG=seed+269000 reset per arm. AdamW lr.005,betas.9/.999,eps1e-8,wd0,global clip1.
+CPU float64,threads2,deterministic.800 updates/model,batch48,no early stop/checkpoint selection.
 
-## C267 workload,provenance and artifacts
+## C268 gate,workload and source interfaces
 
-Ten models:8000 updates/384000 training presentations. Final evaluation uses TRAIN2x96 and HOLDOUT1x96
-chunks for each of3 profiles and3 views:27 forwards/2592 rows. Replay repeats27/2592.
-Per model train+final827/40992,including replay854/43584. Total8540 forwards/435840 rows/34160 core calls;
-540 evaluation/replay forwards. One new10-state bundle write/load;10 strict loads. Final raw logits
-53084160 bytes(about53 MB decimal),not a measured peak-memory figure. Tests,hashing and I/O are extra.
+Use actual unchanged C267.score on final tensors for all splits,profiles,languages,subsets,orders
+and normal/evidence_blind/query_blind views.72 answer cells and36 two-order cells/model.
+Accuracy>=.90,paired-query>=.80,evidence/query drops>=.35,two-order consistency>=.80.
+TRAIN16-answer/8-query-pair cells require15/16 and7/8;HOLDOUT8-answer/4-pair cells require8/8 and4/4.
+Two-order groups require13/16 TRAIN and7/8 HOLDOUT. Do not replace these with pooled averages.
+Primary PASS requires ALL FIVE ce_pair_margin states to pass every criterion. Control outcomes are
+separate and cannot rescue/fail the candidate. Record30 HOLDOUT contrasts of correct answers and
+same-answer collapse,each48 answers/24 query pairs. Lower penalty or fewer collapsed answers alone
+are not capability improvement. A candidate PASS need not be an advantage if both arms pass.
+No unseen-name transfer,arbitrary strings,causal parser,production or Gate F claim follows.
 
-Parent summary path and SHA are the accepted C266 identity above. load_parent invokes actual
-C266.validate_result,requires diagnostic PASS and capability_pass_claim=False,checks all6 artifact
-hashes/sizes,audit-plan equality and validation-summary equality. Parent data are provenance,not
-initialization. No parent learned archive is loaded for this direct contract;inherited inputs remain
-hash-protected. Actual context chain C266->C265 supplies C260 core,C256 base,C252 reader,C231 factory.
-All repository-local deciding dependencies remain pinned,including lazy helpers.
+Formal workload:10 models,8000 updates,384000 training rows. Per model final27 forwards/2592 rows
+and strict replay27/2592. Training+final827/40992/3308 core calls;replay27/2592/108.
+Total8540 forwards/435840 rows/34160 core calls;540 final/replay forwards. One new10-state bundle
+write/load;10 strict state loads. Saved final raw tensors53084160 bytes plus weights/JSON;not peak RAM.
+Historical tests,hashing,parent saved-metric verification and schedule generation are additional work.
 
-Protection448 pins/761 inputs=442/748 plus OWN6 and parent summary+SIX artifacts. Direct dependency
-union43=five C231 LM sources+C230..C266 helpers+C267. Own24;modules152;loaded3574/focused3573.
-Sole inherited exact exclusion:
+load_parent calls actual C267.verify_artifacts(parent_dir,PARENT_EXECUTION),TWO arguments,with neural
+Module calls blocked. Require valid-negative status FAIL,counts doubled_only0/mixed_names1,10 metrics
+and exact six artifacts above. This uses saved final outputs,not old model inference or initialization.
+The current C267 context supplies core/base/reader/factory helpers. Its actual counted,evaluate,
+replay_one and score are used. Strict replay accepts a C268 record without imposing C267 seed IDs;
+it verifies matching final fingerprint,exact argmax,max raw error<=1e-9 and27/2592/108 resource counts.
+
+Six ignored outputs plus summary.json:loss-plan.json,dataset.json,trained-models.pt,evaluations.pt,
+measurements.json,validation-summary.json. Bundle schema fold-c268-query-loss-models-v1;eval schema
+fold-c268-query-loss-eval-v1. Raw records contain final per-split/profile/view logits,fit schedule,
+CE/penalty/total arithmetic,initial/final fingerprints and replay counts. Saved postcheck blocks
+Module calls and rebuilds schedules,parent scores,contrasts and gates without a learned-bundle load.
+Protection:454 pins/774 inputs=parent448/761 +OWN6 +parent summary/SIX artifacts.
+Direct dependency union44=five C231 LM sources+C230..C267 helpers+C268,including lazy imports.
+Own24;modules153;loaded3598/focused3597. Sole inherited exact exclusion:
 tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state.
-Manifest SHA256:4f83a11bd6b2c31d7f1bd23b617772d1eab413e5099d5aafe3c4a34eb453f2d7.
-Registration:docs/experiment-ledger-addendum-c267-preregistration.md.
-Design:docs/v5b-name-coverage-training-v0.1.md. Acceptance and next registration are separate commits.
+Manifest SHA256:cf16b504aa03e1e5f61c000c161b44c3a551fe7c103096c9119274947fb4e07b.
+Registration:docs/experiment-ledger-addendum-c268-preregistration.md.
+Design:docs/v5b-paired-query-loss-v0.1.md. Acceptance and new registration are separate commits.
 
-Six ignored artifacts plus summary.json:coverage-plan.json,dataset.json,trained-models.pt,
-evaluations.pt,measurements.json,validation-summary.json. Bundle schema fold-c267-coverage-models-v1;
-evaluation schema fold-c267-coverage-eval-v1. Raw tensors are FINAL per-split/profile/view outputs.
-Strict reload verifies final fingerprint,exact argmax,max raw-logit error<=1e-9 and27/2592/108 replay
-counts. Saved postcheck reconstructs schedules,metrics,contrasts and gates without another model
-construction,model call or learned-bundle load. Fixed SPLITS order avoids JSON key-order dependence.
-Only console logs publish;generated data and learned states stay in ignored runs/.
-
-## C267 post-authoring review
+## C268 post-authoring review
 
 post_authoring_review = PASS
-review_target_HEAD = bd57da667a6ebed20340ce9dc2d73c91386eacff
-Scope:committed-byte C267 authoring verification with synthetic model/parent fixtures,NOT formal science.
+review_target_HEAD = c617275a8968975bcdcab0e19791c12f24fa6b61
+Scope:committed-byte authoring validation in a limited synthetic runtime,NOT formal Full-model science.
 
-All six committed OWN files were re-fetched and fully read at this immutable review HEAD.
-The four locally tested executable files were independently Git-blob hashed and matched exactly:
--benchmark:5a167f078ab5b3aa8052e7995d004a25ca25fc0f;26999 bytes.
--tests:199f5f0e031546807a963f9780a56351148884cd;19469 bytes.
--runner:244cd02670f0ba631406d163ad01ac3e89039d7b;4883 bytes.
--launcher:bdfc538a2f0204ac8afe395732225cce52b9a20d;2639 bytes.
-Documentation was re-read/text-reviewed,not independently locally rehashed:
--preregistration:31a17c0b63f52f39be890f85e22294af6356d3df;
--design:a4c39b537c6fba195bbdd6b4bed909c14bbef9ce.
+All six committed OWN files were re-fetched and completely read (ranges where response limits
+required). Complete locally tested bytes were independently Git-blob hashed and matched to remote:
+-benchmark:c6086714c45c8956c591cccc66ce8336746efca9;20952 bytes.
+-tests:677d020be1b6bd42fa262a76de6d840ffe82cbc1;20170 bytes.
+-runner:d65a900f50b9ba20e88484206026e42897cde741;4743 bytes.
+-launcher:49592ebe5b091ef052d343f03d5c42d6bef03aff;2641 bytes.
+-preregistration:132e5ef2633f5ea3640ceb4b1c8e6527a424f538;11409 bytes.
+-design:a56d89cb178bee16540e5208c1d0322bd7977a48;3585 bytes.
+The existing dispatcher mirror also matched ea2e3d59cc72f0fa799f61d632f864c366099a89;5275 bytes.
 
-The initial prepublication24-test run found two authoring issues:JSON sorted-key serialization
-changed iteration order during saved metric reconstruction,and a source-order test compared calls
-on the same semicolon-separated line. Explicit SPLITS iteration and separate run statements fixed
-these before the executable files were committed. No scientific model result was obtained or used.
-After those fixes:24/24 PASS in5.237s. After remote readback and four executable blob matches:
-24/24 PASS in5.306s. No postpublication executable correction was needed.
-UTF-8/NUL and Python compile/import checks passed. Recursive LOAD_GLOBAL audit covered110 code
-objects,using each function's actual globals and unwrapped decorated functions:zero unresolved names.
-Fixed manifest/data hashes passed. Semantic own24 count,all five seeds'200 complete-epoch exposure
-checks,three embedded Python block compilation and CLI indices1/none/1,2,3 passed.
+Initial exact own suite:24/24 PASS in7.242s. After remote readback and all six matches:
+24/24 PASS in7.080s. No executable correction was required between those runs.
+UTF-8/NUL,Python compile/import,manifest/data hashes and three embedded Python block compilation
+passed. Recursive LOAD_GLOBAL audit inspected60 functions/methods and86 code objects,using actual
+globals and unwrapped functions:zero unresolved names. Semantic24-test count and CLI indices
+precheck1,regression none,postcheck1/2/3 passed. Source call-order tests target actual run/fit functions.
 
-Tests use a labeled synthetic Tiny with14256 parameters and four surrogate core calls,not FOLD's
-real state-update computation. Test09 executes actual new800-step train_one and strict replay on
-Tiny;test08 uses a four-update test-only budget. Test20 substitutes training records but executes
-actual new ten-state run/evaluate/replay/analyze/persistence/postcheck. Test19 exercises the actual
-parent loader against temporary JSON with a mocked parent validator and forbids learned loads.
-Test22's3574 dummy IDs test exclusion logic,not3573 historical tests. No synthetic score is capability
-evidence. Full repository import graph and user-local accepted files were not executed here.
+Tests use an explicitly synthetic Tiny encoder/core and Factory/Base/Core/Audit adapters. Local
+C267 helper code is a review-only excerpt adapter reconstructed from retrieved helpers,NOT a complete
+byte-identical C267 module or historical checkout. It supplies dataset/render/scoring/evaluation/
+counting/replay logic for authoring checks. It is not committed and does not replace the real parent.
+Test12 runs actual C268800-step training on Tiny and the excerpt replay;test11 uses4 test-only steps.
+Test18 substitutes training records but exercises the new ten-state orchestration,evaluation,replay,
+analyze and persisted postcheck. Test17 checks real new two-argument parent dispatch against a mock
+validator. Tests5-10 verify exact CE control gradients,margin signs,scalar agreement and the case
+where zero penalty still yields incorrect same-answer collapse. Test21 checks targets do not enter
+model.forward. Dummy3598 test IDs verify filtering only,not execution of3597 historical tests.
 
-Actual C265 context tuple and C256 make_model/fingerprint contracts were re-read;C266 diagnostic
-writer/validator fields and counts were reviewed against its published results. Direct-dependency
-range/count checks are synthetic and real source/input verification remains required. The existing
-active dispatcher was re-read and parses the selected launcher. New launcher guards and runner
-ParseFile precede experiment logging/publication. Diff from the C266 log commit shows seven new
-paths(acceptance+OWN6),with no accepted source/test/log/runner/dispatcher/CI modification. The extra
-acceptance commit corrects only the documented cells hash. Only this activation handoff follows.
+Test24 checks the existing patched dispatcher source:safety guards/ParseFile precede invocation,
+published metadata matches experiment and ExpectedHead,nonmatching cases retain stale stop,and no
+silent ExpectedHead reassignment occurs. This is not a PowerShell execution test. The inspected
+C204 dispatcher contract still requires those same ordering/guard properties;full regressions remain
+pending. Source/dependency counts were checked synthetically;actual inherited mappings are not waived.
 
-Reviewer runtime:Python3.13.5/PyTorch2.10.0+cpu/NumPy2.3.5. Container GitHub access failed DNS;
-no complete checkout or user-local learned artifacts were available. Neither pwsh nor powershell
-is installed;Windows System.Management.Automation.Language.Parser.ParseFile was NOT executed here.
-The user command parses dispatcher;dispatcher parses launcher;launcher parses runner before use.
-Pending authoritative checks:Windows parser chain,real448/761 precheck,own24 with full repository,
-complete3573 regression,ten real Full-model training/evaluation runs,strict checkpoints,persisted
-postcheck and log publication. None is claimed complete by this authoring review.
-Use FINAL activation HEAD,not review_target_HEAD,parent execution or published-log HEAD.
-Re-read final ref before issuing ExpectedHead. C268 remains unregistered until C267 is judged.
+Actual C267 context,score,evaluate,replay_one,record writer and two-argument verify_artifacts paths
+were source-reviewed. No C268 result was used to tune the loss,data or gates. Compared with the
+post-incident operational HEAD fece51c...,seven new paths only:acceptance and OWN6. No accepted
+experimental source,test,runner,log,shared dispatcher or CI file changed in C268 authoring.
+Only this activation handoff follows the completed review.
+
+Reviewer runtime:Python3.13.5/PyTorch2.10.0+cpu/NumPy2.3.5. Full checkout and user-local accepted
+artifacts were unavailable;container GitHub DNS failed. pwsh/powershell absent;Windows ParseFile
+was NOT executed here. Pending authoritative checks:dispatcher/launcher/runner parser chain,real
+454/774 source/artifact precheck,own24 through full dependencies,complete3597 regression,ten real
+Full-model learning runs,strict checkpoint replay,persisted postcheck and log publication. None is
+claimed complete by this authoring review. Use FINAL activation HEAD,not review_target_HEAD or any
+C267 execution/log HEAD. Re-read final ref before issuing the user command.
 
 ## Execution and stop
 
-Use tools/invoke_active.ps1. Formal state has one ACTIVE token resolving to C267.
-Parent:runs/c266-v5b-query-pairs-b652a5a2d2ea4dac9b913b64df6d78e0/summary.json.
-Order:dispatcher/launcher/runner ParseFile ->Python compile+parent/task precheck ->own24 ->focused3573
-->ten-model paired training ->strict checkpoint replay ->saved postcheck ->log publication.
-Progress:model1/10..10/10;each model steps200/400/600/800. This is training,unlike the C266 diagnostic.
-Valid scientific FAIL is not INVALID. Do not extend the budget,change profiles/rate/split,seeds or
-gates to rescue a miss. Operational stale branch/tree/HEAD/ACTIVE conditions SKIP before logs.
-Source/artifact/schema/nonfinite/count/replay/test faults require SAME C267 recovery;do not advance.
-Repair log-only publication without retraining. User normally sends only 'finished';retrieve
-C267 latest.json/latest.log for judgment. Do not move this branch during the user's active run.
+Use tools/invoke_active.ps1;formal state has exactly one ACTIVE token resolving to C268.
+Fixed parent:runs/c267-v5b-name-coverage-f8a591aae4aa4b7aa373aba2e520181c/summary.json.
+Order:dispatcher/launcher/runner ParseFile ->Python compile/parent precheck ->own24 ->focused3597
+->ten-model paired learning ->strict final checkpoint replay ->saved postcheck ->log publication.
+Progress:model1/10..10/10;steps200/400/600/800 print CE and pair_penalty. Valid scientific FAIL is not
+INVALID. Do not extend updates,change margin/coefficient/profile/split/seeds or thresholds to rescue it.
+Wrong branch/dirty tree/unrecognized stale HEAD/ACTIVE mismatch stop before science. A recognized
+published-result notice means inspect available evidence,not rerun or assume PASS. Source/schema/
+nonfinite/count/replay/test faults require SAME C268 recovery;C269 waits for valid judgment.
+Repair log-only publication without retraining. On 'finished',read docs/experiment-run-logs/c268/latest.*
+(and actual blob content for >1 MB files),not an older experiment. Do not move branch during user run.
 No paid API,external corpus,model expansion,production adoption,cleanup,history rewrite or CI change.
-Preserve all accepted evidence and recoveries. Gate F NOT PASSED. Judge C267 before C268.
+Gate F NOT PASSED. Preserve all accepted evidence,recoveries and tools/run_c167.ps1.
