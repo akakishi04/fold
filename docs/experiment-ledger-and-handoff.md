@@ -8,249 +8,210 @@ Authoritative runtime:Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
 
 Gate A/B PASSED;C/D PASSED in measured scope;Gate E PASSED;Gate F NOT PASSED.
 
-**C264 ACCEPTED PASS (bounded two-fact transfer). C265 ACTIVE / NOT YET JUDGED. C266 NOT REGISTERED.**
-C265 is the unique ACTIVE experiment:V5-B frozen compound identifiers.
-All twenty C264 states passed its thresholds,but this does not mean all answers were correct.
-C263 bounded PASS and all earlier verdicts/recoveries remain unchanged. No optimizer default change,
-architecture selection,production adoption,general-language claim or Gate F promotion.
+**C265 ACCEPTED VALID NEGATIVE. C266 ACTIVE / NOT YET JUDGED. C267 NOT REGISTERED.**
+C266 is the unique ACTIVE experiment:V5-B saved query-pair diagnostic.
+C265 all20 states miss the joint compound-identifier gate. C264/C263 bounded PASS and all older
+verdicts/recoveries remain unchanged. No optimizer default,architecture or production change.
+C266 diagnostic PASS cannot promote capability or identify a causal internal parser.
 
-## Latest accepted evidence — C264
+## Latest accepted evidence — C265
 
-Scientific execution HEAD:6da6c182f328cccddbdfbd94e232141b0c68c0ea.
-Published log commit:5e62210d4b2a5b5d0cf7dbbc0fe6cf7be05d47e1.
-Publisher log SHA256:f228c6ede8e95546c6e534a4afcde97255e69fe38d0692b2293e71f35c2ad445.
-Log bytes:779217;lines3980.
-Summary SHA256:1c7e3d517bcf764f2b4eb89e432cb8ce303861359957f1fbfd77de9f19eb1503.
-Summary:runs/c264-v5b-two-fact-46c2297b66ba41a9b8f66f7bfca48935/summary.json.
-Acceptance:docs/experiment-ledger-addendum-c264-c265.md.
-Acceptance/base commit:d0af4709b7362f145ca55c2bfee5038b107e2961.
+Scientific execution HEAD:e0809d90c552471dee8723ce1b10528488f23be0.
+Published log commit:4a51a286efcbe20336dba61699736e02ed51b5fa.
+Publisher log SHA256:fb1c50a21c8829aef5a98dccbe189205006c127590fbe7eb9c418e59818fc025.
+Log bytes:999513;lines4764.
+Summary SHA256:f8c00bbcb311eeaf686ee43ef36d0597180e57c2bd70598d0fc23357c4da7998.
+Summary:runs/c265-v5b-identifiers-755ab6d49ab84080ac18ff8f0699953f/summary.json.
+Acceptance:docs/experiment-ledger-addendum-c265-c266.md.
+Acceptance/base commit:92da414cec60028f813b8196f61b5a432f7c6b90.
 
-Own24 PASS in13.519s;focused3501 PASS in316.942s.430 source pins/723 protected inputs verified.
-All20 frozen C263 final states evaluated:600 wrapper forwards,120960 row presentations,2400 core
-calls. One accepted weight-bundle load,20 strict state loads;training0,new learned checkpoints0.
-Accepted-output replay,two-fact scoring,restoration,weight preservation,provenance reconstruction,
-saved metric reconstruction and protected-input checks passed. Tracked tree clean;execution HEAD
-preserved;run_execution_valid=True;scientific_status=PASS;joint_gate=True.
+Own24 PASS in10.021s;focused3525 PASS in323.929s.436 source pins/736 protected inputs verified.
+Twenty frozen states completed600 wrapper forwards,86400 row presentations and2400 Full core calls.
+One accepted weight-bundle load,twenty strict state loads;new training0,new learned checkpoints0.
+Anchor/reference replay,compound-name evaluation,restoration,unchanged weights and saved metrics
+passed. Tracked tree clean;execution HEAD preserved;run_execution_valid=True.
+scientific_status=FAIL;joint_gate=False;all_replays=True;all_weights_preserved=True.
 
-Acceptance is based on immutable published log ranges,metadata and recorded local postchecks.
-The reviewer did not independently run the learned states or rehash the entire779217-byte console
-log. Publisher-reported SHA256 is not an independently computed reviewer hash. The publication
-commit immediately follows the registered execution HEAD and adds only C264 latest.json/latest.log.
+Acceptance uses immutable published log ranges,metadata and recorded local postchecks. No independent
+learned-state rerun or complete-log byte rehash was performed by the reviewer. Publisher-reported
+SHA256 is not a new reviewer hash. Publication is one commit after execution and adds only C265
+latest.json/latest.log. Execution metadata and the registered scientific HEAD agree.
 
-|Arm|Whole-seed passes|
-|---|---:|
-|standard_forward|5/5|
-|standard_reverse|5/5|
-|lower_forward|5/5|
-|lower_reverse|5/5|
+|Training arm|Doubled uu/vv|Shared prefix uu/uv|Shared suffix uu/vu|All profiles|
+|---|---:|---:|---:|---:|
+|standard_forward|5/5|3/5|0/5|0/5|
+|standard_reverse|5/5|2/5|0/5|0/5|
+|lower_forward|3/5|0/5|0/5|0/5|
+|lower_reverse|3/5|1/5|0/5|0/5|
+|All states|16/20|6/20|0/20|0/20|
 
-Each state has288 unique reduced prompts,12 language/subset/order cells and six two-order cells.
-All satisfy the fixed thresholds. Do not invent perfect per-state totals from PASS flags.
-Confirmed examples:standard_forward263001=288/288;lower_reverse263005=286/288.
-For the latter,EN a/c order01 and10 each score23/24 with paired-query11/12;the associated two-order
-score is23/24. This is a valid threshold PASS,not an execution failure. No grand exact-accuracy
-sum or uninspected per-state perfect scores are asserted by this acceptance.
+These are whole-profile gate counts,not per-answer accuracy. A failed profile can contain correct
+answers. Confirmed example:263001/standard_forward/doubled287/288,PASS. No uninspected grand answer
+sum or perfect per-state totals are inferred from flags. All profiles have paired equal normal
+lengths and use familiar bytes,but composition,positions and character distributions differ.
+The common-suffix pattern is a limitation of this registered probe,not proof of last-character-only
+processing. Same-answer collapse,swapped bindings and other errors need separate attribution.
+C265 does not revoke two-fact familiar-name transfer or establish a generally superior learning rate.
 
-Interpretation:these frozen states can transfer from three visible facts to two familiar named
-entities after deleting an unqueried fact. Fact count,length and positions changed jointly.
-Retained pairwise associations,names and values are familiar. Reduced projections can cross the old
-TRAIN/HOLDOUT partition,so they do not form a new disjoint split. No arbitrary-name/length,ordinary
-language,learning-rate advantage or unique internal mechanism follows. Keep all cohorts unchanged.
-
-Accepted C264 artifacts:
--deletion-plan.json:a4cfef0b148d7f2130324127f51217d03c191bf788b87d07d52b1d67890095b1;2398 bytes.
--eval-outputs.pt:3123aa3b0c2e74b1a069edeb56da5a52046fc5731f681656abf51d4200db55b3;247882609 bytes.
--measurements.json:34c43a5eea6aa235a7bcf8451f3742393a53255a63299c43874c5bf948b87f99;63095 bytes.
--provenance.json:35f96556b849adeac41cc04cc77d91c94ba4e560783d0f58c67e3898ea479577;114338 bytes.
--two-fact-dataset.json:8adacd9b13b87c9f6a2bd7e1bf0f735e9a1a63b521840ef301a855586643e6c1;39746 bytes.
--validation-summary.json:171731535a0f725e5cfb5912828e8c082c5950507a9dade64cf43463fe304a14;1445 bytes.
+Accepted C265 artifacts:
+-eval-outputs.pt:546f5eb5dd62aa205c046fc5f2c7065837dc9ce578c79725c72ac451f87ae782;177035681 bytes.
+-identifier-dataset.json:4bcc707da1814d765c4218f73203e175d092bea096becc593b789fbbcdb729bb;133970 bytes.
+-identifier-plan.json:1a6316f251e15e29e67d22eb2d6be02407a6fa4ea6a610759b332f5bd9de53a3;2439 bytes.
+-measurements.json:208943819e92e4f5cdd4f299668c86b14cba338180e1686ddd40d776b8315656;200144 bytes.
+-validation-summary.json:fd2e2028c442b651b740b7e0e82ea9e326750c0052b22a9d7b072486a2988bbd;3289 bytes.
 
 ## Preserved earlier evidence and recovery
 
-C263 ACCEPTED PASS:all four rate/order arms5/5,held-assignment normal answers8640/8640.
-Both standard0.005 and lower0.001 reach the final accuracy ceiling;no learning-rate benefit or
-universal training robustness is established. Do not change optimizer defaults on that result.
-Execution:abca8d7eb25146fca6f7404790071d1e6f0999d0.
-Published log:1b47b5e3dc8ee3c6c2edd6972e7521b16e4f1b67.
+C264 bounded frozen two-fact PASS:all four arms5/5,not necessarily perfect answers.
+Execution6da6c182f328cccddbdfbd94e232141b0c68c0ea;log5e62210d4b2a5b5d0cf7dbbc0fe6cf7be05d47e1.
+Summary:runs/c264-v5b-two-fact-46c2297b66ba41a9b8f66f7bfca48935/summary.json.
+SHA256:1c7e3d517bcf764f2b4eb89e432cb8ce303861359957f1fbfd77de9f19eb1503.
+Acceptance:docs/experiment-ledger-addendum-c264-c265.md.
+C263 bounded capability PASS:all four rate/order arms5/5 and8640/8640 held-assignment normal answers.
+Both rates reach ceiling,so no learning-rate advantage or universal training robustness is established.
+Executionabca8d7eb25146fca6f7404790071d1e6f0999d0;log1b47b5e3dc8ee3c6c2edd6972e7521b16e4f1b67.
 Summary:runs/c263-v5b-rate-order-638f26dfee354c9cb3aa5fa174d3e9f6/summary.json.
-Summary SHA256:1fcceab38de3e34a3858828285fd43503df9e455e2fdb3bd31524b5035813e21.
-Acceptance:docs/experiment-ledger-addendum-c263-c264.md. This is the learned-weight source for C265.
+SHA256:1fcceab38de3e34a3858828285fd43503df9e455e2fdb3bd31524b5035813e21.
+Acceptance:docs/experiment-ledger-addendum-c263-c264.md.
 
-C262 ACCEPTED VALID NEGATIVE:forward0/5,reverse2/5;639 paired answer differences under identical
-initial state and exact exposures. It retains evidence for its specified chronology intervention.
-Acceptance:docs/experiment-ledger-addendum-c262-c263.md. C263 uses a different cohort and does not
-revoke C262. Earlier variability was not isolated to initial weights alone.
-C261 repeated-value4/5 with_core and3/5 without_core remains valid negative,not independent retraining.
-C260 core ablation4/5 versus3/5 remains valid negative;no globally superior architecture selected.
-C259 six-order4/5 versus two-order2/5 remains negative. C258 diagnostic PASS only;C257 unseen-order2/5
-remains negative;C256 bounded three-entity5/5 PASS remains. C256 precheck INVALID and C255 invalid
-attempts remain in execution-recovery addenda. C255/C254/C253 diagnostic passes do not rescue C252.
-Complete historical identities,metrics and reviews remain in acceptance/recovery addenda and the
-prior handoff at6da6c182f328cccddbdfbd94e232141b0c68c0ea. Preserve all accepted code/tests/logs,
-checkpoints,recovery records and tools/run_c167.ps1. No cleanup or history rewrite.
+C262 valid negative:forward0/5,reverse2/5;639 paired answer differences with initial state/exposures
+fixed. Chronology sensitivity is not revoked by a different later seed cohort. C261 repeated-value
+4/5 versus3/5 remains negative and not independent retraining. C260 core ablation4/5 versus3/5
+remains negative;no global architecture winner. C259 six-order4/5 versus two-order2/5 remains negative.
+C258 diagnostic PASS only;C257 unseen-order2/5 negative;C256 bounded three-entity5/5 PASS remains.
+C256 precheck INVALID and C255 invalid attempts remain in recovery addenda. C255/C254/C253 diagnostic
+passes do not rescue C252. All historical identities/scopes remain in acceptance/recovery addenda
+and the previous handoff at e0809d90c552471dee8723ce1b10528488f23be0. Preserve accepted code/tests/logs,
+checkpoints,recovery records and tools/run_c167.ps1. No cleanup,history rewrite or CI changes.
 
-## Active C265 — frozen compound identifiers
+## Active C266 — one saved query-pair diagnostic
 
-Experiment:C265-v5b-frozen-compound-identifiers. Stage:V5-B-FROZEN-COMPOUND-IDENTIFIERS.
-One question:can all twenty frozen states bind two-symbol names made from familiar characters,
-including identifiers sharing their first or last character? No training or seed/model selection.
+Experiment:C266-v5b-saved-query-pair-audit. Stage:V5-B-SAVED-QUERY-PAIR-AUDIT.
+One question:when only the query name changes,do saved C265 answers collapse to one value,swap the
+two values,or fail differently? Use all20 states,3 profiles,2 languages,3 subsets and2 fact orders.
+No new prompt is run through a model,no learned weights are loaded,and no training is performed.
+This is one decomposition. Do not extend an unbounded chain of frozen-name probes. Any subsequent
+training or architecture intervention needs a separate question and preregistration after judgment.
 
-For every C264 source subset,take original names u,v in ascending original entity-index order:
--doubled: u->uu,v->vv (aa/bb);
--shared_prefix: u->uu,v->uv (aa/ab);
--shared_suffix: u->uu,v->vu (aa/ba).
-Apply the same bijection in facts and query,including Japanese names. aa=0;ab=1;ab= has target1.
-All20 models receive all3 profiles;these are input conditions,not separately trained architectures.
-No translation back to the original one-symbol identifiers before inference.
+Example:aa=0;ba=1;aa= and aa=0;ba=1;ba= have targets0/1. Outcomes0/1 are both correct,1/0 are swapped,
+0/0 and1/1 collapse onto a displayed value. Same outside bytes form collapse_outside;other unequal
+predictions form other_different. Classify one of six exclusive pair categories,retaining every case.
+entity0/entity1 categories mean first/second logical entity within the selected subset,not global
+a/b or presentation positions. Record selected entity and first/last displayed position separately.
+Every answer is also correct,other_entity,absent_digit(0..3 but not shown),or other_byte.
+Same argmax is not identical logits:record maximum full-vector difference and exact vector equality.
+Neither equality nor inequality identifies a hidden internal representation or causal parser.
 
-Keep two facts,distinct values0..3,all three source subsets,EN/JA identifiers,both fact orders,both
-queries and source-row ordering.288 questions/profile,864 unique new normal prompts/state.
-Original targets/entity-group metadata are used only OFFLINE by the actual unchanged C264 scorer.
-Only renamed visible bytes and zero task IDs reach the model. Do not pass source indices/answers
-through a hidden channel. Each profile preserves source_id and target for every row.
-All normal bytes already occur in the familiar task. Normal lengths are13 ASCII/25 Japanese bytes,
-equal across the three profiles for each source row and within the46-byte payload/48-slot contract.
-The same two values are masked for evidence_blind;the whole query name becomes ? for query_blind.
-New dataset SHA256:4bcc707da1814d765c4218f73203e175d092bea096becc593b789fbbcdb729bb.
-No new TRAIN/HOLDOUT split is assigned to the frozen probes.
+Source rows are exact C264 metadata,hash8adacd9b13b87c9f6a2bd7e1bf0f735e9a1a63b521840ef301a855586643e6c1.
+Group by language,entities,values and visible order,with the two queries sorted by original entity.
+144 pairs/profile/state;8640 pairs and17280 normal answers total.720 detailed cells of12 pairs each;
+120 profile/language/state summaries of72 pairs each. Reconcile correct-answer totals and every
+cell's complete-query accuracy to the accepted C265 metrics. No old capability scoring is replaced.
 
-All states are C263 final Full aligned readers,14256 parameters,seeds263001..263005,arms
-standard_forward,standard_reverse,lower_forward,lower_reverse. Construct through C256.make_model/
-C231 factory,then strict-load the corresponding C263 state;check C264 final fingerprints and freeze
-all modules/gradients. C264 wrote no learned checkpoint. Do not load its eval archive as weights.
+Keep doubled as matched reference for each collision profile.80 contrasts cover20 states x2languages
+x2collision profiles,all72 matched pairs each. Also show transitions within doubled-both-correct
+pairs:retained,collapsed,swapped,other. Report eligibility denominator;empty denominators are null.
+Keep all unconditional counts too. Do not select successful states or report conditional fractions
+as independent confirmations. These are descriptive correlated outputs,not population inference.
 
-## C265 gate and interpretation boundary
+## C266 diagnostic gate,interfaces and workload
 
-Score each profile with actual unchanged C264.score.12 cells/profile (2languages x3subsets x2orders),
-24 answers/12 paired-query groups per cell. Require accuracy>=.90(22/24),paired-query>=.80(10/12),
-evidence_drop>=.35 and query_drop>=.35. Each of six language/subset two-order groups must also
-pass>=.80(20/24 groups correct in both presentations). Distinct targets make query-drop applicable.
-Whole-state PASS requires ALL3 profiles;overall C265 PASS requires ALL20 states. Report profile-by-arm
-counts and whole-model counts. A good doubled profile cannot rescue a shared-character failure.
-Valid misses are accepted negatives,not permission to retrain,select profiles or loosen thresholds.
+PASS means complete and reproducible attribution. No minimum collapse fraction or desired pattern
+is required. Evidence against collapse can produce a valid diagnostic PASS. capability_pass_claim=False;
+causal_parser_claim=False. C265 remains negative and Gate F remains NOT PASSED.
 
-The doubled profile is an equal-length reference for shared-prefix/suffix profiles,not a full causal
-control for every composition effect. Compared with original inputs,name length,composition and
-positions change. Profiles also differ in character distributions. First-/last-character parser
-failures are synthetic authoring controls,not confirmed mechanisms of a learned model. Neither a
-pass nor a failure uniquely identifies an internal parser. No arbitrary-name,ordinary-language,
-independent-general-benchmark,learning-rate advantage,optimizer adoption or Gate F claim.
+load_reference calls actual C265.verify_artifacts(c265_dir,c264_summary,c263_summary,C265_EXECUTION),
+FOUR arguments. Require parent FAIL,all whole-model counts0,and profile counts5/5/3/3,3/2/0/1,0/0/0/0.
+Read fold-c265-identifiers-eval-v1 and use records[*].renamed[profile].normal,not anchor/restored.
+Every saved view must be finite CPU float64 of shape288x256. Parent verification reconstructs its
+original anchors,restoration,dataset and scores before new attribution. The C264/C263 summaries
+listed above must already be inherited protected inputs;do not double-count them.
 
-## C265 parent interfaces and provenance
+saved_only blocks Module calls and disallows torch.load for learned/unknown archives. Evaluation
+loads require CPU weights_only=True. Actual parent verification plus explicit source acquisition
+makes6 evaluation-archive loads/pass:two each from C265,C264,C263. By filename4 eval-outputs.pt and
+2 evaluations.pt;count actual calls. Analysis plus persisted postcheck are two passes,12 reads total.
+New model forwards0,state loads0,learned-bundle loads0,training0,new learned checkpoints0.
+Historical tests,source hashing and saved-output reconstruction still consume CPU/RAM/I/O;zero
+neural inference is not zero computation. Peak memory and timing are not claimed measured.
 
-C264 summary:runs/c264-v5b-two-fact-46c2297b66ba41a9b8f66f7bfca48935/summary.json.
-C263 weight-source summary:runs/c263-v5b-rate-order-638f26dfee354c9cb3aa5fa174d3e9f6/summary.json.
-Their exact hashes are listed above. C263 summary must already exist in the inherited protection
-mapping;reject an unprotected substitute path and do not count this source twice.
+Six ignored JSON artifacts plus summary.json:audit-plan.json,pair-attribution.json,cells.json,
+profile-summary.json,matched-contrasts.json,validation-summary.json. No new raw-tensor bundle or
+learned checkpoint is written. Postcheck reloads source archives,recomputes every attribution and
+matches persisted JSON,hashes/sizes and parent score identities. Publish only console text logs.
 
-check_parent calls actual C264.validate_result,requires its execution/PASS/four5-of5 counts and exact
-six artifact identities. precheck verifies all hashes/sizes,inherited pins and protected files.
-load_reference calls actual C264.verify_artifacts(c264_dir,c263_summary,C264_EXECUTION),THREE arguments.
-Parent saved evidence verification is guarded against neural model calls. A second C264 eval archive
-read extracts seed,arm,final_sha256 and reduced from fold-c264-deletion-eval-v1. The reduced field is
-C264's actual two-fact output,not its original three-fact anchor/restored output. Require288x256
-CPU float64 tensors for each view. Recompute C264.score and match all20 accepted metrics.
-Weights come through actual C263.load_bundle(c263_dir/trained-models.pt) once;20 strict state loads.
-C264 verification also validates its C263 source evidence,without rerunning old neural inference.
-
-## C265 workload,artifacts and protection
-
-Per frozen state:old two-fact6 forwards/864 rows -> accepted raw-logit/argmax replay barrier ->
-three new naming profiles18/2592 -> old two-fact restoration6/864. Compare restored outputs with
-both same-run anchor and accepted reduced tensors. Require full weights unchanged and remove hooks
-on exceptions.30 wrapper forwards/4320 rows/120 Full core calls per state.
-Totals600 forwards/86400 row presentations/2400 core calls;new training0,new checkpoints0;
-one accepted weight-bundle load/20 strict state loads. CPU float64,threads2,deterministic algorithms.
-Raw replay tolerance1e-9 and exact argmax. Reproducing an old wrong answer is valid integrity replay,
-not a demand for a previously imperfect state to become perfect.
-Reference loads per pass:two C264 and two C263 evaluation archives. Run and saved postcheck each
-use one pass,four reads of each reference archive total. Parent metric reconstruction,source hashing,
-serialization and historical tests are additional work,not extra formal model-forward samples.
-
-Five ignored artifacts plus summary.json:identifier-plan.json,identifier-dataset.json,eval-outputs.pt,
-measurements.json,validation-summary.json. Eval schema fold-c265-identifiers-eval-v1 stores anchor,
-renamed profile tensors,restored tensors,identity,counters and replay results. Raw output payload
-176947200 bytes(about177 MB decimal),not a peak-RAM or serialized-file-size measurement.
-Saved postcheck blocks neural model calls and rebuilds references,dataset,replays,metrics and gates.
-No additional model construction,inference or learned-bundle load is performed during saved postcheck.
-
-Protection436 source pins/736 inputs=430/723 plus OWN6 and parent summary+SIX artifacts.
-Direct deciding dependency union41=five C231 LM sources,C230..C264 helpers and C265;lazy imports count.
-Own24;modules150;loaded3526/focused3525. Sole inherited exact exclusion:
+Protection442 source pins/748 inputs:parent436/736 plus OWN6 and C265 summary+FIVE artifacts.
+Direct deciding dependency union42 includes five C231 LM sources,C230..C265 helpers and C266.
+Own24;modules151;loaded3550/focused3549. Sole inherited exact exclusion:
 tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state.
-Manifest SHA256:1a6316f251e15e29e67d22eb2d6be02407a6fa4ea6a610759b332f5bd9de53a3.
-Registration:docs/experiment-ledger-addendum-c265-preregistration.md.
-Design:docs/v5b-compound-identifiers-v0.1.md. C264 acceptance and C265 registration are separate commits.
+Manifest SHA256:85be4d973b9f8ce8a59e1ffa9028faceb1de3fcc8d8b3035264c2af72ed88b3e.
+Registration:docs/experiment-ledger-addendum-c266-preregistration.md.
+Design:docs/v5b-query-pair-audit-v0.1.md. Acceptance and registration are separate commits.
 
-## C265 post-authoring review
+## C266 post-authoring review
 
 post_authoring_review = PASS
-review_target_HEAD = f3ad13aee3c3f373497e227bc35bec4f519342cb
-Scope:committed-byte C265 authoring validation with exact C264 helper code and synthetic model fixtures,
-NOT a formal learned-model run or complete historical checkout verification.
+review_target_HEAD = 50f2c88cbfec247f2bcea35b20adfa8984f48441
+Scope:committed-byte new-file authoring validation with synthetic saved-logit fixtures,not the
+complete historical checkout or actual user-local C265 artifact execution.
 
-All SIX committed OWN files were re-fetched/read completely after authoring. Complete local files
-were independently Git-blob hashed and matched to returned remote identities before the final test:
--benchmark:b7536b3bb3e0c505a9a0c6a1052d2d895202362c;20969 bytes.
--tests:3fa8d3082f2191cdf6674ddb820329dbb24c68f6;18700 bytes.
--runner:7740a1782f251f6f6921517e456ad84525b66228;4883 bytes.
--launcher:153ae723b08eb723038b77944a1d26895b2c8c17;2745 bytes.
--preregistration:e30c730d0d08d2ffd3d01f5c37142347e82d3a0e;10609 bytes.
--design:1f71c75d640bffd761f79bea245124809422c8f7;3105 bytes.
-The complete accepted C264 benchmark module was also locally reconstructed from all fetched ranges
-and byte-matched:8714a23b1996e4d136b362dadc137e3c7e1981ef;23043 bytes. It was not modified/published.
-Unlike a surrogate scorer,the tests use its actual dataset,render,evaluate_new,score and call guard.
-The C263-and-earlier historical import graph remains unavailable locally and is not claimed tested.
+All six OWN files were re-fetched and read completely after publication. Complete local UTF-8
+files were independently Git-blob hashed and matched to the returned remote identities:
+-benchmark:fb210ac11cf443012e40a0634cff5ea13241570d;21266 bytes.
+-tests:cef8aa996cb70fe896eeb7b493aaa9035199d93e;18420 bytes.
+-runner:4c59ca43411df4797ad0c8b960a0166b8551095d;4518 bytes.
+-launcher:b963ebc491242716e56eab2d0b832af1769c42d4;2855 bytes.
+-preregistration:b637af2b33bac77ca320719e4bd5c8592405f1f8;9328 bytes.
+-design:2f397e63e871c133a71fb4f5ae5484a54a8f609d;2805 bytes.
 
-First exact own suite:24/24 PASS in5.986s.
-After committed readback and all six blob matches:24/24 PASS in4.633s.
-No code/test correction was needed after the first passing suite. UTF-8/NUL,compile/import,manifest
-and dataset hashes passed. Recursive LOAD_GLOBAL audit covered92 new-file code objects including
-nested functions,with zero unresolved globals. Profile lengths mechanically checked at13/25 bytes.
-Three embedded Python blocks compile;CLI indices precheck1/2,regression none,postcheck1/2/3/4.
-Semantic own24 count,source/input arithmetic,dependency regex scope and176947200-byte payload pass.
+First exact own suite:24/24 PASS in4.756s.
+After all six remote readbacks/blob matches:24/24 PASS in4.337s.
+No code/test change was made after the first passing run. UTF-8/NUL,Python compile/import,manifest
+and row-data hashes,semantic own24 count,and three embedded Python blocks passed. CLI indices:
+precheck1/2/3,regression none,postcheck1/2/3/4/5. Source ordering checks inspect actual run and compute.
+Recursive LOAD_GLOBAL audit traversed104 code objects with zero unresolved names using each function's
+actual globals and unwrapped decorated functions. The reviewer checker initially used the wrong
+namespace for contextlib's wrapper;correcting that checker required no repository code change.
 
-The model is a clearly labeled string-parser Oracle with14256 placeholder parameters and Identity
-core counters,NOT learned FOLD computation. First-character-only and last-character-only variants
-fail their respective shared-prefix/shared-suffix cases at144/288. The exact parser passes,so the
-scorer can distinguish these specific wrong algorithms from correct binding in synthetic controls.
-Test13 executes the actual new probe30/4320/120. Test17 executes the actual reference loader with a
-mocked three-argument parent verifier,temporary archive and actual C264 scorer. Test18 checks the
-actual C264 verifier signature and reduced-field semantics. Test19 executes actual20-state new
-run/probe/analyze/persistence/saved-postcheck with synthetic checkpoint/runtime adapters;new profile
-evaluation and scoring are not replaced. Test22's3526 dummy IDs verify exclusion only,NOT execution
-of3525 historical tests. No synthetic result is learned-capability evidence.
+Tests use synthetic saved tensors and independently computed answer/query-pair counts. There is no
+learned-model evidence in these fixtures. Actual new classification,aggregation,contrasts,guards,
+loader,compute,run and persisted reconstruction are exercised. Test17 verifies the four-argument
+parent call. Tests18/19 use five explicitly simulated parent archive reads plus the actual sixth
+read to test accounting and orchestration;they do NOT execute the real parent verification chain.
+Test16 verifies blocking/restoration of Module calls and rejection of weight/unsafe loads. The
+3550 dummy test IDs validate exclusion logic only,NOT execution of3549 historical tests.
 
-Actual parent writer/reference fields and verifier signatures were read from the complete C264
-source. The existing active dispatcher was re-read:one formal ACTIVE token,selected-launcher parser
-before invocation. Launcher branch/tree/HEAD/ACTIVE and runner parser checks precede experiment logs.
-Compare C264 log commit to review target:seven additions only(C264 acceptance plus six C265 files).
-No accepted source,test,log,runner,dispatcher or CI file changed. Only this activation handoff follows.
+Actual C265 record writer/analyze/verify fields and four-argument interface were re-read,as were
+C264 reference/verification loads and C263 saved verification. The source chain supports two reads
+per reference generation,6/pass in total;full runtime confirmation remains mandatory. Source
+protection range/cardinality is checked synthetically and actual pin/input maps must pass on user
+runtime. The existing active dispatcher was re-read and parses the selected launcher before use.
+Compare C265 log commit to review target:seven additions only,acceptance plus six C266 files.
+No accepted source,test,log,shared dispatcher,runner or CI file changed. Only this handoff follows.
 
-Reviewer runtime:Python3.13.5/PyTorch2.10.0+cpu. GitHub DNS failed in the container;no full checkout
-or user-local learned artifacts were available. PowerShell/pwsh absent;Windows ParseFile was NOT run.
-The standard command parses dispatcher;dispatcher parses selected launcher;launcher parses runner.
-Pending authoritative checks:Windows parser chain,actual436/736 source/artifact precheck,own24 through
-full repository dependencies,complete3525 regression,twenty real frozen-model evaluations,real
-checkpoint/reference replay,persisted postcheck and log publication. None is claimed completed by
-this authoring review. Use FINAL activation HEAD,not review_target_HEAD or parent execution/log HEAD.
-Re-read final branch ref before issuing ExpectedHead. C266 waits for C265 judgment.
+Reviewer runtime:Python3.13.5/PyTorch2.10.0+cpu. Container raw GitHub access failed DNS resolution;
+no complete repository checkout or user-local learned artifacts were available. PowerShell/pwsh
+absent;Windows ParseFile was NOT executed here. Standard block parses dispatcher;dispatcher parses
+selected launcher;launcher parses runner. Pending authoritative checks:Windows parser chain,actual
+442/748 precheck,own24 with full repository dependencies,full3549 regression,real saved-parent
+verification and diagnostic,persisted reattribution and log publication. None is claimed completed
+by this authoring review. Use FINAL activation branch HEAD,not review_target_HEAD or parent HEAD.
+Re-read final branch ref before issuing ExpectedHead. C267 waits for C266 judgment.
 
 ## Execution and stop
 
-Use tools/invoke_active.ps1. Formal state has exactly one ACTIVE token resolving to C265.
-Fixed parent/output and weight-source paths are listed above and in tools/invoke_c265.ps1.
-Order:dispatcher/launcher/runner ParseFile ->Python compile+parent/task precheck ->own24 ->focused3525
-->twenty frozen-model evaluations ->persisted postcheck ->log publication.
-Progress:model1/20..20/20;no800-update training loop. A complete valid FAIL is a scientific negative,
-not INVALID. Do not retrain,select profiles/states,change thresholds or rewrite earlier verdicts.
+Use tools/invoke_active.ps1. Formal state has exactly one ACTIVE token resolving to C266.
+Parent paths are the accepted C265/C264/C263 summaries above,fixed in tools/invoke_c266.ps1.
+Order:dispatcher/launcher/runner ParseFile ->Python compile+parent precheck ->own24 ->focused3549
+->saved query-pair attribution ->persisted reattribution ->log publication.
+Progress includes '[C266] saved-query attribution; model calls=0; training=0'. There is no model1/20
+or800-step learning loop. The final diagnostic PASS means accounting,not new model capability.
 
 Wrong branch,dirty tracked tree,stale ExpectedHead or stale ACTIVE:operational SKIPPED before logging;
-no scientific execution or log publication. Source/artifact/schema/nonfinite/identity/count/replay/
-test faults require minimal SAME C265 repair. No C266 registration on an invalid attempt.
-Log-only publication failure is repaired without repeating completed evaluation. The user normally
-sends only 'finished';fetch docs/experiment-run-logs/c265/latest.json/latest.log for judgment.
-Do not move this branch with unrelated work during the user's formal run/log publication.
-Gate F NOT PASSED. No paid API,external corpus,model expansion,production adoption,cleanup,
-history rewrite or CI change. Preserve all accepted evidence,recoveries and tools/run_c167.ps1.
-Judge C265 before C266.
+no scientific execution or log publication. Source/artifact/schema/nonfinite/count/reconciliation/
+test faults require minimal SAME C266 recovery;no C267 on an invalid attempt. Do not alter categories
+or discard profiles to obtain a preferred diagnostic story. Log-only publication failures are
+repaired without repeating completed analysis. The user normally sends only 'finished';fetch
+C266 latest.json/latest.log for judgment. Do not move this branch with unrelated work during execution.
+No paid API,external corpus,model expansion,production adoption,cleanup,history rewrite or CI change.
+Preserve all accepted evidence/recoveries and tools/run_c167.ps1. Judge C266 before C267.
