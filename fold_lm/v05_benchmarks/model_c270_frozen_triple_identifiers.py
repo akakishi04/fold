@@ -91,6 +91,8 @@ def prompt_dataset(data,p267):
 
 def validate_dataset(prompts,data,p267):
     require(prompts==prompt_dataset(data,p267) and digest(prompts)==DATA_SHA,"triple dataset identity")
+    old_bytes=set().union(*(set(p267.render(r,p,v).encode()) for split in SPLITS for r in data[split] for p in p267.PROFILES for v in VIEWS))
+    normal_prompts=[]
     for split in SPLITS:
         require(set(prompts[split])==set(PROFILES),"profile coverage")
         for profile in PROFILES:
@@ -98,10 +100,12 @@ def validate_dataset(prompts,data,p267):
             require(len(rows)==len(data[split]) and len({r["views"]["normal"] for r in rows})==len(rows),"unique prompt rows")
             for base,item in zip(data[split],rows,strict=True):
                 require(item["source_id"]==base["id"] and item["target"]==base["target"],"prompt metadata")
+                normal_prompts.append(item["views"]["normal"])
                 for text in item["views"].values():
-                    require(len(text.encode())<=46,"prompt length")
+                    require(len(text.encode())<=46 and set(text.encode())<=old_bytes,"prompt length/new byte")
                 names=name_map(base,profile)
                 require(all(len(x)==3 for x in names.values()),"three-character identifiers")
+    require(len(normal_prompts)==len(set(normal_prompts))==864,"global unique normal prompts")
 
 def replay_old(left,right,data,p267):
     require(set(left)==set(right)==set(SPLITS),"replay splits");error=0.
