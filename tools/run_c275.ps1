@@ -34,10 +34,11 @@ if ($Mode -eq "Validate") {
 
     $Precheck = @'
 from pathlib import Path
-import sys
+import sys,torch
+from unittest.mock import patch
 from fold_lm.v05_benchmarks import model_c275_saved_gate_failure_audit as b
 b.precheck(Path(sys.argv[1]),Path.cwd())
-with __import__("unittest").mock.patch.object(__import__("torch").nn.Module,"_call_impl",side_effect=RuntimeError("preflight forbids model calls")):
+with patch.object(torch.nn.Module,"_call_impl",side_effect=RuntimeError("preflight forbids model calls")):
     _,metrics=b.load_parent(Path(sys.argv[1]))
     audit,summary=b.audit_metrics(metrics)
 assert summary["parent_records"]==10
