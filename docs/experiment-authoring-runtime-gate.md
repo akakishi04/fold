@@ -139,3 +139,28 @@ Before activation, static review must inspect inherited tests that read
 3. legacy compatibility seal that must be retained.
 
 Do not add a new regression exclusion to work around mutable-handoff failures.
+
+
+## Multi-parent fixture fidelity rule
+
+When an experiment verifies more than one parent summary or provenance root, authoring tests must
+model those parent identities independently. A single constant-return hash mock must not stand in
+for multiple required parent hashes.
+
+For every multi-parent `load_parent(...)` path:
+1. enumerate each parent input and its registered SHA separately;
+2. make the test double return the SHA by input identity/path, not by one global constant;
+3. assert that the loader actually queried each expected parent input;
+4. include a negative test where one secondary parent returns the wrong SHA and require the loader
+   to fail before any scientific work;
+5. if a parent verifier receives different argument roles (e.g. parent run directory vs ancestor
+   summary), preserve those roles in the test fixture instead of collapsing them.
+
+Static post-authoring review must compare the number of independently registered parent hashes in
+the benchmark with the number of independently modeled parent hashes in the corresponding own test.
+If the benchmark has N distinct parent hashes and the fixture only models fewer than N identities,
+activation remains pending.
+
+This rule addresses the C276 preflight incident where the real loader correctly required distinct
+C275 and C274 summary hashes,while own test16 used one constant hash for both inputs and therefore
+failed before science.
