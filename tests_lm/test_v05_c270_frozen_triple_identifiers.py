@@ -268,9 +268,15 @@ class C270Tests(unittest.TestCase):
         self.assertEqual(indices,[{1},set(),{1,2,3}])
         failure=re.search(r"(?m)^\s*\$failure\s*=\s*\$null\s*$",launcher);self.assertIsNotNone(failure)
         self.assertLess(launcher.index("::ParseFile"),failure.start());self.assertLess(launcher.index("STALE_EXPECTED_HEAD"),failure.start())
-        calls=[(n.lineno,n.func.id if isinstance(n.func,ast.Name) else n.func.attr if isinstance(n.func,ast.Attribute) else "") for n in ast.walk(ast.parse(inspect.getsource(b.run))) if isinstance(n,ast.Call)]
-        first=lambda name:min(line for line,n in calls if n==name)
-        for a,c in (("precheck","load_reference"),("load_reference","load_bundle"),("load_bundle","probe"),("probe","analyze")):self.assertLess(first(a),first(c))
+        source=inspect.getsource(b.run)
+        phases=("precheck(c269_summary,root)","load_reference(c269_summary)","parent.load_bundle(","probe(model,ref,data,prompts,p267,core,base,factory)","analyze(records,refs,data,p267)")
+        positions=[]
+        for phase in phases:
+            self.assertEqual(source.count(phase),1,phase)
+            positions.append(source.index(phase))
+        self.assertEqual(positions,sorted(positions))
+        phase_lines=[source[:pos].count("\n")+1 for pos in positions]
+        self.assertEqual(len(phase_lines),len(set(phase_lines)))
 
     def test_24_dispatcher_historical_pin_contract(self):
         root=Path(__file__).resolve().parents[1];legacy=(root/"tools/invoke_active.ps1").read_text(encoding="utf-8").encode()
