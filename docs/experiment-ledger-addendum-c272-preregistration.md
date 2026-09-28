@@ -107,7 +107,7 @@ OWN6 benchmark/test/runner/launcher/prereg/design.
 Own24;modules157;loaded3694/focused3693.
 Sole inherited exact C204 exclusion unchanged.
 
-Manifest SHA256 is PENDING_FINAL_SEAL after the protected-input count correction.
+Manifest SHA256:89fd059a478b2190ecd03f8277aae2bafc7fcb12517897f56b4bd6cc89258604.
 Per docs/experiment-authoring-runtime-gate.md it MUST be computed from final committed benchmark
 bytes after all manifest-changing edits,then written identically into benchmark,preregistration and
 handoff,and independently rechecked BEFORE C272 becomes ACTIVE.
