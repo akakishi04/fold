@@ -228,16 +228,18 @@ def precheck(c271_summary,root):
     deps=set(factory.LM_SOURCES)|{n for n in payload["source_blobs"] if re.fullmatch(pattern,n)}|{OWN[0]}
     req(len(deps)==48 and deps<=set(pins),"deps")
     protected.update(audit.protect_tree_files(root,pins))
-    actual_counts=(len(pins),len(protected));actual_manifest=digest(manifest())
+    registration=manifest();expected_counts=(registration["source_pins"],registration["protected_inputs"])
+    actual_counts=(len(pins),len(protected));actual_manifest=digest(registration)
     print(f"registration_check = source_pins:{actual_counts[0]}; protected_inputs:{actual_counts[1]}; manifest_sha256:{actual_manifest}",flush=True)
-    req(actual_counts==(478,826),f"registration counts expected=(478,826) actual={actual_counts}")
+    req(actual_counts==expected_counts,f"registration counts expected={expected_counts} actual={actual_counts}")
     req(MANIFEST_SHA!="PENDING_FINAL_SEAL","manifest not sealed")
     req(actual_manifest==MANIFEST_SHA,f"registration manifest expected={MANIFEST_SHA} actual={actual_manifest}")
     return pins,protected
 
 def validate_result(p):
     req(p["experiment_id"]==EXPERIMENT_ID and p["stage"]==STAGE and p["diagnostic_execution_valid"] is True,"identity")
-    req((len(p["source_blobs"]),len(p["input_sha256"]))==(478,820) and set(OWN)<=set(p["source_blobs"]),"protection")
+    registration=manifest();expected_counts=(registration["source_pins"],registration["protected_inputs"])
+    req((len(p["source_blobs"]),len(p["input_sha256"]))==expected_counts and set(OWN)<=set(p["source_blobs"]),"protection")
     req(len(p["artifacts"])==7 and {x["file"] for x in p["artifacts"]}==set(OUTPUTS),"artifacts")
     s=p["validation_summary"];rr=s["seed_results"];req([(r["seed"],r["arm"]) for r in rr]==identities() and all(type(r["passed"]) is bool for r in rr),"results")
     req(s["candidate_gate"] is all(r["passed"] for r in rr if r["arm"]=="boundary_pair"),"gate")
