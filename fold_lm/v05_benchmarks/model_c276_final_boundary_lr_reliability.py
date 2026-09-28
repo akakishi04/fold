@@ -30,7 +30,7 @@ OWN=("fold_lm/v05_benchmarks/model_c276_final_boundary_lr_reliability.py",
 OUTPUTS=("architecture-plan.json","dataset.json","triple-dataset.json","trained-models.pt",
          "evaluations.pt","measurements.json","validation-summary.json")
 EXCLUDED="tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state"
-MANIFEST_SHA="PENDING_FINAL_SEAL"
+MANIFEST_SHA="312ed892ba64ef1b0289506d44d1e3da05eec6ee85e67b1d3b21cee282e18355"
 
 def req(x,m):
     if not x: raise ValueError(m)
