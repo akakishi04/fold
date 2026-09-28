@@ -3,18 +3,18 @@
 Follow AGENTS.md and docs/experiment-conversation-handoff-protocol.md (response format v2).
 Repository:akakishi04/fold;branch:feat/sft-target-loss;local:M:\asobiba\fold.
 Authoritative scientific runtime:Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
-For this recovery use the versioned entry described below,not the historical generic dispatcher.
+For current C269 execution use the versioned PowerShell7 entry described below,not the historical generic dispatcher.
 
 ## Formal state
 
 Gate A/B PASSED;C/D PASSED in measured scope;Gate E PASSED;Gate F NOT PASSED.
 
-**C268 ACCEPTED VALID NEGATIVE. C269 NOT REGISTERED.**
-Recovered C268 execution aa45ea5df68dcba70c99a009c46b7bf8468304a1 is the authoritative
-scientific result. Candidate ce_pair_margin passed3/5, not the fixed5/5 gate; ce_only also passed3/5.
-The earlier C268 attempt at8c464589b7f9e339b1a8d195b2d73d35c1279e39 remains INVALID history.
-C267 remains ACCEPTED VALID NEGATIVE;C266 diagnostic PASS;C265 negative;C263/C264 bounded PASS.
-No Gate F promotion, production adoption or post-hoc loss retuning.
+**C268 ACCEPTED VALID NEGATIVE. C269 ACTIVE / NOT YET JUDGED. C270 NOT REGISTERED.**
+C268 recovered execution aa45ea5df68dcba70c99a009c46b7bf8468304a1 is the authoritative
+accepted valid negative:ce_pair_margin3/5 and ce_only3/5 against the fixed5/5 candidate gate.
+C269-v5b-paired-query-span-pooling is now the sole ACTIVE experiment. It uses five fresh seeds,
+matched CE-only control/candidate arms and changes only the reader query source.
+No Gate F promotion,production adoption,post-hoc loss retuning or C270 registration.
 
 ## Latest accepted science — C268
 
@@ -26,7 +26,7 @@ Summary SHA256:9e9ea4dd0d20b0ae0b8d315549a1cf1aa13c79853b3dd129c0f01e395a2bf67c.
 run_execution_valid=True;scientific_status=FAIL;candidate_gate=False.
 Seed pass counts:ce_only3/5;ce_pair_margin3/5. Pooled HOLDOUT correct1100/1440 versus1115/1440;
 same-answer collapse114/720 versus107/720. These pooled changes do not override the seed gate.
-C269 is not yet registered; next question is query representation,not another margin retune.
+C269 is registered and ACTIVE; its one question is query representation,not another margin retune.
 
 ## Historical invalid attempt and recovery
 
@@ -68,7 +68,7 @@ If checkout line endings differ,stop and identify the mismatch rather than chang
 
 New user entry:tools/invoke_active_v2.ps1.
 Invoke it with the installed C:\Program Files\PowerShell\7\pwsh.exe -NoProfile -File.
-This explicitly supersedes older generic instructions to invoke tools/invoke_active.ps1 for C268.
+This versioned entry remains the current user execution path for C269 because the historical tools/invoke_active.ps1 is an accepted pinned dependency.
 The new entry preserves the duplicate-result notice without mutating the historical dependency.
 It requires PowerShell Core>=7.3 before logging and sets PSNativeCommandArgumentPassing=Standard.
 It verifies its parser,branch,tracked-tree,unique formal ACTIVE,ExpectedHead,the historical Git blob
@@ -106,96 +106,104 @@ Own24/focused3573 passed;448 source pins/761 protected inputs;all_pairs_matched/
 The acceptance addendum retains complete artifact hashes and interpretation. This recovery neither
 changes C267's scientific result nor rewrites its protected-input manifest.
 
-## Active C268 science — unchanged registration
+## Active C269 science — registered and reviewed
 
-Experiment:C268-v5b-paired-query-discrimination-loss.
-Stage:V5-B-PAIRED-QUERY-DISCRIMINATION-LOSS.
-One question:with identical mixed-name coverage,initial weights,paired batches and800 updates,does
-CE+paired-query discrimination improve held-value binding compared with CE alone?
-Registration:docs/experiment-ledger-addendum-c268-preregistration.md.
-Design:docs/v5b-paired-query-loss-v0.1.md.
-These scientific documents remain authoritative;only their historical dispatcher instructions are
-superseded by the explicit recovery entry above.
+Experiment:C269-v5b-paired-query-span-pooling.
+Stage:V5-B-PAIRED-QUERY-SPAN-POOLING.
+Registration:docs/experiment-ledger-addendum-c269-preregistration.md.
+Design:docs/v5b-query-span-pooling-v0.1.md.
+Acceptance base:edba206232f341059ecd8ab4b572896e0ddb7143.
+C268 parent execution:aa45ea5df68dcba70c99a009c46b7bf8468304a1.
+C268 parent summary SHA256:9e9ea4dd0d20b0ae0b8d315549a1cf1aa13c79853b3dd129c0f01e395a2bf67c.
 
-Five fresh seeds268001..268005;arms ce_only and ce_pair_margin;actual unchanged Full aligned reader,
-14256 parameters. Copy each complete initial state into both arms. No accepted learned-state reuse.
-A batch has24 same-facts/different-query pairs,48 rows,identical between arms. Targets never enter
-model.forward. For target bytes t0,t1 and logits z0,z1:
- d=(z0[t0]-z0[t1])-(z1[t0]-z1[t1]);P=mean(relu(2-d)).
-Control loss=CE;candidate loss=CE+0.1*P. Keep margin2 and coefficient0.1,not a result-driven sweep.
-Low auxiliary loss does not guarantee correct answers;retain CE and the real task gates.
+One question:with the same paired CE-only training,does replacing the actual C252 pre-core EOS
+query vector with a visible query-span pooled pre-core vector improve reliable held-value binding
+across five fresh initializations?
 
-Use exact C267 data:192 TRAIN/96 HOLDOUT logical rows,three naming profiles,all source subsets,
-EN/JA,both fact orders and queries. HOLDOUT value pairs(0,2),(1,3),(2,0),(3,1) stay excluded in every
-training rendering. Dataset SHA256:1e03cf4d6a72700de0d3973459737ffba7dbc843655ebb7439cdedb99805c2f1.
-Shuffle96 pairs each epoch using seed+268000+epoch;four24-pair batches.200 epochs/800 updates;
-each base row200 exposures,profile updates268/268/264. Both arms use the same paired sampler.
-AdamW lr.005,betas.9/.999,eps1e-8,weight_decay0,clip1,fit RNG seed+269000 per arm.
-CPU float64,threads2,deterministic algorithms. No early stop,extra updates or seed selection.
+Fresh seeds269001..269005;arms eos_query and span_query. Control is the actual unchanged C252
+AlignedPrecoreReadout. Candidate has the same14256 parameters,state_dict keys and initial tensor
+values;it changes only the source passed to read.query. Candidate query=mean of masked pre-core local
+states strictly after the final visible ';' byte59 and before the final visible '=' byte61.
+The final '=' must be EOS-1;span is nonempty/delimiter-free. All visible UTF-8 bytes are pooled.
+No entity ID,target,split,profile,pair index or supervision metadata enters model.forward.
+Masked pre-core memory,read.query/key/output,score divisor4,PAD mask,actual Full core,post-core EOS
+residual,readout_norm and decoder remain unchanged. Candidate/control parameter storage is disjoint.
 
-Primary PASS requires all five ce_pair_margin states to pass existing C267 criteria on both splits
-and all profiles. Accuracy>=.90,query-pair correctness>=.80,evidence/query mask drops>=.35,
-two-order consistency>=.80. HOLDOUT answer cells8 rows require8/8. Report controls and30 paired
-HOLDOUT profile/language correct/collapse contrasts independently. No gate rescue by pooled means,
-reduced collapse or low auxiliary loss. All name profiles are trained;no unseen-name claim.
+Use exact C267 dataset SHA256:
+1e03cf4d6a72700de0d3973459737ffba7dbc843655ebb7439cdedb99805c2f1.
+TRAIN192/HOLDOUT96;three entity subsets;EN/JA;both visible orders and queries;all three naming
+profiles. Four held value pairs remain absent from optimization. Names/profiles are TRAIN-seen.
+Both arms use ordinary mean CE only and identical paired batches. Shuffle96 query pairs using
+seed+269000+epoch;24 pairs/batch;four batches/epoch;profile=epoch%3.800 updates=200 epochs;
+each TRAIN row200 exposures;profile updates268/268/264. AdamW lr.005,betas.9/.999,eps1e-8,
+weight_decay0,global clip1;fit RNG seed+270000 per arm;CPU float64,threads2,deterministic.
 
-Workload:10 models,8000 updates,384000 training rows,8540 model forwards,435840 row presentations,
-34160 core calls. Final evaluation27 forwards/2592 rows per model;strict replay repeats that work.
-One new10-state bundle write/load;10 strict loads. Save final raw logits and checkpoints;recompute
-metrics/schedules/contrasts from saved tensors without new neural inference in postcheck.
-The exact parent verifier still checks all761 inherited input hashes including the restored legacy
-entry. No missing/corrupt artifact is substituted or ignored. The restored file removes the known
-operational conflict;the real precheck must verify all remaining user-local files.
+Primary PASS iff all FIVE span_query states meet the unchanged C267 criteria on every split/profile/
+language/entity-subset/order:answer accuracy>=.90,query-pair>=.80,evidence_drop>=.35,
+query_drop>=.35 and two-order>=.80. HOLDOUT answer cells8 rows imply8/8 and paired groups4/4.
+eos_query is a matched control and cannot rescue/fail the candidate. Report30 paired HOLDOUT
+profile/language correct/collapse contrasts. Pooled metrics do not replace the five-seed gate.
 
-## Recovery post-authoring review
+Workload:10 models;8000 optimizer updates;384000 training rows;8540 model forwards;435840 row
+presentations;34160 core calls;540 final/replay evaluation forwards;one10-state bundle write/load;
+10 strict state loads. Persist query-plan,dataset,weights,raw evaluation records,measurements and
+validation summary;postcheck reconstructs schedules/scoring/contrasts with learned Module calls
+blocked. Parent verification is provenance only;no accepted C268 learned state initializes C269.
+
+Protection contract:460 source pins;787 protected inputs;45 deciding-path direct dependencies.
+OWN6:benchmark,own test,runner,launcher,preregistration,design. Own24;modules154;
+loaded3622/focused3621. Sole inherited exact exclusion remains:
+tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state.
+Manifest SHA256:cec2e2bfe254605c5c4a68c3f71bbaf7135de10a4a39af37a9d4b4aef469e2aa.
+Preserve tools/run_c167.ps1 and historical tools/invoke_active.ps1.
+
+## C269 post-authoring review
 
 post_authoring_review = PASS
-review_target_HEAD = 4cd4a6ab62ea8bd8c573135e4a17a82130bf72bc
-Scope:limited recovery source/changed-test review,not full own24 or scientific execution.
+review_target_HEAD = f03df747c89d7d7c93c80f892fb860a6468a264e
+Scope:committed remote-byte/source-contract review;not scientific execution.
 
-Committed restored/new dispatcher,launcher,changed test section and recovery record were re-fetched
-at the immutable review commit. Complete local executable-file Git hashes matched returned blobs:
--tools/invoke_active.ps1:86b5606a5b212b12f416abedac0923da634f88e3;3354 LF bytes.
--tools/invoke_active_v2.ps1:e3923b6224959b442afefa02fafa967e2e6d462e;7048 bytes.
--tools/invoke_c268.ps1:aefd100e35b99e6e4b1ec797b1e56a2fe782c9ec;2838 bytes.
--tests_lm/test_v05_c268_paired_query_loss.py:01489b55b78a0411451f391881a9f227eab65451;21351 bytes.
-Recovery record read back as blob1c90522d8f882fc644deb97bce54903a69d689c3.
-Independent conversion of the accepted LF blob to Windows CRLF reproduces the recorded57a0...SHA256.
-That is not a direct measurement of the user's checkout bytes;the new entry performs that check.
+Compared C268 acceptance edba206232f341059ecd8ab4b572896e0ddb7143 to the immutable review target:
+only C269 OWN6 paths differ. No accepted benchmark,test,runner,artifact,legacy dispatcher or C268 log
+was modified. Re-fetched complete C269 OWN6 identities at the review target:
+-benchmark blob eb8e441e442530e377c5aad1db0c05552288c5d7;23933 UTF-8 characters.
+-test blob adc42ee9181d5c77b53d0ebaf31ed4d399f33f11;18166 UTF-8 characters.
+-runner blob31306abaee3761865a184089250ec2366cc158f4;4758 characters.
+-launcher blob5cc45a0e5f11c500a58c33a74fcf344cfb16e877;2842 characters.
+-preregistration blob4b80da1347f12dbfacf26b50d2251374e3bbe9c4;6800 characters.
+-design blobaff1653a6aeea1118574a21f4086c1b76ef83199;3023 characters.
+No NUL was found in any OWN file. Manifest was independently reconstructed from committed constants
+and hashes to cec2e2bfe254605c5c4a68c3f71bbaf7135de10a4a39af37a9d4b4aef469e2aa.
+The committed test defines exactly24 distinct numbered test methods. The runner has exactly three
+embedded Python blocks with sys.argv index sets {1},{},{1,2,3};launcher branch/tree/ExpectedHead/
+ACTIVE-C269 and runner-ParseFile guards precede the logging failure boundary.
 
-Executed the actual changed test24 body in an AST-extracted isolated unittest,without the unrelated
-neural setUpClass:1/1 PASS. Repeated after committed-byte/hash readback:1/1 PASS. The other23 test
-bodies and setUpClass were AST-compared to the original C268 test file and are unchanged.
-Whole test file compiles;UTF-8/NUL checks and semantic24-test-definition count pass. These facts do
-not claim all24 tests ran. The test checks both historical hashes,new-entry fixed hash,version guard,
-Standard argument setting,legacy pin guards,branch/tree/ACTIVE/stale checks,parser-before-launch,
-metadata matching and no ExpectedHead substitution. It is static PowerShell source verification.
-No PowerShell executable was present in the review container. No ParseFile execution,full repository
-import graph,full own24,full3597 regression or real parent-artifact replay was available locally.
-The review environment is not the authoritative Windows environment. All those checks remain
-mandatory on the user's runtime before training. Do not repeat prior overbroad review claims.
+Review confirmed query_span_mask accepts only token IDs and derives the span from final semicolon/
+equals/EOS delimiters;fit passes only token batches and zero task IDs to model.forward and uses target
+bytes only in CE. The own tests cover ASCII,all UTF-8 bytes,query_blind '?',malformed boundaries,
+all actual TRAIN/HOLDOUT renderings across all profiles/views,matched complete initial state,
+query-source formula,post-core residual provenance,gradient flow,schedule/gate/replay/protection and
+historical dispatcher pins. Source call-order assertions cover precheck before training tables,
+model construction before train,training before bundle load,and replay before scoring.
 
-Compared invalid-log commit to recovery code commit:five changed paths only,as listed in this
-recovery;no scientific benchmark,runner,dataset,manifest,parent test/verifier or old log changed.
-Only this handoff commit follows that code review. Use the FINAL recovery branch HEAD,not the code
-review HEAD,the old8c464...execution HEAD or ddcb69...log HEAD. Re-read branch ref before the command.
+No authoritative Windows repository/runtime is available to this reviewer. Therefore no claim is
+made that PowerShell ParseFile,py_compile,all own24,full3621 regression,C268 local-artifact replay or
+real ten-model learning has already run. Those remain mandatory gates in the user's Windows runtime.
+Synthetic/toy authoring tests are implementation evidence only,not scientific capability evidence.
 
-## Execution and stopping
+## C269 execution and stopping
 
-The retry entry is tools/invoke_active_v2.ps1 through the explicit PowerShell7 executable.
-Parse the dispatcher in the user block;the entry parses itself and the selected launcher;the
-launcher parses run_c268.ps1. Version guards precede logging. Expect legacy_dispatcher_pin=PASS,
-powershell_host with Standard arguments,and active_experiment=C268. Then unchanged parent precheck,
-own24,focused3597,ten-model training,strict replay,persisted postcheck and log publication follow.
+User entry:tools/invoke_active_v2.ps1 through explicit
+C:\Program Files\PowerShell\7\pwsh.exe -NoProfile -File. The historical invoke_active.ps1 must
+remain unchanged. The user block parses the versioned dispatcher;it parses itself and selected
+launcher;invoke_c269 parses run_c269 before logging. Expect legacy_dispatcher_pin=PASS,
+active_experiment=C269,then parent/task precheck460/787,own24,focused3621,ten models with
+200/400/600/800 progress,strict replay,persisted postcheck and log publication.
 
-If a preflight skips,report the reason and do not force a run. LEGACY_DISPATCHER_BYTES_MISMATCH
-requires checking the reported raw-byte discrepancy,not changing the recorded expected hash.
-Further parent-input failures require identifying the actual file and restoring its provenance.
-If science completes with FAIL but execution-validity passes,judge that as a valid negative,not a
-reason to retune. If only publication fails,repair transport without repeating completed training.
-On 'finished',read C268's new latest metadata/log (use blob API for >1MB) before replying. Never
-recycle a C267/C266 answer or command. No C269 until C268 has a valid judged result.
-Do not move the experiment branch with unrelated changes during the user's execution/publication.
-No paid API,external corpus,model expansion,production adoption,cleanup,history rewrite or CI changes.
-Historical details are preserved in all acceptance/recovery addenda and in the prior handoff at
-8c464589b7f9e339b1a8d195b2d73d35c1279e39. Gate F NOT PASSED. Preserve tools/run_c167.ps1.
+If branch/tree/HEAD/ACTIVE/parser/legacy-byte preflight skips,do not force execution or alter an
+expected hash. If parent/source/artifact/replay/regression validity fails,repair SAME C269 only.
+If scientific_status=FAIL with run_execution_valid=True,accept the valid negative without tuning
+pooling,loss,steps,seeds or thresholds. If log transport alone fails,repair publication without
+retraining. On user 'finished',fetch C269 latest.json/latest.log from remote and judge C269 before
+registering C270. Do not move the experiment branch during execution/publication. Gate F NOT PASSED.
+No paid API,external corpus,production adoption,cleanup,history rewrite or CI change.
