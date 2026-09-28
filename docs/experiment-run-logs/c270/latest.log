@@ -1,0 +1,50 @@
+=== C270 repository preflight ===
+execution_head = 11ae165db9dbb73239360a20c9c7cf005cd9c19f
+expected_focused_tests = 3645 (3646 loaded -1 inherited exact exclusion)
+Gate_F = NOT_PASSED; models = 10; new_training = 0; model_forwards = 810; rows = 77760
+registration_check = source_pins:466; protected_inputs:800; manifest_sha256:3fa2e3267b08c6ea528bfdb52bc7ad0e932e3215945e5231bdf38a48e453f016
+source_and_artifact_precheck = PASS; source_pins = 466; protected_inputs = 800
+triple_identifier_dataset_sha256 = 432846dfd78f5f03c7268753460b9ab71957906c7b400e700e8d4e1f0816af73
+new_training = 0; new_normal_rows_per_model = 864
+=== C270 own authoring tests first: 24 ===
+test_01_manifest_and_dataset_hashes (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_01_manifest_and_dataset_hashes) ... ok
+test_02_profile_maps_are_three_characters_and_distinct (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_02_profile_maps_are_three_characters_and_distinct) ... ok
+test_03_three_character_names_are_unseen_in_c269_training_profiles (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_03_three_character_names_are_unseen_in_c269_training_profiles) ... ok
+test_04_prompt_dataset_complete_unique_and_within_limit (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_04_prompt_dataset_complete_unique_and_within_limit) ... ok
+test_05_ascii_and_utf8_examples (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_05_ascii_and_utf8_examples) ... ok
+test_06_mask_rendering_keeps_name_semantics (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_06_mask_rendering_keeps_name_semantics) ... ok
+test_07_corrupt_prompt_dataset_rejected (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_07_corrupt_prompt_dataset_rejected) ... ok
+test_08_perfect_scoring_passes_all_cells (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_08_perfect_scoring_passes_all_cells) ... ok
+test_09_weak_cell_cannot_be_pooled_away (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_09_weak_cell_cannot_be_pooled_away) ... ok
+test_10_mask_gates_remain_required (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_10_mask_gates_remain_required) ... ok
+test_11_replay_tolerance_and_argmax (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_11_replay_tolerance_and_argmax) ... ok
+test_12_actual_probe_preserves_frozen_state_and_counts (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_12_actual_probe_preserves_frozen_state_and_counts) ... ok
+test_13_probe_rejects_training_mode (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_13_probe_rejects_training_mode) ... ok
+test_14_analyze_requires_all_states_and_candidate_gate (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_14_analyze_requires_all_states_and_candidate_gate) ... ok
+test_15_control_failure_does_not_fail_candidate (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_15_control_failure_does_not_fail_candidate) ... ok
+test_16_saved_identity_count_and_replay_guards (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_16_saved_identity_count_and_replay_guards) ... ok
+test_17_parent_loader_requires_c269_pass_and_reduced_schema (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_17_parent_loader_requires_c269_pass_and_reduced_schema) ... ok
+test_18_result_validation_scope_and_workload (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_18_result_validation_scope_and_workload) ... ok
+test_19_no_training_or_optimizer_calls_in_scientific_run (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_19_no_training_or_optimizer_calls_in_scientific_run) ... ok
+test_20_actual_run_orchestration_and_saved_postcheck (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_20_actual_run_orchestration_and_saved_postcheck) ... ok
+test_21_semantic_suite_count_and_exact_filter (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_21_semantic_suite_count_and_exact_filter) ... ok
+test_22_dependency_and_resource_contract (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_22_dependency_and_resource_contract) ... ok
+test_23_runner_cli_and_call_order (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_23_runner_cli_and_call_order) ... FAIL
+test_24_dispatcher_historical_pin_contract (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_24_dispatcher_historical_pin_contract) ... ok
+
+======================================================================
+FAIL: test_23_runner_cli_and_call_order (tests_lm.test_v05_c270_frozen_triple_identifiers.C270Tests.test_23_runner_cli_and_call_order)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "M:\asobiba\fold\tests_lm\test_v05_c270_frozen_triple_identifiers.py", line 273, in test_23_runner_cli_and_call_order
+    for a,c in (("precheck","load_reference"),("load_reference","load_bundle"),("load_bundle","probe"),("probe","analyze")):self.assertLess(first(a),first(c))
+                                                                                                                            ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: 8 not less than 8
+
+----------------------------------------------------------------------
+Ran 24 tests in 14.879s
+
+FAILED (failures=1)
+=== C270 POSTCHECK ===
+tracked_tree = clean; execution_HEAD = preserved
+run_execution_valid = False
