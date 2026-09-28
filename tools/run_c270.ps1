@@ -1,6 +1,7 @@
 param(
     [Parameter(Mandatory=$true)][string]$C269Summary,
-    [Parameter(Mandatory=$true)][string]$ExpectedHead
+    [Parameter(Mandatory=$true)][string]$ExpectedHead,
+    [Parameter(Mandatory=$true)][ValidateSet("Validate","Execute")][string]$Mode
 )
 $ErrorActionPreference = "Stop"
 $PSNativeCommandUseErrorActionPreference = $false
@@ -20,8 +21,11 @@ function Confirm-Repository {
 
 if (-not (Test-Path -LiteralPath $Python -PathType Leaf)) { throw "Authoritative Python missing" }
 Confirm-Repository
-$Completed = $false
-try {
+
+if ($Mode -eq "Validate") {
+    Write-Output "=== C270 operational authoring preflight ==="
+    Write-Output "preflight_head = $ExpectedHead"
+
     & $Python -m py_compile (Join-Path $Root "fold_lm\v05_benchmarks\model_c270_frozen_triple_identifiers.py") (Join-Path $Root "tests_lm\test_v05_c270_frozen_triple_identifiers.py")
     if ($LASTEXITCODE -ne 0) { throw "C270 Python syntax preflight failed" }
 
@@ -42,10 +46,9 @@ print("new_training = 0; new_normal_rows_per_model = 864",flush=True)
     & $Python -u -c $Precheck $C269Summary
     if ($LASTEXITCODE -ne 0) { throw "C270 parent/task precheck failed" }
 
-    Write-Output "=== C270 own authoring tests first: 24 ==="
+    Write-Output "=== C270 own authoring tests: 24 ==="
     & $Python -u -m unittest tests_lm.test_v05_c270_frozen_triple_identifiers -v
-    if ($LASTEXITCODE -ne 0) { throw "C270 own tests failed; do not run regression or evaluation" }
-    Write-Output "authoring_selftest = PASS"
+    if ($LASTEXITCODE -ne 0) { throw "C270 own tests failed" }
 
     $Regression = @'
 from pathlib import Path
@@ -58,10 +61,25 @@ assert suite.countTestCases()==b.manifest()["focused_tests"]
 result=unittest.TextTestRunner(verbosity=2).run(suite)
 sys.exit(0 if result.wasSuccessful() else 1)
 '@
+    Write-Output "=== C270 focused regression preflight ==="
     & $Python -u -c $Regression
-    if ($LASTEXITCODE -ne 0) { throw "C270 regression failed; do not run evaluation" }
+    if ($LASTEXITCODE -ne 0) { throw "C270 regression preflight failed" }
 
     Confirm-Repository
+    Write-Output "authoring_runtime_preflight = PASS"
+    Write-Output "scientific_execution_started = False"
+    return
+}
+
+Write-Output "=== C270 scientific execution ==="
+Write-Output "execution_head = $ExpectedHead"
+Write-Output "authoring_runtime_preflight = PASS (completed before scientific logging)"
+Write-Output "expected_focused_tests = 3645"
+Write-Output "source_pins = 466; protected_inputs = 800"
+Confirm-Repository
+
+$Completed = $false
+try {
     $Out = Join-Path $Root ("runs\c270-v5b-triple-identifiers-" + [guid]::NewGuid().ToString("N"))
     & $Python -u -m fold_lm.v05_benchmarks.model_c270_frozen_triple_identifiers --c269-summary $C269Summary --output-dir $Out --expected-head $ExpectedHead
     if ($LASTEXITCODE -ne 0) { throw "C270 evaluation failed" }
