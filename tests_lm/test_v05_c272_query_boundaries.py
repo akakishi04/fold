@@ -59,7 +59,7 @@ def records(data):
 def protection():
     pins={f"old-{i}":"fixture" for i in range(472)}
     pins.update({x:"fixture" for x in b.OWN})
-    return pins,{f"input-{i}":"0"*64 for i in range(820)}
+    return pins,{f"input-{i}":"0"*64 for i in range(826)}
 
 class C272Tests(unittest.TestCase):
     @classmethod
@@ -229,7 +229,7 @@ class C272Tests(unittest.TestCase):
         pattern=next(n.value.value for n in ast.walk(tree) if isinstance(n,ast.Assign) and any(isinstance(t,ast.Name) and t.id=="pattern" for t in n.targets))
         names=["fold_lm/v05_benchmarks/gate_f_c230_prepared_capsule.py"]+[f"fold_lm/v05_benchmarks/model_c{i}_fixture.py" for i in range(231,272)]
         self.assertTrue(all(re.fullmatch(pattern,n) for n in names));self.assertEqual(5+len(names)+1,48)
-        self.assertEqual(812+1+len(b.PARENT_ARTIFACTS)+len(b.OWN),820)
+        self.assertEqual(812+1+len(b.PARENT_ARTIFACTS)+len(b.OWN),826)
         self.assertEqual(10*(854+54),b.manifest()["model_forward_calls"])
 
     def test_22_runner_validate_execute_and_cli_contract(self):
