@@ -33,7 +33,7 @@ OWN=("fold_lm/v05_benchmarks/model_c272_query_boundaries.py",
 OUTPUTS=("architecture-plan.json","dataset.json","triple-dataset.json","trained-models.pt",
          "evaluations.pt","measurements.json","validation-summary.json")
 EXCLUDED="tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state"
-MANIFEST_SHA="222be24ae7e97d1cb3028ede4a5ab6f85520145ba4f20cc3d54ab9a918272cc5"
+MANIFEST_SHA="PENDING_FINAL_SEAL"
 
 def req(x,m):
     if not x: raise ValueError(m)
@@ -64,7 +64,7 @@ def manifest():
         row_presentations=487680,core_forward_calls=36320,evaluation_forwards=1080,
         checkpoint_bundle_loads=1,model_state_loads=10,new_checkpoint_writes=1,
         raw_logit_payload_bytes=106168320,
-        source_pins=478,protected_inputs=820,direct_dependencies=48,
+        source_pins=478,protected_inputs=826,direct_dependencies=48,
         own_tests=24,modules=157,loaded_tests=3694,focused_tests=3693,excluded_test=EXCLUDED,
         dtype="CPU float64",threads=2,deterministic=True,replay_tolerance=TOL,network_calls=0,
         gate_f_candidate=False,production_adoption=False,unseen_name_transfer_claim=False,
@@ -230,7 +230,7 @@ def precheck(c271_summary,root):
     protected.update(audit.protect_tree_files(root,pins))
     actual_counts=(len(pins),len(protected));actual_manifest=digest(manifest())
     print(f"registration_check = source_pins:{actual_counts[0]}; protected_inputs:{actual_counts[1]}; manifest_sha256:{actual_manifest}",flush=True)
-    req(actual_counts==(478,820),f"registration counts expected=(478,820) actual={actual_counts}")
+    req(actual_counts==(478,826),f"registration counts expected=(478,826) actual={actual_counts}")
     req(MANIFEST_SHA!="PENDING_FINAL_SEAL","manifest not sealed")
     req(actual_manifest==MANIFEST_SHA,f"registration manifest expected={MANIFEST_SHA} actual={actual_manifest}")
     return pins,protected
