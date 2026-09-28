@@ -276,7 +276,7 @@ class C270Tests(unittest.TestCase):
         self.assertIn('[ValidateSet("Validate","Execute")]',runner_source)
         self.assertLess(runner_source.index('if ($Mode -eq "Validate")'),runner_source.index('=== C270 scientific execution ==='))
         source=inspect.getsource(b.run)
-        phases=("precheck(c269_summary,root)","load_reference(c269_summary)","parent.load_bundle(","probe(model,ref,data,prompts,p267,core,base,factory)","analyze(records,refs,data,p267)")
+        phases=("pins,protected=precheck(c269_summary,root)","data,refs=load_reference(c269_summary)","states=parent.load_bundle(","probe(model,ref,data,prompts,p267,core,base,factory)","metrics,summary=analyze(records,refs,data,p267)")
         positions=[]
         for phase in phases:
             self.assertEqual(source.count(phase),1,phase)
