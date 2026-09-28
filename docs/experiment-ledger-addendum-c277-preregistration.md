@@ -95,7 +95,7 @@ OWN6 benchmark/test/runner/launcher/prereg/design.
 Own24;modules162;loaded3814/focused3813.
 Sole inherited exact C204 exclusion unchanged.
 
-Manifest SHA256 is PENDING_FINAL_SEAL during authoring.
+Manifest SHA256:50796e76783611eb04649fd47c450f3fe47d05a34fc0c787168fa38e612d8de9.
 Registration cardinalities are manifest-derived at runtime.
 After all manifest-changing edits,seal benchmark/prereg/handoff identically before activation.
 Multi-parent test fixtures must model C276/C275/C274 hashes independently.
