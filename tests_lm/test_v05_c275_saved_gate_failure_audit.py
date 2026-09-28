@@ -185,6 +185,8 @@ class C275Tests(unittest.TestCase):
         self.assertLess(launcher.index("-Mode Validate"),launcher.index("$failure = $null"))
         self.assertGreater(launcher.index("-Mode Execute"),launcher.index("$failure = $null"))
         blocks=re.findall(r"@'\n(.*?)\n'@",runner,re.S);self.assertEqual(len(blocks),3)
+        self.assertIn("from unittest.mock import patch",blocks[0])
+        self.assertNotIn('__import__("unittest").mock',blocks[0])
         sets=[]
         for x in blocks:
             compile(x,"embedded","exec");sets.append({int(m.group(1)) for m in re.finditer(r"sys\.argv\[(\d+)\]",x)})
