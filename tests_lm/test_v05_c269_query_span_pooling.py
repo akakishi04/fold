@@ -115,7 +115,6 @@ class C269Tests(unittest.TestCase):
             for row in rows:
                 chars=("a","b","c") if row["language"]=="en" else ("甲","乙","丙")
                 i,j=row["entities"];u,v=chars[i],chars[j]
-                names={i:u+u,j:(v+v if "PROFILE"=="doubled" else u+v)}
                 for profile in b.PROFILES:
                     names={i:u+u,j:v+v if profile=="doubled" else u+v if profile=="shared_prefix" else v+u}
                     for view in b.VIEWS:
