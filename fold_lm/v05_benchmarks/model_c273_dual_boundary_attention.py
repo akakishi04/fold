@@ -33,7 +33,7 @@ OWN=("fold_lm/v05_benchmarks/model_c273_dual_boundary_attention.py",
 OUTPUTS=("architecture-plan.json","dataset.json","triple-dataset.json","trained-models.pt",
          "evaluations.pt","measurements.json","validation-summary.json")
 EXCLUDED="tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state"
-MANIFEST_SHA="PENDING_FINAL_SEAL"
+MANIFEST_SHA="fd38d800c08dcf7fb783f6f5c156169e75b29b1208c175d32259e2d4c77eea7f"
 
 def req(x,m):
     if not x: raise ValueError(m)
