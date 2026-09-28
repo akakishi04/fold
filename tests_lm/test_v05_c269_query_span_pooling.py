@@ -110,9 +110,20 @@ class C269Tests(unittest.TestCase):
         self.assertEqual(got,["甲甲".encode(),"乙甲".encode()])
         self.assertEqual([int(x.sum()) for x in mask],[6,6])
 
-    def test_04_query_blind_span_is_visible_question_mark(self):
-        x=prefix(b"aa=0;ba=1;?=").unsqueeze(0);mask=b.query_span_mask(x)
-        self.assertEqual(bytes(x[0][mask[0]].tolist()),b"?")
+    def test_04_all_dataset_renderings_extract_only_visible_query(self):
+        for split,rows in self.data.items():
+            for row in rows:
+                chars=("a","b","c") if row["language"]=="en" else ("甲","乙","丙")
+                i,j=row["entities"];u,v=chars[i],chars[j]
+                names={i:u+u,j:(v+v if "PROFILE"=="doubled" else u+v)}
+                for profile in b.PROFILES:
+                    names={i:u+u,j:v+v if profile=="doubled" else u+v if profile=="shared_prefix" else v+u}
+                    for view in b.VIEWS:
+                        raw=p267.render(row,profile,view).encode()
+                        x=prefix(raw).unsqueeze(0);mask=b.query_span_mask(x)
+                        got=bytes(x[0][mask[0]].tolist())
+                        want=b"?" if view=="query_blind" else names[row["query"]].encode()
+                        self.assertEqual(got,want,(split,row["id"],profile,view))
 
     def test_05_invalid_query_boundaries_rejected(self):
         for raw in (b"aa=",b"aa=0;aa",b"aa=0;=",b"aa=0;a=b="):
@@ -154,7 +165,7 @@ class C269Tests(unittest.TestCase):
         eos=(self.span_tokens!=256).sum(1)-1
         post=cap["post"][torch.arange(4),eos]
         self.assertEqual(cap["norm"].shape,post.shape)
-        self.assertTrue(torch.isfinite(cap["norm"]).all())
+        self.assertTrue(torch.equal(cap["norm"],post))
         self.assertTrue(torch.isfinite(post).all())
 
     def test_09_forward_shape_finite_and_hooks_cleanup(self):
