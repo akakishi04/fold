@@ -40,7 +40,7 @@ OWN=("fold_lm/v05_benchmarks/model_c277_saved_lr_failure_profile_audit.py",
      "docs/v5b-saved-lr-failure-profile-audit-v0.1.md")
 OUTPUTS=("audit-plan.json","failure-profile.json","validation-summary.json")
 EXCLUDED="tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state"
-MANIFEST_SHA="PENDING_FINAL_SEAL"
+MANIFEST_SHA="50796e76783611eb04649fd47c450f3fe47d05a34fc0c787168fa38e612d8de9"
 
 def req(x,m):
     if not x: raise ValueError(m)
