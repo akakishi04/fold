@@ -154,10 +154,19 @@ def precheck(c270_summary,c269_summary,root):
     print("registration_check = source_pins:472; protected_inputs:812; manifest_sha256:"+MANIFEST_SHA,flush=True);return pins,protected
 
 def validate_result(p):
-    s=p["validation_summary"];rr=s["seed_results"];req(p["diagnostic_execution_valid"] is True and (len(p["source_blobs"]),len(p["input_sha256"]))==(472,812),"identity");req(len(p["artifacts"])==7 and {x["file"] for x in p["artifacts"]}==set(OUTPUTS),"artifacts");req([(r["seed"],r["arm"]) for r in rr]==identities(),"results");req(s["candidate_gate"] is all(r["passed"] for r in rr if r["arm"]=="endpoint_span"),"gate");req(len(s["contrasts"])==90 and s["all_replays"] is True and s["all_pairs_matched"] is True,"summary");req(p["status"]==("PASS" if s["candidate_gate"] else "FAIL"),"status")
+    req(p["experiment_id"]==EXPERIMENT_ID and p["stage"]==STAGE and p["diagnostic_execution_valid"] is True,"identity")
+    req((len(p["source_blobs"]),len(p["input_sha256"]))==(472,812) and set(OWN)<=set(p["source_blobs"]),"protection")
+    req(len(p["artifacts"])==7 and {x["file"] for x in p["artifacts"]}==set(OUTPUTS),"artifacts")
+    s=p["validation_summary"];rr=s["seed_results"];req([(r["seed"],r["arm"]) for r in rr]==identities() and all(type(r["passed"]) is bool for r in rr),"results")
+    req(s["candidate_gate"] is all(r["passed"] for r in rr if r["arm"]=="endpoint_span"),"gate")
+    req(s["seed_pass_counts"]=={a:sum(r["passed"] for r in rr if r["arm"]==a) for a in ARMS},"seed counts")
+    req(s["two_char_pass_counts"]=={a:sum(r["two_char_pass"] for r in rr if r["arm"]==a) for a in ARMS} and s["triple_pass_counts"]=={a:sum(r["triple_pass"] for r in rr if r["arm"]==a) for a in ARMS},"subgate counts")
+    for k in ("models","train_steps","training_rows","model_forward_calls","row_presentations","core_forward_calls","checkpoint_bundle_loads","model_state_loads","new_checkpoint_writes"):req(type(s[k]) is int and s[k]==manifest()[k],"workload:"+k)
+    req(len(s["contrasts"])==90 and s["all_replays"] is True and s["all_pairs_matched"] is True and p["status"]==("PASS" if s["candidate_gate"] else "FAIL"),"status")
+    req(all(p[k] is False for k in ("gate_f_candidate","production_adoption","unseen_name_transfer_claim","arbitrary_name_claim","causal_parser_claim")),"scope")
 
 def load_bundle(path):
-    v=torch.load(path,map_location="cpu",weights_only=True);req(v["schema"]=="fold-c271-query-endpoint-models-v1" and v["identities"]==[list(x) for x in identities()],"bundle");return v["states"]
+    v=torch.load(path,map_location="cpu",weights_only=True);req(set(v)=={"schema","identities","states"} and v["schema"]=="fold-c271-query-endpoint-models-v1" and v["identities"]==[list(x) for x in identities()] and len(v["states"])==10,"bundle");return v["states"]
 def flatten(s):
     for x in s:
         if isinstance(x,unittest.TestSuite):yield from flatten(x)
@@ -165,7 +174,7 @@ def flatten(s):
 def regression_modules(root):
     names=context()[0].regression_modules(root);req(len(names)==156-1,"modules");return names+["tests_lm.test_v05_c271_query_endpoint"]
 def regression_suite(root):
-    tests=list(flatten(unittest.defaultTestLoader.loadTestsFromNames(regression_modules(root))));ids=[t.id() for t in tests];req(ids.count(EXCLUDED)==1,"exclude");kept=[t for t in tests if t.id()!=EXCLUDED];req((len(tests),len(kept))==(3670,3669),"suite");return unittest.TestSuite(kept)
+    tests=list(flatten(unittest.defaultTestLoader.loadTestsFromNames(regression_modules(root))));ids=[t.id() for t in tests];req(len(ids)==len(set(ids)) and ids.count(EXCLUDED)==1,"exclude");kept=[t for t in tests if t.id()!=EXCLUDED];req((len(tests),len(kept))==(3670,3669),"suite");return unittest.TestSuite(kept)
 
 def run(*,c270_summary,c269_summary,output_dir,expected_head):
     c270,c269,p267,core,base,aligned,reader,factory,audit=context();root=Path(__file__).resolve().parents[2]
@@ -183,13 +192,20 @@ def run(*,c270_summary,c269_summary,output_dir,expected_head):
     metrics,summary=analyze(records,data,prompts,p267,c270);torch.save(dict(schema="fold-c271-query-endpoint-eval-v1",records=records),out/"evaluations.pt")
     for n,v in (("architecture-plan.json",manifest()),("dataset.json",data),("triple-dataset.json",prompts),("measurements.json",metrics),("validation-summary.json",summary)):(out/n).write_bytes(blob(v))
     artifacts=[dict(file=n,sha256=audit.sha(out/n),serialized_bytes=(out/n).stat().st_size) for n in OUTPUTS];guard();precheck(c270_summary,c269_summary,root)
+    for n,w in protected.items():req(audit.sha(n)==w,"modified input")
     payload=dict(experiment_id=EXPERIMENT_ID,stage=STAGE,commit_sha=expected_head,status="PASS" if summary["candidate_gate"] else "FAIL",diagnostic_execution_valid=True,source_blobs=pins,input_sha256=protected,artifacts=artifacts,validation_summary=summary,gate_f_candidate=False,production_adoption=False,unseen_name_transfer_claim=False,arbitrary_name_claim=False,causal_parser_claim=False)
     validate_result(payload);(out/"summary.json").write_bytes(blob(payload));print("=== C271 RESULT ===");print(blob(payload).decode());return payload
 
 def verify_artifacts(outdir,expected_head):
     c270,_,p267,*rest=context();audit=rest[-1];out=Path(outdir);p=audit.read_json(out/"summary.json");validate_result(p);req(p["commit_sha"]==expected_head,"HEAD")
+    for n,w in p["input_sha256"].items():req(audit.sha(n)==w,"postcheck input")
+    for x in p["artifacts"]:
+        child=audit.safe_child(out,x["file"]);req(audit.sha(child)==x["sha256"] and child.stat().st_size==x["serialized_bytes"],"output bytes")
     with patch.object(torch.nn.Module,"_call_impl",side_effect=RuntimeError("postcheck forbids model calls")):
-        data=audit.read_json(out/"dataset.json");prompts=audit.read_json(out/"triple-dataset.json");v=torch.load(out/"evaluations.pt",map_location="cpu",weights_only=True);metrics,summary=analyze(v["records"],data,prompts,p267,c270)
+        data=audit.read_json(out/"dataset.json");p267.validate_data(data);prompts=audit.read_json(out/"triple-dataset.json");c270.validate_dataset(prompts,data,p267)
+        v=torch.load(out/"evaluations.pt",map_location="cpu",weights_only=True);req(set(v)=={"schema","records"} and v["schema"]=="fold-c271-query-endpoint-eval-v1","eval schema")
+        metrics,summary=analyze(v["records"],data,prompts,p267,c270)
+        for n,val in (("architecture-plan.json",manifest()),("measurements.json",metrics),("validation-summary.json",summary)):req(audit.read_json(out/n)==val,"persisted:"+n)
     req(summary==p["validation_summary"],"summary");return p,metrics
 
 def main():
