@@ -64,3 +64,24 @@ the invocation enter scientific execution/logging.
 This operational split does not change scientific data,weights,seeds,thresholds,model structure or
 registered hypotheses. A failure during Execute after Validate is still a scientific/runtime
 integrity failure and retries the SAME C number. A valid capability miss remains accepted evidence.
+
+
+## Manifest sealing rule
+
+Registration hashes are sealed only after the final committed scientific/authoring source is stable.
+
+Before activation:
+1. finish all benchmark/test/runner/launcher edits that can change `manifest()`;
+2. compute `digest(manifest())` from the final committed benchmark source;
+3. write that exact value into `MANIFEST_SHA`, preregistration and handoff;
+4. re-fetch the committed benchmark and independently recompute the digest;
+5. only then mark post-authoring review complete or update the experiment to ACTIVE.
+
+Any edit to fields returned by `manifest()` invalidates the previous seal and requires steps2-4 again.
+
+Runtime precheck must report actual source-pin count, actual protected-input count and actual manifest
+digest before asserting them. Count mismatch and manifest mismatch must have separate error messages;
+do not combine them into one generic `registration` failure.
+
+Static review notes must quote the final committed manifest digest, not a value copied from an earlier
+draft. If the reviewer cannot recompute it from final committed bytes, activation remains pending.
