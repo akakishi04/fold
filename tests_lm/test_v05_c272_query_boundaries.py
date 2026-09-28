@@ -230,6 +230,10 @@ class C272Tests(unittest.TestCase):
         names=["fold_lm/v05_benchmarks/gate_f_c230_prepared_capsule.py"]+[f"fold_lm/v05_benchmarks/model_c{i}_fixture.py" for i in range(231,272)]
         self.assertTrue(all(re.fullmatch(pattern,n) for n in names));self.assertEqual(5+len(names)+1,48)
         self.assertEqual(812+1+len(b.PARENT_ARTIFACTS)+len(b.OWN),826)
+        self.assertEqual((b.manifest()["source_pins"],b.manifest()["protected_inputs"]),(478,826))
+        self.assertNotIn("(478,820)",inspect.getsource(b.validate_result))
+        self.assertIn('registration["protected_inputs"]',inspect.getsource(b.validate_result))
+        self.assertIn('registration["protected_inputs"]',inspect.getsource(b.precheck))
         self.assertEqual(10*(854+54),b.manifest()["model_forward_calls"])
 
     def test_22_runner_validate_execute_and_cli_contract(self):
