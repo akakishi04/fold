@@ -3,18 +3,18 @@
 Follow AGENTS.md and docs/experiment-conversation-handoff-protocol.md (response format v2).
 Repository:akakishi04/fold;branch:feat/sft-target-loss;local:M:\asobiba\fold.
 Authoritative scientific runtime:Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
-For current C269 execution use the versioned PowerShell7 entry described below,not the historical generic dispatcher.
+For current C270 execution use the versioned PowerShell7 entry described below,not the historical generic dispatcher.
 
 ## Formal state
 
 Gate A/B PASSED;C/D PASSED in measured scope;Gate E PASSED;Gate F NOT PASSED.
 
-**C269 ACCEPTED PASS (bounded query-span capability). C270 NOT REGISTERED.**
+**C269 ACCEPTED PASS (bounded query-span capability). C270 ACTIVE / NOT YET JUDGED. C271 NOT REGISTERED.**
 C269 span_query passed5/5 against the fixed gate;matched eos_query control passed4/5.
-Candidate HOLDOUT normal answers1440/1440 with zero collapse across720 query pairs.
-This is positive evidence for the registered structured query-source intervention only.
+C270-v5b-frozen-triple-identifiers is now the sole ACTIVE experiment. It freezes all ten C269 final
+states and tests transfer to unseen three-character familiar-byte identifier strings.
 C268 remains ACCEPTED VALID NEGATIVE;all earlier verdicts/recovery records are preserved.
-No Gate F promotion,production adoption,general parser claim or C271 registration.
+No Gate F promotion,production adoption,arbitrary-name claim or C271 registration.
 
 ## Latest accepted science — C269
 
@@ -79,7 +79,7 @@ If checkout line endings differ,stop and identify the mismatch rather than chang
 
 New user entry:tools/invoke_active_v2.ps1.
 Invoke it with the installed C:\Program Files\PowerShell\7\pwsh.exe -NoProfile -File.
-This versioned entry remains the current user execution path for C269 because the historical tools/invoke_active.ps1 is an accepted pinned dependency.
+This versioned entry remains the current user execution path for C270 because the historical tools/invoke_active.ps1 is an accepted pinned dependency.
 The new entry preserves the duplicate-result notice without mutating the historical dependency.
 It requires PowerShell Core>=7.3 before logging and sets PSNativeCommandArgumentPassing=Standard.
 It verifies its parser,branch,tracked-tree,unique formal ACTIVE,ExpectedHead,the historical Git blob
@@ -117,10 +117,105 @@ Own24/focused3573 passed;448 source pins/761 protected inputs;all_pairs_matched/
 The acceptance addendum retains complete artifact hashes and interpretation. This recovery neither
 changes C267's scientific result nor rewrites its protected-input manifest.
 
-## C269 accepted scope and next boundary
+## Active C270 — frozen triple identifiers
 
-The complete C269 registration/review remains in its preregistration/design documents and the prior
-handoff at7c44987b4a70f6ed821657f518b81f78bf0a376d. Its execution has now been judged PASS only in
-that bounded scope. C270 is not yet registered;next question is frozen transfer to unseen
-three-character familiar-byte identifiers. Preserve tools/run_c167.ps1,historical
-tools/invoke_active.ps1,and the versioned PowerShell7 operational entry. Gate F NOT PASSED.
+Experiment:C270-v5b-frozen-triple-identifiers.
+Stage:V5-B-FROZEN-TRIPLE-IDENTIFIERS.
+Registration:docs/experiment-ledger-addendum-c270-preregistration.md.
+Design:docs/v5b-frozen-triple-identifiers-v0.1.md.
+Acceptance base:f0f10ee158a0f4740fea390f4d96d93ed0e1851b.
+Parent C269 execution:7c44987b4a70f6ed821657f518b81f78bf0a376d.
+Parent summary:runs/c269-v5b-query-span-6383f14adbca4283ac10896b67a6c33f/summary.json.
+Parent summary SHA256:a97663b83c536d2ce8df4fb41d42493cbbfc35fe757b9b72fca1b63382f255b8.
+
+One question:do the same frozen C269 states transfer from TRAIN-seen two-character identifiers to
+unseen THREE-character identifiers composed solely from familiar identifier characters?
+
+Profiles are fixed before evaluation for every source character pair u,v:
+-tripled:uuu/vvv;
+-shared_prefix2:uuu/uuv;
+-shared_suffix2:uuu/vuu.
+For a/b these are aaa/bbb,aaa/aab,aaa/baa. Japanese applies the same three-character construction.
+No three-character identifier string occurred in C269 training. All new prompt bytes are required
+to be a subset of bytes present in C269's existing rendered task. Normal prompts are globally unique
+across all splits/profiles and fit the existing46-byte payload.
+
+Retain the exact C267 logical TRAIN192/HOLDOUT96 value split,all three entity subsets,EN/JA,both
+visible fact orders,both queries and distinct values0..3. Every new identifier string is unseen.
+TRAIN-value rows therefore probe name/length shift with previously optimized value pairs;HOLDOUT
+rows combine the name shift with the existing held-value dimension. Both splits decide the gate.
+No C270 optimization or model mutation occurs.
+
+Strict-load C269's accepted ten-state bundle once,seeds269001..269005,arms eos_query/span_query in
+accepted order. Recreate each exact architecture through C269.make_arm_model,verify final_sha256,
+set eval/requires_grad=False,and run:
+1.accepted two-character evaluation27 forwards/2592 rows;
+2.raw-logit replay<=1e-9 and exact argmax against C269 saved final outputs;
+3.new three-character evaluation27/2592;
+4.accepted two-character restoration27/2592;
+5.replay against both anchor/reference and unchanged full fingerprint.
+Per state81 forwards/7776 rows/324 core calls. Total810 forwards/77760 rows/3240 core calls.
+Bundle loads1;strict state loads10;new training0;new learned checkpoints0.
+
+C270 uses unchanged C267 score semantics with new profile keys. Per split/profile/language/subset/
+visible-order answer cell require accuracy>=.90,query-pair>=.80,evidence_drop>=.35,query_drop>=.35.
+Per language/subset require two-order>=.80. HOLDOUT answer cells8 rows require8/8. Primary PASS iff
+ALL FIVE frozen span_query states pass every criterion on both splits and all three new profiles.
+eos_query is a matched reference and cannot rescue/fail candidate. Report60 split/profile/language
+paired contrasts in correct answers and same-answer collapse. Pooled means never replace seed gate.
+
+Artifacts:transfer-plan.json,triple-dataset.json,eval-outputs.pt,measurements.json,
+validation-summary.json plus summary.json. eval schema fold-c270-triple-eval-v1. Saved postcheck
+rebuilds parent references,new prompt identity,replays,scores,contrasts and gates with neural Module
+calls blocked. Raw anchor/new/restored payload contract159252480 bytes before serialization metadata.
+
+Protection:466 source pins/800 protected inputs;46 deciding-path dependencies. OWN6 benchmark/test/
+runner/launcher/preregistration/design. Own24;modules155;loaded3646/focused3645. Sole inherited exact
+exclusion remains:
+tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state.
+Manifest SHA256:3fa2e3267b08c6ea528bfdb52bc7ad0e932e3215945e5231bdf38a48e453f016.
+Triple prompt dataset SHA256:432846dfd78f5f03c7268753460b9ab71957906c7b400e700e8d4e1f0816af73.
+
+## C270 post-authoring review
+
+post_authoring_review = PASS
+review_target_HEAD = 93e3372760ddb70d78879315a8fc3e7de697c0f0
+Scope:committed remote-byte/source-contract review,not formal C270 execution.
+
+Compared C269 acceptance f0f10ee158a0f4740fea390f4d96d93ed0e1851b to review target:only C270
+OWN6 paths differ. Re-fetched committed OWN files:
+-benchmark blob6844e45466ed2bba1b40e565df9cc7853edbaf97;24279 UTF-8 characters.
+-test blobdfab06b422f7d34fc677c2935a91d6090f9c4679;16987 characters.
+-runner blobaba1006214b41050942675b53fabc48f38eaceb3;4700 characters.
+-launcher blob21bcc56f2039595d157ec6a07bd11fbf5176c9a5;2842 characters.
+-preregistration blobd1583074598137102e6b356e26f9c67bddfe35c3;5789 characters.
+-design blob0ea1495824784cc935cc65bd2dca3d7e28accedf;2498 characters.
+No OWN file contains NUL. Test file defines exactly24 distinct numbered methods. Runner has exactly
+three embedded Python blocks with sys.argv sets {1},{},{1,2,3};launcher branch/tree/ExpectedHead/
+ACTIVE-C270 and runner ParseFile guards precede logging.
+
+Manifest/data hashes were independently reconstructed from the fixed specification. Review confirms
+parent schema fold-c269-query-span-eval-v1,child schema fold-c270-triple-eval-v1,global864 unique
+normal new prompts,familiar-byte subset enforcement,zero optimizer/backward/train path in C270,
+parent loader provenance and81/7776/324 per-state resource accounting. Tests cover unseen identifier
+strings,prompt/mask semantics,score gates,replay/freeze,count guards,parent dispatch,actual toy probe,
+synthetic orchestration,persisted postcheck,dependency counts and historical dispatcher pins.
+
+The review environment could not resolve GitHub for a complete checkout,so py_compile,actual own24,
+full3645 regression,PowerShell ParseFile,parent local-artifact replay and ten real frozen-state
+evaluations are NOT claimed complete here. Those remain mandatory gates in the user's Windows run.
+Synthetic fixtures are implementation evidence only,not learned capability evidence.
+
+## C270 execution and stopping
+
+Use tools/invoke_active_v2.ps1 through explicit C:\Program Files\PowerShell\7\pwsh.exe -NoProfile.
+Historical tools/invoke_active.ps1 remains immutable. Expect legacy_dispatcher_pin=PASS,
+active_experiment=C270,parent/task precheck466/800,own24,focused3645,then model1/10..10/10 frozen
+evaluations(no800-step training loop),strict restoration,persisted postcheck and log publication.
+
+If branch/tree/HEAD/ACTIVE/parser/legacy-byte preflight skips,do not force execution or alter an
+expected hash. Parent/source/artifact/replay/regression validity failure retries SAME C270 only.
+If scientific_status=FAIL with run_execution_valid=True,accept a valid negative without training,
+profile alteration,seed selection or threshold change. Publication-only failure is repaired without
+repeating completed evaluation. Judge C270 before C271. Gate F NOT PASSED. No paid API,external
+corpus,production adoption,cleanup,history rewrite or CI change. Preserve tools/run_c167.ps1.
