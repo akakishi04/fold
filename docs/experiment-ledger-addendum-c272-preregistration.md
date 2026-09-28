@@ -102,12 +102,12 @@ Schemas:
 
 ## Protection/runtime
 
-Expected source pins478;protected inputs820;direct deciding dependencies48.
+Expected source pins478;protected inputs826;direct deciding dependencies48.
 OWN6 benchmark/test/runner/launcher/prereg/design.
 Own24;modules157;loaded3694/focused3693.
 Sole inherited exact C204 exclusion unchanged.
 
-Manifest SHA256:222be24ae7e97d1cb3028ede4a5ab6f85520145ba4f20cc3d54ab9a918272cc5.
+Manifest SHA256 is PENDING_FINAL_SEAL after the protected-input count correction.
 Per docs/experiment-authoring-runtime-gate.md it MUST be computed from final committed benchmark
 bytes after all manifest-changing edits,then written identically into benchmark,preregistration and
 handoff,and independently rechecked BEFORE C272 becomes ACTIVE.
