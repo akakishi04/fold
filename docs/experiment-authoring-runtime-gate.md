@@ -85,3 +85,27 @@ do not combine them into one generic `registration` failure.
 
 Static review notes must quote the final committed manifest digest, not a value copied from an earlier
 draft. If the reviewer cannot recompute it from final committed bytes, activation remains pending.
+
+
+## Registration metadata single-source rule
+
+Registration cardinalities such as `source_pins` and `protected_inputs` must have exactly one
+executable source of truth: the final sealed `manifest()`.
+
+Runtime validators and prechecks must derive expected counts from:
+`manifest()["source_pins"]` and `manifest()["protected_inputs"]`.
+Do not repeat numeric tuples such as `(478,826)` inside `validate_result`, `precheck`, or other
+scientific Python validators.
+
+Human-readable preregistration, runner output and handoff may repeat the numbers for review, but they
+are descriptive copies. Tests must verify that executable validators read the manifest fields rather
+than compare against separately hard-coded numbers.
+
+When a count changes:
+1. change the manifest field and structural arithmetic test;
+2. update human-readable docs/output;
+3. reseal the manifest because manifest content changed;
+4. never separately patch a validator's numeric literal, because no such literal should exist.
+
+This rule addresses the C272 preflight incident where protected_inputs was corrected from820 to826
+in the manifest/precheck path while `validate_result` retained the stale820 literal.
