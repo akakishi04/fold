@@ -18,7 +18,7 @@ SEEDS=tuple(range(271001,271006));ARMS=("mean_span","endpoint_span");STEPS=800;T
 OWN=("fold_lm/v05_benchmarks/model_c271_query_endpoint.py","tests_lm/test_v05_c271_query_endpoint.py","tools/run_c271.ps1","tools/invoke_c271.ps1","docs/experiment-ledger-addendum-c271-preregistration.md","docs/v5b-query-endpoint-v0.1.md")
 OUTPUTS=("architecture-plan.json","dataset.json","triple-dataset.json","trained-models.pt","evaluations.pt","measurements.json","validation-summary.json")
 EXCLUDED="tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state"
-MANIFEST_SHA="15eeef060442ae4b17ce7d536a7a158b807170b693d3fc9f10fbea1710a9ac59"
+MANIFEST_SHA="9c94e65a1be56896f757b3275dfc24f25e5c933097b31b932a43e3e2059d2be0"
 
 def req(x,m):
     if not x: raise ValueError(m)
@@ -150,8 +150,12 @@ def precheck(c270_summary,c269_summary,root):
     for n in OWN:pins[n]=audit.git(root,"rev-parse","HEAD:"+n).decode().strip()
     pattern=r"fold_lm/v05_benchmarks/(?:gate_f_c230_prepared_capsule|model_c(?:23[1-9]|24[0-9]|25[0-9]|26[0-9]|270)_[^/]+)\.py"
     deps=set(factory.LM_SOURCES)|{n for n in payload["source_blobs"] if re.fullmatch(pattern,n)}|{OWN[0]};req(len(deps)==47 and deps<=set(pins),"deps")
-    protected.update(audit.protect_tree_files(root,pins));req((len(pins),len(protected))==(472,812) and digest(manifest())==MANIFEST_SHA,"registration")
-    print("registration_check = source_pins:472; protected_inputs:812; manifest_sha256:"+MANIFEST_SHA,flush=True);return pins,protected
+    protected.update(audit.protect_tree_files(root,pins))
+    actual_counts=(len(pins),len(protected));actual_manifest=digest(manifest())
+    print(f"registration_check = source_pins:{actual_counts[0]}; protected_inputs:{actual_counts[1]}; manifest_sha256:{actual_manifest}",flush=True)
+    req(actual_counts==(472,812),f"registration counts expected=(472,812) actual={actual_counts}")
+    req(actual_manifest==MANIFEST_SHA,f"registration manifest expected={MANIFEST_SHA} actual={actual_manifest}")
+    return pins,protected
 
 def validate_result(p):
     req(p["experiment_id"]==EXPERIMENT_ID and p["stage"]==STAGE and p["diagnostic_execution_valid"] is True,"identity")
