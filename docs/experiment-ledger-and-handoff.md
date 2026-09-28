@@ -10,7 +10,7 @@ Historical tools/invoke_active.ps1 remains immutable/pinned.
 
 Gate A/B PASSED;C/D PASSED in measured scope;Gate E PASSED;Gate F NOT PASSED.
 
-**C271 ACCEPTED VALID NEGATIVE. C272 ACTIVE / NOT YET JUDGED. C273 NOT REGISTERED.**
+**C271 ACCEPTED VALID NEGATIVE. C272 ACTIVE / NOT YET JUDGED (PREFLIGHT RECOVERY). C273 NOT REGISTERED.**
 C271 valid execution d1c58db43047aceaf82b0108bace9cd731f13b76 passed the pre-science runtime gate
 and completed scientific execution. mean_span and endpoint_span each passed0/5 whole-state gates;
 both passed4/5 on the original two-character task and0/5 on the unseen three-character task.
@@ -95,10 +95,54 @@ Final sealed manifest SHA256:
 The same seal appears in the benchmark and preregistration. Own test24 requires this handoff to contain
 the same seal,so source/prereg/handoff disagreement is an executable preflight failure.
 
+## C272 operational preflight recovery
+
+The first C272 invocation at activation HEAD
+5c9ff64d9adfc154edc188b25a3699063e25ab4a stopped in Mode Validate.
+Own24 completed with one ERROR;scientific execution did not start and no scientific log publication
+was attempted. This is an authoring/runtime preflight defect,not a C272 capability result.
+
+Root cause:C272 protected-input accounting had already been corrected to826 in manifest,precheck,
+runner,preregistration and handoff,while validate_result retained the stale executable tuple
+(478,820). Own test17 intentionally validates an otherwise-correct payload using the registered826
+inputs,so the stale duplicate rejected the fixture.
+
+Repair:
+-precheck and validate_result now derive expected source/input counts from manifest();
+-no executable validator contains a duplicated numeric registration tuple;
+-own test21 rejects stale (478,820) and verifies both validators read
+ registration["protected_inputs"];
+-docs/experiment-authoring-runtime-gate.md now requires manifest() to be the single executable source
+ of registration cardinalities.
+
+The scientific manifest itself is unchanged by this repair,so the sealed SHA remains:
+89fd059a478b2190ecd03f8277aae2bafc7fcb12517897f56b4bd6cc89258604.
+Scientific hypothesis,boundary-pair formula,data,seeds,optimizer,budget,gates and workload are
+unchanged. C272 remains the same experiment.
+
+Recovery record:docs/experiment-ledger-addendum-c272-preflight-recovery.md.
+
+Recovery static review:
+post_authoring_review = STATIC PASS / RUNTIME GATE PENDING
+review_target_HEAD = 19940f1fe6644f25a623c62e0c2a53fb024e28a6
+
+Compared prior activation5c9ff64d9adfc154edc188b25a3699063e25ab4a to recovery review target:
+only C272 benchmark/test plus runtime-policy/recovery docs changed.
+Re-fetched recovery blobs:
+-source:f7957a4dc9fe6353c0e2b53c9cd3f2e6d299581d
+-test:3a5887df7639509c273d867b63e1669b7de69d48
+-policy:5f6d1b932f6405c1f17bf0230a28fd48290f98f2
+-recovery:c890b9e90567dca9a9e0124452fd81d98c38e4c4
+
+Static review confirms exactly24 own tests;manifest remains sealed as89fd...;the stale478/820 tuple
+does not exist in benchmark source;both precheck and validate_result derive counts from manifest;
+and test21 enforces this single-source contract.
+Complete own24/focused3693 are deliberately not claimed here. Mode Validate remains authoritative.
+
 ## C272 post-authoring review
 
 post_authoring_review = STATIC PASS / RUNTIME GATE PENDING
-review_target_HEAD = 98ca576a22dca097bb3dd545e28bbf0b4080c443
+review_target_HEAD = 19940f1fe6644f25a623c62e0c2a53fb024e28a6
 
 Compared C271 accepted-state commit968a77d2a96d28802de38204ef6c45dff99b4ccc to the review target:
 only C272 OWN6 paths differ.
