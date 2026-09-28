@@ -120,12 +120,13 @@ def replay_one(model,state,r,data,prompts,p267,c270,core,base,factory):
 def analyze(records,data,prompts,p267,c270):
     req([(r["seed"],r["arm"]) for r in records]==identities(),"records");metrics=[];results=[];contrasts=[]
     for r in records:
-        req(r["checkpoint_roundtrip"] is True and r["weights_changed"] is True and r["reload_max_error"]<=TOL,"integrity")
+        req(r["parameters"]==14256 and r["checkpoint_roundtrip"] is True and r["weights_changed"] is True and type(r["reload_max_error"]) in (int,float) and math.isfinite(r["reload_max_error"]) and 0<=r["reload_max_error"]<=TOL,"integrity")
         req((r["forward_calls"],r["row_presentations"],r["core_forward_calls"],r["replay_forward_calls"],r["replay_row_presentations"],r["replay_core_forward_calls"])==(854,43584,3416,54,5184,216),"counts")
-        exp=schedule(r["seed"],data["TRAIN"])[2];req(all(r["fit"][k]==v for k,v in exp.items()),"schedule")
+        exp=schedule(r["seed"],data["TRAIN"])[2];req(r["fit"]["steps"]==800 and r["fit"]["training_rows"]==38400 and all(r["fit"][k]==v for k,v in exp.items()) and math.isfinite(r["fit"]["last_ce"]),"schedule")
         two=p267.score(data,r["raw_two"]);tri=c270.score(data,r["raw_triple"],p267);passed=two["passed"] and tri["passed"]
         metrics.append(dict(seed=r["seed"],arm=r["arm"],two_char=two,triple=tri,passed=passed));results.append(dict(seed=r["seed"],arm=r["arm"],two_char_pass=two["passed"],triple_pass=tri["passed"],passed=passed))
     for i in range(0,10,2):
+        ra,rb=records[i:i+2];req(ra["initial_sha256"]==rb["initial_sha256"] and ra["fit"]["batch_sha256"]==rb["fit"]["batch_sha256"],"paired state/batches")
         a,b=metrics[i:i+2];req(a["seed"]==b["seed"] and a["arm"]=="mean_span" and b["arm"]=="endpoint_span","pair")
         for task,key,all_splits in (("two_char","two_char",False),("triple","triple",True)):
             for x,y in zip(a[key]["totals"],b[key]["totals"],strict=True):
@@ -143,7 +144,9 @@ def precheck(c270_summary,c269_summary,root):
     c270,*rest=context();factory,audit=rest[-2],rest[-1];root=Path(root);p=Path(c270_summary).resolve();s=Path(c269_summary).resolve();payload=load_parent(p,s);pins,protected=dict(payload["source_blobs"]),dict(payload["input_sha256"]);req(protected.get(str(s))==C269_SHA,"C269 protected")
     for n,w in protected.items():req(Path(n).is_file() and audit.sha(n)==w,"changed input:"+n)
     for n,w in pins.items():req(audit.git(root,"rev-parse","HEAD:"+n).decode().strip()==w,"changed source:"+n)
-    for child,w in [(p,PARENT_SHA)]+[(audit.safe_child(p.parent,x["file"]),x["sha256"]) for x in payload["artifacts"]]:protected[str(child.resolve())]=w
+    for child,w in [(p,PARENT_SHA)]+[(audit.safe_child(p.parent,x["file"]),x["sha256"]) for x in payload["artifacts"]]:
+        key=str(child.resolve());req(key not in protected and audit.sha(child)==w,"parent input identity");protected[key]=w
+    for x in payload["artifacts"]:req(audit.safe_child(p.parent,x["file"]).stat().st_size==x["serialized_bytes"],"parent artifact size")
     for n in OWN:pins[n]=audit.git(root,"rev-parse","HEAD:"+n).decode().strip()
     pattern=r"fold_lm/v05_benchmarks/(?:gate_f_c230_prepared_capsule|model_c(?:23[1-9]|24[0-9]|25[0-9]|26[0-9]|270)_[^/]+)\.py"
     deps=set(factory.LM_SOURCES)|{n for n in payload["source_blobs"] if re.fullmatch(pattern,n)}|{OWN[0]};req(len(deps)==47 and deps<=set(pins),"deps")
