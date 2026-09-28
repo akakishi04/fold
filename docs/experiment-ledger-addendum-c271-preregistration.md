@@ -56,6 +56,6 @@ Raw final logit payload contract:106168320 bytes.
 Expected:472 source pins,812 protected inputs,47 deciding dependencies.
 OWN6 benchmark/test/runner/launcher/prereg/design.
 Own24;modules156;loaded3670/focused3669;sole inherited C204 exact exclusion unchanged.
-Manifest SHA256:15eeef060442ae4b17ce7d536a7a158b807170b693d3fc9f10fbea1710a9ac59.
+Manifest SHA256:9c94e65a1be56896f757b3275dfc24f25e5c933097b31b932a43e3e2059d2be0.
 
 Use the Validate->Execute runtime gate from docs/experiment-authoring-runtime-gate.md. Complete own24 and focused3669 must pass before scientific logging begins. C272 NOT REGISTERED.
