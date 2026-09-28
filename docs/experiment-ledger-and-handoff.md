@@ -91,7 +91,7 @@ measurements.json,validation-summary.json plus summary.json.
 
 Protection:472 source pins/812 protected inputs;47 deciding dependencies.
 Own24;modules156;loaded3670/focused3669;sole inherited exact C204 exclusion unchanged.
-Manifest SHA256:15eeef060442ae4b17ce7d536a7a158b807170b693d3fc9f10fbea1710a9ac59.
+Manifest SHA256:9c94e65a1be56896f757b3275dfc24f25e5c933097b31b932a43e3e2059d2be0.
 
 ## C271 post-authoring review
 
