@@ -30,7 +30,7 @@ def context():
     c269,p267,core,base,aligned,reader,factory,audit=c270.context()
     return c270,c269,p267,core,base,aligned,reader,factory,audit
 def manifest():
-    return dict(experiment_id=EXPERIMENT_ID,stage=STAGE,acceptance_base=BASE,parent_execution=PARENT_EXECUTION,parent_sha256=PARENT_SHA,c269_source_sha256=C269_SHA,parent_artifacts=PARENT_ARTIFACTS,seeds=list(SEEDS),arms=list(ARMS),parameters=14256,train_dataset_sha256="1e03cf4d6a72700de0d3973459737ffba7dbc843655ebb7439cdedb99805c2f1",triple_dataset_sha256="432846dfd78f5f03c7268753460b9ab71957906c7b400e700e8d4e1f0816af73",changed="reader query source only: mean query span versus final visible query-byte pre-core state",endpoint="last byte in C269 query_span_mask; causal local state",loss="CE only",steps=800,batch=48,lr=.005,optimizer="AdamW",betas=[.9,.999],eps=1e-8,weight_decay=0.,clip=1.,schedule="96 TRAIN pairs; randperm seed+271000+epoch;24 pairs/batch;profile=epoch%3",epochs=200,row_exposures=200,profile_updates=[268,268,264],fit_rng="seed+272000 reset per arm",primary="all five endpoint_span states pass original two-character and unseen three-character gates",gate=dict(accuracy=.90,query_pair=.80,evidence_drop=.35,query_drop=.35,two_order=.80),models=10,train_steps=8000,training_rows=384000,model_forward_calls=9080,row_presentations=487680,core_forward_calls=36320,evaluation_forwards=1080,checkpoint_bundle_loads=1,model_state_loads=10,new_checkpoint_writes=1,raw_logit_payload_bytes=106168320,source_pins=472,protected_inputs=812,direct_dependencies=47,own_tests=24,modules=156,loaded_tests=3670,focused_tests=3669,excluded_test=EXCLUDED,dtype="CPU float64",threads=2,deterministic=True,replay_tolerance=TOL,network_calls=0,gate_f_candidate=False,production_adoption=False,unseen_name_transfer_claim=False,arbitrary_name_claim=False,causal_parser_claim=False)
+    return dict(experiment_id=EXPERIMENT_ID,stage=STAGE,acceptance_base=BASE,parent_execution=PARENT_EXECUTION,parent_sha256=PARENT_SHA,c269_source_sha256=C269_SHA,parent_artifacts=PARENT_ARTIFACTS,seeds=list(SEEDS),arms=list(ARMS),parameters=14256,train_dataset_sha256="1e03cf4d6a72700de0d3973459737ffba7dbc843655ebb7439cdedb99805c2f1",triple_dataset_sha256="432846dfd78f5f03c7268753460b9ab71957906c7b400e700e8d4e1f0816af73",changed="reader query source only: mean of visible query-span pre-core states versus final visible query-byte pre-core state",endpoint="last byte position strictly before final '=' within C269 query_span_mask; causal local state",memory="unchanged masked pre-core causal states",residual="unchanged post-core EOS residual",loss="mean cross-entropy only in both arms",steps=800,batch=48,lr=.005,optimizer="AdamW",betas=[.9,.999],eps=1e-8,weight_decay=0.,clip=1.,schedule="96 TRAIN pairs; randperm seed+271000+epoch;24 pairs/batch;profile=epoch%3",epochs=200,row_exposures=200,profile_updates=[268,268,264],fit_rng="seed+272000 reset per arm",primary="all five endpoint_span states pass both original two-character and unseen three-character fixed gates; mean_span control separate",gate=dict(accuracy=.90,query_pair=.80,evidence_drop=.35,query_drop=.35,two_order=.80),models=10,train_steps=8000,training_rows=384000,model_forward_calls=9080,row_presentations=487680,core_forward_calls=36320,evaluation_forwards=1080,checkpoint_bundle_loads=1,model_state_loads=10,new_checkpoint_writes=1,raw_logit_payload_bytes=106168320,source_pins=472,protected_inputs=812,direct_dependencies=47,own_tests=24,modules=156,loaded_tests=3670,focused_tests=3669,excluded_test=EXCLUDED,dtype="CPU float64",threads=2,deterministic=True,replay_tolerance=TOL,network_calls=0,gate_f_candidate=False,production_adoption=False,unseen_name_transfer_claim=False,arbitrary_name_claim=False,causal_parser_claim=False)
 
 class EndpointQueryReadout(nn.Module):
     def __init__(self,backbone,seed,reader,span_mask):
@@ -64,11 +64,11 @@ class EndpointQueryReadout(nn.Module):
 
 def make_arm(seed,arm,c269,base,reader,factory):
     req(seed in SEEDS and arm in ARMS,"identity")
-    mean=c269.SpanQueryReadout(factory.new_model(seed),seed,reader)
+    mean=c269.SpanQueryReadout(factory.new_model(seed),seed,reader);req(sum(p.numel() for p in mean.parameters())==14256,"capacity")
     if arm=="mean_span": return mean
     end=EndpointQueryReadout(copy.deepcopy(mean.backbone),seed,reader,c269.query_span_mask)
     end.load_state_dict(copy.deepcopy(mean.state_dict()),strict=True)
-    req(base.fingerprint(end)==base.fingerprint(mean) and list(end.state_dict())==list(mean.state_dict()),"matched state")
+    req(base.fingerprint(end)==base.fingerprint(mean) and list(end.state_dict())==list(mean.state_dict()) and sum(p.numel() for p in end.parameters())==14256,"matched state")
     req(all(a.data_ptr()!=b.data_ptr() for a,b in zip(end.parameters(),mean.parameters(),strict=True)),"storage")
     return end
 
@@ -88,6 +88,7 @@ def schedule(seed,rows):
     return x,profiles,dict(batch_sha256=digest(x.tolist()),row_exposures=torch.bincount(x.flatten(),minlength=192).tolist(),profile_updates=[profiles.count(i) for i in range(3)])
 
 def fit(model,data,tokens,targets,seed,arm):
+    req(tokens.shape==(3,192,48) and targets.shape==(192,) and arm in ARMS,"fit tables")
     ids,profiles,plan=schedule(seed,data["TRAIN"]);torch.manual_seed(seed+272000)
     opt=torch.optim.AdamW(model.parameters(),lr=.005,betas=(.9,.999),eps=1e-8,weight_decay=0.);model.train()
     for step in range(800):
