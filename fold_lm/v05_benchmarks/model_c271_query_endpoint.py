@@ -177,19 +177,38 @@ def regression_suite(root):
     tests=list(flatten(unittest.defaultTestLoader.loadTestsFromNames(regression_modules(root))));ids=[t.id() for t in tests];req(len(ids)==len(set(ids)) and ids.count(EXCLUDED)==1,"exclude");kept=[t for t in tests if t.id()!=EXCLUDED];req((len(tests),len(kept))==(3670,3669),"suite");return unittest.TestSuite(kept)
 
 def run(*,c270_summary,c269_summary,output_dir,expected_head):
-    c270,c269,p267,core,base,aligned,reader,factory,audit=context();root=Path(__file__).resolve().parents[2]
-    def guard():req(audit.git(root,"rev-parse","HEAD").decode().strip()==expected_head and audit.git(root,"branch","--show-current").decode().strip()=="feat/sft-target-loss" and not audit.git(root,"status","--porcelain","--untracked-files=no").strip(),"repo")
-    guard();torch.set_num_threads(2);torch.use_deterministic_algorithms(True)
+    c270,c269,p267,core,base,aligned,reader,factory,audit=context()
+    root=Path(__file__).resolve().parents[2]
+    def guard():
+        req(audit.git(root,"rev-parse","HEAD").decode().strip()==expected_head and audit.git(root,"branch","--show-current").decode().strip()=="feat/sft-target-loss" and not audit.git(root,"status","--porcelain","--untracked-files=no").strip(),"repo")
+    guard()
+    torch.set_num_threads(2)
+    torch.use_deterministic_algorithms(True)
     pins,protected=precheck(c270_summary,c269_summary,root)
-    data=p267.dataset();p267.validate_data(data);prompts=c270.prompt_dataset(data,p267);c270.validate_dataset(prompts,data,p267);tokens,targets=p267.training_tables(data,factory)
-    out=Path(output_dir);out.mkdir(parents=True,exist_ok=False);records=[];states=[]
+    data=p267.dataset()
+    p267.validate_data(data)
+    prompts=c270.prompt_dataset(data,p267)
+    c270.validate_dataset(prompts,data,p267)
+    tokens,targets=p267.training_tables(data,factory)
+    out=Path(output_dir)
+    out.mkdir(parents=True,exist_ok=False)
+    records=[]
+    states=[]
     for seed in SEEDS:
-        models={a:make_arm(seed,a,c269,base,reader,factory) for a in ARMS};init=base.fingerprint(models["mean_span"]);req(base.fingerprint(models["endpoint_span"])==init,"initial")
+        models={a:make_arm(seed,a,c269,base,reader,factory) for a in ARMS}
+        init=base.fingerprint(models["mean_span"])
+        req(base.fingerprint(models["endpoint_span"])==init,"initial")
         for arm in ARMS:
-            print(f"[C271] model={len(records)+1}/10 seed={seed} arm={arm}",flush=True);r,state=train_one(models[arm],seed,arm,data,prompts,tokens,targets,p267,c270,core,base,factory);records.append(r);states.append(state)
+            print(f"[C271] model={len(records)+1}/10 seed={seed} arm={arm}",flush=True)
+            r,state=train_one(models[arm],seed,arm,data,prompts,tokens,targets,p267,c270,core,base,factory)
+            records.append(r)
+            states.append(state)
     torch.save(dict(schema="fold-c271-query-endpoint-models-v1",identities=[list(x) for x in identities()],states=states),out/"trained-models.pt")
-    for r,state in zip(records,load_bundle(out/"trained-models.pt"),strict=True):replay_one(make_arm(r["seed"],r["arm"],c269,base,reader,factory),state,r,data,prompts,p267,c270,core,base,factory)
-    metrics,summary=analyze(records,data,prompts,p267,c270);torch.save(dict(schema="fold-c271-query-endpoint-eval-v1",records=records),out/"evaluations.pt")
+    loaded=load_bundle(out/"trained-models.pt")
+    for r,state in zip(records,loaded,strict=True):
+        replay_one(make_arm(r["seed"],r["arm"],c269,base,reader,factory),state,r,data,prompts,p267,c270,core,base,factory)
+    metrics,summary=analyze(records,data,prompts,p267,c270)
+    torch.save(dict(schema="fold-c271-query-endpoint-eval-v1",records=records),out/"evaluations.pt")
     for n,v in (("architecture-plan.json",manifest()),("dataset.json",data),("triple-dataset.json",prompts),("measurements.json",metrics),("validation-summary.json",summary)):(out/n).write_bytes(blob(v))
     artifacts=[dict(file=n,sha256=audit.sha(out/n),serialized_bytes=(out/n).stat().st_size) for n in OUTPUTS];guard();precheck(c270_summary,c269_summary,root)
     for n,w in protected.items():req(audit.sha(n)==w,"modified input")
