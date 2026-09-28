@@ -10,11 +10,24 @@ Historical tools/invoke_active.ps1 remains immutable/pinned.
 
 Gate A/B PASSED;C/D PASSED in measured scope;Gate E PASSED;Gate F NOT PASSED.
 
-**C272 ACCEPTED VALID NEGATIVE. C273 ACTIVE / NOT YET JUDGED. C274 NOT REGISTERED.**
+**C272 ACCEPTED VALID NEGATIVE. C273 ACTIVE / NOT YET JUDGED (PREFLIGHT RECOVERY). C274 NOT REGISTERED.**
 C272 execution8142385889335b778f49963bb4b55570165aeb26 is authoritative for science.
 boundary_pair passed0/5 whole-state and0/5 triple gates;two-character subgate4/5.
 C273 is the unique ACTIVE experiment:paired boundary_pair versus dual_boundary attention.
 No Gate F promotion,production adoption,post-hoc seed rescue or C274 registration.
+
+## Inherited regression compatibility seals
+
+This section is append-only while the corresponding accepted/pinned tests remain in focused
+regression. Do not remove an entry merely because a later experiment becomes ACTIVE.
+
+- C272 manifest seal:
+  89fd059a478b2190ecd03f8277aae2bafc7fcb12517897f56b4bd6cc89258604
+
+C272 own test24 is already accepted/pinned and unconditionally checks the current handoff for this
+seal. Editing that accepted test would violate parent provenance,so the compatibility seal is
+retained here. C273 and later tests use lifecycle-aware own-seal checks instead:current handoff while
+ACTIVE,immutable acceptance addendum after acceptance.
 
 ## Latest accepted science — C272
 
@@ -97,10 +110,43 @@ fd38d800c08dcf7fb783f6f5c156169e75b29b1208c175d32259e2d4c77eea7f.
 The same seal appears in benchmark and preregistration. Own test24 requires handoff agreement.
 Registration cardinalities are manifest-derived at runtime.
 
+## C273 operational preflight recovery
+
+The first C273 invocation at activation HEAD
+a63c9aaa7b41fa109542da1be4f6b5789fb717a0 stopped in Mode Validate after own24 PASS, during
+focused3717 regression. Scientific execution did not start and no scientific log was published.
+
+Root cause:the inherited accepted C272 test24 unconditionally requires the C272 manifest seal in the
+CURRENT mutable handoff. That assertion was valid while C272 was ACTIVE,but the C273 activation
+handoff omitted the old seal. The focused regression therefore failed even though C273's own tests
+and scientific code were valid.
+
+The accepted C272 test is pinned by parent provenance and is not modified. Recovery instead:
+-retains the C272 seal permanently in the append-only compatibility section above;
+-makes C273 own test24 lifecycle-aware for its OWN seal:handoff while C273 is ACTIVE,immutable
+ c273-c274 acceptance addendum after acceptance;
+-adds a C273 own24 check for the legacy C272 compatibility seal,so accidental removal is caught
+ before the multi-minute focused suite;
+-records the general mutable-handoff lifecycle rule in docs/experiment-authoring-runtime-gate.md.
+
+Recovery record:docs/experiment-ledger-addendum-c273-preflight-recovery.md.
+Scientific hypothesis,dual-boundary architecture,data,seeds,training policy,gates,workload and sealed
+manifest are unchanged. C273 manifest remains:
+fd38d800c08dcf7fb783f6f5c156169e75b29b1208c175d32259e2d4c77eea7f.
+
+Recovery static review:
+post_authoring_review = STATIC PASS / RUNTIME GATE PENDING
+review_target_HEAD = 615478bf853d5be3b9a2653ed49aeff9e5a36788
+
+Compared prior activation a63c9aaa7b41fa109542da1be4f6b5789fb717a0 to recovery review target:
+only C273 own test24, runtime-policy text and the recovery addendum changed. C272 accepted source/test
+files were not modified. Parent C272 does not pin the runtime-policy or handoff files.
+The C273 manifest function is unchanged,so its seal remains valid.
+
 ## C273 post-authoring review
 
 post_authoring_review = STATIC PASS / RUNTIME GATE PENDING
-review_target_HEAD = a0cf65a0db3f956d66ff822d61af0921dadc6ac3
+review_target_HEAD = 615478bf853d5be3b9a2653ed49aeff9e5a36788
 
 Compared C272 acceptance ced412ce712fae1d3de1fdfdb2b12cc0ef41f3f5 to review target:
 only C273 OWN6 paths differ.
