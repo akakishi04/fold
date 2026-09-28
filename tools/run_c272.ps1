@@ -44,7 +44,7 @@ for seed in b.SEEDS:
     assert tuple(ids.shape)==(800,48)
     assert plan["row_exposures"]==[200]*192
     assert plan["profile_updates"]==[268,268,264]
-print("source_and_artifact_precheck = PASS; source_pins = 478; protected_inputs = 820",flush=True)
+print("source_and_artifact_precheck = PASS; source_pins = 478; protected_inputs = 826",flush=True)
 print("manifest_sha256 =",b.MANIFEST_SHA,flush=True)
 print("mean_span and boundary_pair use matched initial states/batches; CE only",flush=True)
 '@
