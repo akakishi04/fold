@@ -205,7 +205,7 @@ class C271Tests(unittest.TestCase):
         sets=[]
         for x in blocks:
             compile(x,"embedded","exec");sets.append({int(m.group(1)) for m in re.finditer(r"sys\.argv\[(\d+)\]",x)})
-        self.assertEqual(sets,[{1,2},set(),{1,2,3}])
+        self.assertEqual(sets,[{1,2},set(),{1,2,3,4}])
 
     def test_23_scientific_run_phase_order_uses_unique_markers(self):
         src=inspect.getsource(b.run)
