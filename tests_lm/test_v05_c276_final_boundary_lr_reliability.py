@@ -147,11 +147,16 @@ class C276Tests(unittest.TestCase):
             artifacts=[dict(file=k,sha256=v) for k,v in b.PARENT_ARTIFACTS.items()])
         ar={"primary_final_boundary_triple":{"near_seed_count":23,"broad_seed_count":77}}
         fake=SimpleNamespace(verify_artifacts=Mock(return_value=(payload,ar)),validate_result=Mock())
-        audit=SimpleNamespace(sha=lambda p:b.PARENT_SHA)
+        sha=Mock(side_effect=lambda path:b.PARENT_SHA if Path(path).name=="p" else b.C274_SHA if Path(path).name=="q" else "unexpected")
+        audit=SimpleNamespace(sha=sha)
         with patch.object(b,"context",return_value=(fake,None,None,None,None,None,None,None,None,None,audit)):
             got=b.load_parent(Path("p"),Path("q"));self.assertEqual(got,payload)
+            self.assertEqual([Path(x.args[0]).name for x in sha.call_args_list[:2]],["p","q"])
             payload["status"]="FAIL"
             with self.assertRaises(ValueError):b.load_parent(Path("p"),Path("q"))
+            payload["status"]="PASS"
+            sha.reset_mock();sha.side_effect=lambda path:b.PARENT_SHA
+            with self.assertRaisesRegex(ValueError,"parent hash"):b.load_parent(Path("p"),Path("q"))
 
     def test_17_result_validation_and_scope(self):
         _,s=b.analyze(records(self.data),self.data,self.prompts,p267,c270);pins,inputs=protection()
