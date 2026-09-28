@@ -10,13 +10,11 @@ Historical tools/invoke_active.ps1 remains immutable/pinned.
 
 Gate A/B PASSED;C/D PASSED in measured scope;Gate E PASSED;Gate F NOT PASSED.
 
-**C275 ACCEPTED PASS (diagnostic integrity only). C276 NOT REGISTERED.**
+**C275 ACCEPTED PASS (diagnostic integrity only). C276 ACTIVE / NOT YET JUDGED. C277 NOT REGISTERED.**
 C275 execution3cd34c37a4329f8b8a030f320f1eeefa303706e4 is authoritative.
-scientific_status=PASS means saved gate-failure audit integrity only;capability_gate_applicable=False.
-Primary final-boundary triple failures=100;all five C274 seeds are covered.
-C274 remains ACCEPTED PASS for diagnostic integrity only;C273/C272/C271/C270 remain ACCEPTED VALID
-NEGATIVE;C269 remains ACCEPTED PASS in its bounded scope.
-No Gate F promotion,capability winner,production adoption or C277 registration.
+C275 PASS means saved gate-failure audit integrity only;capability_gate_applicable=False.
+C276 is the unique ACTIVE capability experiment:final_boundary lr0.005 versus lr0.0025.
+No Gate F promotion,production adoption,seed selection or C277 registration.
 
 ## Latest accepted science — C275
 
@@ -28,27 +26,24 @@ Summary SHA256:1c255b542a742c0fa02fb36ffdcdfd762eddfb284f2347112feb816f40183beb.
 run_execution_valid=True;scientific_status=PASS;diagnostic_complete=True;
 capability_gate_applicable=False;model_forward_calls=0.
 Primary final-boundary triple failure records=100;near-seed23;broad-seed77.
-C276 is not yet registered.
 
-## Latest accepted science — C274
+Primary criterion counts:
+-accuracy69;
+-query_pair_accuracy69;
+-evidence_drop43;
+-query_drop33;
+-two_order_accuracy31.
 
-Acceptance:docs/experiment-ledger-addendum-c274-c275.md.
-Execution:90f76a8f017d562caded127821852654b8e3d061.
-Published log:acb1236f5299052662525deec2b00f0bb415338b.
-Summary:runs/c274-v5b-directional-boundary-06a7a84bf4554f83b5cb6e099a828178/summary.json.
-Summary SHA256:0c30db2011e8b6cbc5cdcc67dee85792abd0d058f9f54a86cc65b103d2cc24a0.
-run_execution_valid=True;scientific_status=PASS;diagnostic_complete=True;
-capability_gate_applicable=False.
-Task pass counts:first_boundary two_char0/5,triple0/5;final_boundary two_char4/5,triple0/5.
+Near-seed criterion counts:
+-274001 accuracy4,query_pair4,evidence_drop3,query_drop3,two_order2;
+-274002 accuracy4,query_pair4,two_order1;
+-274004 accuracy6,query_pair6,query_drop2,two_order3;
+-274005 accuracy3,query_pair3.
+Thus answer/query-pair failures are common to every near-passing seed;mask-drop failures are not.
+Seed274003 is a broad failure across all criterion classes.
 
-Directional aggregate HOLDOUT triple:
--first_boundary tripled392/480,shared_prefix2314/480,shared_suffix2360/480;
--final_boundary tripled432/480,shared_prefix2426/480,shared_suffix2409/480.
-final_boundary is broadly stronger,but no final state obtains complete triple PASS.
-Near-passing final seeds274001/274002/274004/274005 have pooled triple HOLDOUT280/284/281/288
-of288;seed274003 is a broad miss at134/288. The remaining fixed gate failures require attribution.
-
-C273/C272/C271/C270 remain ACCEPTED VALID NEGATIVE;C269 remains ACCEPTED PASS in its bounded scope.
+C274 remains ACCEPTED PASS for diagnostic integrity only.
+C273/C272/C271/C270 remain ACCEPTED VALID NEGATIVE;C269 remains ACCEPTED PASS in bounded scope.
 
 ## Inherited regression compatibility seals
 
@@ -61,14 +56,100 @@ C272 own test24 is accepted/pinned and still reads the mutable handoff. Preserve
 C273 and later tests use lifecycle-aware own seals:current handoff while ACTIVE,immutable acceptance
 addendum after acceptance.
 
-## C275 accepted scope and next boundary
+## Active C276 — final-boundary optimizer reliability
 
-C275 registration/runtime details remain in its design,preregistration and prior handoff at
-3cd34c37a4329f8b8a030f320f1eeefa303706e4.
+Experiment:C276-v5b-final-boundary-lr-reliability.
+Stage:V5-B-FINAL-BOUNDARY-LR-RELIABILITY.
+Registration:docs/experiment-ledger-addendum-c276-preregistration.md.
+Design:docs/v5b-final-boundary-lr-reliability-v0.1.md.
+Acceptance base:2dac538eb6bc2755a589d9d9ec26135773ade4d7.
+Parent C275 execution:3cd34c37a4329f8b8a030f320f1eeefa303706e4.
+Parent summary SHA256:1c255b542a742c0fa02fb36ffdcdfd762eddfb284f2347112feb816f40183beb.
+C274 parent summary SHA256:0c30db2011e8b6cbc5cdcc67dee85792abd0d058f9f54a86cc65b103d2cc24a0.
 
-C275 is now ACCEPTED PASS for diagnostic integrity only. The common near-seed failure signature is
-answer accuracy plus query-pair discrimination;mask-drop failures are not common to all near seeds.
-The next question is therefore a fresh matched optimizer-reliability test on final_boundary before
-introducing another reader/fusion architecture. C276 is not yet registered.
-Validate->Execute,manifest sealing,manifest-derived registration counts,mutable-handoff lifecycle
-rules and inherited compatibility seals remain mandatory. Gate F NOT PASSED.
+One question:does fixed AdamW lr0.0025 improve fresh-seed reliability of the final_boundary
+architecture relative to lr0.005,with architecture,data,loss,800-step budget and fixed gates held?
+
+Fresh seeds276001..276005;arms lr005 and lr0025.
+Both arms use the exact C274 final-boundary SingleBoundaryReadout with14256 parameters.
+Within each seed they start from identical state_dict values and identical paired minibatch order.
+The ONLY registered training-policy difference is AdamW learning rate0.005 versus0.0025.
+
+Training uses exact C267 two-character data SHA256
+1e03cf4d6a72700de0d3973459737ffba7dbc843655ebb7439cdedb99805c2f1.
+Use96 same-facts/different-query pairs;randperm seed+276000+epoch;24 pairs/batch;profile=epoch%3.
+800 updates=200 epochs;each TRAIN row200 exposures;profile updates268/268/264.
+Fit RNG seed+277000 reset per arm.
+Both use mean CE only,AdamW betas.9/.999,eps1e-8,weight_decay0,global clip1;
+CPU float64,threads2,deterministic. No early stopping,extra steps,seed replacement or checkpoint selection.
+
+Evaluate every final state on BOTH:
+1.original C267 two-character task;
+2.C270 unseen three-character dataset SHA256
+432846dfd78f5f03c7268753460b9ab71957906c7b400e700e8d4e1f0816af73.
+
+Fixed thresholds remain:
+accuracy>=.90,query_pair>=.80,evidence_drop>=.35,query_drop>=.35,two_order>=.80.
+
+Primary PASS iff all five lr0025 states pass every original and triple criterion.
+lr005 is matched control only and cannot rescue/fail candidate.
+
+Workload:10 models;8000 updates;384000 training rows;9080 model forwards;487680 row presentations;
+36320 core calls;one10-state bundle write/load;10 strict state loads;new_checkpoint_writes1.
+
+Protection/runtime:
+-source pins502;
+-protected inputs878;
+-direct deciding dependencies52;
+-own24;
+-modules161;
+-loaded3790/focused3789;
+-sole inherited exact C204 exclusion unchanged.
+
+Final sealed manifest SHA256:
+312ed892ba64ef1b0289506d44d1e3da05eec6ee85e67b1d3b21cee282e18355.
+The same seal appears in benchmark and preregistration. C276 own test24 requires current handoff
+agreement while ACTIVE,then immutable c276-c277 acceptance addendum after acceptance.
+Registration cardinalities are manifest-derived at runtime.
+
+## C276 post-authoring review
+
+post_authoring_review = STATIC PASS / RUNTIME GATE PENDING
+review_target_HEAD = 227d7f135ea1f58e587480f0f68ed145c798188a
+
+Compared C275 acceptance2dac538eb6bc2755a589d9d9ec26135773ade4d7 to review target:
+only C276 OWN6 paths differ.
+
+Committed OWN6 blobs:
+-source:5f7b76dace80698142790ec1ce58cad56cb5f557
+-test:0cb5135a5732619433b287526b17bffc25833b2f
+-runner:3b9238f02ac9acc06580d98fbbb72dbd5d632726
+-launcher:29fbfb83ec9c01be3a90ecec4b8c8adf4f0b6c3f
+-prereg:3886132b53e4a0e6d8d74c816f68a6357aa2a2ea
+-design:efc68963ee2951f7bce0e155ee70bb33ffbfe0c9
+
+Static review confirms exactly24 own tests;three runner embedded Python blocks with argv sets
+{1,2},{},{1,2,3,4};Validate before Execute;AUTHORING_RUNTIME_PREFLIGHT_FAILED before scientific
+logging;unique ordered run phase markers;manifest-derived502/878 registration;matched architecture/
+initial state/batches;the sole registered optimizer difference0.005 versus0.0025;parent C275/C274
+provenance;and lifecycle-aware own seal plus legacy C272 compatibility seal.
+
+No complete local checkout/PowerShell runtime is available to reviewer. Therefore own24,
+focused3789,PowerShell ParseFile,parent artifact replay and real ten-model training are NOT claimed
+executed here. Mode Validate is authoritative.
+
+## Execution and stop
+
+Use tools/invoke_active_v2.ps1 through explicit PowerShell7.
+Expected order:
+legacy_dispatcher_pin=PASS -> active_experiment=C276 ->
+Mode Validate(parent/source/artifact precheck502/878 + sealed manifest,own24,focused3789) ->
+authoring_runtime_preflight=PASS ->
+Mode Execute(10-model matched lr training,both-task evaluation,strict replay,persisted postcheck) ->
+log publication.
+
+Validate failure is operational and must not publish/replace scientific latest log.
+Execute integrity failure retries SAME C276.
+If run_execution_valid=True and scientific_status=FAIL,accept a valid negative without trying another lr.
+C277 stays unregistered until C276 is judged. Gate F NOT PASSED.
+Preserve tools/run_c167.ps1,historical tools/invoke_active.ps1,and all accepted evidence/recovery logs.
