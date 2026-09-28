@@ -9,12 +9,23 @@ For current C269 execution use the versioned PowerShell7 entry described below,n
 
 Gate A/B PASSED;C/D PASSED in measured scope;Gate E PASSED;Gate F NOT PASSED.
 
-**C268 ACCEPTED VALID NEGATIVE. C269 ACTIVE / NOT YET JUDGED. C270 NOT REGISTERED.**
-C268 recovered execution aa45ea5df68dcba70c99a009c46b7bf8468304a1 is the authoritative
-accepted valid negative:ce_pair_margin3/5 and ce_only3/5 against the fixed5/5 candidate gate.
-C269-v5b-paired-query-span-pooling is now the sole ACTIVE experiment. It uses five fresh seeds,
-matched CE-only control/candidate arms and changes only the reader query source.
-No Gate F promotion,production adoption,post-hoc loss retuning or C270 registration.
+**C269 ACCEPTED PASS (bounded query-span capability). C270 NOT REGISTERED.**
+C269 span_query passed5/5 against the fixed gate;matched eos_query control passed4/5.
+Candidate HOLDOUT normal answers1440/1440 with zero collapse across720 query pairs.
+This is positive evidence for the registered structured query-source intervention only.
+C268 remains ACCEPTED VALID NEGATIVE;all earlier verdicts/recovery records are preserved.
+No Gate F promotion,production adoption,general parser claim or C271 registration.
+
+## Latest accepted science — C269
+
+Acceptance:docs/experiment-ledger-addendum-c269-c270.md.
+Execution:7c44987b4a70f6ed821657f518b81f78bf0a376d.
+Published log:1c34b373ad9610dddcab2e7e54294fd5d4fe7cef.
+Summary:runs/c269-v5b-query-span-6383f14adbca4283ac10896b67a6c33f/summary.json.
+Summary SHA256:a97663b83c536d2ce8df4fb41d42493cbbfc35fe757b9b72fca1b63382f255b8.
+run_execution_valid=True;scientific_status=PASS;candidate_gate=True.
+Seed pass counts:eos_query4/5;span_query5/5. Pooled HOLDOUT:control1276/1440 correct with34/720
+collapse;candidate1440/1440 with0/720 collapse. C270 is not yet registered.
 
 ## Latest accepted science — C268
 
@@ -106,104 +117,10 @@ Own24/focused3573 passed;448 source pins/761 protected inputs;all_pairs_matched/
 The acceptance addendum retains complete artifact hashes and interpretation. This recovery neither
 changes C267's scientific result nor rewrites its protected-input manifest.
 
-## Active C269 science — registered and reviewed
+## C269 accepted scope and next boundary
 
-Experiment:C269-v5b-paired-query-span-pooling.
-Stage:V5-B-PAIRED-QUERY-SPAN-POOLING.
-Registration:docs/experiment-ledger-addendum-c269-preregistration.md.
-Design:docs/v5b-query-span-pooling-v0.1.md.
-Acceptance base:edba206232f341059ecd8ab4b572896e0ddb7143.
-C268 parent execution:aa45ea5df68dcba70c99a009c46b7bf8468304a1.
-C268 parent summary SHA256:9e9ea4dd0d20b0ae0b8d315549a1cf1aa13c79853b3dd129c0f01e395a2bf67c.
-
-One question:with the same paired CE-only training,does replacing the actual C252 pre-core EOS
-query vector with a visible query-span pooled pre-core vector improve reliable held-value binding
-across five fresh initializations?
-
-Fresh seeds269001..269005;arms eos_query and span_query. Control is the actual unchanged C252
-AlignedPrecoreReadout. Candidate has the same14256 parameters,state_dict keys and initial tensor
-values;it changes only the source passed to read.query. Candidate query=mean of masked pre-core local
-states strictly after the final visible ';' byte59 and before the final visible '=' byte61.
-The final '=' must be EOS-1;span is nonempty/delimiter-free. All visible UTF-8 bytes are pooled.
-No entity ID,target,split,profile,pair index or supervision metadata enters model.forward.
-Masked pre-core memory,read.query/key/output,score divisor4,PAD mask,actual Full core,post-core EOS
-residual,readout_norm and decoder remain unchanged. Candidate/control parameter storage is disjoint.
-
-Use exact C267 dataset SHA256:
-1e03cf4d6a72700de0d3973459737ffba7dbc843655ebb7439cdedb99805c2f1.
-TRAIN192/HOLDOUT96;three entity subsets;EN/JA;both visible orders and queries;all three naming
-profiles. Four held value pairs remain absent from optimization. Names/profiles are TRAIN-seen.
-Both arms use ordinary mean CE only and identical paired batches. Shuffle96 query pairs using
-seed+269000+epoch;24 pairs/batch;four batches/epoch;profile=epoch%3.800 updates=200 epochs;
-each TRAIN row200 exposures;profile updates268/268/264. AdamW lr.005,betas.9/.999,eps1e-8,
-weight_decay0,global clip1;fit RNG seed+270000 per arm;CPU float64,threads2,deterministic.
-
-Primary PASS iff all FIVE span_query states meet the unchanged C267 criteria on every split/profile/
-language/entity-subset/order:answer accuracy>=.90,query-pair>=.80,evidence_drop>=.35,
-query_drop>=.35 and two-order>=.80. HOLDOUT answer cells8 rows imply8/8 and paired groups4/4.
-eos_query is a matched control and cannot rescue/fail the candidate. Report30 paired HOLDOUT
-profile/language correct/collapse contrasts. Pooled metrics do not replace the five-seed gate.
-
-Workload:10 models;8000 optimizer updates;384000 training rows;8540 model forwards;435840 row
-presentations;34160 core calls;540 final/replay evaluation forwards;one10-state bundle write/load;
-10 strict state loads. Persist query-plan,dataset,weights,raw evaluation records,measurements and
-validation summary;postcheck reconstructs schedules/scoring/contrasts with learned Module calls
-blocked. Parent verification is provenance only;no accepted C268 learned state initializes C269.
-
-Protection contract:460 source pins;787 protected inputs;45 deciding-path direct dependencies.
-OWN6:benchmark,own test,runner,launcher,preregistration,design. Own24;modules154;
-loaded3622/focused3621. Sole inherited exact exclusion remains:
-tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state.
-Manifest SHA256:cec2e2bfe254605c5c4a68c3f71bbaf7135de10a4a39af37a9d4b4aef469e2aa.
-Preserve tools/run_c167.ps1 and historical tools/invoke_active.ps1.
-
-## C269 post-authoring review
-
-post_authoring_review = PASS
-review_target_HEAD = f03df747c89d7d7c93c80f892fb860a6468a264e
-Scope:committed remote-byte/source-contract review;not scientific execution.
-
-Compared C268 acceptance edba206232f341059ecd8ab4b572896e0ddb7143 to the immutable review target:
-only C269 OWN6 paths differ. No accepted benchmark,test,runner,artifact,legacy dispatcher or C268 log
-was modified. Re-fetched complete C269 OWN6 identities at the review target:
--benchmark blob eb8e441e442530e377c5aad1db0c05552288c5d7;23933 UTF-8 characters.
--test blob adc42ee9181d5c77b53d0ebaf31ed4d399f33f11;18166 UTF-8 characters.
--runner blob31306abaee3761865a184089250ec2366cc158f4;4758 characters.
--launcher blob5cc45a0e5f11c500a58c33a74fcf344cfb16e877;2842 characters.
--preregistration blob4b80da1347f12dbfacf26b50d2251374e3bbe9c4;6800 characters.
--design blobaff1653a6aeea1118574a21f4086c1b76ef83199;3023 characters.
-No NUL was found in any OWN file. Manifest was independently reconstructed from committed constants
-and hashes to cec2e2bfe254605c5c4a68c3f71bbaf7135de10a4a39af37a9d4b4aef469e2aa.
-The committed test defines exactly24 distinct numbered test methods. The runner has exactly three
-embedded Python blocks with sys.argv index sets {1},{},{1,2,3};launcher branch/tree/ExpectedHead/
-ACTIVE-C269 and runner-ParseFile guards precede the logging failure boundary.
-
-Review confirmed query_span_mask accepts only token IDs and derives the span from final semicolon/
-equals/EOS delimiters;fit passes only token batches and zero task IDs to model.forward and uses target
-bytes only in CE. The own tests cover ASCII,all UTF-8 bytes,query_blind '?',malformed boundaries,
-all actual TRAIN/HOLDOUT renderings across all profiles/views,matched complete initial state,
-query-source formula,post-core residual provenance,gradient flow,schedule/gate/replay/protection and
-historical dispatcher pins. Source call-order assertions cover precheck before training tables,
-model construction before train,training before bundle load,and replay before scoring.
-
-No authoritative Windows repository/runtime is available to this reviewer. Therefore no claim is
-made that PowerShell ParseFile,py_compile,all own24,full3621 regression,C268 local-artifact replay or
-real ten-model learning has already run. Those remain mandatory gates in the user's Windows runtime.
-Synthetic/toy authoring tests are implementation evidence only,not scientific capability evidence.
-
-## C269 execution and stopping
-
-User entry:tools/invoke_active_v2.ps1 through explicit
-C:\Program Files\PowerShell\7\pwsh.exe -NoProfile -File. The historical invoke_active.ps1 must
-remain unchanged. The user block parses the versioned dispatcher;it parses itself and selected
-launcher;invoke_c269 parses run_c269 before logging. Expect legacy_dispatcher_pin=PASS,
-active_experiment=C269,then parent/task precheck460/787,own24,focused3621,ten models with
-200/400/600/800 progress,strict replay,persisted postcheck and log publication.
-
-If branch/tree/HEAD/ACTIVE/parser/legacy-byte preflight skips,do not force execution or alter an
-expected hash. If parent/source/artifact/replay/regression validity fails,repair SAME C269 only.
-If scientific_status=FAIL with run_execution_valid=True,accept the valid negative without tuning
-pooling,loss,steps,seeds or thresholds. If log transport alone fails,repair publication without
-retraining. On user 'finished',fetch C269 latest.json/latest.log from remote and judge C269 before
-registering C270. Do not move the experiment branch during execution/publication. Gate F NOT PASSED.
-No paid API,external corpus,production adoption,cleanup,history rewrite or CI change.
+The complete C269 registration/review remains in its preregistration/design documents and the prior
+handoff at7c44987b4a70f6ed821657f518b81f78bf0a376d. Its execution has now been judged PASS only in
+that bounded scope. C270 is not yet registered;next question is frozen transfer to unseen
+three-character familiar-byte identifiers. Preserve tools/run_c167.ps1,historical
+tools/invoke_active.ps1,and the versioned PowerShell7 operational entry. Gate F NOT PASSED.
