@@ -5,10 +5,12 @@ Set-StrictMode -Version Latest
 $Root = Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $Root
 $log = Join-Path $Root "runs\chatgpt-last.log"
+$preflightLog = Join-Path $Root "runs\c270-preflight-last.log"
 
 function Skip-Invocation {
-    param([string]$Reason)
+    param([string]$Reason,[string]$Detail="")
     Write-Output "invocation_skipped = $Reason"
+    if (-not [string]::IsNullOrWhiteSpace($Detail)) { Write-Output "detail = $Detail" }
     Write-Output "experiment_executed = False"
     Write-Output "execution_log_publish_attempted = False"
 }
@@ -45,12 +47,29 @@ $runArgs = @{
     C269Summary = (Join-Path $Root "runs\c269-v5b-query-span-6383f14adbca4283ac10896b67a6c33f\summary.json")
 }
 
+# Operational authoring/runtime validation happens BEFORE scientific logging and publication.
+# A failure here is an operational skip, not a scientific INVALID attempt.
+$preflightFailure = $null
+try {
+    .\tools\run_c270.ps1 @runArgs -Mode Validate *>&1 | Tee-Object -FilePath $preflightLog
+}
+catch {
+    $preflightFailure = $_
+}
+if ($null -ne $preflightFailure) {
+    Skip-Invocation "AUTHORING_RUNTIME_PREFLIGHT_FAILED" $preflightFailure.Exception.Message
+    return
+}
+
+# Formal science starts only after all authoring/runtime tests and focused regression passed.
 $failure = $null
 try {
     & {
-        Write-Output "=== C270 repository preflight ==="
+        Write-Output "=== C270 repository preflight attestation ==="
+        Get-Content -LiteralPath $preflightLog -Encoding UTF8
+        Write-Output "=== C270 repository scientific execution ==="
         Write-Output "execution_head = $headNow"
-        .\tools\run_c270.ps1 @runArgs
+        .\tools\run_c270.ps1 @runArgs -Mode Execute
     } *>&1 | Tee-Object -FilePath $log
 }
 catch { $failure = $_ }
