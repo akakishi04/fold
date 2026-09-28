@@ -10,7 +10,7 @@ Historical tools/invoke_active.ps1 remains immutable/pinned.
 
 Gate A/B PASSED;C/D PASSED in measured scope;Gate E PASSED;Gate F NOT PASSED.
 
-**C275 ACCEPTED PASS (diagnostic integrity only). C276 ACTIVE / NOT YET JUDGED. C277 NOT REGISTERED.**
+**C275 ACCEPTED PASS (diagnostic integrity only). C276 ACTIVE / NOT YET JUDGED (PREFLIGHT RECOVERY). C277 NOT REGISTERED.**
 C275 execution3cd34c37a4329f8b8a030f320f1eeefa303706e4 is authoritative.
 C275 PASS means saved gate-failure audit integrity only;capability_gate_applicable=False.
 C276 is the unique ACTIVE capability experiment:final_boundary lr0.005 versus lr0.0025.
@@ -112,10 +112,47 @@ The same seal appears in benchmark and preregistration. C276 own test24 requires
 agreement while ACTIVE,then immutable c276-c277 acceptance addendum after acceptance.
 Registration cardinalities are manifest-derived at runtime.
 
+## C276 operational preflight recovery
+
+The first C276 invocation at activation HEAD
+a5ce13504f6a1a6d77e262cde43766030908b922 stopped in Mode Validate during own24.
+test_16_parent_loader_requires_exact_c275_pass raised ValueError:parent hash.
+Scientific execution did not start and no scientific log was published.
+
+Root cause:production C276.load_parent correctly verifies two different parent hashes
+(C275 summary and C274 summary),but own test16 used one constant-return audit.sha mock for both paths.
+The test fixture therefore violated the real multi-parent provenance contract.
+
+Repair:
+-test16 now maps p->PARENT_SHA and q->C274_SHA;
+-it asserts that both parent identities were queried independently;
+-it contains a negative test where the secondary parent returns the wrong hash and requires
+ ValueError:parent hash;
+-docs/experiment-authoring-runtime-gate.md now includes the Multi-parent fixture fidelity rule;
+-production scientific source and manifest are unchanged.
+
+Recovery record:docs/experiment-ledger-addendum-c276-preflight-recovery.md.
+
+Recovery static review:
+post_authoring_review = STATIC PASS / RUNTIME GATE PENDING
+review_target_HEAD = 62ed0b08abdb460f6d5cd60c1e187ff2b4123b55
+
+Compared prior activation a5ce13504f6a1a6d77e262cde43766030908b922 to recovery review target:
+only C276 own test16,runtime-policy text and the recovery addendum changed.
+Re-fetched recovery blobs:
+-source scientific code unchanged:5f7b76dace80698142790ec1ce58cad56cb5f557
+-test:c89f0945ee2623e9318d04e7ad5b8c411375487d
+-policy:a1078829c9b2a009d87738f11e78a599f4d000f9
+-recovery:01cf471f9faeb9d1731e0d9f1f5b81483706a591
+
+The C276 manifest function is unchanged,so the sealed SHA remains:
+312ed892ba64ef1b0289506d44d1e3da05eec6ee85e67b1d3b21cee282e18355.
+Complete own24/focused3789 are deliberately not claimed here. Mode Validate remains authoritative.
+
 ## C276 post-authoring review
 
 post_authoring_review = STATIC PASS / RUNTIME GATE PENDING
-review_target_HEAD = 227d7f135ea1f58e587480f0f68ed145c798188a
+review_target_HEAD = 62ed0b08abdb460f6d5cd60c1e187ff2b4123b55
 
 Compared C275 acceptance2dac538eb6bc2755a589d9d9ec26135773ade4d7 to review target:
 only C276 OWN6 paths differ.
