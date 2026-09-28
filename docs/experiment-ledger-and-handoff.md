@@ -10,12 +10,25 @@ Historical tools/invoke_active.ps1 remains immutable/pinned.
 
 Gate A/B PASSED;C/D PASSED in measured scope;Gate E PASSED;Gate F NOT PASSED.
 
-**C274 ACCEPTED PASS (diagnostic integrity only). C275 ACTIVE / NOT YET JUDGED. C276 NOT REGISTERED.**
-C274 execution90f76a8f017d562caded127821852654b8e3d061 is authoritative.
-C274 scientific_status=PASS means directional diagnostic integrity only;capability_gate_applicable=False.
-first_boundary measured two_char0/5,triple0/5;final_boundary measured two_char4/5,triple0/5.
-C275 is the unique ACTIVE experiment and is a saved-output gate-failure audit with zero neural calls.
-No Gate F promotion,capability winner,production adoption or C276 registration.
+**C275 ACCEPTED PASS (diagnostic integrity only). C276 NOT REGISTERED.**
+C275 execution3cd34c37a4329f8b8a030f320f1eeefa303706e4 is authoritative.
+scientific_status=PASS means saved gate-failure audit integrity only;capability_gate_applicable=False.
+Primary final-boundary triple failures=100;all five C274 seeds are covered.
+C274 remains ACCEPTED PASS for diagnostic integrity only;C273/C272/C271/C270 remain ACCEPTED VALID
+NEGATIVE;C269 remains ACCEPTED PASS in its bounded scope.
+No Gate F promotion,capability winner,production adoption or C277 registration.
+
+## Latest accepted science — C275
+
+Acceptance:docs/experiment-ledger-addendum-c275-c276.md.
+Execution:3cd34c37a4329f8b8a030f320f1eeefa303706e4.
+Published log:9308dc7fac2a6e298f2e2dbb1b02b9caf2d96649.
+Summary:runs/c275-v5b-gate-failure-audit-fb5be8dc32064545aa7a993b70e50706/summary.json.
+Summary SHA256:1c255b542a742c0fa02fb36ffdcdfd762eddfb284f2347112feb816f40183beb.
+run_execution_valid=True;scientific_status=PASS;diagnostic_complete=True;
+capability_gate_applicable=False;model_forward_calls=0.
+Primary final-boundary triple failure records=100;near-seed23;broad-seed77.
+C276 is not yet registered.
 
 ## Latest accepted science — C274
 
@@ -48,107 +61,14 @@ C272 own test24 is accepted/pinned and still reads the mutable handoff. Preserve
 C273 and later tests use lifecycle-aware own seals:current handoff while ACTIVE,immutable acceptance
 addendum after acceptance.
 
-## Active C275 — saved gate-failure audit
+## C275 accepted scope and next boundary
 
-Experiment:C275-v5b-saved-gate-failure-audit.
-Stage:V5-B-SAVED-GATE-FAILURE-AUDIT.
-Registration:docs/experiment-ledger-addendum-c275-preregistration.md.
-Design:docs/v5b-saved-gate-failure-audit-v0.1.md.
-Acceptance base:ecd58ccf5f59887955048a6f23f77e340981e239.
-Parent C274 execution:90f76a8f017d562caded127821852654b8e3d061.
-Parent summary SHA256:0c30db2011e8b6cbc5cdcc67dee85792abd0d058f9f54a86cc65b103d2cc24a0.
+C275 registration/runtime details remain in its design,preregistration and prior handoff at
+3cd34c37a4329f8b8a030f320f1eeefa303706e4.
 
-One question:which exact fixed gate components cause final_boundary to fail the three-character task
-despite near-perfect pooled answers in four seeds,and are those failures concentrated in broad
-seed274003 or also distributed across274001/274002/274004/274005?
-
-C275 performs zero training,zero model forwards,zero core calls,zero checkpoint writes and zero
-learned-state selection. It verifies C274 accepted artifacts with torch.nn.Module._call_impl blocked,
-reconstructs the accepted measurements exactly,and audits only persisted metrics.
-
-Fixed thresholds are unchanged:
--accuracy0.90;
--query-pair accuracy0.80;
--evidence-drop0.35;
--query-drop0.35;
--two-order accuracy0.80.
-
-For every answer cell,record signed threshold margins and failed criteria.
-For every two-order record,record signed margin to0.80.
-Aggregate failures by arm/task/criterion,seed/criterion,and split/profile/criterion.
-Primary focus is final_boundary + triple task with explicit near-seed versus broad-seed split.
-
-Formal C275 PASS means diagnostic execution/integrity only:
--parent C274 bytes and saved reconstruction verify;
--all registered cell/two-order failure records are internally consistent;
--primary final-boundary triple audit covers all five seeds;
--persisted audit-plan/failure-audit/validation-summary reconstruct exactly;
--no provenance guard fails.
-PASS cannot declare a capability winner or promote Gate F.
-
-Workload:
--model_forward_calls0;
--row_presentations0;
--core_forward_calls0;
--train_steps0;
--new_checkpoint_writes0;
--model_state_loads0.
-
-Artifacts:audit-plan.json,failure-audit.json,validation-summary.json plus summary.json.
-
-Protection/runtime:
--source pins496;
--protected inputs868;
--direct deciding dependencies51;
--own24;
--modules160;
--loaded3766/focused3765;
--sole inherited exact C204 exclusion unchanged.
-
-Final sealed manifest SHA256:
-18af6d20c41fbb2e0bff672ac4e82e9e06eb324bc9c56ef53f409621ac95e102.
-The same seal appears in benchmark and preregistration. C275 own test24 requires current handoff
-agreement while ACTIVE,then immutable c275-c276 acceptance addendum after acceptance.
-Registration cardinalities are manifest-derived at runtime.
-
-## C275 post-authoring review
-
-post_authoring_review = STATIC PASS / RUNTIME GATE PENDING
-review_target_HEAD = 13fe00d659a429c629490a44130501d5d3f8adad
-
-Compared C274 acceptance ecd58ccf5f59887955048a6f23f77e340981e239 to review target:
-only C275 OWN6 paths differ.
-
-Committed OWN6 blobs:
--source:f398811f6a4f5df67eeeb7e3e4774ca3846fc2e3
--test:95cff37115cf1c26880e2ddd2feaf18a0202af14
--runner:182a64e0ea06884c9ff807e17b53ce238f01da2b
--launcher:66f41bf7c8695ab5122975a77a8d03df5b7ff851
--prereg:0a67e6259c7a370f336c4485ea68f02e3f3df92f
--design:be6be1223133c5f07907685de50f067de00e3ba8
-
-Static review confirms exactly24 own tests;three runner Python blocks;explicit unittest.mock.patch
-import;Validate before Execute;AUTHORING_RUNTIME_PREFLIGHT_FAILED before scientific logging;unique
-ordered run phase markers;manifest-derived496/868 registration;zero neural workload;parent C274
-diagnostic contract;diagnostic-only formal status;and lifecycle-aware own seal plus legacy C272 seal.
-
-No complete local checkout/PowerShell runtime is available to the reviewer. Therefore own24,
-focused3765,PowerShell ParseFile,parent artifact replay and real saved-audit execution are NOT claimed
-executed here. Mode Validate is authoritative.
-
-## Execution and stop
-
-Use tools/invoke_active_v2.ps1 through explicit PowerShell7.
-Expected order:
-legacy_dispatcher_pin=PASS -> active_experiment=C275 ->
-Mode Validate(parent/source/artifact precheck496/868 + sealed manifest,own24,focused3765) ->
-authoring_runtime_preflight=PASS ->
-Mode Execute(saved metrics attribution only,zero neural calls,persisted postcheck) ->
-log publication.
-
-Validate failure is operational and must not publish/replace scientific latest log.
-Execute integrity failure retries SAME C275.
-If run_execution_valid=True and scientific_status=PASS,accept it as DIAGNOSTIC PASS ONLY.
-Use the attribution result to decide C276;do not infer a capability winner from C275 itself.
-C276 stays unregistered until C275 is judged. Gate F NOT PASSED.
-Preserve tools/run_c167.ps1,historical tools/invoke_active.ps1,and all accepted evidence/recovery logs.
+C275 is now ACCEPTED PASS for diagnostic integrity only. The common near-seed failure signature is
+answer accuracy plus query-pair discrimination;mask-drop failures are not common to all near seeds.
+The next question is therefore a fresh matched optimizer-reliability test on final_boundary before
+introducing another reader/fusion architecture. C276 is not yet registered.
+Validate->Execute,manifest sealing,manifest-derived registration counts,mutable-handoff lifecycle
+rules and inherited compatibility seals remain mandatory. Gate F NOT PASSED.
