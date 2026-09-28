@@ -109,3 +109,33 @@ When a count changes:
 
 This rule addresses the C272 preflight incident where protected_inputs was corrected from820 to826
 in the manifest/precheck path while `validate_result` retained the stale820 literal.
+
+
+## Mutable handoff lifecycle rule
+
+The current handoff is mutable operational state. Accepted experiment tests must not unconditionally
+require their experiment-specific activation text or manifest seal to remain in the current handoff
+forever.
+
+For C273 and later own tests:
+- while that experiment is ACTIVE, the test may require its sealed manifest in the current handoff;
+- after that experiment is no longer ACTIVE, the test must require the seal in the immutable
+  acceptance addendum `docs/experiment-ledger-addendum-c###-c(next).md` instead;
+- the test must determine this from the handoff Formal state rather than assuming one lifecycle phase.
+
+If an older accepted/pinned test already unconditionally reads the mutable handoff and cannot be
+edited without violating parent provenance, preserve the required value in an append-only
+**Inherited regression compatibility seals** section of the handoff. Current known legacy entry:
+- C272 manifest: `89fd059a478b2190ecd03f8277aae2bafc7fcb12517897f56b4bd6cc89258604`.
+
+Every new experiment's own authoring tests must assert that all listed legacy compatibility seals
+remain present in the handoff. This catches accidental removal during own24, before the several-minute
+focused regression suite.
+
+Before activation, static review must inspect inherited tests that read
+`docs/experiment-ledger-and-handoff.md` and classify each dependency as:
+1. active-only lifecycle-aware;
+2. immutable acceptance-addendum based; or
+3. legacy compatibility seal that must be retained.
+
+Do not add a new regression exclusion to work around mutable-handoff failures.
