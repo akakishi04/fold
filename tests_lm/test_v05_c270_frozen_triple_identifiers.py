@@ -268,6 +268,13 @@ class C270Tests(unittest.TestCase):
         self.assertEqual(indices,[{1},set(),{1,2,3}])
         failure=re.search(r"(?m)^\s*\$failure\s*=\s*\$null\s*$",launcher);self.assertIsNotNone(failure)
         self.assertLess(launcher.index("::ParseFile"),failure.start());self.assertLess(launcher.index("STALE_EXPECTED_HEAD"),failure.start())
+        self.assertIn("AUTHORING_RUNTIME_PREFLIGHT_FAILED",launcher)
+        self.assertLess(launcher.index("-Mode Validate"),failure.start())
+        self.assertGreater(launcher.index("-Mode Execute"),failure.start())
+        self.assertLess(launcher.index("-Mode Validate"),launcher.index("-Mode Execute"))
+        runner_source=runner
+        self.assertIn('[ValidateSet("Validate","Execute")]',runner_source)
+        self.assertLess(runner_source.index('if ($Mode -eq "Validate")'),runner_source.index('=== C270 scientific execution ==='))
         source=inspect.getsource(b.run)
         phases=("precheck(c269_summary,root)","load_reference(c269_summary)","parent.load_bundle(","probe(model,ref,data,prompts,p267,core,base,factory)","analyze(records,refs,data,p267)")
         positions=[]
