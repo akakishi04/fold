@@ -37,7 +37,7 @@ OWN=("fold_lm/v05_benchmarks/model_c275_saved_gate_failure_audit.py",
      "docs/v5b-saved-gate-failure-audit-v0.1.md")
 OUTPUTS=("audit-plan.json","failure-audit.json","validation-summary.json")
 EXCLUDED="tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state"
-MANIFEST_SHA="PENDING_FINAL_SEAL"
+MANIFEST_SHA="18af6d20c41fbb2e0bff672ac4e82e9e06eb324bc9c56ef53f409621ac95e102"
 
 def req(x,m):
     if not x: raise ValueError(m)
