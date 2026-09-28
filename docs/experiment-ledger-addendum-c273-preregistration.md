@@ -107,7 +107,7 @@ OWN6 benchmark/test/runner/launcher/prereg/design.
 Own24;modules158;loaded3718/focused3717.
 Sole inherited exact C204 exclusion unchanged.
 
-Manifest SHA256 is PENDING_FINAL_SEAL during authoring.
+Manifest SHA256:fd38d800c08dcf7fb783f6f5c156169e75b29b1208c175d32259e2d4c77eea7f.
 After all manifest-changing edits,the final committed manifest is resealed and copied identically
 into benchmark,preregistration and handoff before activation.
 
