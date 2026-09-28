@@ -33,7 +33,7 @@ OWN=("fold_lm/v05_benchmarks/model_c272_query_boundaries.py",
 OUTPUTS=("architecture-plan.json","dataset.json","triple-dataset.json","trained-models.pt",
          "evaluations.pt","measurements.json","validation-summary.json")
 EXCLUDED="tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state"
-MANIFEST_SHA="PENDING_FINAL_SEAL"
+MANIFEST_SHA="89fd059a478b2190ecd03f8277aae2bafc7fcb12517897f56b4bd6cc89258604"
 
 def req(x,m):
     if not x: raise ValueError(m)
