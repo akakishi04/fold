@@ -10,7 +10,7 @@ Historical tools/invoke_active.ps1 remains immutable/pinned.
 
 Gate A/B PASSED;C/D PASSED in measured scope;Gate E PASSED;Gate F NOT PASSED.
 
-**C270 ACCEPTED VALID NEGATIVE. C271 ACTIVE / NOT YET JUDGED. C272 NOT REGISTERED.**
+**C270 ACCEPTED VALID NEGATIVE. C271 ACTIVE / NOT YET JUDGED (PREFLIGHT RECOVERY). C272 NOT REGISTERED.**
 C270 valid execution456deac490990f4c7f4ceb1cdf241f0c606a77de passed the new pre-science
 Validate gate and then completed scientific execution. Both frozen C270 arms passed0/5 on the
 unseen three-character task. C269 remains ACCEPTED PASS in its bounded trained-name/held-value scope.
@@ -93,10 +93,37 @@ Protection:472 source pins/812 protected inputs;47 deciding dependencies.
 Own24;modules156;loaded3670/focused3669;sole inherited exact C204 exclusion unchanged.
 Manifest SHA256:9c94e65a1be56896f757b3275dfc24f25e5c933097b31b932a43e3e2059d2be0.
 
+## C271 operational preflight recovery
+
+The first C271 user invocation at activation HEAD6797e0a5ad9ee58390f455608e0d360add251fc3
+stopped in Mode Validate before own tests/regression/science. No scientific log was published and
+experiment_executed=False. The stop was ValueError:registration in C271.precheck.
+
+Root cause:after preregistration,the committed manifest() text was strengthened during static review,
+but the hard-coded MANIFEST_SHA was not resealed. The old value
+15eeef060442ae4b17ce7d536a7a158b807170b693d3fc9f10fbea1710a9ac59 no longer matched the final
+manifest bytes. Source/input count arithmetic remains registered as472/812;the first failure message
+combined count/hash checks,so this recovery also separates their diagnostics.
+
+The final committed manifest was independently reconstructed after all scientific-source edits:
+9c94e65a1be56896f757b3275dfc24f25e5c933097b31b932a43e3e2059d2be0.
+That value is now identical in benchmark MANIFEST_SHA,preregistration and handoff.
+precheck prints actual source count,actual protected-input count and actual digest before asserting;
+count mismatch and hash mismatch now have separate expected/actual error messages.
+
+docs/experiment-authoring-runtime-gate.md now includes a mandatory Manifest sealing rule:
+finish manifest-changing edits -> compute digest from final committed benchmark -> update source,
+prereg and handoff -> re-fetch final bytes and recompute -> only then activate.
+Any later manifest() edit invalidates the seal and requires resealing.
+
+This was an operational preflight defect only. No C271 model was trained/evaluated,no science log
+was replaced,and the scientific question,data,seeds,architecture,loss,budget and fixed gates are
+unchanged. C271 remains the same experiment number.
+
 ## C271 post-authoring review
 
 post_authoring_review = STATIC PASS / RUNTIME GATE PENDING
-review_target_HEAD = deb0e2c7807ccac81cb16abb38d85a13d58db74a
+review_target_HEAD = 5f9922702204127b7df67a3cfd9b2a27d992b7e1
 
 Compared C270 acceptance7d050e672758f97033fa23860af47d7a5d9cf15b to review target:only C271
 OWN6 paths differ. Re-fetched committed OWN6 blobs:
