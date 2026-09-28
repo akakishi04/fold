@@ -288,19 +288,28 @@ def regression_suite(root):
     require((len(tests),len(kept))==(3646,3645),"suite counts");return unittest.TestSuite(kept)
 
 def run(*,c269_summary,output_dir,expected_head):
-    parent,p267,core,base,aligned,reader,factory,audit=context();root=Path(__file__).resolve().parents[2]
+    parent,p267,core,base,aligned,reader,factory,audit=context()
+    root=Path(__file__).resolve().parents[2]
     def guard():
         require(audit.git(root,"rev-parse","HEAD").decode().strip()==expected_head,"HEAD")
         require(audit.git(root,"branch","--show-current").decode().strip()=="feat/sft-target-loss","branch")
         require(not audit.git(root,"status","--porcelain","--untracked-files=no").strip(),"dirty tree")
-    guard();torch.set_num_threads(2);torch.use_deterministic_algorithms(True)
-    pins,protected=precheck(c269_summary,root);data,refs=load_reference(c269_summary)
-    prompts=prompt_dataset(data,p267);validate_dataset(prompts,data,p267)
-    states=parent.load_bundle(Path(c269_summary).resolve().parent/"trained-models.pt");require(len(states)==10,"state count")
-    out=Path(output_dir);out.mkdir(parents=True,exist_ok=False);records=[]
+    guard()
+    torch.set_num_threads(2)
+    torch.use_deterministic_algorithms(True)
+    pins,protected=precheck(c269_summary,root)
+    data,refs=load_reference(c269_summary)
+    prompts=prompt_dataset(data,p267)
+    validate_dataset(prompts,data,p267)
+    states=parent.load_bundle(Path(c269_summary).resolve().parent/"trained-models.pt")
+    require(len(states)==10,"state count")
+    out=Path(output_dir)
+    out.mkdir(parents=True,exist_ok=False)
+    records=[]
     for ref,state in zip(refs,states,strict=True):
         model=parent.make_arm_model(ref["seed"],ref["arm"],base,aligned,reader,factory)
-        model.load_state_dict(state,strict=True);model.eval().requires_grad_(False)
+        model.load_state_dict(state,strict=True)
+        model.eval().requires_grad_(False)
         print(f'[C270] model={len(records)+1}/10 seed={ref["seed"]} arm={ref["arm"]}; frozen triple-identifier transfer',flush=True)
         records.append(probe(model,ref,data,prompts,p267,core,base,factory))
     metrics,summary=analyze(records,refs,data,p267)
