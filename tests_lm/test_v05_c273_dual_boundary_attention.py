@@ -256,7 +256,16 @@ class C273Tests(unittest.TestCase):
         prereg=(root/"docs/experiment-ledger-addendum-c273-preregistration.md").read_text(encoding="utf-8")
         handoff=(root/"docs/experiment-ledger-and-handoff.md").read_text(encoding="utf-8")
         self.assertNotEqual(b.MANIFEST_SHA,"PENDING_FINAL_SEAL")
-        self.assertIn(b.MANIFEST_SHA,prereg);self.assertIn(b.MANIFEST_SHA,handoff)
+        self.assertIn(b.MANIFEST_SHA,prereg)
+        formal=re.search(r"(?ms)^## Formal state\s+(?P<body>.*?)(?=^## |\Z)",handoff)
+        self.assertIsNotNone(formal)
+        if re.search(r"\bC273 ACTIVE /",formal.group("body")):
+            self.assertIn(b.MANIFEST_SHA,handoff)
+        else:
+            accepted=root/"docs/experiment-ledger-addendum-c273-c274.md"
+            self.assertTrue(accepted.is_file(),"accepted C273 must preserve its seal in immutable addendum")
+            self.assertIn(b.MANIFEST_SHA,accepted.read_text(encoding="utf-8"))
+        self.assertIn(c272.MANIFEST_SHA,handoff,"legacy C272 inherited regression compatibility seal")
         legacy=(root/"tools/invoke_active.ps1").read_text(encoding="utf-8").encode()
         active=(root/"tools/invoke_active_v2.ps1").read_text(encoding="utf-8")
         self.assertEqual(hashlib.sha1(b"blob "+str(len(legacy)).encode()+b"\0"+legacy).hexdigest(),"86b5606a5b212b12f416abedac0923da634f88e3")
