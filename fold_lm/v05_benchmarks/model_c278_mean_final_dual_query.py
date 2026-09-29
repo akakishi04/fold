@@ -32,7 +32,7 @@ OWN=("fold_lm/v05_benchmarks/model_c278_mean_final_dual_query.py",
 OUTPUTS=("architecture-plan.json","dataset.json","triple-dataset.json","trained-models.pt",
          "evaluations.pt","measurements.json","validation-summary.json")
 EXCLUDED="tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state"
-MANIFEST_SHA="PENDING_FINAL_SEAL"
+MANIFEST_SHA="791f287f21bcadd6c708496cd6922a2ef82a2ab94d2cf12ab5c3d669e1917dec"
 
 def req(x,m):
     if not x: raise ValueError(m)
