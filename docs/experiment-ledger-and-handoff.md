@@ -10,11 +10,55 @@ Historical tools/invoke_active.ps1 remains immutable/pinned.
 
 Gate A/B PASSED;C/D PASSED in measured scope;Gate E PASSED;Gate F NOT PASSED.
 
-**C278 ACCEPTED VALID NEGATIVE. C279 ACTIVE / NOT YET JUDGED. C280 NOT REGISTERED.**
-C278 execution ca6e45cc90b3b48e3d56c10acde72e35574878fd is authoritative.
-C278 is a valid scientific miss: both arms retain 5/5 two-character pass but both are 0/5 on the complete three-character gate.
-mean_final_dual improves aggregate three-character answers/collapse, especially shared_prefix2, but does not solve shared_suffix2 reliability.
-Gate F remains NOT PASSED. C279 is the unique ACTIVE saved-output diagnostic; no production adoption, seed selection, fusion retuning, or C280 registration.
+**C279 ACCEPTED PASS (diagnostic integrity only). C280 NOT REGISTERED.**
+C279 execution b07425eddfab2d4f3f6bacd8dff02295b44f3063 is authoritative.
+C279 PASS means saved C278 failure-profile audit integrity only; capability_gate_applicable=False.
+C279 shows the mean_final_dual residual is concentrated in shared_suffix2, with evidence_drop failures worsening there despite broad gains elsewhere.
+Gate F remains NOT PASSED. No production adoption, seed selection, fusion retuning, or C280 registration.
+
+## Latest accepted science — C279
+
+Acceptance:docs/experiment-ledger-addendum-c279-c280.md.
+Execution:b07425eddfab2d4f3f6bacd8dff02295b44f3063.
+Published log:ad5eed44f8ba66d29cda9627d54245b56fb8ff13.
+Summary:runs/c279-v5b-saved-dual-audit-e6d76ea781994de085b16ea8e7a6b972/summary.json.
+Summary SHA256:a0019e06e4f4b330675daa2235cb4d0cf1952930336d2f0038f17d6ebd11b5bb.
+run_execution_valid=True;scientific_status=PASS;diagnostic_complete=True;
+capability_gate_applicable=False;model_forward_calls=0.
+
+Triple criterion delta candidate-control:
+-accuracy -78;
+-query_pair_accuracy -78;
+-two_order_accuracy -39;
+-query_drop -49;
+-evidence_drop -10.
+
+shared_prefix2 HOLDOUT delta:
+-accuracy -29;
+-query_pair_accuracy -29;
+-two_order_accuracy -14;
+-query_drop -17;
+-evidence_drop -10.
+
+shared_suffix2 TRAIN delta:
+-accuracy -12;
+-query_pair_accuracy -12;
+-two_order_accuracy -4;
+-query_drop -3;
+-evidence_drop +4.
+
+shared_suffix2 HOLDOUT delta:
+-accuracy -9;
+-query_pair_accuracy -9;
+-two_order_accuracy -8;
+-query_drop -7;
+-evidence_drop +5.
+
+Interpretation:mean_final_dual broadly improves direct discrimination,query dependence and two-order
+consistency. The remaining asymmetry is shared_suffix2 evidence dependence: evidence_drop failure
+counts increase while almost every other registered criterion improves. C280 should test whether
+removing query/self tokens from the memory-attention support fixes that residual without changing
+query vectors,parameters,training policy or gate. C280 is not registered in this acceptance commit.
 
 ## Latest accepted science — C278
 
@@ -86,7 +130,7 @@ C272 own test24 is accepted/pinned and still reads the mutable handoff. Preserve
 C273 and later tests use lifecycle-aware own seals:current handoff while ACTIVE,immutable acceptance
 addendum after acceptance.
 
-## Active C279 — saved mean/final dual-query failure-profile audit
+## Completed C279 — saved mean/final dual-query failure-profile audit
 
 Experiment:C279-v5b-saved-dual-failure-profile-audit.
 Stage:V5-B-SAVED-DUAL-FAILURE-PROFILE-AUDIT.
