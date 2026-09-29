@@ -137,8 +137,7 @@ class C280Tests(unittest.TestCase):
             self.assertIn(b.MANIFEST_SHA,handoff)
         else:
             accepted=root/"docs/experiment-ledger-addendum-c280-c281.md"
-            if b.MANIFEST_SHA!="PENDING_FINAL_SEAL":
-                self.assertTrue(accepted.is_file())
-                self.assertIn(b.MANIFEST_SHA,accepted.read_text(encoding="utf-8"))
+            self.assertTrue(accepted.is_file())
+            self.assertIn(b.MANIFEST_SHA,accepted.read_text(encoding="utf-8"))
 
 if __name__=="__main__": unittest.main()
