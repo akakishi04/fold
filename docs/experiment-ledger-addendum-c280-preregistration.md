@@ -116,7 +116,7 @@ OWN6 benchmark/test/runner/launcher/prereg/design.
 Own24;modules165;loaded3886/focused3885.
 Sole inherited exact C204 exclusion unchanged.
 
-Manifest SHA256:PENDING_FINAL_SEAL.
+Manifest SHA256:c02aa9b88d7eeb9a7671674b982b5d7dad420c88cae10b4e40b4c6130219e1ac.
 Registration cardinalities are manifest-derived at runtime.
 C279/C278/C277/C276/C275/C274 summary hashes are modeled independently.
 

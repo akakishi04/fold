@@ -34,7 +34,7 @@ OWN=("fold_lm/v05_benchmarks/model_c280_evidence_only_dual_memory.py",
 OUTPUTS=("architecture-plan.json","dataset.json","triple-dataset.json","trained-models.pt",
          "evaluations.pt","measurements.json","validation-summary.json")
 EXCLUDED="tests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state"
-MANIFEST_SHA="PENDING_FINAL_SEAL"
+MANIFEST_SHA="c02aa9b88d7eeb9a7671674b982b5d7dad420c88cae10b4e40b4c6130219e1ac"
 
 def req(x,m):
     if not x: raise ValueError(m)
@@ -283,7 +283,7 @@ def precheck(c279_summary,c278_summary,c277_summary,c276_summary,c275_summary,c2
     actual=(len(pins),len(protected));actual_manifest=digest(registration)
     print(f"registration_check = source_pins:{actual[0]}; protected_inputs:{actual[1]}; manifest_sha256:{actual_manifest}",flush=True)
     req(actual==expected,f"registration counts expected={expected} actual={actual}")
-    req(MANIFEST_SHA!="PENDING_FINAL_SEAL","manifest not sealed")
+    req(MANIFEST_SHA!="c02aa9b88d7eeb9a7671674b982b5d7dad420c88cae10b4e40b4c6130219e1ac","manifest not sealed")
     req(actual_manifest==MANIFEST_SHA,f"registration manifest expected={MANIFEST_SHA} actual={actual_manifest}")
     return pins,protected
 
