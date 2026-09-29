@@ -31,6 +31,16 @@ from fold_lm.v05_benchmarks import model_c282_mixed_length_training as b
 paths = [Path(x) for x in sys.argv[1:]]
 assert len(paths) == 8
 b.precheck(paths, Path.cwd())
+c = b.context()
+data = c.p267.dataset()
+tokens, targets = b.training_tables(data, c)
+for seed in b.SEEDS:
+    left = b.schedule(seed, b.ARMS[0], data["TRAIN"])
+    right = b.schedule(seed, b.ARMS[1], data["TRAIN"])
+    assert left[3]["logical_batch_sha256"] == right[3]["logical_batch_sha256"]
+    models = b.make_models(seed, c)
+    assert len(models) == 2
+print("real_training_table_and_initial_models = PASS; no training or model forwards", flush=True)
 print("source_and_artifact_precheck = PASS; source_pins = 538; protected_inputs = 950", flush=True)
 print("manifest_sha256 =", b.MANIFEST_SHA, flush=True)
 print("scope = mixed-length candidate trains on three-character TRAIN examples; NOT unseen-length success", flush=True)
