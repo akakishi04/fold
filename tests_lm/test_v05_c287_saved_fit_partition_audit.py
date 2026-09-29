@@ -271,7 +271,7 @@ class C287Tests(unittest.TestCase):
             b.main();self.assertEqual(run.call_args.kwargs['summaries'],[Path(str(i)) for i in range(13)])
 
     def test_30_runner_blocks_and_paths(self):
-        root=Path(__file__).resolve().parents[1];r=(root/'tools/run_c287.ps1').read_text();l=(root/'tools/invoke_c287.ps1').read_text()
+        root=Path(__file__).resolve().parents[1];r=(root/'tools/run_c287.ps1').read_text(encoding='utf-8');l=(root/'tools/invoke_c287.ps1').read_text(encoding='utf-8')
         blocks=re.findall(r"@'\n(.*?)\n'@",r,re.S);self.assertEqual(len(blocks),3)
         for code in blocks:ast.parse(code)
         self.assertIn('sys.argv[2:15]',blocks[2]);self.assertIn('head = sys.argv[15]',blocks[2])
@@ -281,10 +281,10 @@ class C287Tests(unittest.TestCase):
         self.assertIn('Parser]::ParseFile',l)
 
     def test_31_immutable_inventory_and_binding(self):
-        root=Path(__file__).resolve().parents[1];self.assertIn(b.MANIFEST_SHA,(root/b.OWN[4]).read_text())
+        root=Path(__file__).resolve().parents[1];self.assertIn(b.MANIFEST_SHA,(root/b.OWN[4]).read_text(encoding='utf-8'))
         self.assertEqual(len(unittest.defaultTestLoader.getTestCaseNames(type(self))),b.manifest()['own_tests'])
         for n in b.OWN:self.assertTrue((root/n).is_file())
-        tree=ast.parse(Path(b.__file__).read_text());imports=[n for n in ast.walk(tree) if isinstance(n,ast.ImportFrom) and (n.module or '').startswith('fold_lm')]
+        tree=ast.parse(Path(b.__file__).read_text(encoding='utf-8'));imports=[n for n in ast.walk(tree) if isinstance(n,ast.ImportFrom) and (n.module or '').startswith('fold_lm')]
         self.assertEqual([n.names[0].name for n in imports],['model_c286_cosine_tail_stability'])
         self.assertEqual(b.manifest()['source_pins'],562+len(b.OWN));self.assertEqual(b.manifest()['protected_inputs'],1001+9+len(b.OWN))
 
