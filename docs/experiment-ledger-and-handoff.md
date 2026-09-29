@@ -182,14 +182,14 @@ c02aa9b88d7eeb9a7671674b982b5d7dad420c88cae10b4e40b4c6130219e1ac.
 ## C280 post-authoring review
 
 post_authoring_review = STATIC PASS / RUNTIME GATE PENDING
-review_target_HEAD = db6d184cc678410328b7b7bfdd49977a0d6b1ef7
+review_target_HEAD = ac3ab86e424c2d17bf1e8696c511dbb6654c3894
 
 Compared C279 acceptance9299883b69eadb049675b775fc4a152e7ab1f225 to review target:
 only C280 OWN6 paths differ.
 
 Committed OWN6 blobs:
--source:8df9a9574d556a9c06278b38368cb524da2b61b0
--test:0086bba4a078cf492d218f70fe1089832a0a7e9e
+-source:b0fbd492675ff8d147af13573b26c09c3d4afcab
+-test:37c1b8968cdaf63d671eae2e42f25663a3a33a3e
 -runner:8af69a6aadbda6b8e8cdae7f7be5d9bcc7c1b47c
 -launcher:66f28fe95de9d26b928908aeecd726e6934959dd
 -prereg:e646dd6fb10d13e38f1f33c0b5552ac205598745
@@ -203,6 +203,28 @@ post-average output remain;C279 parent verification is Module-call blocked;C279/
 summary identities are independent;source526/protected926/direct-dependency56 contracts are explicit;
 runner py_compiles before science and requires own24+focused3885;launcher resolves authoritative C280
 and runs Validate before Execute.
+
+## C280 authoring preflight recovery
+
+Initial activation HEAD47b6990c87872a4f7b9167f8b5d6bed04c8c94a0 reached runtime Validate and stopped before
+scientific execution because precheck used an inverted manifest-seal guard: it rejected the exact
+sealed SHA as "manifest not sealed". invocation_skipped=AUTHORING_RUNTIME_PREFLIGHT_FAILED;
+experiment_executed=False;execution_log_publish_attempted=False.
+
+Recovery changes only:
+-fold_lm/v05_benchmarks/model_c280_evidence_only_dual_memory.py: replace the inverted equality guard
+ with a 64-lowercase-hex seal-shape check; the existing exact manifest digest equality remains.
+-tests_lm/test_v05_c280_evidence_only_dual_memory.py: extend existing test01 to lock the repaired guard.
+
+Recovery commit:ac3ab86e424c2d17bf1e8696c511dbb6654c3894.
+Compared with activation HEAD47b6990c87872a4f7b9167f8b5d6bed04c8c94a0,only those two files
+changed. Scientific conditions,manifest content/digest,arms,seeds,schedule,optimizer,attention
+support,thresholds and workload are unchanged.
+
+Remote-byte recovery review = STATIC PASS / RUNTIME GATE PENDING.
+The repaired source keeps manifest SHA c02aa9b88d7eeb9a7671674b982b5d7dad420c88cae10b4e40b4c6130219e1ac,
+uses the evidence-only support mask unchanged,retains two candidate softmaxes/one output,and keeps
+source526/protected926/direct-dependency56 contracts. Own test definition count remains24.
 
 No complete user-local runtime is available to reviewer. Therefore own24,focused3885,PowerShell
 ParseFile,parent artifact replay and real ten-model training are NOT claimed executed here.
