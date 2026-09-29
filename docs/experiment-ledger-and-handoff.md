@@ -10,11 +10,11 @@ Historical tools/invoke_active.ps1 remains immutable/pinned.
 
 Gate A/B PASSED;C/D PASSED in measured scope;Gate E PASSED;Gate F NOT PASSED.
 
-**C278 ACCEPTED VALID NEGATIVE. C279 NOT REGISTERED.**
+**C278 ACCEPTED VALID NEGATIVE. C279 ACTIVE / NOT YET JUDGED. C280 NOT REGISTERED.**
 C278 execution ca6e45cc90b3b48e3d56c10acde72e35574878fd is authoritative.
 C278 is a valid scientific miss: both arms retain 5/5 two-character pass but both are 0/5 on the complete three-character gate.
 mean_final_dual improves aggregate three-character answers/collapse, especially shared_prefix2, but does not solve shared_suffix2 reliability.
-Gate F remains NOT PASSED. No production adoption, seed selection, fusion retuning, or C280 registration.
+Gate F remains NOT PASSED. C279 is the unique ACTIVE saved-output diagnostic; no production adoption, seed selection, fusion retuning, or C280 registration.
 
 ## Latest accepted science — C278
 
@@ -85,6 +85,89 @@ This section is append-only while corresponding accepted/pinned tests remain in 
 C272 own test24 is accepted/pinned and still reads the mutable handoff. Preserve this seal.
 C273 and later tests use lifecycle-aware own seals:current handoff while ACTIVE,immutable acceptance
 addendum after acceptance.
+
+## Active C279 — saved mean/final dual-query failure-profile audit
+
+Experiment:C279-v5b-saved-dual-failure-profile-audit.
+Stage:V5-B-SAVED-DUAL-FAILURE-PROFILE-AUDIT.
+Registration:docs/experiment-ledger-addendum-c279-preregistration.md.
+Design:docs/v5b-saved-dual-failure-profile-audit-v0.1.md.
+Acceptance base:b3745f7d90565297cd4d19024d7da4fd62954251.
+Parent C278 execution:ca6e45cc90b3b48e3d56c10acde72e35574878fd.
+Parent C278 summary SHA256:557069bec9d0d6ef73c7a9d1f5196f7be70edb9ab2c37a9a0d315033678b770b.
+
+One question:for accepted C278 saved outputs,which fixed gate criteria remain responsible for
+mean_final_dual three-character failures by seed,split and profile,and is the residual failure
+specifically concentrated in shared_suffix2 mask sensitivity/two-order behavior rather than direct
+answer discrimination?
+
+C279 is saved-output diagnostic only:
+-model_forward_calls=0;
+-row_presentations=0;
+-core_forward_calls=0;
+-train_steps=0;
+-new_checkpoint_writes=0;
+-model_state_loads=0.
+
+Primary registered views:
+-all triple criterion failure counts and candidate-minus-control deltas;
+-shared_prefix2 HOLDOUT;
+-shared_suffix2 TRAIN and HOLDOUT;
+-per-seed triple deltas278001..278005;
+-signed negative-margin ranges and exact failed records.
+
+Formal PASS means diagnostic integrity only. capability_gate_applicable=False.
+Gate F remains NOT PASSED regardless of diagnostic values.
+
+Protection:
+-source pins520;
+-protected inputs916;
+-direct deciding dependencies55;
+-own tests24;
+-modules164;
+-loaded3862/focused3861;
+-sole inherited exact C204 exclusion unchanged.
+
+Final sealed manifest SHA256:
+daeea4cfcf5083ec9a5237ea092f0c11ac7ab3cf38b76e9cdf62f60c4fea1af7.
+
+## C279 post-authoring review
+
+post_authoring_review = STATIC PASS / RUNTIME GATE PENDING
+review_target_HEAD = 8f14be01ac0e1cdf15e5edf990a18292d7dbb048
+
+Committed OWN6 blobs:
+-source:6302d7c6ddddd86d5ce8e70367746f39211f04ed
+-test:aba202e52bb1977ca8eba2efeb10b0bdab6161fe
+-runner:408f0d63053c25e4016ed168e17bc1c3b0b07ac8
+-launcher:17e34313205ed479b10dec718188b3ff923b42c3
+-prereg:2031e328d5d548e38e2d0501d7c8a934101965f7
+-design:602d25fc03609b238c8b456218c59083b0c429b3
+
+Static review confirms no NUL/PENDING seal;exact24 own test definitions;manifest/prereg seal agreement;
+C278 verify_artifacts is the parent loader;parent verification is enclosed by a neural Module-call
+block;C278/C277/C276/C275/C274 summary identities are independent;all seven C278 artifacts are
+hash-pinned;source520/protected916/direct-dependency55 contracts are explicit;the direct dependency
+pattern includes through C278;runner performs py_compile,parent precheck,own24 and semantic focused
+suite before Execute;launcher requires authoritative C279 ACTIVE and publishes only C279.
+
+No complete user-local runtime is available to reviewer. Therefore own24,focused3861,PowerShell
+ParseFile,parent artifact replay and saved diagnostic reconstruction are NOT claimed executed here.
+Mode Validate is authoritative.
+
+## C279 execution and stop
+
+Use tools/invoke_active_v2.ps1 through explicit PowerShell7.
+Expected order:
+legacy_dispatcher_pin=PASS -> active_experiment=C279 ->
+Mode Validate(parent/source/artifact precheck520/916 + sealed manifest,own24,focused3861) ->
+authoring_runtime_preflight=PASS ->
+Mode Execute(saved diagnostic only,zero model forwards,persisted postcheck) ->
+log publication.
+
+Validate failure is operational and must not publish/replace scientific latest log.
+Execute integrity failure retries SAME C279.
+C280 stays unregistered until C279 is judged. Gate F NOT PASSED.
 
 ## Completed C278 — mean-span plus final-boundary dual attention
 
