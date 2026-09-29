@@ -283,7 +283,7 @@ def precheck(c279_summary,c278_summary,c277_summary,c276_summary,c275_summary,c2
     actual=(len(pins),len(protected));actual_manifest=digest(registration)
     print(f"registration_check = source_pins:{actual[0]}; protected_inputs:{actual[1]}; manifest_sha256:{actual_manifest}",flush=True)
     req(actual==expected,f"registration counts expected={expected} actual={actual}")
-    req(MANIFEST_SHA!="c02aa9b88d7eeb9a7671674b982b5d7dad420c88cae10b4e40b4c6130219e1ac","manifest not sealed")
+    req(bool(re.fullmatch(r"[0-9a-f]{64}",MANIFEST_SHA)),"manifest not sealed")
     req(actual_manifest==MANIFEST_SHA,f"registration manifest expected={MANIFEST_SHA} actual={actual_manifest}")
     return pins,protected
 

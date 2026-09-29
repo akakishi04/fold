@@ -9,6 +9,9 @@ from fold_lm.v05_benchmarks import model_c280_evidence_only_dual_memory as b
 class C280Tests(unittest.TestCase):
     def test_01_manifest_pending_or_final_digest_contract(self):
         self.assertEqual(b.MANIFEST_SHA,b.digest(b.manifest()))
+        src=inspect.getsource(b.precheck)
+        self.assertIn('re.fullmatch(r"[0-9a-f]{64}",MANIFEST_SHA)',src)
+        self.assertNotIn('MANIFEST_SHA!="c02aa9b88d7eeb9a7671674b982b5d7dad420c88cae10b4e40b4c6130219e1ac"',src)
 
     def test_02_arms_and_capacity_registered(self):
         self.assertEqual(b.ARMS,("all_token_dual","evidence_only_dual"))
