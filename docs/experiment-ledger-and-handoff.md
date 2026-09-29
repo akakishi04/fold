@@ -10,11 +10,11 @@ Historical tools/invoke_active.ps1 remains immutable/pinned.
 
 Gate A/B PASSED;C/D PASSED in measured scope;Gate E PASSED;Gate F NOT PASSED.
 
-**C279 ACCEPTED PASS (diagnostic integrity only). C280 NOT REGISTERED.**
+**C279 ACCEPTED PASS (diagnostic integrity only). C280 ACTIVE / NOT YET JUDGED. C281 NOT REGISTERED.**
 C279 execution b07425eddfab2d4f3f6bacd8dff02295b44f3063 is authoritative.
 C279 PASS means saved C278 failure-profile audit integrity only; capability_gate_applicable=False.
 C279 shows the mean_final_dual residual is concentrated in shared_suffix2, with evidence_drop failures worsening there despite broad gains elsewhere.
-Gate F remains NOT PASSED. No production adoption, seed selection, fusion retuning, or C280 registration.
+Gate F remains NOT PASSED. C280 is the unique ACTIVE capability experiment; no production adoption, seed selection, support retuning, or C281 registration.
 
 ## Latest accepted science — C279
 
@@ -129,6 +129,100 @@ This section is append-only while corresponding accepted/pinned tests remain in 
 C272 own test24 is accepted/pinned and still reads the mutable handoff. Preserve this seal.
 C273 and later tests use lifecycle-aware own seals:current handoff while ACTIVE,immutable acceptance
 addendum after acceptance.
+
+## Active C280 — evidence-only dual memory support
+
+Experiment:C280-v5b-evidence-only-dual-memory.
+Stage:V5-B-EVIDENCE-ONLY-DUAL-MEMORY.
+Registration:docs/experiment-ledger-addendum-c280-preregistration.md.
+Design:docs/v5b-evidence-only-dual-memory-v0.1.md.
+Acceptance base:9299883b69eadb049675b775fc4a152e7ab1f225.
+Parent C279 execution:b07425eddfab2d4f3f6bacd8dff02295b44f3063.
+Parent C279 summary SHA256:a0019e06e4f4b330675daa2235cb4d0cf1952930336d2f0038f17d6ebd11b5bb.
+
+One question:with identical fresh paired CE training,does keeping C278's mean/final query vectors but
+restricting both attention softmaxes to evidence positions before the visible query bytes improve
+reliable two/three-character binding relative to C278's all-valid-token memory support?
+
+Fresh seeds280001..280005;arms all_token_dual and evidence_only_dual.
+
+all_token_dual is the actual C278 MeanFinalDualReadout.
+evidence_only_dual has the same14256 parameters/state keys and identical mean/final query vectors.
+The sole intervention is softmax key-value support:
+-valid positions strictly before the first visible query byte;
+-final separator semicolon included;
+-visible query bytes,final equals,EOS and padding excluded;
+-two separate masked softmaxes retained;
+-retrieved memories averaged;
+-shared read.output applied once.
+
+Training/evaluation:
+-96 paired TRAIN groups;
+-800 updates/model,10 models,8000 updates total;
+-AdamW lr0.005,mean CE only;
+-384000 training rows;
+-9080 total model forwards;
+-487680 row presentations;
+-36320 core calls;
+-C267 two-character plus C270 three-character fixed gates;
+-candidate PASS iff all five evidence_only_dual states pass both complete tasks.
+
+Protection:
+-source pins526;
+-protected inputs926;
+-direct deciding dependencies56;
+-own tests24;
+-modules165;
+-loaded3886/focused3885;
+-sole inherited exact C204 exclusion unchanged.
+
+Final sealed manifest SHA256:
+c02aa9b88d7eeb9a7671674b982b5d7dad420c88cae10b4e40b4c6130219e1ac.
+
+## C280 post-authoring review
+
+post_authoring_review = STATIC PASS / RUNTIME GATE PENDING
+review_target_HEAD = db6d184cc678410328b7b7bfdd49977a0d6b1ef7
+
+Compared C279 acceptance9299883b69eadb049675b775fc4a152e7ab1f225 to review target:
+only C280 OWN6 paths differ.
+
+Committed OWN6 blobs:
+-source:8df9a9574d556a9c06278b38368cb524da2b61b0
+-test:0086bba4a078cf492d218f70fe1089832a0a7e9e
+-runner:8af69a6aadbda6b8e8cdae7f7be5d9bcc7c1b47c
+-launcher:66f28fe95de9d26b928908aeecd726e6934959dd
+-prereg:e646dd6fb10d13e38f1f33c0b5552ac205598745
+-design:6d40125fe6d784f7a0c8abaea1cad14f93ea49d3
+
+Static review confirms exactly24 own tests;no NUL/PENDING seal;source/prereg manifest agreement;
+actual C278 MeanFinalDualReadout control;candidate keeps identical mean/final queries and shared
+query/key/output parameters;both candidate softmaxes use evidence=valid & pos<first_query_byte;
+final separator semicolon is included while query bytes/EOS are excluded;two softmaxes and one
+post-average output remain;C279 parent verification is Module-call blocked;C279/C278/C277/C276/C275/C274
+summary identities are independent;source526/protected926/direct-dependency56 contracts are explicit;
+runner py_compiles before science and requires own24+focused3885;launcher resolves authoritative C280
+and runs Validate before Execute.
+
+No complete user-local runtime is available to reviewer. Therefore own24,focused3885,PowerShell
+ParseFile,parent artifact replay and real ten-model training are NOT claimed executed here.
+Mode Validate is authoritative.
+
+## C280 execution and stop
+
+Use tools/invoke_active_v2.ps1 through explicit PowerShell7.
+Expected order:
+legacy_dispatcher_pin=PASS -> active_experiment=C280 ->
+Mode Validate(parent/source/artifact precheck526/926 + sealed manifest,own24,focused3885) ->
+authoring_runtime_preflight=PASS ->
+Mode Execute(10-model matched training,both-task evaluation,strict replay,persisted postcheck) ->
+log publication.
+
+Validate failure is operational and must not publish/replace scientific latest log.
+Execute integrity failure retries SAME C280.
+If run_execution_valid=True and scientific_status=FAIL,accept a valid negative without changing
+the evidence-support boundary inside C280.
+C281 stays unregistered until C280 is judged. Gate F NOT PASSED.
 
 ## Completed C279 — saved mean/final dual-query failure-profile audit
 
