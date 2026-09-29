@@ -10,11 +10,41 @@ Historical tools/invoke_active.ps1 remains immutable/pinned.
 
 Gate A/B PASSED;C/D PASSED in measured scope;Gate E PASSED;Gate F NOT PASSED.
 
-**C277 ACCEPTED PASS (diagnostic integrity only). C278 ACTIVE / NOT YET JUDGED. C279 NOT REGISTERED.**
-C277 execution58ce50ffa45e6e51ebab65417b67bf08ff4b6f33 is authoritative.
-C277 PASS means saved failure-profile audit integrity only;capability_gate_applicable=False.
-C278 is the unique ACTIVE capability experiment:mean_span versus mean_final_dual.
-No Gate F promotion,production adoption,seed selection or C279 registration.
+**C278 ACCEPTED VALID NEGATIVE. C279 NOT REGISTERED.**
+C278 execution ca6e45cc90b3b48e3d56c10acde72e35574878fd is authoritative.
+C278 is a valid scientific miss: both arms retain 5/5 two-character pass but both are 0/5 on the complete three-character gate.
+mean_final_dual improves aggregate three-character answers/collapse, especially shared_prefix2, but does not solve shared_suffix2 reliability.
+Gate F remains NOT PASSED. No production adoption, seed selection, fusion retuning, or C280 registration.
+
+## Latest accepted science — C278
+
+Acceptance:docs/experiment-ledger-addendum-c278-c279.md.
+Execution:ca6e45cc90b3b48e3d56c10acde72e35574878fd.
+Published log:f74d8b1d340a7c744948b39645a1f4d30f1ea524.
+Summary:runs/c278-v5b-mean-final-dual-c1d5206c6c6a48ab98acd15c5cb8aa71/summary.json.
+Summary SHA256:557069bec9d0d6ef73c7a9d1f5196f7be70edb9ab2c37a9a0d315033678b770b.
+run_execution_valid=True;scientific_status=FAIL;candidate_gate=False.
+
+Pass counts:
+-mean_span: two-char5/5; triple0/5; whole0/5.
+-mean_final_dual: two-char5/5; triple0/5; whole0/5.
+
+Aggregate triple correct/collapse across TRAIN+HOLDOUT:
+-mean_span:3938/4320 correct;314 collapsed pairs.
+-mean_final_dual:4207/4320 correct;95 collapsed pairs.
+
+HOLDOUT shared_prefix2:
+-mean_span401/480 correct;63 collapse.
+-mean_final_dual476/480 correct;3 collapse.
+
+HOLDOUT shared_suffix2:
+-mean_span416/480 correct;30 collapse.
+-mean_final_dual438/480 correct;29 collapse.
+
+Interpretation:separate mean/final attention is a strong shared-prefix improvement but not a complete
+three-character solution. The residual failure is concentrated in shared_suffix2 and varies by seed.
+C279 should diagnose the persisted fixed-criterion failure profile before another architecture change.
+C279 is not registered in this acceptance commit.
 
 ## Latest accepted science — C277
 
@@ -56,7 +86,7 @@ C272 own test24 is accepted/pinned and still reads the mutable handoff. Preserve
 C273 and later tests use lifecycle-aware own seals:current handoff while ACTIVE,immutable acceptance
 addendum after acceptance.
 
-## Active C278 — mean-span plus final-boundary dual attention
+## Completed C278 — mean-span plus final-boundary dual attention
 
 Experiment:C278-v5b-mean-final-dual-query.
 Stage:V5-B-MEAN-FINAL-DUAL-QUERY.
