@@ -414,17 +414,23 @@ class C291Tests(unittest.TestCase):
             b.runtime_preflight(["x"]*17,Path.cwd())
 
     def test_39_runner_inventory_and_blocks(self):
-        root=Path(__file__).resolve().parents[1]
-        runner=(root/b.OWN[2]).read_text();launcher=(root/b.OWN[3]).read_text()
-        blocks=re.findall(r"@'\n(.*?)\n'@",runner,re.S);self.assertEqual(len(blocks),3)
-        for code in blocks:ast.parse(code)
-        self.assertIn("sys.argv[2:19]",blocks[2]);self.assertIn("head = sys.argv[19]",blocks[2])
-        self.assertEqual(len(re.findall(r'runs\\c\d{3}-.*?\\summary.json',launcher)),17)
-        self.assertLess(launcher.index("-Mode Validate"),launcher.index("-Mode Execute"))
-        self.assertLess(launcher.index("AUTHORING_RUNTIME_PREFLIGHT_FAILED"),launcher.index("publish_experiment_log.ps1"))
-        self.assertEqual(len(unittest.defaultTestLoader.getTestCaseNames(type(self))),40)
-        for name in b.OWN:self.assertTrue((root/name).is_file())
-        self.assertIn(b.MANIFEST_SHA,(root/b.OWN[4]).read_text())
+        # Exercise the actual inventory reads with a Japanese Windows-style default.
+        # Restore io.text_encoding on exit; do not change the user's process locale.
+        with patch.object(io,"text_encoding",side_effect=lambda encoding,stacklevel=2: "cp932" if encoding is None else encoding):
+            root=Path(__file__).resolve().parents[1]
+            runner=(root/b.OWN[2]).read_text(encoding="utf-8");launcher=(root/b.OWN[3]).read_text(encoding="utf-8")
+            blocks=re.findall(r"@'\n(.*?)\n'@",runner,re.S);self.assertEqual(len(blocks),3)
+            for code in blocks:ast.parse(code)
+            self.assertIn("sys.argv[2:19]",blocks[2]);self.assertIn("head = sys.argv[19]",blocks[2])
+            self.assertEqual(len(re.findall(r'runs\\c\d{3}-.*?\\summary.json',launcher)),17)
+            self.assertLess(launcher.index("-Mode Validate"),launcher.index("-Mode Execute"))
+            self.assertLess(launcher.index("AUTHORING_RUNTIME_PREFLIGHT_FAILED"),launcher.index("publish_experiment_log.ps1"))
+            self.assertEqual(len(unittest.defaultTestLoader.getTestCaseNames(type(self))),40)
+            for name in b.OWN:self.assertTrue((root/name).is_file())
+            self.assertIn(b.MANIFEST_SHA,(root/b.OWN[4]).read_text(encoding="utf-8"))
+            with self.assertRaises(UnicodeDecodeError):
+                (root/b.OWN[4]).read_bytes().decode("cp932")
+
 
     def test_40_context_import_and_guard(self):
         package=types.ModuleType("fold_lm.v05_benchmarks");c=NS(audit=Audit());legacy=NS(context=lambda:("unused",2,3,4,5,c))
@@ -432,8 +438,16 @@ class C291Tests(unittest.TestCase):
         with patch.dict(sys.modules,{"fold_lm.v05_benchmarks":package}):self.assertEqual(b.context(),(parent,legacy,2,3,4,5,c))
         b.guard(Path.cwd(),"f"*40,c)
         with self.assertRaises(ValueError):b.guard(Path.cwd(),"e"*40,c)
-        imports=[n for n in ast.walk(ast.parse(Path(b.__file__).read_text())) if isinstance(n,ast.ImportFrom) and (n.module or "").startswith("fold_lm")]
+        imports=[n for n in ast.walk(ast.parse(Path(b.__file__).read_text(encoding="utf-8"))) if isinstance(n,ast.ImportFrom) and (n.module or "").startswith("fold_lm")]
         self.assertEqual([n.names[0].name for n in imports],["model_c290_saved_pair_margin_audit"])
+        # Reject implicit locale-dependent reads in this C291 source/test pair.
+        for source in (Path(b.__file__),Path(__file__)):
+            tree=ast.parse(source.read_text(encoding="utf-8"))
+            reads=[n for n in ast.walk(tree) if isinstance(n,ast.Call) and isinstance(n.func,ast.Attribute) and n.func.attr=="read_text"]
+            for node in reads:
+                encoding=next((k.value for k in node.keywords if k.arg=="encoding"),None)
+                self.assertIsInstance(encoding,ast.Constant,f"{source.name}:{node.lineno} needs explicit UTF-8")
+                self.assertEqual(encoding.value,"utf-8")
 
 
 if __name__=="__main__":unittest.main()
