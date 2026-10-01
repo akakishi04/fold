@@ -14,6 +14,8 @@ C289 remains ACCEPTED VALID NEGATIVE. Do not rerun C289/C290 or alter their gate
 Latest accepted scientific execution:327e0a2e45270a4eb60f43daf8cca5c21242987c.
 Latest accepted published log:76706cdc46914e67957abb37fcb75c46d1af0eaa.
 C291 is the unique ACTIVE answer-wise hardest-rival objective comparison.
+The first C291 invocation stopped in operational own-test preflight;no scientific run or publication.
+Retry SAME C291 with the reviewed UTF-8 test recovery and the new branch HEAD.
 
 ## Latest accepted evidence — C290
 
@@ -36,9 +38,11 @@ C289 quad gates remain ce_only3/5,pair_always0/5,pair_early0/5. Gate F remains N
 Experiment:C291-v5b-answer-wise-hardest-rival-margin. Stage:V5-B-ANSWER-WISE-HARDEST-RIVAL-MARGIN.
 Registration:docs/experiment-ledger-addendum-c291-preregistration.md.
 Design:docs/v5b-answer-margin-v0.1.md.
-Review:docs/c291-post-authoring-review.md.
+Current recovery review:docs/c291-cp932-preflight-recovery.md.
+Original review:docs/c291-post-authoring-review.md (historical test-blob approval superseded).
 Acceptance base:8f3158ea7f61c87bf674794755c8c36ccb0b27fe.
-Authoring/review target:cc76905645ab60a650389e15456057088def6006.
+Original authoring/review target:cc76905645ab60a650389e15456057088def6006.
+Current recovery code/review target:02ba39b039d6d85b04c5a536f1fc44b6058351c9.
 
 One question:does answer-wise hardest-rival supervision improve reliable unseen four-character
 transfer at the same800-update/model budget? Fresh seeds291001..291005;three concurrent arms:
@@ -81,17 +85,42 @@ Source592;protected1066;dependency-union67;own40;modules176;loaded4286;focused42
 Sole inherited exact C204 exclusion unchanged.
 Manifest SHA256:99916916817da709aead967aaae85052dfb3b049b1bc3ed7356a94abb7781d12.
 
-## Post-authoring review and runtime boundary
+## Original post-authoring review (test approval superseded by recovery below)
 
-post_authoring_review=PASS (committed-byte/static plus local fixture own40).
-Review target:cc76905645ab60a650389e15456057088def6006. All6 OWN files re-fetched after commit;
-whole-file Git blobs match tested local bytes6/6. Post-match own40 PASS in11.563s onLinux/
-Python3.13.5/PyTorch2.10.0+cpu. Both Python files and3 embedded blocks compile;unresolved globals0.
-Fixtures execute800 real AdamW steps/arm on small toy models,loss gradients and equivalence,
+Original review target:cc76905645ab60a650389e15456057088def6006. All6 OWN files were re-fetched;
+whole-file Git blobs matched tested local bytes6/6. Original own40 PASS in11.563s onLinux/
+Python3.13.5/PyTorch2.10.0+cpu. Both Python files and3 embedded blocks compiled;unresolved globals0.
+Fixtures executed800 real AdamW steps/arm on small toy models,loss gradients and equivalence,
 matching/loader/protection/gate/persistence checks. Parent data,Git and inherited scorers/models
-are mocked where needed;this is NOT actual FOLD scientific execution or the full4285 suite.
-Actual Windows parent artifacts/pins,real tables/models,full4285,PowerShell parsing,and15-model
-science/strict replay remain mandatory. Activation must not change reviewed OWN6 or accepted files.
+were mocked where needed. That review did not cover the CP932 default and missed implicit test reads.
+The unchanged scientific source remains the original reviewed source;the old test blob is not current.
+
+## C291 operational preflight recovery and current review
+
+Failed invocation HEAD:57ef469ed23950f37eb17f788f582bf1a35eb3f1.
+User reported40 own tests,one UnicodeDecodeError in test39 preregistration.read_text():
+CP932 could not decode UTF-8 byte0x94 at offset25. invocation_skipped=AUTHORING_RUNTIME_PREFLIGHT_FAILED;
+experiment_executed=False;execution_log_publish_attempted=False. No new scientific result exists.
+Operational log path:runs/c291-preflight-last.log. No failed scientific log publication is required.
+
+Recovery code:02ba39b039d6d85b04c5a536f1fc44b6058351c9.
+Current test blob:f9d14c3228bb0ab55c95f4998b7b9c293909be93.
+Only C291 tests39/40 changed:four text reads explicitly specify UTF-8;test39 exercises its actual
+inventory reads with an emulated CP932 default;test40 rejects implicit reads in the C291 source/test.
+All40 test IDs remain;tests01..38 are AST-identical. No scientific source,runner,launcher,prereg,
+manifest,loss,seed,data,threshold or workload change. No accepted parent files or logs were modified.
+
+Recovery review:docs/c291-cp932-preflight-recovery.md.
+post_authoring_review=PASS (committed-byte/static and local40-test module,normal and CP932-emulated).
+Remote repaired test fetched and matched to local Git blob after commit;diff confirms only one
+code file changed. All6 local OWN blobs match the current/unchanged repository blobs.
+Post-match normal40 PASS in6.705s;post-match CP932-emulated40 PASS in6.461s.
+Original actual test39 reproduces the same error under the same emulation;repaired tests pass.
+Python/embedded blocks compile;unresolved-global audit0;manifest digest unchanged.
+This is Linux/Python3.13.5/PyTorch2.10.0+cpu with the existing small-model/mocked-parent fixtures,
+NOT real Windows,FOLD15-model science or the full4285 regression suite. CP932 emulation covers
+Path text-decoding defaults only. No user locale/environment change is required.
+Mandatory Windows Validate and the real experiment remain pending. Do not weaken or bypass them.
 
 ## Execution and stop
 
