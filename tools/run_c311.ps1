@@ -34,7 +34,7 @@ print("source_and_artifact_precheck = PASS; source_pins = 712; protected_inputs 
 '@
     & $Python -u -c $Precheck @Summaries
     if ($LASTEXITCODE -ne 0) { throw "C311 parent/value-alignment precheck failed" }
-    Write-Output "=== C311 own authoring tests: 32 ==="
+    Write-Output "=== C311 own authoring tests: 24 ==="
     & $Python -u -m unittest tests_lm.test_v05_c311_saved_error_context -v
     if ($LASTEXITCODE -ne 0) { throw "C311 own tests failed" }
     $Regression = @'
