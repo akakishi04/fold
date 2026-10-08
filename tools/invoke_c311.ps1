@@ -27,7 +27,7 @@ $handoff = Get-Content -LiteralPath $handoffPath -Raw -Encoding UTF8
 $formal = [regex]::Match($handoff,'(?ms)^## Formal state\s+(?<body>.*?)(?=^## |\z)')
 if (-not $formal.Success) { Skip-Invocation "FORMAL_STATE_UNRESOLVED"; return }
 $active = [regex]::Matches($formal.Groups["body"].Value,'C(?<id>\d{3}) ACTIVE / (?:NOT YET JUDGED|INVALID ATTEMPT RECOVERY)')
-if ($active.Count -ne 1 -or $active[0].Groups["id"].Value -ne "310") { Skip-Invocation "STALE_EXPERIMENT"; return }
+if ($active.Count -ne 1 -or $active[0].Groups["id"].Value -ne "311") { Skip-Invocation "STALE_EXPERIMENT"; return }
 $runnerPath = Join-Path $Root "tools\run_c311.ps1"
 $runnerTokens = $null; $runnerErrors = $null
 [System.Management.Automation.Language.Parser]::ParseFile($runnerPath,[ref]$runnerTokens,[ref]$runnerErrors) | Out-Null

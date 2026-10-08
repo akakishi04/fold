@@ -248,6 +248,7 @@ class C311Tests(unittest.TestCase):
         for code in blocks:ast.parse(code)
         self.assertIn("sys.argv[2:39]",blocks[2]);self.assertIn("head = sys.argv[39]",blocks[2])
         self.assertEqual(len(re.findall(r"runs\\c\d{3}-.*?\\summary.json",launch)),37)
+        self.assertIn('$active[0].Groups["id"].Value -ne "311"',launch)
         self.assertLess(launch.index("-Mode Validate"),launch.index("-Mode Execute"))
         self.assertLess(launch.index("AUTHORING_RUNTIME_PREFLIGHT_FAILED"),launch.index("publish_experiment_log.ps1"))
 
