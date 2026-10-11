@@ -84,6 +84,12 @@ $runArgs = @{Summaries=$Summaries; ExpectedHead=$ExpectedHead}
 New-Item -ItemType Directory -Path (Join-Path $Root "runs") -Force | Out-Null
 $preflightLog = Join-Path $Root "runs\c320-preflight-last.log"
 $log = Join-Path $Root "runs\chatgpt-last.log"
+# Preserve the prior preflight evidence before Tee-Object opens the new log.
+if (Test-Path -LiteralPath $preflightLog -PathType Leaf) {
+    $previousLog = Join-Path $Root ("runs\c320-preflight-previous-" + [guid]::NewGuid().ToString("N") + ".log")
+    Copy-Item -LiteralPath $preflightLog -Destination $previousLog -ErrorAction Stop
+    Write-Output "previous_preflight_log = $previousLog"
+}
 $preflightFailure = $null
 try { & $runnerPath @runArgs -Mode Validate *>&1 | Tee-Object -FilePath $preflightLog }
 catch { $preflightFailure = $_ }
