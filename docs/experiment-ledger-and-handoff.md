@@ -9,121 +9,99 @@ Accepted sources/tests/logs/preregistrations and protected dispatchers remain im
 ## Formal state
 
 Gate A/B PASSED;C/D PASSED in measured scope;Gate E PASSED;Gate F NOT PASSED.
-**C319 ACCEPTED VALID NEGATIVE. C320 ACTIVE / NOT YET JUDGED. C321 NOT REGISTERED.**
-C320 is the unique ACTIVE frozen unequal-name-length capability probe;no C320 scientific result.
-C318/C317 diagnostic PASS,C316/C315 negatives,C308 bounded PASS and old verdicts unchanged.
+**C319 ACCEPTED VALID NEGATIVE. C320 ACTIVE / INVALID ATTEMPT RECOVERY. C321 NOT REGISTERED.**
+C320 remains the unique ACTIVE experiment;NO scientific C320 run or result has been established.
+The recovery token denotes preflight recovery,not a fabricated INVALID scientific summary.
+C318/C317 diagnostic PASS,C316/C315 negatives,C308 bounded PASS and prior verdicts unchanged.
 Latest accepted execution:529c54ef63b1015b25632b8123a9a552eebcd263.
 Latest accepted publication:3abe218dc9191d26963e5b5022d4d1983300084d. Do not rerun C319.
 
-## Latest accepted evidence — C319
+## Current operational evidence and recovery boundary
 
-Acceptance:docs/experiment-ledger-addendum-c319-c320.md.
-Acceptance commit:1c60afa5997ca9f61a6f5b44e73a31e2b15cd609.
-Summary:runs/c319-v5b-trained-last-0f94e96bbbba43b395fcf8eab1e38246/summary.json.
-SHA256:48815ca382d0da078da12ec2d54f2c42261e94498b682f679d8f46d746ec0580.
-Own24/focused5197 PASS;760sources/1429inputs;run_execution_valid=True;all_pairs_matched=True.
-Both arms5/5 at2..5;six mean_last5/5,last_only4/5. Paired4both,1control_only,0candidate_only,0both_fail.
-last_only319005 six TRAIN567/576,HOLDOUT283/288;paired mean_last575/576,288/288.
-The latter passes full gates despite one normal error;do not substitute pooled perfection.
-No support for adopting trained last-only as a reliability improvement in this cohort.
+C320 preflight at ead33368286ae4539fabf0e264651e98858a136c reported focused regression failure.
+The supplied log tail ends after C173 test36,all displayed tests ok,without final unittest
+summary or traceback. Original child exit code unknown. Science/publication explicitly skipped.
+User's isolated C174 setup+first-test probe subsequently passed in3.525s with exit0/0x00000000.
+Its path: runs/c320-c174-probe-e44a2b5fc4fb45ec88526968521ef5af.log.
+This is not whole-C174 or whole-suite success. Root cause UNCONFIRMED;do not assert a C174 bug,
+OOM,thread bug or native crash from the final printed test name alone.
 
-## Active C320 — frozen unequal-name-length transfer
+Recovery review:docs/c320-preflight-recovery-review.md.
+Recovery authoring/review target:e5e0a07e5ebfd0816f0f26c0cc757ed2f31b1f52.
+post_authoring_review=PASS for operational delta,not scientific execution or root-cause closure.
+Only run_c320.ps1/invoke_c320.ps1 changed in the authoring commit. No tests,model source,
+preregistration,scientific manifest,thresholds,data,checkpoints or accepted ancestors modified.
+
+The same full5221-test ordered suite runs once in one interpreter. A transparent TestSuite
+subclass brackets native unittest module/class setup/teardown and delegates the actual work.
+Unique UTF8 direct regression log captures runner output,markers and supported fatal traces.
+PowerShell records the exact child exit immediately in decimal/hex;nonzero exit reports a
+35-line diagnostic tail before the established preflight skip. Existing preflight log is
+copied to runs/c320-preflight-previous-<guid>.log before the next attempt. No automatic retry,
+per-module splitting,additional test exclusion,thread change or environment reinstall.
+Logging has I/O/timing overhead;it does not prove why the original process stopped.
+
+Changed committed bytes were refetched and matched2/2. Post-refetch local observer tests7/7
+PASS17.842s,including identical standard/observed fixture order and outcomes under normal/CP932
+emulation,exception/native-exit evidence and log preservation. These use controlled fixtures,
+NOT actual FOLD archives/tests. Actual own24/full5221 and Windows parsing were not run here.
+The original scientific implementation review remains in docs/c320-post-authoring-review.md;
+this recovery review supersedes only the old identities of the two operational scripts.
+
+## Fixed C320 scientific registration
 
 Experiment:C320-v5b-frozen-unequal-name-lengths. Stage:V5-B-FROZEN-UNEQUAL-NAME-LENGTHS.
 Registration:docs/experiment-ledger-addendum-c320-preregistration.md.
 Design:docs/v5b-unequal-name-lengths-v0.1.md.
-Review:docs/c320-post-authoring-review.md.
-Authoring/review target:b975f7d2c8cfbf3c9ae71c4b9f147ab1be10ebd1.
-
-One question:can equal-name-length-trained models handle two-character and four-character names
-in the same question? Test(2,4) and(4,2) assigned to canonical entity IDs,not fact order. Both fact
-orders,both questions,three original name families,English/Japanese and TRAIN/HOLDOUT values remain.
-All individual lengths are in the original trained range2..4;only their within-question combination
-is new. No new vocabulary,frame extension,learning or readout modification.
-
-Freeze ALL10 C319 states,seeds319001..319005,both mean_last and last_only. Preserve each record's
-own trained policy via actual C319.trained_readout throughout every old/new pass. Actual factory/
-loader/strict-load,full14,256parameters/64slots retained. No model filtering or old-state training.
-Primary:all5 retained mean_last models pass BOTH new layouts under all original local/masked gates.
-last_only fully reported but cannot rescue a primary failure. Primary fixed before new outcomes,
-not before old C319 results;not independent model selection. No C319 verdict rewrite.
-
-Renderer:repeat u*n/v*m;shared_prefix u*n/u*(m-1)+v;shared_suffix u*n/v+u*(m-1). Distinct names;
-all facts/values/questions/orders unchanged. For(n,n),match every original1..6 prompt byte-for-byte.
-Canonical data/prompts hashes retained. New normal prompts1728distinct/disjoint from old normals;
-byte vocabulary subset. Every token,BOS/EOS/padding and actual C304 query span checked. Maximum
-Japanese new body37bytes/39encoded tokens fits64,shorter than some old training inputs. No
-truncation/language exclusion. Different lengths create identifying cues as well as position/
-separation changes;success alone does not prove full name-content matching or arbitrary reasoning.
-
-Every state:old1..6 BEFORE -> unequal layouts -> old1..6 AFTER. Old logits match the same C319
-archive<=1e-9 and exact argmax;original2..6 gates unchanged. Full weights/hooks preserved perpass.
-All views retained,full256-class output. Reuse C304 logical scorer/profile adapter per layout,
-not its old fixed-length cohort analyzer. Thresholdsaccuracy.90/query_pair.80/evidence_drop.35/
-query_drop.35/two_order.80. No averaging away a failed layout. Report20model/layout scores,
-40split partitions,10reproductions,per-layout and combined counts for both cohorts.
-PASS is bounded unequal-length capability;valid primary failure is ACCEPTED VALID NEGATIVE.
-Neither outcome proves fresh-seed reliability or promotes Gate F.
-
-## Parent contract,protection and work
-
-46ordered summary hashes checked BEFORE actual C319.verify_artifacts with45ancestors and its
-accepted scientific HEAD. RequireFAIL,exact ten old flags,all_pairs_matched/all_replays and seven
-artifact descriptors. Read C319's own dataset/prompts/final same-policy logits,not diagnostic
-ancestor artifacts. Schemasfold-c319-trained-readout-models-v1 and fold-c319-trained-readout-eval-v1.
-Full state fingerprints/readout_policy/ordered identities matched. No target labels enter forward.
-
-Sole direct import C319;all inherited C318/C317/C316/C315/C304/C287/C310/backend and actual local
-context/lazy/factory helpers remain protected.760sources/1429inputs plus OWN6 and8C319parentfiles
-->766sources/1443inputs. No accepted files changed or new regression exclusion. Missing dependency
-coverage stops the run. Same single exact C204 exclusion;own24/modules205/loaded5222/focused5221.
+Original science authoring:b975f7d2c8cfbf3c9ae71c4b9f147ab1be10ebd1;all scientific bytes unchanged.
 Manifest:34ac7cbac03191c2e64ae05887f7d04cbc90c3cf0a73e18427708c1bbeed307d.
 
-Science10models*(144+54+144)=3420forwards,328320rows,13680core calls. Training0,10strict state loads,
-one existing bundle read,new checkpoints0,network0. Six discarded smoke forwards,recursive parent
-verification and software regression separate. Raw logit payload672399360bytes plus overhead,not
-peak-RAM accounting. Five artifacts plus summary:evaluation-plan.json,unequal-prompts.json,
-evaluations.pt,measurements.json,validation-summary.json. Child schemafold-c320-unequal-eval-v1
-retains before/new/after logits,policy receipts,hashes/replay errors. No-neural saved reconstruction
-and all tensor/JSON hash/size checks mandatory;no overwrite. Full arrays remain local/ignored.
+Question:can equal-name-length-trained models handle(2,4) and(4,2) names within one question?
+Freeze all10 C319 states,seeds319001..319005,both mean_last and last_only. Keep each state's
+actual trained_readout policy throughout old1..6 before -> unequal layouts -> old1..6 after.
+Primary is all5 mean_last models passing BOTH layouts with original local/masked thresholds:
+accuracy.90/query_pair.80/evidence_drop.35/query_drop.35/two_order.80. No averaging across a failed
+layout and no last_only successes substituting for primary failure. C319 remains negative.
 
-## Review and execution boundary
+Same14,256parameters/64slots,canonical facts/values/questions/fact orders,English/Japanese,
+TRAIN/HOLDOUT splits,three name families and all normal/evidence-blind/query-blind views.
+1728new normal prompts,disjoint from old normals,no new byte vocabulary,max Japanese39tokens.
+Every old output reproduces within1e-9 and exact argmax;original gates,weights/hooks preserved.
+No retraining,decoder restriction,source substitution or checkpoint filtering. Both layouts
+are new combinations of individually trained lengths,not proof of arbitrary name reasoning.
 
-post_authoring_review=PASS;all6 OWN refetched atb975f7d2c8cfbf3c9ae71c4b9f147ab1be10ebd1,
-independently Git-blob-matched6/6 and rechecked after tests. Post-match uninterrupted full runs:
-normal24/24 PASS12.710s,CP932-default-emulated24/24 PASS12.890s;zero failures/errors,exit0.
-24distinct test IDs verified per mode. CP932 patch covers import/setup/tests/teardown,not complete
-Windows emulation. UTF8/noNUL,Python+3embedded blocks compile,unresolved globals0,manifest matches.
-46paths/CLI[2:48]/head48/argc49 confirmed. No accepted sources/tests/logs/dispatchers changed.
+46ordered parent hashes -> actual C319.verify_artifacts with45ancestors and accepted HEAD.
+C319 summary:runs/c319-v5b-trained-last-0f94e96bbbba43b395fcf8eab1e38246/summary.json.
+SHA256:48815ca382d0da078da12ec2d54f2c42261e94498b682f679d8f46d746ec0580.
+Use its own seven artifacts/final same-policy logits/checkpoint bundle and all10 exact flags.
+C319 both arms5/5 at2..5;six mean_last5/5,last_only4/5. last_only319005 normal six567/576 and283/288;
+paired mean_last575/576 and288/288. Original C319 acceptance/docs remain authoritative.
 
-Tests execute actual accepted C304 forward/span/scorer-adapter,C315 evaluator/replayer and C319
-policy/hook functions on controlled models. Independent prompt parsing,canonical hashes,all new
-bounds,real child342forward per-policy inference,46hash guards,766/1443file checks,loader/run/
-persistence ordering,semantic suite IDs,primary separation and tamper rejection pass. Parent
-support is exact function slices,NOT full repository/modules and NOT committed. Synthetic models/
-scorers and substituted archives/Git are software evidence,not actual FOLD capability/full5221
-regression. No PowerShell locally. Real user checkpoints/46archives/Windows pins/ParseFile,
-frozen bilingual probes,own24/full5221regression and scientific evaluation remain mandatory.
+Protection remains766sources/1443inputs;OWN6 count unchanged,operational script hashes update
+before the first valid C320 run. Missing direct dependencies stop;no pin waiver. Own24/modules205/
+loaded5222/focused5221 with the sole original exact C204 exclusion. No new test inventory.
+Scientific work:10frozen models,3420forwards,328320rows,13680core calls,training0,10state loads,
+one bundle read,new checkpoints0. Five registered artifacts plus summary and unchanged schemas.
+Complete data/prompt/loader/scorer/accounting details and historical reviews are preserved in
+docs/handoff-history/c320-pre-recovery-1.md and the unchanged preregistration/design files.
 
-Use tools/invoke_active_v2.ps1 through explicit PowerShell7 after dispatcher ParseFile.
-Expected:legacy_dispatcher_pin=PASS -> active_experiment=C320 -> Validate(46parents,766/1443,
-old/new render and native-span checks,both-policy probes,own24,focused5221) ->
-authoring_runtime_preflight=PASS -> Execute(10frozen models,old/unequal/old,reproductions,layout
-scores,saved reconstruction) -> publication. Validate failure skips science/publication.
-Integrity failure repairs SAME C320 without changing layouts/policies/models/thresholds. C321
-waits for formal judgment. Scientific execution HEAD differs from the subsequent log commit.
+## Retry and stop
+
+Use only the standard dispatcher with the new recovery HEAD after git pull and ParseFile.
+It redoes full Validate:46real parents/pins,own24,full5221 in the original order/process.
+If that passes,the existing C320 science and publisher proceed unchanged. This is not a bypass
+using the isolated C174 result. Validate failure still skips science/publication;use the direct
+regression log and exact exit code instead of requesting the same old successful-test tail.
+A single successful retry would permit evaluation but would not establish the original root cause.
+Any new integrity failure repairs SAME C320. No C321 until a valid C320 result is formally judged.
 
 ## Inherited regression compatibility seals
 
 - C272 manifest seal:
   89fd059a478b2190ecd03f8277aae2bafc7fcb12517897f56b4bd6cc89258604
 
-Keep accepted seals and immutable historical tests.
-
 ## Historical state
 
-Pre-activation:docs/handoff-history/c320-pre-activation.md.
-Git blob:3ea0fa8b0d1c10c2e4f0a80b8f4fb7827cfff1a8.
-Previous:docs/handoff-history/c319-pre-acceptance.md.
-Git blob:8f9b42fffeb109f5ce31ff4bae80468cce6da386.
+Pre-recovery handoff:docs/handoff-history/c320-pre-recovery-1.md.
+Git blob:0f1c53da9b0dfa40d5f4b32ee9d1e23ec305bf69.
 Only this Formal state is authoritative;historical ACTIVE commands are not executable.
