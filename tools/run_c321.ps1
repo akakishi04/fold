@@ -19,20 +19,66 @@ function Confirm-Repository {
 }
 if (-not (Test-Path -LiteralPath $Python -PathType Leaf)) { throw "Authoritative Python missing" }
 Confirm-Repository
+$EntryPoint = @'
+from pathlib import Path
+import faulthandler, os, runpy, sys, time, traceback
+
+assert len(sys.argv) >= 2, "Expected Validate or Execute"
+phase = sys.argv[1]
+module = "fold_lm.v05_benchmarks.model_c321_interior_name_order"
+if phase == "Validate":
+    from fold_lm.v05_benchmarks import model_c321_interior_name_order as b
+    paths = [Path(p) for p in sys.argv[2:]]
+    assert len(paths) == 47
+    b.runtime_preflight(paths, Path.cwd())
+    print("source_and_artifact_precheck = PASS; source_pins = 772; protected_inputs = 1455", flush=True)
+elif phase == "Execute":
+    assert len(sys.argv) >= 4, "Expected diagnostic path and unchanged module arguments"
+    diagnostic_path = Path(sys.argv[2])
+    module_args = sys.argv[3:]
+    original_stdout, original_stderr = sys.stdout, sys.stderr
+    with diagnostic_path.open("x", encoding="utf-8", buffering=1) as diagnostic:
+        class Tee:
+            def __init__(self, original):
+                self.original = original
+            def write(self, text):
+                diagnostic.write(text)
+                diagnostic.flush()
+                return self.original.write(text)
+            def flush(self):
+                diagnostic.flush()
+                self.original.flush()
+            def __getattr__(self, name):
+                return getattr(self.original, name)
+
+        started = time.monotonic()
+        sys.stdout, sys.stderr = Tee(original_stdout), Tee(original_stderr)
+        faulthandler.enable(file=diagnostic, all_threads=True)
+        try:
+            print(f"[C321 science] process_begin: pid={os.getpid()}; version={sys.version.split()[0]}; executable={sys.executable}", flush=True)
+            print(f"[C321 science] module_begin: {module}", flush=True)
+            # Execute the unchanged scientific module as __main__, as with -m.
+            sys.argv = [module, *module_args]
+            runpy.run_module(module, run_name="__main__", alter_sys=True)
+            print(f"[C321 science] module_return: elapsed_seconds={time.monotonic()-started:.3f}", flush=True)
+        except BaseException:
+            # Record before propagating; never turn an exception into successful completion.
+            print("[C321 science] python_exception: propagating original exception", file=sys.stderr, flush=True)
+            traceback.print_exc(file=sys.stderr)
+            sys.stderr.flush()
+            raise
+        finally:
+            sys.stdout, sys.stderr = original_stdout, original_stderr
+            # Keep the native handler off a file that is about to close.
+            faulthandler.enable(file=original_stderr, all_threads=True)
+else:
+    raise ValueError("Unknown C321 driver phase")
+'@
 if ($Mode -eq "Validate") {
     Write-Output "=== C321 authoring preflight ==="
     & $Python -m py_compile (Join-Path $Root "fold_lm\v05_benchmarks\model_c321_interior_name_order.py") (Join-Path $Root "tests_lm\test_v05_c321_interior_name_order.py")
     if ($LASTEXITCODE -ne 0) { throw "C321 syntax preflight failed" }
-    $Precheck = @'
-from pathlib import Path
-import sys
-from fold_lm.v05_benchmarks import model_c321_interior_name_order as b
-paths = [Path(p) for p in sys.argv[1:]]
-assert len(paths) == 47
-b.runtime_preflight(paths, Path.cwd())
-print("source_and_artifact_precheck = PASS; source_pins = 772; protected_inputs = 1455", flush=True)
-'@
-    & $Python -X faulthandler -u -c $Precheck @Summaries
+    & $Python -X faulthandler -u -c $EntryPoint Validate @Summaries
     if ($LASTEXITCODE -ne 0) { throw "C321 parent/interior precheck failed" }
     & $Python -X faulthandler -u -m unittest tests_lm.test_v05_c321_interior_name_order -v
     if ($LASTEXITCODE -ne 0) { throw "C321 own tests failed" }
@@ -146,8 +192,33 @@ Write-Output "execution_head = $ExpectedHead"
 $Completed = $false
 try {
     $Out = Join-Path $Root ("runs\c321-v5b-interior-order-" + [guid]::NewGuid().ToString("N"))
-    & $Python -X faulthandler -u -m fold_lm.v05_benchmarks.model_c321_interior_name_order --summaries @Summaries --output-dir $Out --expected-head $ExpectedHead
-    if ($LASTEXITCODE -ne 0) { throw "C321 scientific execution failed" }
+    $scienceId = [guid]::NewGuid().ToString("N")
+    $scienceLog = Join-Path $Root ("runs\c321-science-" + $scienceId + ".log")
+    $scienceStderrLog = Join-Path $Root ("runs\c321-science-stderr-" + $scienceId + ".log")
+    Write-Output "science_diagnostic_log = $scienceLog"
+    Write-Output "science_stderr_log = $scienceStderrLog"
+    if ((Test-Path -LiteralPath $scienceLog) -or (Test-Path -LiteralPath $scienceStderrLog)) { throw "Refusing to overwrite science diagnostic logs" }
+    & $Python -X faulthandler -u -c $EntryPoint Execute $scienceLog --summaries @Summaries --output-dir $Out --expected-head $ExpectedHead 2> $scienceStderrLog
+    $scienceExit = $LASTEXITCODE
+    $scienceExitBits = [uint32]([int64]$scienceExit -band 4294967295L)
+    $scienceExitHex = "0x{0:X8}" -f $scienceExitBits
+    $scienceReceipt = @(
+        "science_exit_decimal = $scienceExit"
+        "science_exit_hex = $scienceExitHex"
+        "science_diagnostic_log = $scienceLog"
+        "science_stderr_log = $scienceStderrLog"
+    )
+    $scienceReceipt | ForEach-Object { Write-Output $_ }
+    $scienceReceipt | Add-Content -LiteralPath $scienceLog -Encoding UTF8
+    if (Test-Path -LiteralPath $scienceStderrLog -PathType Leaf) {
+        Write-Output "=== C321 native stderr tail ==="
+        Get-Content -LiteralPath $scienceStderrLog -Encoding UTF8 -Tail 60
+    }
+    if ($scienceExit -ne 0) {
+        Write-Output "=== C321 direct science diagnostic tail ==="
+        Get-Content -LiteralPath $scienceLog -Encoding UTF8 -Tail 80
+        throw "C321 scientific execution failed; exit=$scienceExit ($scienceExitHex); diagnostic=$scienceLog; stderr=$scienceStderrLog"
+    }
     $Postcheck = @'
 from pathlib import Path
 import json, sys
