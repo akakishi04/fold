@@ -40,8 +40,7 @@ PowerShell7 and local parent archives unavailable here.
 Both Python AST files compiled;all three embedded Python here-string blocks in runner compile.
 Manifest canonical self-hash 8c4e9152cb11d1492cd7d88cf7caafef40a901de6c68aa44e404c1c46ff7c5de matches.
 OWN6/docs constants,49 launcher parent paths descending C322..C274,postcheck argv[2:51],
-head argv[51],argc52,full regression5286loaded/5293focused? Correction:
-528? See exact prereg: loaded5294/focused5293;review validates these.
+head argv[51],argc52,regression5294 loaded/5293 focused as preregistered.
 Python full-suite test simulation verifies5294 distinct loaded IDs with sole inherited C204
 exclusion =>5293 focused IDs. No new test exclusion.
 
