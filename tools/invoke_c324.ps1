@@ -25,8 +25,13 @@ $active = [regex]::Matches($formal.Groups['body'].Value,'C(?<id>\d{3}) ACTIVE / 
 if (-not $formal.Success -or $active.Count -ne 1 -or $active[0].Groups['id'].Value -ne '324') { Skip-Invocation 'STALE_EXPERIMENT'; return }
 # Invalid native execution routes to bounded recovery diagnostics, never to another full run.
 if ($active[0].Value -match 'INVALID ATTEMPT RECOVERY') {
-    if ($formal.Groups['body'].Value -notmatch 'recovery_action = NATIVE_DIAGNOSTIC_R2') { Skip-Invocation 'RECOVERY_ACTION_UNREGISTERED'; return }
-    $recovery = Join-Path $Root 'tools\invoke_c324_native_diagnostic_r2.ps1'
+    $actions = @{
+        NATIVE_DIAGNOSTIC_R2 = 'tools\invoke_c324_native_diagnostic_r2.ps1'
+        PARENT_PROFILE_R3 = 'tools\invoke_c324_parent_profile_r3.ps1'
+    }
+    $selected = [regex]::Matches($formal.Groups['body'].Value,'(?m)^recovery_action = (?<action>[A-Z0-9_]+)\s*$')
+    if ($selected.Count -ne 1 -or -not $actions.ContainsKey($selected[0].Groups['action'].Value)) { Skip-Invocation 'RECOVERY_ACTION_UNREGISTERED'; return }
+    $recovery = Join-Path $Root $actions[$selected[0].Groups['action'].Value]
     $recoveryTokens = $null; $recoveryErrors = $null
     [System.Management.Automation.Language.Parser]::ParseFile($recovery,[ref]$recoveryTokens,[ref]$recoveryErrors) | Out-Null
     if ($recoveryErrors.Count -gt 0) { Skip-Invocation 'RECOVERY_PARSE_ERROR'; return }
