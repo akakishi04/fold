@@ -11,6 +11,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+import sysconfig
 import time
 from types import ModuleType
 import unittest
@@ -189,19 +190,42 @@ def guard(root, head):
     p.guard(root, head, trainer, x)
 
 
+def check_dependency_file(root, pins, filename, module_name, kind):
+    """Separate installed runtime packages from repository-owned dependencies.
+
+    A virtual environment may be physically below the repository root. Only the
+    torch/numpy namespaces under this interpreter's actual purelib/platlib
+    package directories are runtime dependencies. Folder-name substrings such
+    as .venv or site-packages alone never grant an exemption. Existing source
+    pins remain authoritative and their blob/byte checks remain in precheck.
+    """
+    root, path = Path(root).resolve(), Path(filename).resolve()
+    if not path.is_relative_to(root):
+        return
+    relative = path.relative_to(root).as_posix()
+    if relative in pins:
+        return
+    package = module_name.partition('.')[0]
+    if package in ('torch', 'numpy'):
+        for key in ('purelib', 'platlib'):
+            configured = sysconfig.get_path(key)
+            if configured and path.is_relative_to(Path(configured).resolve() / package):
+                return
+    require(False, 'unprotected ' + kind + ':' + str(filename))
+
+
 def check_dependencies(root, pins, cx, model=None):
     p, q, interior, lengths, trainer, x = cx
     modules = [p, q, interior, lengths, trainer, templates, x.parent, x.wide, x.policy, x.p312, x.pairs,
                x.diag, *vars(x.c).values(), x.c.factory.language_module()]
     for mod in modules:
         filename = getattr(mod, '__file__', None) if isinstance(mod, ModuleType) else None
-        if filename and Path(filename).resolve().is_relative_to(root):
-            require(Path(filename).resolve().relative_to(root).as_posix() in pins, 'unprotected direct dependency:' + filename)
+        if filename:
+            check_dependency_file(root, pins, filename, mod.__name__, 'direct dependency')
     if model is not None:
         for module in model.modules():
-            filename = inspect.getfile(type(module))
-            if Path(filename).resolve().is_relative_to(root):
-                require(Path(filename).resolve().relative_to(root).as_posix() in pins, 'unprotected model class:' + filename)
+            cls = type(module)
+            check_dependency_file(root, pins, inspect.getfile(cls), cls.__module__, 'model class')
 
 
 def verify_inputs(inputs):
@@ -212,7 +236,10 @@ def verify_inputs(inputs):
 def precheck(paths, root):
     validate_seal()
     cx = context()
+    started = time.perf_counter()
+    print('[C324 precheck] parent_artifacts BEGIN; ordered_summaries=50', flush=True)
     result, data, old, new = load_parent(paths)
+    print(f'[C324 precheck] parent_artifacts PASS; elapsed={time.perf_counter()-started:.3f}s; source_and_input_checks BEGIN', flush=True)
     root = Path(root).resolve()
     pins, inputs = dict(result['source_blobs']), dict(result['input_sha256'])
     for name, expected in pins.items():
@@ -659,6 +686,7 @@ def regression_suite(root):
 
 
 def runtime_preflight(paths,root):
+    print('[C324 preflight] validation BEGIN; scientific_training_started = False', flush=True)
     torch.set_num_threads(2)
     torch.use_deterministic_algorithms(True)
     pins,_,(data,old,new) = precheck(paths,root)
@@ -667,6 +695,7 @@ def runtime_preflight(paths,root):
     tables = {arm:tensor_tables(views[arm],cx[-1].wide) for arm in ARMS}
     for seed in SEEDS:
         schedule(seed,data['TRAIN'],cx[-1])
+    print('[C324 preflight] TRAIN_tables_and_schedules PASS; model_dependency_and_gradient_checks BEGIN', flush=True)
     models = make_models(SEEDS[0],cx[-1])
     ids = [next(i for i,r in enumerate(data['TRAIN']) if r['language'] == language) for language in ('en','ja')]
     # Discarded nonzero output head prevents a zero-initialized equality/gradient probe being vacuous.

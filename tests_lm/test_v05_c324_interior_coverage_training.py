@@ -187,6 +187,46 @@ class C324Tests(unittest.TestCase):
         x=NS(parent=mod,wide=None,policy=None,p312=None,pairs=None,diag=None,c=NS(factory=NS(language_module=lambda:None)))
         with self.assertRaisesRegex(ValueError,'unprotected direct'):b.check_dependencies(ROOT,{},(None,None,None,None,None,x))
 
+        # Windows-style in-repository virtualenv, distinct from a directory that
+        # merely happens to be named .venv/site-packages. No filesystem is read.
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d).resolve();site=root/'.venv-py31315'/'Lib'/'site-packages'
+            alternate=root/'.venv-py31315'/'plat-packages'
+            cases=[
+                ('runtime-torch',site/'torch/nn/modules/sparse.py','torch.nn.modules.sparse',True),
+                ('runtime-numpy',site/'numpy/__init__.py','numpy',True),
+                ('runtime-platlib',alternate/'torch/nn/modules/linear.py','torch.nn.modules.linear',True),
+                ('unrelated-venv',root/'.venv-other/Lib/site-packages/torch/nn/modules/sparse.py','torch.nn.modules.sparse',False),
+                ('fake-site-name',root/'fold_lm/site-packages/torch/layer.py','torch.layer',False),
+                ('local-torch-shadow',root/'torch/nn/modules/sparse.py','torch.nn.modules.sparse',False),
+                ('first-party-in-site',site/'fold_lm/layer.py','fold_lm.layer',False),
+                ('namespace-mismatch',site/'torch/layer.py','fold_lm.layer',False),
+                ('unknown-runtime-package',site/'other/layer.py','other.layer',False),
+                ('prefix-not-directory',Path(str(site)+'-other')/'torch/layer.py','torch.layer',False),
+                ('namespace-prefix',site/'torch/layer.py','torchish.layer',False),
+                ('path-escape',site/'torch/../fold_lm/layer.py','torch.layer',False),
+            ]
+            configured=lambda name: str(site if name=='purelib' else alternate)
+            with patch.object(b.sysconfig,'get_path',side_effect=configured):
+                for label,path,namespace,external in cases:
+                    with self.subTest(dependency_case=label):
+                        if external:
+                            b.check_dependency_file(root,{},path,namespace,'direct dependency')
+                        else:
+                            with self.assertRaisesRegex(ValueError,'unprotected direct'):
+                                b.check_dependency_file(root,{},path,namespace,'direct dependency')
+                local=root/'fold_lm/layer.py'
+                b.check_dependency_file(root,{'fold_lm/layer.py':'a'*40},local,'fold_lm.layer','model class')
+                # Both direct-module and model-class callers use the same rule.
+                runtime=ModuleType('torch.nn.modules.sparse');runtime.__file__=str(site/'torch/nn/modules/sparse.py')
+                x=NS(parent=runtime,wide=None,policy=None,p312=None,pairs=None,diag=None,c=NS(factory=NS(language_module=lambda:None)))
+                b.check_dependencies(root,{},(None,None,None,None,None,x))
+                runtime.__name__='fold_lm.unprotected'
+                with self.assertRaisesRegex(ValueError,'unprotected direct'):
+                    b.check_dependencies(root,{},(None,None,None,None,None,x))
+                with patch.object(b.sysconfig,'get_path',return_value=None),self.assertRaisesRegex(ValueError,'unprotected model'):
+                    b.check_dependency_file(root,{},site/'torch/nn/modules/sparse.py','torch.nn.modules.sparse','model class')
+
     def test_10_template_intervention_and_teacher_identity(self):
         rows,old,new=fixture();views=b.training_views(rows,old,new)
         self.assertEqual(views['original'].targets,views['interior4'].targets)
@@ -221,6 +261,32 @@ class C324Tests(unittest.TestCase):
             self.assertIn(term,source)
         self.assertNotIn('load_state_dict',source)
         with self.assertRaisesRegex(ValueError,'fresh model seed'):b.make_models(319001,NS())
+
+        # Exercise real torch classes with unmocked inspect.getfile/sysconfig.
+        # Treat an ancestor of the installed package as the repository root:
+        # the same containment relation as M:/asobiba/fold/.venv-py31315.
+        import sysconfig
+        site=Path(sysconfig.get_path('purelib')).resolve()
+        x=NS(parent=None,wide=None,policy=None,p312=None,pairs=None,diag=None,c=NS(factory=NS(language_module=lambda:None)))
+        with torch.random.fork_rng(devices=[]):
+            model=torch.nn.Sequential(torch.nn.Embedding(4,2),torch.nn.Linear(2,2))
+        state={k:v.clone() for k,v in model.state_dict().items()}
+        rng=torch.random.get_rng_state().clone()
+        b.check_dependencies(site.parent,{},(None,None,None,None,None,x),model)
+        self.assertTrue(torch.equal(rng,torch.random.get_rng_state()))
+        self.assertTrue(all(torch.equal(state[k],v) for k,v in model.state_dict().items()))
+        # Production caller under an emulated Windows install path; a FOLD
+        # class in the same graph still needs an explicit pin.
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d).resolve();runtime=root/'.venv-py31315/Lib/site-packages'
+            local=type('LocalLayer',(torch.nn.Module,),{'__module__':'fold_lm.local_layer'})
+            model=torch.nn.Sequential(torch.nn.Embedding(4,2),local())
+            def origin(cls):
+                return str(root/'fold_lm/local_layer.py' if cls is local else runtime/'torch/nn/modules/sparse.py')
+            with patch.object(b.sysconfig,'get_path',return_value=str(runtime)),patch.object(b.inspect,'getfile',side_effect=origin):
+                with self.assertRaisesRegex(ValueError,'unprotected model class:'):
+                    b.check_dependencies(root,{},(None,None,None,None,None,x),model)
+                b.check_dependencies(root,{'fold_lm/local_layer.py':'a'*40},(None,None,None,None,None,x),model)
 
     def test_16_checkpoint_state_digest_covers_tensor_bytes(self):
         a={'x':torch.tensor([1.,2.],dtype=torch.float64)};c=copy.deepcopy(a);c['x'][0]+=1
@@ -404,6 +470,7 @@ class C324Tests(unittest.TestCase):
         self.assertIn('c323-v5b-fact-order-f1b710e74fbe495aba6410d0d9530248',launcher)
         for code in re.findall(r"@'\n(.*?)\n'@",runner,re.S):compile(code,'runner-python','exec')
         self.assertIn('b.verify_artifacts',runner);self.assertIn('regression_suite',runner);self.assertNotIn('runpy.run_module',runner)
+        self.assertLess(runner.index('=== C324 preflight:'),runner.index('& $Python -m py_compile'))
 
     def test_44_semantic_regression_extension_and_exact_exclusion(self):
         class Case(unittest.TestCase):

@@ -52,6 +52,8 @@ else:
     raise ValueError('Unknown C324 execution phase')
 '@
 if ($Mode -eq 'Validate') {
+    Write-Output '=== C324 preflight: syntax, parent artifacts, dependencies, tests ==='
+    Write-Output 'scientific_training_started = False; parent verification may take time'
     & $Python -m py_compile (Join-Path $Root 'fold_lm\v05_benchmarks\model_c324_interior_coverage_training.py') (Join-Path $Root 'fold_lm\v05_benchmarks\c324_training_templates.py') (Join-Path $Root 'tests_lm\test_v05_c324_interior_coverage_training.py') (Join-Path $Root 'tests_lm\test_v05_c324_training_templates.py')
     if ($LASTEXITCODE -ne 0) { throw 'C324 Python syntax failed' }
     & $Python -X faulthandler -u -c $EntryPoint Validate @Summaries
