@@ -11,70 +11,114 @@ Accepted scientific sources/tests/logs and protected dispatchers remain immutabl
 Gate A/B PASSED;C/D PASSED in measured scope;Gate E PASSED;Gate F NOT PASSED.
 **C323 ACCEPTED PASS (DIAGNOSTIC INTEGRITY). C324 ACTIVE / INVALID ATTEMPT RECOVERY. C325 NOT REGISTERED.**
 C324 scientific execution at47ccd303f4382b7938db639e86aeb151e1f83af1 remains INVALID.
-recovery_action = PARENT_PROFILE_R3
-R2 diagnostic COMPLETED;no source/cache mismatch observed in its bounded probes.
-Only the R3 bounded parent-validation observation is authorized. No scientific
-retry,no repetition of R2,no C325. Earlier verdicts unchanged,including C321 negative.
+recovery_action = LOCKED_HASH_R4
+R3 bounded observation and publication COMPLETED. Its worker reached the configured
+180s cap;parent validation did not complete. No native fatal was observed in R3.
+Only R4 lock-backed hash qualification is authorized. No R2/R3 repetition,no full
+scientific retry,no C325. All earlier verdicts,including C321 negative,unchanged.
 
-## Latest R2 evidence
+## Latest R3 evidence and interpretation
 
-Diagnostic execution HEAD:7ca1ce4ae287e58a16d7e13da99fd03fb76ca89f.
-Diagnostic publication:3de15c5b5850c732001f21b87658a5621faf7e68.
-Metadata:13208bytes,SHA2561adbf28a1975172eceed6f2b97b57c504d5093164427f6b3dec361854ac11818.
-Both workers returned0 without timeout/stderr:existing_cache10.890s;
-fresh_source_cache_path28.854s. Each4096 parent_module calls,3context calls,
-source_matches_loaded=True,0model forwards,0training,0parent artifact verifications.
-Loaded/fresh compiled code signature906d23d94088e8d5f69886f9d3208224e51dc0341ffa42fb4c0c43824addd8a6.
-RuntimeGIL enabled,CPython3.13.15,torch2.10.0+cu130,numpy2.3.5.
-Terminaldiagnostic_completed=True;STOP_FOR_REVIEW_NO_SCIENTIFIC_AUTORETRY.
-This is NOT proof that all pyc files are healthy or the full native failure fixed.
-R2 immutable evidence:docs/experiment-run-logs/c324/attempts/3de15c5b5850c732001f21b87658a5621faf7e68/latest.*.
-Reviewer read the outcomes/terminal report;no reviewer whole-log rehash claimed.
-R3 rehashes the entire published local R2 log before its one child is launched.
+Diagnostic execution HEAD:4557a1fb9344596be5faf9750eae1c67e05d0b52.
+Diagnostic publication:9f9eb51b796665bfa35cb4834606ca37c40a0d2a.
+Log SHA256:50da0a826c7a4644bce059a93d0e7598aeef482969cc27bf7c46bf53c4be0e7d.
+Log size10698bytes. Complete remote text and final report were read;no independent
+reviewer whole-log SHA256 recomputation is claimed. R4 rehashes that local published
+log before launching its one child. Archived exact Git blobs under:
+docs/experiment-run-logs/c324/attempts/9f9eb51b796665bfa35cb4834606ca37c40a0d2a/latest.*.
 
-## Active R3 operational contract
+Worker elapsed180.002s,timed_out=True,returncode1,parent_validation_completed=False,
+stderr0bytes. This was controller termination at the cap,not the original0xC0000409.
+179samples:176real_parent_validation,3runtime_import. Nearest repository frame
+C175.sha appeared171times;leaf hashlib.file_digest155,file-open16. Final stack
+passes C317.verify_artifacts through C318..C324's recursive parent-validation chain.
+Counts identify a priority for reducing repeated hashing;they are NOT exact call
+counts,unique-file counts,unbiased time percentages or a native-crash explanation.
+The R3 end-of-timeout repeated180.0 heartbeat is diagnostic-controller output noise;
+R4 rate-limits heartbeats without altering historical R3 code or evidence.
 
-Contract/outcome:docs/c324-parent-profile-recovery-r3.md.
-Review:docs/c324-recovery-review-r3.md.
-Source/review target HEAD:f0598e135911bc588009dcf8fd64e9dc36493f86.
+R2 execution7ca1ce4ae287e58a16d7e13da99fd03fb76ca89f;
+publication3de15c5b5850c732001f21b87658a5621faf7e68. Both bounded import workers
+returned0 and the examined C242 function matched freshly compiled source.
+This does not establish health of every cache or repair of the full native failure.
+R2 evidence remains under its existing attempts/3de15c5b5850c732001f21b87658a5621faf7e68/.
+
+## Active R4 qualification and review
+
+Contract:docs/c324-locked-hash-recovery-r4.md.
+Review:docs/c324-recovery-review-r4.md.
+Source/review target HEAD:e542ee01c2af85abff4a44952d36ba34659230c4.
 post_authoring_review = PASS.
+Review scope:bounded operational qualification software readiness ONLY.
 Use the final documentation/activation HEAD supplied with the command,not the
-source-only HEAD or the old diagnostic command. No C324 science is authorized.
+source-only review target or any prior R2/R3 command.
 
-Route:active v2 -> invoke_c324.ps1 -> invoke_c324_parent_profile_r3.ps1 ->
-c324_parent_profile_r3.py -> one bounded worker -> STOP and standard log publication.
-Worker calls actual unchanged C324.load_parent ONCE with the50 ordered paths.
-Wall-time cap180s includes imports;10s controller heartbeat;nominal1s flushed
-main-thread stack samples;depth160 cap;no locals. Existing read-only cache lookup,
-no deletion/reinstall. No trace/profile hook and no verification-result cache.
-Original no_neural plus explicit model-forward/optimizer/science-entry guards.
-R3 uses parent tensor archives but performs no new learning or model forward.
-No full regression in R3. Parent/sample/receipt failures remain explicit.
-Timeout is a bounded observation,NOT scientific failure or validator success.
-Sampling/GIL bias means counts are not exact call totals or unbiased time shares.
-Capture retained samples even if worker times out/crashes;no automatic repeat.
+Route:active v2 ->invoke_c324.ps1 ->invoke_c324_locked_hash_r4.ps1 ->
+c324_locked_hash_r4.py ->one bounded worker ->STOP and standard log publication.
+Role:C324-R4-LOCKED-HASH-QUALIFICATION. No scientific execution is requested.
+Only the C324 launcher's recovery-action map gains one entry;all50 parent paths
+and the normal scientific body remain unchanged. No scientific tree/test/runner edits.
 
-Review:all4 committed file blobs matched local bytes and were reread.26software
-tests passed after remote matching8.123s;LinuxPython3.13.5/PyTorch2.10.0+cpu with
-explicit synthetic parents. No actual Windows/50-parent/native-fix PASS claim.
-Normal scientific body and50paths remain unchanged;no scientific tree/test edits.
-Expectexecution_role=C324-R3-PARENT-PROFILE,scientific_execution_requested=False,
-worker_heartbeat,diagnostic_report,STOP_FOR_REVIEW_NO_SCIENTIFIC_AUTORETRY,publish.
-The user reports finished;read remote C324/latest.* and distinguish diagnostic from
-scientific execution identity. Do not ask for old C323 attachments or retry blindly.
+Candidate temporarily reuses ONLY C175.audit.sha digests within one process while
+holding native Windows read HANDLEs that deny write/delete sharing. Every miss
+compares streaming SHA256 to the original function under the lease. Every hit
+checks held and current-path identities. At the end,restore the original function
+and independently reread EVERY unique file with it before releasing all leases.
+No timestamp-only cache,no persisted cache,no verifier/result memoization,no
+unlocked fallback. Fail closed on mismatch,missing file,lock failure,thread drift
+or4096-file bound. Accepted C175 source remains unchanged with its blob pinned.
+
+Native worker first creates only a small new local lock-probe file and checks real
+read compatibility,WRITE/DELETE-access denial while held,and release afterward.
+Then check exact authoritative runtime and call the unchanged C324.load_parent ONCE
+with all50ordered paths. Original no_neural plus explicit model-forward/optimizer/
+scientific-entry guards remain. Parent tensor archives may be read for validation;
+no full regression,no new model forward,no optimizer updates,no science autoretry.
+
+One child,300s cap including imports,lock probe,parent validation and final rereads;
+10s controller heartbeat. Cap is not total log-publication duration. Hash progress
+is retained in worker stdout and included in the published console outcome.
+Counters:hash_calls/cache_hits/unique_files/stream_bytes/reference_bytes/
+logical_reference_bytes/final_reference_rechecks. They describe this adapter's
+logical payload,not physical disk I/O. Interrupted reference bytes are requested-size
+bounds. No production speedup or full-reference wall-time ratio measured yet.
+
+Qualification requires native probe,complete parent return,canonical192/96rows,
+restored original SHA,every final reference reread,complete receipt,exit0,no timeout.
+Timeout means incomplete qualification;fatal/error is retained. diagnostic_completed
+means the controller collected an outcome,NOT that the candidate or science passed.
+Even a completed qualification does not establish the original crash is fixed.
+End action:STOP_FOR_REVIEW_NO_SCIENTIFIC_AUTORETRY. Do not repeat automatically.
+
+## Authoring evidence and next user action
+
+Four committed executable/test files reread and raw Git blobs matched local bytes.
+37tests PASS2.320s;CP932-default-open emulation37PASS2.355s;LinuxPython3.13.5.
+UTF8/noNUL,Pythoncompile,and free-global audit0unbound. Real file/subprocess checks,
+explicit emulated Win32 ABI/share-access and synthetic parents;NOT native Windows
+qualification. No local PowerShell AST execution claim;the mandatory ParseFile
+chain remains in the user command,dispatcher and selected recovery launcher.
+
+Use ordinary active-dispatcher command at supplied final recovery HEAD. Expect
+execution_role=C324-R4-LOCKED-HASH-QUALIFICATION,scientific_execution_requested=False,
+heartbeats,native-lock/parent outcome,diagnostic_report,STOP,then log publication.
+The user reports finished;read remote C324/latest.*. Metadata.execution_head is
+now the DIAGNOSTIC HEAD,not scientific47ccd. Preserve earlier attempt identities.
+No C325. Do not request old C323 attachments or retry a multi-hour full run blindly.
 
 ## Original invalid scientific attempt
 
 Scientific execution47ccd303f4382b7938db639e86aeb151e1f83af1;
 publication68397de27b4c538ddbd22dc2209fddb7afbc2409.
 LogSHA2568a5e28af87430010931afef2b2da3b61590f32930bee2967daff37c8db6a3271,976635bytes.
-First parent validation8635.121s,native-gradient PASS,own64 PASS5.618s,
-full5357 PASS1074.995s. Second parent validation in science process aborts with
-_PyEval_EvalFrameDefault:Executing a cache;C242.parent_module invalid frame;
-exit0xC0000409,run_execution_valid=False,before child training. Cause still unknown.
-Failed log archived under docs/experiment-run-logs/c324/attempts/68397de27b4c538ddbd22dc2209fddb7afbc2409/.
+First parent validation8635.121s,native-gradient PASS,own64PASS5.618s,
+full5357PASS1074.995s. Second parent validation in science process aborts before
+child training:_PyEval_EvalFrameDefault:Executing a cache;C242.parent_module invalid
+frame;exit0xC0000409;run_execution_valid=False. Underlying cause remains unknown.
+No cache deletion,reinstallation or hardware diagnosis follows from these logs.
+The original failed log and R2/R3 evidence remain in immutable attempts/ paths.
 
-## Scientific contract unchanged - not currently runnable
+## Scientific contract unchanged — not currently runnable
 
 C324-v5b-interior-coverage-training;V5-B-INTERIOR-COVERAGE-TRAINING.
 Registration:docs/experiment-ledger-addendum-c324-preregistration.md.
@@ -85,21 +129,22 @@ CPUfloat64,2threads,1200steps/model,48rows/step. Existing optimizer/gates unchan
 ALL5 candidate interior and original2..6 gates plus positive pairedHOLDOUT answer
 andquery-pair gains;not unseen-template generalization. No threshold/seed changes.
 50parents,792pins/1491inputs,own64,210modules/5358loaded/5357selected;
-only inheritedC204 mutable-state exclusion. Full suite remains required for a
-later authorized science run;no cached regression PASS adopted by this diagnostic.
+only inheritedC204mutable-state exclusion. Full suite remains required for a later
+authorized scientific run;R4does not adopt a cached historical regression PASS.
 Manifest:b726bde41e2b456cca615dde2a8fa36ef3192a73b7526a4a97f03f5f5b33851f.
 Science12000updates,576000training rows,15420forwards,904320row presentations,
 61680coreforwards,10checkpoint reloads. No scientificC324 result accepted yet.
 
-## Latency and history
+## Latency and historical state
 
-Measured parent delay8635.121s;do not conflate with full-regression duration.
-Requirements:docs/experiment-preflight-latency-followup.md. R3 provides bounded
-measurements to target equivalent batching/deduplication,not a measured speedup.
-Do not launch a multi-hour full rerun merely to gather another import diagnosis.
-Prior state:docs/handoff-history/c324-before-parent-profile-r3.md.
-EarlierR1/R2 contracts/reviews/evidence remain historical and unchanged.
-C323 acceptance88e6b1d5e9fd97aa0c5cb7f3b61a133faa539dcf;execution1090f54bfbb4c1c7ea40d6f7be12124930bd4fd4;
+Measured original parent delay8635.121s;not the full-regression duration.
+Requirements:docs/experiment-preflight-latency-followup.md. R4 implements a targeted
+hash-reuse candidate and bounded actual qualification,not a declared speedup.
+Batched Git checks and broader equivalent deduplication are not silently activated.
+Prior handoff:docs/handoff-history/c324-before-locked-hash-r4.md.
+EarlierR1/R2/R3contracts/reviews/evidence remain historical and unchanged.
+C323acceptance88e6b1d5e9fd97aa0c5cb7f3b61a133faa539dcf;
+execution1090f54bfbb4c1c7ea40d6f7be12124930bd4fd4;
 publicatione434a7ac6dd867e32f8135fc1b4c395e1644ffb9.
 Details:docs/experiment-ledger-addendum-c323-c324.md.
 Only this Formal state authorizes the next operation.
