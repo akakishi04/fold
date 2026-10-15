@@ -10,146 +10,127 @@ Accepted scientific sources/tests/logs and protected dispatchers remain immutabl
 
 Gate A/B PASSED;C/D PASSED in measured scope;Gate E PASSED;Gate F NOT PASSED.
 **C323 ACCEPTED PASS (DIAGNOSTIC INTEGRITY). C324 ACTIVE / INVALID ATTEMPT RECOVERY. C325 NOT REGISTERED.**
-C324 scientific execution at47ccd303f4382b7938db639e86aeb151e1f83af1 remains INVALID.
-recovery_action = LOCKED_HASH_R4
-R3 bounded observation and publication COMPLETED. Its worker reached the configured
-180s cap;parent validation did not complete. No native fatal was observed in R3.
-Only R4 lock-backed hash qualification is authorized. No R2/R3 repetition,no full
-scientific retry,no C325. All earlier verdicts,including C321 negative,unchanged.
+C324 scientific execution47ccd303f4382b7938db639e86aeb151e1f83af1 remains INVALID.
+recovery_action = VERIFIED_SESSION_R5
+R4 outcome collection/publication COMPLETED; native lock probe PASS but full parent
+verification/final reference rechecks INCOMPLETE at300s cap. No science accepted.
+Only R5 bounded verified-session qualification is authorized. No R2/R3/R4 repetition,
+no full C324 scientific retry and no C325. Earlier scientific verdicts unchanged.
 
-## Latest R3 evidence and interpretation
+## Latest R4 evidence
 
-Diagnostic execution HEAD:4557a1fb9344596be5faf9750eae1c67e05d0b52.
-Diagnostic publication:9f9eb51b796665bfa35cb4834606ca37c40a0d2a.
-Log SHA256:50da0a826c7a4644bce059a93d0e7598aeef482969cc27bf7c46bf53c4be0e7d.
-Log size10698bytes. Complete remote text and final report were read;no independent
-reviewer whole-log SHA256 recomputation is claimed. R4 rehashes that local published
-log before launching its one child. Archived exact Git blobs under:
-docs/experiment-run-logs/c324/attempts/9f9eb51b796665bfa35cb4834606ca37c40a0d2a/latest.*.
+Diagnostic execution HEAD:9b8ef0895899d12fa17b244d766cfa5f3c431dc6.
+Diagnostic publication:a443d7b3b9db6202cf4edcdc98ecedab930aea72.
+LogSHA256:e83f4878f25a4555c3fee4aef2281c4b37f8d423de761f3ff50a5b2f73eb964a.
+Log7403bytes;complete remote console/terminal report read. No independent reviewer
+whole-log rehash claimed. R5 rehashes local published R4 evidence before its child.
+Archived exact blobs:docs/experiment-run-logs/c324/attempts/a443d7b3b9db6202cf4edcdc98ecedab930aea72/latest.*.
 
-Worker elapsed180.002s,timed_out=True,returncode1,parent_validation_completed=False,
-stderr0bytes. This was controller termination at the cap,not the original0xC0000409.
-179samples:176real_parent_validation,3runtime_import. Nearest repository frame
-C175.sha appeared171times;leaf hashlib.file_digest155,file-open16. Final stack
-passes C317.verify_artifacts through C318..C324's recursive parent-validation chain.
-Counts identify a priority for reducing repeated hashing;they are NOT exact call
-counts,unique-file counts,unbiased time percentages or a native-crash explanation.
-The R3 end-of-timeout repeated180.0 heartbeat is diagnostic-controller output noise;
-R4 rate-limits heartbeats without altering historical R3 code or evidence.
+Worker300.009s,timed_out=True,returncode1,parent_validation_completed=False,stderr0.
+Native lock probe passed read compatibility,denial of WRITE/DELETE,and release.
+LAST REPORTED progress283.824s:hash_calls206916,cache_hits205434,unique_files1482,
+stream_bytes12445062684,reference_bytes12445062684,logical_reference_bytes878894660237,
+final_reference_rechecks0. These are not invented end counters or physical disk I/O.
+Hash reuse operated; semantic reconstructions/repeated verifier calls remained.
+No observed native fatal in this bounded attempt;no proof of original crash repair
+and no controlled full-reference speedup. R4 is incomplete qualification,not PASS.
 
-R2 execution7ca1ce4ae287e58a16d7e13da99fd03fb76ca89f;
-publication3de15c5b5850c732001f21b87658a5621faf7e68. Both bounded import workers
-returned0 and the examined C242 function matched freshly compiled source.
-This does not establish health of every cache or repair of the full native failure.
-R2 evidence remains under its existing attempts/3de15c5b5850c732001f21b87658a5621faf7e68/.
+## Active R5 contract and authoring review
 
-## Active R4 qualification and review
-
-Contract:docs/c324-locked-hash-recovery-r4.md.
-Review:docs/c324-recovery-review-r4.md.
-Source/review target HEAD:e542ee01c2af85abff4a44952d36ba34659230c4.
+Contract:docs/c324-verified-session-recovery-r5.md.
+Review:docs/c324-recovery-review-r5.md.
+Source/review target HEAD:97d53c8805485d53b7e00ef7f8af2e1aca022153.
 post_authoring_review = PASS.
-Review scope:bounded operational qualification software readiness ONLY.
-Use the final documentation/activation HEAD supplied with the command,not the
-source-only review target or any prior R2/R3 command.
+Use final documentation/activation HEAD supplied in the retry command,not the source
+review target or any old R4 command. Review PASS covers diagnostic software only.
 
-Route:active v2 ->invoke_c324.ps1 ->invoke_c324_locked_hash_r4.ps1 ->
-c324_locked_hash_r4.py ->one bounded worker ->STOP and standard log publication.
-Role:C324-R4-LOCKED-HASH-QUALIFICATION. No scientific execution is requested.
-Only the C324 launcher's recovery-action map gains one entry;all50 parent paths
-and the normal scientific body remain unchanged. No scientific tree/test/runner edits.
+Route:active v2 ->invoke_c324.ps1 ->invoke_c324_verified_session_r5.ps1 ->
+c324_verified_session_r5.py ->one bounded worker ->STOP and log publication.
+Role:C324-R5-VERIFIED-SESSION-QUALIFICATION;scientific_execution_requested=False.
+Only one recovery map entry was added to C324 launcher;all50 paths and its ordinary
+scientific body remain unchanged. No fold_lm/fold_reasoning/tests_lm/run_c324 edits.
 
-Candidate temporarily reuses ONLY C175.audit.sha digests within one process while
-holding native Windows read HANDLEs that deny write/delete sharing. Every miss
-compares streaming SHA256 to the original function under the lease. Every hit
-checks held and current-path identities. At the end,restore the original function
-and independently reread EVERY unique file with it before releasing all leases.
-No timestamp-only cache,no persisted cache,no verifier/result memoization,no
-unlocked fallback. Fail closed on mismatch,missing file,lock failure,thread drift
-or4096-file bound. Accepted C175 source remains unchanged with its blob pinned.
+R5 first hashes the pinned C323 summary and freezes its full protected input inventory,
+all50 ordered summaries and outputs under unchanged R4 native Windows read leases.
+Check inherited source blobs via one exact Git tree inventory. Seven exact source
+blobs C316..C322 verify_artifacts are pinned;R4 helper fixed6459b1f6e4051fbfc54db2894f7abe3a7521df3a.
+Each selected verifier body runs on its first request. Repeated exact source/HEAD/
+outdir/ordered-parent/expected-head requests may reuse only successfully validated
+summary/measurement metadata within the SAME locked session. First and subsequent
+callers get isolated results. All leases,module bindings,manifest seals and runtime/
+RNG state are checked. No tensor/model cache;no persistent or prior-run PASS reuse.
+Exceptions,mutation,unknown dependencies,wrong runtime,thread/reentry/bounds fail.
+Metadata bound16entries/64MiB representation,not total process RSS. R4's4096handle bound
+and no unlocked fallback remain. Restore functions and reread EVERY leased file with
+original SHA at end. All7 bodies must complete once;some actual reuse must be observed.
+No cached validator was retrospectively enabled in R4;R5 is an explicitly new scope.
 
-Native worker first creates only a small new local lock-probe file and checks real
-read compatibility,WRITE/DELETE-access denial while held,and release afterward.
-Then check exact authoritative runtime and call the unchanged C324.load_parent ONCE
-with all50ordered paths. Original no_neural plus explicit model-forward/optimizer/
-scientific-entry guards remain. Parent tensor archives may be read for validation;
-no full regression,no new model forward,no optimizer updates,no science autoretry.
+One child,600s cap including imports,lock probe,snapshot,parent validation,final
+rereads.10s heartbeat. Cap is not a duration promise. Same exact authoritative runtime,
+CPU2threads/deterministic,original no_neural and explicit model-forward/optimizer/
+science-entry prohibitions. No full5357 regression or new scientific training in R5.
+R5 helpers are not yet integrated into the scientific792-pin manifest;full science
+must not be wrapped by this operational helper without separate registration/review.
 
-One child,300s cap including imports,lock probe,parent validation and final rereads;
-10s controller heartbeat. Cap is not total log-publication duration. Hash progress
-is retained in worker stdout and included in the published console outcome.
-Counters:hash_calls/cache_hits/unique_files/stream_bytes/reference_bytes/
-logical_reference_bytes/final_reference_rechecks. They describe this adapter's
-logical payload,not physical disk I/O. Interrupted reference bytes are requested-size
-bounds. No production speedup or full-reference wall-time ratio measured yet.
+Require exit0,no timeout,complete parent result/canonical data,all7 real first-body
+executions and final uncached reference inventory. diagnostic_completed alone is
+only a collection flag. Save per-verifier requests/executions/reuses/failures,
+metadata bytes,input/hash inventories,canonical hashes,stdout/stderr and outcome.
+End action always STOP_FOR_REVIEW_NO_SCIENTIFIC_AUTORETRY;never repeat automatically.
 
-Qualification requires native probe,complete parent return,canonical192/96rows,
-restored original SHA,every final reference reread,complete receipt,exit0,no timeout.
-Timeout means incomplete qualification;fatal/error is retained. diagnostic_completed
-means the controller collected an outcome,NOT that the candidate or science passed.
-Even a completed qualification does not establish the original crash is fixed.
-End action:STOP_FOR_REVIEW_NO_SCIENTIFIC_AUTORETRY. Do not repeat automatically.
+All4 committed executable/test files reread;raw Git blobs match local files.
+Post-match48tests PASS2.631s;CP932-default-open emulation48PASS2.322s;LinuxPython3.13.5.
+UTF8/noNUL/compile/free-global0unbound. Explicit synthetic seven-level graph gives
+same outputs with127versus7 verifier body calls,NOT measured production speedup.
+No native Windows/actual50-parent/full5357/native-crash-fix success is claimed.
+PowerShell AST is guarded in execution chain;no author-side AST run claimed.
 
-## Authoring evidence and next user action
+## Next user action and evidence transport
 
-Four committed executable/test files reread and raw Git blobs matched local bytes.
-37tests PASS2.320s;CP932-default-open emulation37PASS2.355s;LinuxPython3.13.5.
-UTF8/noNUL,Pythoncompile,and free-global audit0unbound. Real file/subprocess checks,
-explicit emulated Win32 ABI/share-access and synthetic parents;NOT native Windows
-qualification. No local PowerShell AST execution claim;the mandatory ParseFile
-chain remains in the user command,dispatcher and selected recovery launcher.
+Use ordinary active-dispatcher block with final recovery HEAD. Expect R5 role,
+scientific_execution_requested=False,heartbeats,snapshot/verifier/hash progress
+inside captured worker output,diagnostic_report,STOP,then ordinary C324 log publication.
+The user can reply finished. Read remote C324/latest.*;metadata.execution_head is the
+R5 diagnostic HEAD,NOT scientific47ccd. Preserve the R4 evidence already archived.
+A timeout means incomplete qualification;native/other errors are retained. A launcher
+SKIPPED means no diagnostic ran. Neither allows C325 or blind reruns. A log-publication
+failure is a transport repair,not permission to rerun parent verification/training.
 
-Use ordinary active-dispatcher command at supplied final recovery HEAD. Expect
-execution_role=C324-R4-LOCKED-HASH-QUALIFICATION,scientific_execution_requested=False,
-heartbeats,native-lock/parent outcome,diagnostic_report,STOP,then log publication.
-The user reports finished;read remote C324/latest.*. Metadata.execution_head is
-now the DIAGNOSTIC HEAD,not scientific47ccd. Preserve earlier attempt identities.
-No C325. Do not request old C323 attachments or retry a multi-hour full run blindly.
-
-## Original invalid scientific attempt
+## Original failure and earlier recovery evidence
 
 Scientific execution47ccd303f4382b7938db639e86aeb151e1f83af1;
 publication68397de27b4c538ddbd22dc2209fddb7afbc2409.
-LogSHA2568a5e28af87430010931afef2b2da3b61590f32930bee2967daff37c8db6a3271,976635bytes.
-First parent validation8635.121s,native-gradient PASS,own64PASS5.618s,
-full5357PASS1074.995s. Second parent validation in science process aborts before
-child training:_PyEval_EvalFrameDefault:Executing a cache;C242.parent_module invalid
-frame;exit0xC0000409;run_execution_valid=False. Underlying cause remains unknown.
-No cache deletion,reinstallation or hardware diagnosis follows from these logs.
-The original failed log and R2/R3 evidence remain in immutable attempts/ paths.
+Log8a5e28af87430010931afef2b2da3b61590f32930bee2967daff37c8db6a3271,976635bytes.
+Initial parent validation8635.121s;native-gradient/own64/full5357 PASS. Second parent
+validation aborts before child training:_PyEval_EvalFrameDefault:Executing a cache;
+C242.parent_module invalid frame;exit0xC0000409;run_execution_valid=False.
+Original trigger unknown;no cache deletion,reinstall or hardware-fault conclusion.
+R2 bounded imports succeeded with matching C242 function code in both cache paths.
+R3 stopped at180s,179samples/171nearest C175.sha frames;not full-time percentages.
+Earlier contracts,reviews and archived logs remain unchanged. Source ownership R1
+fix remains in scientific code;later R2..R5 do not silently alter that contract.
 
-## Scientific contract unchanged — not currently runnable
+## Scientific C324 contract unchanged — not currently runnable
 
 C324-v5b-interior-coverage-training;V5-B-INTERIOR-COVERAGE-TRAINING.
-Registration:docs/experiment-ledger-addendum-c324-preregistration.md.
+Preregistration:docs/experiment-ledger-addendum-c324-preregistration.md.
 Design:docs/v5b-interior-coverage-training-v0.1.md.
-Original/interior4,bothmean_last;onlylength4TRAIN tables differ.
+Original/interior4,both mean_last;only length4 TRAIN templates differ.
 Seeds324001..324005,orders324101..324105;10models,14256parameters,64slots,
-CPUfloat64,2threads,1200steps/model,48rows/step. Existing optimizer/gates unchanged.
-ALL5 candidate interior and original2..6 gates plus positive pairedHOLDOUT answer
-andquery-pair gains;not unseen-template generalization. No threshold/seed changes.
-50parents,792pins/1491inputs,own64,210modules/5358loaded/5357selected;
-only inheritedC204mutable-state exclusion. Full suite remains required for a later
-authorized scientific run;R4does not adopt a cached historical regression PASS.
+CPUfloat64,2threads,1200steps/model,48rows/step. Optimizer/gates unchanged.
+ALL5 candidate interior/original2..6 gates plus positive paired HOLDOUT answer and
+query-pair gains;not unseen-template generalization.50parents,792pins/1491inputs,
+own64,210modules/5358loaded/5357selected;only inherited C204 mutable-state exclusion.
 Manifest:b726bde41e2b456cca615dde2a8fa36ef3192a73b7526a4a97f03f5f5b33851f.
 Science12000updates,576000training rows,15420forwards,904320row presentations,
-61680coreforwards,10checkpoint reloads. No scientificC324 result accepted yet.
+61680core forwards,10checkpoint reloads. No scientific C324 result accepted yet.
 
-## Latency and historical state
+## History and inherited seal
 
-Measured original parent delay8635.121s;not the full-regression duration.
-Requirements:docs/experiment-preflight-latency-followup.md. R4 implements a targeted
-hash-reuse candidate and bounded actual qualification,not a declared speedup.
-Batched Git checks and broader equivalent deduplication are not silently activated.
-Prior handoff:docs/handoff-history/c324-before-locked-hash-r4.md.
-EarlierR1/R2/R3contracts/reviews/evidence remain historical and unchanged.
-C323acceptance88e6b1d5e9fd97aa0c5cb7f3b61a133faa539dcf;
-execution1090f54bfbb4c1c7ea40d6f7be12124930bd4fd4;
+Previous full handoff:docs/handoff-history/c324-before-verified-session-r5.md.
+C323 acceptance88e6b1d5e9fd97aa0c5cb7f3b61a133faa539dcf;execution1090f54bfbb4c1c7ea40d6f7be12124930bd4fd4;
 publicatione434a7ac6dd867e32f8135fc1b4c395e1644ffb9.
-Details:docs/experiment-ledger-addendum-c323-c324.md.
-Only this Formal state authorizes the next operation.
-
-## Inherited regression compatibility seals
-
-- C272 manifest seal:
-  89fd059a478b2190ecd03f8277aae2bafc7fcb12517897f56b4bd6cc89258604
+C323 details:docs/experiment-ledger-addendum-c323-c324.md.
+C272 manifest seal:
+89fd059a478b2190ecd03f8277aae2bafc7fcb12517897f56b4bd6cc89258604
+Only the current Formal state authorizes the next operation.
