@@ -23,13 +23,14 @@ $handoff = Get-Content -LiteralPath (Join-Path $Root 'docs\experiment-ledger-and
 $formal = [regex]::Match($handoff,'(?ms)^## Formal state\s+(?<body>.*?)(?=^## |\z)')
 $active = [regex]::Matches($formal.Groups['body'].Value,'C(?<id>\d{3}) ACTIVE / (?:NOT YET JUDGED|INVALID ATTEMPT RECOVERY)')
 if (-not $formal.Success -or $active.Count -ne 1 -or $active[0].Groups['id'].Value -ne '324') { Skip-Invocation 'STALE_EXPERIMENT'; return }
-# Invalid native execution routes to bounded recovery diagnostics, never to another full run.
+# Recovery routing is explicit: diagnostics or the separately registered R6 scientific retry.
 if ($active[0].Value -match 'INVALID ATTEMPT RECOVERY') {
     $actions = @{
         NATIVE_DIAGNOSTIC_R2 = 'tools\invoke_c324_native_diagnostic_r2.ps1'
         PARENT_PROFILE_R3 = 'tools\invoke_c324_parent_profile_r3.ps1'
         LOCKED_HASH_R4 = 'tools\invoke_c324_locked_hash_r4.ps1'
         VERIFIED_SESSION_R5 = 'tools\invoke_c324_verified_session_r5.ps1'
+        SCIENTIFIC_R6 = 'tools\invoke_c324_scientific_r6.ps1'
     }
     $selected = [regex]::Matches($formal.Groups['body'].Value,'(?m)^recovery_action = (?<action>[A-Z0-9_]+)\s*$')
     if ($selected.Count -ne 1 -or -not $actions.ContainsKey($selected[0].Groups['action'].Value)) { Skip-Invocation 'RECOVERY_ACTION_UNREGISTERED'; return }
