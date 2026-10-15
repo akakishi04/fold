@@ -29,6 +29,7 @@ if ($active[0].Value -match 'INVALID ATTEMPT RECOVERY') {
         NATIVE_DIAGNOSTIC_R2 = 'tools\invoke_c324_native_diagnostic_r2.ps1'
         PARENT_PROFILE_R3 = 'tools\invoke_c324_parent_profile_r3.ps1'
         LOCKED_HASH_R4 = 'tools\invoke_c324_locked_hash_r4.ps1'
+        VERIFIED_SESSION_R5 = 'tools\invoke_c324_verified_session_r5.ps1'
     }
     $selected = [regex]::Matches($formal.Groups['body'].Value,'(?m)^recovery_action = (?<action>[A-Z0-9_]+)\s*$')
     if ($selected.Count -ne 1 -or -not $actions.ContainsKey($selected[0].Groups['action'].Value)) { Skip-Invocation 'RECOVERY_ACTION_UNREGISTERED'; return }
