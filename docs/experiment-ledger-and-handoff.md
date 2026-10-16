@@ -3,140 +3,175 @@
 Follow AGENTS.md and docs/experiment-conversation-handoff-protocol.md response format v2.
 Repository: akakishi04/fold; branch: feat/sft-target-loss; local: M:\asobiba\fold.
 Authoritative runtime: Python3.13.15/PyTorch2.10.0+cu130/NumPy2.3.5.
-Entry for a future registered run: tools/invoke_active_v2.ps1 through explicit
-PowerShell7 and dispatcher ParseFile. There is currently NO ACTIVE experiment.
+Entry: explicit PowerShell7, dispatcher ParseFile, tools/invoke_active_v2.ps1.
 Accepted scientific sources/tests/logs and protected dispatchers remain immutable.
 
 ## Formal state
 
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
-**C323 ACCEPTED PASS (DIAGNOSTIC INTEGRITY). C324 ACCEPTED VALID NEGATIVE. C325 NOT REGISTERED.**
-No ACTIVE experiment. Do not rerun C324 or any R2/R3/R4/R5/R6 recovery route.
-C324 R6 scientific status = FAIL; run_execution_valid = true; candidate_gate = false.
-The original scientific attempt 47ccd303f4382b7938db639e86aeb151e1f83af1 remains INVALID.
-All earlier scientific verdicts remain unchanged; C321 remains VALID NEGATIVE.
-A finite valid negative is accepted evidence, not an invitation to repeat fitting.
+**C324 ACCEPTED VALID NEGATIVE. C325 ACTIVE / NOT YET JUDGED. C326 NOT REGISTERED.**
+C323 remains ACCEPTED PASS (DIAGNOSTIC INTEGRITY); C321 remains VALID NEGATIVE.
+All earlier verdicts are unchanged. Do not rerun accepted C324 or its recovery routes.
+C324 R6 scientific FAIL is a valid negative, not an operational failure.
+Only the new C325 route below is authorized; its scientific result is not yet known.
 
 ## Latest accepted evidence -- C324 R6
 
-Acceptance report: docs/experiment-ledger-addendum-c324-c325.md.
+Acceptance: docs/experiment-ledger-addendum-c324-c325.md.
 Acceptance report commit: f0e301ac3fc40c437ba890a2683a5d3889320b01.
+Acceptance handoff commit: 6c3198793f0f6b852fa96be125323763cbfdddde.
 Scientific execution HEAD: fcef3d5833c31d51e261ce578209bd5acd73f59c.
 Published log commit: c67be12c1a08dda49f218699ecb8896ef1cf2061.
-The publication parent equals the scientific execution HEAD.
-Console: docs/experiment-run-logs/c324/latest.log + latest.json.
-Whole uploaded log independently rehashed: 2615255 bytes;
-SHA256 aa179e9f8a4d0b19bf0c5e55226731162e23cab63d2110158f8119c8742d4149.
-The original CRLF bytes match metadata. Complete LF normalization gives the
-published Git blob e992984130d23dfd3c393368d268ed8f93499d11. These are distinct
-byte representations, not a mismatch to conceal or a reason to repeat science.
+Publication parent equals execution HEAD; only console transport advanced the ref.
+Uploaded log2615255bytes; SHA256
+ aa179e9f8a4d0b19bf0c5e55226731162e23cab63d2110158f8119c8742d4149.
+Whole uploaded bytes matched metadata. Complete LF normalization matched the
+published Git blob e992984130d23dfd3c393368d268ed8f93499d11.
 
-Local folder: runs/c324-scientific-r6-6b241e7f98c94ee3846a852f39456a7f/.
+Local parent folder: runs/c324-scientific-r6-6b241e7f98c94ee3846a852f39456a7f/.
 Primary science/summary.json SHA256:
 21e752a51809a9b400c798b24c4ff405105458965b54610cfa16f71a349fbbdd.
 Mandatory execution-envelope.json SHA256:
 2c6013d9b4f33fb20e79e68946ad8596d756d23694d7d04508fcd0ca0e3040c3.
-These artifact hashes and local verification are reported by the registered run;
-the reviewer did not independently open the raw summary/envelope/checkpoint bytes.
-The reviewer did independently check the complete uploaded console, all 5490 unique
-test IDs/213 modules, ten measurement records, 4320 local cell gates, 2160 fact-order
-gates and every emitted seed/pair decision. No second independent model replay is claimed.
+The primary792source/1491input summary and mandatory802source/1501input envelope
+were both verified by R6. Do not consume the primary alone or drop supplemental pins.
 
-Native read-lock and TRAIN/gradient preflight PASS. Seven C316..C322 verifier bodies
-completed once each, nine exact verified reuses. Full separate-process regression
-5490 PASS, zero failures/errors/skips; 922.503 seconds. Every registered model reached
-1200 updates. Ten checkpoint replays PASS; saved semantic reconstruction completed;
-all 1501 final uncached input rereads completed. Fresh-process envelope verification
-confirmed 802 sources/1501 inputs/full5490 tests. Regression/science/verify exits are
-all zero; terminal run_execution_valid=true. The negative is scientific, not operational.
+Full5490 tests/213modules PASS; no failure/error/skip; regression922.503s.
+Seven C316..C322 verifier bodies completed once each, nine exact session reuses.
+All ten models completed1200updates; ten checkpoint replays PASS; saved semantic
+reconstruction and final1501uncached rereads completed. Fresh envelope verification
+confirmed802sources/1501inputs/full5490. All three subprocess exits0;
+run_execution_valid=true; scientific_status=FAIL; candidate_gate=false.
+Independent review checked the whole console,5490distinct IDs,ten measurement records,
+4320local gates and2160fact-order gates. It did not independently rerun raw checkpoints.
 
-## Deciding measurements and interpretation
+C324 deciding values: interior HOLDOUT answers716/1440 ->1396/1440;
+both-query-correct22/720 ->685/720. Every seed improved in those pooled counts.
+Candidate interior gate3/5, original2..6 retention0/5, composite0/5;
+control interior0/5, retention2/5. Original2..6 gate counts control5/5/5/5/2,
+candidate5/4/1/0/0. Explicit interior coverage helped binding but did not preserve the
+original task range under replacement. No structural-impossibility, sequential
+forgetting, unseen-template, Gate F, general LLM or MinePilot-readiness claim.
+The old47ccd303f4382b7938db639e86aeb151e1f83af1 attempt remains INVALID;
+its native crash cause remains unknown. No controlled runtime speedup is claimed.
 
-Question: can explicit interior-order TRAIN coverage improve held-out binding while
-retaining the original tasks? Both arms use native mean_last. Only length4 TRAIN
-name templates differ (replacement, not additional training).
-Seeds324001..324005; orders324101..324105; ten models,14256 parameters,64 slots,
-CPUfloat64,two threads,1200 updates/model,48 rows/update; optimizer/rates unchanged.
+## C325 registration and completed post-authoring review
 
-Interior HOLDOUT pooled answers: original716/1440 -> interior4 1396/1440.
-Interior both-query-correct: original22/720 -> interior4 685/720.
-Every seed has strictly positive answer and query-pair gains.
-Candidate interior gate3/5; original2..6 retention0/5; composite gate0/5.
-Control interior gate0/5; original2..6 retention2/5 (control is not uniformly perfect).
-Original length2..6 gate passes: control5/5/5/5/2; candidate5/4/1/0/0.
-Original HOLDOUT correct counts by length2..6, each denominator1440:
-control1440/1440/1440/1440/1427; candidate1440/1433/1352/1246/1195.
+Experiment: C325-v5b-mixed-name-coverage.
+Stage: V5-B-MIXED-NAME-COVERAGE.
+Contract: docs/experiment-ledger-addendum-c325-preregistration.md.
+Review: docs/c325-post-authoring-review.md.
+Source/preregistration/review target HEAD:
+b5521f0db9e6b08789cc4567c35cc6a22d74dd2d.
+post_authoring_review = PASS.
+Use the final documentation/activation HEAD supplied in the user command, not the
+source-only target. This authoring PASS is NOT a C325 scientific or full-regression PASS.
 
-Thresholds .90/.80/.35/.35/.80 remain fixed and apply at every registered local
-TRAIN/HOLDOUT cell/fact-order group. Pooled accuracy cannot override failing seeds.
-Explicit coverage helps the tested interior distinction but does not meet the
-replacement-and-retention objective. Candidate interior templates were seen during
-fitting: no unseen-template generalization claim. Fresh paired initialization means
-this does not establish sequential catastrophic forgetting. No architectural
-impossibility, general LLM capability, Gate F or MinePilot readiness claim.
+After committing all six own files, their complete remote contents were reread and
+Git blobs matched independently hashed local bytes. Own56tests PASS2.272s;
+CP932-default-file-encoding emulation56PASS2.525s; no failures/errors/skips.
+All new Python compile/import/UTF8/noNUL checks pass; undefined globals0.
+Author LinuxPython3.13.5/PyTorch2.10.0+cpu/NumPy2.3.5. Fixtures include real Git/files/
+subprocesses/Torch arithmetic and production stage ordering, not native Windows/full5546.
+No author-side PowerShell AST execution is claimed. The mandatory dispatcher ->
+launcher ->runner AST chain is retained before user-side native execution.
 
-Unchanged C324 manifest:
-b726bde41e2b456cca615dde2a8fa36ef3192a73b7526a4a97f03f5f5b33851f.
-Unchanged scientific source blob: 2fc9e31c7037313a3fadb126af9b153608c0ac6e.
-Child work:12000 updates,576000 training rows,15420 model forwards,
-904320 row presentations,61680 core forwards,10 checkpoint state reloads.
-Runtime timings have their R6 scopes; no controlled timing-ratio claim.
-Original native-crash cause remains unknown.
+## C325 one question and fixed intervention
 
-## Mandatory composite protection for any successor
+At equal architecture and total budget, can retaining half of original length-four
+TRAIN exposure recover original-task retention while preserving interior binding,
+relative to interior-only length-four training?
 
-R6 contract: docs/c324-scientific-recovery-r6.md.
-R6 post-authoring review: docs/c324-recovery-review-r6.md;
-review target8fd4ef3ef287212735d568c805db8d56236c6a31, PASS for R6 only.
-This is NOT a C325 review or authorization.
+Control interior4 versus candidate mixed4; BOTH native mean_last.
+Fresh seeds325001..325005, order seeds325101..325105; ten models from paired identical
+initial states. No accepted C324 checkpoint is used for fitting.
+Length4 has100whole epochs. Control uses100interior; candidate alternates original
+then interior for50epochs each. Every192-row epoch has4updates of48rows, preserving
+query pairs. Each TRAIN row receives50original4+50interior4 candidate exposures.
+Length2/3 remain original with100exposures/row each. Logical order, profile schedule,
+queries, values, targets, optimizer, capacity and total updates stay paired.
+No post-result mixture tuning or seed selection. Both template families are seen.
 
-The unchanged primary result carries792 source pins/1491 inputs.
-The mandatory companion execution envelope carries the full802 source/1501 input
-union. Ten supplemental files cover R4/R5/R6 helpers/tests/launchers and R6 contract.
-Every successor MUST validate BOTH records, exact subset/union relationships,
-accepted execution identity, all source/input bytes and saved output contracts.
-Inherit all802 combined source pins; never silently fall back to only792.
-Protect new deciding-path direct/lazy dependencies and supplemental tests too.
-Do not mutate accepted scientific files, source pins, tests, logs or contracts.
-Preserve the full5490-test baseline,213 modules, and its sole inherited C204 exclusion.
-Any new scientific run needs preregistration, additive regression, actual parent
-writer/loader audit and committed-remote-byte post-authoring review before activation.
-No new CI, package reinstall, artifact deletion, hidden cache reuse or automatic retry.
+14256parameters/core3328,64slots,CPUfloat64,2threads,4internalsteps.
+1200updates/model,48rows/update,ordinary mean CE,fit RNG612000.
+AdamW betas.9/.999,eps1e-8,weight_decay0;globalgradientclip1;
+otherLR.005/coreLR.0005. Scientific work12000updates,576000training rows,
+15420model forwards,904320row presentations,61680core forwards,10checkpoint replays.
+Preflight,software tests,parent and saved semantic verification are separately scoped.
 
-## Next work -- C325 NOT REGISTERED
+ALL5 candidate states must pass complete interior and original2..6 gates;
+within every paired seed original2..6 pooled HOLDOUT answer AND query-pair gains
+must be positive, and interior HOLDOUT answer AND query-pair gains nonnegative.
+Original scorer thresholds.90/.80/.35/.35/.80 unchanged at every local/masked/order
+condition. Report full cells and rescues/regressions; pooled means cannot hide failures.
+Original length1 descriptive only. No unseen-template/statistical-independence or
+Gate F/general-language claim follows from a future C325 PASS.
 
-Candidate question: at the same total budget, does retaining original length-four
-TRAIN exposure alongside interior exposure recover original-task retention without
-losing the interior improvement? A paired interior4 versus mixed4 comparison is a
-direction, not a registered experiment. Exact mixture/schedule, fresh seeds, workload,
-result schema and success rules still require pre-execution authoring/review.
+Manifest SHA256:
+03ed2ba1d2d2951087c70ce41ddf39756674a30ac4cef56671e158eb80fff3d0.
 
-No C325 source/test/runner/launcher review is complete; there is no C325 execution
-HEAD and no user scientific command to issue. Do not ask for C324 logs again or
-rerun the accepted experiment. Do not register an empty launcher or claim readiness.
-Acceptance and future C325 preregistration/activation must be separate commits.
+## C325 execution, inheritance and outputs
 
-## Historical recovery evidence
+Route: invoke_active_v2 ->invoke_c325.ps1 ->run_c325.ps1 ->c325_execution.py
+controller ->scientific worker ->separate ordinary regression ->fit/evaluate/replay
+->saved semantic reconstruction ->final input rereads ->fresh envelope verifier
+->standard C325 console publication. execution_role=C325-MIXED-NAME-COVERAGE.
 
-Previous complete handoff is preserved at commit
-c67be12c1a08dda49f218699ecb8896ef1cf2061:docs/experiment-ledger-and-handoff.md.
-Earlier pre-R6 handoff: docs/handoff-history/c324-before-scientific-recovery-r6.md.
-Original invalid attempt47ccd303f4382b7938db639e86aeb151e1f83af1;
-publication68397de27b4c538ddbd22dc2209fddb7afbc2409. Parent precheck8635.121s,
-full5357 PASS, second parent validation native0xC0000409 before fitting.
-R2 import probes passed; R3/R4 qualified diagnostics timed out at registered caps;
-these were not scientific negatives. R5 qualification completed, with no new training.
-R5 execution1beb6d60f3dd0f7c72f41c9355c96827b8da4e82;
-publicationf7a909f2e1a0b4bd5d03c0a54bcb63519b022b19;
-logSHA2562f89e566132f0ade3660dc7c2aafb6a4946ffaa3d441341af0d39671cd663558.
-Preserved R5 blobs: docs/experiment-run-logs/c324/attempts/f7a909f2e1a0b4bd5d03c0a54bcb63519b022b19/.
-R5 worker244.561s; seven completed verifiers/nine reuses;1486 final input rereads.
-C323 acceptance88e6b1d5e9fd97aa0c5cb7f3b61a133faa539dcf;
-execution1090f54bfbb4c1c7ea40d6f7be12124930bd4fd4;
-publicatione434a7ac6dd867e32f8135fc1b4c395e1644ffb9.
-Only the current Formal state authorizes operations.
+Validate exact accepted C324 summary+R6envelope and all802source/1501input evidence.
+Read-locked parent checkpoints/evaluations are reanalyzed by unchanged C324.analyze.
+No parent fitting or forward is performed. Older C316..C322 semantic verifier bodies
+are NOT recursively executed again: inherit their accepted identity with complete
+byte checks. This explicit C325 contract scope must not be described as fresh
+ancestor semantic execution. No accepted verifier/module global is patched.
 
-## Inherited regression compatibility seals
+C325 protects808sources=802inherited+6own;
+1517inputs=1501inherited+10immediate-parent files+6own.
+All direct/lazy scientific dependencies and supplemental tests are covered.
+Native R4 Windows read leases are held through all worker phases; no unlocked or
+cross-run cache. All1517 inputs receive final uncached rereads. Primary result and
+execution envelope both carry the full union. A fresh verifier checks every input,
+source blob, output byte/size, complete regression receipt, manifest and gate binding.
+
+Native TRAIN/readout/gradient preflight precedes FULL5546tests/214modules:
+5490inherited+56new;5547before the sole inherited C204 exclusion. No new exclusion,
+skip or cached test result. Run the entire suite in an unmodified separate process.
+Only after all5546pass, run all ten new models and all ten checkpoint replays.
+
+Local-only: runs/c325-mixed-name-<id>/science/summary.json plus8registered outputs;
+execution-envelope.json,regression-result.json,science.log,regression.log,verify.log.
+Model/tensor/data artifacts stay out of Git. Only complete console text is published
+to docs/experiment-run-logs/c325/latest.log and latest.json.
+Console uses streamed test dots, ordered-test-ID SHA256, ten-second heartbeats and
+compact per-domain minima/totals/counts. Complete individual-cell measurements remain
+in hashed local artifacts. This reduces transport volume, not test/measurement scope.
+
+## User execution and stopping rules
+
+Expected: active_experiment=C325 ->accepted_C324_composite_snapshot
+->native_TRAIN_and_gradient_preflight ->full_regression_unmodified_separate_process
+->scientific_training_10_models ->saved_checkpoint_and_measurement_verification
+->final_uncached_input_recheck ->execution_envelope_verified
+->run_execution_valid=true ->console publication.
+
+Wrong branch/dirty tree/stale HEAD/nonunique ACTIVE/missing dependency/AST failure
+is an operational SKIPPED before logging/publication; do not rerun an old command.
+Native fatal,source/input/test/schema/nonfinite/replay/envelope failure stops SAME C325.
+Scientific FAIL alone is not execution failure and never authorizes automatic refit.
+Publication-only failure is repaired without repeating science. No C326 activation.
+No CI,package reinstall,cache deletion,paid service or old result mutation is added.
+
+User may report only finished. Fetch remote latest metadata/log and distinguish the
+scientific execution HEAD from its descendant log-publication commit. Do not ask for
+old C324 attachments again. For an accepted C325, complete its acceptance and next-C
+implementation/preregistration/remote review/launcher in the SAME response; do not
+stop at a design direction or ask the user to say continue. For INVALID, repair C325.
+
+## History and inherited compatibility seal
+
+Pre-C325 accepted handoff: docs/handoff-history/c324-accepted-before-c325.md,
+exact blob cff7b99a75b307c4a3527520c95b11cc7b544694.
+C324 recovery history remains in its existing contracts/reviews and the accepted
+report. C324 acceptance and C325 preregistration are separate commits.
 
 - C272 manifest seal:
   89fd059a478b2190ecd03f8277aae2bafc7fcb12517897f56b4bd6cc89258604
