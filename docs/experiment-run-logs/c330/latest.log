@@ -1,200 +1,78 @@
 execution_role = C330-SAVED-GATE-LOCALIZATION
 scientific_execution_requested = True
 scientific_training_requested = False
-scientific_execution_head = 90ba026a0b24beeb448dcb1db354aab3501489bf
-execution_role = "C330-SAVED-GATE-LOCALIZATION"
-scientific_execution_head = "90ba026a0b24beeb448dcb1db354aab3501489bf"
+scientific_execution_head = b5521796a4f301f963792b96768a1f16aea83309
+execution_role = "C330-R1-MODULE-ISOLATED-RECOVERY"
+scientific_execution_head = "b5521796a4f301f963792b96768a1f16aea83309"
 native_lock_probe = {"delete_access_denied": true, "native_lock_probe": "PASS", "read_compatible": true, "released_after_close": true, "write_access_denied": true}
-phase = "accepted_C329_composite_snapshot"
-hash_progress = {"cache_hits": 0, "elapsed_seconds": 0.001, "final_reference_rechecks": 0, "hash_calls": 1, "logical_reference_bytes": 0, "phase": "parent_validation", "reference_bytes": 0, "stream_bytes": 318758, "unique_files": 0}
-worker_heartbeat = {"elapsed_seconds": 10.026, "phase": "science"}
-hash_progress = {"cache_hits": 0, "elapsed_seconds": 10.002, "final_reference_rechecks": 0, "hash_calls": 985, "logical_reference_bytes": 5347054767, "phase": "parent_validation", "reference_bytes": 5347054767, "stream_bytes": 5695181999, "unique_files": 984}
-worker_heartbeat = {"elapsed_seconds": 20.046, "phase": "science"}
-hash_progress = {"cache_hits": 0, "elapsed_seconds": 20.002, "final_reference_rechecks": 0, "hash_calls": 1110, "logical_reference_bytes": 11814458926, "phase": "parent_validation", "reference_bytes": 11814458926, "stream_bytes": 12111205934, "unique_files": 1109}
-worker_heartbeat = {"elapsed_seconds": 30.065, "phase": "science"}
+hash_progress = {"cache_hits": 0, "elapsed_seconds": 0.01, "final_reference_rechecks": 0, "hash_calls": 1, "logical_reference_bytes": 0, "phase": "parent_validation", "reference_bytes": 0, "stream_bytes": 318758, "unique_files": 0}
+worker_heartbeat = {"elapsed_seconds": 10.024, "phase": "science"}
+hash_progress = {"cache_hits": 0, "elapsed_seconds": 10.011, "final_reference_rechecks": 0, "hash_calls": 747, "logical_reference_bytes": 1197187362, "phase": "parent_validation", "reference_bytes": 1197187362, "stream_bytes": 1197187362, "unique_files": 747}
+worker_heartbeat = {"elapsed_seconds": 20.041, "phase": "science"}
+hash_progress = {"cache_hits": 0, "elapsed_seconds": 20.022, "final_reference_rechecks": 0, "hash_calls": 956, "logical_reference_bytes": 4447423303, "phase": "parent_validation", "reference_bytes": 4447423303, "stream_bytes": 4448132860, "unique_files": 955}
+worker_heartbeat = {"elapsed_seconds": 30.061, "phase": "science"}
+hash_progress = {"cache_hits": 0, "elapsed_seconds": 30.023, "final_reference_rechecks": 0, "hash_calls": 1091, "logical_reference_bytes": 9704630775, "phase": "parent_validation", "reference_bytes": 9704630775, "stream_bytes": 9754962423, "unique_files": 1090}
+worker_heartbeat = {"elapsed_seconds": 40.08, "phase": "science"}
+hash_progress = {"cache_hits": 0, "elapsed_seconds": 40.029, "final_reference_rechecks": 0, "hash_calls": 1391, "logical_reference_bytes": 13868628237, "phase": "parent_validation", "reference_bytes": 13868628237, "stream_bytes": 13868631938, "unique_files": 1390}
+worker_heartbeat = {"elapsed_seconds": 50.103, "phase": "science"}
 accepted_parent_semantics = {"ancestor_semantic_reruns": 0, "checkpoints": 10, "model_forwards": 0, "parent_files": 10, "trajectories": 5, "valid_negative": true}
-registration_check = {"manifest_sha256": "f6a114dd91c086e8a60b374271533bee70d6e1dbb71b187e0aac434b38ff58c7", "protected_inputs": 1593, "source_pins": 838}
-phase = "full_regression_unmodified_separate_process"
-worker_heartbeat = {"elapsed_seconds": 40.086, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 10.031, "phase": "regression"}
-worker_heartbeat = {"elapsed_seconds": 50.106, "phase": "science"}
-regression_suite = {"inherited": 5770, "modules": 219, "own": 48, "selected": 5818}
-regression_test_ids_sha256 = "0e90ec4c1cf292528d7aec95bac8388f12e53fb1ca9dad08ebba58c9174d5183"
-.......................................................................................................................worker_heartbeat = {"elapsed_seconds": 20.053, "phase": "regression"}
-....................................................M:\asobiba\fold\tests_lm\test_v05_c145_material_alignment_intervention.py:74: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
-Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\torch\csrc\autograd\generated\python_variable_methods.cpp:837.)
-  self.assertNotEqual(float(a),float(b))
-..............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................worker_heartbeat = {"elapsed_seconds": 60.125, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 30.072, "phase": "regression"}
-..................................................................................................................................................................................................................................................worker_heartbeat = {"elapsed_seconds": 70.147, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 40.09, "phase": "regression"}
-worker_heartbeat = {"elapsed_seconds": 80.166, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 50.108, "phase": "regression"}
-worker_heartbeat = {"elapsed_seconds": 90.186, "phase": "science"}
-......................................................................................worker_heartbeat = {"elapsed_seconds": 60.126, "phase": "regression"}
-.............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................worker_heartbeat = {"elapsed_seconds": 100.206, "phase": "science"}
-.................................................................worker_heartbeat = {"elapsed_seconds": 70.147, "phase": "regression"}
-......................................................................................................................................................................................................................worker_heartbeat = {"elapsed_seconds": 110.228, "phase": "science"}
-................................................worker_heartbeat = {"elapsed_seconds": 80.172, "phase": "regression"}
-.....................................................................................................................worker_heartbeat = {"elapsed_seconds": 120.251, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 90.194, "phase": "regression"}
-...................................................worker_heartbeat = {"elapsed_seconds": 130.273, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 100.218, "phase": "regression"}
-worker_heartbeat = {"elapsed_seconds": 140.294, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 110.241, "phase": "regression"}
-.................................................worker_heartbeat = {"elapsed_seconds": 150.313, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 120.262, "phase": "regression"}
-worker_heartbeat = {"elapsed_seconds": 160.333, "phase": "science"}
-...................worker_heartbeat = {"elapsed_seconds": 130.283, "phase": "regression"}
-.worker_heartbeat = {"elapsed_seconds": 170.352, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 140.302, "phase": "regression"}
-........................worker_heartbeat = {"elapsed_seconds": 180.372, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 150.322, "phase": "regression"}
-..........................................................................worker_heartbeat = {"elapsed_seconds": 190.391, "phase": "science"}
-.............................worker_heartbeat = {"elapsed_seconds": 160.344, "phase": "regression"}
-..............................................................................worker_heartbeat = {"elapsed_seconds": 200.412, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 170.366, "phase": "regression"}
-worker_heartbeat = {"elapsed_seconds": 210.432, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 180.385, "phase": "regression"}
-................................worker_heartbeat = {"elapsed_seconds": 220.451, "phase": "science"}
-.worker_heartbeat = {"elapsed_seconds": 190.406, "phase": "regression"}
-...................................worker_heartbeat = {"elapsed_seconds": 230.471, "phase": "science"}
-.....worker_heartbeat = {"elapsed_seconds": 200.428, "phase": "regression"}
-................................worker_heartbeat = {"elapsed_seconds": 240.492, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 210.447, "phase": "regression"}
-.......................worker_heartbeat = {"elapsed_seconds": 250.514, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 220.468, "phase": "regression"}
-.........................................worker_heartbeat = {"elapsed_seconds": 260.541, "phase": "science"}
-......worker_heartbeat = {"elapsed_seconds": 230.487, "phase": "regression"}
-........................worker_heartbeat = {"elapsed_seconds": 270.564, "phase": "science"}
-.....................worker_heartbeat = {"elapsed_seconds": 240.508, "phase": "regression"}
-.............................worker_heartbeat = {"elapsed_seconds": 280.585, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 250.527, "phase": "regression"}
-................................................................worker_heartbeat = {"elapsed_seconds": 290.608, "phase": "science"}
-..worker_heartbeat = {"elapsed_seconds": 260.548, "phase": "regression"}
-.....................................................................................................................worker_heartbeat = {"elapsed_seconds": 300.628, "phase": "science"}
-...worker_heartbeat = {"elapsed_seconds": 270.569, "phase": "regression"}
-.............................................................................................................................................................................worker_heartbeat = {"elapsed_seconds": 310.655, "phase": "science"}
-..........worker_heartbeat = {"elapsed_seconds": 280.591, "phase": "regression"}
-...................................................................worker_heartbeat = {"elapsed_seconds": 320.677, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 290.613, "phase": "regression"}
-.......................................................................worker_heartbeat = {"elapsed_seconds": 330.697, "phase": "science"}
-..........worker_heartbeat = {"elapsed_seconds": 300.631, "phase": "regression"}
-..................................worker_heartbeat = {"elapsed_seconds": 340.714, "phase": "science"}
-.....worker_heartbeat = {"elapsed_seconds": 310.652, "phase": "regression"}
-............................................worker_heartbeat = {"elapsed_seconds": 350.735, "phase": "science"}
-.....worker_heartbeat = {"elapsed_seconds": 320.672, "phase": "regression"}
-................................worker_heartbeat = {"elapsed_seconds": 360.755, "phase": "science"}
-...worker_heartbeat = {"elapsed_seconds": 330.691, "phase": "regression"}
-.....................................worker_heartbeat = {"elapsed_seconds": 370.773, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 340.712, "phase": "regression"}
-........................................worker_heartbeat = {"elapsed_seconds": 380.792, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 350.733, "phase": "regression"}
-...........................worker_heartbeat = {"elapsed_seconds": 390.81, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 360.753, "phase": "regression"}
-.............worker_heartbeat = {"elapsed_seconds": 400.829, "phase": "science"}
-........worker_heartbeat = {"elapsed_seconds": 370.774, "phase": "regression"}
-................worker_heartbeat = {"elapsed_seconds": 410.847, "phase": "science"}
-................worker_heartbeat = {"elapsed_seconds": 380.795, "phase": "regression"}
-................worker_heartbeat = {"elapsed_seconds": 420.866, "phase": "science"}
-.worker_heartbeat = {"elapsed_seconds": 390.813, "phase": "regression"}
-............................worker_heartbeat = {"elapsed_seconds": 430.885, "phase": "science"}
-...........worker_heartbeat = {"elapsed_seconds": 400.833, "phase": "regression"}
-.......................worker_heartbeat = {"elapsed_seconds": 440.905, "phase": "science"}
-.........worker_heartbeat = {"elapsed_seconds": 410.85, "phase": "regression"}
-.....................................................worker_heartbeat = {"elapsed_seconds": 450.925, "phase": "science"}
-...worker_heartbeat = {"elapsed_seconds": 420.869, "phase": "regression"}
-..............................worker_heartbeat = {"elapsed_seconds": 460.945, "phase": "science"}
-...worker_heartbeat = {"elapsed_seconds": 430.888, "phase": "regression"}
-.........................................worker_heartbeat = {"elapsed_seconds": 470.963, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 440.914, "phase": "regression"}
-..............worker_heartbeat = {"elapsed_seconds": 480.984, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 450.933, "phase": "regression"}
-.........................worker_heartbeat = {"elapsed_seconds": 491.003, "phase": "science"}
-.worker_heartbeat = {"elapsed_seconds": 460.952, "phase": "regression"}
-..............worker_heartbeat = {"elapsed_seconds": 501.022, "phase": "science"}
-................worker_heartbeat = {"elapsed_seconds": 470.972, "phase": "regression"}
-............worker_heartbeat = {"elapsed_seconds": 511.04, "phase": "science"}
-.worker_heartbeat = {"elapsed_seconds": 480.992, "phase": "regression"}
-....worker_heartbeat = {"elapsed_seconds": 521.058, "phase": "science"}
-.................worker_heartbeat = {"elapsed_seconds": 491.012, "phase": "regression"}
-..............................worker_heartbeat = {"elapsed_seconds": 531.079, "phase": "science"}
-.....worker_heartbeat = {"elapsed_seconds": 501.033, "phase": "regression"}
-..........worker_heartbeat = {"elapsed_seconds": 541.1, "phase": "science"}
-.........worker_heartbeat = {"elapsed_seconds": 511.054, "phase": "regression"}
-.........worker_heartbeat = {"elapsed_seconds": 551.12, "phase": "science"}
-...worker_heartbeat = {"elapsed_seconds": 521.077, "phase": "regression"}
-....................worker_heartbeat = {"elapsed_seconds": 561.139, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 531.097, "phase": "regression"}
-.........worker_heartbeat = {"elapsed_seconds": 571.159, "phase": "science"}
-.worker_heartbeat = {"elapsed_seconds": 541.118, "phase": "regression"}
-............worker_heartbeat = {"elapsed_seconds": 581.177, "phase": "science"}
-.worker_heartbeat = {"elapsed_seconds": 551.137, "phase": "regression"}
-...............worker_heartbeat = {"elapsed_seconds": 591.197, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 561.157, "phase": "regression"}
-.............worker_heartbeat = {"elapsed_seconds": 601.218, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 571.178, "phase": "regression"}
-.........................worker_heartbeat = {"elapsed_seconds": 611.237, "phase": "science"}
-.......worker_heartbeat = {"elapsed_seconds": 581.195, "phase": "regression"}
-.............Windows fatal exception: access violation
-
-Thread 0x00001534 (most recent call first):
-  <no Python frame>
-
-Current thread 0x0000b2f4 (most recent call first):
-  File "M:\asobiba\fold\fold_lm\v05_benchmarks\model_c311_saved_error_context.py", line 139 in analyze
-  File "M:\asobiba\fold\tests_lm\test_v05_c311_saved_error_context.py", line 83 in setUpClass
-  File "C:\Users\akaki\AppData\Local\Python\pythoncore-3.13-64\Lib\unittest\suite.py", line 166 in _handleClassSetUp
-  File "C:\Users\akaki\AppData\Local\Python\pythoncore-3.13-64\Lib\unittest\suite.py", line 114 in run
-  File "C:\Users\akaki\AppData\Local\Python\pythoncore-3.13-64\Lib\unittest\suite.py", line 84 in __call__
-  File "C:\Users\akaki\AppData\Local\Python\pythoncore-3.13-64\Lib\unittest\runner.py", line 240 in run
-  File "M:\asobiba\fold\tools\c330_execution.py", line 191 in regression_child
-  File "M:\asobiba\fold\tools\c330_execution.py", line 311 in main
-  File "M:\asobiba\fold\tools\c330_execution.py", line 315 in <module>
-worker_heartbeat = {"elapsed_seconds": 621.256, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 591.214, "phase": "regression"}
-worker_heartbeat = {"elapsed_seconds": 631.274, "phase": "science"}
-worker_heartbeat = {"elapsed_seconds": 601.235, "phase": "regression"}
-process_exit = {"decimal": 3221225477, "hexadecimal": "0xC0000005", "log": "M:\\asobiba\\fold\\runs\\c330-localization-b6703493cb9e4265a9a97b4ceb3c0853\\regression.log", "phase": "regression"}
+registration_check = {"full_tests": 5850, "protected_inputs": 1596, "recovery_sha256": "e6bc2750bc4df477e12110ab0c60b2093e5eff985409439ae987d277685448ef", "revision": "C330-R1", "source_pins": 841}
+phase = "full_regression_fresh_process_per_module"
+worker_heartbeat = {"elapsed_seconds": 60.126, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 10.027, "phase": "regression"}
+worker_heartbeat = {"elapsed_seconds": 70.149, "phase": "science"}
 Traceback (most recent call last):
-  File "M:\asobiba\fold\tools\c330_execution.py", line 315, in <module>
-    sys.path.insert(0,str(Path(__file__).resolve().parents[1]));main()
-                                                                ~~~~^^
-  File "M:\asobiba\fold\tools\c330_execution.py", line 311, in main
-    {'run':run,'science':scientific_worker,'regression':regression_child,'verify':verify_outputs}[a.mode](root,folder,a.expected_head)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "M:\asobiba\fold\tools\c330_execution.py", line 231, in scientific_worker
-    value,receipt,inventory=execute_stages(head,regression,diagnose,verification,cache.recheck)
-                            ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "M:\asobiba\fold\tools\c330_execution.py", line 205, in execute_stages
-    emit('phase','full_regression_unmodified_separate_process');receipt=regression();check_regression(receipt,head)
-                                                                        ~~~~~~~~~~^^
-  File "M:\asobiba\fold\tools\c330_execution.py", line 223, in regression
-    subprocess_run(root,folder,head,'regression');guard(root,head)
-    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "M:\asobiba\fold\tools\c330_execution.py", line 183, in subprocess_run
-    require(proc.returncode==0,'C330 '+mode+' failed;no automatic retry')
-    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "M:\asobiba\fold\tools\c330_execution.py", line 30, in require
-    if not ok: raise ValueError(message)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^
-ValueError: C330 regression failed;no automatic retry
-process_exit = {"decimal": 1, "hexadecimal": "0x00000001", "log": "M:\\asobiba\\fold\\runs\\c330-localization-b6703493cb9e4265a9a97b4ceb3c0853\\science.log", "phase": "science"}
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 422, in <module>
+    sys.path.insert(0,str(Path(__file__).resolve().parents[1])); main()
+                                                                 ~~~~^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 418, in main
+    {'run':run,'science':scientific_worker,'regression':regression_child,'verify':verify_outputs}[args.mode](root,folder,args.expected_head)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 263, in regression_child
+    guard(root,head); seal(); base=load_base(root); plan=build_plan(root,head,base)
+                                                         ~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 165, in build_plan
+    policy=POLICY, test_ids_sha256=digest([t.id() for t in tests]), groups=partition(tests))
+                                                                           ~~~~~~~~~^^^^^^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 133, in partition
+    require(re.fullmatch(r'tests_lm\.[A-Za-z0-9_]+', module) and isinstance(tid, str) and tid.startswith(module+'.'), 'test module/ID')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 39, in require
+    raise ValueError(message)
+ValueError: test module/ID
+worker_heartbeat = {"elapsed_seconds": 20.049, "phase": "regression"}
+process_exit = {"decimal": 1, "hexadecimal": "0x00000001", "log": "M:\\asobiba\\fold\\runs\\c330-localization-2e8b40e9df1a4d9885c4afd4b0795312\\regression.log", "phase": "regression", "pid": 89824}
+Traceback (most recent call last):
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 422, in <module>
+    sys.path.insert(0,str(Path(__file__).resolve().parents[1])); main()
+                                                                 ~~~~^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 418, in main
+    {'run':run,'science':scientific_worker,'regression':regression_child,'verify':verify_outputs}[args.mode](root,folder,args.expected_head)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 318, in scientific_worker
+    run_logged(root,command(root,folder,head,'regression'),folder/'regression.log','regression')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 216, in run_logged
+    require(process.returncode == 0, 'C330 R1 '+phase+' failed; preserve attempt; no retry')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 39, in require
+    raise ValueError(message)
+ValueError: C330 R1 regression failed; preserve attempt; no retry
+process_exit = {"decimal": 1, "hexadecimal": "0x00000001", "log": "M:\\asobiba\\fold\\runs\\c330-localization-2e8b40e9df1a4d9885c4afd4b0795312\\science.log", "phase": "science", "pid": 87160}
 run_execution_valid = false
 Traceback (most recent call last):
-  File "M:\asobiba\fold\tools\c330_execution.py", line 315, in <module>
-    sys.path.insert(0,str(Path(__file__).resolve().parents[1]));main()
-                                                                ~~~~^^
-  File "M:\asobiba\fold\tools\c330_execution.py", line 311, in main
-    {'run':run,'science':scientific_worker,'regression':regression_child,'verify':verify_outputs}[a.mode](root,folder,a.expected_head)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "M:\asobiba\fold\tools\c330_execution.py", line 300, in run
-    try:subprocess_run(root,folder,head,'science');subprocess_run(root,folder,head,'verify');complete=True
-        ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "M:\asobiba\fold\tools\c330_execution.py", line 183, in subprocess_run
-    require(proc.returncode==0,'C330 '+mode+' failed;no automatic retry')
-    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "M:\asobiba\fold\tools\c330_execution.py", line 30, in require
-    if not ok: raise ValueError(message)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^
-ValueError: C330 science failed;no automatic retry
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 422, in <module>
+    sys.path.insert(0,str(Path(__file__).resolve().parents[1])); main()
+                                                                 ~~~~^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 418, in main
+    {'run':run,'science':scientific_worker,'regression':regression_child,'verify':verify_outputs}[args.mode](root,folder,args.expected_head)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 402, in run
+    run_logged(root,command(root,folder,head,'science'),folder/'science.log','science')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 216, in run_logged
+    require(process.returncode == 0, 'C330 R1 '+phase+' failed; preserve attempt; no retry')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 39, in require
+    raise ValueError(message)
+ValueError: C330 R1 science failed; preserve attempt; no retry
