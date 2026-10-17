@@ -1,4 +1,4 @@
-"""C330 R1.1 execution-isolation tests; synthetic inventories are not full regression."""
+"""C330 R1.2 execution-isolation tests; synthetic inventories are not full regression."""
 from __future__ import annotations
 import contextlib
 import copy
@@ -46,12 +46,17 @@ def passed(ids):
                 successful=True,started_ids=list(ids),success_ids=list(ids))
 
 
-def write_module_evidence(folder,plan,index,plan_sha):
-    group=plan['groups'][index]; pid=20000+index
-    r.save(folder/f'module-{index:03d}.json',dict(schema='fold-c330-r1-module-v1',commit_sha=HEAD,
-        plan_sha256=plan_sha,index=index,module=group['module'],pid=pid,result=passed(group['test_ids'])))
-    (folder/f'module-{index:03d}.log').write_text('synthetic module receipt; no tests executed\n',encoding='utf-8')
-    return pid
+def write_module_evidence(folder,plan,index,plan_sha,redirected=False):
+    group=plan['groups'][index]; pid=20000+index; parent_pid=10000+index
+    r.save(folder/f'module-{index:03d}.json',dict(schema='fold-c330-r1-module-v2',commit_sha=plan['commit_sha'],
+        plan_sha256=plan_sha,index=index,module=group['module'],pid=pid,parent_pid=parent_pid,result=passed(group['test_ids'])))
+    marker=dict(index=index,module=group['module'],tests=len(group['test_ids']),pid=pid,parent_pid=parent_pid)
+    stream=io.StringIO()
+    with contextlib.redirect_stdout(stream):
+        print('synthetic module receipt; no tests executed')
+        r.emit('regression_module_begin',marker);r.emit('regression_module_complete',marker)
+    (folder/f'module-{index:03d}.log').write_text(stream.getvalue(),encoding='utf-8')
+    return parent_pid if redirected else pid
 
 
 @contextlib.contextmanager
@@ -183,11 +188,13 @@ class C330R1Tests(unittest.TestCase):
         plan=synthetic_plan()
         with tempfile.TemporaryDirectory() as tmp,contextlib.redirect_stdout(io.StringIO()):
             folder=Path(tmp); calls=[]
-            def execute(index,plan_sha):calls.append(index); return write_module_evidence(folder,plan,index,plan_sha)
+            def execute(index,plan_sha):calls.append(index); return write_module_evidence(folder,plan,index,plan_sha,redirected=bool(index%2))
             value=r.collect_regression(folder,folder,HEAD,plan,execute)
             self.assertEqual(calls,list(range(r.MODULES))); self.assertEqual(value['tests'],r.FULL_TESTS)
             evidence=r.verify_regression(folder,HEAD,plan)
             self.assertEqual(evidence['modules'],r.MODULES); self.assertEqual(evidence['tests'],r.FULL_TESTS)
+            saved=r.read(folder/'regression-isolation-r1.json')
+            self.assertEqual({row['relation'] for row in saved['modules']},{'direct','redirected-child'})
     def test_14_native_style_nonzero_stops_at_first_attempt(self):
         plan=synthetic_plan(); calls=[]
         with tempfile.TemporaryDirectory() as tmp,contextlib.redirect_stdout(io.StringIO()):
@@ -204,6 +211,9 @@ class C330R1Tests(unittest.TestCase):
             folder=Path(tmp); r.collect_regression(folder,folder,HEAD,plan,lambda i,h:write_module_evidence(folder,plan,i,h))
             (folder/'module-000.log').write_text('changed',encoding='utf-8')
             with self.assertRaisesRegex(ValueError,'receipt/log bytes'):r.verify_regression(folder,HEAD,plan)
+            ep=folder/'regression-isolation-r1.json';value=r.read(ep)
+            value['modules'][0]['log_sha256']=r.sha(folder/'module-000.log');ep.write_bytes(r.blob(value))
+            with self.assertRaisesRegex(ValueError,'process identity'):r.verify_regression(folder,HEAD,plan)
     def test_16_plan_content_cannot_drop_tests_after_execution(self):
         plan=synthetic_plan()
         with tempfile.TemporaryDirectory() as tmp,contextlib.redirect_stdout(io.StringIO()):
@@ -211,6 +221,11 @@ class C330R1Tests(unittest.TestCase):
             (folder/'regression-plan-r1.json').write_text('{}',encoding='utf-8')
             with self.assertRaises(ValueError):r.verify_regression(folder,HEAD,plan)
     def test_17_mismatched_pid_or_incomplete_success_aborts(self):
+        self.assertEqual(r.process_relation(42,42,1),'direct')
+        self.assertEqual(r.process_relation(42,1304,42),'redirected-child')
+        for ids in ((42,1304,7),(True,1,2),(42,False,1),(42,42,0),(42,42,42),(42,42,1.),(-1,2,3)):
+            with self.subTest(ids=ids),self.assertRaisesRegex(ValueError,'process identity'):
+                r.process_relation(*ids)
         plan=synthetic_plan()
         with tempfile.TemporaryDirectory() as tmp,contextlib.redirect_stdout(io.StringIO()):
             folder=Path(tmp)
@@ -269,6 +284,63 @@ class C330R1Tests(unittest.TestCase):
                 with patch.object(r,'guard'),patch.object(r,'build_plan',side_effect=AssertionError('module must not load all modules')):
                     r.module_child(folder,folder,HEAD,0,r.sha(folder/'regression-plan-r1.json'))
                 value=r.read(folder/'module-000.json'); self.assertEqual(value['result']['success_ids'],group['test_ids'])
+                self.assertEqual(value['pid'],r.os.getpid());self.assertEqual(value['parent_pid'],r.os.getppid())
+        for redirected,failing in ((False,False),(True,False),(True,True)):
+            with self.subTest(redirected=redirected,failing=failing):
+                self.process_integration(redirected,failing)
+    def process_integration(self,redirected,failing):
+        # Real OS processes + production module/collector/fresh verifier; only test bodies
+        # and the other 219 module receipts are synthetic. Never a full5850 execution claim.
+        with tempfile.TemporaryDirectory() as tmp,contextlib.redirect_stdout(io.StringIO()):
+            root=Path(tmp);(root/'tools').mkdir();(root/'tests_lm').mkdir()
+            script=root/'tools/c330_recovery_r1.py';script.write_bytes((ROOT/'tools/c330_recovery_r1.py').read_bytes())
+            (root/'tests_lm/__init__.py').write_text('',encoding='utf-8')
+            module='tests_lm._c330_process_fixture'
+            body='self.fail("intentional relay fixture failure")' if failing else 'self.assertEqual(2,2)'
+            (root/'tests_lm/_c330_process_fixture.py').write_text(
+                'import unittest\nclass C(unittest.TestCase):\n def test_a(self): '+body+'\n',encoding='utf-8')
+            (root/'.gitignore').write_text('runs/\n__pycache__/\n',encoding='utf-8')
+            proxy=root/'proxy.py'
+            proxy.write_text('import subprocess,sys\nraise SystemExit(subprocess.call(sys.argv[1:]))\n',encoding='utf-8')
+            head=git_fixture(root);folder=root/'runs/check';folder.mkdir(parents=True)
+            plan=synthetic_plan(dict(module=module,test_ids=[module+'.C.test_a']))
+            plan['commit_sha']=head;r.validate_plan(plan,head);calls=[]
+            # Only stdlib in this process fixture: avoid adding an extra venv shim
+            # around the deliberate proxy on Windows. The scientific runner is unchanged.
+            exe=sys._base_executable
+            def execute(index,plan_sha):
+                calls.append(index)
+                if index:
+                    return write_module_evidence(folder,plan,index,plan_sha,redirected=bool(index%2))
+                args=[exe,'-B','-u',str(script),'--root',str(root),'--folder',str(folder),
+                      '--expected-head',head,'--mode','module','--module-index','0','--plan-sha256',plan_sha]
+                if redirected:args=[exe,'-B',str(proxy),*args]
+                return r.run_logged(root,args,folder/'module-000.log','real-fixture')
+            if failing:
+                with self.assertRaises(ValueError):r.collect_regression(root,folder,head,plan,execute)
+                self.assertEqual(calls,[0]);self.assertFalse((folder/'regression-result.json').exists())
+                self.assertIn('intentional relay fixture failure',(folder/'module-000.log').read_text(encoding='utf-8'))
+                return
+            r.collect_regression(root,folder,head,plan,execute)
+            row=r.read(folder/'regression-isolation-r1.json')['modules'][0]
+            self.assertEqual(row['relation'],'redirected-child' if redirected else 'direct')
+            if redirected:
+                self.assertNotEqual(row['launcher_pid'],row['pid'])
+                self.assertEqual(row['launcher_pid'],row['parent_pid'])
+            else:self.assertEqual(row['launcher_pid'],row['pid'])
+            r.verify_regression(folder,head,plan)
+            code=('import importlib.util,sys;from pathlib import Path;'
+                  's=importlib.util.spec_from_file_location("checked",sys.argv[1]);'
+                  'm=importlib.util.module_from_spec(s);s.loader.exec_module(m);'
+                  'p=Path(sys.argv[2]);m.verify_regression(p,sys.argv[3],m.read(p/"regression-plan-r1.json"));'
+                  'print("fresh verifier PASS")')
+            r.run_logged(root,[exe,'-B','-c',code,str(script),str(folder),head],folder/'fresh.log','fresh-fixture')
+            self.assertIn('fresh verifier PASS',(folder/'fresh.log').read_text(encoding='utf-8'))
+            # Even after resealing hashes, unrelated PID topology must remain invalid.
+            ep=folder/'regression-isolation-r1.json';bad=r.read(ep)
+            bad['modules'][0]['launcher_pid']=max(row['pid'],row['parent_pid'])+100000
+            ep.write_bytes(r.blob(bad))
+            with self.assertRaisesRegex(ValueError,'process identity'):r.verify_regression(folder,head,plan)
     def test_25_real_cli_mode_and_output_path_rejection(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp)
@@ -328,7 +400,7 @@ class C330R1Tests(unittest.TestCase):
                     r.scientific_worker(root,folder,HEAD)
                     self.assertEqual(calls,['snapshot','parent','tests','diagnose','saved','final','release'])
                     value=r.read(folder/'science/summary.json'); self.assertEqual(value['status'],'PASS'); self.assertFalse(value['capability_gate_applicable'])
-                    self.assertEqual(value['execution_revision'],'C330-R1.1')
+                    self.assertEqual(value['execution_revision'],'C330-R1.2')
     def test_29_runner_route_and_unchanged_science_pins(self):
         text=(ROOT/'tools/run_c330.ps1').read_text(encoding='utf-8')
         self.assertIn('c330_recovery_r1.py',text); self.assertIn('--expected-head $ExpectedHead',text)

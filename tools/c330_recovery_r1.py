@@ -1,4 +1,4 @@
-"""C330 R1.1: retain the original isolated suite, including its tests_tools modules.
+"""C330 R1.2: distinguish a subprocess launcher from its runtime child.
 
 The C330 diagnostic/scorers and every accepted source/test are unchanged. Each
 registered module gets a new ordinary interpreter. Preserve complete per-test
@@ -29,14 +29,14 @@ TEST_MODULE = 'tests_lm.test_v05_c330_recovery_r1'
 OWN_TESTS, BASE_TESTS, FULL_TESTS, MODULES = 32, 5818, 5850, 220
 SOURCE_COUNT, INPUT_COUNT = 841, 1596
 POLICY = 'ordered-fresh-process-per-test-module-no-retry-v1'
-REVISION = 'C330-R1.1'
+REVISION = 'C330-R1.2'
 # Exact already-registered C324 tooling modules, not a wildcard import permission.
 TOOL_MODULES = ('tests_tools.test_c324_locked_hash_r4',
                 'tests_tools.test_c324_verified_session_r5',
                 'tests_tools.test_c324_scientific_recovery_r6')
-INVALID_EXECUTION = 'b5521796a4f301f963792b96768a1f16aea83309'
-INVALID_PUBLICATION = '6507abc349f838e525b1152035f71707041d4343'
-RECOVERY_SHA = '8db2d7bedfbf9276848791a0710a0e8bb031fc39d8186722e4540269d4347e5c'
+INVALID_EXECUTION = '848117fe8326ff146c350343b69d00858a6b0743'
+INVALID_PUBLICATION = '63195b8948375de6917e55e692c7bc7b8f01d4ce'
+RECOVERY_SHA = 'cb09791f16e446ad2e1116981700c5be26997865d2da2eef89e76acdad1df8b9'
 
 
 def require(ok, message):
@@ -85,12 +85,14 @@ def contract():
         modules=MODULES, sources=SOURCE_COUNT, inputs=INPUT_COUNT, tool_modules=list(TOOL_MODULES),
         excluded_test=EXCLUDED, module_retries=0, parallel_modules=1,
         scientific_changes=False, new_scientific_model_calls=0,
+        process_identity='launcher PID equals worker PID OR worker parent PID;exactly zero or one redirector hop;all IDs positive integers;receipt and begin/complete log identity agree',
+        module_schema='fold-c330-r1-module-v2', regression_schema='fold-c330-r1-regression-v2',
         scope='full test-ID inventory unchanged then32 additive tests;new interpreter per module;not a cross-module shared-process regression claim',
-        cause_boundary='R1 rejected existing tests_tools module names before any test ran;R1.1 repairs this namespace guard;the earlier C311 native access violation remains unproven resolved')
+        cause_boundary='R1.1 first ten tests passed but launcher PID45276 differed from worker PID1304;the previous receipt had no parent PID;support the documented venv redirector without accepting unrelated processes;C311 native fault unresolved')
 
 
 def seal():
-    require(digest(contract()) == RECOVERY_SHA, 'C330 R1.1 contract seal')
+    require(digest(contract()) == RECOVERY_SHA, 'C330 R1.2 contract seal')
 
 
 def git(root, *args):
@@ -209,6 +211,40 @@ def check_module(record, group):
         and record['started_ids'] == record['success_ids'] == group['test_ids'], 'all module tests must execute and pass')
 
 
+def process_relation(launcher_pid, worker_pid, parent_pid):
+    """Popen may hold a venv redirector that waits for the actual interpreter."""
+    require(all(type(v) is int and v > 0 for v in (launcher_pid, worker_pid, parent_pid))
+        and worker_pid != parent_pid, 'module process identity: invalid PID values')
+    if launcher_pid == worker_pid:
+        return 'direct'
+    require(launcher_pid == parent_pid,
+        f'module process identity: unrelated launch={launcher_pid}, worker={worker_pid}, parent={parent_pid}')
+    return 'redirected-child'
+
+
+def validate_module_evidence(row, group, head, index, plan_sha, launcher_pid, log):
+    require(set(row)=={'schema','commit_sha','plan_sha256','index','module','pid','parent_pid','result'}
+        and row['schema']=='fold-c330-r1-module-v2' and row['commit_sha']==head
+        and row['plan_sha256']==plan_sha and type(row['index']) is int and row['index']==index
+        and row['module']==group['module'], 'module process identity: receipt binding')
+    relation=process_relation(launcher_pid,row['pid'],row['parent_pid'])
+    check_module(row['result'],group)
+    expected=dict(index=index,module=group['module'],tests=len(group['test_ids']),
+        pid=row['pid'],parent_pid=row['parent_pid'])
+    markers={name:[] for name in ('regression_module_begin','regression_module_complete')}
+    for line in log.read_text(encoding='utf-8').splitlines():
+        for name, rows in markers.items():
+            prefix=name+' = '
+            if line.startswith(prefix):
+                rows.append(line[len(prefix):])
+    for name, rows in markers.items():
+        require(len(rows)==1, 'module process identity: missing/duplicate '+name)
+        # Emit uses canonical JSON; compare text to reject duplicate keys and bool/int aliases.
+        require(rows[0]==json.dumps(expected,sort_keys=True,ensure_ascii=True,allow_nan=False),
+            'module process identity: log/receipt disagreement '+name)
+    return relation
+
+
 def run_logged(root, command, logfile, phase):
     started=time.monotonic(); beat=started+10
     with logfile.open('xb') as target:
@@ -226,7 +262,7 @@ def run_logged(root, command, logfile, phase):
         finally:
             if process.poll() is None: process.kill(); process.wait(timeout=10)
     emit('process_exit',dict(phase=phase,pid=process.pid,decimal=process.returncode,hexadecimal=f'0x{process.returncode & 0xffffffff:08X}',log=str(logfile)))
-    require(process.returncode == 0, 'C330 R1.1 '+phase+' failed; preserve attempt; no retry')
+    require(process.returncode == 0, 'C330 R1.2 '+phase+' failed; preserve attempt; no retry')
     return process.pid
 
 
@@ -240,14 +276,17 @@ def module_child(root, folder, head, index, plan_sha):
     require(sha(plan_path)==plan_sha, 'module plan bytes'); plan=read(plan_path); validate_plan(plan,head)
     require(type(index) is int and 0<=index<len(plan['groups']), 'module index')
     group=plan['groups'][index]
-    emit('regression_module_begin',dict(index=index,module=group['module'],tests=len(group['test_ids']),pid=os.getpid()))
+    process=dict(pid=os.getpid(),parent_pid=os.getppid())
+    marker=dict(index=index,module=group['module'],tests=len(group['test_ids']),**process)
+    emit('regression_module_begin',marker)
     record=execute_module(group['module'],group['test_ids'])
     # Write failing Python receipts as well. A native crash has no success receipt.
-    value=dict(schema='fold-c330-r1-module-v1',commit_sha=head,plan_sha256=plan_sha,index=index,
-        module=group['module'],pid=os.getpid(),result=record)
+    value=dict(schema='fold-c330-r1-module-v2',commit_sha=head,plan_sha256=plan_sha,index=index,
+        module=group['module'],result=record,**process)
     save(folder/f'module-{index:03d}.json',value)
     check_module(record,group); guard(root,head)
-    emit('regression_module_complete',dict(index=index,module=group['module'],tests=record['tests']))
+    require(process==dict(pid=os.getpid(),parent_pid=os.getppid()),'module process identity changed during tests')
+    emit('regression_module_complete',marker)
 
 
 def collect_regression(root, folder, head, plan, run_module):
@@ -257,13 +296,14 @@ def collect_regression(root, folder, head, plan, run_module):
         emit('regression_progress',dict(completed=completed,total=FULL_TESTS,index=index,module=group['module']))
         pid=run_module(index,plan_sha)
         path=folder/f'module-{index:03d}.json'; log=folder/f'module-{index:03d}.log'; value=read(path)
-        require(value['schema']=='fold-c330-r1-module-v1' and value['commit_sha']==head and value['plan_sha256']==plan_sha
-            and value['index']==index and value['module']==group['module'] and value['pid']==pid, 'module process identity')
-        check_module(value['result'],group)
-        evidence.append(dict(index=index,pid=pid,exit_code=0,receipt_sha256=sha(path),log_sha256=sha(log)))
+        relation=validate_module_evidence(value,group,head,index,plan_sha,pid,log)
+        evidence.append(dict(index=index,launcher_pid=pid,pid=value['pid'],parent_pid=value['parent_pid'],
+            relation=relation,exit_code=0,receipt_sha256=sha(path),log_sha256=sha(log)))
+        emit('regression_process_identity',dict(index=index,module=group['module'],launcher_pid=pid,
+            worker_pid=value['pid'],parent_pid=value['parent_pid'],relation=relation))
         completed+=value['result']['tests']
     require(completed==FULL_TESTS,'regression total')
-    envelope=dict(schema='fold-c330-r1-regression-v1',commit_sha=head,recovery_sha256=RECOVERY_SHA,
+    envelope=dict(schema='fold-c330-r1-regression-v2',commit_sha=head,recovery_sha256=RECOVERY_SHA,
         policy=POLICY,plan_sha256=plan_sha,test_ids_sha256=plan['test_ids_sha256'],modules=evidence)
     save(folder/'regression-isolation-r1.json',envelope)
     receipt=dict(commit_sha=head,tests=FULL_TESTS,failures=0,errors=0,skipped=0,successful=True)
@@ -286,20 +326,23 @@ def verify_regression(folder, head, plan):
     require(blob(read(folder/'regression-plan-r1.json'))==blob(plan),'regression inventory changed')
     value=read(folder/'regression-isolation-r1.json'); plan_sha=sha(folder/'regression-plan-r1.json')
     require(set(value)=={'schema','commit_sha','recovery_sha256','policy','plan_sha256','test_ids_sha256','modules'}
-        and value['schema']=='fold-c330-r1-regression-v1' and value['commit_sha']==head
+        and value['schema']=='fold-c330-r1-regression-v2' and value['commit_sha']==head
         and value['recovery_sha256']==RECOVERY_SHA and value['policy']==POLICY and value['plan_sha256']==plan_sha
         and value['test_ids_sha256']==plan['test_ids_sha256'] and len(value['modules'])==MODULES,'regression evidence identity')
     all_ids=[]
     for index,(item,group) in enumerate(zip(value['modules'],plan['groups'],strict=True)):
-        require(set(item)=={'index','pid','exit_code','receipt_sha256','log_sha256'} and type(item['index']) is int
-            and item['index']==index and type(item['pid']) is int and item['pid']>0 and type(item['exit_code']) is int and item['exit_code']==0,'module completion evidence')
+        require(set(item)=={'index','launcher_pid','pid','parent_pid','relation','exit_code','receipt_sha256','log_sha256'}
+            and type(item['index']) is int and item['index']==index and type(item['exit_code']) is int
+            and item['exit_code']==0,'module completion evidence')
+        require(process_relation(item['launcher_pid'],item['pid'],item['parent_pid'])==item['relation'],
+            'module process identity: aggregate topology')
         path=folder/f'module-{index:03d}.json'; log=folder/f'module-{index:03d}.log'
         require(sha(path)==item['receipt_sha256'] and sha(log)==item['log_sha256'],'module receipt/log bytes')
         row=read(path)
-        require(set(row)=={'schema','commit_sha','plan_sha256','index','module','pid','result'} and row['schema']=='fold-c330-r1-module-v1'
-            and row['commit_sha']==head and row['plan_sha256']==plan_sha and row['index']==index
-            and row['module']==group['module'] and row['pid']==item['pid'],'module receipt identity')
-        check_module(row['result'],group); all_ids.extend(row['result']['success_ids'])
+        relation=validate_module_evidence(row,group,head,index,plan_sha,item['launcher_pid'],log)
+        require(row['pid']==item['pid'] and row['parent_pid']==item['parent_pid'] and relation==item['relation'],
+            'module receipt identity')
+        all_ids.extend(row['result']['success_ids'])
     require(len(all_ids)==FULL_TESTS and digest(all_ids)==plan['test_ids_sha256'],'complete successful test-ID sequence')
     expected=dict(commit_sha=head,tests=FULL_TESTS,failures=0,errors=0,skipped=0,successful=True)
     require(blob(read(folder/'regression-result.json'))==blob(expected),'regression aggregate receipt')
