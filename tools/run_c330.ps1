@@ -10,7 +10,7 @@ Set-Location -LiteralPath $Root
 if ($PSVersionTable.PSEdition -ne 'Core' -or $PSVersionTable.PSVersion -lt [version]'7.3') { throw 'PowerShell 7.3 or newer is required' }
 $PSNativeCommandArgumentPassing = 'Standard'
 $Python = Join-Path $Root '.venv-py31315\Scripts\python.exe'
-$Script = Join-Path $Root 'tools\c330_execution.py'
+$Script = Join-Path $Root 'tools\c330_recovery_r1.py'
 $oldEncoding = $env:PYTHONIOENCODING
 try {
     $env:PYTHONIOENCODING = 'utf-8'
