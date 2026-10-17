@@ -10,7 +10,10 @@ ParseFile,tools/invoke_active_v2.ps1. Accepted source/tests/logs remain immutabl
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 **C329 ACCEPTED VALID NEGATIVE. C330 ACTIVE / INVALID ATTEMPT RECOVERY. C331 NOT REGISTERED.**
 C330 attempt01 is INVALID EXECUTION;no scientific result was produced or accepted.
-R1 source is written;post-authoring review PENDING. No retry command until review.
+C330 R1 implementation and committed-byte post-authoring review are complete.
+post_authoring_review = PASS.
+Use the subsequent final documentation-only recovery HEAD supplied in the user
+command,not the source-only review target or the invalid attempt's execution HEAD.
 Do not rerun C329 or advance to C331. Earlier verdicts remain unchanged.
 
 ## Invalid C330 attempt01
@@ -26,10 +29,31 @@ Full5818test/219module regression crashed in C311Tests.setUpClass -> C311.analyz
 line139 with native exit0xC0000005 (3221225477). Scientific/controller exit1;
 run_execution_valid=false. No complete regression receipt or C330 diagnosis.
 Underlying native cause NOT established;do not blame a specific library/hardware.
+The PowerShell line19 is propagated failure,not the initial fault.
+No independent whole-Windows-log rehash,native crash reproduction or memory-dump
+analysis is claimed. The invalid record is not scientific negative evidence.
+
+## Completed R1 source review
+
+Source/review target:64ef391c1869c26d42c90a81f0b757a10097d5ab.
+Contract:docs/c330-recovery-r1.md.
+Review:docs/c330-r1-post-authoring-review.md.
+All3new protected files and changed runner reread fully at the committed target;
+Git blobs match independently hashed local tested bytes. After reread:
+normal32/32PASS3.154s;CP932-default-text-open emulation32/32PASS3.246s;
+failures/errors/skips0. Both Python files compile/import;all4files UTF8/noNUL;
+120code objects audited,undefined globals0;recovery contract self-hash matches.
+Actual build_plan audited with synthetic5818 inherited cases+real32loader,including
+helper ordering and old-ID-digest rejection. Author LinuxPython3.13.5.
+Real unittest/subprocess/Git/file tests and actual worker control with synthetic
+parent/lease/science callbacks are software checks,NOT native Windows/full5850
+historical regression/real-parent C330 diagnosis or C311 native-crash reproduction.
+Original C33048tests are unchanged and retained for native full execution;not claimed
+rerun locally in this review. Author-side PowerShell AST execution unavailable;
+mandatory user-side dispatcher/launcher/runner AST chain retained.
 
 ## Same-C330 R1 repair
 
-Contract:docs/c330-recovery-r1.md.
 New execution route:unchanged invoke_c330 ->run_c330.ps1 ->c330_recovery_r1.py.
 Only the not-yet-accepted runner's Python target changes. C330 diagnostic,original
 executor,48tests,launcher and original scientific contract remain byte-identical.
@@ -46,12 +70,15 @@ Bind plan,PID,exit0,module receipts/logs and aggregate;rebuild full plan and ver
 all evidence in worker and fresh final verifier. No scientific phase without full
 success. Isolation is mitigation,not proven native-root-cause repair or a claim of
 single-process cross-module stress coverage. Native validation remains pending.
+The actual module import may load its declared dependencies;the child does not build
+the entire suite merely to select its own tests. No failed test is omitted.
 
 R1 protection841sources/1596inputs=832/1577 parent +original6own +new3own +10parent
 files in the input map. Native R4 leases/all1596final uncached rereads retained.
 Primary and envelope require execution_revision=C330-R1,exact recovery_manifest and
 its SHA;envelope additionally binds regression_isolation. Original diagnostic-plan
 is scientific-definition evidence;runtime counts are superseded by the R1 manifest.
+A successor must honor the complete841/1596 protection and both manifests.
 Diagnostic cells4320/order2160 and matched transitions2160/1080 unchanged;all ten
 C329 states retained;all thresholds unchanged;new scientific model work0.
 
@@ -66,7 +93,18 @@ five-trajectory/ten-state loader,not an older diagnostic schema. No old-model re
 Original C330 question/cohort/masks/local gates remain as preregistered. C330 PASS
 would mean diagnostic integrity,not capability or a changed C329 verdict.
 
-## Stops and handoff
+## Expected progress and stops
+
+active_experiment=C330 ->execution_role=C330-R1-MODULE-ISOLATED-RECOVERY
+->locked parent reconstruction ->full_regression_fresh_process_per_module
+->regression_progress and module begin/complete records ->5850 successful IDs
+->saved_gate_failure_localization ->saved reconstruction ->1596final rereads
+->fresh byte/receipt/JSON verification ->run_execution_valid=true ->C330 log push.
+Intermediate module OK is NOT full-regression completion. There are220 sequential
+module processes with start/end/PID records;no scientific training-step display.
+Local regression-plan-r1.json,module-NNN.log/module-NNN.json,
+regression-isolation-r1.json and regression-result.json are hash-bound evidence.
+Only console text is published to C330/latest.*;attempt01 archives remain intact.
 
 Stale branch/HEAD/ACTIVE/dirtytree/host/dependency/AST:SKIPPED before logging.
 Source/input/test/receipt/native/schema/semantic/envelope failure:INVALID SAME C330.
@@ -74,6 +112,10 @@ No C331,no auto retry,no test omission,no package reinstall,no user artifact del
 no CI or paid service. Log publication only failure is repaired without rerunning.
 User may send only finished;read latest remote C330 logs,distinguish execution HEAD
 from publication. Ignore old C323/C324 attachments as evidence of current execution.
+For a valid completed C330 use formal result mode and complete acceptance plus
+next-C implementation/registration/committed review/launcher in the same response.
+For another INVALID remain in same-C330 execution recovery. Do not alter this branch
+for unrelated work while the user runs the registered attempt.
 
 ## History and inherited compatibility seal
 
