@@ -1,4 +1,4 @@
-"""C330 R1: fixed full-regression module isolation, never a retry or a test skip.
+"""C330 R1.1: retain the original isolated suite, including its tests_tools modules.
 
 The C330 diagnostic/scorers and every accepted source/test are unchanged. Each
 registered module gets a new ordinary interpreter. Preserve complete per-test
@@ -29,9 +29,14 @@ TEST_MODULE = 'tests_lm.test_v05_c330_recovery_r1'
 OWN_TESTS, BASE_TESTS, FULL_TESTS, MODULES = 32, 5818, 5850, 220
 SOURCE_COUNT, INPUT_COUNT = 841, 1596
 POLICY = 'ordered-fresh-process-per-test-module-no-retry-v1'
-INVALID_EXECUTION = '90ba026a0b24beeb448dcb1db354aab3501489bf'
-INVALID_PUBLICATION = 'd362e1b654b04fb0a8ee285ddbd9f7ca5f37b6e5'
-RECOVERY_SHA = 'e6bc2750bc4df477e12110ab0c60b2093e5eff985409439ae987d277685448ef'
+REVISION = 'C330-R1.1'
+# Exact already-registered C324 tooling modules, not a wildcard import permission.
+TOOL_MODULES = ('tests_tools.test_c324_locked_hash_r4',
+                'tests_tools.test_c324_verified_session_r5',
+                'tests_tools.test_c324_scientific_recovery_r6')
+INVALID_EXECUTION = 'b5521796a4f301f963792b96768a1f16aea83309'
+INVALID_PUBLICATION = '6507abc349f838e525b1152035f71707041d4343'
+RECOVERY_SHA = '8db2d7bedfbf9276848791a0710a0e8bb031fc39d8186722e4540269d4347e5c'
 
 
 def require(ok, message):
@@ -73,19 +78,19 @@ def emit(name, value):
 
 
 def contract():
-    return dict(revision='C330-R1', policy=POLICY, invalid_execution=INVALID_EXECUTION,
+    return dict(revision=REVISION, policy=POLICY, invalid_execution=INVALID_EXECUTION,
         invalid_publication=INVALID_PUBLICATION, diagnostic_manifest_sha256=BASE_MANIFEST,
         base_executor_blob=BASE_BLOB, diagnostic_blob=MODEL_BLOB, base_test_ids_sha256=BASE_TEST_IDS_SHA,
         own=list(OWN), own_tests=OWN_TESTS, base_tests=BASE_TESTS, full_tests=FULL_TESTS,
-        modules=MODULES, sources=SOURCE_COUNT, inputs=INPUT_COUNT,
+        modules=MODULES, sources=SOURCE_COUNT, inputs=INPUT_COUNT, tool_modules=list(TOOL_MODULES),
         excluded_test=EXCLUDED, module_retries=0, parallel_modules=1,
         scientific_changes=False, new_scientific_model_calls=0,
         scope='full test-ID inventory unchanged then32 additive tests;new interpreter per module;not a cross-module shared-process regression claim',
-        cause_boundary='native access violation observed in C311 setup;underlying native cause not established;isolation is a mitigation,not proof of a root-cause fix')
+        cause_boundary='R1 rejected existing tests_tools module names before any test ran;R1.1 repairs this namespace guard;the earlier C311 native access violation remains unproven resolved')
 
 
 def seal():
-    require(digest(contract()) == RECOVERY_SHA, 'C330 R1 contract seal')
+    require(digest(contract()) == RECOVERY_SHA, 'C330 R1.1 contract seal')
 
 
 def git(root, *args):
@@ -126,11 +131,17 @@ def flatten(suite):
             yield test
 
 
+def allowed_module(name):
+    return type(name) is str and (re.fullmatch(r'tests_lm\.[A-Za-z0-9_]+', name) is not None
+                                 or name in TOOL_MODULES)
+
+
 def partition(tests):
     groups, seen, seen_modules = [], set(), set()
     for test in tests:
         module, tid = type(test).__module__, test.id()
-        require(re.fullmatch(r'tests_lm\.[A-Za-z0-9_]+', module) and isinstance(tid, str) and tid.startswith(module+'.'), 'test module/ID')
+        require(allowed_module(module) and type(tid) is str and tid.startswith(module+'.'),
+                f'test module/ID: module={module!r}; id={tid!r}')
         require(tid not in seen and tid != EXCLUDED, 'duplicate/excluded test ID'); seen.add(tid)
         if not groups or groups[-1]['module'] != module:
             require(module not in seen_modules, 'noncontiguous module order'); seen_modules.add(module)
@@ -147,7 +158,8 @@ def validate_plan(plan, head):
     groups = plan['groups']; require(type(groups) is list and len(groups) == MODULES, 'regression module count')
     ids, modules = [], []
     for group in groups:
-        require(set(group) == {'module','test_ids'} and re.fullmatch(r'tests_lm\.[A-Za-z0-9_]+', group['module']), 'module plan')
+        require(set(group) == {'module','test_ids'} and allowed_module(group['module']),
+                'module plan: '+repr(group.get('module')))
         require(type(group['test_ids']) is list and group['test_ids'] and all(type(v) is str and v.startswith(group['module']+'.') for v in group['test_ids']), 'module test IDs')
         modules.append(group['module']); ids.extend(group['test_ids'])
     require(len(modules) == len(set(modules)) == MODULES and len(ids) == len(set(ids)) == FULL_TESTS and EXCLUDED not in ids, 'complete distinct inventory')
@@ -156,6 +168,7 @@ def validate_plan(plan, head):
 
 def build_plan(root, head, base):
     e329,e328,e327,e326,legacy,_,r6 = base.helpers(root)
+    require(tuple(r6.RECOVERY_MODULES) == TOOL_MODULES, 'inherited tooling module registry changed')
     inherited = list(flatten(base.suite(root, base.spec().parent().base(), e329,e328,e327,e326,legacy,r6)))
     own = list(flatten(unittest.defaultTestLoader.loadTestsFromName(TEST_MODULE)))
     require(len(inherited) == BASE_TESTS and len(own) == OWN_TESTS, 'base and recovery suite counts')
@@ -213,7 +226,7 @@ def run_logged(root, command, logfile, phase):
         finally:
             if process.poll() is None: process.kill(); process.wait(timeout=10)
     emit('process_exit',dict(phase=phase,pid=process.pid,decimal=process.returncode,hexadecimal=f'0x{process.returncode & 0xffffffff:08X}',log=str(logfile)))
-    require(process.returncode == 0, 'C330 R1 '+phase+' failed; preserve attempt; no retry')
+    require(process.returncode == 0, 'C330 R1.1 '+phase+' failed; preserve attempt; no retry')
     return process.pid
 
 
@@ -313,7 +326,7 @@ def scientific_worker(root, folder, head):
         parent_result,_,pins,inputs=base.snapshot(root,p,e329,legacy,cache)
         pins,inputs=extend_protection(root,pins,inputs,legacy,cache.sha,base.canonical)
         cx=b.context(); b.check_dependencies(root,pins,cx); base.parent_semantics(root,parent_result,p,b,cx,inputs)
-        emit('registration_check',dict(revision='C330-R1',source_pins=len(pins),protected_inputs=len(inputs),full_tests=FULL_TESTS,recovery_sha256=RECOVERY_SHA))
+        emit('registration_check',dict(revision=REVISION,source_pins=len(pins),protected_inputs=len(inputs),full_tests=FULL_TESTS,recovery_sha256=RECOVERY_SHA))
         emit('phase','full_regression_fresh_process_per_module')
         run_logged(root,command(root,folder,head,'regression'),folder/'regression.log','regression')
         for lease,_ in cache.entries.values(): lease.check()
@@ -335,7 +348,7 @@ def scientific_worker(root, folder, head):
     result=dict(schema='fold-c330-diagnostic-v1',experiment_id=s.EXPERIMENT_ID,stage=s.STAGE,commit_sha=head,status='PASS',
         diagnostic_execution_valid=True,capability_gate_applicable=False,gate_f_candidate=False,production_adoption=False,
         source_blobs=pins,input_sha256=inputs,artifacts=files,validation_summary=summary,manifest_sha256=s.MANIFEST_SHA,
-        execution_revision='C330-R1',recovery_manifest_sha256=RECOVERY_SHA,recovery_manifest=contract(),
+        execution_revision=REVISION,recovery_manifest_sha256=RECOVERY_SHA,recovery_manifest=contract(),
         runtime=dict(python=sys.version.split()[0],torch=str(torch.__version__),numpy=np.__version__,worker_seconds=time.monotonic()-started,
             process_peak_rss_bytes=b.peak_rss(),device='cpu',precision='float64',threads=2))
     save(out/'summary.json',result)
@@ -345,7 +358,7 @@ def scientific_worker(root, folder, head):
         parent_summary_sha256=base.PARENT_SUMMARY,parent_envelope_sha256=base.PARENT_ENVELOPE,
         immediate_parent_semantic_reconstruction=True,ancestor_semantic_reruns=0,saved_semantic_reconstruction=True,
         final_reference_rechecks=INPUT_COUNT,hash_stats=hash_stats,manifest_sha256=s.MANIFEST_SHA,scientific_work=s.WORK,
-        execution_revision='C330-R1',recovery_manifest_sha256=RECOVERY_SHA,recovery_manifest=contract())
+        execution_revision=REVISION,recovery_manifest_sha256=RECOVERY_SHA,recovery_manifest=contract())
     save(folder/'execution-envelope.json',envelope)
     emit('summary',str(out/'summary.json')); emit('summary_sha256',envelope['scientific_summary_sha256'])
     for row in summary['seed_results']: emit('C330 preserved_seed',row)
@@ -364,7 +377,7 @@ def verify_outputs(root, folder, head):
         and r['commit_sha']==v['commit_sha']==head and r['experiment_id']==s.EXPERIMENT_ID and r['stage']==s.STAGE,'child identity')
     require(r['status']==v['scientific_status']=='PASS' and r['diagnostic_execution_valid'] is True and r['capability_gate_applicable'] is False
         and r['gate_f_candidate'] is False and r['production_adoption'] is False,'diagnostic flags')
-    require(r['execution_revision']==v['execution_revision']=='C330-R1' and r['recovery_manifest_sha256']==v['recovery_manifest_sha256']==RECOVERY_SHA
+    require(r['execution_revision']==v['execution_revision']==REVISION and r['recovery_manifest_sha256']==v['recovery_manifest_sha256']==RECOVERY_SHA
         and r['manifest_sha256']==v['manifest_sha256']==BASE_MANIFEST and v['scientific_work']==s.WORK
         and blob(r['recovery_manifest'])==blob(v['recovery_manifest'])==blob(contract()),'science/recovery identities')
     require(sha(out/'summary.json')==v['scientific_summary_sha256'],'summary bytes')
@@ -391,13 +404,13 @@ def verify_outputs(root, folder, head):
     checked,_=base.bound_semantics(out,lambda:s.semantic_recheck(out,po,read))
     require(blob(checked)==blob(r['validation_summary']) and checked['parent_candidate_gate'] is pr['validation_summary']['candidate_gate']
         and checked['parent_paired_success_count']==pr['validation_summary']['paired_success_count'],'fresh diagnostic/parent reconstruction')
-    guard(root,head); emit('execution_envelope_verified',dict(revision='C330-R1',source_pins=SOURCE_COUNT,protected_inputs=INPUT_COUNT,full_tests=FULL_TESTS,modules=MODULES))
+    guard(root,head); emit('execution_envelope_verified',dict(revision=REVISION,source_pins=SOURCE_COUNT,protected_inputs=INPUT_COUNT,full_tests=FULL_TESTS,modules=MODULES))
 
 
 def run(root, folder, head):
     guard(root,head); seal(); require(folder.is_relative_to(root/'runs') and folder!=root/'runs','output outside runs')
     folder.mkdir(parents=True,exist_ok=False); valid=False
-    emit('execution_role','C330-R1-MODULE-ISOLATED-RECOVERY'); emit('scientific_execution_head',head)
+    emit('execution_role',REVISION+'-MODULE-ISOLATED-RECOVERY'); emit('scientific_execution_head',head)
     try:
         run_logged(root,command(root,folder,head,'science'),folder/'science.log','science')
         run_logged(root,command(root,folder,head,'verify'),folder/'verify.log','verify'); valid=True

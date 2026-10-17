@@ -1,4 +1,4 @@
-"""C330 R1 execution-isolation tests; synthetic inventories are not full regression."""
+"""C330 R1.1 execution-isolation tests; synthetic inventories are not full regression."""
 from __future__ import annotations
 import contextlib
 import copy
@@ -23,6 +23,10 @@ HEAD='a'*40
 def synthetic_plan(first=None):
     groups=[]
     if first is not None: groups.append(copy.deepcopy(first))
+    # Preserve the real mixed-namespace registry; IDs/bodies here remain synthetic.
+    for module,count in zip(r.TOOL_MODULES,(37,48,48),strict=True):
+        if not any(g['module']==module for g in groups):
+            groups.append(dict(module=module,test_ids=[module+f'.Fixture.test_{i:03d}' for i in range(count)]))
     remaining=r.BASE_TESTS-sum(len(g['test_ids']) for g in groups)
     count=r.MODULES-1-len(groups)
     quotient,remainder=divmod(remaining,count)
@@ -51,12 +55,13 @@ def write_module_evidence(folder,plan,index,plan_sha):
 
 
 @contextlib.contextmanager
-def temporary_module(source):
-    import tests_lm
-    name='tests_lm._c330_r1_temporary'
+def temporary_module(source, name='tests_lm._c330_r1_temporary'):
+    import importlib
+    package=importlib.import_module(name.rsplit('.',1)[0])
+    attribute=name.rsplit('.',1)[1]
     module=types.ModuleType(name); module.__dict__['unittest']=unittest
     exec(compile(source,'<explicit test fixture>','exec'),module.__dict__)
-    with patch.dict(sys.modules,{name:module}),patch.object(tests_lm,'_c330_r1_temporary',module,create=True):
+    with patch.dict(sys.modules,{name:module}),patch.object(package,attribute,module,create=True):
         yield name
 
 
@@ -79,6 +84,28 @@ class C330R1Tests(unittest.TestCase):
         self.assertEqual(r.SOURCE_COUNT,838+len(r.OWN)); self.assertEqual(r.INPUT_COUNT,1593+len(r.OWN))
         self.assertEqual(unittest.defaultTestLoader.loadTestsFromName(r.TEST_MODULE).countTestCases(),32)
         self.assertEqual(r.contract()['module_retries'],0)
+        # Exercise the production planner with all 220 groups and real recovery IDs.
+        fixture=synthetic_plan()
+        inherited=[]
+        for group in fixture['groups'][:-1]:
+            for tid in group['test_ids']:
+                cls=type('Fixture',(unittest.TestCase,),{'__module__':group['module'],
+                    'id':lambda self,tid=tid:tid})
+                inherited.append(cls())
+        marker=object();r6=NS(RECOVERY_MODULES=r.TOOL_MODULES)
+        base=NS(helpers=lambda root:(1,2,3,4,5,6,r6),
+                spec=lambda:NS(parent=lambda:NS(base=lambda:marker)),
+                suite=Mock(return_value=inherited))
+        with patch.object(r,'BASE_TEST_IDS_SHA',r.digest([t.id() for t in inherited])):
+            plan=r.build_plan(ROOT,HEAD,base)
+            self.assertEqual(len(plan['groups']),220)
+            self.assertEqual(sum(len(g['test_ids']) for g in plan['groups']),5850)
+            self.assertEqual([g['module'] for g in plan['groups'] if g['module'].startswith('tests_tools.')],list(r.TOOL_MODULES))
+            self.assertEqual(base.suite.call_args.args,(ROOT,marker,1,2,3,4,5,r6))
+            with patch.object(r,'BASE_TEST_IDS_SHA','0'*64),self.assertRaisesRegex(ValueError,'sequence changed'):
+                r.build_plan(ROOT,HEAD,base)
+            r6.RECOVERY_MODULES=()
+            with self.assertRaisesRegex(ValueError,'registry changed'):r.build_plan(ROOT,HEAD,base)
     def test_03_partition_preserves_exact_order(self):
         def case(module,tid):
             cls=type('Fixture',(unittest.TestCase,),{'__module__':module,'id':lambda self:tid})
@@ -87,13 +114,28 @@ class C330R1Tests(unittest.TestCase):
         groups=r.partition(tests)
         self.assertEqual([g['module'] for g in groups],['tests_lm.a','tests_lm.b'])
         self.assertEqual([tid for g in groups for tid in g['test_ids']],[t.id() for t in tests])
+        mixed=tests[:2]+[case(name,name+'.Fixture.test_a') for name in r.TOOL_MODULES]+tests[2:]
+        groups=r.partition(mixed)
+        self.assertEqual([g['module'] for g in groups],['tests_lm.a',*r.TOOL_MODULES,'tests_lm.b'])
+        self.assertEqual([tid for g in groups for tid in g['test_ids']],[t.id() for t in mixed])
     def test_04_partition_rejects_duplicate_and_noncontiguous(self):
         def case(module,tid):
             return type('Fixture',(unittest.TestCase,),{'__module__':module,'id':lambda self:module+'.C.'+tid})()
         for tests in ([case('tests_lm.a','x')]*2,[case('tests_lm.a','x'),case('tests_lm.b','x'),case('tests_lm.a','y')]):
             with self.subTest(),self.assertRaises(ValueError):r.partition(tests)
+        for module in ('tests_tools.not_registered','unittest.loader','tests_lm.a.b','tests_lm.a;os',None):
+            self.assertFalse(r.allowed_module(module))
+            if module is not None:
+                with self.assertRaisesRegex(ValueError,'module='):r.partition([case(module,'x')])
+        # Do not let an allowed module label authorize a different ID prefix.
+        wrong=type('Fixture',(unittest.TestCase,),{'__module__':r.TOOL_MODULES[0],
+                'id':lambda self:'tests_lm.a.Fixture.test_a'})()
+        with self.assertRaisesRegex(ValueError,'test module/ID'):r.partition([wrong])
     def test_05_plan_complete_counts_and_tamper(self):
         value=synthetic_plan()
+        self.assertEqual({g['module'] for g in value['groups'] if g['module'].startswith('tests_tools.')},set(r.TOOL_MODULES))
+        bad=copy.deepcopy(value);bad['groups'][0]['module']='tests_tools.not_registered'
+        with self.assertRaisesRegex(ValueError,'module plan'):r.validate_plan(bad,HEAD)
         for kind in ('missing','duplicate','hash','policy','own'):
             v=copy.deepcopy(value)
             if kind=='missing':v['groups'].pop(0)
@@ -220,12 +262,13 @@ class C330R1Tests(unittest.TestCase):
             self.assertTrue(all(a[k]==v for k,v in pins.items())); self.assertTrue(all(b[k]==v for k,v in inputs.items()))
     def test_24_child_module_mode_uses_one_actual_module_not_whole_suite(self):
         source='class C(unittest.TestCase):\n def test_a(self): self.assertEqual(3,3)\n'
-        with temporary_module(source) as module,tempfile.TemporaryDirectory() as tmp,contextlib.redirect_stdout(io.StringIO()),contextlib.redirect_stderr(io.StringIO()):
-            folder=Path(tmp); group=dict(module=module,test_ids=[module+'.C.test_a']); plan=synthetic_plan(group)
-            r.save(folder/'regression-plan-r1.json',plan)
-            with patch.object(r,'guard'),patch.object(r,'build_plan',side_effect=AssertionError('module must not load all modules')):
-                r.module_child(folder,folder,HEAD,0,r.sha(folder/'regression-plan-r1.json'))
-            value=r.read(folder/'module-000.json'); self.assertEqual(value['result']['success_ids'],group['test_ids'])
+        for module_name in ('tests_lm._c330_r1_temporary',*r.TOOL_MODULES):
+            with self.subTest(module=module_name),temporary_module(source,module_name) as module,tempfile.TemporaryDirectory() as tmp,contextlib.redirect_stdout(io.StringIO()),contextlib.redirect_stderr(io.StringIO()):
+                folder=Path(tmp); group=dict(module=module,test_ids=[module+'.C.test_a']); plan=synthetic_plan(group)
+                r.save(folder/'regression-plan-r1.json',plan)
+                with patch.object(r,'guard'),patch.object(r,'build_plan',side_effect=AssertionError('module must not load all modules')):
+                    r.module_child(folder,folder,HEAD,0,r.sha(folder/'regression-plan-r1.json'))
+                value=r.read(folder/'module-000.json'); self.assertEqual(value['result']['success_ids'],group['test_ids'])
     def test_25_real_cli_mode_and_output_path_rejection(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp)
@@ -285,7 +328,7 @@ class C330R1Tests(unittest.TestCase):
                     r.scientific_worker(root,folder,HEAD)
                     self.assertEqual(calls,['snapshot','parent','tests','diagnose','saved','final','release'])
                     value=r.read(folder/'science/summary.json'); self.assertEqual(value['status'],'PASS'); self.assertFalse(value['capability_gate_applicable'])
-                    self.assertEqual(value['execution_revision'],'C330-R1')
+                    self.assertEqual(value['execution_revision'],'C330-R1.1')
     def test_29_runner_route_and_unchanged_science_pins(self):
         text=(ROOT/'tools/run_c330.ps1').read_text(encoding='utf-8')
         self.assertIn('c330_recovery_r1.py',text); self.assertIn('--expected-head $ExpectedHead',text)
