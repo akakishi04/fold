@@ -1,0 +1,7 @@
+{
+  "schema": "fold-experiment-run-log-v1",
+  "experiment_id": "C336",
+  "execution_head": "c0efb27bbabe969d5f90667437deadb1d9a39dec",
+  "log_sha256": "f7436128435da8e2448860f3898bbbc4ca64a2cf549c34d6383044a41b2af7de",
+  "log_bytes": 7699
+}
