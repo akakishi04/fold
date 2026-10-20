@@ -288,7 +288,10 @@ class C336Tests(unittest.TestCase):
             for i in range(871):
                 name=f'ancestor/{i}.py';path=root/name;path.parent.mkdir(exist_ok=True);raw=f'# fixture{i}\n'.encode();path.write_bytes(raw)
                 oid=hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest();pins[name]=oid;tree[name]=oid;inputs[e.canonical(path)]=e.sha(path)
-            inputs.update({f'explicit-synthetic-{i}':'a'*64 for i in range(3893-871)})
+            # Materialize the entire inherited union, not only its source entries.
+            for i in range(3893-871):
+                path=root/f'input-{i}.bin';path.write_bytes(str(i).encode('ascii'))
+                inputs[e.canonical(path)]=e.sha(path)
             for name in s.OWN:
                 path=root/name;path.parent.mkdir(parents=True,exist_ok=True);raw=name.encode();path.write_bytes(raw)
                 tree[name]=hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()
@@ -297,15 +300,74 @@ class C336Tests(unittest.TestCase):
             for path in folder.iterdir():
                 if path.is_file():(out.parent/path.name).write_bytes(path.read_bytes())
             e.save(out/'summary.json',{'artifacts':[]});e.save(out.parent/'execution-envelope.json',dict(source_blobs=pins,input_sha256=inputs,**env))
-            proof=env['regression_isolation'];parent=NS(spec=lambda:NS(OUTPUTS=names),snapshot=Mock(return_value=({}, {},pins,inputs)),build_plan=Mock(return_value={}),verify_tests=Mock(return_value=proof))
+            def inherited_snapshot(root, prior, hash_file):
+                for name,wanted in inputs.items():
+                    self.assertEqual(hash_file(name),wanted)
+                return {},{},pins,inputs
+            proof=env['regression_isolation'];parent=NS(spec=lambda:NS(OUTPUTS=names),snapshot=inherited_snapshot,build_plan=Mock(return_value={}),verify_tests=Mock(return_value=proof))
             h=dict(parent=parent,prior=('explicit','fixture'),recovery=object(),legacy=NS(tree_blobs=lambda root:tree,
                 descriptors=lambda out,items,names,h:{e.canonical(out/n):h(out/n) for n in names}))
             with patch.object(e,'PARENT_SUMMARY',e.sha(out/'summary.json')),patch.object(e,'PARENT_ENVELOPE',e.sha(out.parent/'execution-envelope.json')),patch.object(e,'parent_contract'):
                 _,_,got_pins,got_inputs=e.snapshot(root,h,e.sha)
                 self.assertEqual((len(got_pins),len(got_inputs)),(877,4360))
                 self.assertEqual(len(pins),871);self.assertEqual(len(inputs),3893)
+                self.locked_snapshot_boundary(root,h,got_inputs)
             (folder/'module-224.log').write_bytes(b'changed')
             with self.assertRaises(ValueError):e.parent_test_files(folder,env,e.sha)
+    def locked_snapshot_boundary(self,root,h,expected):
+        # Real accepted cache + real files; only the OS lease is a software fixture.
+        # No Windows sharing/protection or actual ancestor outcome is claimed here.
+        loader=importlib.util.spec_from_file_location('_c336_r4_boundary',ROOT/'tools/c324_locked_hash_r4.py')
+        locks=importlib.util.module_from_spec(loader);loader.loader.exec_module(locks)
+        leases=[];reference=Mock(wraps=e.sha)
+        class Lease:
+            def __init__(self,path):
+                self.path=Path(path);self.size=self.path.stat().st_size;self.closed=False
+                leases.append(self)
+            def check(self):
+                e.require(not self.closed and self.path.stat().st_size == self.size,'fixture lease identity')
+            def digest(self,pulse):
+                self.check();raw=self.path.read_bytes();pulse(len(raw))
+                return hashlib.sha256(raw).hexdigest()
+            def close(self):self.closed=True
+        # Reproduce the original failure in the real snapshot/parent-proof path.
+        with locks.LockedHashes(reference,Lease) as cache:
+            with self.assertRaisesRegex(ValueError,'locked-file bound exceeded'):
+                e.snapshot(root,h,cache.sha)
+            self.assertEqual(len(cache.entries),cache.max_files)
+            self.assertLess(cache.max_files,len(expected))
+            self.assertTrue(all(not lease.closed for lease in leases))
+        self.assertTrue(all(lease.closed for lease in leases));self.assertFalse(cache.entries)
+        leases.clear();reference.reset_mock()
+        extra=root/'not-registered.bin';extra.write_bytes(b'extra')
+        with locks.LockedHashes(reference,Lease,max_files=s.INPUT_COUNT) as cache:
+            _,_,pins,inputs=e.snapshot(root,h,cache.sha)
+            self.assertEqual(inputs,expected);self.assertEqual(len(pins),s.SOURCE_COUNT)
+            self.assertEqual(len(cache.entries),s.INPUT_COUNT)
+            self.assertEqual(reference.call_count,s.INPUT_COUNT)
+            first=next(iter(inputs));self.assertEqual(cache.sha(first),inputs[first])
+            self.assertEqual(reference.call_count,s.INPUT_COUNT)  # reuse still checks the lease
+            with self.assertRaisesRegex(ValueError,'locked-file bound exceeded'):
+                cache.sha(extra)
+            self.assertEqual(len(leases),s.INPUT_COUNT)  # rejection precedes lease acquisition
+            self.assertTrue(all(not lease.closed for lease in leases))
+            inventory=cache.recheck()
+            self.assertEqual({v['path']:v['sha256'] for v in inventory},expected)
+            self.assertEqual(cache.stats['final_reference_rechecks'],s.INPUT_COUNT)
+            self.assertEqual(reference.call_count,2*s.INPUT_COUNT)
+            self.assertEqual(Counter(e.canonical(c.args[0]) for c in reference.call_args_list),
+                             Counter({name:2 for name in expected}))
+            self.assertTrue(all(not lease.closed for lease in leases))
+        self.assertTrue(all(lease.closed for lease in leases));self.assertFalse(cache.entries)
+        # Final uncached reread must detect changed bytes even with equal size.
+        leases.clear();path=Path(first);original=path.read_bytes()
+        try:
+            with locks.LockedHashes(e.sha,Lease,max_files=s.INPUT_COUNT) as cache:
+                cache.sha(path);path.write_bytes(bytes([original[0]^1])+original[1:])
+                with self.assertRaisesRegex(ValueError,'final/reference digest mismatch'):cache.recheck()
+                self.assertTrue(all(not lease.closed for lease in leases))
+        finally:path.write_bytes(original)
+        self.assertTrue(all(lease.closed for lease in leases));self.assertFalse(cache.entries)
     def test_23_immediate_parent_loader_signature(self):
         with tempfile.TemporaryDirectory() as tmp,contextlib.redirect_stdout(io.StringIO()):
             root=Path(tmp);source=root/e.PARENT_FOLDER/'science';data=root/'c329/science';source.mkdir(parents=True);data.mkdir(parents=True)
@@ -360,7 +422,9 @@ class C336Tests(unittest.TestCase):
             root=Path(tmp);folder=root/'runs/x';folder.mkdir(parents=True);pins={f'p{i}':'a' for i in range(877)};inputs={f'i{i}':'b' for i in range(4360)};calls=[]
             class Cache:
                 entries={};stats={'final_reference_rechecks':4360};sha=staticmethod(e.sha)
-                def __init__(self,*a,**k):pass
+                def __init__(self, original, lease_factory, *, progress, max_files):
+                    e.require(type(max_files) is int and max_files == s.INPUT_COUNT == len(inputs),
+                              'worker must pass exact registered lock capacity')
                 def __enter__(self):return self
                 def __exit__(self,*a):calls.append('release')
                 def recheck(self):calls.append('final');return [{'path':k,'sha256':v} for k,v in inputs.items()]

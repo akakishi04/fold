@@ -316,7 +316,10 @@ def scientific_worker(root, folder, head):
     guard(root,head); s = spec(); s.validate_seal(); h = helpers(root)
     torch,np = h['runtime'].native_runtime(); locks = h['locks']; api = locks.WinAPI(); start = time.monotonic()
     emit('native_lock_probe',locks.lock_probe(api,folder))
-    with locks.LockedHashes(sha,lambda path:locks.ReadLease(path,api),progress=lambda value:emit('hash_progress',value)) as cache:
+    # C336-R1: admit the exact registered union without eviction or an unbounded cache.
+    emit('locked_input_capacity',dict(max_files=s.INPUT_COUNT,protected_inputs=s.INPUT_COUNT))
+    with locks.LockedHashes(sha,lambda path:locks.ReadLease(path,api),
+                            progress=lambda value:emit('hash_progress',value),max_files=s.INPUT_COUNT) as cache:
         parent,_,pins,inputs = snapshot(root,h,cache.sha); source_out,data_out,cx = parent_semantics(root,h,parent,inputs)
         out = folder/'science'; out.mkdir(exist_ok=False); files = []
         emit('registration_check',dict(source_pins=len(pins),protected_inputs=len(inputs),full_tests=s.FULL_TESTS,manifest_sha256=s.MANIFEST_SHA))
