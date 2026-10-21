@@ -7,6 +7,17 @@ C335 remains ACCEPTED VALID NEGATIVE. Gate F NOT PASSED. No policy/production ad
 Source publication is not activation:committed-byte review PASS must precede the
 separate authoritative ACTIVE registration and user execution command.
 
+## R2 schema correction -- 2026-10-21 Japan time
+
+The initial unaccepted contract incorrectly described the inherited values as binary.
+C267.dataset(), retained by C329/C335, uses two distinct integers from0..3, with
+HOLDOUT pairs(0,2),(1,3),(2,0),(3,1); the other eight ordered pairs are TRAIN.
+This amendment corrects that schema interpretation only. No saved data, predictions,
+row inclusion, targets, categories, thresholds, workload or accepted result changes.
+The original text is archived at docs/handoff-history/c336-pre-r2-preregistration.md.
+See docs/c336-execution-recovery-r2.md. The scientific manifest describes two observed
+values, not a0/1-only catalog; its serialized contents and SHA remain unchanged.
+
 ## One question and motivation
 
 Which query/fact-order behavioral patterns account for C335's errors and paired
@@ -41,14 +52,14 @@ from a tensor shape or substitute a summary for the deciding saved predictions.
 ## Four-response unit and exclusive taxonomy
 
 Group dataset rows by logical split,language,ordered entity pair and value assignment.
-Validate each source target as48+the queried entity's binary value. Values are distinct
-0and1. Every group must contain exactly two queries under both fact permutations.
+Validate each source target as48+the queried entity's value. Values are distinct
+integers from0..3. Every group must contain exactly two queries under both fact permutations.
 Keep row IDs and positions into saved tensors. Canonical response order is:
 queryA/queryB under factsAB,then queryA/queryB under factsBA. No output-dependent order.
 
-Compute ordinary argmax across ALL256saved logits;do not restrict output to48/49,
+Compute ordinary argmax across ALL256saved logits;do not restrict output to the two targets,
 repair a wrong class,choose an endpoint by target or use probability thresholds.
-Let targets be(a,b),distinct bytes48/49. Exclusive categories are:
+Let targets be(a,b),two distinct bytes from48..51. Exclusive categories are:
 - query_correct:(a,b,a,b).
 - query_swapped:(b,a,b,a).
 - first_fact:(a,a,b,b),following the first fact's value after swapping fact order.

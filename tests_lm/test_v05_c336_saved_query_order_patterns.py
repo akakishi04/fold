@@ -25,16 +25,19 @@ HEAD = 'a'*40
 
 
 def data_fixture():
-    result = {}
-    for split,count in (('TRAIN',12),('HOLDOUT',6)):
-        rows = []
-        for lang,j,values in itertools.product(s.LANGUAGES,range(count),((0,1),(1,0))):
-            entities = [f'{lang}{split}{j}a',f'{lang}{split}{j}b']
-            for order in (entities,entities[::-1]):
-                for q in range(2):
-                    rows.append(dict(id=f'{split}{len(rows)}',language=lang,entities=list(entities),values=list(values),
-                        permutation=list(order),query=entities[q],target=48+values[q]))
-        result[split] = rows
+    # Reconstruct the accepted C267/C329 rows, including IDs and order. The frozen
+    # digest below prevents a toy binary-only dataset from standing in for them.
+    result = {split:[] for split in s.SPLITS}
+    heldout = {(0,2),(1,3),(2,0),(3,1)}
+    for entities,values,lang in itertools.product(((0,1),(0,2),(1,2)),itertools.permutations(range(4),2),s.LANGUAGES):
+        split = 'HOLDOUT' if values in heldout else 'TRAIN'
+        for order in (entities,entities[::-1]):
+            for query in entities:
+                result[split].append(dict(id=f'{lang}:{entities}:{values}:{order}:{query}',
+                    entities=list(entities),values=list(values),language=lang,
+                    permutation=list(order),query=query,target=48+values[entities.index(query)]))
+    e.require(s.digest(result) == '1e03cf4d6a72700de0d3973459737ffba7dbc843655ebb7439cdedb99805c2f1',
+              'canonical C267/C329 dataset bytes')
     return result
 
 
@@ -179,9 +182,22 @@ class C336Tests(unittest.TestCase):
         self.assertEqual(unittest.defaultTestLoader.loadTestsFromName(e.TEST_MODULE).countTestCases(),32)
         self.assertEqual((s.FULL_TESTS,s.MODULES,s.SOURCE_COUNT,s.INPUT_COUNT),(6058+32,225+1,871+6,3893+461+6))
         self.assertEqual(s.WORK['normal_answers'],10*18*(192+96)); self.assertEqual(s.WORK['model_forward_calls'],0)
+        from fold_lm.v05_benchmarks import model_c267_name_coverage_training as canonical_source
+        self.assertEqual(self.f.data,canonical_source.dataset());canonical_source.validate_data(self.f.data)
+        self.assertEqual(s.digest(self.f.data),'1e03cf4d6a72700de0d3973459737ffba7dbc843655ebb7439cdedb99805c2f1')
+        train={tuple(r['values']) for r in self.f.data['TRAIN']};holdout={tuple(r['values']) for r in self.f.data['HOLDOUT']}
+        self.assertEqual(holdout,{(0,2),(1,3),(2,0),(3,1)})
+        self.assertFalse(train & holdout);self.assertEqual(train | holdout,set(itertools.permutations(range(4),2)))
     def test_03_logical_groups_exact_four_slots(self):
         g = s.logical_groups(self.f.data); self.assertEqual([len(g[k]) for k in s.SPLITS],[48,24])
         for split,rows in g.items(): self.assertEqual(sorted(i for r in rows for i in r['indices']),list(range(len(self.f.data[split]))))
+        # Row reordering must not change semantic grouping or query/order orientation.
+        reversed_data={sp:list(reversed(rows)) for sp,rows in self.f.data.items()}
+        reversed_groups=s.logical_groups(reversed_data)
+        for sp in s.SPLITS:
+            for original,reordered in zip(g[sp],reversed_groups[sp],strict=True):
+                self.assertEqual([self.f.data[sp][i]['id'] for i in original['indices']],
+                                 [reversed_data[sp][i]['id'] for i in reordered['indices']])
     def test_04_duplicate_row_ID_rejected(self):
         d = copy.deepcopy(self.f.data); d['TRAIN'][1]['id'] = d['TRAIN'][0]['id']
         with self.assertRaises(ValueError): s.logical_groups(d)
@@ -190,7 +206,8 @@ class C336Tests(unittest.TestCase):
         with self.assertRaises(ValueError): s.logical_groups(d)
         with self.assertRaises(ValueError): s.logical_groups({'TRAIN':[],'HOLDOUT':[]})
     def test_06_source_target_language_and_value_types(self):
-        for key,val in (('target',True),('language','de'),('values',[True,0]),('permutation',['bad','order'])):
+        for key,val in (('target',True),('language','de'),('values',[True,0]),('permutation',['bad','order']),
+                        ('values',[0,0]),('values',[-1,1]),('values',[0,4]),('values',[0.,1]),('target',50)):
             d = copy.deepcopy(self.f.data); d['TRAIN'][0][key] = val
             with self.subTest(),self.assertRaises(ValueError): s.logical_groups(d)
     def test_07_exhaustive_binary_classification_independent(self):
@@ -200,6 +217,15 @@ class C336Tests(unittest.TestCase):
                 got = s.classify(pred,targets); self.assertEqual(got['category'],reference_category(pred,targets))
                 if targets == (48,49): categories[got['category']] += 1
         self.assertEqual(categories,Counter(query_correct=1,query_swapped=1,first_fact=1,last_fact=1,value_lock=2,mixed=10))
+        # All12 ordered pairs from the real four-value catalog, not only0/1.
+        for targets in itertools.permutations(range(48,52),2):
+            categories=Counter()
+            for pred in itertools.product(targets,repeat=4):
+                got=s.classify(pred,targets)
+                self.assertEqual(got['category'],reference_category(pred,targets))
+                self.assertEqual(got['correct'],sum(v == targets[i%2] for i,v in enumerate(pred)))
+                categories[got['category']]+=1
+            self.assertEqual(categories,Counter(query_correct=1,query_swapped=1,first_fact=1,last_fact=1,value_lock=2,mixed=10))
     def test_08_order_orientation_not_target_selected(self):
         self.assertEqual(s.classify([49,49,48,48],[49,48])['category'],'first_fact')
         self.assertEqual(s.classify([48,48,49,49],[49,48])['category'],'last_fact')
@@ -207,10 +233,17 @@ class C336Tests(unittest.TestCase):
     def test_09_other_class_not_binary_or_valid_value_lock(self):
         self.assertEqual(s.classify([55]*4,[48,49])['category'],'other_class')
         self.assertEqual(s.classify([55]*4,[48,49])['other_answers'],4)
+        for targets in itertools.permutations(range(48,52),2):
+            for digit in set(range(48,52))-set(targets):
+                got=s.classify([digit]*4,targets)
+                self.assertEqual((got['category'],got['other_answers']),('other_class',4))
+            for digit in targets:self.assertEqual(s.classify([digit]*4,targets)['category'],'value_lock')
     def test_10_bad_predictions_and_boolean_targets(self):
         for pred in ([True,49,48,49],[256]*4,[float('nan')]*4,[48]*3):
             with self.assertRaises(ValueError): s.classify(pred,[48,49])
         with self.assertRaises(ValueError): s.classify([48]*4,[48,48])
+        for targets in ([48,52],[47,49],[True,49],[48.,49],[50,50]):
+            with self.assertRaises(ValueError):s.classify([48]*4,targets)
     def test_11_equal_totals_do_not_hide_exchanged_errors(self):
         a=dict(predictions=[48]*4,targets=[48,49],category='value_lock');b=dict(predictions=[49]*4,targets=[48,49],category='value_lock')
         v=s.transition(a,b);self.assertEqual((v['answer_gain'],v['rescued'],v['regressed']),(0,2,2))

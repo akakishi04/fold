@@ -93,7 +93,7 @@ def logical_groups(data):
             entities, values, order = tuple(row['entities']), tuple(row['values']), tuple(row['permutation'])
             require(row['id'] not in seen, 'duplicate row ID'); seen.add(row['id'])
             require(len(entities) == len(values) == 2 and len(set(entities)) == 2
-                    and all(type(v) is int for v in values) and set(values) == {0, 1}
+                    and all(type(v) is int and 0 <= v < 4 for v in values) and len(set(values)) == 2
                     and order in (entities, entities[::-1]) and row['query'] in entities
                     and row['language'] in LANGUAGES, 'logical row semantics')
             query = entities.index(row['query']); perm = int(order != entities)
@@ -115,7 +115,8 @@ def classify(predictions, targets):
     require(type(predictions) in (list, tuple) and len(predictions) == 4
             and all(type(v) is int and 0 <= v < 256 for v in predictions), 'four byte predictions')
     require(type(targets) in (list, tuple) and len(targets) == 2
-            and all(type(v) is int for v in targets) and set(targets) == {48,49}, 'two distinct target values')
+            and all(type(v) is int and 48 <= v <= 51 for v in targets)
+            and len(set(targets)) == 2, 'two distinct observed target values')
     a,b = targets; pred = tuple(predictions); expected = (a,b,a,b)
     patterns = {'query_correct':expected, 'query_swapped':(b,a,b,a),
                 'first_fact':(a,a,b,b), 'last_fact':(b,b,a,a)}
