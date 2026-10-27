@@ -10,8 +10,8 @@ Execution f58c22f83fe7c41c451d5d0bcf26c249ab21908b.
 Publication 71585b7eb2da7685915bb30b43376b1ea1ffec9b; sole parent equals execution.
 Metadata: docs/experiment-run-logs/c339/latest.json.
 Log: docs/experiment-run-logs/c339/latest.log.
-Publisher reports1123489Windowsbytes, SHA256
-f3860336bec399f0fb9f15e2cc7023aecb964a6b0387818ad2e93b4ee2acc40a0.
+Publisher reports1162990Windowsbytes, SHA256
+cbeeda6e5743c753e77deaacb17944384a7cba2e765e093a769c8aea211d3121.
 Git log blob1fad3a0a07f7cef539af69b01fd86f39d7793cd4.
 The >1MB Contents endpoint returned empty content; the Git blob GET supplied the
 actual decoded log. Empty Contents content was NOT interpreted as an empty run.
@@ -81,3 +81,31 @@ This tests whether moving the original-name training boundary improves six-chara
 transfer without losing shorter tasks. It changes exposure, not parameter capacity,
 and cannot prove a universal length-generalization mechanism. Separate implementation,
 preregistration, committed-byte review and activation are mandatory.
+
+## 2026-10-28 verification and transcription correction
+
+The original acceptance text transcribed the publisher byte count and SHA256
+incorrectly. The two values above now match latest.json at the original publication
+71585b7eb2da7685915bb30b43376b1ea1ffec9b. No log, experiment source, preregistration,
+saved artifact or scientific verdict was changed, and no experiment was rerun.
+The Git LF log is1159184bytes with3806LF line endings and SHA256
+630cf6309fe1e6e0c5ec036c538642b5948b18387da522a542537104de57d316.
+Reconstructing its Windows CRLF representation independently gives1162990bytes and
+the exact published cbeeda6e... SHA256 above. This verifies transport bytes; it does
+not independently rehash the local-only tensors/checkpoints or their input maps.
+
+All720logged strata and360paired-transition records were read. The following
+descriptive totals pool ALL5seeds,ALL3profiles,and BOTH languages in normal HOLDOUT.
+Each arm/domain contains1440answers; NLL means are weighted by answer count.
+
+|Domain|Correct native->support_loss|Absent digit native->support_loss|Mean support NLL native->support_loss|Mean within-pair NLL native->support_loss|
+|---|---:|---:|---:|---:|
+|original5|1426->1423|2->7|0.004792198->0.010109601|0.108096118->0.067590749|
+|original6|1389->1375|27->49|0.059862129->0.082290481|0.148967192->0.142362736|
+
+Outside-catalog errors are0 in these pooled domains. Original2/3/4/interior4 remain
+1440/1440correct per arm/domain. The pooled long-name within-pair NLL improves while
+support NLL and exact correctness deteriorate; the seed338004 example above must not
+be generalized into a claim that within-pair binding uniformly deteriorates.
+These descriptive pooled values neither introduce a new gate nor change C338's
+VALID NEGATIVE or C339's DIAGNOSTIC INTEGRITY PASS. Gate F remains NOT PASSED.
