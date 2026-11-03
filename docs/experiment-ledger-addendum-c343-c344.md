@@ -75,8 +75,8 @@ fitted. In original6, TRAIN means familiar value combinations, not fitted names.
 ### Interior4: fitting failures as well as held-out failures
 
 Candidate interior TRAIN has 131 wrong answers, all wrong_observed. Seed342001
-has 99 errors (477/576 correct); seed342005 has 32 (544/576). Both domains were
-actually included in fitting. Candidate HOLDOUT has 74 errors: 58 wrong_observed
+has 99 errors (477/576 correct); seed342005 has 32 (544/576). Interior4 was
+actually included in fitting for both seeds. Candidate HOLDOUT has 74 errors: 58 wrong_observed
 and 16 absent_digit. No outside_catalog errors occur.
 
 Across the 1440 TRAIN query pairs, 1312 are both correct, 125 have exactly one
