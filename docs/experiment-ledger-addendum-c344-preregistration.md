@@ -296,3 +296,55 @@ fixtures and OS/parent collaborators. This is not the native6514-test regression
 transferred to the author checkout. Native completion remains user-side work.
 
 Manifest SHA256: a663ebb0b09671c6d277b5abec6d09604a49a194d5d61409a1a5bf5018785ad8.
+
+## Execution recovery R1 — 2026-11-22
+
+Attempt01 at execution94fca46cfb31fcbb842997809012a1a692f7c45d is INVALID EXECUTION.
+Log publication8d83d94b7923c0ebb06c052ee473c003cd490335 succeeded. The run stopped
+in historical R4 regression test29 at temporary stderr.log deletion (WinError32),
+after210complete modules/5357tests; the failing module ran37tests/errors1.
+No formal C344 training or candidate/control evaluation was reached.
+Keep the complete failed attempt and retry SAME C344. C345 remains unregistered.
+Evidence, diagnosis and the exact recovery contract are in docs/c344-recovery-r1.md.
+
+Execution revision C344-R1 adds a scoped cleanup barrier to the R4/R5 test modules'
+own monitor bindings. Original monitor arguments,50ms timeout,result object,
+exit classification and assertions remain. Only after timed_out is True,require
+simultaneous DELETE-access readiness for stdout.log and stderr.log,using Win32
+CreateFileW(DELETE,READ|WRITE|DELETE sharing,OPEN_EXISTING). No delete/truncate flag.
+Close every acquired handle. Retry only sharing violation32,within one10s total
+monotonic deadline; other errors,close failure,expiry or changed log SHA256 abort.
+Hash after closing the probe handles;return the original receipt unmodified.
+Restore the precise historical module binding in finally. Do not replace the
+Python executable,global subprocess behavior or temporary-directory cleanup.
+
+Before expensive parent hashing,after native runtime validation,execute these
+two historical unittest IDs three times each,R4 then R5 (six infrastructure checks):
+
+```text
+tests_tools.test_c324_locked_hash_r4.R4Tests.test_29_real_timeout_does_not_become_crash_or_success
+tests_tools.test_c324_verified_session_r5.OtherTests.test_38_timeout_not_native_failure_or_pass
+```
+
+Every execution must start and succeed,with zero failures/errors/skips/expected
+failures/unexpected successes. Stop on the first failed case;never repeat until
+success. These extra checks have zero neural work and do not replace any of the
+6514 full regression IDs. Record execution_revision=C344-R1 and the exact
+timeout_cleanup_preflight receipt inside the existing execution envelope;fresh
+verification checks it. No additional artifact file is introduced.
+
+The same48science+24infrastructure method IDs,239modules,6514selected tests,
+6442ordered parent prefix and full-ID SHA256 remain. Strengthen relevant existing
+infrastructure cases;no historical source/test edit or new exclusion. Protection
+remains930sources/8183inputs/seven OWN paths and489future retained outputs.
+The unaccepted executor,its infrastructure tests and this preregistration may
+change for R1;the benchmark,48science tests,launchers and accepted files retain
+their bytes. Scientific manifest,seeds,data,arms,optimizer,update budget,gate and
+all work counts remain exactly as registered above.
+
+The original post-authoring review applies to the original execution. R1 requires
+a new independent review of committed changed bytes and new author validation,
+reported in docs/c344-r1-post-authoring-review.md before a retry command is issued.
+Linux author fixtures are not a Windows file-sharing proof;the six real native
+checks run at the beginning of the user's retry. Use the reviewed R1 activation
+HEAD with the existing active_v2 launcher on feat/sft-target-loss.

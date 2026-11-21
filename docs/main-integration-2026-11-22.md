@@ -2,7 +2,8 @@
 
 この文書は運用上の統合記録。正式な実験状態は
 [experiment-ledger-and-handoff.md](experiment-ledger-and-handoff.md)を参照する。
-今回の統合による科学的判定の変更、新Cの登録、production採用はない。
+初回統合後、同日のC344失敗報告とR1修復の反映を追記した。
+C344の科学的成否は未判定で、新Cの登録、production採用はない。
 
 ## 現在の進行
 
@@ -10,7 +11,7 @@
 |---|---|---|
 | C342 | ACCEPTED VALID NEGATIVE | mixed45候補のfull gateは2/5 seed。実行は有効だが合格条件は未達。 |
 | C343 | ACCEPTED PASS (DIAGNOSTIC INTEGRITY) | C342の保存結果から誤答の所在と集計整合性を確認。モデル能力の合格を意味しない。 |
-| C344 | ACTIVE / NOT YET JUDGED | 実装・事前登録・独立レビューを完了。公開された正式結果を待つ段階。 |
+| C344 | ACTIVE / INVALID ATTEMPT RECOVERY | 初回は学習前の回帰で停止。R1修復・独立レビューを完了し、同じC344の再実行結果を待つ。 |
 
 Gate A/BはPASSED、C/Dは測定範囲内でPASSED、EはPASSED、FはNOT PASSED。
 
@@ -19,12 +20,15 @@ C343で確認した具体的な課題は、候補のinterior4で**実際の学�
 C344は同じデータ・モデル・更新数を保ち、2問ペアの平均CEに対して、
 ペア内の大きいCEを使うpair-maxがinterior4を改善し、他領域を維持できるかを検証する。
 
-確認したfeature HEADでは`docs/experiment-run-logs/c344/latest.log`と`latest.json`は存在しない。
-これは公開結果がないという確認であり、ユーザーPCで未実行・実行中・実行済み未公開のどれかは判定できない。
-72件の作成者テストと独立レビューのPASSは準備段階の検証である。
-正式な6,514件の回帰テスト・10モデルの学習について、今回新しい実行結果を得たわけではない。
+C344初回の公開log commitは`8d83d94b7923c0ebb06c052ee473c003cd490335`。
+210 modules / 5,357 tests完了後、R4 timeout fixtureの一時stderr.log削除で
+WinError32となり、正式C344学習へ進まず`run_execution_valid=false`で停止した。
+[失敗記録とR1修復](c344-recovery-r1.md)に根拠を保存している。
+R1の72件の作成者テストは通常・CP932条件ともPASS、独立レビューもPASS。
+これは復旧準備の検証であり、native Windowsの6,514件回帰・10モデル学習の
+再実行が完了したという意味ではない。
 
-## 統合対象と履歴
+## 初回統合の対象と履歴
 
 | 項目 | commit |
 |---|---|
@@ -51,9 +55,20 @@ mainの2026-09-13初版は第1parentの履歴に保持される。
 - `docs/pcalm-layer-local-credit-hypothesis-report.md`
 - `docs/shared-basis-runtime-output-impact-report.md`
 
-featureに存在した全tracked pathのmodeとblobを保持する。
-統合結果のfeatureに対する差分は上記6ファイルと、この運用記録の追加だけである。
-新しい学習コードやテスト条件の変更は含まない。
+初回統合では当時のfeatureに存在した全tracked pathのmodeとblobを保持した。
+その統合結果のfeatureに対する差分は上記6ファイルと、この運用記録の追加だけだった。
+
+## R1修復の追加統合
+
+修復source/review対象commitは`ca6df52fb72ed0020df7e3d027d738d28870464f`。
+文書のみのactivationは`8d1e1170cd614503deab1e09474fe82de4bba561`。
+[独立レビュー](c344-r1-post-authoring-review.md)のPASSを確認して登録した。
+
+mainには既存main `a036468b0ff76f219a84c32b78b27b69297eab0a` を第1parent、
+R1 activationを第2parentとする通常mergeで取り込む。
+R1 featureの全tracked pathsを同一mode/blobで保持し、main独自6ファイルも保持する。
+このmain統合記録だけは、現在のC344状態と新しい登録HEADに更新する。
+featureのactivation HEADは維持する。
 
 ## C344の実行branchと登録HEAD
 
@@ -62,13 +77,14 @@ featureに存在した全tracked pathのmodeとblobを保持する。
 
 ```text
 branch       = feat/sft-target-loss
-ExpectedHead = 94fca46cfb31fcbb842997809012a1a692f7c45d
+ExpectedHead = 8d1e1170cd614503deab1e09474fe82de4bba561
 dispatcher   = tools/invoke_active_v2.ps1
 ```
 
 C344のdispatcher・launcher・executorは実行branchを検査する。
 `main`上からの正式起動はbranch不一致で拒否される。
-今回のmain統合ではfeature ref、登録HEAD、review済み7ファイル、既存の実行契約を維持する。
+今回の追加統合ではR1のfeature ref、登録HEAD、review済み7ファイルを維持する。
+再実行はR4×3→R5×3の実機cleanup事前確認から始まり、全6件PASS後に重い処理へ進む。
 実行中のPCでcheckoutを切り替えず、C344の実行・ログ公開は登録済みbranchで完了させる。
 
 正式run後は既存publisherがfeatureの`docs/experiment-run-logs/c344/latest.*`へconsole logを公開する。

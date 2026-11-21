@@ -226,13 +226,49 @@ class C344ExecutionTests(unittest.TestCase):
         plan,base_hash=plan_fixture();group=plan['groups'][0]
         with tempfile.TemporaryDirectory() as tmp,patch.object(e,'BASE_IDS_SHA',base_hash),patch.object(e,'guard'), \
              patch.object(e,'helpers',return_value={'recovery':recovery}), \
-             patch.object(recovery,'execute_module',return_value=successful(group)) as execute,contextlib.redirect_stdout(io.StringIO()):
+             patch.object(recovery,'execute_module',return_value=successful(group)) as execute, \
+             patch.object(e,'timeout_monitor_boundary',wraps=e.timeout_monitor_boundary) as boundary,contextlib.redirect_stdout(io.StringIO()):
             folder=Path(tmp);e.save(folder/'regression-plan.json',plan)
             e.module_child(folder,folder,HEAD,0,e.sha(folder/'regression-plan.json'))
             execute.assert_called_once_with(group['module'],group['test_ids'])
+            boundary.assert_called_once_with(folder,group['module'])
             row=e.read(folder/'module-000.json');self.assertEqual(row['parent_pid'],e.os.getppid())
             for index in (-1,s.MODULES,True):
                 with self.assertRaises(ValueError):e.module_child(folder,folder,HEAD,index,e.sha(folder/'regression-plan.json'))
+        # These are explicitly synthetic monitor collaborators. The immutable
+        # historical module and source identity checks are real.
+        for name in e.TIMEOUT_BOUNDARIES:
+            tested=__import__(name,fromlist=['b']);accepted=tested.b.monitor
+            value={'timed_out':True,'parent_validation_completed':False};sentinel=RuntimeError('original failure')
+            def original(*args,**kwargs):return value
+            with patch.object(e.sys,'platform','win32'),patch.object(tested.b,'monitor',original), \
+                 patch.object(e,'wait_timeout_logs') as wait:
+                with e.timeout_monitor_boundary(ROOT,name) as completed:
+                    self.assertIs(tested.b.monitor(['synthetic'],ROOT,ROOT),value)
+                    self.assertEqual(completed,[True]);wait.assert_called_once_with(ROOT,value)
+                self.assertIs(tested.b.monitor,original)
+                value['timed_out']=False;wait.reset_mock()
+                with e.timeout_monitor_boundary(ROOT,name) as completed:
+                    self.assertIs(tested.b.monitor(command=['synthetic'],root=ROOT,output=ROOT),value)
+                    self.assertEqual(completed,[]);wait.assert_not_called()
+                self.assertIs(tested.b.monitor,original)
+                value['timed_out']=True;wait.side_effect=sentinel
+                with self.assertRaises(RuntimeError) as caught:
+                    with e.timeout_monitor_boundary(ROOT,name):tested.b.monitor([],ROOT,ROOT)
+                self.assertIs(caught.exception,sentinel);self.assertIs(tested.b.monitor,original)
+            self.assertIs(tested.b.monitor,accepted)
+            def failing(*args,**kwargs):raise sentinel
+            with patch.object(e.sys,'platform','win32'),patch.object(tested.b,'monitor',failing),patch.object(e,'wait_timeout_logs') as wait:
+                with self.assertRaises(RuntimeError) as caught:
+                    with e.timeout_monitor_boundary(ROOT,name):tested.b.monitor([],ROOT,ROOT)
+                self.assertIs(caught.exception,sentinel);self.assertIs(tested.b.monitor,failing);wait.assert_not_called()
+            self.assertIs(tested.b.monitor,accepted)
+        with patch.object(e.sys,'platform','win32'),patch.object(e.importlib,'import_module') as imported:
+            with e.timeout_monitor_boundary(ROOT,'tests_lm.unrelated') as completed:self.assertEqual(completed,[])
+            imported.assert_not_called()
+            with patch.object(e,'git',return_value='changed'),self.assertRaisesRegex(ValueError,'source pin'):
+                with e.timeout_monitor_boundary(ROOT,next(iter(e.TIMEOUT_BOUNDARIES))):pass
+            imported.assert_not_called()
 
     def test_09_accepted_receipt_validator_rejects_unrelated_or_fake_completion(self):
         plan,_=plan_fixture();group=plan['groups'][0]
@@ -253,10 +289,13 @@ class C344ExecutionTests(unittest.TestCase):
                     entries={};stats={'final_reference_rechecks':s.INPUT_COUNT};sha=staticmethod(e.sha)
                     def __init__(self,reference,lease_factory,*,progress,max_files):
                         e.require(type(max_files) is int and max_files==s.INPUT_COUNT==len(inputs),'exact finite capacity')
+                        self_ready='timeout_cleanup' in calls
+                        e.require(self_ready,'cleanup preflight precedes locks')
                     def __enter__(self):return self
                     def __exit__(self,*a):calls.append('release')
                     def recheck(self):calls.append('final');return [{'path':k,'sha256':v} for k,v in inputs.items()]
-                h=dict(runtime=NS(native_runtime=lambda:(NS(__version__='fixture'),NS(__version__='fixture'))),
+                def native_runtime():calls.append('runtime');return NS(__version__='fixture'),NS(__version__='fixture')
+                h=dict(runtime=NS(native_runtime=native_runtime),
                     locks=NS(WinAPI=lambda:None,lock_probe=lambda *a:{'synthetic':True},LockedHashes=Cache,ReadLease=None),
                     legacy=NS(descriptors=lambda out,items,*a:e.require(items==e.artifacts(out),'artifact descriptors')),recovery=None)
                 inside=[]
@@ -267,6 +306,12 @@ class C344ExecutionTests(unittest.TestCase):
                     finally:inside.pop()
                 cx=(NS(guarded=NS(no_neural=no_neural)),)
                 previous=NS(source=lambda:NS(base=lambda:NS(check_dependencies=lambda *a:None,peak_rss=lambda:1)))
+                def cleanup(repo,expected_head,actual_recovery):
+                    self.assertEqual((repo,expected_head,actual_recovery),(root,HEAD,None))
+                    calls.append('timeout_cleanup');return e.timeout_preflight_expected(HEAD)
+                def snapshot(*args):
+                    self.assertIn('timeout_cleanup',calls);calls.append('snapshot')
+                    return {'validation_summary':{}},{},pins,inputs
                 def tests(*a):calls.append('tests');e.save(folder/'regression-result.json',e.receipt(HEAD,s.FULL_TESTS))
                 def preflight(data_out,context,repo,protected,reader):
                     self.assertFalse(inside);self.assertEqual((data_out,context,repo,protected,reader),(root,cx,root,pins,e.read))
@@ -279,19 +324,33 @@ class C344ExecutionTests(unittest.TestCase):
                 def recheck(out,data_out,context,reader):
                     self.assertTrue(inside);self.assertEqual((out,data_out,context,reader),(folder/'science',root,cx,e.read))
                     calls.append('verify');return value
-                with patch.object(e,'guard'),patch.object(e,'helpers',return_value=h),patch.object(e,'snapshot',return_value=({'validation_summary':{}},{},pins,inputs)), \
+                with patch.object(e,'guard'),patch.object(e,'helpers',return_value=h),patch.object(e,'snapshot',side_effect=snapshot), \
+                     patch.object(e,'timeout_cleanup_preflight',side_effect=cleanup), \
                      patch.object(e,'parent_semantics',return_value=(root,cx)),patch.object(e,'run_logged',side_effect=tests),patch.object(e,'build_plan',return_value={}), \
                      patch.object(e,'verify_tests',return_value=dict(tests=s.FULL_TESTS,modules=s.MODULES)),patch.object(s,'run_training',side_effect=train), \
                      patch.object(s,'semantic_recheck',side_effect=recheck),patch.object(s,'native_preflight',side_effect=preflight), \
                      patch.object(s,'previous',return_value=previous),patch.object(s,'check_summary'),patch.object(s,'report_results') as report:
                     e.scientific_worker(root,folder,HEAD);e.verify_outputs(root,folder,HEAD)
                     report.assert_called_once_with(value,e.emit)
-                    self.assertEqual(calls,['preflight','tests','train','verify','final','release','verify'])
+                    self.assertEqual(calls,['runtime','timeout_cleanup','snapshot','preflight','tests','train','verify','final','release','snapshot','verify'])
                     self.assertFalse(inside)
                     actual=e.read(folder/'science/summary.json')
                     self.assertEqual(actual['status'],'PASS' if candidate else 'FAIL')
                     self.assertTrue(actual['scientific_execution_valid']);self.assertTrue(actual['capability_gate_applicable'])
                     self.assertFalse(actual['gate_f_candidate']);self.assertFalse(actual['production_adoption'])
+                    path=folder/'execution-envelope.json';envelope=e.read(path)
+                    self.assertEqual(envelope['execution_revision'],'C344-R1')
+                    e.check_timeout_preflight(envelope['timeout_cleanup_preflight'],HEAD)
+                    for key,bad in (('tests',5),('successful',False),('cleanup_barriers',5),('cleanup_ready',False),
+                                    ('platform','synthetic-other'),('commit_sha','b'*40),('source_blobs',{})):
+                        changed=copy.deepcopy(envelope);changed['timeout_cleanup_preflight'][key]=bad;path.write_bytes(s.blob(changed))
+                        with self.assertRaises(ValueError):e.verify_outputs(root,folder,HEAD)
+                    for key in ('started_ids','success_ids'):
+                        changed=copy.deepcopy(envelope);changed['timeout_cleanup_preflight'][key].pop();path.write_bytes(s.blob(changed))
+                        with self.assertRaises(ValueError):e.verify_outputs(root,folder,HEAD)
+                    changed=copy.deepcopy(envelope);changed['execution_revision']='C344-R0';path.write_bytes(s.blob(changed))
+                    with self.assertRaises(ValueError):e.verify_outputs(root,folder,HEAD)
+                    path.write_bytes(s.blob(envelope))
                     actual['capability_gate_applicable']=False;(folder/'science/summary.json').write_bytes(s.blob(actual))
                     with self.assertRaises(ValueError):e.verify_outputs(root,folder,HEAD)
 
@@ -310,6 +369,12 @@ class C344ExecutionTests(unittest.TestCase):
         with contextlib.redirect_stdout(io.StringIO()),self.assertRaises(ValueError):
             e.execute_stages(Mock(side_effect=ValueError('synthetic preflight failure')),tests,train,Mock(),Mock())
         tests.assert_not_called();train.assert_not_called()
+        h=dict(runtime=NS(native_runtime=Mock(return_value=(None,None))),locks=Mock(),recovery=None)
+        with patch.object(e,'guard'),patch.object(e,'helpers',return_value=h), \
+             patch.object(e,'timeout_cleanup_preflight',side_effect=ValueError('native cleanup failure')), \
+             patch.object(e,'snapshot') as snapshot,patch.object(s,'run_training') as train:
+            with self.assertRaisesRegex(ValueError,'native cleanup failure'):e.scientific_worker(ROOT,ROOT,HEAD)
+            snapshot.assert_not_called();h['locks'].WinAPI.assert_not_called();train.assert_not_called()
 
     def test_13_saved_reconstruction_mismatch_blocks_finalization(self):
         finish=Mock()
@@ -369,6 +434,81 @@ class C344ExecutionTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 e.run_logged(root,[sys.executable,'-c','print("synthetic failure");raise SystemExit(7)'],log,'fixture')
             self.assertIn('synthetic failure',log.read_text(encoding='utf-8'))
+        # Win32 ABI emulation is explicit; no Linux result is a Windows qualification.
+        kernel=NS(CreateFileW=Mock(side_effect=[71,e.ctypes.c_void_p(-1).value]),CloseHandle=Mock(side_effect=[1,0]))
+        with patch.object(e.sys,'platform','win32'),patch.object(e.ctypes,'WinDLL',return_value=kernel,create=True) as dll, \
+             patch.object(e.ctypes,'get_last_error',side_effect=[32,5],create=True):
+            api=e.DeleteAccessProbe();dll.assert_called_once_with('kernel32',use_last_error=True)
+            self.assertEqual(api.open(Path('explicit-fixture.log')),(71,0))
+            self.assertEqual(api.open(Path('explicit-fixture.log')),(None,32))
+            kernel.CreateFileW.assert_called_with('explicit-fixture.log',0x10000,7,None,3,0x80,None)
+            self.assertEqual(kernel.CreateFileW.argtypes,[e.wintypes.LPCWSTR,e.wintypes.DWORD,e.wintypes.DWORD,
+                e.ctypes.c_void_p,e.wintypes.DWORD,e.wintypes.DWORD,e.wintypes.HANDLE])
+            self.assertIs(kernel.CreateFileW.restype,e.wintypes.HANDLE)
+            self.assertEqual(kernel.CloseHandle.argtypes,[e.wintypes.HANDLE]);self.assertIs(kernel.CloseHandle.restype,e.wintypes.BOOL)
+            api.close(71)
+            with self.assertRaises(OSError) as caught:api.close(72)
+            self.assertEqual(caught.exception.errno,5)
+        for kind,codes,failure in (('immediate',[],None),('delayed-first',[32,0,0],None),
+                                  ('delayed-second',[0,32,0,0],None),('permanent32',[32],ValueError),
+                                  ('denied',[5],OSError),('missing',[2],OSError),
+                                  ('partial-denied',[0,5],OSError),('close-failure',[],OSError),
+                                  ('changed-log',[],ValueError)):
+            with self.subTest(cleanup=kind),tempfile.TemporaryDirectory() as tmp:
+                out=Path(tmp)
+                for name in ('stdout','stderr'):(out/(name+'.log')).write_bytes(name.encode())
+                value=dict(timed_out=True,parent_validation_completed=False,returncode=1,
+                    stdout_sha256=e.sha(out/'stdout.log'),stderr_sha256=e.sha(out/'stderr.log'))
+                before=copy.deepcopy(value);tick=[0.0];events=[];pending=list(codes)
+                class Probe:
+                    def __init__(self):self.active={};self.next=0;self.closed=[]
+                    def open(self,path):
+                        events.append(('open',path.name));code=pending.pop(0) if pending else (32 if kind=='permanent32' else 0)
+                        if code:return None,code
+                        self.next+=1;self.active[self.next]=path;return self.next,0
+                    def close(self,handle):
+                        events.append(('close',self.active[handle].name));self.closed.append(handle)
+                        if kind=='close-failure' and handle==2:raise OSError(6,'explicit synthetic CloseHandle failure')
+                        self.active.pop(handle)
+                        if kind=='changed-log' and not self.active:(out/'stderr.log').write_bytes(b'changed')
+                probe=Probe();reference=e.sha
+                def checked_sha(path):
+                    self.assertFalse(probe.active,'all DELETE handles closed before ordinary file reads')
+                    return reference(path)
+                def sleep(seconds):self.assertGreater(seconds,0);tick[0]+=seconds
+                with patch.object(e,'DeleteAccessProbe',return_value=probe),patch.object(e.time,'monotonic',side_effect=lambda:tick[0]), \
+                     patch.object(e.time,'sleep',side_effect=sleep),patch.object(e,'sha',side_effect=checked_sha) as hashed:
+                    if failure:
+                        with self.assertRaises(failure):e.wait_timeout_logs(out,value)
+                    else:e.wait_timeout_logs(out,value);self.assertEqual(hashed.call_count,2)
+                self.assertEqual(value,before)
+                if kind!='close-failure':self.assertFalse(probe.active)
+                if kind=='delayed-second':self.assertEqual(events[:4],[('open','stdout.log'),('open','stderr.log'),('close','stdout.log'),('open','stdout.log')])
+                if kind=='partial-denied':self.assertEqual(probe.closed,[1])
+                if kind=='close-failure':self.assertEqual(probe.closed,[2,1]);self.assertEqual(hashed.call_count,0)
+                if kind=='permanent32':self.assertAlmostEqual(tick[0],10.0);self.assertEqual(hashed.call_count,0)
+                if kind in ('denied','missing','partial-denied','close-failure'):self.assertEqual(tick[0],0.0)
+        # Run the actual six immutable historical test cases and subprocess timeouts.
+        # Native Windows uses the real DELETE probe; Linux uses an explicit stand-in.
+        native_probe=e.DeleteAccessProbe if sys.platform=='win32' else None
+        opened=[];closed=[]
+        class ObservedProbe:
+            def __init__(self):self.delegate=native_probe() if native_probe else None
+            def open(self,path):
+                handle,code=self.delegate.open(path) if self.delegate else (Path(path).open('rb'),0)
+                if handle is not None:opened.append(handle)
+                return handle,code
+            def close(self,handle):
+                if self.delegate:self.delegate.close(handle)
+                else:handle.close()
+                closed.append(handle)
+        with patch.object(e.sys,'platform','win32'),patch.object(e,'DeleteAccessProbe',side_effect=ObservedProbe), \
+             contextlib.redirect_stdout(io.StringIO()),contextlib.redirect_stderr(io.StringIO()):
+            got=e.timeout_cleanup_preflight(ROOT,HEAD,recovery)
+        self.assertEqual(got,e.timeout_preflight_expected(HEAD));self.assertGreaterEqual(len(opened),12)
+        self.assertCountEqual(opened,closed)
+        if native_probe is None:self.assertTrue(all(handle.closed for handle in opened))
+        self.assertEqual(got['started_ids'],list(e.TIMEOUT_PREFLIGHT_IDS));self.assertEqual(got['cleanup_barriers'],6)
 
     def test_20_cli_rejects_unknown_mode_and_command_contract(self):
         proc=subprocess.run([sys.executable,str(ROOT/'tools/c344_execution.py'),'--folder','unused','--expected-head',HEAD,'--mode','bad'],

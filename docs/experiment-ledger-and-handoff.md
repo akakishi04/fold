@@ -11,8 +11,57 @@ Accepted sources/tests/contracts/logs/dispatchers remain immutable.
 Gate A/B PASSED; C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.
 **C343 ACCEPTED PASS (DIAGNOSTIC INTEGRITY).**
 C342 remains ACCEPTED VALID NEGATIVE, candidate_gate=false / eligible_seed_count=2.
-**C344 ACTIVE / NOT YET JUDGED.**
+**C344 ACTIVE / INVALID ATTEMPT RECOVERY.**
+C344 attempt01 is INVALID EXECUTION; pair-max scientific capability remains NOT YET JUDGED.
 No production adoption. Do not rerun accepted C343. Do not prepare C345 before C344 judgment.
+
+## Current C344 recovery R1
+
+Execution revision: C344-R1. Contract: docs/c344-recovery-r1.md.
+Attempt01 execution94fca46cfb31fcbb842997809012a1a692f7c45d;
+publication8d83d94b7923c0ebb06c052ee473c003cd490335,sole parent execution.
+Original log210896bytes/SHA256
+6c3acf378c29567f1b83cba4184ff2df48788a42cf9c03bf55977281184553ec;
+Git LF208199bytes reconstitutes that CRLF exactly. Archive:
+docs/experiment-run-logs/c344/attempt-01/latest.log and latest.json.
+
+Native locks,parent semantics,930sources/8183inputs and numerical preflight passed.
+210modules/5357tests completed. Module210 R4 ran37tests with1error in
+R4Tests.test_29_real_timeout_does_not_become_crash_or_success: TemporaryDirectory
+cleanup could not delete stderr.log (WinError32). Total5394tests attempted;
+1120tests/28modules not reached. Formal10model training never began;
+run_execution_valid=false. No C344 scientific negative or PASS exists.
+
+The original monitor already kills/waits its direct child. Handle owner remains
+unmeasured;Windows redirector/descendant release is a hypothesis,not a proven PID.
+R1 wraps only the R4/R5 test modules' monitor bindings. After an original timeout,
+require both log files to permit DELETE access within one10s deadline (only32 is
+polled),close all probe handles,freshly recheck both log hashes,and return the same
+result. Other errors/expiry/hash drift fail;finally restores each binding.
+
+Before expensive parent hashing,run exact R4test29/R5test38 three times each as
+six real infrastructure checks;all must pass without skips. They do not replace
+any full-regression ID. Envelope execution_revision and timeout_cleanup_preflight
+are checked by the fresh verifier. No new artifact file or scientific work.
+Scientific benchmark/manifest and48science tests remain byte-identical.
+Own72method IDs/full6514tests/239modules/930sources/8183inputs remain unchanged.
+No accepted source/test or dispatcher/launcher edit,no new exclusion.
+
+R1 post_authoring_review = PASS
+Review target HEAD: ca6df52fb72ed0020df7e3d027d738d28870464f.
+Source tree: ab92d489e8093721c33d4abcfe976418f821b58c.
+Review: docs/c344-r1-post-authoring-review.md.
+Independent remote OWN7/code/science and evidence/document reviews both PASS.
+Combined72 own tests PASS normally88.620s and CP932-default-open85.799s;
+failures/errors/skips/expected-failures/unexpected-successes all0.
+Actual inventory6515raw/6514selected/239modules,full IDs and6442prefix unchanged.
+Changed Python160code objects/1204global loads have0unbound globals;pyflakes0.
+Actual PowerShell7.5.4AST3entrypoints and standard block have0errors.
+Author environment is Linux;native Windows execution remains pending.
+Use the later documentation-only R1 activation HEAD as ExpectedHead;the seven
+reviewed OWN files remain unchanged in activation. Neither failed execution94fca46,
+publication8d83d94 nor source-onlyca6df52 is the new retry HEAD.
+Pre-activation handoff:docs/handoff-history/c344-r1-pre-activation.md.
 
 ## Latest accepted evidence
 
@@ -42,7 +91,7 @@ Original6 remaining errors are all new:TRAIN6 wrong_observed,HOLDOUT6 absent_dig
 zero persistent wrong answers. Names of length6 were never fitted. No mask-only
 failure in either arm. No pooling,gradient,capacity,parity or shortcut cause is proven.
 
-## C344 registration and independent review
+## Original C344 registration and independent review
 
 Source/preregistration HEAD: d97d1286f47ee06745083aa5e146c2d9349db3dc.
 Source tree: eabee60fc0ebc56f767d7a93c1544b6d4e10b1e7.
@@ -51,7 +100,8 @@ Preregistration: docs/experiment-ledger-addendum-c344-preregistration.md.
 Review: docs/c344-post-authoring-review.md.
 post_authoring_review = PASS
 Review target HEAD: d97d1286f47ee06745083aa5e146c2d9349db3dc.
-Use the later documentation-only activation HEAD as ExpectedHead, not source-only HEAD.
+Original activation94fca46 is preserved as failed attempt01;use the reviewed R1
+activation described above for the retry.
 
 Experiment C344-v5b-pair-max-training / stage V5-B-PAIR-MAX-TRAINING.
 Manifest SHA256:
@@ -125,7 +175,7 @@ parses dispatcher;dispatcher parses selected launcher;launcher parses itself/run
 Stale invocation skips without scientific execution or log publication.
 Use existing .venv-py31315. Run prefix:runs/c344-pair-max-training-<id>/.
 
-Sequence:native locks/snapshot ->immediate C343 semantics ->discarded native
+Sequence:R1 six-case timeout cleanup preflight ->native locks/snapshot ->immediate C343 semantics ->discarded native
 preflight ->6514 isolated tests/239 processes ->10 fits ->native evaluation/replay
 ->saved reconstruction ->8183 rereads ->fresh verifier ->console log publication.
 Preflight16forwards/64rows/8backwards/0updates is separate from science.
@@ -146,13 +196,15 @@ Fresh verifier reconstructs saved arithmetic/streams;it does not replay all upda
 
 On user completion,fetch remote docs/experiment-run-logs/c344/latest.json and
 latest.log. Distinguish scientific metadata.execution_head from log publication.
-Check all6514 tests/no skips,239 matching module begin/end/proofs,all process exits,
+Check R1 execution_revision and six-case timeout_cleanup_preflight;all6514 tests/no skips,239 matching module begin/end/proofs,all process exits,
 native leases/930sources/8183inputs/final rereads,replay,reconstruction,fresh verifier
 and run_execution_valid=true. Derive scientific verdict from preregistered gate.
 If valid,record separate acceptance commit,then design/test/register next C in
 the same response per protocol. If INVALID,repair/retry same C344 only.
 Publication-only failure repairs transport without retraining.
-Freeze this branch while the user runs. Do not alter reviewed seven files.
+Freeze this branch while the user runs. Freeze the seven OWN paths at the reviewed
+R1 activation HEAD;original unaccepted execution files are superseded only as
+explicitly registered in the R1 recovery contract.
 
 ## History and inherited compatibility seal
 
