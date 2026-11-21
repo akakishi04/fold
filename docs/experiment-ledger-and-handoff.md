@@ -47,10 +47,21 @@ Scientific benchmark/manifest and48science tests remain byte-identical.
 Own72method IDs/full6514tests/239modules/930sources/8183inputs remain unchanged.
 No accepted source/test or dispatcher/launcher edit,no new exclusion.
 
-R1 post_authoring_review = PENDING
-A new independent committed-byte review and author checks are required before
-issuing the R1 retry command. The earlier review below describes the original run.
-Do not use the failed execution HEAD or publication HEAD as the new retry HEAD.
+R1 post_authoring_review = PASS
+Review target HEAD: ca6df52fb72ed0020df7e3d027d738d28870464f.
+Source tree: ab92d489e8093721c33d4abcfe976418f821b58c.
+Review: docs/c344-r1-post-authoring-review.md.
+Independent remote OWN7/code/science and evidence/document reviews both PASS.
+Combined72 own tests PASS normally88.620s and CP932-default-open85.799s;
+failures/errors/skips/expected-failures/unexpected-successes all0.
+Actual inventory6515raw/6514selected/239modules,full IDs and6442prefix unchanged.
+Changed Python160code objects/1204global loads have0unbound globals;pyflakes0.
+Actual PowerShell7.5.4AST3entrypoints and standard block have0errors.
+Author environment is Linux;native Windows execution remains pending.
+Use the later documentation-only R1 activation HEAD as ExpectedHead;the seven
+reviewed OWN files remain unchanged in activation. Neither failed execution94fca46,
+publication8d83d94 nor source-onlyca6df52 is the new retry HEAD.
+Pre-activation handoff:docs/handoff-history/c344-r1-pre-activation.md.
 
 ## Latest accepted evidence
 
@@ -89,7 +100,8 @@ Preregistration: docs/experiment-ledger-addendum-c344-preregistration.md.
 Review: docs/c344-post-authoring-review.md.
 post_authoring_review = PASS
 Review target HEAD: d97d1286f47ee06745083aa5e146c2d9349db3dc.
-Use the later documentation-only activation HEAD as ExpectedHead, not source-only HEAD.
+Original activation94fca46 is preserved as failed attempt01;use the reviewed R1
+activation described above for the retry.
 
 Experiment C344-v5b-pair-max-training / stage V5-B-PAIR-MAX-TRAINING.
 Manifest SHA256:
