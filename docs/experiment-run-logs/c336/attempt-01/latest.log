@@ -1,0 +1,74 @@
+execution_role = C336-SAVED-QUERY-ORDER-PATTERNS
+scientific_execution_requested = True
+scientific_training_requested = False
+scientific_execution_head = c0efb27bbabe969d5f90667437deadb1d9a39dec
+execution_role = "C336-SAVED-QUERY-ORDER-PATTERNS"
+scientific_execution_head = "c0efb27bbabe969d5f90667437deadb1d9a39dec"
+native_lock_probe = {"delete_access_denied": true, "native_lock_probe": "PASS", "read_compatible": true, "released_after_close": true, "write_access_denied": true}
+hash_progress = {"cache_hits": 0, "elapsed_seconds": 0.009, "final_reference_rechecks": 0, "hash_calls": 1, "logical_reference_bytes": 0, "phase": "parent_validation", "reference_bytes": 0, "stream_bytes": 701894, "unique_files": 0}
+worker_heartbeat = {"elapsed_seconds": 10.024, "phase": "science"}
+hash_progress = {"cache_hits": 0, "elapsed_seconds": 10.011, "final_reference_rechecks": 0, "hash_calls": 739, "logical_reference_bytes": 913224558, "phase": "parent_validation", "reference_bytes": 913224558, "stream_bytes": 986624878, "unique_files": 738}
+worker_heartbeat = {"elapsed_seconds": 20.045, "phase": "science"}
+hash_progress = {"cache_hits": 0, "elapsed_seconds": 20.011, "final_reference_rechecks": 0, "hash_calls": 950, "logical_reference_bytes": 3984052343, "phase": "parent_validation", "reference_bytes": 3984052343, "stream_bytes": 4048015479, "unique_files": 949}
+worker_heartbeat = {"elapsed_seconds": 30.069, "phase": "science"}
+hash_progress = {"cache_hits": 0, "elapsed_seconds": 30.117, "final_reference_rechecks": 0, "hash_calls": 1050, "logical_reference_bytes": 7548482999, "phase": "parent_validation", "reference_bytes": 7548482999, "stream_bytes": 7548482999, "unique_files": 1050}
+worker_heartbeat = {"elapsed_seconds": 40.091, "phase": "science"}
+hash_progress = {"cache_hits": 0, "elapsed_seconds": 40.117, "final_reference_rechecks": 0, "hash_calls": 1117, "logical_reference_bytes": 11145899768, "phase": "parent_validation", "reference_bytes": 11145899768, "stream_bytes": 11232931576, "unique_files": 1116}
+worker_heartbeat = {"elapsed_seconds": 50.112, "phase": "science"}
+hash_progress = {"cache_hits": 0, "elapsed_seconds": 50.12, "final_reference_rechecks": 0, "hash_calls": 1346, "logical_reference_bytes": 14221664927, "phase": "parent_validation", "reference_bytes": 14221664927, "stream_bytes": 14221669274, "unique_files": 1345}
+worker_heartbeat = {"elapsed_seconds": 60.13, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 70.148, "phase": "science"}
+hash_progress = {"cache_hits": 3, "elapsed_seconds": 75.911, "final_reference_rechecks": 0, "hash_calls": 2059, "logical_reference_bytes": 14229851016, "phase": "parent_validation", "reference_bytes": 14229194307, "stream_bytes": 14229213634, "unique_files": 2055}
+worker_heartbeat = {"elapsed_seconds": 80.171, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 90.191, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 100.212, "phase": "science"}
+hash_progress = {"cache_hits": 853, "elapsed_seconds": 99.169, "final_reference_rechecks": 0, "hash_calls": 3364, "logical_reference_bytes": 15254898390, "phase": "parent_validation", "reference_bytes": 15244056844, "stream_bytes": 15244082278, "unique_files": 2510}
+worker_heartbeat = {"elapsed_seconds": 110.229, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 120.252, "phase": "science"}
+hash_progress = {"cache_hits": 1709, "elapsed_seconds": 121.252, "final_reference_rechecks": 0, "hash_calls": 4679, "logical_reference_bytes": 15944541527, "phase": "parent_validation", "reference_bytes": 15923395655, "stream_bytes": 15923408507, "unique_files": 2969}
+worker_heartbeat = {"elapsed_seconds": 130.273, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 140.297, "phase": "science"}
+hash_progress = {"cache_hits": 2571, "elapsed_seconds": 142.375, "final_reference_rechecks": 0, "hash_calls": 6000, "logical_reference_bytes": 15961315953, "phase": "parent_validation", "reference_bytes": 15929777741, "stream_bytes": 15929794922, "unique_files": 3428}
+worker_heartbeat = {"elapsed_seconds": 150.318, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 160.339, "phase": "science"}
+hash_progress = {"cache_hits": 3439, "elapsed_seconds": 166.084, "final_reference_rechecks": 0, "hash_calls": 7329, "logical_reference_bytes": 16986728891, "phase": "parent_validation", "reference_bytes": 16944697382, "stream_bytes": 16944722283, "unique_files": 3889}
+worker_heartbeat = {"elapsed_seconds": 170.36, "phase": "science"}
+Traceback (most recent call last):
+  File "M:\asobiba\fold\tools\c336_execution.py", line 408, in <module>
+    sys.path.insert(0,str(Path(__file__).resolve().parents[1])); main()
+                                                                 ~~~~^^
+  File "M:\asobiba\fold\tools\c336_execution.py", line 404, in main
+    {'run':run,'science':scientific_worker,'regression':regression_child,'verify':verify_outputs}[args.mode](root,folder,args.expected_head)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c336_execution.py", line 320, in scientific_worker
+    parent,_,pins,inputs = snapshot(root,h,cache.sha); source_out,data_out,cx = parent_semantics(root,h,parent,inputs)
+                           ~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c336_execution.py", line 151, in snapshot
+    proofs = parent_test_files(folder,v,hash_file); require(not set(added)&set(proofs),'parent collision'); added.update(proofs)
+  File "M:\asobiba\fold\tools\c336_execution.py", line 137, in parent_test_files
+    for name,value in wanted.items(): require(hash_file(folder/name) == value,'parent proof bytes:'+name)
+                                              ~~~~~~~~~^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c324_locked_hash_r4.py", line 241, in sha
+    require(len(self.entries) < self.max_files, 'locked-file bound exceeded; no eviction fallback')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c324_locked_hash_r4.py", line 39, in require
+    raise ValueError(message)
+ValueError: locked-file bound exceeded; no eviction fallback
+process_exit = {"decimal": 1, "hexadecimal": "0x00000001", "phase": "science", "pid": 89364}
+run_execution_valid = false
+Traceback (most recent call last):
+  File "M:\asobiba\fold\tools\c336_execution.py", line 408, in <module>
+    sys.path.insert(0,str(Path(__file__).resolve().parents[1])); main()
+                                                                 ~~~~^^
+  File "M:\asobiba\fold\tools\c336_execution.py", line 404, in main
+    {'run':run,'science':scientific_worker,'regression':regression_child,'verify':verify_outputs}[args.mode](root,folder,args.expected_head)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c336_execution.py", line 388, in run
+    run_logged(root,command(root,folder,head,'science'),folder/'science.log','science')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c336_execution.py", line 232, in run_logged
+    require(process.returncode == 0,'C336 '+phase+' failed;no automatic retry'); return process.pid
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c336_execution.py", line 33, in require
+    raise ValueError(message)
+ValueError: C336 science failed;no automatic retry

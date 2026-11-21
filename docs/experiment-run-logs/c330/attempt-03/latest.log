@@ -1,0 +1,83 @@
+execution_role = C330-SAVED-GATE-LOCALIZATION
+scientific_execution_requested = True
+scientific_training_requested = False
+scientific_execution_head = 848117fe8326ff146c350343b69d00858a6b0743
+execution_role = "C330-R1.1-MODULE-ISOLATED-RECOVERY"
+scientific_execution_head = "848117fe8326ff146c350343b69d00858a6b0743"
+native_lock_probe = {"delete_access_denied": true, "native_lock_probe": "PASS", "read_compatible": true, "released_after_close": true, "write_access_denied": true}
+hash_progress = {"cache_hits": 0, "elapsed_seconds": 0.002, "final_reference_rechecks": 0, "hash_calls": 1, "logical_reference_bytes": 0, "phase": "parent_validation", "reference_bytes": 0, "stream_bytes": 318758, "unique_files": 0}
+worker_heartbeat = {"elapsed_seconds": 10.024, "phase": "science"}
+hash_progress = {"cache_hits": 0, "elapsed_seconds": 10.388, "final_reference_rechecks": 0, "hash_calls": 971, "logical_reference_bytes": 5175300354, "phase": "parent_validation", "reference_bytes": 5175300354, "stream_bytes": 5175300354, "unique_files": 971}
+worker_heartbeat = {"elapsed_seconds": 20.045, "phase": "science"}
+hash_progress = {"cache_hits": 0, "elapsed_seconds": 20.388, "final_reference_rechecks": 0, "hash_calls": 1097, "logical_reference_bytes": 10843309913, "phase": "parent_validation", "reference_bytes": 10843309913, "stream_bytes": 10981721945, "unique_files": 1096}
+worker_heartbeat = {"elapsed_seconds": 30.064, "phase": "science"}
+accepted_parent_semantics = {"ancestor_semantic_reruns": 0, "checkpoints": 10, "model_forwards": 0, "parent_files": 10, "trajectories": 5, "valid_negative": true}
+registration_check = {"full_tests": 5850, "protected_inputs": 1596, "recovery_sha256": "8db2d7bedfbf9276848791a0710a0e8bb031fc39d8186722e4540269d4347e5c", "revision": "C330-R1.1", "source_pins": 841}
+phase = "full_regression_fresh_process_per_module"
+worker_heartbeat = {"elapsed_seconds": 40.086, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 10.028, "phase": "regression"}
+worker_heartbeat = {"elapsed_seconds": 50.107, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 20.051, "phase": "regression"}
+regression_test_ids_sha256 = "f7c7f355197393a53f0d9d8f3f4c8a044e4b365719a4894090017e206e709dc6"
+regression_progress = {"completed": 0, "index": 0, "module": "tests_lm.test_v05_controller", "total": 5850}
+regression_module_begin = {"index": 0, "module": "tests_lm.test_v05_controller", "pid": 1304, "tests": 10}
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 0.009s
+
+OK
+regression_module_complete = {"index": 0, "module": "tests_lm.test_v05_controller", "tests": 10}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "log": "M:\\asobiba\\fold\\runs\\c330-localization-fd85cb97845948b788d5cb35b8c4b374\\module-000.log", "phase": "tests_lm.test_v05_controller", "pid": 45276}
+Traceback (most recent call last):
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 435, in <module>
+    sys.path.insert(0,str(Path(__file__).resolve().parents[1])); main()
+                                                                 ~~~~^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 431, in main
+    {'run':run,'science':scientific_worker,'regression':regression_child,'verify':verify_outputs}[args.mode](root,folder,args.expected_head)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 281, in regression_child
+    collect_regression(root,folder,head,plan,child); guard(root,head)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 260, in collect_regression
+    require(value['schema']=='fold-c330-r1-module-v1' and value['commit_sha']==head and value['plan_sha256']==plan_sha
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        and value['index']==index and value['module']==group['module'] and value['pid']==pid, 'module process identity')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 44, in require
+    raise ValueError(message)
+ValueError: module process identity
+process_exit = {"decimal": 1, "hexadecimal": "0x00000001", "log": "M:\\asobiba\\fold\\runs\\c330-localization-fd85cb97845948b788d5cb35b8c4b374\\regression.log", "phase": "regression", "pid": 5384}
+Traceback (most recent call last):
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 435, in <module>
+    sys.path.insert(0,str(Path(__file__).resolve().parents[1])); main()
+                                                                 ~~~~^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 431, in main
+    {'run':run,'science':scientific_worker,'regression':regression_child,'verify':verify_outputs}[args.mode](root,folder,args.expected_head)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 331, in scientific_worker
+    run_logged(root,command(root,folder,head,'regression'),folder/'regression.log','regression')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 229, in run_logged
+    require(process.returncode == 0, 'C330 R1.1 '+phase+' failed; preserve attempt; no retry')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 44, in require
+    raise ValueError(message)
+ValueError: C330 R1.1 regression failed; preserve attempt; no retry
+process_exit = {"decimal": 1, "hexadecimal": "0x00000001", "log": "M:\\asobiba\\fold\\runs\\c330-localization-fd85cb97845948b788d5cb35b8c4b374\\science.log", "phase": "science", "pid": 15520}
+run_execution_valid = false
+Traceback (most recent call last):
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 435, in <module>
+    sys.path.insert(0,str(Path(__file__).resolve().parents[1])); main()
+                                                                 ~~~~^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 431, in main
+    {'run':run,'science':scientific_worker,'regression':regression_child,'verify':verify_outputs}[args.mode](root,folder,args.expected_head)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 415, in run
+    run_logged(root,command(root,folder,head,'science'),folder/'science.log','science')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 229, in run_logged
+    require(process.returncode == 0, 'C330 R1.1 '+phase+' failed; preserve attempt; no retry')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 44, in require
+    raise ValueError(message)
+ValueError: C330 R1.1 science failed; preserve attempt; no retry

@@ -1,1093 +1,1142 @@
-# Shared Basis Module Auto-Partition — 研究仮説・自動化設計レポート
+# Shared Basis Module Auto-Partition — 研究仮説・自動化設計・実装準備レポート
 
 作成日: 2026-09-13  
-状態: **研究仮説 / 自動構造探索案。実証済み仕様ではない。**
+最終更新: 2026-09-14 / C69 accepted, C70 pending  
+状態: **Living Design Document / 研究仮説 + 実験追随仕様。Auto-Partition本体は未実装。**
 
 関連文書:
 
-- `fold/docs/shared-basis-runtime-output-impact-report.md`
 - `fold/docs/experiment-ledger-and-handoff.md`
+- `fold/docs/shared-basis-runtime-output-impact-report.md`（別系統commitに存在する場合あり）
 
 ---
 
-## 1. 目的
+## 0. この文書の役割
 
-FOLDで検討中の Shared Basis 構造について、**どの module 群が同じ Basis を共有すべきかを自動決定する方法**を整理する。
+この文書は固定レポートではなく、Shared Basisのmodule grouping / auto splitに関する**実装前のliving spec**である。
 
-本書の対象は、概念的に次の構造である。
+accepted Cxxが以下へ影響した場合に更新する。
+
+```text
+rank / capacity
+native shared-basis training
+factor/common co-adaptation
+seed / validation robustness
+shared grouping compatibility
+residual / gradient diagnostics
+runtime reuse
+recurrence / structure-change safety
+```
+
+最低更新対象:
+
+```text
+Evidence Ledger
+Current Decision / Decision Table
+Implementation Defaults
+Open Questions / Next Validation
+```
+
+invalid runは科学的根拠にしない。
+
+---
+
+# 1. 目的
+
+FOLDのShared Basisについて、**どのmodule群が同じBasisを共有してよいかを自動決定する方法**を作る。
+
+基礎表現:
 
 ```text
 W_module = W_base + A_module @ B_shared
 ```
 
-これを将来的に、moduleごとに所属する Basis Group を持つ形へ拡張する。
+将来のgrouping:
 
 ```text
 W_module = W_base + A_module @ B_group(module)
 ```
 
-ここで重要なのは、最初から人間が「数学module」「コードmodule」「言語module」のように意味分類することではない。
-
-本書では、**各moduleが学習上どの更新空間を必要としているかを観測し、共有が有効な限り共有し、共有による干渉が確認された部分だけ自動的に分裂させる**方式を第一候補とする。
+意味カテゴリを人間が先に固定するのではなく、各moduleが実際に必要とする更新空間・学習干渉・容量要求を観測する。
 
 ---
 
-## 2. 結論
+# 2. Current Decision
 
-FOLD向けの第一候補は、次の方針である。
+FOLD向け第一候補:
 
-> **最大共有から開始し、必要性が観測された箇所だけ Split する。**
+> **Hard constraint内では最大共有から開始し、容量不足・optimizer/co-adaptation・seed分散・本物の共有干渉を順に切り分け、本当に必要な場合だけSplitする。**
 
-判定の中心は次の4信号とする。
-
-1. **Subspace Residual** — 現在の Shared Basis で、そのmoduleが必要とする更新方向を十分表現できるか
-2. **Gradient Conflict** — 同じ Basis を共有するmodule同士が、共有パラメータを相反する方向へ更新しようとしていないか
-3. **Functional Interference** — 実際の validation / NLL / task performance 上で負の転移が起きていないか
-4. **Runtime Reuse** — 同じ Basis を共有することで、保存容量だけでなく実行時計算も再利用できるか
-
-自動化の判断は、単純な「分ける / 分けない」ではなく、少なくとも以下を区別する。
+初版の判断順:
 
 ```text
-共有維持
-Rank増加
-Basis Group Split
-Private residual / singleton化
-Merge
+KEEP
+ ↓
+CO-ADAPTATION CHECK
+ ↓
+GROW_RANK
+ ↓
+PERSISTENCE / DIRECTIONALITY CHECK
+ ↓
+INTERFERENCE DIAGNOSIS
+ ↓
+SHADOW_SPLIT
+ ↓
+SPLIT
 ```
 
-特に、**Rank不足とmodule間の本質的な非互換を区別すること**が重要である。
-
----
-
-## 3. 中心仮説
-
-### H1 — 最適なGroupingは意味分類ではなく更新部分空間で決まる
-
-Shared Basis のmodule groupingは、module名、層番号、タスク名よりも、**各moduleが必要とする weight-update の低ランク部分空間の類似度**によって決まると仮定する。
-
-すなわち、見かけ上異なるタスクでも同じ内部操作を必要とするなら同じ Basis を共有できる可能性がある。
-
-逆に、同じカテゴリのmoduleでも必要な更新方向が大きく異なれば分離した方がよい可能性がある。
-
----
-
-### H2 — Residual と Conflict の組合せで「容量不足」と「共有不適合」を区別できる
-
-Shared Basis があるmoduleを十分表現できない場合、その原因は少なくとも2種類ある。
+後段候補:
 
 ```text
-A. Basisのrankが足りない
-B. module同士が異なる方向を必要としており、共有そのものが不適切
+SHRINK_RANK
+PRIVATE_RESIDUAL
+MERGE
 ```
 
-この2つを区別せず Split すると、Basis Group が細分化し過ぎ、Shared Basis の利点を失う。
+## 2.1 Splitを急がない理由
 
-本書では、Subspace Residual と Gradient Conflict の組合せで両者を区別できると仮定する。
+C63-C69により、見かけ上の性能差には少なくとも次が混在する。
+
+```text
+rank不足
+optimizer / checkpoint問題
+factor/common co-adaptation不均衡
+seed依存の最適化分散
+validation sampling差
+本当の共有干渉
+```
+
+したがって、
+
+```text
+Shared Basisで性能が落ちた
+```
+
+だけではSplit理由にならない。
+
+## 2.2 C69後の追加原則
+
+**複数seedで差が存在すること**と、**複数seedで同じ方向の差が再現すること**は別である。
+
+C69では12 seedすべてに小さな差があっても勝敗は6対6だった。
+
+よってv0.1では、
+
+```text
+multi-seed persistence
++
+directional consistency
++
+functional materiality
+```
+
+を構造変更候補の最低条件とする。
+
+方向が混在し中心がほぼゼロなら、第一候補Actionは`KEEP`である。
 
 ---
 
-### H3 — Function-preserving Split により安全に専門化できる
+# 3. Evidence Ledger — accepted experiments
 
-親 Basis をそのまま子 Group に複製すれば、Split直後の出力を原理上維持したまま、その後の学習で専門化できる。
+## 3.1 C63 — Condition rank frontier
+
+Post-hoc task-aware recovery:
 
 ```text
-B_parent
-   |
-   +-- copy --> B_child_0
-   |
-   +-- copy --> B_child_1
+rank1 -> 不足
+rank2 -> 3 seedすべてを安定してDenseへ戻せない
+rank4 -> 3/3 seedでDense以上
 ```
 
-Split直後は、
+rank4 routed-weight ratio:
+
+```text
+0.78125
+```
+
+### 意味
+
+性能不足を見てすぐSplitしない。
+
+```text
+Residual high + Conflict low
+-> まず GROW_RANK
+```
+
+を支持する。
+
+---
+
+## 3.2 C64 — Language checkpoint / rank frontier
+
+Language rank2はseed 20260911でもstep50でDense score 1.0へ到達したが、その後0.818182へ低下した。
+
+rank4は3 seedすべて固定最終checkpointまで1.0。
+
+### 意味
+
+```text
+低性能 != Basis group incompatibility
+```
+
+Optimizer / checkpointをSplit判定より先に見る。
+
+---
+
+## 3.3 C65 — Native direct joint training
+
+未学習状態からShared Basisを直接joint training。
+
+```text
+Composition rank2 -> 3/3 Dense一致
+Condition rank4   -> ほぼ一致
+Language rank4    -> 2/3 seedで大きく失敗
+```
+
+Languageではfactor lr0.002、common lr0.01。
+
+### 意味
+
+Native shared-basis training自体は成立するが、factor/commonの共適応速度が重要。
+
+---
+
+## 3.4 C66 — Language factor LR frontier
+
+```text
+factor lr 0.002 -> 失敗
+factor lr 0.005 -> 1 seed未達
+factor lr 0.010 -> 3/3 Dense一致
+```
+
+### 意味
+
+共有干渉に見える現象が、optimizer imbalanceで説明できる場合がある。
+
+Decision cascadeへ必ずco-adaptation checkを入れる。
+
+---
+
+## 3.5 C67 — aligned factor/common LR
+
+ルール:
+
+```text
+factor_lr = common_lr
+```
+
+結果:
+
+```text
+Composition: 3/3 Dense一致
+Language:    3/3 Dense一致
+Condition:   128例validationで2 seedが1例差
+```
+
+### 意味
+
+小さいvalidation差を構造差と扱わない。
+
+---
+
+## 3.6 C68 — Condition exhaustive held-out
+
+学習256例を除く32,512例を3 seedで全評価。
+
+```text
+20260911: Direct - Dense = +0.00249135
+20260912: Direct - Dense = -0.00639760
+20260913: Direct - Dense = +0.00658220
+```
+
+平均:
+
+```text
++0.00089198
+```
+
+paired total:
+
+```text
+Dense-only  = 533
+Direct-only = 620
+Net Direct  = +87
+```
+
+### 意味
+
+Condition rank4が構造的にDenseより弱いとは言えず、seed varianceが有力だった。
+
+---
+
+## 3.7 C69 — Condition 12-seed exhaustive robustness
+
+Accepted commit:
+
+`632469b400e1cf325882d8c7aaf0d8f509357aab`
+
+固定条件:
+
+```text
+Condition rank4
+factor/common lr0.01
+260 steps
+12 seeds: 20260911..20260922
+各seed exhaustive held-out 32,512
+```
+
+結果:
+
+```text
+Direct win seeds = 6
+Dense win seeds  = 6
+Tie              = 0
+sign test p      = 1.0
+mean delta       = -0.00025117894
+median delta     = -0.00006151199
+min              = -0.00639760494
+max              = +0.00658220053
+Dense-only total = 1446
+Direct-only total= 1348
+Net Direct       = -98
+```
+
+12 seed × 32,512 = 390,144 held-out trajectoriesに対し、pooled差は98例。
+
+### Auto-Partitionへの意味
+
+C69はSeed / Persistence Gateを強く更新する。
+
+1. **複数seedで差が出るだけでは構造変更理由にならない。**
+2. 勝敗方向が6対6なら、persistent directional deficitではない。
+3. mean/medianがほぼゼロ中心で符号混在なら、rank-grow / splitよりKEEPを優先する。
+4. 単一seedの大きめな差を全体傾向として扱わない。
+5. 現Condition rank4に対し、追加rankやSplitを正当化する証拠はない。
+
+### Supports
+
+- Seed False Positive対策
+- Multi-seed Persistence
+- Directionality Gate
+- Max-share維持
+
+### Still unknown
+
+- より大規模・自然なtaskで同じ傾向か
+- shared group同士の本当のgradient conflict
+- runtime-native実行でrecurrence差が出ないか
+
+---
+
+# 4. 中心仮説
+
+## H1 — 最適Groupingは意味分類より更新部分空間で決まる
+
+module名や分野名より、各moduleが必要とするeffective weight-updateの低ランク部分空間の類似性でgroupingを決める。
+
+状態: **未実証だが整合的。**
+
+C63-C69は容量・optimizer・seed varianceを切り分けたが、groupingそのものはまだ未検証。
+
+---
+
+## H2 — ResidualとConflictで容量不足と共有不適合を区別できる
+
+主因候補:
+
+```text
+A. rank / capacity不足
+B. module同士が異なる更新方向を必要とする共有不適合
+```
+
+状態: **部分支持。**
+
+C63はrank増加だけで解決するケースを示した。Residual / Conflictセンサー自体は未検証。
+
+---
+
+## H3 — Function-preserving Splitで安全に専門化できる
 
 ```text
 B_child_0 = B_parent
 B_child_1 = B_parent
 ```
 
-とする。
+`A_module`を維持すればSplit直後のeffective weightを保存できる。
 
-このため、構造変更自体による急激なモデル性能変化を避け、**共有から専門化へ連続的に移行できる**と期待する。
+AdamW optimizer stateも候補としてcloneする。
+
+```text
+exp_avg
+exp_avg_sq
+step
+```
+
+状態: **理論上妥当 / 未実験。**
 
 ---
 
-### H4 — Runtime Reuse を考慮したGroupingは、保存容量以外の利益を生む
+## H4 — Runtime ReuseはGroupingの補助価値
 
-同じ Basis を共有するmoduleが同じactivation入力 `x` を使える場合、
+同じBasis・activation・実行点ならprojectionを共有できる可能性がある。
 
-```text
-z = B_shared @ x
-```
-
-を一度だけ計算し、複数moduleへ再利用できる可能性がある。
+優先順位:
 
 ```text
-              x
-              |
-        B_shared @ x
-              |
-              z
-            /   \
-        A_0 @ z A_1 @ z
+Quality compatibility
+> Training stability
+> Runtime reuse
+> Storage reuse
 ```
 
-したがってGroupingは、学習上の相性だけでなく、**実行グラフ上で Basis projection を共有可能か**も補助評価に入れる価値がある。
+Runtime Reuseはv0.1では主判定にしない。
 
-ただし優先順位は、
-
-```text
-品質互換性 > Runtime reuse > Storage reuse
-```
-
-とする。
-
-品質を犠牲にして計算共有を優先してはならない。
+C70以降でruntime-native formの数値・再帰安全性を確認する。
 
 ---
 
-## 4. Shared Basisで実際に共有されるもの
+# 5. 観測信号
 
-概念モデルを、
+## 5.1 Virtual Dense Effective-Weight Gradient Residual
+
+第一候補:
 
 ```text
-Delta W_m = A_m @ B_g
+G_m = dL / dW_eff,m
+W_eff,m = W_base + A_m @ B_g
 ```
 
-とする。
+Basis row-space射影:
 
-`A_m` はmodule固有、`B_g` はGroup共有である。
+```text
+P_B = B_g^T (B_g B_g^T)^+ B_g
+```
 
-このとき、同じ `B_g` を使うmoduleは、**更新が利用できる低次元方向を共有する**。
+Residual:
 
-つまり、Shared Basis grouping とは単なる重み圧縮ではなく、
+```text
+R_m = ||G_m - G_m P_B||_F^2 / max(||G_m||_F^2, eps)
+```
 
-> 「このmodule群は、同じ低次元更新空間を使ってよい」
+注意:
 
-という構造的仮定である。
-
-この仮定が正しいGroupでは、共有による圧縮・正の転移・計算再利用が期待できる。
-
-間違っているGroupでは、表現能力不足、gradient conflict、negative transfer、出力均質化などが起き得る。
+- Up / Down roleは別々に測る。
+- rank deficient時はpseudo-inverseまたはorthonormal basis。
+- full dense weightの永続保存は不要。
+- diagnostic window中だけ取得する。
 
 ---
 
-## 5. 自動分割で観測する4信号
+## 5.2 Gradient Conflict
 
-## 5.1 Subspace Residual — 最重要信号
-
-module `m` が本来必要としている更新方向を `G_m` とする。
-
-現在の Basis `B_g` が張る部分空間への射影を `P_B` としたとき、概念的には次のような残差を測る。
+Shared-parameter conflict:
 
 ```text
-R_m = ||G_m - G_m P_B||_F^2 / ||G_m||_F^2
+g_m^shared = dL_m / dB_g
+cos(g_i^shared, g_j^shared)
 ```
 
-解釈:
+Effective-gradient conflict:
 
 ```text
-R_m が小さい
--> 現在の Shared Basis 内でmoduleの更新を十分表現できている
-
-R_m が大きい
--> moduleが必要とする更新方向の一部が Shared Basis の外にある
+cos(vec(G_i), vec(G_j))
 ```
 
-これは module 分割判定の中心指標とする。
+単一batchのnegative cosineではSplitしない。
 
-ただし、Residual が高いだけでは Split しない。
+```text
+EMA
+window statistics
+独立validation slice
+multi-seed directionality
+```
 
-理由は、単純な rank 不足でも Residual は上がるためである。
+を要求する。
 
 ---
 
-## 5.2 Gradient Conflict — 共有方向の競合
+## 5.3 Functional Interference — 最終Gate
 
-同じ Basis を共有する各moduleが共有パラメータ `B_g` に与える gradient contribution を、
+内部センサーは候補生成のみ。
 
-```text
-g_m = dL_m / dB_g
-```
-
-とする。
-
-module `i` と `j` の関係を見る簡易指標として、
-
-```text
-cos(g_i, g_j)
-```
-
-を使える。
-
-概念的解釈:
-
-```text
-+1 に近い
--> 同じ方向へ Shared Basis を更新したい
-
-0 付近
--> 互いにほぼ独立
-
-負
--> 相反する方向へ更新したい
-```
-
-単発batchの値はノイズが大きいため、判定には移動平均または一定windowの統計を用いる。
-
----
-
-## 5.3 Functional Interference — 最終確認
-
-Residual / Gradient は構造推定用の内部信号である。
-
-最終的な Split 採否は、実際のtask performanceでも確認する。
-
-例:
-
-- validation loss
-- NLL
-- accuracy
-- calibration
-- task-specific score
-- cross-domain negative transfer
-
-特に、あるmoduleを改善した結果、同じ Basis Group の別moduleが悪化するなら、共有干渉の疑いが強い。
-
-したがって、**内部統計でSplit候補を作り、Functional評価で最終採否を決める**構成を推奨する。
-
----
-
-## 5.4 Runtime Reuse — コスト側の補助信号
-
-同じ Basis Group に属することで、
-
-```text
-B_g @ x
-```
-
-を実際に共有できるmodule群は、同一Groupに残す追加価値がある。
-
-ただし、同じ重みを共有していても異なるactivationを入力するなら、projection計算そのものは共有できない。
-
-したがってRuntime Reuseは、
-
-```text
-同じBasisを持つか
-```
-
-だけではなく、
-
-```text
-同じ実行点 / 同じ入力activation / reuse可能なscheduleか
-```
-
-まで見て評価する必要がある。
-
-v0.1では品質判定へ直接混ぜず、**Split候補同士のtie-breakまたはcost評価**として扱うのが安全である。
-
----
-
-## 6. 最重要Decision Table
-
-自動化では、Residual と Conflict の組合せから少なくとも次を区別する。
-
-| Subspace Residual | Gradient Conflict | 主な解釈 | 第一候補Action |
-|---|---|---|---|
-| 低 | 低 | 問題なく共有可能 | Share維持 |
-| 高 | 低 | 共通方向だが容量不足の可能性 | Rank増加 |
-| 高 | 高 | 必要空間そのものが異なる可能性 | Split候補 |
-| 特定moduleのみ高 | 任意 | 外れmodule / 専門module | singleton / private residual候補 |
-| 低 | 高 | 表現可能だが学習干渉 | Shadow Splitで確認 |
-
-この表は v0.1 の中心ロジック候補とする。
-
-重要なのは、
-
-> **「Shared Basisで苦しんでいる」ことと「Shared Basisを分けるべき」ことは同義ではない。**
-
-Rankを増やせば解決する問題をSplitで解決すると、構造が不必要に複雑化する。
-
----
-
-## 7. 推奨Controller: Split -> Specialize -> Merge
-
-自動化全体を、仮に **Basis Partition Controller** と呼ぶ。
-
-Controllerは次の3操作を持つ。
-
-```text
-Split
-Specialize
-Merge
-```
-
-### 7.1 初期状態
-
-物理的に共有可能なmoduleは、可能な限り少数の Basis Group から開始する。
-
-例:
-
-```text
-Basis G0
- |- M0
- |- M1
- |- M2
- |- M3
-```
-
-形状が異なるなど共有不能なものは別bucketとする。
-
-つまり「全modelで必ず1 Basis」ではなく、**共有可能性のハード制約ごとに最大共有**とする。
-
----
-
-### 7.2 Observation Phase
-
-一定stepの間は構造を変更せず、次の統計を蓄積する。
-
-```text
-per-module Subspace Residual
-per-pair Gradient Similarity / Conflict
-per-module validation contribution
-Group rank utilization
-runtime reuse potential
-```
-
-単発batchの結果では Split しない。
-
-EMA、window average、複数seedなど、ノイズ耐性を持たせる。
-
----
-
-### 7.3 Candidate Detection
-
-Group内で、
-
-```text
-高Residual + 継続的Conflict
-```
-
-を持つmodule集合が形成された場合、Split candidate を作る。
-
-ここではまだ構造変更を確定しない。
-
-候補例:
-
-```text
-G0 = {M0, M1, M2, M3}
-
-cluster A = {M0, M1, M2}
-cluster B = {M3}
-```
-
----
-
-### 7.4 Function-Preserving Split
-
-親 Basis を各候補Groupへコピーする。
-
-```text
-B_G0 -> B_G1
-B_G0 -> B_G2
-```
-
-初期値は同一にする。
-
-```text
-B_G1 = B_G0
-B_G2 = B_G0
-```
-
-これによりSplit直後は元の挙動を維持しやすい。
-
-その後、各Groupを独立に学習させる。
-
----
-
-### 7.5 Shadow Trial
-
-Split候補は即採用せず、短い比較trialを行う。
-
-比較対象:
-
-```text
-A. 親Groupを維持
-B. Rankだけ増加
-C. GroupをSplit
-```
-
-評価軸:
+最終採否:
 
 - validation loss / NLL
 - task score
-- cross-task interference
-- parameter count
-- serialized size
-- peak memory
-- training FLOPs
-- inference FLOPs
-- runtime reuse loss
-
-Splitで性能が改善しても、コスト増が大き過ぎる場合は採用しない。
+- calibration
+- negative transfer
+- failure correlation
 
 ---
 
-### 7.6 Commit
+## 5.4 Co-Adaptation Signal
 
-Shadow Trialで明確な利益が確認できた場合のみSplitを確定する。
+最低候補:
 
 ```text
-Basis G1
- |- M0
- |- M1
- |- M2
-
-Basis G2
- |- M3
+factor lr / common lr ratio
+factor gradient norm
+shared/common gradient norm
+factor update norm
+shared/common update norm
+validation response
 ```
 
-以後、各Groupは別々にrank調整可能とする。
+目的:
+
+```text
+共有不適合
+vs
+optimizer imbalance
+```
+
+の切り分け。
 
 ---
 
-### 7.7 Merge
+## 5.5 Seed / Directionality Signal
 
-一度分裂したGroupも永続固定にはしない。
+C69を受けて独立signalとして明示する。
 
-長期間、
+最低記録:
 
-- subspace similarity が高い
-- gradient conflict が低い
-- merge trial で性能劣化しない
+```text
+per-seed functional delta
+win/loss/tie count
+mean / median delta
+paired failure counts
+sign consistency
+```
 
-場合は、再統合候補にする。
-
-SplitだけでMergeを持たない設計は、学習が進むほどGroup数が単調増加するため避ける。
+単純な「平均が負」だけで構造変更しない。
 
 ---
 
-## 8. Adaptive Rank との統合
+## 5.6 Runtime Reuse — cost signal
 
-Shared Basis Auto-Partition と Adaptive Rank は分離して考えない方がよい。
+品質判定へ直接混ぜない。
 
-理想形は、Groupごとに必要rankを持つ構造である。
+同じBasis / activation / 実行点でprojectionを共有できる場合のみ利益として計上。
 
-```text
-Basis G0 rank=2
- |- M0
- |- M1
+---
 
-Basis G1 rank=6
- |- M2
- |- M3
+# 6. Current Decision Table
 
-Basis G2 rank=1
- |- M4
-```
+| Residual | Conflict | Co-adaptation | Seed direction | Functional | 第一候補Action |
+|---|---|---|---|---|---|
+| 低 | 低 | 安定 | 混在/問題なし | 問題なし | KEEP |
+| 高 | 低 | 安定 | 一貫 | 不足 | GROW_RANK |
+| 任意 | 任意 | 不安定 | 任意 | 不足 | OPTIMIZER / LR診断 |
+| 任意 | 任意 | 安定 | 符号混在・中心≈0 | 小差 | KEEP / 観測継続 |
+| 高 | 高 | 安定 | 一貫 | 干渉あり | SHADOW_SPLIT |
+| 低 | 高 | 安定 | 不明 | 干渉なし | KEEPして観測継続 |
+| 低 | 高 | 安定 | 一貫 | 干渉あり | SHADOW_SPLIT |
+| 特定moduleのみ高 | 任意 | 安定 | 一貫 | 局所不足 | rank / singleton / private residual候補 |
 
-この構造なら、
+**SPLITは直接Actionにしない。**
 
-```text
-共通性が高いmodule群
--> 小rank Shared Basis
-
-複雑なmodule群
--> 大rank Shared Basis
-
-特殊module
--> singleton / private residual
-```
-
-と、必要な場所だけ容量を増やせる。
-
-このためControllerのActionは、
-
-```text
-Share / Split
-```
-
-だけでは不足し、最低でも、
+必ずShadow Trialで、
 
 ```text
 KEEP
 GROW_RANK
-SHRINK_RANK
 SPLIT
-MERGE
-PRIVATE_RESIDUAL
+OPTIMIZER_ADJUST
 ```
 
-程度の操作空間を検討する価値がある。
-
-ただし v0.1 実験では複雑化を避け、まず `KEEP / GROW_RANK / SPLIT` の3系統から始める方がよい。
+を同checkpointから比較する。
 
 ---
 
-## 9. Private Residual の位置付け
+# 7. Basis Partition Controller
 
-Group全体をSplitするほどではないが、特定moduleだけ不足する場合がある。
-
-その場合、
+推奨phase:
 
 ```text
-Shared update + small private residual
+MAX-SHARE INIT
+↓
+WARMUP
+↓
+OBSERVE
+↓
+DIAGNOSE
+↓
+PERSISTENCE / DIRECTIONALITY GATE
+↓
+SHADOW TRIAL
+↓
+COMMIT / REVERT
+↓
+SPECIALIZE
+↓
+(optional) MERGE
 ```
 
-という構造を検討できる。
+## 7.1 Hard Bucket
 
-概念例:
+形状・接続点・roleなどの物理制約で共有可能bucketを作る。
+
+bucket内では最大共有から開始する。
+
+## 7.2 Warmup
+
+初期gradient noiseやC66型co-adaptation false positiveを避けるため、一定stepは構造変更しない。
+
+## 7.3 Observation Window
 
 ```text
-Delta W_m
-  = A_m @ B_group
-  + P_m
+virtual-dense residual
+shared/effective gradient cosine
+factor/common update norm ratio
+per-module functional contribution
+group rank utilization
+per-seed directionality
+runtime reuse potential
 ```
 
-`P_m` は小さい専用補正である。
+## 7.4 Candidate Detection
 
-これにより、
+```text
+Residual high + Conflict low
+-> rank-grow candidate
 
-- 共有の大部分は維持
-- 特殊moduleだけ自由度追加
-- Group増加を抑制
+Residual high + persistent directional Conflict
+-> shadow-split candidate
 
-できる可能性がある。
+Conflict high + co-adaptation unstable
+-> optimizer diagnostic first
 
-ただし v0.1 では、自動分割そのものの効果を曖昧にしないため、Private Residual は後段候補とする。
+Functional delta mixed-sign across seeds + center near zero
+-> KEEP
+```
+
+## 7.5 Shadow Trial
+
+同一checkpointから短期間:
+
+```text
+A. KEEP
+B. GROW_RANK
+C. SPLIT
+D. optimizer/co-adaptation adjustment
+```
+
+比較:
+
+```text
+quality
+NLL
+negative transfer
+parameter bytes
+resident bytes
+runtime
+training/inference FLOPs
+structure complexity
+```
+
+## 7.6 Commit / Revert
+
+Split採用最低条件:
+
+```text
+persistent directional quality benefit
+AND
+non-target regression acceptable
+AND
+rank-grow / optimizer / checkpoint / seed varianceでは説明できない
+AND
+cost increase acceptable
+```
 
 ---
 
-## 10. 生のA/B重みクラスタリングを主判定にしない理由
+# 8. Function-Preserving Split
 
-単純に `A_m` や `B_m` の重み値を比較してclusterする方法は第一候補にしない。
-
-低ランク分解には一般に、
+親Basisを子へcloneする。
 
 ```text
-A B = (A Q) (Q^-1 B)
+B_G1 = clone(B_G0)
+B_G2 = clone(B_G0)
 ```
 
-のような座標変換自由度がある。
+`A_module`は維持。
 
-同じ実効更新 `A B` を表していても、因子 `A` / `B` 自体の数値は異なり得る。
+Optimizer stateも第一候補としてcloneする。
 
-そのため、
-
-```text
-Aが近い
-Bが近い
-```
-
-だけでmodule相性を判断すると、パラメータ化の取り方に依存する危険がある。
-
-優先すべきは、
-
-- 実効更新空間
-- projection residual
-- gradient interaction
-- functional behavior
-
-である。
+Split直後のforwardだけでなく、次step以降の学習軌道保存も検証対象。
 
 ---
 
-## 11. 初版でDynamic Routerを使わない理由
+# 9. Adaptive Rank
 
-module grouping 自動化と、推論時の dynamic routing は分ける。
+Auto-PartitionとAdaptive Rankは連携する。
 
-初版では、
+ただし一律rank ruleは使わない。
+
+現在の証拠:
 
 ```text
-入力ごとにRouterがBasisを選ぶ
+Composition: rank2でrobust
+Language:    rank2 capacityはあるがrank4が固定scheduleに安定
+Condition:   rank4が選択点。12-seed exhaustiveでDenseとの差はゼロ中心に近い
 ```
 
-方式は採用しない。
+C69後、Condition rankを追加で増やすことは優先しない。
 
-理由:
+---
 
-- inference graph が複雑になる
-- cache / batching が難しくなる
-- FLOPsが予測しづらくなる
-- load balancing問題が増える
-- deterministic evaluation が難しくなる
-- Shared Basis自体の効果とRouter効果を分離しにくい
+# 10. Private Residual
 
-自動化するのは**学習中の構造探索**であり、学習完了後は、
+将来候補:
+
+```text
+Delta W_m = A_m @ B_group + P_m
+```
+
+v0.1では入れない。
+
+Auto-Partition / Rank / Private Residualを同時導入すると原因切り分けが困難になるため。
+
+---
+
+# 11. 生のA/B重みクラスタリングを主判定にしない
+
+低ランク分解には座標自由度がある。
+
+```text
+A B = (A Q)(Q^-1 B)
+```
+
+優先するもの:
+
+```text
+effective update space
+virtual-dense gradient residual
+gradient interaction
+functional behavior
+```
+
+---
+
+# 12. Seed / Persistence / Directionality Gate
+
+C67-C69により必須。
+
+単一seed・単一validation sliceで構造変更しない。
+
+v0.1原則:
+
+```text
+異常が複数windowで継続
+AND
+複数seed / 独立validation sliceで再現
+AND
+改善/悪化の方向が十分一貫
+AND
+functional差が構造変更に値する
+```
+
+### C69による具体化
+
+次のケースは構造変更しない。
+
+```text
+12 seedで6勝6敗
+mean / medianがほぼ0
+sign-testが方向性を示さない
+```
+
+これは`KEEP / observe`。
+
+まだ固定しないもの:
+
+```text
+必要seed数
+方向一致率threshold
+functional equivalence margin
+minimum gain
+```
+
+C69自体はformal equivalence marginを定義していないため、ここで数値thresholdを捏造しない。
+
+---
+
+# 13. 初版でDynamic Routerを使わない
+
+module grouping自動化と推論時dynamic routingは別問題。
+
+v0.1では最終的に静的mapへ固定する。
 
 ```text
 module_0 -> basis_group_0
 module_1 -> basis_group_0
 module_2 -> basis_group_2
-module_3 -> basis_group_1
 ```
 
-という静的対応表に固定する。
+理由:
 
-これにより推論側の複雑性を抑える。
+- inference graph単純化
+- batching/cache容易化
+- FLOPs予測可能
+- deterministic evaluation
+- Shared Basis効果とRouter効果を分離
 
 ---
 
-## 12. v0.1 自動化案
+# 14. Auto-Partition v0.1 scope
 
-初版は欲張らず、次の構成を推奨する。
-
-### 12.1 Hard buckets
-
-まず共有不能なmoduleを形状・接続点等のハード制約で分ける。
-
-### 12.2 Max-share initialization
-
-各bucket内は1 Basis Groupから開始する。
-
-### 12.3 Warmup
-
-一定stepは構造変更しない。
-
-目的:
-
-- Shared Basisをまず学習させる
-- 初期gradientノイズで誤Splitしない
-
-### 12.4 Statistics collection
-
-一定windowで、
+## 入れる
 
 ```text
-Residual_m
-GradientCos_ij
-Validation_m
+Hard bucket
+Max-share initialization
+Warmup
+Virtual-dense residual observer
+Gradient conflict observer
+Co-adaptation observer
+Seed/directionality observer
+Functional validation hook
+KEEP / GROW_RANK / SHADOW_SPLIT recommendation
+Shadow Trial harness
+Static final group map
 ```
 
-を記録する。
-
-### 12.5 Decision
-
-最小ルール:
+## 入れない
 
 ```text
-Residual low
--> KEEP
-
-Residual high + Conflict low
--> GROW_RANK candidate
-
-Residual high + Conflict high
--> SPLIT candidate
+Learned Router
+Token routing
+Online frequent Split/Merge
+Private Residual auto-generation
+高度なgraph clustering
+完全自律threshold tuning
 ```
-
-### 12.6 Trial
-
-同一checkpointから、短期間だけ、
-
-```text
-keep
-rank-grow
-split
-```
-
-を分岐比較する。
-
-### 12.7 Commit or Revert
-
-明確な improvement/cost ratio があるActionだけ採用する。
-
-### 12.8 Freeze structure
-
-学習後半では構造変更頻度を下げ、最終的には固定する。
-
-これにより最終収束を安定させる。
 
 ---
 
-## 13. Split candidate の作り方
+# 15. Split採用Gate
 
-最初から高度なgraph clusteringを導入する必要はない。
+## Quality Gate
 
-v0.1では、Group内module間の類似行列を作るだけでよい。
+Split後に対象module群のvalidation性能が改善。
 
-例:
+## Non-target Regression Gate
 
-```text
-S_ij = alpha * subspace_similarity(i, j)
-     + beta  * gradient_similarity(i, j)
-```
+非対象moduleを許容範囲以上に悪化させない。
 
-必要ならruntime reuseを小さい補助項として加える。
+## Alternative Explanation Gate
 
-```text
-     + gamma * runtime_reuse(i, j)
-```
-
-ただし、係数調整が新たな不確定性になるため、初版では、
+次で同等以上に解決できないこと。
 
 ```text
-subspace signalを主
-conflict signalをgate
-runtimeはtie-break
+optimizer / LR adjustment
+rank grow
+checkpoint policy
+seed / validation variance
 ```
 
-程度に留める方が解釈しやすい。
+## Stability / Directionality Gate
 
-高度なspectral clusteringやlearned routerは、単純法で限界が確認されてから検討する。
+複数window / seed / validation sliceで同じ方向が再現。
+
+## Cost Gate
+
+serialized bytes / resident bytes / FLOPs / memory増加に対する利益が妥当。
+
+## Determinism Gate
+
+同checkpoint・seed・data orderなら同じ候補判定を再現。
 
 ---
 
-## 14. Split採用Gate
+# 16. 評価Baseline
 
-自動Splitを採用する最低条件として、以下を推奨する。
-
-### Quality Gate
-
-Split後に対象module群のvalidation性能が改善する。
-
-かつ、非対象moduleを悪化させない。
-
-### Stability Gate
-
-複数windowまたは複数seedで同じSplit傾向が再現する。
-
-### Cost Gate
-
-増えた serialized size / FLOPs / memory に対して性能向上が妥当である。
-
-### Regression Gate
-
-Dense / independent / fixed-shared baseline と比較可能な形で結果を保存する。
-
-### Determinism Gate
-
-同じcheckpoint・seed・データ順なら、Group決定が再現できる。
-
----
-
-## 15. 評価baseline
-
-最低でも以下を比較する。
+最低限:
 
 ```text
 A. Independent Basis per module
 B. One Shared Basis per hard bucket
 C. Fixed manual grouping
 D. Auto-partition Shared Basis
-```
-
-可能なら追加で、
-
-```text
 E. Shared Basis + adaptive rank only
 F. Auto-partition + adaptive rank
 ```
 
-を比較する。
-
-見るべきなのは単独accuracyではなく、
-
-- validation loss
-- NLL
-- task score
-- parameter count
-- serialized bytes
-- peak training memory
-- peak inference memory
-- train FLOPs
-- inference FLOPs
-- negative transfer
-- cross-module failure correlation
-- group count
-- rank distribution
-
-のPareto関係である。
-
----
-
-## 16. 成功条件
-
-Auto-Partition を成功とみなすのは、単にmanual groupingより精度が高い場合ではない。
-
-理想的な成功は、
+Pareto評価:
 
 ```text
-Independent Basisに近い品質
-+
-Full Sharedに近い保存効率
-+
-少数Group
-+
-安定した静的推論構造
+task score / NLL / calibration
+parameter count
+serialized / resident bytes
+peak train/inference memory
+train/inference FLOPs
+negative transfer
+failure correlation
+group count / rank distribution
+structure-search overhead
 ```
 
-を同時に満たすこと。
-
-より具体的には、
-
-1. Full Sharedより明確に品質が高い
-2. Independent BasisよりBasis総量が少ない
-3. Group数が無制限に増えない
-4. Split位置がseedに対して過度に不安定でない
-5. Runtime reuse可能なGroupが一定量残る
-6. 構造探索コストが最終学習コストを支配しない
-
-を確認する。
-
 ---
 
-## 17. 失敗パターン
+# 17. 主な失敗パターン
 
-### 17.1 Split Explosion
+## Split Explosion
 
-少しの差でもSplitし続け、最終的にほぼper-module Basisになる。
+対策: persistence / minimum gain / complexity penalty / merge。
+
+## Rank Growthで全部解決
+
+失敗ではない。Adaptive Rankだけで十分なら単純な設計を選ぶ。
+
+## Early Split Lock-in
+
+対策: warmup / EMA / reversible shadow trial。
+
+## Co-adaptation False Positive
+
+C66型。対策: update norm / LR ratio診断をSplitより先に行う。
+
+## Seed False Positive
+
+C67-C69型。
 
 対策:
-
-- persistence threshold
-- minimum gain gate
-- merge
-- group-count penalty
-
----
-
-### 17.2 Rank Growthで全部解決してしまう
-
-Split候補が出ても、単純にrankを増やした方が常に良い可能性がある。
-
-この場合、Auto-Partitionの価値は低い。
-
-これは失敗ではなく重要な実験結果である。
-
----
-
-### 17.3 Early Split Lock-in
-
-学習初期の偶然のgradient差を構造差と誤認し、早期に分割してしまう。
-
-対策:
-
-- warmup
-- EMA
-- minimum observation window
-- reversible trial
-
----
-
-### 17.4 Group Oscillation
-
-SplitとMergeを繰り返す。
-
-対策:
-
-- hysteresis
-- cooldown期間
-- split/merge閾値を分離
-
----
-
-### 17.5 Quality only optimization
-
-精度改善だけを見ると、最終的に専用Basisだらけになる。
-
-対策:
-
-objectiveに、
 
 ```text
-quality
-storage
-runtime
-complexity
+larger validation
+exhaustive evaluation when possible
+multi-seed
+win/loss directionality
 ```
 
-を入れ、Pareto評価する。
+## Group Oscillation
+
+対策: hysteresis / cooldown / split-merge threshold分離。
 
 ---
 
-## 18. 実験順序の推奨
+# 18. Auto-Partition専用の実験順序
 
-### Experiment 1 — Residualが共有不適合を検出できるか
+Gate C shared-basis候補のruntime/recurrence基礎が確定した後に開始する。
 
-人工的に、
+## AP1 — Virtual Dense Residual Sensor validation
 
-- 同じ低ランク方向を必要とするmodule群
-- 異なる低ランク方向を必要とするmodule群
+Basis内方向だけ必要なmoduleとBasis外方向を必要とするmoduleを人工taskで作り、Residualが区別できるか。
 
-を作り、Residualで区別できるかを見る。
+## AP2 — Rank不足 vs Split必要性
 
-### Experiment 2 — Rank不足とSplit必要性を区別できるか
+同checkpointから`GROW_RANK`と`SPLIT`を比較。
 
-同一Groupについて、
+## AP3 — Co-adaptation false-positive
+
+C66型LR mismatchでControllerがSplitではなくoptimizer問題を返せるか。
+
+## AP4 — Function-preserving Split
+
+forward / logits / state digest一致とoptimizer state migration。
+
+## AP5 — Shadow Trial predictiveness
+
+短期trial選択が長期結果と一致するか。
+
+## AP6 — Merge
+
+過剰Splitから安全に統合できるか。
+
+## AP7 — Runtime reuse
+
+同品質Grouping候補で実latency / throughput / memory比較。
+
+---
+
+# 19. Implementation Defaults
+
+## 19.1 現在固定してよいもの
 
 ```text
-rank増加
-vs
-Split
+Grouping principle: max-share within hard bucket
+Inference mapping: static
+Primary residual: virtual dense effective-weight gradient
+Split mechanism: function-preserving basis clone
+Split adoption: shadow trial required
+Training default on current tasks: factor_lr = common_lr
+Seed policy: multi-seed + directionality required before structural action
+Mixed-sign / near-zero-center result: KEEP, not split/rank-grow
+Runtime reuse: secondary cost signal
+Dynamic router: out of v0.1
+Private residual: out of v0.1
 ```
 
-を比較する。
-
-### Experiment 3 — Function-preserving Split
-
-Basisコピー直後に出力差が実質ゼロになることを確認する。
-
-### Experiment 4 — Shadow Trial
-
-同一checkpointから、
+## 19.2 まだ固定しないもの
 
 ```text
-keep
-rank-grow
+Residual threshold
+Conflict threshold
+EMA coefficient
+Observation window length
+Warmup length
+Shadow trial length
+Rank grow quantum
+Maximum group count
+Merge threshold
+Cooldown length
+Complexity penalty
+Required seed count
+Directionality threshold
+Functional equivalence margin
+```
+
+---
+
+# 20. 実装開始時の最小コード構成
+
+## Pass AP-OBSERVE — read-only
+
+候補:
+
+```text
+fold_lm/v05/partitioning.py
+
+PartitionObserver
+PartitionStatsWindow
+ModuleGradientStats
+GroupStats
+PartitionRecommendation
+```
+
+責務:
+
+```text
+canonical module/group key
+virtual dense gradient residual
+gradient cosine
+update norm / co-adaptation
+seed/directionality summary
+JSON artifact
+```
+
+禁止:
+
+```text
+weight mutation
+rank mutation
 split
+merge
+router変更
 ```
 
-の短期trialで最終傾向を予測できるか調べる。
+### AP-OBSERVE Gate
 
-### Experiment 5 — Merge
+- deterministic
+- production forward結果を変えない
+- observer無効時runtime regressionなし
+- artifactがseed再現可能
 
-意図的に過剰Splitした状態から、Merge判定で元に戻せるか確認する。
+## Pass AP-DECIDE — recommendation only
 
-### Experiment 6 — Runtime reuse
+```text
+KEEP
+GROW_RANK
+SHADOW_SPLIT
+OPTIMIZER_DIAGNOSTIC
+```
 
-同品質のGrouping候補間で、projection reuseが実際のthroughput / latencyへ効くか測る。
+## Pass AP-SHADOW
+
+checkpoint cloneからkeep / rank-grow / split / optimizer-adjustを比較。
+
+## Pass AP-MUTATE
+
+初めてGroup Split / optimizer state migration / checkpoint serialization / deterministic group IDを実装。
+
+## Pass AP-MERGE
+
+後段。
 
 ---
 
-## 19. 実装前に確定すべき項目
+# 21. Open Questions / Next Validation
 
-コード実装へ入る前に、以下を別途仕様化する。
+Gate-C直近:
 
-1. `module` の厳密な単位
-2. Shared Basisを共有可能なhard bucket条件
-3. `G_m` / subspace targetをどう推定するか
-4. Residualの正規化方法
-5. Gradient contributionの取得方法
-6. observation window
-7. EMA係数
-8. Split threshold
-9. Rank-grow threshold
-10. Shadow Trialの長さ
-11. Split採用score
-12. Merge条件
-13. cooldown / hysteresis
-14. Group IDのserialization
-15. checkpoint互換性
-16. optimizer stateのSplit/Merge時移行
-17. deterministic tie-break
-18. experiment artifact形式
+1. **C70:** GEMM-native shared-basis実行がmaterialized effective-weight実行と、task outputおよび64-step recurrenceで等価か。
+2. C70通過後、production-like latency / resident-memoryをselected rank構成で測る。
+3. その後、長期recurrence / production integration boundaryを確定する。
 
-現時点ではこれらを固定しない。
+Auto-Partition開始前:
 
-本書は、まず **何を自動化すべきか / どの信号で判断するか** の仮説を決める文書とする。
-
----
-
-## 20. v0.1 推奨仕様まとめ
-
-初版の最小構成を以下とする。
-
-```text
-Initialization
-  hard bucketごとに最大共有
-
-Observation
-  Subspace Residual
-  Gradient Conflict
-  Validation performance
-
-Decision
-  KEEP
-  GROW_RANK candidate
-  SPLIT candidate
-
-Validation
-  Shadow Trial
-
-Commit
-  改善時のみ構造変更
-
-Inference
-  static module -> basis_group mapping
-```
-
-初版では以下を入れない。
-
-```text
-Dynamic Router
-Learned Router
-Token単位Routing
-高度なgraph clustering
-Private Residual自動生成
-頻繁なonline Split/Merge
-```
-
-まず、**Residual + Conflict + Shadow Trial だけで自動module分割が成立するか**を検証する。
+1. moduleの厳密単位
+2. hard bucket条件
+3. Up/Downを同じgroup decisionにするか
+4. virtual dense gradient取得コスト
+5. residual正規化
+6. shared-gradient vs effective-gradient conflictの主指標
+7. observation window / warmup
+8. residual/conflict thresholds
+9. rank grow step
+10. shadow trial長
+11. functional score aggregation
+12. optimizer state split/merge
+13. deterministic group ID / checkpoint schema
+14. merge criterion
+15. runtime reuse estimator
+16. structure-search overhead budget
+17. distributed training時の統計集約
+18. formal functional equivalence margin
+19. seed count / directionality threshold
 
 ---
 
-# 21. 直感的な説明
+# 22. C70との関係
 
-Shared Basis を「会社の共通部署」と考える。
+C70はAuto-Partitionそのものを試さない。
 
-最初は全員が同じ部署を使う。
-
-```text
-共通部署
- |- A
- |- B
- |- C
- |- D
-```
-
-A/B/C/Dが同じ種類の道具を必要としているなら、そのまま共有するのが最も効率的である。
-
-しかし学習していくと、Cだけ別の道具を必要とするかもしれない。
-
-このときシステムはまず、
-
-> 「部署が違うべきなのか？」
-
-ではなく、
-
-> 「単に机が足りないだけなのか？」
-
-を確認する。
-
-机不足なら、
+目的は、Auto-Partitionが将来操作するShared Basis表現について、
 
 ```text
-Rankを増やす
+materialized reference execution
+vs
+GEMM-native runtime execution
 ```
 
-だけで済む。
+がrecurrenceを含めて同じ意味を保てるか確認すること。
 
-一方、A/Bは右へ進みたいのにCは左へ進みたいような状態なら、
+ここが崩れる場合、runtime arithmetic差をgrouping signalと誤認する危険があるため、AP-OBSERVEより先に解決する。
+
+---
+
+# 23. 直感的な説明
+
+Shared Basisを会社の共通部署と考える。
+
+問題が起きてもすぐ部署を分けない。
 
 ```text
-部署1
- |- A
- |- B
-
-部署2
- |- C
+机が足りない？            -> Rank不足
+仕事の速度が合わない？    -> Co-adaptation
+本当に方向が対立する？    -> Shared incompatibility
+特定seedだけ？             -> Seed variance
+12人中6人ずつ勝敗が逆？   -> Directionなし、KEEP
 ```
 
-と分ける。
+それでも継続的・一方向に干渉が再現する場合だけShadow Splitする。
 
-しかも、新しい部署をゼロから作るのではなく、元の部署をコピーしてから専門化する。
+---
 
-そのため、Splitした瞬間に能力を壊しにくい。
+# 24. 現時点のv0.1本命
 
-要するに、この自動化の仕事は、
+```text
+Max Share
++ Adaptive Rank
++ Virtual Dense Residual
++ Gradient Conflict
++ Co-adaptation Check
++ Multi-seed Directionality Gate
++ Functional Gate
++ Shadow Trial
++ Static Final Grouping
+```
 
-> **「容量が足りない」のか、「そもそも別物を共有させている」のかを見分けること**
+Auto-Partitionの仕事は、単に似たmoduleを集めることではない。
 
-である。
-
-FOLDで狙う最終形は、
-
-> **できるだけ共有して小さく・速く保ち、共有すると性能を落とす部分だけ自動的に専門化するモデル**
-
-である。
-
-そのためのv0.1本命は、
-
-> **Subspace Residualを主判定、Gradient Conflictを補助判定、Shadow Trialを最終Gate、推論時はStatic Group**
-
-とする。
+> **容量不足・学習不均衡・seed分散・runtime数値差・本当の共有不適合を切り分け、必要なときだけ安全に構造を分けること。**
