@@ -1,6 +1,10 @@
 """C344 protected paired mean-CE/pair-max training after accepted C343 diagnosis."""
 from __future__ import annotations
 import argparse
+import contextlib
+import ctypes
+from ctypes import wintypes
+import functools
 import hashlib
 import importlib
 import importlib.util
@@ -24,6 +28,21 @@ S_PATH = 'fold_lm/v05_benchmarks/model_c343_saved_mixed_length_localization.py'
 S_BLOB = 'e9b8ee752422c93a29fefbb4b8ef0f48b5b776be'
 BASE_IDS_SHA = '0581297af93ba5c06494f1e41627de8a2f574ee2ef62a46147225a55755ad7f5'
 TEST_MODULES = ('tests_lm.test_v05_c344_pair_max_training', 'tests_lm.test_v05_c344_execution')
+EXECUTION_REVISION = 'C344-R1'
+TIMEOUT_CLEANUP_SECONDS = 10.0
+TIMEOUT_BOUNDARIES = {
+    'tests_tools.test_c324_locked_hash_r4': ('tools/c324_locked_hash_r4.py',
+        'tests_tools/test_c324_locked_hash_r4.py', 'R4Tests.test_29_real_timeout_does_not_become_crash_or_success'),
+    'tests_tools.test_c324_verified_session_r5': ('tools/c324_verified_session_r5.py',
+        'tests_tools/test_c324_verified_session_r5.py', 'OtherTests.test_38_timeout_not_native_failure_or_pass'),
+}
+TIMEOUT_SOURCE_PINS = {
+    'tools/c324_locked_hash_r4.py': '6459b1f6e4051fbfc54db2894f7abe3a7521df3a',
+    'tools/c324_verified_session_r5.py': '55ba956a974cc8cf5faca5ecbeaa1c774e40956e',
+    'tests_tools/test_c324_locked_hash_r4.py': 'f6d52c5464b967e3a48eefe12f5c83ea65f9f3a8',
+    'tests_tools/test_c324_verified_session_r5.py': 'e31845302ae964194be95d24e4465f21e52a39d5',
+}
+TIMEOUT_PREFLIGHT_IDS = tuple(module+'.'+row[2] for module,row in TIMEOUT_BOUNDARIES.items() for _ in range(3))
 
 
 def spec():
@@ -71,6 +90,134 @@ def source_bytes(path, oid):
     raw = Path(path).read_bytes(); lf = raw.replace(b'\r\n',b'\n')
     def h(value): return hashlib.sha1(b'blob '+str(len(value)).encode()+b'\0'+value).hexdigest()
     require(h(raw) == oid or (raw == lf.replace(b'\n',b'\r\n') and h(lf) == oid),'source bytes:'+str(path))
+
+
+class DeleteAccessProbe:
+    """Observe DELETE sharing readiness without deleting or rewriting the file."""
+    def __init__(self):
+        require(sys.platform == 'win32','native Windows delete-access probe')
+        self.kernel = ctypes.WinDLL('kernel32',use_last_error=True)
+        self.kernel.CreateFileW.argtypes = [wintypes.LPCWSTR,wintypes.DWORD,wintypes.DWORD,
+            ctypes.c_void_p,wintypes.DWORD,wintypes.DWORD,wintypes.HANDLE]
+        self.kernel.CreateFileW.restype = wintypes.HANDLE
+        self.kernel.CloseHandle.argtypes = [wintypes.HANDLE]
+        self.kernel.CloseHandle.restype = wintypes.BOOL
+
+    def open(self, path):
+        handle = self.kernel.CreateFileW(str(path),0x00010000,7,None,3,0x80,None)
+        if handle == ctypes.c_void_p(-1).value:
+            return None,ctypes.get_last_error()
+        return handle,0
+
+    def close(self, handle):
+        if not self.kernel.CloseHandle(handle):
+            code = ctypes.get_last_error()
+            raise OSError(code,'timeout cleanup CloseHandle failed')
+
+
+def wait_timeout_logs(output, result):
+    """Wait only for error32; preserve the original timeout result and log hashes."""
+    output = Path(output).resolve(strict=True); probe = DeleteAccessProbe()
+    paths = tuple(output/(name+'.log') for name in ('stdout','stderr'))
+    deadline = time.monotonic()+TIMEOUT_CLEANUP_SECONDS
+    while True:
+        require(time.monotonic() < deadline,'timeout cleanup DELETE sharing deadline')
+        handles = []; blocked = None
+        try:
+            for path in paths:
+                handle,code = probe.open(path)
+                if handle is None:
+                    if code != 32: raise OSError(code,'timeout cleanup DELETE access failed',str(path))
+                    blocked = path; break
+                handles.append(handle)
+        finally:
+            # Attempt every close even if one fails. Capture each API error before
+            # another CloseHandle can overwrite its thread-local last error.
+            close_error = None
+            for handle in reversed(handles):
+                try: probe.close(handle)
+                except OSError as error:
+                    if close_error is None: close_error = error
+            if close_error is not None: raise close_error
+        if blocked is None:
+            # Python's ordinary open does not share DELETE access: close both
+            # probes before hashing, or the readiness check would conflict with itself.
+            require(time.monotonic() <= deadline,'timeout cleanup DELETE sharing deadline')
+            for name,path in zip(('stdout','stderr'),paths,strict=True):
+                require(sha(path) == result[name+'_sha256'],'timeout cleanup log changed:'+name)
+            return
+        remaining = deadline-time.monotonic()
+        require(remaining > 0,'timeout cleanup DELETE sharing deadline:'+str(blocked))
+        time.sleep(min(.02,remaining))
+
+
+def check_timeout_sources(root, module):
+    source,test,_ = TIMEOUT_BOUNDARIES[module]
+    for name in (source,test):
+        oid = TIMEOUT_SOURCE_PINS[name]
+        require(git(root,'rev-parse','HEAD:'+name) == oid,'timeout boundary source pin:'+name)
+        source_bytes(root/name,oid)
+
+
+@contextlib.contextmanager
+def timeout_monitor_boundary(root, module):
+    """Adapt only two immutable historical test monitors, restoring every binding."""
+    completed = []
+    if module not in TIMEOUT_BOUNDARIES or sys.platform != 'win32':
+        yield completed; return
+    check_timeout_sources(root,module)
+    tested = importlib.import_module(module); source,test,_ = TIMEOUT_BOUNDARIES[module]
+    require(canonical(tested.__file__) == canonical(root/test)
+            and canonical(tested.b.__file__) == canonical(root/source),'timeout boundary module identity')
+    original = tested.b.monitor
+    @functools.wraps(original)
+    def monitored(*args, **kwargs):
+        result = original(*args,**kwargs)
+        if result['timed_out'] is True:
+            output = args[2] if len(args) > 2 else kwargs['output']
+            wait_timeout_logs(output,result); completed.append(True)
+        return result
+    tested.b.monitor = monitored
+    try: yield completed
+    finally: tested.b.monitor = original
+
+
+def timeout_preflight_expected(head):
+    return dict(schema='fold-c344-r1-timeout-cleanup-preflight-v1',execution_revision=EXECUTION_REVISION,
+        commit_sha=head,platform='win32',tests=6,failures=0,errors=0,skipped=0,expected_failures=0,
+        unexpected_successes=0,successful=True,started_ids=list(TIMEOUT_PREFLIGHT_IDS),
+        success_ids=list(TIMEOUT_PREFLIGHT_IDS),cleanup_barriers=6,cleanup_ready=True,
+        source_blobs=dict(TIMEOUT_SOURCE_PINS))
+
+
+def check_timeout_preflight(value, head):
+    require(spec().blob(value) == spec().blob(timeout_preflight_expected(head)),
+            'complete six-case native timeout cleanup preflight')
+
+
+def timeout_cleanup_preflight(root, head, recovery):
+    require(sys.platform == 'win32','native Windows timeout cleanup preflight')
+    emit('phase','native_timeout_cleanup_preflight')
+    value = timeout_preflight_expected(head)
+    for key in ('tests','cleanup_barriers'): value[key] = 0
+    value['started_ids'] = []; value['success_ids'] = []; value['cleanup_ready'] = False
+    for index,test_id in enumerate(TIMEOUT_PREFLIGHT_IDS):
+        module = next(name for name in TIMEOUT_BOUNDARIES if test_id.startswith(name+'.'))
+        with timeout_monitor_boundary(root,module) as completed:
+            tests = list(recovery.flatten(unittest.defaultTestLoader.loadTestsFromName(test_id)))
+            require(len(tests) == 1 and tests[0].id() == test_id and type(tests[0]).__module__ == module,
+                    'exact native timeout preflight test')
+            result = unittest.TextTestRunner(verbosity=1,resultclass=recovery.TrackingResult).run(unittest.TestSuite(tests))
+        record = dict(tests=result.testsRun,failures=len(result.failures),errors=len(result.errors),skipped=len(result.skipped),
+            expected_failures=len(result.expectedFailures),unexpected_successes=len(result.unexpectedSuccesses),
+            successful=result.wasSuccessful(),started_ids=result.started_ids,success_ids=result.success_ids)
+        recovery.check_module(record,dict(test_ids=[test_id]))
+        require(completed == [True],'native timeout barrier must execute once')
+        value['tests'] += result.testsRun; value['cleanup_barriers'] += len(completed)
+        value['started_ids'].extend(result.started_ids); value['success_ids'].extend(result.success_ids)
+        emit('timeout_cleanup_probe',dict(index=index,test_id=test_id,cleanup_ready=True))
+    value['cleanup_ready'] = True; check_timeout_preflight(value,head)
+    emit('timeout_cleanup_preflight',value); return value
 
 
 def active(text):
@@ -248,7 +395,9 @@ def module_child(root, folder, head, index, plan_sha):
     require(type(index) is int and 0 <= index < spec().MODULES,'module index')
     group = plan['groups'][index]; process = dict(pid=os.getpid(),parent_pid=os.getppid())
     marker = dict(index=index,module=group['module'],tests=len(group['test_ids']),**process)
-    emit('regression_module_begin',marker); value = recovery.execute_module(group['module'],group['test_ids'])
+    emit('regression_module_begin',marker)
+    with timeout_monitor_boundary(root,group['module']):
+        value = recovery.execute_module(group['module'],group['test_ids'])
     save(folder/f'module-{index:03d}.json',dict(schema='fold-c330-r1-module-v2',commit_sha=head,plan_sha256=plan_sha,
          index=index,module=group['module'],result=value,**process))
     recovery.check_module(value,group); guard(root,head)
@@ -322,7 +471,10 @@ def execute_stages(preflight, regression, train, verify, finalize):
 
 def scientific_worker(root, folder, head):
     guard(root,head); s = spec(); s.validate_seal(); h = helpers(root)
-    torch,np = h['runtime'].native_runtime(); locks = h['locks']; api = locks.WinAPI(); start = time.monotonic()
+    torch,np = h['runtime'].native_runtime(); start = time.monotonic()
+    cleanup_preflight = timeout_cleanup_preflight(root,head,h['recovery'])
+    check_timeout_preflight(cleanup_preflight,head)
+    guard(root,head); locks = h['locks']; api = locks.WinAPI()
     emit('native_lock_probe',locks.lock_probe(api,folder)); emit('locked_input_capacity',dict(max_files=s.INPUT_COUNT,protected_inputs=s.INPUT_COUNT))
     with locks.LockedHashes(sha,lambda path:locks.ReadLease(path,api),progress=lambda v:emit('hash_progress',v),max_files=s.INPUT_COUNT) as cache:
         parent,_,pins,inputs = snapshot(root,h,cache.sha); data_out,cx = parent_semantics(root,h,parent,inputs)
@@ -354,7 +506,8 @@ def scientific_worker(root, folder, head):
         regression=read(folder/'regression-result.json'),regression_isolation=tests,parent_summary_sha256=PARENT_SUMMARY,
         parent_envelope_sha256=PARENT_ENVELOPE,immediate_parent_semantic_reconstruction=True,parent_regression_reconstructed=True,
         ancestor_semantic_reruns=0,saved_semantic_reconstruction=True,final_reference_rechecks=s.INPUT_COUNT,hash_stats=stats,
-        manifest_sha256=s.MANIFEST_SHA,scientific_work=s.WORK)
+        manifest_sha256=s.MANIFEST_SHA,scientific_work=s.WORK,execution_revision=EXECUTION_REVISION,
+        timeout_cleanup_preflight=cleanup_preflight)
     save(folder/'execution-envelope.json',envelope)
     emit('summary',str(out/'summary.json')); emit('summary_sha256',envelope['scientific_summary_sha256'])
     s.report_results(value,emit)
@@ -366,6 +519,8 @@ def scientific_worker(root, folder, head):
 def verify_outputs(root, folder, head):
     guard(root,head); s = spec(); s.validate_seal(); h = helpers(root); out = folder/'science'
     parent,_,pins,inputs = snapshot(root,h,sha); r,v = read(out/'summary.json'),read(folder/'execution-envelope.json')
+    require(v['execution_revision'] == EXECUTION_REVISION,'execution recovery revision')
+    check_timeout_preflight(v['timeout_cleanup_preflight'],head)
     require(r['schema'] == 'fold-c344-trained-v1' and v['schema'] == 'fold-c344-execution-envelope-v1' and r['commit_sha'] == v['commit_sha'] == head
             and r['experiment_id'] == s.EXPERIMENT_ID and r['stage'] == s.STAGE,'child identity')
     s.check_summary(r['validation_summary']); status = 'PASS' if r['validation_summary']['candidate_gate'] else 'FAIL'
@@ -391,6 +546,7 @@ def run(root, folder, head):
     guard(root,head); spec().validate_seal(); require(folder.is_relative_to(root/'runs') and folder != root/'runs','output outside runs')
     folder.mkdir(parents=True,exist_ok=False); valid = False
     emit('execution_role','C344-PAIR-MAX-TRAINING'); emit('scientific_execution_head',head)
+    emit('execution_revision',EXECUTION_REVISION)
     try:
         run_logged(root,command(root,folder,head,'science'),folder/'science.log','science')
         run_logged(root,command(root,folder,head,'verify'),folder/'verify.log','verify'); valid = True
