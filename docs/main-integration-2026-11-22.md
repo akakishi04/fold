@@ -2,31 +2,63 @@
 
 この文書は運用上の統合記録。正式な実験状態は
 [experiment-ledger-and-handoff.md](experiment-ledger-and-handoff.md)を参照する。
-初回統合後、同日のC344失敗報告とR1修復の反映を追記した。
-C344の科学的成否は未判定で、新Cの登録、production採用はない。
+C344-R1の実行完了を確認し、結果の受理記録をmainへ統合した。
 
 ## 現在の進行
 
 | 対象 | 正式状態 | 到達点 |
 |---|---|---|
-| C342 | ACCEPTED VALID NEGATIVE | mixed45候補のfull gateは2/5 seed。実行は有効だが合格条件は未達。 |
-| C343 | ACCEPTED PASS (DIAGNOSTIC INTEGRITY) | C342の保存結果から誤答の所在と集計整合性を確認。モデル能力の合格を意味しない。 |
-| C344 | ACTIVE / INVALID ATTEMPT RECOVERY | 初回は学習前の回帰で停止。R1修復・独立レビューを完了し、同じC344の再実行結果を待つ。 |
+| C342 | ACCEPTED VALID NEGATIVE | mixed45候補のfull gateは2/5 seed。 |
+| C343 | ACCEPTED PASS (DIAGNOSTIC INTEGRITY) | 保存結果の整合性と誤答の所在を確認。 |
+| C344 | ACCEPTED VALID NEGATIVE | R1実行は成立。pair-max候補は2/5 seed、事前条件は未達。 |
+| C345 | NOT REGISTERED / AUTHORING PENDING | 保存済み損失・予測の診断を実装中。実行はまだ案内しない。 |
 
 Gate A/BはPASSED、C/Dは測定範囲内でPASSED、EはPASSED、FはNOT PASSED。
+production採用はない。C344初回失敗はattempt-01として保持する。
 
-C343で確認した具体的な課題は、候補のinterior4で**実際の学習対象にも131誤答が残る**こと。
-未見の値の組合せだけでは説明できない。内部の因果的な原因は未確定である。
-C344は同じデータ・モデル・更新数を保ち、2問ペアの平均CEに対して、
-ペア内の大きいCEを使うpair-maxがinterior4を改善し、他領域を維持できるかを検証する。
+C344-R1は6件のnative cleanup確認、6514 tests / 239 modules、242 subprocessの
+終了コード0、930 source pins / 8183 protected inputs、全8183件の最終再読、
+10モデル学習・評価・replay、fresh verifierを完了し、run_execution_valid=true。
+科学実行HEADは8d1e1170cd614503deab1e09474fe82de4bba561、ログ公開は
+9d163289775373aaf62028a7b8aeacbfb41593a6で、両者を区別する。
 
-C344初回の公開log commitは`8d83d94b7923c0ebb06c052ee473c003cd490335`。
-210 modules / 5,357 tests完了後、R4 timeout fixtureの一時stderr.log削除で
-WinError32となり、正式C344学習へ進まず`run_execution_valid=false`で停止した。
-[失敗記録とR1修復](c344-recovery-r1.md)に根拠を保存している。
-R1の72件の作成者テストは通常・CP932条件ともPASS、独立レビューもPASS。
-これは復旧準備の検証であり、native Windowsの6,514件回帰・10モデル学習の
-再実行が完了したという意味ではない。
+interior4正答はTRAIN2864->2728/2880、HOLDOUT1430->1331/1440。
+original6には集計上の改善があるが、固定gate全体は不合格。
+詳細と解釈範囲は[C344受理記録](experiment-ledger-addendum-c344-c345.md)に保存した。
+
+## C344結果の統合
+
+| 項目 | commit |
+|---|---|
+| merge第1parent・直前main | 5581e42049caa8cd236bcdb8e0e3747f0980620f |
+| merge第2parent・C344受理 | a7174ae51f71f001901793603ab9f7ddb26ed923 |
+| C344実行 | 8d1e1170cd614503deab1e09474fe82de4bba561 |
+| C344ログ公開 | 9d163289775373aaf62028a7b8aeacbfb41593a6 |
+
+両方の履歴を保持する通常の2-parent merge。今回の結果統合に競合はない。
+受理featureの全tracked pathを同一mode/blobで保持し、main独自6ファイルも保持する。
+差分はその6ファイルと本運用記録だけ。accepted source/test/launcherは変更しない。
+受理commitはC345のsource/preregistrationと分離している。
+
+## 次の実行と検証範囲
+
+C344は再実行しない。runs/c344-pair-max-training-76ae8eb6e3bf4d08ac577c5fde9e0caa/
+以下の489出力と親入力をそのまま保持する。
+C345はV5-Bの保存済み目的関数診断として作成中。全120state/domain/splitの
+terminal損失と24000preupdate履歴を照合し、新たなモデル学習・forwardは行わない。
+独立したremote bytes reviewがPASSしてから、別の登録HEADを確定する。
+
+mainは統合内容を参照するbranch。正式実験launcherは引き続き
+feat/sft-target-lossの一意なACTIVE experimentとExpectedHeadを検査する。
+完了したC344の古いExpectedHeadやmain merge HEADで次実験を起動しない。
+
+統合時は両parent、未解消indexの不存在、全feature blob/mode、main独自6ファイル、
+文書参照を確認した。native成果物の検証根拠は今回取得した実行ログと固定verifierであり、
+統合作業のためにC344学習を再実行したわけではない。
+
+## 過去の統合記録
+
+以下は同日の初回統合とR1登録時点の記録。現在の正式状態は上記を参照する。
 
 ## 初回統合の対象と履歴
 
@@ -70,43 +102,10 @@ R1 featureの全tracked pathsを同一mode/blobで保持し、main独自6ファ�
 このmain統合記録だけは、現在のC344状態と新しい登録HEADに更新する。
 featureのactivation HEADは維持する。
 
-## C344の実行branchと登録HEAD
-
-`main`は統合済みの開発内容を参照するbranchとなる。
-登録済みC344の正式実行は、引き続き次の組合せを使う。
-
-```text
-branch       = feat/sft-target-loss
-ExpectedHead = 8d1e1170cd614503deab1e09474fe82de4bba561
-dispatcher   = tools/invoke_active_v2.ps1
-```
-
-C344のdispatcher・launcher・executorは実行branchを検査する。
-`main`上からの正式起動はbranch不一致で拒否される。
-今回の追加統合ではR1のfeature ref、登録HEAD、review済み7ファイルを維持する。
-再実行はR4×3→R5×3の実機cleanup事前確認から始まり、全6件PASS後に重い処理へ進む。
-実行中のPCでcheckoutを切り替えず、C344の実行・ログ公開は登録済みbranchで完了させる。
-
-正式run後は既存publisherがfeatureの`docs/experiment-run-logs/c344/latest.*`へconsole logを公開する。
-科学的execution HEADと、その後に作成されるlog publication commitは別の値である。
-ローカルで既に実行が完了していて公開だけ失敗した場合は、ログ輸送を修復し、学習を再実行しない。
-
-## 統合時の確認範囲
-
-- 両parentを含むcommit履歴、唯一の競合の解消、未解消index entryがないこと。
-- featureの全tracked pathが同じmode・blobで保持されること。
-- main独自6ファイルが同じmode・blobで保持されること。
-- C344のreview済みsource/test/launcher/preregistrationが同一であること。
-- この文書の参照先が統合tree内に存在すること。
-
-今回の検証は統合の完全性に関するもの。C344の正式native実行や全回帰を再実行したという主張はしない。
-次の正式判定はC344の公開ログに基づいて行い、それまでC345へ進まない。
-
 ## 根拠文書
 
 - [正式handoff](experiment-ledger-and-handoff.md)
-- [C342受理記録](experiment-ledger-addendum-c342-c343.md)
-- [C343受理記録](experiment-ledger-addendum-c343-c344.md)
+- [C344受理記録](experiment-ledger-addendum-c344-c345.md)
 - [C344事前登録](experiment-ledger-addendum-c344-preregistration.md)
-- [C344独立レビュー](c344-post-authoring-review.md)
+- [C344 R1独立レビュー](c344-r1-post-authoring-review.md)
 - [会話・引き継ぎ規約](experiment-conversation-handoff-protocol.md)
