@@ -2,7 +2,7 @@
 
 この文書は運用上の統合記録。正式な実験状態は
 [experiment-ledger-and-handoff.md](experiment-ledger-and-handoff.md)を参照する。
-C344-R1の実行完了を確認し、結果の受理記録をmainへ統合した。
+C344-R1の結果受理と、独立レビュー済みC345の登録をmainへ統合した。
 
 ## 現在の進行
 
@@ -11,7 +11,7 @@ C344-R1の実行完了を確認し、結果の受理記録をmainへ統合した
 | C342 | ACCEPTED VALID NEGATIVE | mixed45候補のfull gateは2/5 seed。 |
 | C343 | ACCEPTED PASS (DIAGNOSTIC INTEGRITY) | 保存結果の整合性と誤答の所在を確認。 |
 | C344 | ACCEPTED VALID NEGATIVE | R1実行は成立。pair-max候補は2/5 seed、事前条件は未達。 |
-| C345 | NOT REGISTERED / AUTHORING PENDING | 保存済み損失・予測の診断を実装中。実行はまだ案内しない。 |
+| C345 | ACTIVE / NOT YET JUDGED | 保存済み損失・予測の診断。実装・作成者テスト・独立remote reviewが完了し、正式実行待ち。 |
 
 Gate A/BはPASSED、C/Dは測定範囲内でPASSED、EはPASSED、FはNOT PASSED。
 production採用はない。C344初回失敗はattempt-01として保持する。
@@ -25,6 +25,28 @@ C344-R1は6件のnative cleanup確認、6514 tests / 239 modules、242 subproces
 interior4正答はTRAIN2864->2728/2880、HOLDOUT1430->1331/1440。
 original6には集計上の改善があるが、固定gate全体は不合格。
 詳細と解釈範囲は[C344受理記録](experiment-ledger-addendum-c344-c345.md)に保存した。
+
+## C345登録の追加統合
+
+| 項目 | commit |
+|---|---|
+| merge第1parent・C344結果統合済みmain | 3c69058523ee4e691b2ebd9371f2a7416a1107fd |
+| merge第2parent・C345 activation | c81ffe102c3a9280f28a68e572403549ce77fa1d |
+| C345 source/preregistration・独立review対象 | 588586870562a8f930b7e2053dcf669ee8d0b650 |
+| C344 acceptance base | a7174ae51f71f001901793603ab9f7ddb26ed923 |
+
+通常の2-parent mergeで追加統合した。競合なし。C344受理とC345登録は別commit。
+C345のsource commitは七つのOWN追加のみで、後続activationは三文書だけを変更する。
+独立reviewで公開済み七ファイルを末尾まで再取得し、テスト済み内容と一致した。
+C345のレビュー済み七つのblob、feature全tracked pathのmode/blob、main独自6ファイルを
+そのまま保持した。mainのfeatureとの差分は独自6ファイルと本運用記録だけである。
+
+新規64テストは通常111.006秒、CP932 text-open条件112.490秒でPASSし、
+failure/error/skip/expected-failure/unexpected-successは全て0。
+実loaderは6579候補から既存の一件除外のみで6578 tests / 241 modulesとなり、
+元C344の6514 IDs / 239 groupsを同じ順序で保持する。未束縛global0、pyflakes0、
+実PowerShell ASTもdispatcher/invoke/run/最終実行blockで0 errors。
+これらはLinux上の作成者検証で、C345のnative正式実行結果はまだ存在しない。
 
 ## C344結果の統合
 
@@ -44,9 +66,21 @@ original6には集計上の改善があるが、固定gate全体は不合格。
 
 C344は再実行しない。runs/c344-pair-max-training-76ae8eb6e3bf4d08ac577c5fde9e0caa/
 以下の489出力と親入力をそのまま保持する。
-C345はV5-Bの保存済み目的関数診断として作成中。全120state/domain/splitの
-terminal損失と24000preupdate履歴を照合し、新たなモデル学習・forwardは行わない。
-独立したremote bytes reviewがPASSしてから、別の登録HEADを確定する。
+C345はV5-Bの保存済み目的関数診断として独立review PASS・activation済み。
+全120state/domain/splitのterminal損失と24000preupdate履歴を照合し、
+C345科学処理では新たなモデル学習・forwardは行わない。
+既存回帰には各historical test自身のfixture計算が含まれる。
+
+```text
+branch       = feat/sft-target-loss
+ExpectedHead = c81ffe102c3a9280f28a68e572403549ce77fa1d
+dispatcher   = tools/invoke_active_v2.ps1
+```
+
+937 source pins / 8679 protected inputs。C344の489出力を全て保持し、
+C345の四つの診断成果物と主記録・実行記録・回帰proofを検証する。
+次回はC345のremote latest.log/latest.jsonを取得して正式判定する。
+診断PASSはC344候補の能力PASSやGate F合格へ読み替えない。
 
 mainは統合内容を参照するbranch。正式実験launcherは引き続き
 feat/sft-target-lossの一意なACTIVE experimentとExpectedHeadを検査する。
@@ -108,4 +142,6 @@ featureのactivation HEADは維持する。
 - [C344受理記録](experiment-ledger-addendum-c344-c345.md)
 - [C344事前登録](experiment-ledger-addendum-c344-preregistration.md)
 - [C344 R1独立レビュー](c344-r1-post-authoring-review.md)
+- [C345事前登録](experiment-ledger-addendum-c345-preregistration.md)
+- [C345独立レビュー](c345-post-authoring-review.md)
 - [会話・引き継ぎ規約](experiment-conversation-handoff-protocol.md)
