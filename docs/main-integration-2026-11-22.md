@@ -1,5 +1,109 @@
 # main統合と進行状況 — 2026-11-22
 
+正式な実験状態は[experiment-ledger-and-handoff.md](experiment-ledger-and-handoff.md)を参照する。
+今回、C345の受理、C344までの横断整理、独立レビュー済みC346の登録をmainへ統合した。
+
+## 現在の進行
+
+|対象|正式状態|到達点|
+|---|---|---|
+|C344|ACCEPTED VALID NEGATIVE|pair-max候補はfull gate 2/5seed、固定した優越・保持条件は未達。|
+|C345|ACCEPTED PASS (DIAGNOSTIC INTEGRITY ONLY)|保存済み損失・履歴の診断は成立。interiorの全10seed/split比較で両損失が対照より高かった。|
+|C346|ACTIVE / NOT YET JUDGED|両AdamW学習率を初期化時から半分にする3arm比較。実装・作成者検証・独立remote reviewを完了し、正式実行待ち。|
+
+Gate A/BはPASSED、C/Dは測定範囲内でPASSED、EはPASSED、FはNOT PASSED。
+production採用はない。C344 attempt-01のINVALID記録とR1受理を保持する。
+C345のPASSは診断の整合性に限定し、C344の能力判定を変更しない。
+
+## C345受理と原因について判明したこと
+
+科学実行HEADはc81ffe102c3a9280f28a68e572403549ce77fa1d、ログ公開は
+25ff2f93ce63c9668f3111672caf75db095d2f45。受理はf5fc8e89b5bb3d2749df91aa3b503596a6be1fc2。
+6,578tests / 241modules、244process終了コード0、937sources / 8,679inputs、
+全最終再読とfresh verifierが成立。公開された630診断レコードを照合した。
+consoleにないsource_trace_sha256やユーザー環境の生artifactを独立取得したとは主張しない。
+
+interior TRAINのpair-max損失は0.020316586→0.192509275、正答は2864→2728/2880。
+HOLDOUT損失は0.045815971→0.499002482、正答は1430→1331/1440。
+平均CEも悪化し、全10seed/splitで両終端損失が高い。
+一方、original6は集計上改善し、seed344002はinterior正答が各splitで2件増えている。
+目的関数と正答率が常に同方向になるという一般化はしない。
+
+norm>1は1975→5830/12000。ただし正確なclipping回数や原因の証明ではない。
+固定評価対象の終端状態が対照より悪かったことは確認できたが、学習率・clipping・
+勾配配分・収束不足のどれが機序かは未確定。詳細は[C345受理記録](experiment-ledger-addendum-c345-c346.md)。
+
+## 統合した履歴
+
+|項目|commit|
+|---|---|
+|統合前main|3986aaa1678ddf28e2f4611ddf131d09a6511acb|
+|merge第1parent・横断整理文書branch|45c18e39399a6f5ec073257d860377ecb624bd51|
+|merge第2parent・C346 activation|e19e872577d7f574920e83b568499666f2cd41e4|
+|C346 source/preregistration・独立レビュー対象|be76c4c53c36105638e59e059af241078758b628|
+|C345受理|f5fc8e89b5bb3d2749df91aa3b503596a6be1fc2|
+
+第1parentは旧mainを直接親に持つ文書commitであり、main、文書branch、featureの
+全履歴を保持する通常の2-parent merge。競合なし。
+横断整理のMarkdownとJSON indexは文書branchと同一blobでfeature受理にも保存済み。
+これらはC344までの固定snapshotであり、文中の「C345 pending」は作成時点の記録。
+C345の解決は受理文書と最新handoffに記録した。
+
+feature全tracked pathのmode/blob、レビューしたC346七つのOWN blob、
+main独自6ファイルを保持する。mainのfeatureとの差分は独自6ファイルと本統合記録だけ。
+C345受理、C346 source、文書だけのactivationは別commitである。
+
+## C346で変えることと検証済み範囲
+
+同じpair-max目的のまま非core/core学習率を0.005/0.0005から0.0025/0.00025へ変更。
+通常CE、通常学習率pair-max、半学習率pair-maxの3armをfresh5seedで比較する。
+同一初期値・入力列・2,400updates・mixed45配分・architecture・clipping・scorerを固定し、
+15fitsの終了後に評価する。通常CEの半学習率armはないためfactorial相互作用は主張しない。
+
+固定gateは候補全5seedの完全gate、二つの対照に対する240の非悪化条件、
+default pair-maxに対するinteriorのTRAIN/HOLDOUT×answer/pairの4集計strict gain。
+損失値は記述指標。headroomがない場合も登録条件を変更せず、subgateを分けて報告する。
+
+作成者検証74testsは通常105.273秒、CP932既定text-open模擬101.910秒でPASS。
+failure/error/skip/expected-failure/unexpected-successは全て0。
+実loaderは6,653候補から既存C204の1件除外のみで6,652tests / 243modules。
+親6,578IDsを同順序で保持し、新規は48science+26infrastructure。
+4Pythonのpyflakes、333code objects / 2,327global loadsの未定義名監査、
+実PowerShell7.5.4のdispatcher/invoke/run/標準block ASTは全てPASS。
+独立担当はcommit済み七つのremote実ファイルをEOFまで取得し、固定済みSHAと照合した。
+この確認はソフトウェア作成者検証であり、Windows正式実験の結果はまだ存在しない。
+
+## 次の正式実行
+
+```text
+branch       = feat/sft-target-loss
+ExpectedHead = e19e872577d7f574920e83b568499666f2cd41e4
+dispatcher   = tools/invoke_active_v2.ps1
+```
+
+6,652tests / 243modulesの後、15models / 36,000updates / 41,130forwardsを実行する。
+944source pins / 9,177protected inputs、C345の全491outputsを保護し、
+全最終再読・saved reconstruction・fresh verifierを要求する。
+C346-R0は明示的なC345helper経由でC344-R1のcleanup境界を再利用する。
+親diagnosticの5引数とC346学習・再構成の6/4引数を区別する。
+
+mainは統合内容の参照branch。正式実行はfeatureの一意ACTIVEとExpectedHeadを検査する。
+受理済みC344/C345の再実行は不要。次はC346のremote latest.log/latest.jsonを判定する。
+INVALIDなら同じC346の実行修復だけを行い、C347へ進まない。
+
+## 根拠文書
+
+- [C345受理記録](experiment-ledger-addendum-c345-c346.md)
+- [C346事前登録](experiment-ledger-addendum-c346-preregistration.md)
+- [C346独立レビュー](c346-post-authoring-review.md)
+- [横断整理](cross-experiment-evidence-synthesis-2026-11-22.md)
+- [横断evidence index](cross-experiment-evidence-index-2026-11-22.json)
+- [正式handoff](experiment-ledger-and-handoff.md)
+
+## 旧記録：C344受理とC345登録
+
+以下は今回の統合前に保存されていた運用記録。現在の状態は上記を参照する。
+
 この文書は運用上の統合記録。正式な実験状態は
 [experiment-ledger-and-handoff.md](experiment-ledger-and-handoff.md)を参照する。
 C344-R1の結果受理と、独立レビュー済みC345の登録をmainへ統合した。
