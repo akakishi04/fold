@@ -37,9 +37,14 @@ Before retry,check all11live-handoff consumers C272..C282 on the final handoff b
 the actual6652ID inventory/6578parent prefix,the unchanged7OWN blobs and uniqueC346ACTIVE.
 Every later handoff rewrite must retain the compatibility section and repeat that review.
 
-post_authoring_review = PENDING
-Independent committed-remote review and documentation-only activation remain required.
-The original source-only review below is historical and does not authorize this retry.
+post_authoring_review = PASS
+Recovery review:docs/c346-r1-post-authoring-review.md.
+Review target HEAD:728fdf12e436cb5ba7373400b247dfd6e54425bc.
+Independent review retrieved all5changed documents/evidence files and7unchangedOWN files
+throughEOF. Actual guard,6652ID inventory/6578prefix and all11consumers PASS;no blockers.
+The later documentation-only activation HEAD is the retry ExpectedHead. Final activation
+bytes must also pass the11consumer checks,uniqueACTIVE and guard before command delivery.
+The original source-only review below remains historical;the recovery review addresses its gap.
 Do not use the old executionHEAD,publicationHEAD,original sourceHEAD or a main merge.
 Preserve the user-local invalid run. No automatic retry and no C347 registration.
 
