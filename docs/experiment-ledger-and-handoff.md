@@ -1,6 +1,6 @@
 # FOLD experiment ledger and handoff
 
-Updated: 2026-11-22 Japan time.
+Updated: 2026-11-25 Japan time.
 Conversation protocol:docs/experiment-conversation-handoff-protocol.md,Current response format v2.
 
 ## Formal state
@@ -9,8 +9,44 @@ Gate A/B PASSED; Gate C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PA
 **C345 ACCEPTED PASS (DIAGNOSTIC INTEGRITY ONLY).** Execution C345-R0 valid.
 C344 remains ACCEPTED VALID NEGATIVE,candidate_gate=false/eligible_seed_count=2.
 C344attempt01 remains INVALID. No capability improvement or production adoption.
-**C346 ACTIVE / NOT YET JUDGED.** Three-arm fixed-budget pair-max learning-rate comparison.
+**C346 ACTIVE / INVALID ATTEMPT RECOVERY.** Attempt01 is INVALID EXECUTION; retry SAME C346.
+Three-arm fixed-budget pair-max learning-rate comparison remains scientifically unjudged.
 C347 NOT REGISTERED. Do not rerun accepted C344/C345.
+
+## Current C346 documentation recovery
+
+Contract:docs/c346-recovery-r1.md. This is documentation recovery1,not an executor revision.
+The executable revision remains C346-R0;all seven original OWN blobs remain unchanged.
+Scientific execution:e19e872577d7f574920e83b568499666f2cd41e4.
+Failed-attempt publication:3b70c50464ac60ff202c8c8fad4d01c200ed9d06.
+Exact failed logs:docs/experiment-run-logs/c346/attempt-01/latest.log and latest.json.
+Original Windows158908bytes/SHA25687f33308c45d299e165923dfc4d8f7b3b82ebce87ab2876b07098ebf247f4419.
+Git LF157018bytes/1890LF exactly reconstructs that original. Publication succeeded.
+
+The C345 acceptance handoff rewrite f5fc8e8 omitted the permanent C272 compatibility seal.
+Attempt01 passed six native cleanup checks,locks,parent semantics and native objective preflight,
+then failed C272 test24 at module index156. 157modules began;156completed successfully.
+3693tests ran:3692passed/1failure/0errors/0skips;2959tests/86modules were not reached.
+No formal C346 fit,optimizer update or cohort evaluation began. No scientific verdict exists.
+The final science-failed exception propagates the regression error,not a model result.
+
+Restore the true historical C272 seal in the append-only compatibility section below.
+The accepted C273 recovery and authoring-runtime gate explicitly require its retention.
+No scientific/source/test/manifest change,new exclusion,skip or partial-success reuse.
+Before retry,check all11live-handoff consumers C272..C282 on the final handoff bytes,
+the actual6652ID inventory/6578parent prefix,the unchanged7OWN blobs and uniqueC346ACTIVE.
+Every later handoff rewrite must retain the compatibility section and repeat that review.
+
+post_authoring_review = PASS
+Recovery review:docs/c346-r1-post-authoring-review.md.
+Review target HEAD:728fdf12e436cb5ba7373400b247dfd6e54425bc.
+Independent review retrieved all5changed documents/evidence files and7unchangedOWN files
+throughEOF. Actual guard,6652ID inventory/6578prefix and all11consumers PASS;no blockers.
+The later documentation-only activation HEAD is the retry ExpectedHead. Final activation
+bytes must also pass the11consumer checks,uniqueACTIVE and guard before command delivery.
+The original source-only review below remains historical;the recovery review addresses its gap.
+Do not use the old executionHEAD,publicationHEAD,original sourceHEAD or a main merge.
+Preserve the user-local invalid run. No automatic retry and no C347 registration.
 
 ## Latest accepted evidence
 
@@ -39,14 +75,14 @@ Not exactclippingcalls,convergence,causaloptimizer/clipping or learnedthenlost p
 Slot4mixedoriginal4/5/interior;terminaldomainmeansnotwholeexposureweightedobjective.
 Original6TRAIN names neverfitted. PreserveC344false/eligible2 andGateFNOTPASSED.
 
-## C346 registration and independent review
+## Original C346 registration and independent review
 
 Source/preregistration HEAD:be76c4c53c36105638e59e059af241078758b628.
 Source tree:0f06d4eda13b258141fbb2259eb7843ab28fae8d.
 Seven additions only,separate from C345 acceptance. Keep all seven OWN blobs unchanged.
 Preregistration:docs/experiment-ledger-addendum-c346-preregistration.md.
 Review:docs/c346-post-authoring-review.md.
-post_authoring_review = PASS
+Original source review result:PASS;its final-handoff coverage gap is recorded above.
 Review target HEAD:be76c4c53c36105638e59e059af241078758b628.
 An independent nonauthor retrieved and read all7remote OWN files throughEOF;
 Git blobs/bytes/SHA256 match both final author runs. No review blockers.
@@ -64,7 +100,7 @@ Parent IDsSHA256:2c40afb18970b97273869cf98ac1580d84c2df3050b20b07f3da9f53331cee2
 Root pyflakes0;333compiledcodeobjects/2327global loads/0unbound.
 ActualPowerShell7.5.4AST dispatcher/invoke/run/standardblock all0errors.
 Author fixtures include synthetic training and native preflight,but no formalC346cohort.
-Full Windows6652-test regression and15-model experiment remain pending.
+Full Windows6652-test regression and15-model experiment remain incomplete.
 
 ## One question and intervention
 
@@ -163,8 +199,19 @@ recoveryonly,no automaticretry or C347registration. Logtransportfailure never
 justifies retraining. After valid judgment prepare the nextonequestion in the same
 response. Freeze this feature branch while the user runs;preserve native artifacts.
 
+## Inherited regression compatibility seals
+
+Append-only historical provenance,not current ACTIVE state. Retain this section whenever
+the handoff is rewritten while the inherited pinned tests remain in the regression.
+The accepted C273 preflight recovery and docs/experiment-authoring-runtime-gate.md
+(Mutable handoff lifecycle rule) require this specific legacy marker permanently.
+C273..C278 also assert it. Do not delete it during later acceptance or activation edits.
+C272manifest seal:89fd059a478b2190ecd03f8277aae2bafc7fcb12517897f56b4bd6cc89258604.
+
 ## Historical context
 
+docs/handoff-history/c346-pre-recovery-r1.md preserves the exact failed-attempt handoff.
+docs/experiment-ledger-addendum-c273-preflight-recovery.md defines the inherited seal contract.
 docs/handoff-history/c346-pre-activation.md preserves the C345accepted/C346unregistered state.
 docs/handoff-history/c345-pre-acceptance.md preserves previousC345ACTIVE.
 docs/experiment-ledger-addendum-c344-c345.md retains C344R1acceptance and attempt01history.

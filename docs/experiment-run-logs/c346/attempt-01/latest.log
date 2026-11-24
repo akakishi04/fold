@@ -1,0 +1,1890 @@
+execution_role = C346-PAIR-MAX-RATE-TRAINING
+scientific_execution_requested = True
+scientific_training_requested = True
+scientific_execution_head = e19e872577d7f574920e83b568499666f2cd41e4
+execution_role = "C346-PAIR-MAX-RATE-TRAINING"
+scientific_execution_head = "e19e872577d7f574920e83b568499666f2cd41e4"
+execution_revision = "C346-R0"
+phase = "native_timeout_cleanup_preflight"
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.065s
+
+OK
+timeout_cleanup_probe = {"cleanup_ready": true, "index": 0, "test_id": "tests_tools.test_c324_locked_hash_r4.R4Tests.test_29_real_timeout_does_not_become_crash_or_success"}
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.069s
+
+OK
+timeout_cleanup_probe = {"cleanup_ready": true, "index": 1, "test_id": "tests_tools.test_c324_locked_hash_r4.R4Tests.test_29_real_timeout_does_not_become_crash_or_success"}
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.063s
+
+OK
+timeout_cleanup_probe = {"cleanup_ready": true, "index": 2, "test_id": "tests_tools.test_c324_locked_hash_r4.R4Tests.test_29_real_timeout_does_not_become_crash_or_success"}
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.068s
+
+OK
+timeout_cleanup_probe = {"cleanup_ready": true, "index": 3, "test_id": "tests_tools.test_c324_verified_session_r5.OtherTests.test_38_timeout_not_native_failure_or_pass"}
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.058s
+
+OK
+timeout_cleanup_probe = {"cleanup_ready": true, "index": 4, "test_id": "tests_tools.test_c324_verified_session_r5.OtherTests.test_38_timeout_not_native_failure_or_pass"}
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.066s
+
+OK
+timeout_cleanup_probe = {"cleanup_ready": true, "index": 5, "test_id": "tests_tools.test_c324_verified_session_r5.OtherTests.test_38_timeout_not_native_failure_or_pass"}
+timeout_cleanup_preflight = {"cleanup_barriers": 6, "cleanup_ready": true, "commit_sha": "e19e872577d7f574920e83b568499666f2cd41e4", "errors": 0, "execution_revision": "C344-R1", "expected_failures": 0, "failures": 0, "platform": "win32", "schema": "fold-c344-r1-timeout-cleanup-preflight-v1", "skipped": 0, "source_blobs": {"tests_tools/test_c324_locked_hash_r4.py": "f6d52c5464b967e3a48eefe12f5c83ea65f9f3a8", "tests_tools/test_c324_verified_session_r5.py": "e31845302ae964194be95d24e4465f21e52a39d5", "tools/c324_locked_hash_r4.py": "6459b1f6e4051fbfc54db2894f7abe3a7521df3a", "tools/c324_verified_session_r5.py": "55ba956a974cc8cf5faca5ecbeaa1c774e40956e"}, "started_ids": ["tests_tools.test_c324_locked_hash_r4.R4Tests.test_29_real_timeout_does_not_become_crash_or_success", "tests_tools.test_c324_locked_hash_r4.R4Tests.test_29_real_timeout_does_not_become_crash_or_success", "tests_tools.test_c324_locked_hash_r4.R4Tests.test_29_real_timeout_does_not_become_crash_or_success", "tests_tools.test_c324_verified_session_r5.OtherTests.test_38_timeout_not_native_failure_or_pass", "tests_tools.test_c324_verified_session_r5.OtherTests.test_38_timeout_not_native_failure_or_pass", "tests_tools.test_c324_verified_session_r5.OtherTests.test_38_timeout_not_native_failure_or_pass"], "success_ids": ["tests_tools.test_c324_locked_hash_r4.R4Tests.test_29_real_timeout_does_not_become_crash_or_success", "tests_tools.test_c324_locked_hash_r4.R4Tests.test_29_real_timeout_does_not_become_crash_or_success", "tests_tools.test_c324_locked_hash_r4.R4Tests.test_29_real_timeout_does_not_become_crash_or_success", "tests_tools.test_c324_verified_session_r5.OtherTests.test_38_timeout_not_native_failure_or_pass", "tests_tools.test_c324_verified_session_r5.OtherTests.test_38_timeout_not_native_failure_or_pass", "tests_tools.test_c324_verified_session_r5.OtherTests.test_38_timeout_not_native_failure_or_pass"], "successful": true, "tests": 6, "unexpected_successes": 0}
+native_lock_probe = {"delete_access_denied": true, "native_lock_probe": "PASS", "read_compatible": true, "released_after_close": true, "write_access_denied": true}
+locked_input_capacity = {"max_files": 9177, "protected_inputs": 9177}
+hash_progress = {"cache_hits": 0, "elapsed_seconds": 0.001, "final_reference_rechecks": 0, "hash_calls": 1, "logical_reference_bytes": 0, "phase": "parent_validation", "reference_bytes": 0, "stream_bytes": 1048576, "unique_files": 0}
+worker_heartbeat = {"elapsed_seconds": 10.028, "phase": "science"}
+hash_progress = {"cache_hits": 0, "elapsed_seconds": 10.003, "final_reference_rechecks": 0, "hash_calls": 900, "logical_reference_bytes": 2745070620, "phase": "parent_validation", "reference_bytes": 2745070620, "stream_bytes": 2879288348, "unique_files": 899}
+worker_heartbeat = {"elapsed_seconds": 20.05, "phase": "science"}
+hash_progress = {"cache_hits": 0, "elapsed_seconds": 20.003, "final_reference_rechecks": 0, "hash_calls": 1046, "logical_reference_bytes": 6452009068, "phase": "parent_validation", "reference_bytes": 6452009068, "stream_bytes": 6515972204, "unique_files": 1045}
+worker_heartbeat = {"elapsed_seconds": 30.07, "phase": "science"}
+hash_progress = {"cache_hits": 0, "elapsed_seconds": 30.005, "final_reference_rechecks": 0, "hash_calls": 1124, "logical_reference_bytes": 9735340163, "phase": "parent_validation", "reference_bytes": 9735340163, "stream_bytes": 10281648259, "unique_files": 1123}
+worker_heartbeat = {"elapsed_seconds": 40.092, "phase": "science"}
+hash_progress = {"cache_hits": 0, "elapsed_seconds": 40.006, "final_reference_rechecks": 0, "hash_calls": 1196, "logical_reference_bytes": 13543217631, "phase": "parent_validation", "reference_bytes": 13543217631, "stream_bytes": 13785438687, "unique_files": 1195}
+worker_heartbeat = {"elapsed_seconds": 50.113, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 60.139, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 70.164, "phase": "science"}
+hash_progress = {"cache_hits": 3, "elapsed_seconds": 64.119, "final_reference_rechecks": 0, "hash_calls": 2079, "logical_reference_bytes": 14254912417, "phase": "parent_validation", "reference_bytes": 14254255708, "stream_bytes": 14254275035, "unique_files": 2075}
+worker_heartbeat = {"elapsed_seconds": 80.187, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 90.211, "phase": "science"}
+hash_progress = {"cache_hits": 853, "elapsed_seconds": 86.803, "final_reference_rechecks": 0, "hash_calls": 3384, "logical_reference_bytes": 15279959791, "phase": "parent_validation", "reference_bytes": 15269118245, "stream_bytes": 15269143679, "unique_files": 2530}
+worker_heartbeat = {"elapsed_seconds": 100.233, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 110.254, "phase": "science"}
+hash_progress = {"cache_hits": 1709, "elapsed_seconds": 109.074, "final_reference_rechecks": 0, "hash_calls": 4699, "logical_reference_bytes": 15969602928, "phase": "parent_validation", "reference_bytes": 15948457056, "stream_bytes": 15948469908, "unique_files": 2989}
+worker_heartbeat = {"elapsed_seconds": 120.277, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 130.299, "phase": "science"}
+hash_progress = {"cache_hits": 2571, "elapsed_seconds": 129.234, "final_reference_rechecks": 0, "hash_calls": 6020, "logical_reference_bytes": 15986377354, "phase": "parent_validation", "reference_bytes": 15954839142, "stream_bytes": 15954856323, "unique_files": 3448}
+worker_heartbeat = {"elapsed_seconds": 140.32, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 150.342, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 160.364, "phase": "science"}
+hash_progress = {"cache_hits": 3439, "elapsed_seconds": 153.685, "final_reference_rechecks": 0, "hash_calls": 7349, "logical_reference_bytes": 17011790292, "phase": "parent_validation", "reference_bytes": 16969758783, "stream_bytes": 16969783684, "unique_files": 3909}
+worker_heartbeat = {"elapsed_seconds": 170.386, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 180.408, "phase": "science"}
+hash_progress = {"cache_hits": 4313, "elapsed_seconds": 175.98, "final_reference_rechecks": 0, "hash_calls": 8688, "logical_reference_bytes": 17702116422, "phase": "parent_validation", "reference_bytes": 17649475345, "stream_bytes": 17649491433, "unique_files": 4374}
+worker_heartbeat = {"elapsed_seconds": 190.432, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 200.451, "phase": "science"}
+hash_progress = {"cache_hits": 5193, "elapsed_seconds": 196.282, "final_reference_rechecks": 0, "hash_calls": 10033, "logical_reference_bytes": 17723697092, "phase": "parent_validation", "reference_bytes": 17660344198, "stream_bytes": 17660358698, "unique_files": 4839}
+worker_heartbeat = {"elapsed_seconds": 210.47, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 220.492, "phase": "science"}
+hash_progress = {"cache_hits": 6079, "elapsed_seconds": 216.133, "final_reference_rechecks": 0, "hash_calls": 11386, "logical_reference_bytes": 17753360605, "phase": "parent_validation", "reference_bytes": 17679201235, "stream_bytes": 17679228729, "unique_files": 5306}
+worker_heartbeat = {"elapsed_seconds": 230.512, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 240.531, "phase": "science"}
+hash_progress = {"cache_hits": 6971, "elapsed_seconds": 238.047, "final_reference_rechecks": 0, "hash_calls": 12749, "logical_reference_bytes": 18445340633, "phase": "parent_validation", "reference_bytes": 18360249393, "stream_bytes": 18360269001, "unique_files": 5777}
+worker_heartbeat = {"elapsed_seconds": 250.553, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 260.575, "phase": "science"}
+hash_progress = {"cache_hits": 7869, "elapsed_seconds": 259.022, "final_reference_rechecks": 0, "hash_calls": 14118, "logical_reference_bytes": 18479504148, "phase": "parent_validation", "reference_bytes": 18383380320, "stream_bytes": 18383410870, "unique_files": 6248}
+worker_heartbeat = {"elapsed_seconds": 270.599, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 280.622, "phase": "science"}
+hash_progress = {"cache_hits": 8774, "elapsed_seconds": 283.296, "final_reference_rechecks": 0, "hash_calls": 15501, "logical_reference_bytes": 19170160094, "phase": "parent_validation", "reference_bytes": 19062869858, "stream_bytes": 19062888963, "unique_files": 6726}
+worker_heartbeat = {"elapsed_seconds": 290.644, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 300.666, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 310.687, "phase": "science"}
+hash_progress = {"cache_hits": 9686, "elapsed_seconds": 304.949, "final_reference_rechecks": 0, "hash_calls": 16893, "logical_reference_bytes": 19192049590, "phase": "parent_validation", "reference_bytes": 19073472873, "stream_bytes": 19073508368, "unique_files": 7206}
+worker_heartbeat = {"elapsed_seconds": 320.711, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 330.731, "phase": "science"}
+hash_progress = {"cache_hits": 10605, "elapsed_seconds": 327.948, "final_reference_rechecks": 0, "hash_calls": 18298, "logical_reference_bytes": 19883086425, "phase": "parent_validation", "reference_bytes": 19753068095, "stream_bytes": 19753104001, "unique_files": 7692}
+worker_heartbeat = {"elapsed_seconds": 340.753, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 350.774, "phase": "science"}
+hash_progress = {"cache_hits": 11531, "elapsed_seconds": 350.04, "final_reference_rechecks": 0, "hash_calls": 19712, "logical_reference_bytes": 19944064876, "phase": "parent_validation", "reference_bytes": 19802450133, "stream_bytes": 19802493527, "unique_files": 8180}
+worker_heartbeat = {"elapsed_seconds": 360.797, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 370.818, "phase": "science"}
+hash_progress = {"cache_hits": 12464, "elapsed_seconds": 372.964, "final_reference_rechecks": 0, "hash_calls": 21139, "logical_reference_bytes": 20637880897, "phase": "parent_validation", "reference_bytes": 20484467912, "stream_bytes": 20484498133, "unique_files": 8674}
+worker_heartbeat = {"elapsed_seconds": 380.841, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 390.86, "phase": "science"}
+hash_progress = {"cache_hits": 13404, "elapsed_seconds": 393.687, "final_reference_rechecks": 0, "hash_calls": 22575, "logical_reference_bytes": 20676384954, "phase": "parent_validation", "reference_bytes": 20511027726, "stream_bytes": 20511074656, "unique_files": 9170}
+worker_heartbeat = {"elapsed_seconds": 400.884, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 410.905, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 420.926, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 430.948, "phase": "science"}
+accepted_parent_semantics = {"ancestor_semantic_reruns": 0, "model_forwards": 0, "parent_files": 491, "regression_tests": 6578}
+registration_check = {"full_tests": 6652, "manifest_sha256": "8dad5562249bf21517bb8487c5c6970ac75b55405252dbbf5c3512d797d46d64", "protected_inputs": 9177, "source_pins": 944}
+phase = "native_pair_max_rate_preflight"
+worker_heartbeat = {"elapsed_seconds": 440.969, "phase": "science"}
+C346_native_preflight=PASS;schedules=5;forwards=24;rows=96;backward=12;updates=0;optimizer_configurations=3
+phase = "full_regression_fresh_process_per_module"
+worker_heartbeat = {"elapsed_seconds": 450.994, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 10.028, "phase": "regression"}
+worker_heartbeat = {"elapsed_seconds": 461.015, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 20.052, "phase": "regression"}
+regression_test_ids_sha256 = "39ced3110d4a2d9288390401f53000fc322e4541a17ea47384553e7767425394"
+regression_progress = {"completed": 0, "index": 0, "module": "tests_lm.test_v05_controller", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 471.042, "phase": "science"}
+regression_module_begin = {"index": 0, "module": "tests_lm.test_v05_controller", "parent_pid": 62504, "pid": 96052, "tests": 10}
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 0.036s
+
+OK
+regression_module_complete = {"index": 0, "module": "tests_lm.test_v05_controller", "parent_pid": 62504, "pid": 96052, "tests": 10}
+worker_heartbeat = {"elapsed_seconds": 30.076, "phase": "regression"}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_controller", "pid": 62504}
+regression_progress = {"completed": 10, "index": 1, "module": "tests_lm.test_v05_reconciliation", "total": 6652}
+regression_module_begin = {"index": 1, "module": "tests_lm.test_v05_reconciliation", "parent_pid": 45428, "pid": 116380, "tests": 8}
+........
+----------------------------------------------------------------------
+Ran 8 tests in 0.000s
+
+OK
+regression_module_complete = {"index": 1, "module": "tests_lm.test_v05_reconciliation", "parent_pid": 45428, "pid": 116380, "tests": 8}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_reconciliation", "pid": 45428}
+regression_progress = {"completed": 18, "index": 2, "module": "tests_lm.test_v05_receipt_scope", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 481.064, "phase": "science"}
+regression_module_begin = {"index": 2, "module": "tests_lm.test_v05_receipt_scope", "parent_pid": 88660, "pid": 117776, "tests": 4}
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.000s
+
+OK
+regression_module_complete = {"index": 2, "module": "tests_lm.test_v05_receipt_scope", "parent_pid": 88660, "pid": 117776, "tests": 4}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_receipt_scope", "pid": 88660}
+regression_progress = {"completed": 22, "index": 3, "module": "tests_lm.test_v05_commit_context", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 40.102, "phase": "regression"}
+regression_module_begin = {"index": 3, "module": "tests_lm.test_v05_commit_context", "parent_pid": 112892, "pid": 113752, "tests": 5}
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+
+OK
+regression_module_complete = {"index": 3, "module": "tests_lm.test_v05_commit_context", "parent_pid": 112892, "pid": 113752, "tests": 5}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_commit_context", "pid": 112892}
+regression_progress = {"completed": 27, "index": 4, "module": "tests_lm.test_v05_receipt_replay", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 491.087, "phase": "science"}
+regression_module_begin = {"index": 4, "module": "tests_lm.test_v05_receipt_replay", "parent_pid": 51428, "pid": 104764, "tests": 4}
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.000s
+
+OK
+regression_module_complete = {"index": 4, "module": "tests_lm.test_v05_receipt_replay", "parent_pid": 51428, "pid": 104764, "tests": 4}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_receipt_replay", "pid": 51428}
+regression_progress = {"completed": 31, "index": 5, "module": "tests_lm.test_v05_receipt_atomic_claim", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 50.124, "phase": "regression"}
+regression_module_begin = {"index": 5, "module": "tests_lm.test_v05_receipt_atomic_claim", "parent_pid": 102312, "pid": 34736, "tests": 5}
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.004s
+
+OK
+regression_module_complete = {"index": 5, "module": "tests_lm.test_v05_receipt_atomic_claim", "parent_pid": 102312, "pid": 34736, "tests": 5}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_receipt_atomic_claim", "pid": 102312}
+regression_progress = {"completed": 36, "index": 6, "module": "tests_lm.test_v05_receipt_recovery", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 501.108, "phase": "science"}
+regression_module_begin = {"index": 6, "module": "tests_lm.test_v05_receipt_recovery", "parent_pid": 119608, "pid": 27200, "tests": 5}
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+
+OK
+regression_module_complete = {"index": 6, "module": "tests_lm.test_v05_receipt_recovery", "parent_pid": 119608, "pid": 27200, "tests": 5}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_receipt_recovery", "pid": 119608}
+regression_progress = {"completed": 41, "index": 7, "module": "tests_lm.test_v05_receipt_recovery_serialization", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 60.147, "phase": "regression"}
+regression_module_begin = {"index": 7, "module": "tests_lm.test_v05_receipt_recovery_serialization", "parent_pid": 30048, "pid": 92420, "tests": 2}
+..
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+OK
+regression_module_complete = {"index": 7, "module": "tests_lm.test_v05_receipt_recovery_serialization", "parent_pid": 30048, "pid": 92420, "tests": 2}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_receipt_recovery_serialization", "pid": 30048}
+regression_progress = {"completed": 43, "index": 8, "module": "tests_lm.test_v05_post_transition_recovery", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 511.129, "phase": "science"}
+regression_module_begin = {"index": 8, "module": "tests_lm.test_v05_post_transition_recovery", "parent_pid": 100708, "pid": 72412, "tests": 4}
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.000s
+
+OK
+regression_module_complete = {"index": 8, "module": "tests_lm.test_v05_post_transition_recovery", "parent_pid": 100708, "pid": 72412, "tests": 4}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_post_transition_recovery", "pid": 100708}
+regression_progress = {"completed": 47, "index": 9, "module": "tests_lm.test_v05_c127_negative_control", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 70.17, "phase": "regression"}
+regression_module_begin = {"index": 9, "module": "tests_lm.test_v05_c127_negative_control", "parent_pid": 94840, "pid": 74104, "tests": 1}
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+regression_module_complete = {"index": 9, "module": "tests_lm.test_v05_c127_negative_control", "parent_pid": 94840, "pid": 74104, "tests": 1}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c127_negative_control", "pid": 94840}
+regression_progress = {"completed": 48, "index": 10, "module": "tests_lm.test_v05_recovery_ownership", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 521.154, "phase": "science"}
+regression_module_begin = {"index": 10, "module": "tests_lm.test_v05_recovery_ownership", "parent_pid": 115788, "pid": 96620, "tests": 5}
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.005s
+
+OK
+regression_module_complete = {"index": 10, "module": "tests_lm.test_v05_recovery_ownership", "parent_pid": 115788, "pid": 96620, "tests": 5}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_recovery_ownership", "pid": 115788}
+regression_progress = {"completed": 53, "index": 11, "module": "tests_lm.test_v05_recovery_fencing", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 80.193, "phase": "regression"}
+regression_module_begin = {"index": 11, "module": "tests_lm.test_v05_recovery_fencing", "parent_pid": 52480, "pid": 98212, "tests": 7}
+.......
+----------------------------------------------------------------------
+Ran 7 tests in 0.000s
+
+OK
+regression_module_complete = {"index": 11, "module": "tests_lm.test_v05_recovery_fencing", "parent_pid": 52480, "pid": 98212, "tests": 7}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_recovery_fencing", "pid": 52480}
+regression_progress = {"completed": 60, "index": 12, "module": "tests_lm.test_v05_recovery_lease_renewal", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 531.177, "phase": "science"}
+regression_module_begin = {"index": 12, "module": "tests_lm.test_v05_recovery_lease_renewal", "parent_pid": 92580, "pid": 1864, "tests": 7}
+.......
+----------------------------------------------------------------------
+Ran 7 tests in 0.000s
+
+OK
+regression_module_complete = {"index": 12, "module": "tests_lm.test_v05_recovery_lease_renewal", "parent_pid": 92580, "pid": 1864, "tests": 7}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_recovery_lease_renewal", "pid": 92580}
+regression_progress = {"completed": 67, "index": 13, "module": "tests_lm.test_v05_sqlite_recovery_fencing", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 90.216, "phase": "regression"}
+regression_module_begin = {"index": 13, "module": "tests_lm.test_v05_sqlite_recovery_fencing", "parent_pid": 67792, "pid": 106800, "tests": 4}
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.313s
+
+OK
+regression_module_complete = {"index": 13, "module": "tests_lm.test_v05_sqlite_recovery_fencing", "parent_pid": 67792, "pid": 106800, "tests": 4}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_sqlite_recovery_fencing", "pid": 67792}
+regression_progress = {"completed": 71, "index": 14, "module": "tests_lm.test_v05_c132_process_fencing", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 541.197, "phase": "science"}
+regression_module_begin = {"index": 14, "module": "tests_lm.test_v05_c132_process_fencing", "parent_pid": 110064, "pid": 108312, "tests": 2}
+..
+----------------------------------------------------------------------
+Ran 2 tests in 0.784s
+
+OK
+regression_module_complete = {"index": 14, "module": "tests_lm.test_v05_c132_process_fencing", "parent_pid": 110064, "pid": 108312, "tests": 2}
+worker_heartbeat = {"elapsed_seconds": 100.236, "phase": "regression"}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c132_process_fencing", "pid": 110064}
+regression_progress = {"completed": 73, "index": 15, "module": "tests_lm.test_v05_retrieval_adapter", "total": 6652}
+regression_module_begin = {"index": 15, "module": "tests_lm.test_v05_retrieval_adapter", "parent_pid": 113244, "pid": 117888, "tests": 3}
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.024s
+
+OK
+regression_module_complete = {"index": 15, "module": "tests_lm.test_v05_retrieval_adapter", "parent_pid": 113244, "pid": 117888, "tests": 3}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_retrieval_adapter", "pid": 113244}
+regression_progress = {"completed": 76, "index": 16, "module": "tests_lm.test_v05_retrieval_miss_semantics", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 551.22, "phase": "science"}
+regression_module_begin = {"index": 16, "module": "tests_lm.test_v05_retrieval_miss_semantics", "parent_pid": 82856, "pid": 46296, "tests": 2}
+..
+----------------------------------------------------------------------
+Ran 2 tests in 0.013s
+
+OK
+regression_module_complete = {"index": 16, "module": "tests_lm.test_v05_retrieval_miss_semantics", "parent_pid": 82856, "pid": 46296, "tests": 2}
+worker_heartbeat = {"elapsed_seconds": 110.26, "phase": "regression"}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_retrieval_miss_semantics", "pid": 82856}
+regression_progress = {"completed": 78, "index": 17, "module": "tests_lm.test_v05_retrieval_bounded_recovery", "total": 6652}
+regression_module_begin = {"index": 17, "module": "tests_lm.test_v05_retrieval_bounded_recovery", "parent_pid": 113764, "pid": 20164, "tests": 3}
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.013s
+
+OK
+regression_module_complete = {"index": 17, "module": "tests_lm.test_v05_retrieval_bounded_recovery", "parent_pid": 113764, "pid": 20164, "tests": 3}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_retrieval_bounded_recovery", "pid": 113764}
+regression_progress = {"completed": 81, "index": 18, "module": "tests_lm.test_v05_retrieval_query", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 561.244, "phase": "science"}
+regression_module_begin = {"index": 18, "module": "tests_lm.test_v05_retrieval_query", "parent_pid": 30184, "pid": 21196, "tests": 3}
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.012s
+
+OK
+regression_module_complete = {"index": 18, "module": "tests_lm.test_v05_retrieval_query", "parent_pid": 30184, "pid": 21196, "tests": 3}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_retrieval_query", "pid": 30184}
+regression_progress = {"completed": 84, "index": 19, "module": "tests_lm.test_v05_retrieval_content", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 120.286, "phase": "regression"}
+regression_module_begin = {"index": 19, "module": "tests_lm.test_v05_retrieval_content", "parent_pid": 105972, "pid": 117816, "tests": 3}
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.024s
+
+OK
+regression_module_complete = {"index": 19, "module": "tests_lm.test_v05_retrieval_content", "parent_pid": 105972, "pid": 117816, "tests": 3}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_retrieval_content", "pid": 105972}
+regression_progress = {"completed": 87, "index": 20, "module": "tests_lm.test_v05_c138_compositional_alias_fixture", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 571.268, "phase": "science"}
+regression_module_begin = {"index": 20, "module": "tests_lm.test_v05_c138_compositional_alias_fixture", "parent_pid": 97200, "pid": 117052, "tests": 3}
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.007s
+
+OK
+regression_module_complete = {"index": 20, "module": "tests_lm.test_v05_c138_compositional_alias_fixture", "parent_pid": 97200, "pid": 117052, "tests": 3}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c138_compositional_alias_fixture", "pid": 97200}
+regression_progress = {"completed": 90, "index": 21, "module": "tests_lm.test_v05_c139_hash_collision_diagnostic", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 130.311, "phase": "regression"}
+regression_module_begin = {"index": 21, "module": "tests_lm.test_v05_c139_hash_collision_diagnostic", "parent_pid": 117340, "pid": 115908, "tests": 3}
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.007s
+
+OK
+regression_module_complete = {"index": 21, "module": "tests_lm.test_v05_c139_hash_collision_diagnostic", "parent_pid": 117340, "pid": 115908, "tests": 3}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c139_hash_collision_diagnostic", "pid": 117340}
+regression_progress = {"completed": 93, "index": 22, "module": "tests_lm.test_v05_c140_collision_free_multiseed_robustness", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 581.294, "phase": "science"}
+regression_module_begin = {"index": 22, "module": "tests_lm.test_v05_c140_collision_free_multiseed_robustness", "parent_pid": 52776, "pid": 26284, "tests": 3}
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+OK
+regression_module_complete = {"index": 22, "module": "tests_lm.test_v05_c140_collision_free_multiseed_robustness", "parent_pid": 52776, "pid": 26284, "tests": 3}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c140_collision_free_multiseed_robustness", "pid": 52776}
+regression_progress = {"completed": 96, "index": 23, "module": "tests_lm.test_v05_c141_color_alias_localization", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 140.334, "phase": "regression"}
+regression_module_begin = {"index": 23, "module": "tests_lm.test_v05_c141_color_alias_localization", "parent_pid": 103512, "pid": 93840, "tests": 12}
+............
+----------------------------------------------------------------------
+Ran 12 tests in 0.003s
+
+OK
+regression_module_complete = {"index": 23, "module": "tests_lm.test_v05_c141_color_alias_localization", "parent_pid": 103512, "pid": 93840, "tests": 12}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c141_color_alias_localization", "pid": 103512}
+regression_progress = {"completed": 108, "index": 24, "module": "tests_lm.test_v05_c142_color_alignment", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 591.315, "phase": "science"}
+regression_module_begin = {"index": 24, "module": "tests_lm.test_v05_c142_color_alignment", "parent_pid": 79000, "pid": 112252, "tests": 22}
+......................
+----------------------------------------------------------------------
+Ran 22 tests in 1.647s
+
+OK
+worker_heartbeat = {"elapsed_seconds": 150.359, "phase": "regression"}
+regression_module_complete = {"index": 24, "module": "tests_lm.test_v05_c142_color_alignment", "parent_pid": 79000, "pid": 112252, "tests": 22}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c142_color_alignment", "pid": 79000}
+regression_progress = {"completed": 130, "index": 25, "module": "tests_lm.test_v05_c143_frozen_factorial_audit", "total": 6652}
+regression_module_begin = {"index": 25, "module": "tests_lm.test_v05_c143_frozen_factorial_audit", "parent_pid": 114460, "pid": 102320, "tests": 22}
+......................
+----------------------------------------------------------------------
+Ran 22 tests in 0.134s
+
+OK
+regression_module_complete = {"index": 25, "module": "tests_lm.test_v05_c143_frozen_factorial_audit", "parent_pid": 114460, "pid": 102320, "tests": 22}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c143_frozen_factorial_audit", "pid": 114460}
+regression_progress = {"completed": 152, "index": 26, "module": "tests_lm.test_v05_c144_factor_mismatch_attribution", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 601.338, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 160.382, "phase": "regression"}
+regression_module_begin = {"index": 26, "module": "tests_lm.test_v05_c144_factor_mismatch_attribution", "parent_pid": 21256, "pid": 106128, "tests": 10}
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 0.001s
+
+OK
+regression_module_complete = {"index": 26, "module": "tests_lm.test_v05_c144_factor_mismatch_attribution", "parent_pid": 21256, "pid": 106128, "tests": 10}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c144_factor_mismatch_attribution", "pid": 21256}
+regression_progress = {"completed": 162, "index": 27, "module": "tests_lm.test_v05_c145_material_alignment_intervention", "total": 6652}
+regression_module_begin = {"index": 27, "module": "tests_lm.test_v05_c145_material_alignment_intervention", "parent_pid": 105420, "pid": 86232, "tests": 12}
+.........M:\asobiba\fold\tests_lm\test_v05_c145_material_alignment_intervention.py:74: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\torch\csrc\autograd\generated\python_variable_methods.cpp:837.)
+  self.assertNotEqual(float(a),float(b))
+...
+----------------------------------------------------------------------
+Ran 12 tests in 0.020s
+
+OK
+regression_module_complete = {"index": 27, "module": "tests_lm.test_v05_c145_material_alignment_intervention", "parent_pid": 105420, "pid": 86232, "tests": 12}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c145_material_alignment_intervention", "pid": 105420}
+regression_progress = {"completed": 174, "index": 28, "module": "tests_lm.test_v05_c146_all_factor_alignment", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 611.359, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 170.403, "phase": "regression"}
+regression_module_begin = {"index": 28, "module": "tests_lm.test_v05_c146_all_factor_alignment", "parent_pid": 103796, "pid": 32832, "tests": 20}
+....................
+----------------------------------------------------------------------
+Ran 20 tests in 1.977s
+
+OK
+regression_module_complete = {"index": 28, "module": "tests_lm.test_v05_c146_all_factor_alignment", "parent_pid": 103796, "pid": 32832, "tests": 20}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c146_all_factor_alignment", "pid": 103796}
+regression_progress = {"completed": 194, "index": 29, "module": "tests_lm.test_v05_c147_composition_order", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 621.386, "phase": "science"}
+regression_module_begin = {"index": 29, "module": "tests_lm.test_v05_c147_composition_order", "parent_pid": 116676, "pid": 90888, "tests": 18}
+..................
+----------------------------------------------------------------------
+Ran 18 tests in 0.089s
+
+OK
+regression_module_complete = {"index": 29, "module": "tests_lm.test_v05_c147_composition_order", "parent_pid": 116676, "pid": 90888, "tests": 18}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c147_composition_order", "pid": 116676}
+regression_progress = {"completed": 212, "index": 30, "module": "tests_lm.test_v05_c148_train_consistent_composition", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 180.426, "phase": "regression"}
+regression_module_begin = {"index": 30, "module": "tests_lm.test_v05_c148_train_consistent_composition", "parent_pid": 118336, "pid": 118156, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 2.041s
+
+OK
+regression_module_complete = {"index": 30, "module": "tests_lm.test_v05_c148_train_consistent_composition", "parent_pid": 118336, "pid": 118156, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c148_train_consistent_composition", "pid": 118336}
+regression_progress = {"completed": 236, "index": 31, "module": "tests_lm.test_v05_c149_margin_accounting", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 631.411, "phase": "science"}
+regression_module_begin = {"index": 31, "module": "tests_lm.test_v05_c149_margin_accounting", "parent_pid": 110140, "pid": 103832, "tests": 19}
+...................
+----------------------------------------------------------------------
+Ran 19 tests in 0.046s
+
+OK
+regression_module_complete = {"index": 31, "module": "tests_lm.test_v05_c149_margin_accounting", "parent_pid": 110140, "pid": 103832, "tests": 19}
+worker_heartbeat = {"elapsed_seconds": 190.452, "phase": "regression"}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c149_margin_accounting", "pid": 110140}
+regression_progress = {"completed": 255, "index": 32, "module": "tests_lm.test_v05_c150_global_negatives", "total": 6652}
+regression_module_begin = {"index": 32, "module": "tests_lm.test_v05_c150_global_negatives", "parent_pid": 36552, "pid": 117412, "tests": 20}
+......worker_heartbeat = {"elapsed_seconds": 641.436, "phase": "science"}
+..............
+----------------------------------------------------------------------
+Ran 20 tests in 1.903s
+
+OK
+regression_module_complete = {"index": 32, "module": "tests_lm.test_v05_c150_global_negatives", "parent_pid": 36552, "pid": 117412, "tests": 20}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c150_global_negatives", "pid": 36552}
+regression_progress = {"completed": 275, "index": 33, "module": "tests_lm.test_v05_c151_cross_split", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 200.473, "phase": "regression"}
+regression_module_begin = {"index": 33, "module": "tests_lm.test_v05_c151_cross_split", "parent_pid": 64824, "pid": 90848, "tests": 23}
+.......................
+----------------------------------------------------------------------
+Ran 23 tests in 0.167s
+
+OK
+regression_module_complete = {"index": 33, "module": "tests_lm.test_v05_c151_cross_split", "parent_pid": 64824, "pid": 90848, "tests": 23}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c151_cross_split", "pid": 64824}
+regression_progress = {"completed": 298, "index": 34, "module": "tests_lm.test_v05_c152_persisted_bridge", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 651.46, "phase": "science"}
+regression_module_begin = {"index": 34, "module": "tests_lm.test_v05_c152_persisted_bridge", "parent_pid": 93688, "pid": 59092, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.288s
+
+OK
+regression_module_complete = {"index": 34, "module": "tests_lm.test_v05_c152_persisted_bridge", "parent_pid": 93688, "pid": 59092, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c152_persisted_bridge", "pid": 93688}
+regression_progress = {"completed": 322, "index": 35, "module": "tests_lm.test_v05_c153_evidence_admission", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 210.496, "phase": "regression"}
+regression_module_begin = {"index": 35, "module": "tests_lm.test_v05_c153_evidence_admission", "parent_pid": 119204, "pid": 71592, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.122s
+
+OK
+regression_module_complete = {"index": 35, "module": "tests_lm.test_v05_c153_evidence_admission", "parent_pid": 119204, "pid": 71592, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c153_evidence_admission", "pid": 119204}
+regression_progress = {"completed": 346, "index": 36, "module": "tests_lm.test_v05_state", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 661.483, "phase": "science"}
+regression_module_begin = {"index": 36, "module": "tests_lm.test_v05_state", "parent_pid": 50744, "pid": 117072, "tests": 5}
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.001s
+
+OK
+regression_module_complete = {"index": 36, "module": "tests_lm.test_v05_state", "parent_pid": 50744, "pid": 117072, "tests": 5}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_state", "pid": 50744}
+regression_progress = {"completed": 351, "index": 37, "module": "tests_lm.test_v05_c154_evidence_state_projection", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 220.523, "phase": "regression"}
+regression_module_begin = {"index": 37, "module": "tests_lm.test_v05_c154_evidence_state_projection", "parent_pid": 106256, "pid": 50820, "tests": 12}
+............
+----------------------------------------------------------------------
+Ran 12 tests in 0.001s
+
+OK
+regression_module_complete = {"index": 37, "module": "tests_lm.test_v05_c154_evidence_state_projection", "parent_pid": 106256, "pid": 50820, "tests": 12}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c154_evidence_state_projection", "pid": 106256}
+regression_progress = {"completed": 363, "index": 38, "module": "tests_lm.test_v05_c155_payload_dereference", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 671.511, "phase": "science"}
+regression_module_begin = {"index": 38, "module": "tests_lm.test_v05_c155_payload_dereference", "parent_pid": 69712, "pid": 109456, "tests": 25}
+.........................
+----------------------------------------------------------------------
+Ran 25 tests in 1.905s
+
+OK
+regression_module_complete = {"index": 38, "module": "tests_lm.test_v05_c155_payload_dereference", "parent_pid": 69712, "pid": 109456, "tests": 25}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c155_payload_dereference", "pid": 69712}
+regression_progress = {"completed": 388, "index": 39, "module": "tests_lm.test_v05_c156_request_reobservation", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 230.545, "phase": "regression"}
+regression_module_begin = {"index": 39, "module": "tests_lm.test_v05_c156_request_reobservation", "parent_pid": 110768, "pid": 80672, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.022s
+
+OK
+regression_module_complete = {"index": 39, "module": "tests_lm.test_v05_c156_request_reobservation", "parent_pid": 110768, "pid": 80672, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c156_request_reobservation", "pid": 110768}
+regression_progress = {"completed": 412, "index": 40, "module": "tests_lm.test_v05_c157_controller_bridge", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 681.534, "phase": "science"}
+regression_module_begin = {"index": 40, "module": "tests_lm.test_v05_c157_controller_bridge", "parent_pid": 110932, "pid": 107688, "tests": 28}
+............................
+----------------------------------------------------------------------
+Ran 28 tests in 0.649s
+
+OK
+regression_module_complete = {"index": 40, "module": "tests_lm.test_v05_c157_controller_bridge", "parent_pid": 110932, "pid": 107688, "tests": 28}
+worker_heartbeat = {"elapsed_seconds": 240.568, "phase": "regression"}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c157_controller_bridge", "pid": 110932}
+regression_progress = {"completed": 440, "index": 41, "module": "tests_lm.test_v05_c158_live_recovery", "total": 6652}
+regression_module_begin = {"index": 41, "module": "tests_lm.test_v05_c158_live_recovery", "parent_pid": 13632, "pid": 106576, "tests": 35}
+...................................
+----------------------------------------------------------------------
+Ran 35 tests in 0.111s
+
+OK
+regression_module_complete = {"index": 41, "module": "tests_lm.test_v05_c158_live_recovery", "parent_pid": 13632, "pid": 106576, "tests": 35}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c158_live_recovery", "pid": 13632}
+regression_progress = {"completed": 475, "index": 42, "module": "tests_lm.test_v05_c159_terminal_result", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 691.556, "phase": "science"}
+regression_module_begin = {"index": 42, "module": "tests_lm.test_v05_c159_terminal_result", "parent_pid": 89188, "pid": 74772, "tests": 33}
+.................................
+----------------------------------------------------------------------
+Ran 33 tests in 0.004s
+
+OK
+regression_module_complete = {"index": 42, "module": "tests_lm.test_v05_c159_terminal_result", "parent_pid": 89188, "pid": 74772, "tests": 33}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c159_terminal_result", "pid": 89188}
+regression_progress = {"completed": 508, "index": 43, "module": "tests_lm.test_v05_c160_live_query_result", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 250.594, "phase": "regression"}
+regression_module_begin = {"index": 43, "module": "tests_lm.test_v05_c160_live_query_result", "parent_pid": 119308, "pid": 119184, "tests": 38}
+......................................
+----------------------------------------------------------------------
+Ran 38 tests in 0.363s
+
+OK
+regression_module_complete = {"index": 43, "module": "tests_lm.test_v05_c160_live_query_result", "parent_pid": 119308, "pid": 119184, "tests": 38}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c160_live_query_result", "pid": 119308}
+regression_progress = {"completed": 546, "index": 44, "module": "tests_lm.test_v05_c161_failure_localization", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 701.577, "phase": "science"}
+regression_module_begin = {"index": 44, "module": "tests_lm.test_v05_c161_failure_localization", "parent_pid": 112148, "pid": 68184, "tests": 12}
+............
+----------------------------------------------------------------------
+Ran 12 tests in 0.047s
+
+OK
+regression_module_complete = {"index": 44, "module": "tests_lm.test_v05_c161_failure_localization", "parent_pid": 112148, "pid": 68184, "tests": 12}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c161_failure_localization", "pid": 112148}
+regression_progress = {"completed": 558, "index": 45, "module": "tests_lm.test_v05_c162_evidence_container", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 260.616, "phase": "regression"}
+regression_module_begin = {"index": 45, "module": "tests_lm.test_v05_c162_evidence_container", "parent_pid": 18140, "pid": 117088, "tests": 30}
+..............................
+----------------------------------------------------------------------
+Ran 30 tests in 1.788s
+
+OK
+regression_module_complete = {"index": 45, "module": "tests_lm.test_v05_c162_evidence_container", "parent_pid": 18140, "pid": 117088, "tests": 30}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c162_evidence_container", "pid": 18140}
+regression_progress = {"completed": 588, "index": 46, "module": "tests_lm.test_v05_c163_live_container_bridge", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 711.601, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 270.636, "phase": "regression"}
+regression_module_begin = {"index": 46, "module": "tests_lm.test_v05_c163_live_container_bridge", "parent_pid": 45148, "pid": 65148, "tests": 26}
+..........................
+----------------------------------------------------------------------
+Ran 26 tests in 0.005s
+
+OK
+regression_module_complete = {"index": 46, "module": "tests_lm.test_v05_c163_live_container_bridge", "parent_pid": 45148, "pid": 65148, "tests": 26}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c163_live_container_bridge", "pid": 45148}
+regression_progress = {"completed": 614, "index": 47, "module": "tests_lm.test_v05_c164_live_missing_delivery", "total": 6652}
+regression_module_begin = {"index": 47, "module": "tests_lm.test_v05_c164_live_missing_delivery", "parent_pid": 92896, "pid": 119796, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.013s
+
+OK
+regression_module_complete = {"index": 47, "module": "tests_lm.test_v05_c164_live_missing_delivery", "parent_pid": 92896, "pid": 119796, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c164_live_missing_delivery", "pid": 92896}
+regression_progress = {"completed": 638, "index": 48, "module": "tests_lm.test_v05_c165_live_permission_denied", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 721.62, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 280.658, "phase": "regression"}
+regression_module_begin = {"index": 48, "module": "tests_lm.test_v05_c165_live_permission_denied", "parent_pid": 7632, "pid": 92352, "tests": 27}
+...........................
+----------------------------------------------------------------------
+Ran 27 tests in 0.010s
+
+OK
+regression_module_complete = {"index": 48, "module": "tests_lm.test_v05_c165_live_permission_denied", "parent_pid": 7632, "pid": 92352, "tests": 27}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c165_live_permission_denied", "pid": 7632}
+regression_progress = {"completed": 665, "index": 49, "module": "tests_lm.test_v05_c166_live_budget_exhausted", "total": 6652}
+regression_module_begin = {"index": 49, "module": "tests_lm.test_v05_c166_live_budget_exhausted", "parent_pid": 107844, "pid": 96288, "tests": 30}
+..............................
+----------------------------------------------------------------------
+Ran 30 tests in 0.018s
+
+OK
+regression_module_complete = {"index": 49, "module": "tests_lm.test_v05_c166_live_budget_exhausted", "parent_pid": 107844, "pid": 96288, "tests": 30}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c166_live_budget_exhausted", "pid": 107844}
+regression_progress = {"completed": 695, "index": 50, "module": "tests_lm.test_v05_c167_live_warm_reference", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 731.646, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 290.682, "phase": "regression"}
+regression_module_begin = {"index": 50, "module": "tests_lm.test_v05_c167_live_warm_reference", "parent_pid": 85676, "pid": 115004, "tests": 30}
+..............................
+----------------------------------------------------------------------
+Ran 30 tests in 0.026s
+
+OK
+regression_module_complete = {"index": 50, "module": "tests_lm.test_v05_c167_live_warm_reference", "parent_pid": 85676, "pid": 115004, "tests": 30}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c167_live_warm_reference", "pid": 85676}
+regression_progress = {"completed": 725, "index": 51, "module": "tests_lm.test_v05_c168_necessity_observability", "total": 6652}
+regression_module_begin = {"index": 51, "module": "tests_lm.test_v05_c168_necessity_observability", "parent_pid": 116216, "pid": 18600, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.028s
+
+OK
+regression_module_complete = {"index": 51, "module": "tests_lm.test_v05_c168_necessity_observability", "parent_pid": 116216, "pid": 18600, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c168_necessity_observability", "pid": 116216}
+regression_progress = {"completed": 749, "index": 52, "module": "tests_lm.test_v05_c169_interface_batch", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 741.672, "phase": "science"}
+regression_module_begin = {"index": 52, "module": "tests_lm.test_v05_c169_interface_batch", "parent_pid": 71592, "pid": 83356, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.083s
+
+OK
+regression_module_complete = {"index": 52, "module": "tests_lm.test_v05_c169_interface_batch", "parent_pid": 71592, "pid": 83356, "tests": 24}
+worker_heartbeat = {"elapsed_seconds": 300.705, "phase": "regression"}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c169_interface_batch", "pid": 71592}
+regression_progress = {"completed": 773, "index": 53, "module": "tests_lm.test_v05_c170_structured_task_input", "total": 6652}
+regression_module_begin = {"index": 53, "module": "tests_lm.test_v05_c170_structured_task_input", "parent_pid": 97404, "pid": 105104, "tests": 36}
+....................................
+----------------------------------------------------------------------
+Ran 36 tests in 0.010s
+
+OK
+regression_module_complete = {"index": 53, "module": "tests_lm.test_v05_c170_structured_task_input", "parent_pid": 97404, "pid": 105104, "tests": 36}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c170_structured_task_input", "pid": 97404}
+regression_progress = {"completed": 809, "index": 54, "module": "tests_lm.test_v05_c171_derived_result", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 751.693, "phase": "science"}
+regression_module_begin = {"index": 54, "module": "tests_lm.test_v05_c171_derived_result", "parent_pid": 105424, "pid": 72544, "tests": 36}
+....................................
+----------------------------------------------------------------------
+Ran 36 tests in 0.013s
+
+OK
+regression_module_complete = {"index": 54, "module": "tests_lm.test_v05_c171_derived_result", "parent_pid": 105424, "pid": 72544, "tests": 36}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c171_derived_result", "pid": 105424}
+regression_progress = {"completed": 845, "index": 55, "module": "tests_lm.test_v05_c172_action_runtime", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 310.726, "phase": "regression"}
+regression_module_begin = {"index": 55, "module": "tests_lm.test_v05_c172_action_runtime", "parent_pid": 20956, "pid": 92368, "tests": 40}
+........................................
+----------------------------------------------------------------------
+Ran 40 tests in 0.016s
+
+OK
+regression_module_complete = {"index": 55, "module": "tests_lm.test_v05_c172_action_runtime", "parent_pid": 20956, "pid": 92368, "tests": 40}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c172_action_runtime", "pid": 20956}
+regression_progress = {"completed": 885, "index": 56, "module": "tests_lm.test_v05_c173_acquisition_lifecycle", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 761.714, "phase": "science"}
+regression_module_begin = {"index": 56, "module": "tests_lm.test_v05_c173_acquisition_lifecycle", "parent_pid": 84108, "pid": 45604, "tests": 36}
+...............worker_heartbeat = {"elapsed_seconds": 320.749, "phase": "regression"}
+.....................
+----------------------------------------------------------------------
+Ran 36 tests in 0.958s
+
+OK
+regression_module_complete = {"index": 56, "module": "tests_lm.test_v05_c173_acquisition_lifecycle", "parent_pid": 84108, "pid": 45604, "tests": 36}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c173_acquisition_lifecycle", "pid": 84108}
+regression_progress = {"completed": 921, "index": 57, "module": "tests_lm.test_v05_c174_learned_necessity", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 771.738, "phase": "science"}
+regression_module_begin = {"index": 57, "module": "tests_lm.test_v05_c174_learned_necessity", "parent_pid": 104700, "pid": 63624, "tests": 32}
+worker_heartbeat = {"elapsed_seconds": 330.774, "phase": "regression"}
+..worker_heartbeat = {"elapsed_seconds": 10.031, "phase": "tests_lm.test_v05_c174_learned_necessity"}
+..............................
+----------------------------------------------------------------------
+Ran 32 tests in 7.465s
+
+OK
+regression_module_complete = {"index": 57, "module": "tests_lm.test_v05_c174_learned_necessity", "parent_pid": 104700, "pid": 63624, "tests": 32}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c174_learned_necessity", "pid": 104700}
+regression_progress = {"completed": 953, "index": 58, "module": "tests_lm.test_v05_c175_frozen_prediction_audit", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 781.763, "phase": "science"}
+regression_module_begin = {"index": 58, "module": "tests_lm.test_v05_c175_frozen_prediction_audit", "parent_pid": 72048, "pid": 116760, "tests": 20}
+.................worker_heartbeat = {"elapsed_seconds": 340.801, "phase": "regression"}
+...
+----------------------------------------------------------------------
+Ran 20 tests in 0.597s
+
+OK
+regression_module_complete = {"index": 58, "module": "tests_lm.test_v05_c175_frozen_prediction_audit", "parent_pid": 72048, "pid": 116760, "tests": 20}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c175_frozen_prediction_audit", "pid": 72048}
+regression_progress = {"completed": 973, "index": 59, "module": "tests_lm.test_v05_c176_conditional_loss", "total": 6652}
+regression_module_begin = {"index": 59, "module": "tests_lm.test_v05_c176_conditional_loss", "parent_pid": 110984, "pid": 104936, "tests": 28}
+..................worker_heartbeat = {"elapsed_seconds": 791.787, "phase": "science"}
+..........
+----------------------------------------------------------------------
+Ran 28 tests in 1.664s
+
+OK
+regression_module_complete = {"index": 59, "module": "tests_lm.test_v05_c176_conditional_loss", "parent_pid": 110984, "pid": 104936, "tests": 28}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c176_conditional_loss", "pid": 110984}
+regression_progress = {"completed": 1001, "index": 60, "module": "tests_lm.test_v05_c177_frozen_score_order", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 350.828, "phase": "regression"}
+regression_module_begin = {"index": 60, "module": "tests_lm.test_v05_c177_frozen_score_order", "parent_pid": 73636, "pid": 106492, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.086s
+
+OK
+regression_module_complete = {"index": 60, "module": "tests_lm.test_v05_c177_frozen_score_order", "parent_pid": 73636, "pid": 106492, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c177_frozen_score_order", "pid": 73636}
+regression_progress = {"completed": 1025, "index": 61, "module": "tests_lm.test_v05_c178_visible_leaf_binding", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 801.814, "phase": "science"}
+regression_module_begin = {"index": 61, "module": "tests_lm.test_v05_c178_visible_leaf_binding", "parent_pid": 100672, "pid": 116376, "tests": 32}
+worker_heartbeat = {"elapsed_seconds": 360.853, "phase": "regression"}
+................................
+----------------------------------------------------------------------
+Ran 32 tests in 1.979s
+
+OK
+regression_module_complete = {"index": 61, "module": "tests_lm.test_v05_c178_visible_leaf_binding", "parent_pid": 100672, "pid": 116376, "tests": 32}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c178_visible_leaf_binding", "pid": 100672}
+regression_progress = {"completed": 1057, "index": 62, "module": "tests_lm.test_v05_c179_shared_graph", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 811.837, "phase": "science"}
+regression_module_begin = {"index": 62, "module": "tests_lm.test_v05_c179_shared_graph", "parent_pid": 114816, "pid": 103088, "tests": 32}
+................................
+----------------------------------------------------------------------
+Ran 32 tests in 1.531s
+
+OK
+regression_module_complete = {"index": 62, "module": "tests_lm.test_v05_c179_shared_graph", "parent_pid": 114816, "pid": 103088, "tests": 32}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c179_shared_graph", "pid": 114816}
+regression_progress = {"completed": 1089, "index": 63, "module": "tests_lm.test_v05_c180_fact_bypass", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 370.873, "phase": "regression"}
+regression_module_begin = {"index": 63, "module": "tests_lm.test_v05_c180_fact_bypass", "parent_pid": 117980, "pid": 50744, "tests": 28}
+............................
+----------------------------------------------------------------------
+Ran 28 tests in 1.532s
+
+OK
+regression_module_complete = {"index": 63, "module": "tests_lm.test_v05_c180_fact_bypass", "parent_pid": 117980, "pid": 50744, "tests": 28}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c180_fact_bypass", "pid": 117980}
+regression_progress = {"completed": 1117, "index": 64, "module": "tests_lm.test_v05_c181_internal_semantics", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 821.858, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 380.894, "phase": "regression"}
+regression_module_begin = {"index": 64, "module": "tests_lm.test_v05_c181_internal_semantics", "parent_pid": 56244, "pid": 73088, "tests": 36}
+....................................
+----------------------------------------------------------------------
+Ran 36 tests in 2.143s
+
+OK
+regression_module_complete = {"index": 64, "module": "tests_lm.test_v05_c181_internal_semantics", "parent_pid": 56244, "pid": 73088, "tests": 36}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c181_internal_semantics", "pid": 56244}
+regression_progress = {"completed": 1153, "index": 65, "module": "tests_lm.test_v05_c182_frozen_fact_renaming", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 831.879, "phase": "science"}
+regression_module_begin = {"index": 65, "module": "tests_lm.test_v05_c182_frozen_fact_renaming", "parent_pid": 98496, "pid": 98212, "tests": 32}
+..........worker_heartbeat = {"elapsed_seconds": 390.922, "phase": "regression"}
+worker_heartbeat = {"elapsed_seconds": 10.031, "phase": "tests_lm.test_v05_c182_frozen_fact_renaming"}
+worker_heartbeat = {"elapsed_seconds": 841.904, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 400.944, "phase": "regression"}
+worker_heartbeat = {"elapsed_seconds": 20.055, "phase": "tests_lm.test_v05_c182_frozen_fact_renaming"}
+worker_heartbeat = {"elapsed_seconds": 851.926, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 410.966, "phase": "regression"}
+worker_heartbeat = {"elapsed_seconds": 30.073, "phase": "tests_lm.test_v05_c182_frozen_fact_renaming"}
+worker_heartbeat = {"elapsed_seconds": 861.946, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 420.987, "phase": "regression"}
+worker_heartbeat = {"elapsed_seconds": 40.095, "phase": "tests_lm.test_v05_c182_frozen_fact_renaming"}
+worker_heartbeat = {"elapsed_seconds": 871.969, "phase": "science"}
+......................
+----------------------------------------------------------------------
+Ran 32 tests in 40.068s
+
+OK
+regression_module_complete = {"index": 65, "module": "tests_lm.test_v05_c182_frozen_fact_renaming", "parent_pid": 98496, "pid": 98212, "tests": 32}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c182_frozen_fact_renaming", "pid": 98496}
+regression_progress = {"completed": 1185, "index": 66, "module": "tests_lm.test_v05_c183_frozen_path_attribution", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 431.011, "phase": "regression"}
+regression_module_begin = {"index": 66, "module": "tests_lm.test_v05_c183_frozen_path_attribution", "parent_pid": 52476, "pid": 48356, "tests": 32}
+................................
+----------------------------------------------------------------------
+Ran 32 tests in 0.019s
+
+OK
+regression_module_complete = {"index": 66, "module": "tests_lm.test_v05_c183_frozen_path_attribution", "parent_pid": 52476, "pid": 48356, "tests": 32}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c183_frozen_path_attribution", "pid": 52476}
+regression_progress = {"completed": 1217, "index": 67, "module": "tests_lm.test_v05_c184_canonical_fact_indices", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 881.99, "phase": "science"}
+regression_module_begin = {"index": 67, "module": "tests_lm.test_v05_c184_canonical_fact_indices", "parent_pid": 82708, "pid": 99656, "tests": 32}
+................................
+----------------------------------------------------------------------
+Ran 32 tests in 0.604s
+
+OK
+regression_module_complete = {"index": 67, "module": "tests_lm.test_v05_c184_canonical_fact_indices", "parent_pid": 82708, "pid": 99656, "tests": 32}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c184_canonical_fact_indices", "pid": 82708}
+regression_progress = {"completed": 1249, "index": 68, "module": "tests_lm.test_v05_c185_single_missing_acquisition", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 441.032, "phase": "regression"}
+regression_module_begin = {"index": 68, "module": "tests_lm.test_v05_c185_single_missing_acquisition", "parent_pid": 117660, "pid": 96052, "tests": 36}
+....................................
+----------------------------------------------------------------------
+Ran 36 tests in 0.605s
+
+OK
+regression_module_complete = {"index": 68, "module": "tests_lm.test_v05_c185_single_missing_acquisition", "parent_pid": 117660, "pid": 96052, "tests": 36}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c185_single_missing_acquisition", "pid": 117660}
+regression_progress = {"completed": 1285, "index": 69, "module": "tests_lm.test_v05_c186_nonadmission_reclassification", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 892.013, "phase": "science"}
+regression_module_begin = {"index": 69, "module": "tests_lm.test_v05_c186_nonadmission_reclassification", "parent_pid": 108332, "pid": 117992, "tests": 32}
+................................
+----------------------------------------------------------------------
+Ran 32 tests in 0.003s
+
+OK
+regression_module_complete = {"index": 69, "module": "tests_lm.test_v05_c186_nonadmission_reclassification", "parent_pid": 108332, "pid": 117992, "tests": 32}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c186_nonadmission_reclassification", "pid": 108332}
+regression_progress = {"completed": 1317, "index": 70, "module": "tests_lm.test_v05_c186_npz_input_recovery", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 451.053, "phase": "regression"}
+regression_module_begin = {"index": 70, "module": "tests_lm.test_v05_c186_npz_input_recovery", "parent_pid": 70700, "pid": 12640, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.347s
+
+OK
+regression_module_complete = {"index": 70, "module": "tests_lm.test_v05_c186_npz_input_recovery", "parent_pid": 70700, "pid": 12640, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c186_npz_input_recovery", "pid": 70700}
+regression_progress = {"completed": 1341, "index": 71, "module": "tests_lm.test_v05_c187_restricted_acquisition", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 902.037, "phase": "science"}
+regression_module_begin = {"index": 71, "module": "tests_lm.test_v05_c187_restricted_acquisition", "parent_pid": 82856, "pid": 102588, "tests": 36}
+....................................
+----------------------------------------------------------------------
+Ran 36 tests in 0.014s
+
+OK
+regression_module_complete = {"index": 71, "module": "tests_lm.test_v05_c187_restricted_acquisition", "parent_pid": 82856, "pid": 102588, "tests": 36}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c187_restricted_acquisition", "pid": 82856}
+regression_progress = {"completed": 1377, "index": 72, "module": "tests_lm.test_v05_c188_multimissing_target_selection", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 461.077, "phase": "regression"}
+regression_module_begin = {"index": 72, "module": "tests_lm.test_v05_c188_multimissing_target_selection", "parent_pid": 109944, "pid": 108912, "tests": 36}
+.........................worker_heartbeat = {"elapsed_seconds": 912.059, "phase": "science"}
+...........
+----------------------------------------------------------------------
+Ran 36 tests in 2.952s
+
+OK
+regression_module_complete = {"index": 72, "module": "tests_lm.test_v05_c188_multimissing_target_selection", "parent_pid": 109944, "pid": 108912, "tests": 36}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c188_multimissing_target_selection", "pid": 109944}
+regression_progress = {"completed": 1413, "index": 73, "module": "tests_lm.test_v05_c189_live_multimissing_target", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 471.097, "phase": "regression"}
+regression_module_begin = {"index": 73, "module": "tests_lm.test_v05_c189_live_multimissing_target", "parent_pid": 92048, "pid": 54088, "tests": 36}
+....................................
+----------------------------------------------------------------------
+Ran 36 tests in 0.273s
+
+OK
+regression_module_complete = {"index": 73, "module": "tests_lm.test_v05_c189_live_multimissing_target", "parent_pid": 92048, "pid": 54088, "tests": 36}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c189_live_multimissing_target", "pid": 92048}
+regression_progress = {"completed": 1449, "index": 74, "module": "tests_lm.test_v05_c190_iterative_multimissing_acquisition", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 922.081, "phase": "science"}
+regression_module_begin = {"index": 74, "module": "tests_lm.test_v05_c190_iterative_multimissing_acquisition", "parent_pid": 70700, "pid": 110436, "tests": 36}
+....................................
+----------------------------------------------------------------------
+Ran 36 tests in 0.221s
+
+OK
+regression_module_complete = {"index": 74, "module": "tests_lm.test_v05_c190_iterative_multimissing_acquisition", "parent_pid": 70700, "pid": 110436, "tests": 36}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c190_iterative_multimissing_acquisition", "pid": 70700}
+regression_progress = {"completed": 1485, "index": 75, "module": "tests_lm.test_v05_c191_third_acquisition_budget", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 481.121, "phase": "regression"}
+regression_module_begin = {"index": 75, "module": "tests_lm.test_v05_c191_third_acquisition_budget", "parent_pid": 96340, "pid": 117780, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.111s
+
+OK
+regression_module_complete = {"index": 75, "module": "tests_lm.test_v05_c191_third_acquisition_budget", "parent_pid": 96340, "pid": 117780, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c191_third_acquisition_budget", "pid": 96340}
+regression_progress = {"completed": 1509, "index": 76, "module": "tests_lm.test_v05_c192_post3_shadow_necessity", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 932.102, "phase": "science"}
+regression_module_begin = {"index": 76, "module": "tests_lm.test_v05_c192_post3_shadow_necessity", "parent_pid": 27616, "pid": 108040, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.071s
+
+OK
+regression_module_complete = {"index": 76, "module": "tests_lm.test_v05_c192_post3_shadow_necessity", "parent_pid": 27616, "pid": 108040, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c192_post3_shadow_necessity", "pid": 27616}
+regression_progress = {"completed": 1533, "index": 77, "module": "tests_lm.test_v05_c193_budget13_authoritative_closure", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 491.145, "phase": "regression"}
+regression_module_begin = {"index": 77, "module": "tests_lm.test_v05_c193_budget13_authoritative_closure", "parent_pid": 116508, "pid": 96152, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.047s
+
+OK
+regression_module_complete = {"index": 77, "module": "tests_lm.test_v05_c193_budget13_authoritative_closure", "parent_pid": 116508, "pid": 96152, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c193_budget13_authoritative_closure", "pid": 116508}
+regression_progress = {"completed": 1557, "index": 78, "module": "tests_lm.test_v05_c194_generic_bounded_loop", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 942.124, "phase": "science"}
+regression_module_begin = {"index": 78, "module": "tests_lm.test_v05_c194_generic_bounded_loop", "parent_pid": 52852, "pid": 105820, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.098s
+
+OK
+regression_module_complete = {"index": 78, "module": "tests_lm.test_v05_c194_generic_bounded_loop", "parent_pid": 52852, "pid": 105820, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c194_generic_bounded_loop", "pid": 52852}
+regression_progress = {"completed": 1581, "index": 79, "module": "tests_lm.test_v05_c195_generic_loop_budget12_exhaustion", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 501.166, "phase": "regression"}
+regression_module_begin = {"index": 79, "module": "tests_lm.test_v05_c195_generic_loop_budget12_exhaustion", "parent_pid": 24068, "pid": 119380, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.118s
+
+OK
+regression_module_complete = {"index": 79, "module": "tests_lm.test_v05_c195_generic_loop_budget12_exhaustion", "parent_pid": 24068, "pid": 119380, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c195_generic_loop_budget12_exhaustion", "pid": 24068}
+regression_progress = {"completed": 1605, "index": 80, "module": "tests_lm.test_v05_c196_result_aware_generic_loop", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 952.146, "phase": "science"}
+regression_module_begin = {"index": 80, "module": "tests_lm.test_v05_c196_result_aware_generic_loop", "parent_pid": 50020, "pid": 88284, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.134s
+
+OK
+regression_module_complete = {"index": 80, "module": "tests_lm.test_v05_c196_result_aware_generic_loop", "parent_pid": 50020, "pid": 88284, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c196_result_aware_generic_loop", "pid": 50020}
+regression_progress = {"completed": 1629, "index": 81, "module": "tests_lm.test_v05_c197_provider_failure_generic_loop", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 511.187, "phase": "regression"}
+regression_module_begin = {"index": 81, "module": "tests_lm.test_v05_c197_provider_failure_generic_loop", "parent_pid": 39856, "pid": 112912, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.025s
+
+OK
+regression_module_complete = {"index": 81, "module": "tests_lm.test_v05_c197_provider_failure_generic_loop", "parent_pid": 39856, "pid": 112912, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c197_provider_failure_generic_loop", "pid": 39856}
+regression_progress = {"completed": 1653, "index": 82, "module": "tests_lm.test_v05_c198_stale_reservation_generic_loop", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 962.168, "phase": "science"}
+regression_module_begin = {"index": 82, "module": "tests_lm.test_v05_c198_stale_reservation_generic_loop", "parent_pid": 111544, "pid": 37908, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.025s
+
+OK
+regression_module_complete = {"index": 82, "module": "tests_lm.test_v05_c198_stale_reservation_generic_loop", "parent_pid": 111544, "pid": 37908, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c198_stale_reservation_generic_loop", "pid": 111544}
+regression_progress = {"completed": 1677, "index": 83, "module": "tests_lm.test_v05_c199_attempt_limit_generic_loop", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 521.208, "phase": "regression"}
+regression_module_begin = {"index": 83, "module": "tests_lm.test_v05_c199_attempt_limit_generic_loop", "parent_pid": 57524, "pid": 105552, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.085s
+
+OK
+regression_module_complete = {"index": 83, "module": "tests_lm.test_v05_c199_attempt_limit_generic_loop", "parent_pid": 57524, "pid": 105552, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c199_attempt_limit_generic_loop", "pid": 57524}
+regression_progress = {"completed": 1701, "index": 84, "module": "tests_lm.test_v05_c200_acquisition_channel_input", "total": 6652}
+regression_module_begin = {"index": 84, "module": "tests_lm.test_v05_c200_acquisition_channel_input", "parent_pid": 110268, "pid": 90356, "tests": 30}
+..............................
+----------------------------------------------------------------------
+Ran 30 tests in 0.150s
+
+OK
+worker_heartbeat = {"elapsed_seconds": 972.197, "phase": "science"}
+regression_module_complete = {"index": 84, "module": "tests_lm.test_v05_c200_acquisition_channel_input", "parent_pid": 110268, "pid": 90356, "tests": 30}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c200_acquisition_channel_input", "pid": 110268}
+regression_progress = {"completed": 1731, "index": 85, "module": "tests_lm.test_v05_c201_selected_fact_channel_route", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 531.234, "phase": "regression"}
+regression_module_begin = {"index": 85, "module": "tests_lm.test_v05_c201_selected_fact_channel_route", "parent_pid": 95376, "pid": 42912, "tests": 28}
+............................
+----------------------------------------------------------------------
+Ran 28 tests in 0.050s
+
+OK
+regression_module_complete = {"index": 85, "module": "tests_lm.test_v05_c201_selected_fact_channel_route", "parent_pid": 95376, "pid": 42912, "tests": 28}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c201_selected_fact_channel_route", "pid": 95376}
+regression_progress = {"completed": 1759, "index": 86, "module": "tests_lm.test_v05_c202_three_channel_acquisition_dispatch", "total": 6652}
+regression_module_begin = {"index": 86, "module": "tests_lm.test_v05_c202_three_channel_acquisition_dispatch", "parent_pid": 63560, "pid": 54520, "tests": 26}
+..........................
+----------------------------------------------------------------------
+Ran 26 tests in 0.017s
+
+OK
+worker_heartbeat = {"elapsed_seconds": 982.217, "phase": "science"}
+regression_module_complete = {"index": 86, "module": "tests_lm.test_v05_c202_three_channel_acquisition_dispatch", "parent_pid": 63560, "pid": 54520, "tests": 26}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c202_three_channel_acquisition_dispatch", "pid": 63560}
+regression_progress = {"completed": 1785, "index": 87, "module": "tests_lm.test_v05_c203_mixed_channel_multistep_replay", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 541.257, "phase": "regression"}
+regression_module_begin = {"index": 87, "module": "tests_lm.test_v05_c203_mixed_channel_multistep_replay", "parent_pid": 109996, "pid": 104980, "tests": 28}
+............................
+----------------------------------------------------------------------
+Ran 28 tests in 0.805s
+
+OK
+regression_module_complete = {"index": 87, "module": "tests_lm.test_v05_c203_mixed_channel_multistep_replay", "parent_pid": 109996, "pid": 104980, "tests": 28}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c203_mixed_channel_multistep_replay", "pid": 109996}
+regression_progress = {"completed": 1813, "index": 88, "module": "tests_lm.test_v05_c204_live_v2_mixed_channel_loop", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 992.241, "phase": "science"}
+regression_module_begin = {"index": 88, "module": "tests_lm.test_v05_c204_live_v2_mixed_channel_loop", "parent_pid": 83344, "pid": 81948, "tests": 32}
+................................
+----------------------------------------------------------------------
+Ran 32 tests in 0.039s
+
+OK
+regression_module_complete = {"index": 88, "module": "tests_lm.test_v05_c204_live_v2_mixed_channel_loop", "parent_pid": 83344, "pid": 81948, "tests": 32}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c204_live_v2_mixed_channel_loop", "pid": 83344}
+regression_progress = {"completed": 1845, "index": 89, "module": "tests_lm.test_v05_c205_phase0_batch_composition_attribution", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 551.281, "phase": "regression"}
+regression_module_begin = {"index": 89, "module": "tests_lm.test_v05_c205_phase0_batch_composition_attribution", "parent_pid": 106668, "pid": 118420, "tests": 26}
+..........................
+----------------------------------------------------------------------
+Ran 26 tests in 0.384s
+
+OK
+regression_module_complete = {"index": 89, "module": "tests_lm.test_v05_c205_phase0_batch_composition_attribution", "parent_pid": 106668, "pid": 118420, "tests": 26}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c205_phase0_batch_composition_attribution", "pid": 106668}
+regression_progress = {"completed": 1871, "index": 90, "module": "tests_lm.test_v05_c206_terminal_derived_result_integration", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1002.265, "phase": "science"}
+regression_module_begin = {"index": 90, "module": "tests_lm.test_v05_c206_terminal_derived_result_integration", "parent_pid": 86976, "pid": 118436, "tests": 30}
+..............................
+----------------------------------------------------------------------
+Ran 30 tests in 0.342s
+
+OK
+regression_module_complete = {"index": 90, "module": "tests_lm.test_v05_c206_terminal_derived_result_integration", "parent_pid": 86976, "pid": 118436, "tests": 30}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c206_terminal_derived_result_integration", "pid": 86976}
+regression_progress = {"completed": 1901, "index": 91, "module": "tests_lm.test_v05_c207_nine_family_development_manifest", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 561.305, "phase": "regression"}
+regression_module_begin = {"index": 91, "module": "tests_lm.test_v05_c207_nine_family_development_manifest", "parent_pid": 5264, "pid": 17580, "tests": 28}
+............................
+----------------------------------------------------------------------
+Ran 28 tests in 0.308s
+
+OK
+regression_module_complete = {"index": 91, "module": "tests_lm.test_v05_c207_nine_family_development_manifest", "parent_pid": 5264, "pid": 17580, "tests": 28}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c207_nine_family_development_manifest", "pid": 5264}
+regression_progress = {"completed": 1929, "index": 92, "module": "tests_lm.test_v05_c208_candidate_input_compatibility_preflight", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1012.292, "phase": "science"}
+regression_module_begin = {"index": 92, "module": "tests_lm.test_v05_c208_candidate_input_compatibility_preflight", "parent_pid": 111520, "pid": 13428, "tests": 20}
+....................
+----------------------------------------------------------------------
+Ran 20 tests in 0.459s
+
+OK
+regression_module_complete = {"index": 92, "module": "tests_lm.test_v05_c208_candidate_input_compatibility_preflight", "parent_pid": 111520, "pid": 13428, "tests": 20}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c208_candidate_input_compatibility_preflight", "pid": 111520}
+regression_progress = {"completed": 1949, "index": 93, "module": "tests_lm.test_v05_c209_visible_only_candidate_projection", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 571.329, "phase": "regression"}
+regression_module_begin = {"index": 93, "module": "tests_lm.test_v05_c209_visible_only_candidate_projection", "parent_pid": 110848, "pid": 74296, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.759s
+
+OK
+regression_module_complete = {"index": 93, "module": "tests_lm.test_v05_c209_visible_only_candidate_projection", "parent_pid": 110848, "pid": 74296, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c209_visible_only_candidate_projection", "pid": 110848}
+regression_progress = {"completed": 1973, "index": 94, "module": "tests_lm.test_v05_c210_baseline_development_measurement", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1022.315, "phase": "science"}
+regression_module_begin = {"index": 94, "module": "tests_lm.test_v05_c210_baseline_development_measurement", "parent_pid": 100872, "pid": 37696, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.523s
+
+OK
+regression_module_complete = {"index": 94, "module": "tests_lm.test_v05_c210_baseline_development_measurement", "parent_pid": 100872, "pid": 37696, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c210_baseline_development_measurement", "pid": 100872}
+regression_progress = {"completed": 1997, "index": 95, "module": "tests_lm.test_v05_c211_deciding_manifest_freeze", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 581.346, "phase": "regression"}
+regression_module_begin = {"index": 95, "module": "tests_lm.test_v05_c211_deciding_manifest_freeze", "parent_pid": 115392, "pid": 104936, "tests": 28}
+............................
+----------------------------------------------------------------------
+Ran 28 tests in 0.356s
+
+OK
+regression_module_complete = {"index": 95, "module": "tests_lm.test_v05_c211_deciding_manifest_freeze", "parent_pid": 115392, "pid": 104936, "tests": 28}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c211_deciding_manifest_freeze", "pid": 115392}
+regression_progress = {"completed": 2025, "index": 96, "module": "tests_lm.test_v05_c212_deciding_holdout_execution", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1032.338, "phase": "science"}
+regression_module_begin = {"index": 96, "module": "tests_lm.test_v05_c212_deciding_holdout_execution", "parent_pid": 2320, "pid": 54224, "tests": 30}
+..............................
+----------------------------------------------------------------------
+Ran 30 tests in 0.355s
+
+OK
+regression_module_complete = {"index": 96, "module": "tests_lm.test_v05_c212_deciding_holdout_execution", "parent_pid": 2320, "pid": 54224, "tests": 30}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c212_deciding_holdout_execution", "pid": 2320}
+regression_progress = {"completed": 2055, "index": 97, "module": "tests_lm.test_v05_c213_memory_operation_contract", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 591.368, "phase": "regression"}
+regression_module_begin = {"index": 97, "module": "tests_lm.test_v05_c213_memory_operation_contract", "parent_pid": 116508, "pid": 106900, "tests": 28}
+............................
+----------------------------------------------------------------------
+Ran 28 tests in 0.349s
+
+OK
+regression_module_complete = {"index": 97, "module": "tests_lm.test_v05_c213_memory_operation_contract", "parent_pid": 116508, "pid": 106900, "tests": 28}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c213_memory_operation_contract", "pid": 116508}
+regression_progress = {"completed": 2083, "index": 98, "module": "tests_lm.test_v05_c214_memory_capsule_closure", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1042.361, "phase": "science"}
+regression_module_begin = {"index": 98, "module": "tests_lm.test_v05_c214_memory_capsule_closure", "parent_pid": 82872, "pid": 109640, "tests": 32}
+................................
+----------------------------------------------------------------------
+Ran 32 tests in 0.362s
+
+OK
+regression_module_complete = {"index": 98, "module": "tests_lm.test_v05_c214_memory_capsule_closure", "parent_pid": 82872, "pid": 109640, "tests": 32}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c214_memory_capsule_closure", "pid": 82872}
+regression_progress = {"completed": 2115, "index": 99, "module": "tests_lm.test_v05_c215_h1_h2_chunk_commit", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 601.392, "phase": "regression"}
+regression_module_begin = {"index": 99, "module": "tests_lm.test_v05_c215_h1_h2_chunk_commit", "parent_pid": 96584, "pid": 61108, "tests": 34}
+..................................
+----------------------------------------------------------------------
+Ran 34 tests in 0.446s
+
+OK
+regression_module_complete = {"index": 99, "module": "tests_lm.test_v05_c215_h1_h2_chunk_commit", "parent_pid": 96584, "pid": 61108, "tests": 34}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c215_h1_h2_chunk_commit", "pid": 96584}
+regression_progress = {"completed": 2149, "index": 100, "module": "tests_lm.test_v05_c216_learned_reader", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1052.384, "phase": "science"}
+regression_module_begin = {"index": 100, "module": "tests_lm.test_v05_c216_learned_reader", "parent_pid": 33980, "pid": 46236, "tests": 36}
+...............................worker_heartbeat = {"elapsed_seconds": 611.416, "phase": "regression"}
+.....
+----------------------------------------------------------------------
+Ran 36 tests in 0.428s
+
+OK
+regression_module_complete = {"index": 100, "module": "tests_lm.test_v05_c216_learned_reader", "parent_pid": 33980, "pid": 46236, "tests": 36}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c216_learned_reader", "pid": 33980}
+regression_progress = {"completed": 2185, "index": 101, "module": "tests_lm.test_v05_c217_learned_port_selector", "total": 6652}
+regression_module_begin = {"index": 101, "module": "tests_lm.test_v05_c217_learned_port_selector", "parent_pid": 101956, "pid": 45080, "tests": 36}
+....................................
+----------------------------------------------------------------------
+Ran 36 tests in 0.480s
+
+OK
+regression_module_complete = {"index": 101, "module": "tests_lm.test_v05_c217_learned_port_selector", "parent_pid": 101956, "pid": 45080, "tests": 36}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c217_learned_port_selector", "pid": 101956}
+regression_progress = {"completed": 2221, "index": 102, "module": "tests_lm.test_v05_c218_learned_writer", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1062.407, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 621.442, "phase": "regression"}
+regression_module_begin = {"index": 102, "module": "tests_lm.test_v05_c218_learned_writer", "parent_pid": 106860, "pid": 91112, "tests": 38}
+......................................
+----------------------------------------------------------------------
+Ran 38 tests in 0.477s
+
+OK
+regression_module_complete = {"index": 102, "module": "tests_lm.test_v05_c218_learned_writer", "parent_pid": 106860, "pid": 91112, "tests": 38}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c218_learned_writer", "pid": 106860}
+regression_progress = {"completed": 2259, "index": 103, "module": "tests_lm.test_v05_c219_learned_coverage", "total": 6652}
+regression_module_begin = {"index": 103, "module": "tests_lm.test_v05_c219_learned_coverage", "parent_pid": 105272, "pid": 48840, "tests": 38}
+......................................
+----------------------------------------------------------------------
+Ran 38 tests in 0.469s
+
+OK
+regression_module_complete = {"index": 103, "module": "tests_lm.test_v05_c219_learned_coverage", "parent_pid": 105272, "pid": 48840, "tests": 38}
+worker_heartbeat = {"elapsed_seconds": 1072.429, "phase": "science"}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c219_learned_coverage", "pid": 105272}
+regression_progress = {"completed": 2297, "index": 104, "module": "tests_lm.test_v05_c220_frozen_learned_stack", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 631.465, "phase": "regression"}
+regression_module_begin = {"index": 104, "module": "tests_lm.test_v05_c220_frozen_learned_stack", "parent_pid": 60068, "pid": 111896, "tests": 38}
+......................................
+----------------------------------------------------------------------
+Ran 38 tests in 0.432s
+
+OK
+regression_module_complete = {"index": 104, "module": "tests_lm.test_v05_c220_frozen_learned_stack", "parent_pid": 60068, "pid": 111896, "tests": 38}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c220_frozen_learned_stack", "pid": 60068}
+regression_progress = {"completed": 2335, "index": 105, "module": "tests_lm.test_v05_c221_live_coverage_dispatch", "total": 6652}
+regression_module_begin = {"index": 105, "module": "tests_lm.test_v05_c221_live_coverage_dispatch", "parent_pid": 60896, "pid": 73320, "tests": 34}
+..................worker_heartbeat = {"elapsed_seconds": 1082.448, "phase": "science"}
+................
+----------------------------------------------------------------------
+Ran 34 tests in 1.477s
+
+OK
+regression_module_complete = {"index": 105, "module": "tests_lm.test_v05_c221_live_coverage_dispatch", "parent_pid": 60896, "pid": 73320, "tests": 34}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c221_live_coverage_dispatch", "pid": 60896}
+regression_progress = {"completed": 2369, "index": 106, "module": "tests_lm.test_v05_c222_withdrawal_lifecycle", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 641.488, "phase": "regression"}
+regression_module_begin = {"index": 106, "module": "tests_lm.test_v05_c222_withdrawal_lifecycle", "parent_pid": 24296, "pid": 116476, "tests": 32}
+................................
+----------------------------------------------------------------------
+Ran 32 tests in 0.922s
+
+OK
+regression_module_complete = {"index": 106, "module": "tests_lm.test_v05_c222_withdrawal_lifecycle", "parent_pid": 24296, "pid": 116476, "tests": 32}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c222_withdrawal_lifecycle", "pid": 24296}
+regression_progress = {"completed": 2401, "index": 107, "module": "tests_lm.test_v05_c223_request_freshness", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1092.469, "phase": "science"}
+regression_module_begin = {"index": 107, "module": "tests_lm.test_v05_c223_request_freshness", "parent_pid": 44624, "pid": 115444, "tests": 34}
+..................................
+----------------------------------------------------------------------
+Ran 34 tests in 0.856s
+
+OK
+regression_module_complete = {"index": 107, "module": "tests_lm.test_v05_c223_request_freshness", "parent_pid": 44624, "pid": 115444, "tests": 34}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c223_request_freshness", "pid": 44624}
+worker_heartbeat = {"elapsed_seconds": 651.508, "phase": "regression"}
+regression_progress = {"completed": 2435, "index": 108, "module": "tests_lm.test_v05_c224_history_cost_audit", "total": 6652}
+regression_module_begin = {"index": 108, "module": "tests_lm.test_v05_c224_history_cost_audit", "parent_pid": 108016, "pid": 96100, "tests": 30}
+..............................
+----------------------------------------------------------------------
+Ran 30 tests in 0.655s
+
+OK
+regression_module_complete = {"index": 108, "module": "tests_lm.test_v05_c224_history_cost_audit", "parent_pid": 108016, "pid": 96100, "tests": 30}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c224_history_cost_audit", "pid": 108016}
+regression_progress = {"completed": 2465, "index": 109, "module": "tests_lm.test_v05_c225_stateful_baseline", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1102.494, "phase": "science"}
+regression_module_begin = {"index": 109, "module": "tests_lm.test_v05_c225_stateful_baseline", "parent_pid": 116856, "pid": 117264, "tests": 32}
+...............................worker_heartbeat = {"elapsed_seconds": 661.53, "phase": "regression"}
+.
+----------------------------------------------------------------------
+Ran 32 tests in 0.529s
+
+OK
+regression_module_complete = {"index": 109, "module": "tests_lm.test_v05_c225_stateful_baseline", "parent_pid": 116856, "pid": 117264, "tests": 32}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c225_stateful_baseline", "pid": 116856}
+regression_progress = {"completed": 2497, "index": 110, "module": "tests_lm.test_v05_c226_dimension_scaling", "total": 6652}
+regression_module_begin = {"index": 110, "module": "tests_lm.test_v05_c226_dimension_scaling", "parent_pid": 107532, "pid": 26284, "tests": 32}
+................................
+----------------------------------------------------------------------
+Ran 32 tests in 1.362s
+
+OK
+regression_module_complete = {"index": 110, "module": "tests_lm.test_v05_c226_dimension_scaling", "parent_pid": 107532, "pid": 26284, "tests": 32}
+worker_heartbeat = {"elapsed_seconds": 1112.519, "phase": "science"}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c226_dimension_scaling", "pid": 107532}
+regression_progress = {"completed": 2529, "index": 111, "module": "tests_lm.test_v05_c227_factor_reuse", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 671.553, "phase": "regression"}
+regression_module_begin = {"index": 111, "module": "tests_lm.test_v05_c227_factor_reuse", "parent_pid": 97160, "pid": 39292, "tests": 32}
+................................
+----------------------------------------------------------------------
+Ran 32 tests in 2.079s
+
+OK
+regression_module_complete = {"index": 111, "module": "tests_lm.test_v05_c227_factor_reuse", "parent_pid": 97160, "pid": 39292, "tests": 32}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c227_factor_reuse", "pid": 97160}
+regression_progress = {"completed": 2561, "index": 112, "module": "tests_lm.test_v05_c228_update_query_cost", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1122.547, "phase": "science"}
+regression_module_begin = {"index": 112, "module": "tests_lm.test_v05_c228_update_query_cost", "parent_pid": 88176, "pid": 10496, "tests": 32}
+...............................worker_heartbeat = {"elapsed_seconds": 681.574, "phase": "regression"}
+.
+----------------------------------------------------------------------
+Ran 32 tests in 2.346s
+
+OK
+regression_module_complete = {"index": 112, "module": "tests_lm.test_v05_c228_update_query_cost", "parent_pid": 88176, "pid": 10496, "tests": 32}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c228_update_query_cost", "pid": 88176}
+regression_progress = {"completed": 2593, "index": 113, "module": "tests_lm.test_v05_c229_cost_profile", "total": 6652}
+regression_module_begin = {"index": 113, "module": "tests_lm.test_v05_c229_cost_profile", "parent_pid": 113864, "pid": 43796, "tests": 32}
+.............................worker_heartbeat = {"elapsed_seconds": 1132.574, "phase": "science"}
+...
+----------------------------------------------------------------------
+Ran 32 tests in 2.405s
+
+OK
+regression_module_complete = {"index": 113, "module": "tests_lm.test_v05_c229_cost_profile", "parent_pid": 113864, "pid": 43796, "tests": 32}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c229_cost_profile", "pid": 113864}
+regression_progress = {"completed": 2625, "index": 114, "module": "tests_lm.test_v05_c230_prepared_capsule", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 691.596, "phase": "regression"}
+regression_module_begin = {"index": 114, "module": "tests_lm.test_v05_c230_prepared_capsule", "parent_pid": 118596, "pid": 74012, "tests": 40}
+........................................
+----------------------------------------------------------------------
+Ran 40 tests in 2.279s
+
+OK
+regression_module_complete = {"index": 114, "module": "tests_lm.test_v05_c230_prepared_capsule", "parent_pid": 118596, "pid": 74012, "tests": 40}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c230_prepared_capsule", "pid": 118596}
+regression_progress = {"completed": 2665, "index": 115, "module": "tests_lm.test_v05_c231_byte_eval_contract", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1142.596, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 701.617, "phase": "regression"}
+regression_module_begin = {"index": 115, "module": "tests_lm.test_v05_c231_byte_eval_contract", "parent_pid": 110036, "pid": 50140, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 2.320s
+
+OK
+regression_module_complete = {"index": 115, "module": "tests_lm.test_v05_c231_byte_eval_contract", "parent_pid": 110036, "pid": 50140, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c231_byte_eval_contract", "pid": 110036}
+regression_progress = {"completed": 2689, "index": 116, "module": "tests_lm.test_v05_c232_bilingual_learning", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1152.622, "phase": "science"}
+regression_module_begin = {"index": 116, "module": "tests_lm.test_v05_c232_bilingual_learning", "parent_pid": 55300, "pid": 61908, "tests": 32}
+...............................worker_heartbeat = {"elapsed_seconds": 711.638, "phase": "regression"}
+.
+----------------------------------------------------------------------
+Ran 32 tests in 2.157s
+
+OK
+regression_module_complete = {"index": 116, "module": "tests_lm.test_v05_c232_bilingual_learning", "parent_pid": 55300, "pid": 61908, "tests": 32}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c232_bilingual_learning", "pid": 55300}
+regression_progress = {"completed": 2721, "index": 117, "module": "tests_lm.test_v05_c233_core_ablation", "total": 6652}
+regression_module_begin = {"index": 117, "module": "tests_lm.test_v05_c233_core_ablation", "parent_pid": 118584, "pid": 68436, "tests": 32}
+.............worker_heartbeat = {"elapsed_seconds": 1162.645, "phase": "science"}
+...................
+----------------------------------------------------------------------
+Ran 32 tests in 2.187s
+
+OK
+regression_module_complete = {"index": 117, "module": "tests_lm.test_v05_c233_core_ablation", "parent_pid": 118584, "pid": 68436, "tests": 32}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c233_core_ablation", "pid": 118584}
+regression_progress = {"completed": 2753, "index": 118, "module": "tests_lm.test_v05_c234_context_binding", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 721.657, "phase": "regression"}
+regression_module_begin = {"index": 118, "module": "tests_lm.test_v05_c234_context_binding", "parent_pid": 79752, "pid": 71240, "tests": 32}
+................................
+----------------------------------------------------------------------
+Ran 32 tests in 2.815s
+
+OK
+regression_module_complete = {"index": 118, "module": "tests_lm.test_v05_c234_context_binding", "parent_pid": 79752, "pid": 71240, "tests": 32}
+worker_heartbeat = {"elapsed_seconds": 1172.669, "phase": "science"}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c234_context_binding", "pid": 79752}
+regression_progress = {"completed": 2785, "index": 119, "module": "tests_lm.test_v05_c235_frozen_binding_diagnostic", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 731.681, "phase": "regression"}
+regression_module_begin = {"index": 119, "module": "tests_lm.test_v05_c235_frozen_binding_diagnostic", "parent_pid": 113948, "pid": 83620, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.428s
+
+OK
+regression_module_complete = {"index": 119, "module": "tests_lm.test_v05_c235_frozen_binding_diagnostic", "parent_pid": 113948, "pid": 83620, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c235_frozen_binding_diagnostic", "pid": 113948}
+regression_progress = {"completed": 2809, "index": 120, "module": "tests_lm.test_v05_c236_minimal_binding", "total": 6652}
+regression_module_begin = {"index": 120, "module": "tests_lm.test_v05_c236_minimal_binding", "parent_pid": 112088, "pid": 57532, "tests": 24}
+...............worker_heartbeat = {"elapsed_seconds": 1182.69, "phase": "science"}
+.........
+----------------------------------------------------------------------
+Ran 24 tests in 2.374s
+
+OK
+regression_module_complete = {"index": 120, "module": "tests_lm.test_v05_c236_minimal_binding", "parent_pid": 112088, "pid": 57532, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c236_minimal_binding", "pid": 112088}
+regression_progress = {"completed": 2833, "index": 121, "module": "tests_lm.test_v05_c237_frozen_signal_audit", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 741.706, "phase": "regression"}
+regression_module_begin = {"index": 121, "module": "tests_lm.test_v05_c237_frozen_signal_audit", "parent_pid": 75644, "pid": 42912, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 2.403s
+
+OK
+regression_module_complete = {"index": 121, "module": "tests_lm.test_v05_c237_frozen_signal_audit", "parent_pid": 75644, "pid": 42912, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c237_frozen_signal_audit", "pid": 75644}
+regression_progress = {"completed": 2857, "index": 122, "module": "tests_lm.test_v05_c238_complete_cohort_sampler", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1192.716, "phase": "science"}
+regression_module_begin = {"index": 122, "module": "tests_lm.test_v05_c238_complete_cohort_sampler", "parent_pid": 106912, "pid": 113036, "tests": 24}
+........worker_heartbeat = {"elapsed_seconds": 751.727, "phase": "regression"}
+................
+----------------------------------------------------------------------
+Ran 24 tests in 3.883s
+
+OK
+regression_module_complete = {"index": 122, "module": "tests_lm.test_v05_c238_complete_cohort_sampler", "parent_pid": 106912, "pid": 113036, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c238_complete_cohort_sampler", "pid": 106912}
+regression_progress = {"completed": 2881, "index": 123, "module": "tests_lm.test_v05_c239_order_holdout", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1202.74, "phase": "science"}
+regression_module_begin = {"index": 123, "module": "tests_lm.test_v05_c239_order_holdout", "parent_pid": 96532, "pid": 113948, "tests": 24}
+.............worker_heartbeat = {"elapsed_seconds": 761.747, "phase": "regression"}
+...........
+----------------------------------------------------------------------
+Ran 24 tests in 4.838s
+
+OK
+regression_module_complete = {"index": 123, "module": "tests_lm.test_v05_c239_order_holdout", "parent_pid": 96532, "pid": 113948, "tests": 24}
+worker_heartbeat = {"elapsed_seconds": 10.028, "phase": "tests_lm.test_v05_c239_order_holdout"}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c239_order_holdout", "pid": 96532}
+regression_progress = {"completed": 2905, "index": 124, "module": "tests_lm.test_v05_c240_saved_position_audit", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1212.766, "phase": "science"}
+regression_module_begin = {"index": 124, "module": "tests_lm.test_v05_c240_saved_position_audit", "parent_pid": 112224, "pid": 103548, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.120s
+
+OK
+regression_module_complete = {"index": 124, "module": "tests_lm.test_v05_c240_saved_position_audit", "parent_pid": 112224, "pid": 103548, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c240_saved_position_audit", "pid": 112224}
+regression_progress = {"completed": 2929, "index": 125, "module": "tests_lm.test_v05_c241_assignment_holdout", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 771.77, "phase": "regression"}
+regression_module_begin = {"index": 125, "module": "tests_lm.test_v05_c241_assignment_holdout", "parent_pid": 64392, "pid": 117148, "tests": 24}
+....................worker_heartbeat = {"elapsed_seconds": 1222.788, "phase": "science"}
+....
+----------------------------------------------------------------------
+Ran 24 tests in 4.433s
+
+OK
+regression_module_complete = {"index": 125, "module": "tests_lm.test_v05_c241_assignment_holdout", "parent_pid": 64392, "pid": 117148, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c241_assignment_holdout", "pid": 64392}
+regression_progress = {"completed": 2953, "index": 126, "module": "tests_lm.test_v05_c242_balanced_recombination", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 781.791, "phase": "regression"}
+regression_module_begin = {"index": 126, "module": "tests_lm.test_v05_c242_balanced_recombination", "parent_pid": 100368, "pid": 8868, "tests": 24}
+....................worker_heartbeat = {"elapsed_seconds": 1232.811, "phase": "science"}
+....
+----------------------------------------------------------------------
+Ran 24 tests in 4.833s
+
+OK
+regression_module_complete = {"index": 126, "module": "tests_lm.test_v05_c242_balanced_recombination", "parent_pid": 100368, "pid": 8868, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c242_balanced_recombination", "pid": 100368}
+regression_progress = {"completed": 2977, "index": 127, "module": "tests_lm.test_v05_c243_saved_recombination_audit", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 791.813, "phase": "regression"}
+regression_module_begin = {"index": 127, "module": "tests_lm.test_v05_c243_saved_recombination_audit", "parent_pid": 83056, "pid": 115840, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.350s
+
+OK
+regression_module_complete = {"index": 127, "module": "tests_lm.test_v05_c243_saved_recombination_audit", "parent_pid": 83056, "pid": 115840, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c243_saved_recombination_audit", "pid": 83056}
+regression_progress = {"completed": 3001, "index": 128, "module": "tests_lm.test_v05_c244_two_partner_recombination", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1242.837, "phase": "science"}
+regression_module_begin = {"index": 128, "module": "tests_lm.test_v05_c244_two_partner_recombination", "parent_pid": 115196, "pid": 55532, "tests": 24}
+...................worker_heartbeat = {"elapsed_seconds": 801.836, "phase": "regression"}
+.....
+----------------------------------------------------------------------
+Ran 24 tests in 4.824s
+
+OK
+regression_module_complete = {"index": 128, "module": "tests_lm.test_v05_c244_two_partner_recombination", "parent_pid": 115196, "pid": 55532, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c244_two_partner_recombination", "pid": 115196}
+regression_progress = {"completed": 3025, "index": 129, "module": "tests_lm.test_v05_c245_selective_evidence", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1252.859, "phase": "science"}
+regression_module_begin = {"index": 129, "module": "tests_lm.test_v05_c245_selective_evidence", "parent_pid": 64392, "pid": 19636, "tests": 24}
+...................worker_heartbeat = {"elapsed_seconds": 811.857, "phase": "regression"}
+.....
+----------------------------------------------------------------------
+Ran 24 tests in 3.453s
+
+OK
+regression_module_complete = {"index": 129, "module": "tests_lm.test_v05_c245_selective_evidence", "parent_pid": 64392, "pid": 19636, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c245_selective_evidence", "pid": 64392}
+regression_progress = {"completed": 3049, "index": 130, "module": "tests_lm.test_v05_c246_training_erasure", "total": 6652}
+regression_module_begin = {"index": 130, "module": "tests_lm.test_v05_c246_training_erasure", "parent_pid": 112228, "pid": 34572, "tests": 24}
+........worker_heartbeat = {"elapsed_seconds": 1262.886, "phase": "science"}
+.........worker_heartbeat = {"elapsed_seconds": 821.879, "phase": "regression"}
+.......
+----------------------------------------------------------------------
+Ran 24 tests in 5.297s
+
+OK
+regression_module_complete = {"index": 130, "module": "tests_lm.test_v05_c246_training_erasure", "parent_pid": 112228, "pid": 34572, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c246_training_erasure", "pid": 112228}
+regression_progress = {"completed": 3073, "index": 131, "module": "tests_lm.test_v05_c247_normal_exposure_control", "total": 6652}
+regression_module_begin = {"index": 131, "module": "tests_lm.test_v05_c247_normal_exposure_control", "parent_pid": 110648, "pid": 116344, "tests": 24}
+.....worker_heartbeat = {"elapsed_seconds": 1272.906, "phase": "science"}
+...................
+----------------------------------------------------------------------
+Ran 24 tests in 3.793s
+
+OK
+regression_module_complete = {"index": 131, "module": "tests_lm.test_v05_c247_normal_exposure_control", "parent_pid": 110648, "pid": 116344, "tests": 24}
+worker_heartbeat = {"elapsed_seconds": 831.902, "phase": "regression"}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c247_normal_exposure_control", "pid": 110648}
+regression_progress = {"completed": 3097, "index": 132, "module": "tests_lm.test_v05_c248_residual_token_read", "total": 6652}
+regression_module_begin = {"index": 132, "module": "tests_lm.test_v05_c248_residual_token_read", "parent_pid": 95664, "pid": 102816, "tests": 24}
+..........worker_heartbeat = {"elapsed_seconds": 1282.93, "phase": "science"}
+..........worker_heartbeat = {"elapsed_seconds": 841.925, "phase": "regression"}
+worker_heartbeat = {"elapsed_seconds": 10.029, "phase": "tests_lm.test_v05_c248_residual_token_read"}
+worker_heartbeat = {"elapsed_seconds": 1292.952, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 851.95, "phase": "regression"}
+worker_heartbeat = {"elapsed_seconds": 20.051, "phase": "tests_lm.test_v05_c248_residual_token_read"}
+worker_heartbeat = {"elapsed_seconds": 1302.973, "phase": "science"}
+....
+----------------------------------------------------------------------
+Ran 24 tests in 22.862s
+
+OK
+regression_module_complete = {"index": 132, "module": "tests_lm.test_v05_c248_residual_token_read", "parent_pid": 95664, "pid": 102816, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c248_residual_token_read", "pid": 95664}
+regression_progress = {"completed": 3121, "index": 133, "module": "tests_lm.test_v05_c249_frozen_read_ablation", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 861.973, "phase": "regression"}
+regression_module_begin = {"index": 133, "module": "tests_lm.test_v05_c249_frozen_read_ablation", "parent_pid": 72908, "pid": 113792, "tests": 24}
+....................worker_heartbeat = {"elapsed_seconds": 1312.997, "phase": "science"}
+....
+----------------------------------------------------------------------
+Ran 24 tests in 5.493s
+
+OK
+regression_module_complete = {"index": 133, "module": "tests_lm.test_v05_c249_frozen_read_ablation", "parent_pid": 72908, "pid": 113792, "tests": 24}
+worker_heartbeat = {"elapsed_seconds": 10.032, "phase": "tests_lm.test_v05_c249_frozen_read_ablation"}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c249_frozen_read_ablation", "pid": 72908}
+regression_progress = {"completed": 3145, "index": 134, "module": "tests_lm.test_v05_c250_fresh_seed_replication", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 871.996, "phase": "regression"}
+regression_module_begin = {"index": 134, "module": "tests_lm.test_v05_c250_fresh_seed_replication", "parent_pid": 111504, "pid": 110520, "tests": 24}
+.....................worker_heartbeat = {"elapsed_seconds": 1323.021, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 10.038, "phase": "tests_lm.test_v05_c250_fresh_seed_replication"}
+worker_heartbeat = {"elapsed_seconds": 882.015, "phase": "regression"}
+worker_heartbeat = {"elapsed_seconds": 1333.045, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 20.06, "phase": "tests_lm.test_v05_c250_fresh_seed_replication"}
+...
+----------------------------------------------------------------------
+Ran 24 tests in 16.198s
+
+OK
+regression_module_complete = {"index": 134, "module": "tests_lm.test_v05_c250_fresh_seed_replication", "parent_pid": 111504, "pid": 110520, "tests": 24}
+worker_heartbeat = {"elapsed_seconds": 892.037, "phase": "regression"}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c250_fresh_seed_replication", "pid": 111504}
+regression_progress = {"completed": 3169, "index": 135, "module": "tests_lm.test_v05_c251_precore_read", "total": 6652}
+regression_module_begin = {"index": 135, "module": "tests_lm.test_v05_c251_precore_read", "parent_pid": 25984, "pid": 111888, "tests": 24}
+................worker_heartbeat = {"elapsed_seconds": 1343.067, "phase": "science"}
+.worker_heartbeat = {"elapsed_seconds": 902.057, "phase": "regression"}
+worker_heartbeat = {"elapsed_seconds": 10.03, "phase": "tests_lm.test_v05_c251_precore_read"}
+worker_heartbeat = {"elapsed_seconds": 1353.089, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 912.079, "phase": "regression"}
+worker_heartbeat = {"elapsed_seconds": 20.053, "phase": "tests_lm.test_v05_c251_precore_read"}
+.......
+----------------------------------------------------------------------
+Ran 24 tests in 20.014s
+
+OK
+regression_module_complete = {"index": 135, "module": "tests_lm.test_v05_c251_precore_read", "parent_pid": 25984, "pid": 111888, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c251_precore_read", "pid": 25984}
+regression_progress = {"completed": 3193, "index": 136, "module": "tests_lm.test_v05_c252_precore_query_alignment", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1363.112, "phase": "science"}
+regression_module_begin = {"index": 136, "module": "tests_lm.test_v05_c252_precore_query_alignment", "parent_pid": 47668, "pid": 105200, "tests": 24}
+................worker_heartbeat = {"elapsed_seconds": 922.108, "phase": "regression"}
+.worker_heartbeat = {"elapsed_seconds": 10.033, "phase": "tests_lm.test_v05_c252_precore_query_alignment"}
+worker_heartbeat = {"elapsed_seconds": 1373.133, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 932.131, "phase": "regression"}
+worker_heartbeat = {"elapsed_seconds": 20.059, "phase": "tests_lm.test_v05_c252_precore_query_alignment"}
+worker_heartbeat = {"elapsed_seconds": 1383.157, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 942.157, "phase": "regression"}
+.......
+----------------------------------------------------------------------
+Ran 24 tests in 21.045s
+
+OK
+regression_module_complete = {"index": 136, "module": "tests_lm.test_v05_c252_precore_query_alignment", "parent_pid": 47668, "pid": 105200, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c252_precore_query_alignment", "pid": 47668}
+regression_progress = {"completed": 3217, "index": 137, "module": "tests_lm.test_v05_c253_frozen_residual_path", "total": 6652}
+regression_module_begin = {"index": 137, "module": "tests_lm.test_v05_c253_frozen_residual_path", "parent_pid": 116632, "pid": 119476, "tests": 24}
+worker_heartbeat = {"elapsed_seconds": 1393.183, "phase": "science"}
+.....................worker_heartbeat = {"elapsed_seconds": 952.178, "phase": "regression"}
+...
+----------------------------------------------------------------------
+Ran 24 tests in 4.668s
+
+OK
+regression_module_complete = {"index": 137, "module": "tests_lm.test_v05_c253_frozen_residual_path", "parent_pid": 116632, "pid": 119476, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c253_frozen_residual_path", "pid": 116632}
+regression_progress = {"completed": 3241, "index": 138, "module": "tests_lm.test_v05_c254_paired_residual_swap", "total": 6652}
+regression_module_begin = {"index": 138, "module": "tests_lm.test_v05_c254_paired_residual_swap", "parent_pid": 80428, "pid": 111968, "tests": 24}
+....................worker_heartbeat = {"elapsed_seconds": 1403.204, "phase": "science"}
+....
+----------------------------------------------------------------------
+Ran 24 tests in 2.124s
+
+OK
+regression_module_complete = {"index": 138, "module": "tests_lm.test_v05_c254_paired_residual_swap", "parent_pid": 80428, "pid": 111968, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c254_paired_residual_swap", "pid": 80428}
+regression_progress = {"completed": 3265, "index": 139, "module": "tests_lm.test_v05_c255_value_residual_swap", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 962.201, "phase": "regression"}
+regression_module_begin = {"index": 139, "module": "tests_lm.test_v05_c255_value_residual_swap", "parent_pid": 70216, "pid": 88428, "tests": 24}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 2.564s
+
+OK
+regression_module_complete = {"index": 139, "module": "tests_lm.test_v05_c255_value_residual_swap", "parent_pid": 70216, "pid": 88428, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c255_value_residual_swap", "pid": 70216}
+regression_progress = {"completed": 3289, "index": 140, "module": "tests_lm.test_v05_c256_three_entity_task_shift", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1413.231, "phase": "science"}
+regression_module_begin = {"index": 140, "module": "tests_lm.test_v05_c256_three_entity_task_shift", "parent_pid": 105896, "pid": 90152, "tests": 24}
+..................worker_heartbeat = {"elapsed_seconds": 972.223, "phase": "regression"}
+......
+----------------------------------------------------------------------
+Ran 24 tests in 1.145s
+
+OK
+regression_module_complete = {"index": 140, "module": "tests_lm.test_v05_c256_three_entity_task_shift", "parent_pid": 105896, "pid": 90152, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c256_three_entity_task_shift", "pid": 105896}
+regression_progress = {"completed": 3313, "index": 141, "module": "tests_lm.test_v05_c257_unseen_fact_order", "total": 6652}
+regression_module_begin = {"index": 141, "module": "tests_lm.test_v05_c257_unseen_fact_order", "parent_pid": 118660, "pid": 69488, "tests": 24}
+worker_heartbeat = {"elapsed_seconds": 1423.256, "phase": "science"}
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 4.609s
+
+OK
+worker_heartbeat = {"elapsed_seconds": 982.248, "phase": "regression"}
+regression_module_complete = {"index": 141, "module": "tests_lm.test_v05_c257_unseen_fact_order", "parent_pid": 118660, "pid": 69488, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c257_unseen_fact_order", "pid": 118660}
+regression_progress = {"completed": 3337, "index": 142, "module": "tests_lm.test_v05_c258_saved_middle_slot_audit", "total": 6652}
+regression_module_begin = {"index": 142, "module": "tests_lm.test_v05_c258_saved_middle_slot_audit", "parent_pid": 112204, "pid": 21196, "tests": 20}
+................worker_heartbeat = {"elapsed_seconds": 1433.281, "phase": "science"}
+....
+----------------------------------------------------------------------
+Ran 20 tests in 1.192s
+
+OK
+regression_module_complete = {"index": 142, "module": "tests_lm.test_v05_c258_saved_middle_slot_audit", "parent_pid": 112204, "pid": 21196, "tests": 20}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c258_saved_middle_slot_audit", "pid": 112204}
+regression_progress = {"completed": 3357, "index": 143, "module": "tests_lm.test_v05_c259_order_coverage_training", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 992.271, "phase": "regression"}
+regression_module_begin = {"index": 143, "module": "tests_lm.test_v05_c259_order_coverage_training", "parent_pid": 111824, "pid": 111264, "tests": 24}
+...................worker_heartbeat = {"elapsed_seconds": 1443.303, "phase": "science"}
+.....
+----------------------------------------------------------------------
+Ran 24 tests in 5.359s
+
+OK
+regression_module_complete = {"index": 143, "module": "tests_lm.test_v05_c259_order_coverage_training", "parent_pid": 111824, "pid": 111264, "tests": 24}
+worker_heartbeat = {"elapsed_seconds": 10.031, "phase": "tests_lm.test_v05_c259_order_coverage_training"}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c259_order_coverage_training", "pid": 111824}
+regression_progress = {"completed": 3381, "index": 144, "module": "tests_lm.test_v05_c260_core_free_training", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1002.295, "phase": "regression"}
+regression_module_begin = {"index": 144, "module": "tests_lm.test_v05_c260_core_free_training", "parent_pid": 114584, "pid": 10968, "tests": 24}
+..........worker_heartbeat = {"elapsed_seconds": 1453.328, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 10.03, "phase": "tests_lm.test_v05_c260_core_free_training"}
+worker_heartbeat = {"elapsed_seconds": 1012.319, "phase": "regression"}
+worker_heartbeat = {"elapsed_seconds": 1463.354, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 20.051, "phase": "tests_lm.test_v05_c260_core_free_training"}
+........worker_heartbeat = {"elapsed_seconds": 1022.345, "phase": "regression"}
+......
+----------------------------------------------------------------------
+Ran 24 tests in 22.271s
+
+OK
+regression_module_complete = {"index": 144, "module": "tests_lm.test_v05_c260_core_free_training", "parent_pid": 114584, "pid": 10968, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c260_core_free_training", "pid": 114584}
+regression_progress = {"completed": 3405, "index": 145, "module": "tests_lm.test_v05_c261_repeated_value_transfer", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1473.381, "phase": "science"}
+regression_module_begin = {"index": 145, "module": "tests_lm.test_v05_c261_repeated_value_transfer", "parent_pid": 116812, "pid": 117816, "tests": 24}
+worker_heartbeat = {"elapsed_seconds": 1032.367, "phase": "regression"}
+................worker_heartbeat = {"elapsed_seconds": 10.033, "phase": "tests_lm.test_v05_c261_repeated_value_transfer"}
+...worker_heartbeat = {"elapsed_seconds": 1483.401, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 1042.391, "phase": "regression"}
+.....
+----------------------------------------------------------------------
+Ran 24 tests in 13.193s
+
+OK
+regression_module_complete = {"index": 145, "module": "tests_lm.test_v05_c261_repeated_value_transfer", "parent_pid": 116812, "pid": 117816, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c261_repeated_value_transfer", "pid": 116812}
+regression_progress = {"completed": 3429, "index": 146, "module": "tests_lm.test_v05_c262_minibatch_order", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1493.425, "phase": "science"}
+regression_module_begin = {"index": 146, "module": "tests_lm.test_v05_c262_minibatch_order", "parent_pid": 117148, "pid": 118196, "tests": 24}
+........worker_heartbeat = {"elapsed_seconds": 1052.415, "phase": "regression"}
+............worker_heartbeat = {"elapsed_seconds": 10.03, "phase": "tests_lm.test_v05_c262_minibatch_order"}
+....
+----------------------------------------------------------------------
+Ran 24 tests in 6.855s
+
+OK
+regression_module_complete = {"index": 146, "module": "tests_lm.test_v05_c262_minibatch_order", "parent_pid": 117148, "pid": 118196, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c262_minibatch_order", "pid": 117148}
+regression_progress = {"completed": 3453, "index": 147, "module": "tests_lm.test_v05_c263_learning_rate_order", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1503.449, "phase": "science"}
+regression_module_begin = {"index": 147, "module": "tests_lm.test_v05_c263_learning_rate_order", "parent_pid": 18140, "pid": 117332, "tests": 24}
+.....worker_heartbeat = {"elapsed_seconds": 1062.44, "phase": "regression"}
+.........worker_heartbeat = {"elapsed_seconds": 10.03, "phase": "tests_lm.test_v05_c263_learning_rate_order"}
+..worker_heartbeat = {"elapsed_seconds": 1513.474, "phase": "science"}
+...worker_heartbeat = {"elapsed_seconds": 1072.464, "phase": "regression"}
+.....
+----------------------------------------------------------------------
+Ran 24 tests in 11.144s
+
+OK
+regression_module_complete = {"index": 147, "module": "tests_lm.test_v05_c263_learning_rate_order", "parent_pid": 18140, "pid": 117332, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c263_learning_rate_order", "pid": 18140}
+regression_progress = {"completed": 3477, "index": 148, "module": "tests_lm.test_v05_c264_two_fact_deletion", "total": 6652}
+regression_module_begin = {"index": 148, "module": "tests_lm.test_v05_c264_two_fact_deletion", "parent_pid": 83380, "pid": 107648, "tests": 24}
+...............worker_heartbeat = {"elapsed_seconds": 1523.497, "phase": "science"}
+....worker_heartbeat = {"elapsed_seconds": 1082.486, "phase": "regression"}
+worker_heartbeat = {"elapsed_seconds": 10.034, "phase": "tests_lm.test_v05_c264_two_fact_deletion"}
+worker_heartbeat = {"elapsed_seconds": 1533.52, "phase": "science"}
+.....
+----------------------------------------------------------------------
+Ran 24 tests in 11.472s
+
+OK
+regression_module_complete = {"index": 148, "module": "tests_lm.test_v05_c264_two_fact_deletion", "parent_pid": 83380, "pid": 107648, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c264_two_fact_deletion", "pid": 83380}
+regression_progress = {"completed": 3501, "index": 149, "module": "tests_lm.test_v05_c265_compound_identifiers", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1092.509, "phase": "regression"}
+regression_module_begin = {"index": 149, "module": "tests_lm.test_v05_c265_compound_identifiers", "parent_pid": 118660, "pid": 65016, "tests": 24}
+..................worker_heartbeat = {"elapsed_seconds": 1543.54, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 10.028, "phase": "tests_lm.test_v05_c265_compound_identifiers"}
+worker_heartbeat = {"elapsed_seconds": 1102.531, "phase": "regression"}
+......
+----------------------------------------------------------------------
+Ran 24 tests in 8.751s
+
+OK
+regression_module_complete = {"index": 149, "module": "tests_lm.test_v05_c265_compound_identifiers", "parent_pid": 118660, "pid": 65016, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c265_compound_identifiers", "pid": 118660}
+regression_progress = {"completed": 3525, "index": 150, "module": "tests_lm.test_v05_c266_query_pair_audit", "total": 6652}
+regression_module_begin = {"index": 150, "module": "tests_lm.test_v05_c266_query_pair_audit", "parent_pid": 37292, "pid": 117140, "tests": 24}
+.........worker_heartbeat = {"elapsed_seconds": 1553.564, "phase": "science"}
+..........worker_heartbeat = {"elapsed_seconds": 1112.553, "phase": "regression"}
+.....
+----------------------------------------------------------------------
+Ran 24 tests in 4.719s
+
+OK
+regression_module_complete = {"index": 150, "module": "tests_lm.test_v05_c266_query_pair_audit", "parent_pid": 37292, "pid": 117140, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c266_query_pair_audit", "pid": 37292}
+regression_progress = {"completed": 3549, "index": 151, "module": "tests_lm.test_v05_c267_name_coverage_training", "total": 6652}
+regression_module_begin = {"index": 151, "module": "tests_lm.test_v05_c267_name_coverage_training", "parent_pid": 34580, "pid": 88176, "tests": 24}
+.......worker_heartbeat = {"elapsed_seconds": 1563.586, "phase": "science"}
+....worker_heartbeat = {"elapsed_seconds": 1122.576, "phase": "regression"}
+...worker_heartbeat = {"elapsed_seconds": 10.029, "phase": "tests_lm.test_v05_c267_name_coverage_training"}
+..........
+----------------------------------------------------------------------
+Ran 24 tests in 8.575s
+
+OK
+regression_module_complete = {"index": 151, "module": "tests_lm.test_v05_c267_name_coverage_training", "parent_pid": 34580, "pid": 88176, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c267_name_coverage_training", "pid": 34580}
+regression_progress = {"completed": 3573, "index": 152, "module": "tests_lm.test_v05_c268_paired_query_loss", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1573.613, "phase": "science"}
+regression_module_begin = {"index": 152, "module": "tests_lm.test_v05_c268_paired_query_loss", "parent_pid": 117268, "pid": 115588, "tests": 24}
+..........worker_heartbeat = {"elapsed_seconds": 1132.601, "phase": "regression"}
+....worker_heartbeat = {"elapsed_seconds": 10.033, "phase": "tests_lm.test_v05_c268_paired_query_loss"}
+.worker_heartbeat = {"elapsed_seconds": 1583.639, "phase": "science"}
+.........
+----------------------------------------------------------------------
+Ran 24 tests in 10.749s
+
+OK
+regression_module_complete = {"index": 152, "module": "tests_lm.test_v05_c268_paired_query_loss", "parent_pid": 117268, "pid": 115588, "tests": 24}
+worker_heartbeat = {"elapsed_seconds": 1142.624, "phase": "regression"}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c268_paired_query_loss", "pid": 117268}
+regression_progress = {"completed": 3597, "index": 153, "module": "tests_lm.test_v05_c269_query_span_pooling", "total": 6652}
+regression_module_begin = {"index": 153, "module": "tests_lm.test_v05_c269_query_span_pooling", "parent_pid": 91240, "pid": 105972, "tests": 24}
+.............worker_heartbeat = {"elapsed_seconds": 1593.66, "phase": "science"}
+..worker_heartbeat = {"elapsed_seconds": 1152.65, "phase": "regression"}
+.worker_heartbeat = {"elapsed_seconds": 10.035, "phase": "tests_lm.test_v05_c269_query_span_pooling"}
+........
+----------------------------------------------------------------------
+Ran 24 tests in 7.122s
+
+OK
+regression_module_complete = {"index": 153, "module": "tests_lm.test_v05_c269_query_span_pooling", "parent_pid": 91240, "pid": 105972, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c269_query_span_pooling", "pid": 91240}
+regression_progress = {"completed": 3621, "index": 154, "module": "tests_lm.test_v05_c270_frozen_triple_identifiers", "total": 6652}
+worker_heartbeat = {"elapsed_seconds": 1603.688, "phase": "science"}
+regression_module_begin = {"index": 154, "module": "tests_lm.test_v05_c270_frozen_triple_identifiers", "parent_pid": 118832, "pid": 44416, "tests": 24}
+..............worker_heartbeat = {"elapsed_seconds": 1162.673, "phase": "regression"}
+.....worker_heartbeat = {"elapsed_seconds": 10.032, "phase": "tests_lm.test_v05_c270_frozen_triple_identifiers"}
+worker_heartbeat = {"elapsed_seconds": 1613.71, "phase": "science"}
+worker_heartbeat = {"elapsed_seconds": 1172.696, "phase": "regression"}
+.....
+----------------------------------------------------------------------
+Ran 24 tests in 14.460s
+
+OK
+regression_module_complete = {"index": 154, "module": "tests_lm.test_v05_c270_frozen_triple_identifiers", "parent_pid": 118832, "pid": 44416, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c270_frozen_triple_identifiers", "pid": 118832}
+regression_progress = {"completed": 3645, "index": 155, "module": "tests_lm.test_v05_c271_query_endpoint", "total": 6652}
+regression_module_begin = {"index": 155, "module": "tests_lm.test_v05_c271_query_endpoint", "parent_pid": 118728, "pid": 78024, "tests": 24}
+........worker_heartbeat = {"elapsed_seconds": 1623.732, "phase": "science"}
+.........worker_heartbeat = {"elapsed_seconds": 1182.718, "phase": "regression"}
+.......
+----------------------------------------------------------------------
+Ran 24 tests in 3.862s
+
+OK
+regression_module_complete = {"index": 155, "module": "tests_lm.test_v05_c271_query_endpoint", "parent_pid": 118728, "pid": 78024, "tests": 24}
+process_exit = {"decimal": 0, "hexadecimal": "0x00000000", "phase": "tests_lm.test_v05_c271_query_endpoint", "pid": 118728}
+regression_progress = {"completed": 3669, "index": 156, "module": "tests_lm.test_v05_c272_query_boundaries", "total": 6652}
+regression_module_begin = {"index": 156, "module": "tests_lm.test_v05_c272_query_boundaries", "parent_pid": 116656, "pid": 83380, "tests": 24}
+............worker_heartbeat = {"elapsed_seconds": 1633.754, "phase": "science"}
+...........F
+======================================================================
+FAIL: test_24_manifest_seal_and_dispatcher_pins (tests_lm.test_v05_c272_query_boundaries.C272Tests.test_24_manifest_seal_and_dispatcher_pins)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "M:\asobiba\fold\tests_lm\test_v05_c272_query_boundaries.py", line 267, in test_24_manifest_seal_and_dispatcher_pins
+    self.assertIn(b.MANIFEST_SHA,prereg);self.assertIn(b.MANIFEST_SHA,handoff)
+                                         ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '89fd059a478b2190ecd03f8277aae2bafc7fcb12517897f56b4bd6cc89258604' not found in '# FOLD experiment ledger and handoff\n\nUpdated: 2026-11-22 Japan time.\nConversation protocol:docs/experiment-conversation-handoff-protocol.md,Current response format v2.\n\n## Formal state\n\nGate A/B PASSED; Gate C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PASSED.\n**C345 ACCEPTED PASS (DIAGNOSTIC INTEGRITY ONLY).** Execution C345-R0 valid.\nC344 remains ACCEPTED VALID NEGATIVE,candidate_gate=false/eligible_seed_count=2.\nC344attempt01 remains INVALID. No capability improvement or production adoption.\n**C346 ACTIVE / NOT YET JUDGED.** Three-arm fixed-budget pair-max learning-rate comparison.\nC347 NOT REGISTERED. Do not rerun accepted C344/C345.\n\n## Latest accepted evidence\n\nReport:docs/experiment-ledger-addendum-c345-c346.md.\nAcceptance:f5fc8e89b5bb3d2749df91aa3b503596a6be1fc2.\nScientific execution:c81ffe102c3a9280f28a68e572403549ce77fa1d.\nPublication:25ff2f93ce63c9668f3111672caf75db095d2f45;soleparent execution,onlylatest.log/json.\nOriginal Windows759318bytes/SHA2569531d1f7ae6e9be8c220954dd0f233a9c20844e94a983765d0b673105865fc9a.\nGit LF755410bytes/3908lines reconstructs original exactly.\nFull6578tests/241modules PASS3385.166s,failures/errors/skips0;all244process exits0.\nSixnativecleanup checks pass,C344-R1implementation receipt bound toC345head.\n937sources/8679protectedinputs,all8679finaluncachedrereads,freshverifier complete.\nFullID SHA2c40afb18970b97273869cf98ac1580d84c2df3050b20b07f3da9f53331cee2a.\nParent6514IDs exactorderedprefix. All630publicrecords/parentbindings verified.\nConsole omits source_trace_sha256:no reviewer-side fullC345summary/nativeartifact reconstruction.\nNative persisted/freshsemantics explicitly attributed;run_execution_valid=true.\n\nInteriorTRAIN meanCE .011673977->.111296027;pairmax .020316586->.192509275;\nanswers2864->2728/2880. HOLDOUT meanCE .025826478->.288532880;\npairmax .045815971->.499002482;answers1430->1331/1440.\nAll10interiorseed/split contrasts worse onbothlosses;all7answer-regressing\nseed/domain/split contrasts alsohigher bothlosses;0oppositesign atthisgranularity.\n344002answers+2eachsplit despitehigherlosses. Original6aggregate answers/losses improve.\nNorm>1 1975->5830/12000;cycle2mixedslot4 162->1241/2000.\nNot exactclippingcalls,convergence,causaloptimizer/clipping or learnedthenlost proof.\nSlot4mixedoriginal4/5/interior;terminaldomainmeansnotwholeexposureweightedobjective.\nOriginal6TRAIN names neverfitted. PreserveC344false/eligible2 andGateFNOTPASSED.\n\n## C346 registration and independent review\n\nSource/preregistration HEAD:be76c4c53c36105638e59e059af241078758b628.\nSource tree:0f06d4eda13b258141fbb2259eb7843ab28fae8d.\nSeven additions only,separate from C345 acceptance. Keep all seven OWN blobs unchanged.\nPreregistration:docs/experiment-ledger-addendum-c346-preregistration.md.\nReview:docs/c346-post-authoring-review.md.\npost_authoring_review = PASS\nReview target HEAD:be76c4c53c36105638e59e059af241078758b628.\nAn independent nonauthor retrieved and read all7remote OWN files throughEOF;\nGit blobs/bytes/SHA256 match both final author runs. No review blockers.\nThe later documentation-only activation HEAD is the user ExpectedHead.\nDo not use sourcebe76c4c,C345executionc81ffe1,publication25ff2f9,acceptancef5fc8e8\nor a main merge. The source commit itself is not an activation.\n\nCombined74 tests PASS:normal105.273s;CP932-default-text-open101.910s.\nFailures/errors/skips/expectedfailures/unexpectedsuccesses all0.\nAll7OWN SHA256 hashes stayed unchanged and match the committed source bytes.\nAuthor environment:Linux Python3.12.14/Torch2.10.0+cpu/NumPy2.3.5.\nActual6653raw/6652selected/243modules,OWN48science+26infra;C3456578prefix unchanged.\nFull IDsSHA256:39ced3110d4a2d9288390401f53000fc322e4541a17ea47384553e7767425394.\nParent IDsSHA256:2c40afb18970b97273869cf98ac1580d84c2df3050b20b07f3da9f53331cee2a.\nRoot pyflakes0;333compiledcodeobjects/2327global loads/0unbound.\nActualPowerShell7.5.4AST dispatcher/invoke/run/standardblock all0errors.\nAuthor fixtures include synthetic training and native preflight,but no formalC346cohort.\nFull Windows6652-test regression and15-model experiment remain pending.\n\n## One question and intervention\n\nExperiment:C346-v5b-pair-max-rate;stage:V5-B-PAIR-MAX-RATE.\nManifest:8dad5562249bf21517bb8487c5c6970ac75b55405252dbbf5c3512d797d46d64.\nDoes halving both constant AdamW rates from initialization improve pair-max\ninterior answer/query-pair correctness and preserve every registered domain\nagainst both default-rate pair-max and ordinary mean CE?\n\nFreshseeds346001..346005;orderseeds346101..346105.\nArms mean_ce,pair_max,pair_max_half_rate. Defaultnoncore/core rates.005/.0005;\ncandidate.0025/.00025. The two pair-max arms use exactly the same unscaled\nmean24maximum(full256CEqueryA,full256CEqueryB) objective.\nSame initial states,paired inputs/targets/events,2400updates,48rows/24pairs perstep,\ncontinuous AdamW,clip1,betas(.9,.999),eps1e-8,decay0. No warmup/decay/restart.\nNative mean+last dual reader,14256parameters/core3328,64slots,CPUfloat64,threads2.\nAll15fits complete before evaluation/replay. No accepted learned-state initialization.\n\nSame mixed45 exposure per logical TRAIN row:original2/3=200each,original4/5=50each,\noriginal6=0,interior4=100;115200rows/3168000nonpaddingtokens per model.\nHOLDOUT/masked examples never fitted;original6TRAIN names/prompts never fitted.\nThe factor.5 is prospectively fixed,not inferred as an optimum fromC345.\nNo meanCEhalf-rate arm:do not claim objective-by-rate interaction or universal rate benefit.\nNo convergence,gradient-starvation or clipping mechanism is identified by a PASS.\n\n## Fixed gate and work\n\nConjunction:all5candidate full original2..6+interior4 gates;all120answer/pair\nnonnegative inequalities vsdefaultpairmax and all120vsmeanCE;fourstrict pooled\ninterior TRAIN/HOLDOUT answer/pair gains vsdefaultpairmax. Report subgates separately.\nThresholds and exact scorers unchanged:.90accuracy,.80pairs,.35evidencedrop,\n.35querydrop,.80bothorder. Candidate eligible count includes fullpass and bothcontrol\nnonregression. A perfect primarycontrol leaves no headroom but never relaxes the gate.\n\n15fits/15evaluationstates/15optimizers;36000updates/backwards/optimizersteps;\n1728000trainingrows;41130model forwards;2220480total rows;164520corecalls;\n82260querycalls;30strictstateloads;1checkpointbundleload/1newbundlewrite;network0.\nRaw saved logit payload1008599040bytes. Separate native preflight:all5schedules,\n1discardedmodel,3zero-stepoptimizer configurations,24forwards/96rows/12backwards/0updates.\nPreflight,parentsemantics and regression fixture work are outside scientific WORK.\n\nSave all15states,180normaldomain/split reports,120two-control contrasts,\n180terminalobjective summaries and120terminal loss contrasts,all2400preupdate\nloss/norm/rate rows perstate. Terminal losses are descriptive,not gate conditions.\nA bindingPASS can coexist with higher losses;terminaldomainmeans are not the whole\nexposure-weighted trainingobjective. Norm>1 is not an exact clipping-call count.\n\n## Parent, protection and ABI\n\nImmediateparent C345diagnostic:executionc81ffe102c3a9280f28a68e572403549ce77fa1d.\nFolder:runs/c345-saved-objective-audit-749db4a6ede44b608c06ee1461b6e393/.\nPrimarycfc3fe5b8f4ec927d875e2a016a940b5d34aac9ef14d93644eeb26567c0e1f30.\nEnvelopee883c26d1df24d940cd51b551f06e46e7ac69da216ea6024dc299ee24d2cceab.\nC345fold-c345-diagnostic-v1/valid/PASS preserves nestedC344negative/eligible2.\nDo not substitute the C344trained schema for this immediateparent.\n\nC345semantic_recheck(out345,out344,data_out,cx,read):5arguments underno_neural.\nC346native_preflight(data_out,cx,root,pins,read):5;\nrun_training(out,data_out,cx,root,pins,read):6,outsideno_neural;\nsemantic_recheck(out,data_out,cx,read):4,underno_neural.\nCanonicaldata via acceptedC332loader/C329artifacts;all deciding direct/lazy\nrepository dependencies remain source-pinned and protected.\n\nProtect944sources/9177inputs=937+7OWN /8679+491parentoutputs+7OWN.\nParent491=4science+primary+envelope+485proofs(3+241JSON/logpairs).\nAll9177readleases/finaluncachedrereads;no eviction,unlockedfallback or source substitution.\nSole inherited exclusion,nonewskip or accepted-test edit:\ntests_lm.test_v05_c204_live_v2_mixed_channel_loop.C204Tests.test_33_active_dispatcher_resolves_current_formal_state.\n\n## Native execution and stop\n\nRoute:invoke_active_v2->invoke_c346->run_c346->c346_execution.\nBranch:feat/sft-target-loss. Existing.venv-py31315 remains\nPython3.13.15/Torch2.10.0+cu130/NumPy2.3.5. Run prefix:runs/c346-pair-max-rate-<id>/.\nBranch/cleantrackedtree/ExpectedHead/uniqueACTIVE/dependencies/AST precede logging;\nstale invocation skips without experiment or publication.\n\nC346-R0 explicitly bridges C345helpers to C344-R1timeout cleanup implementation;\nreceipt keeps its implementation schema but binds the C346executionHEAD.\nSequence:sixnativecleanupchecks->leases/snapshot/C345savedsemantics->native\nschedule/pair/optimizer/backwardpreflight->6652isolatedtests/243processes->15fits->\nevaluation/replay->savedreconstruction->9177rereads->freshverifier->dedicatedlogpublish.\n\nSixscienceoutputs:experiment-plan.json,training-traces.json,trained-models.pt,\nevaluations.pt,measurements.json,validation-summary.json.\nPrimaryfold-c346-trained-v1;envelopefold-c346-execution-envelope-v1.\nFuture successor retains497outputs=6science+primary+envelope+489proofs(3+243JSON/logpairs).\nOnlyconsolelog/receipt mirror to docs/experiment-run-logs/c346/latest.log/latest.json.\n\nOn completion fetch those remote logs;distinguish scientificexecutionHEAD from\npublicationcommit. Verify all6652IDs,no skips,243moduleproofs,246process exits,\n944sources/9177inputs,all6cleanupchecks,15statework/replay/complete subgates,\nfinalrereads,freshverifier andrun_execution_valid=true.\nValid FAIL is an accepted negative under the fixed gate. INVALID means sameC346\nrecoveryonly,no automaticretry or C347registration. Logtransportfailure never\njustifies retraining. After valid judgment prepare the nextonequestion in the same\nresponse. Freeze this feature branch while the user runs;preserve native artifacts.\n\n## Historical context\n\ndocs/handoff-history/c346-pre-activation.md preserves the C345accepted/C346unregistered state.\ndocs/handoff-history/c345-pre-acceptance.md preserves previousC345ACTIVE.\ndocs/experiment-ledger-addendum-c344-c345.md retains C344R1acceptance and attempt01history.\ndocs/cross-experiment-evidence-synthesis-2026-11-22.md and\ndocs/cross-experiment-evidence-index-2026-11-22.json\nare unchanged C344-bounded snapshots from45c18e39399a6f5ec073257d860377ecb624bd51.\nTheir C345pending label is historical;the C345acceptance report provides the update.\nMain integration must preserve allfeatureblobs,main-onlyfiles and that documentation history.\n'
+
+----------------------------------------------------------------------
+Ran 24 tests in 3.895s
+
+FAILED (failures=1)
+Traceback (most recent call last):
+  File "M:\asobiba\fold\tools\c346_execution.py", line 449, in <module>
+    sys.path.insert(0,str(Path(__file__).resolve().parents[1])); main()
+                                                                 ~~~~^^
+  File "M:\asobiba\fold\tools\c346_execution.py", line 442, in main
+    if a.mode == 'module': module_child(root,folder,a.expected_head,a.module_index,a.plan_sha256)
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c346_execution.py", line 277, in module_child
+    recovery.check_module(value,group); guard(root,head)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 209, in check_module
+    require(record['tests'] == len(group['test_ids']) and record['successful'] is True
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        and all(record[k] == 0 for k in ('failures','errors','skipped','expected_failures','unexpected_successes'))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        and record['started_ids'] == record['success_ids'] == group['test_ids'], 'all module tests must execute and pass')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c330_recovery_r1.py", line 44, in require
+    raise ValueError(message)
+ValueError: all module tests must execute and pass
+process_exit = {"decimal": 1, "hexadecimal": "0x00000001", "phase": "tests_lm.test_v05_c272_query_boundaries", "pid": 116656}
+Traceback (most recent call last):
+  File "M:\asobiba\fold\tools\c346_execution.py", line 449, in <module>
+    sys.path.insert(0,str(Path(__file__).resolve().parents[1])); main()
+                                                                 ~~~~^^
+  File "M:\asobiba\fold\tools\c346_execution.py", line 445, in main
+    {'run':run,'science':scientific_worker,'regression':regression_child,'verify':verify_outputs}[a.mode](root,folder,a.expected_head)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c346_execution.py", line 325, in regression_child
+    collect_tests(folder,head,plan,h['recovery'],run_module); guard(root,head)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c346_execution.py", line 286, in collect_tests
+    launcher = run_module(i,ph); path = folder/f'module-{i:03d}.json'; log = folder/f'module-{i:03d}.log'; row = read(path)
+  File "M:\asobiba\fold\tools\c346_execution.py", line 323, in run_module
+    return run_logged(root,command(root,folder,head,'module')+['--module-index',str(i),'--plan-sha256',ph],
+                      folder/f'module-{i:03d}.log',plan['groups'][i]['module'])
+  File "M:\asobiba\fold\tools\c346_execution.py", line 262, in run_logged
+    require(process.returncode == 0,'C346 '+phase+' failed;no automatic retry'); return process.pid
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c346_execution.py", line 37, in require
+    raise ValueError(message)
+ValueError: C346 tests_lm.test_v05_c272_query_boundaries failed;no automatic retry
+process_exit = {"decimal": 1, "hexadecimal": "0x00000001", "phase": "regression", "pid": 77380}
+Traceback (most recent call last):
+  File "M:\asobiba\fold\tools\c346_execution.py", line 449, in <module>
+    sys.path.insert(0,str(Path(__file__).resolve().parents[1])); main()
+                                                                 ~~~~^^
+  File "M:\asobiba\fold\tools\c346_execution.py", line 445, in main
+    {'run':run,'science':scientific_worker,'regression':regression_child,'verify':verify_outputs}[a.mode](root,folder,a.expected_head)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c346_execution.py", line 366, in scientific_worker
+    value,tests,inventory = execute_stages(lambda:s.native_preflight(data_out,cx,root,pins,read),regression,
+                            ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        lambda:s.run_training(out,data_out,cx,root,pins,read),verification,cache.recheck)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c346_execution.py", line 338, in execute_stages
+    emit('phase','full_regression_fresh_process_per_module'); tests = regression()
+                                                                      ~~~~~~~~~~^^
+  File "M:\asobiba\fold\tools\c346_execution.py", line 359, in regression
+    run_logged(root,command(root,folder,head,'regression'),folder/'regression.log','regression'); guard(root,head)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c346_execution.py", line 262, in run_logged
+    require(process.returncode == 0,'C346 '+phase+' failed;no automatic retry'); return process.pid
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c346_execution.py", line 37, in require
+    raise ValueError(message)
+ValueError: C346 regression failed;no automatic retry
+process_exit = {"decimal": 1, "hexadecimal": "0x00000001", "phase": "science", "pid": 19828}
+run_execution_valid = false
+Traceback (most recent call last):
+  File "M:\asobiba\fold\tools\c346_execution.py", line 449, in <module>
+    sys.path.insert(0,str(Path(__file__).resolve().parents[1])); main()
+                                                                 ~~~~^^
+  File "M:\asobiba\fold\tools\c346_execution.py", line 445, in main
+    {'run':run,'science':scientific_worker,'regression':regression_child,'verify':verify_outputs}[a.mode](root,folder,a.expected_head)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c346_execution.py", line 429, in run
+    run_logged(root,command(root,folder,head,'science'),folder/'science.log','science')
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c346_execution.py", line 262, in run_logged
+    require(process.returncode == 0,'C346 '+phase+' failed;no automatic retry'); return process.pid
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "M:\asobiba\fold\tools\c346_execution.py", line 37, in require
+    raise ValueError(message)
+ValueError: C346 science failed;no automatic retry

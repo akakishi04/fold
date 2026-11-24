@@ -1,3 +1,86 @@
+# main統合と進行状況 — 2026-11-25
+
+正式状態は[最新handoff](experiment-ledger-and-handoff.md)を参照する。
+C346 attempt-01のINVALID記録、保持必須だったC272の歴史的sealの復元、
+独立レビュー済みの同じC346の再実行登録をmainへ統合した。
+
+## 現在の判定
+
+C346は **INVALID EXECUTION / RETRY SAME C346**。
+正式状態はC346 ACTIVE / INVALID ATTEMPT RECOVERYで、科学的な結果は未成立。
+C345の診断PASS、C344のVALID NEGATIVE、Gate F NOT PASSEDを維持する。
+C347は未登録。今回は文書だけの修復で、実行コードのrevisionは **C346-R0** のまま。
+
+6件のnative cleanup、lock、親の保存結果検証、目的関数preflightは通過した。
+回帰のC272 test24で保持必須の歴史的sealがhandoffに存在せず停止した。
+157modules開始、156完了、3,693tests実行、3,692成功、1failure、0errors/skips。
+15モデルの正式学習・評価は開始していない。ログ公開は成功している。
+
+C345受理時のhandoff更新f5fc8e8でsealが最初に欠落した。
+C273の既存修復記録とauthoring-runtime gateが定めたappend-only契約を復元し、
+受理済みのテスト・C346 OWN7ファイル・manifest・テスト選択・科学条件は変更していない。
+詳しい原因、進行範囲、保持条件は[C346修復記録](c346-recovery-r1.md)に保存した。
+
+## 統合したcommit
+
+|項目|commit|
+|---|---|
+|merge第1parent・統合前main|cdf7e37ce52d8ab96ef73f92b47706924dd52859|
+|merge第2parent・再実行用feature activation|622e623faa0c3c698a18033eb8b4bca554088918|
+|修復文書・独立review対象|728fdf12e436cb5ba7373400b247dfd6e54425bc|
+|失敗した実行HEAD|e19e872577d7f574920e83b568499666f2cd41e4|
+|失敗ログの公開commit|3b70c50464ac60ff202c8c8fad4d01c200ed9d06|
+|変更していないC346 source/preregistration|be76c4c53c36105638e59e059af241078758b628|
+
+両parentの履歴を保持する通常の2-parent merge。競合なし。
+featureの全tracked pathのmode/blobを保持し、main独自6ファイルも元のまま保持する。
+mainとfeatureの差分は従来の独自6ファイルと本統合記録のみ。
+この統合は実験の追加実行ではなく、正式実行用feature HEADも進めない。
+
+## 独立レビューと最終文書の確認
+
+[修復後レビュー](c346-r1-post-authoring-review.md)はcommit728fdf1の5変更文書・証拠と
+7つのOWNファイルをremoteからEOFまで再取得してPASS。
+実loaderは6,653候補/6,652選択/243modules、OWN74、親6,578IDsの同順序prefixと
+登録済み両IDhashを確認した。sole exclusionは既存C204の1件のみ。
+作成者の関連11件は0.262327秒、独立担当の11件は0.233961秒で全件成功した。
+
+さらに、最終activation622e623のremote handoffとreview文書を独立再取得し、
+review metadata以外の修復内容とOWN7ファイルの不変性を確認した。
+**その最終handoff実bytesに対するC272..C282の11件は0.173536秒で全件PASS**。
+failure/error/skip/expected-failure/unexpected-successは全て0。
+実際のexecutor guardは検証の前後ともPASSし、featureはclean、ACTIVEはC346一つ。
+この最終確認では、不変なsourceの全loader構築を重ねて実行してはいない。
+
+最終handoffは14,062bytes、SHA256:
+`a37c119f54d003347c6639d276f0caf6c39060be51949aa31fcc587e4f1b8d48`。
+最終独立review receipt SHA256:
+`5179ee1924e457b01724b97e1a71b24cfca53bbde65bd8710a149007e6723346`。
+
+実PowerShell7.5.4でdispatcher/invoke/run/最終ExpectedHead入りblockをAST検証し、
+全て0errors。最終blockは91tokens、SHA256:
+`daff6709d7fb48028dfb544877b6b27983eaa34c1c73965910dda9b96da3adb0`。
+Linux上の文書・作成者確認であり、Windowsの正式6,652tests/15モデル完走は未実施。
+
+## 再実行の境界
+
+```text
+branch       = feat/sft-target-loss
+ExpectedHead = 622e623faa0c3c698a18033eb8b4bca554088918
+dispatcher   = tools/invoke_active_v2.ps1
+```
+
+6,652tests/243modulesと15models/36,000updates、944sources/9,177inputs、
+固定した全gate、最終再読、保存結果の再構成、fresh verifierを維持する。
+一部成功済みテストの使い回しや自動再試行は行わない。
+失敗attempt-01のログ/metadataはexact Git copyとして保存済みで、native folderも保持する。
+C346が再びINVALIDなら同じC346だけを修復する。C347へは進まない。
+実行中はfeatureを凍結し、完了後に新しいremote latest.log/latest.jsonを判定する。
+
+## 以下は2026-11-22時点の履歴
+
+以下の古い状態・ExpectedHeadは当時の記録であり、今回の再実行には使用しない。
+
 # main統合と進行状況 — 2026-11-22
 
 正式な実験状態は[experiment-ledger-and-handoff.md](experiment-ledger-and-handoff.md)を参照する。
