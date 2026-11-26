@@ -10,7 +10,8 @@ Gate A/B PASSED; Gate C/D PASSED in measured scope; Gate E PASSED; Gate F NOT PA
 C346 attempt01 remains INVALID;documentation recovery1 preserved the original scientific conditions.
 C345 remains ACCEPTED PASS (DIAGNOSTIC INTEGRITY ONLY);C344 remains ACCEPTED VALID NEGATIVE.
 No production adoption or broader capability improvement.
-C347 NOT REGISTERED. C348 NOT REGISTERED. Do not rerun accepted C344/C345/C346.
+**C347 ACTIVE / NOT YET JUDGED.** Saved-only loss/correctness-transition diagnostic.
+C348 NOT REGISTERED. Do not rerun accepted C344/C345/C346.
 
 ## Latest accepted evidence
 
@@ -73,18 +74,97 @@ Trainedprimaryschema:fold-c346-trained-v1;executionenvelope:fold-c346-execution-
 Keep497outputs:6science+primary+envelope+489proofs(3+243JSON/logpairs).
 Do not substitute C345diagnostic schema or C346attempt01 identity.
 
-## Next one question, before registration
+## C347 registration and independent review
 
-C347proposal(stageV5-B):whichmatchedcorrectnessgroupsaccountforlowerterminalloss
-coexistingwithworseexactanswers/querypairsunderthefixedhalf-ratepolicy?
-Saved-onlyloss/correctness-transitiondecomposition,all15C346states,all5seeds,
-6domains,2splits,bothcontrols. Canonicalmetadataquerypairs/full256savedlogits.
-Allgroupsretained,includingexplicitemptygroups;no modelorcase selection.
-Cross-armterminalcorrectnesscomparison isnot atemporallearningtrajectory.
-Diagnosticintegrityonly;C346false/eligible0andallsubgatesremainfixed.
-No newtraining,forward,gradient,optimizerupdate,model-stateload orcheckpointwrite.
-Source/tests/executor/launchers/preregistration andindependentcommittedremotereview
-mustcompletebefore C347activation orusercommand. Thisacceptanceisnotregistration.
+Experiment:C347-v5b-saved-loss-transition.
+Stage:V5-B-SAVED-LOSS-TRANSITION.
+Acceptance commit:c0597bbc24ca3db2761763b65cfe8521af7d1b2e.
+Reviewed source commit:3f34750492c065ca9185517bd2e9e8f8b8865464.
+post_authoring_review = PASS
+post_authoring_review_target = 3f34750492c065ca9185517bd2e9e8f8b8865464
+Review status:committed-byte/static review PASS; runtime gate pending.
+Review:docs/c347-post-authoring-review.md.
+Preregistration:docs/experiment-ledger-addendum-c347-preregistration.md.
+Manifest:8e85821c7d4e69c49cd0695ccb5126a7dbb8b5cc0f5b9ca77f5fb0cd98a0aee3.
+
+Use the documentation-only activation HEAD that contains this handoff as the
+ExpectedHead on feat/sft-target-loss. Do not use the source-only registration,
+C346 execution/publication/acceptance or main merge HEAD. The short user block
+must parse tools/invoke_active_v2.ps1 before invoking it; the dispatcher parses
+the selected C347 launcher. All seven OWN blobs remain identical to reviewed source.
+
+Author tests:72/72 normal PASS43.184146s and72/72 CP932-default-text-open simulation
+PASS43.333929s; failure/error/skip/expected-failure/unexpected-success all0.
+Actual loader:6725 raw candidates,6724 selected IDs/245modules; OWN40science+32execution.
+Full ordered ID SHA:28b5c7fc80732b94cdb32f94f241cc142dff3e9da0dc68fdba26ded270ffef58.
+Parent6652IDs/243groups are the exact ordered prefix, SHA
+39ced3110d4a2d9288390401f53000fc322e4541a17ea47384553e7767425394.
+Sole exclusion remains the inherited C204 test33; no new exclusion or parent edits.
+Four Python files compile/import/pyflakes PASS;324code objects/2271global loads,
+undefined globals0. Actual PowerShell7.5.4 parsed dispatcher/invoke/runner,errors0;
+an executed fixture proves native Validate failure calls neither runner nor publisher.
+These are software checks. Native Windows full regression and C347 diagnostic
+remain pending; do not treat author fixtures as a formal C347 result.
+
+## C347 one question and fixed scientific boundary
+
+Which matched correctness groups account for lower terminal loss coexisting with
+worse exact answers or both-query-correct pairs under C346's half-rate policy?
+Use all15saved states, all5seeds346001..346005,3arms,6domains,2splits,3profiles and
+both languages. Compare pair_max_half_rate with both pair_max and mean_ce across
+all120 coordinates. Full256 first-index argmax and canonical metadata pairs remain fixed.
+
+Retain77760 normal answers/38880pairs and51840matched answers/25920matched pairs.
+For each comparison decompose answer correctness(CC/CW/WC/WW),both-query correctness
+and same-answer-collapse transitions. Each partition has480explicit groups in total.
+Pair W includes one-correct pairs; distinct predictions do not imply correct answers.
+Groups retain signed loss sums/means/extrema and contributions using the full
+comparison denominator. Empty groups have zero sums/contributions and null means/extrema.
+Each partition separately reproduces parent losses and exact rescue/regression counts.
+Never add the three overlapping partition families or call them independent samples.
+
+Trace final-state hashes bind the saved logits; there is no trajectory/norm audit.
+Cross-arm terminal changes are not temporal learned/forgotten events. No new fitting,
+forward,backward,optimizer update,model-state load,new checkpoint or network call.
+Archive deserialization is measured separately:1evaluation bundle/1trace JSON per
+child computation or reconstruction pass. Parent validation and separate reconstruction
+passes are additional reads; historical regression fixtures may perform their own work.
+
+PASS means complete diagnostic integrity only, with all180parent terminal records
+and120contrasts bound. C346 candidate_gate=false/eligible0 and all subgates remain
+unchanged. No desired-sign gate, rate selection, causal optimizer/convergence/
+undertraining/calibration claim or capability promotion. Gate F remains NOT PASSED.
+
+## C347 native Validate, Execute and retention
+
+Reuse .venv-py31315:Python3.13.15/Torch2.10.0+cu130/NumPy2.3.5,CPUfloat64/threads2.
+No environment upgrade. Run prefix:runs/c347-saved-loss-transition-<id>/.
+Execution revision:C347-R0;accepted timeout cleanup implementation:C344-R1.
+The parent is trained C346 with FAIL/valid execution, not diagnostic C345 or INVALID attempt01.
+
+Validate is operational and precedes formal logging/publication. It performs owned
+compile/import,native runtime,six cleanup cases,locked parent/source reconstruction,
+all6724tests/245isolated modules,complete proof verification and9681uncached input rereads.
+It closes validation.log before writing validation-receipt.json. The receipt binds
+canonical run folder,HEAD,manifest,source/input maps,runtime,parent,cleanup,compile/import,
+full regression and closed transcript bytes. Failed Validate prints
+AUTHORING_RUNTIME_PREFLIGHT_FAILED/experiment_executed=False/publish_attempted=False;
+it does not replace latest.log/json. Branch/tree/HEAD/ACTIVE guards are checked again.
+
+Execute copies the successful validation text into the formal log, verifies the
+bound validation/proof set under leases, performs the diagnostic and saved reconstruction,
+and completes final rereads. The complete regression runs once in Validate,zero times
+in Execute. The separate fresh verifier repeats all proof/byte/semantic bindings.
+Formal output reports the reused receipt/log/closure hashes. No automatic retry.
+
+Protection:951sources=944+7;9681inputs=9177+497parent outputs+7.
+Preserve all497C346 outputs. C347 has493regression proof files(3+245JSON/log pairs),
+plus validation-receipt.json/validation.log:495separately leased validation outputs.
+The successor-retained contract is501files:495validation/proofs+4science+primary+envelope.
+Auxiliary process transcripts and the outer console log are outside that required count.
+Four science outputs:audit-plan.json,normal-pair-observations.json,
+loss-transition-decomposition.json,validation-summary.json.
+Primary:fold-c347-diagnostic-v1;envelope:fold-c347-execution-envelope-v1.
 
 ## Inherited regression compatibility seals
 
@@ -98,14 +178,15 @@ C272manifest seal:89fd059a478b2190ecd03f8277aae2bafc7fcb12517897f56b4bd6cc892586
 
 ## Historical context and stop
 
-docs/handoff-history/c346-pre-acceptance.md retains theexactC346recoveryhandoff.
-docs/c346-recovery-r1.md and docs/c346-r1-post-authoring-review.md retain recovery1.
-docs/experiment-run-logs/c346/attempt-01/latest.log and latest.json retain INVALID attempt01.
-docs/experiment-ledger-addendum-c345-c346.md retains acceptedC345diagnostic.
-docs/cross-experiment-evidence-synthesis-2026-11-22.md and itsJSONindex remain
-unchangedhistoricalC344-bounded snapshots;theC345/C346acceptancereports provideupdates.
+docs/handoff-history/c347-pre-activation.md preserves the exact accepted-C346,
+unregistered-C347 handoff. Earlier attempt01/recovery archives remain unchanged.
+docs/cross-experiment-evidence-synthesis-2026-11-22.md and its JSON index remain
+historical C344-bounded snapshots; C345/C346 acceptance addenda provide subsequent evidence.
 
-Before anynewactivation,run actualinheritedC272..C282handoffconsumers againstfinaldocumentbytes,
-checkuniqueACTIVEseparately,andpreservethepermanentC272compatibilityseal.
-If a futureexecutionisINVALID,repairSAMEC only;donotadvancetheCnumber.
-Logtransportfailuredoesnotjustifyretraining. Preserveusernativeartifacts.
+Before delivering the launcher, verify the final activation's eleven C272..C282
+handoff consumers and the actual C347 guard; retain the permanent legacy seal.
+Freeze feat/sft-target-loss while the user runs C347. On completion fetch remote
+docs/experiment-run-logs/c347/latest.json and latest.log; distinguish scientific
+execution HEAD from log publication. On a preflight SKIPPED repair C347 only.
+On execution integrity failure preserve the attempt and retry SAME C347 only.
+Transport failure does not justify a scientific rerun. C348 is not registered.
