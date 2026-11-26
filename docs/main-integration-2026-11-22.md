@@ -1,3 +1,118 @@
+# main統合と進行状況 — 2026-11-26
+
+正式状態は[最新handoff](experiment-ledger-and-handoff.md)を参照する。
+C346の完了・否定結果の受理と、独立レビュー済みC347の登録をmainへ統合した。
+
+## 現在の判定
+
+|対象|正式状態|意味|
+|---|---|---|
+|C346|ACCEPTED VALID NEGATIVE|実行は成立。固定した半学習率pair-max候補はeligible0/5で不採用。|
+|C347|ACTIVE / NOT YET JUDGED|保存済み損失と正誤の変化を分解する診断。実装・登録・ソースレビュー完了、native実行待ち。|
+|C348|NOT REGISTERED|C347完了後に判断する。|
+
+C346 attempt01のINVALID記録、文書修復、C345診断PASS、C344 VALID NEGATIVEを保持する。
+Gate A/BはPASSED、C/Dは測定範囲内でPASSED、EはPASSED、FはNOT PASSED。
+production採用はない。
+
+## C346で成立した結果
+
+6,652tests/243modulesがPASSし、failure/error/skipは0、全246process終了コード0。
+15fitsが各2,400updatesを完了し、全15statesの評価・保存・再検証が成立した。
+944sources/9,177inputs、全入力の最終再読込、別process verifierが完了し、
+run_execution_valid=trueを確認した。公開625科学レコードは固定判定関数と整合する。
+生checkpointや完全なnative primary/envelopeを独立取得したとは主張しない。
+詳細は[C346受理記録](experiment-ledger-addendum-c346-c347.md)に保存した。
+
+|主要指標|通常CE|通常学習率pair-max|半学習率pair-max|
+|---|---:|---:|---:|
+|full gate合格seed /5|2|1|0|
+|interior HOLDOUT正答 /1,440|1,395|1,188|1,018|
+|interior HOLDOUT両query正解pair /720|683|516|396|
+
+半学習率は通常pair-maxに対してinterior正答がTRAINで217件、HOLDOUTで170件減少。
+一方、HOLDOUT平均CE損失は0.993879→0.786600、pair-max損失は1.774961→1.224537へ低下した。
+seed346001単独でも両損失が下がりながら正答237→190、両query正解pair104→68となった。
+学習率半減をこの固定条件の解決策として採用しない。損失の改善と正答維持の食い違いは
+確認できたが、収束不足・clipping・内部binding等の原因までは確定していない。
+
+## 統合した履歴
+
+|項目|commit|
+|---|---|
+|merge第1parent・統合前main|9cbe6393cab234b8fa56be6e33259be33b2cb401|
+|merge第2parent・C347 activation|add330b861020cb903d63208e4c1f444e82328f1|
+|C347 source/preregistration・独立review対象|3f34750492c065ca9185517bd2e9e8f8b8865464|
+|C346受理|c0597bbc24ca3db2761763b65cfe8521af7d1b2e|
+|C346ログ公開|426c52f9f33f2465e8b1cd1879182558b443f660|
+|C346科学実行|622e623faa0c3c698a18033eb8b4bca554088918|
+
+両parentの履歴を保持する通常の2-parent merge。競合なし。
+featureの全tracked pathのmode/blob、レビュー済みOWN7、main独自6ファイルを保持する。
+mainとfeatureの差分は従来の独自6ファイルと本統合記録だけ。
+本記録の旧本文も以下にそのまま保持し、featureの実行用HEADを進めない。
+
+## C347の目的と検証済み範囲
+
+C347は、損失低下が「正解維持・誤答化・救済・誤答継続」のどこから生じるかを調べる。
+全15保存states・5seeds・6domains・2splits・両controlの120比較を固定し、
+77,760answers/38,880pairsと51,840matched answers/25,920matched pairsを扱う。
+各partitionの寄与は元の損失差へ戻ることを要求し、空群も残す。
+各partitionは同じ観測の別の分類なので、互いに加算しない。
+新たな学習・forward・gradient・optimizer update・モデルへのstate読込・checkpoint作成は0。
+PASSは診断の整合性だけを意味し、C346候補false/eligible0とGate F未達を維持する。
+
+作成者72testsは通常43.184146秒、CP932既定text-open模擬43.333929秒で全件PASS。
+独立担当は公開済み7ファイルをEOFまで取得し、Git blobとの一致、親schema/loader/
+call ordering、数式、保護依存、CLI、manifestを確認し、72testsを41.480588秒で全件PASS。
+実loaderは6,725候補から既存C204の1件を除外し6,724件/245modules。
+親6,652IDsは同順序prefixで保持され、accepted test変更・追加除外はない。
+4Pythonのcompile/import/pyflakesと324code objects/2,271global loadsの監査もPASS。
+
+[ソースレビュー記録](c347-post-authoring-review.md)の判定は
+committed-byte/static review PASS; runtime gate pending。
+Windowsの正式native Validate/full regressionとC347診断は未実行。
+
+## 最終activationの確認
+
+最終handoffは12,248bytes、SHA256:
+`a3449744333a641285dbaf7d0c72ee5bbe55fb1a8e4f2fc498995a3b38bc6535`。
+旧handoffをbyte一致でarchiveし、恒久的なC272 compatibility sectionを正確に保持した。
+最終公開activationに対するrootの実際の11consumerは0.157454秒で全件PASS。
+featureはclean、実executor guardは確認前後ともPASS、ACTIVEはC347だけ。
+OWN7は独立レビュー済みsource commitとすべて同じblob。
+Root activation receipt SHA:
+`8b7d41565d8d0de706c21f372b8a6b8f0c1d13778cfe459a8b6ddf703524b941`。
+
+独立担当も最終公開3文書をEOFまで再取得し、source7不変・archive・runtime pendingの表記を確認した。
+実際の11consumerは0.154137秒で全件PASS、前後の実guardもPASS。
+最終独立activation review receipt SHA:
+`81c61bccc98bbc06c56614502f2d4bb3ee9c4b98c8932d176e40231ff6349174`。
+
+実PowerShell7.5.4でdispatcher/invoke/runのASTを検証し0errors。
+さらに最終ExpectedHeadを入れた短縮blockも0errors、91tokens、SHA256:
+`94ff488b5f068d67893347d69e0710d617c8cf64d89e80a059316d4e1e81edf9`。
+
+## Native実行の境界
+
+```text
+branch       = feat/sft-target-loss
+ExpectedHead = add330b861020cb903d63208e4c1f444e82328f1
+dispatcher   = tools/invoke_active_v2.ps1
+```
+
+既存の.venv-py31315（Python3.13.15/Torch2.10.0+cu130/NumPy2.3.5）を使う。
+C347は事前のValidateで全6,724testsを一度だけ実行し、成功してから正式ログと診断へ進む。
+失敗したValidateはSKIPPEDとなり、runner/publisherを呼ばない。実PowerShell fixtureで確認済み。
+Executeは9681inputsと別枠の495validation/proof filesをleaseし、完全な検証証跡を再照合する。
+診断・保存再構成・最終再読込・fresh verifierを通し、501個の契約出力を保持する。
+正式実行後の失敗は同じC347だけを修復し、自動再試行・C348への先送りを行わない。
+実行中はfeature HEADを凍結し、完了後に公開latest.log/latest.jsonで判定する。
+
+## 以下は2026-11-25以前の履歴
+
+以下の状態・ExpectedHeadは当時の記録。今回のC347実行には上記activationだけを使用する。
+
 # main統合と進行状況 — 2026-11-25
 
 正式状態は[最新handoff](experiment-ledger-and-handoff.md)を参照する。
